@@ -19,47 +19,47 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef __GNOME_SETTINGS_SESSION_H
-#define __GNOME_SETTINGS_SESSION_H
+#ifndef __CINNAMON_SETTINGS_SESSION_H
+#define __CINNAMON_SETTINGS_SESSION_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GNOME_TYPE_SETTINGS_SESSION		(gnome_settings_session_get_type ())
-#define GNOME_SETTINGS_SESSION(o)		(G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSession))
-#define GNOME_SETTINGS_SESSION_CLASS(k)	(G_TYPE_CHECK_CLASS_CAST((k), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSessionClass))
-#define GNOME_IS_SETTINGS_SESSION(o)		(G_TYPE_CHECK_INSTANCE_TYPE ((o), GNOME_TYPE_SETTINGS_SESSION))
-#define GNOME_IS_SETTINGS_SESSION_CLASS(k)	(G_TYPE_CHECK_CLASS_TYPE ((k), GNOME_TYPE_SETTINGS_SESSION))
-#define GNOME_SETTINGS_SESSION_GET_CLASS(o)	(G_TYPE_INSTANCE_GET_CLASS ((o), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSessionClass))
-#define GNOME_TYPE_SETTINGS_SESSION_STATE	(gnome_settings_session_state_get_type())
+#define CINNAMON_TYPE_SETTINGS_SESSION		(cinnamon_settings_session_get_type ())
+#define CINNAMON_SETTINGS_SESSION(o)		(G_TYPE_CHECK_INSTANCE_CAST ((o), CINNAMON_TYPE_SETTINGS_SESSION, CinnamonSettingsSession))
+#define CINNAMON_SETTINGS_SESSION_CLASS(k)	(G_TYPE_CHECK_CLASS_CAST((k), CINNAMON_TYPE_SETTINGS_SESSION, CinnamonSettingsSessionClass))
+#define CINNAMON_IS_SETTINGS_SESSION(o)		(G_TYPE_CHECK_INSTANCE_TYPE ((o), CINNAMON_TYPE_SETTINGS_SESSION))
+#define CINNAMON_IS_SETTINGS_SESSION_CLASS(k)	(G_TYPE_CHECK_CLASS_TYPE ((k), CINNAMON_TYPE_SETTINGS_SESSION))
+#define CINNAMON_SETTINGS_SESSION_GET_CLASS(o)	(G_TYPE_INSTANCE_GET_CLASS ((o), CINNAMON_TYPE_SETTINGS_SESSION, CinnamonSettingsSessionClass))
+#define CINNAMON_TYPE_SETTINGS_SESSION_STATE	(cinnamon_settings_session_state_get_type())
 
-typedef struct GnomeSettingsSessionPrivate GnomeSettingsSessionPrivate;
+typedef struct CinnamonSettingsSessionPrivate CinnamonSettingsSessionPrivate;
 
 typedef struct
 {
 	 GObject			 parent;
-	 GnomeSettingsSessionPrivate	*priv;
-} GnomeSettingsSession;
+	 CinnamonSettingsSessionPrivate	*priv;
+} CinnamonSettingsSession;
 
 typedef struct
 {
 	GObjectClass	parent_class;
-} GnomeSettingsSessionClass;
+} CinnamonSettingsSessionClass;
 
 typedef enum {
-	GNOME_SETTINGS_SESSION_STATE_UNKNOWN,
-	GNOME_SETTINGS_SESSION_STATE_ACTIVE,
-	GNOME_SETTINGS_SESSION_STATE_INACTIVE,
-} GnomeSettingsSessionState;
+	CINNAMON_SETTINGS_SESSION_STATE_UNKNOWN,
+	CINNAMON_SETTINGS_SESSION_STATE_ACTIVE,
+	CINNAMON_SETTINGS_SESSION_STATE_INACTIVE,
+} CinnamonSettingsSessionState;
 
-GType			 gnome_settings_session_get_type	(void);
-GType			 gnome_settings_session_state_get_type	(void);
-GnomeSettingsSession	*gnome_settings_session_new		(void);
-GnomeSettingsSessionState gnome_settings_session_get_state	(GnomeSettingsSession	*session);
+GType			 cinnamon_settings_session_get_type	(void);
+GType			 cinnamon_settings_session_state_get_type	(void);
+CinnamonSettingsSession	*cinnamon_settings_session_new		(void);
+CinnamonSettingsSessionState cinnamon_settings_session_get_state	(CinnamonSettingsSession	*session);
 
 
 G_END_DECLS
 
-#endif /* __GNOME_SETTINGS_SESSION_H */
+#endif /* __CINNAMON_SETTINGS_SESSION_H */
 

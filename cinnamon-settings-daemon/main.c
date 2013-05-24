@@ -34,10 +34,10 @@
 #include <gio/gio.h>
 #include <libnotify/notify.h>
 
-#include "gnome-settings-manager.h"
-#include "gnome-settings-profile.h"
+#include "cinnamon-settings-manager.h"
+#include "cinnamon-settings-profile.h"
 
-#define GSD_DBUS_NAME         "org.gnome.SettingsDaemon"
+#define CSD_DBUS_NAME         "org.cinnamon.SettingsDaemon"
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
@@ -48,7 +48,7 @@ static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
 static int        term_signal_pipe_fds[2];
 static guint      name_id      = 0;
-static GnomeSettingsManager *manager = NULL;
+static CinnamonSettingsManager *manager = NULL;
 
 static GOptionEntry entries[] = {
         {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL },
@@ -65,9 +65,9 @@ timed_exit_cb (void)
 }
 
 static void
-stop_manager (GnomeSettingsManager *manager)
+stop_manager (CinnamonSettingsManager *manager)
 {
-        gnome_settings_manager_stop (manager);
+        cinnamon_settings_manager_stop (manager);
         gtk_main_quit ();
 }
 
@@ -229,7 +229,7 @@ register_with_gnome_session (GDBusProxy *proxy)
         startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
         g_dbus_proxy_call (proxy,
                            "RegisterClient",
-                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
+                           g_variant_new ("(ss)", "cinnamon-settings-daemon", startup_id ? startup_id : ""),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
@@ -256,7 +256,7 @@ keyboard_plugin_is_enabled (void)
         GSettings *settings;
         gboolean enabled;
 
-        settings = g_settings_new ("org.gnome.settings-daemon.plugins.keyboard");
+        settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.keyboard");
         enabled = g_settings_get_boolean (settings, "active");
         g_object_unref (settings);
 
@@ -341,7 +341,7 @@ on_term_signal (int signal)
 }
 
 static void
-watch_for_term_signal (GnomeSettingsManager *manager)
+watch_for_term_signal (CinnamonSettingsManager *manager)
 {
         GIOChannel *channel;
 
@@ -397,7 +397,7 @@ do_register_client (gpointer user_data)
         const char *startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
         g_dbus_proxy_call (proxy,
                            "RegisterClient",
-                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
+                           g_variant_new ("(ss)", "cinnamon-settings-daemon", startup_id ? startup_id : ""),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
@@ -442,7 +442,7 @@ static void
 bus_register (void)
 {
         name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                  GSD_DBUS_NAME,
+                                  CSD_DBUS_NAME,
                                   G_BUS_NAME_OWNER_FLAGS_NONE,
                                   NULL,
                                   (GBusNameAcquiredCallback) name_acquired_handler,
@@ -452,7 +452,7 @@ bus_register (void)
 }
 
 static void
-gsd_log_default_handler (const gchar   *log_domain,
+csd_log_default_handler (const gchar   *log_domain,
                          GLogLevelFlags log_level,
                          const gchar   *message,
                          gpointer       unused_data)
@@ -475,7 +475,7 @@ parse_args (int *argc, char ***argv)
         GError *error;
         GOptionContext *context;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
 
         context = g_option_context_new (NULL);
@@ -496,7 +496,7 @@ parse_args (int *argc, char ***argv)
 
         g_option_context_free (context);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         if (debug)
                 g_setenv ("G_MESSAGES_DEBUG", "all", FALSE);
@@ -509,9 +509,9 @@ main (int argc, char *argv[])
         gboolean              res;
         GError               *error;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
-        bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
+        bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
         setlocale (LC_ALL, "");
@@ -520,31 +520,31 @@ main (int argc, char *argv[])
 
         g_type_init ();
 
-        gnome_settings_profile_start ("opening gtk display");
+        cinnamon_settings_profile_start ("opening gtk display");
         if (! gtk_init_check (NULL, NULL)) {
                 g_warning ("Unable to initialize GTK+");
                 exit (EXIT_FAILURE);
         }
-        gnome_settings_profile_end ("opening gtk display");
+        cinnamon_settings_profile_end ("opening gtk display");
 
-        g_log_set_default_handler (gsd_log_default_handler, NULL);
+        g_log_set_default_handler (csd_log_default_handler, NULL);
 
-        notify_init ("gnome-settings-daemon");
+        notify_init ("cinnamon-settings-daemon");
 
         queue_register_client ();
 
         bus_register ();
 
-        gnome_settings_profile_start ("gnome_settings_manager_new");
-        manager = gnome_settings_manager_new ();
-        gnome_settings_profile_end ("gnome_settings_manager_new");
+        cinnamon_settings_profile_start ("cinnamon_settings_manager_new");
+        manager = cinnamon_settings_manager_new ();
+        cinnamon_settings_profile_end ("cinnamon_settings_manager_new");
         if (manager == NULL) {
                 g_warning ("Unable to register object");
                 goto out;
         }
 
         error = NULL;
-        res = gnome_settings_manager_start (manager, &error);
+        res = cinnamon_settings_manager_start (manager, &error);
         if (! res) {
                 g_warning ("Unable to start: %s", error->message);
                 g_error_free (error);
@@ -570,7 +570,7 @@ out:
         }
 
         g_debug ("SettingsDaemon finished");
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return 0;
 }

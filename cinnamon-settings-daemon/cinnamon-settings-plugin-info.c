@@ -27,19 +27,19 @@
 #include <gmodule.h>
 #include <gio/gio.h>
 
-#include "gnome-settings-plugin-info.h"
-#include "gnome-settings-module.h"
-#include "gnome-settings-plugin.h"
-#include "gnome-settings-profile.h"
+#include "cinnamon-settings-plugin-info.h"
+#include "cinnamon-settings-module.h"
+#include "cinnamon-settings-plugin.h"
+#include "cinnamon-settings-profile.h"
 
-#define GNOME_SETTINGS_PLUGIN_INFO_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_PLUGIN_INFO, GnomeSettingsPluginInfoPrivate))
+#define CINNAMON_SETTINGS_PLUGIN_INFO_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_SETTINGS_PLUGIN_INFO, CinnamonSettingsPluginInfoPrivate))
 
 #define PLUGIN_GROUP "GNOME Settings Plugin"
 
 #define PLUGIN_PRIORITY_MAX 1
 #define PLUGIN_PRIORITY_DEFAULT 100
 
-struct GnomeSettingsPluginInfoPrivate
+struct CinnamonSettingsPluginInfoPrivate
 {
         char                    *file;
         GSettings               *settings;
@@ -53,7 +53,7 @@ struct GnomeSettingsPluginInfoPrivate
         char                    *copyright;
         char                    *website;
 
-        GnomeSettingsPlugin     *plugin;
+        CinnamonSettingsPlugin     *plugin;
 
         int                      enabled : 1;
         int                      active : 1;
@@ -77,17 +77,17 @@ enum {
 
 static guint signals [LAST_SIGNAL] = { 0, };
 
-G_DEFINE_TYPE (GnomeSettingsPluginInfo, gnome_settings_plugin_info, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CinnamonSettingsPluginInfo, cinnamon_settings_plugin_info, G_TYPE_OBJECT)
 
 static void
-gnome_settings_plugin_info_finalize (GObject *object)
+cinnamon_settings_plugin_info_finalize (GObject *object)
 {
-        GnomeSettingsPluginInfo *info;
+        CinnamonSettingsPluginInfo *info;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (object));
+        g_return_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (object));
 
-        info = GNOME_SETTINGS_PLUGIN_INFO (object);
+        info = CINNAMON_SETTINGS_PLUGIN_INFO (object);
 
         g_return_if_fail (info->priv != NULL);
 
@@ -112,21 +112,21 @@ gnome_settings_plugin_info_finalize (GObject *object)
                 g_object_unref (info->priv->settings);
         }
 
-        G_OBJECT_CLASS (gnome_settings_plugin_info_parent_class)->finalize (object);
+        G_OBJECT_CLASS (cinnamon_settings_plugin_info_parent_class)->finalize (object);
 }
 
 static void
-gnome_settings_plugin_info_class_init (GnomeSettingsPluginInfoClass *klass)
+cinnamon_settings_plugin_info_class_init (CinnamonSettingsPluginInfoClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->finalize = gnome_settings_plugin_info_finalize;
+        object_class->finalize = cinnamon_settings_plugin_info_finalize;
 
         signals [ACTIVATED] =
                 g_signal_new ("activated",
                               G_TYPE_FROM_CLASS (object_class),
                               G_SIGNAL_RUN_LAST,
-                              G_STRUCT_OFFSET (GnomeSettingsPluginInfoClass, activated),
+                              G_STRUCT_OFFSET (CinnamonSettingsPluginInfoClass, activated),
                               NULL,
                               NULL,
                               g_cclosure_marshal_VOID__VOID,
@@ -136,33 +136,33 @@ gnome_settings_plugin_info_class_init (GnomeSettingsPluginInfoClass *klass)
                 g_signal_new ("deactivated",
                               G_TYPE_FROM_CLASS (object_class),
                               G_SIGNAL_RUN_LAST,
-                              G_STRUCT_OFFSET (GnomeSettingsPluginInfoClass, deactivated),
+                              G_STRUCT_OFFSET (CinnamonSettingsPluginInfoClass, deactivated),
                               NULL,
                               NULL,
                               g_cclosure_marshal_VOID__VOID,
                               G_TYPE_NONE,
                               0);
 
-        g_type_class_add_private (klass, sizeof (GnomeSettingsPluginInfoPrivate));
+        g_type_class_add_private (klass, sizeof (CinnamonSettingsPluginInfoPrivate));
 }
 
 static void
-gnome_settings_plugin_info_init (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_init (CinnamonSettingsPluginInfo *info)
 {
-        info->priv = GNOME_SETTINGS_PLUGIN_INFO_GET_PRIVATE (info);
+        info->priv = CINNAMON_SETTINGS_PLUGIN_INFO_GET_PRIVATE (info);
 }
 
 static void
-debug_info (GnomeSettingsPluginInfo *info)
+debug_info (CinnamonSettingsPluginInfo *info)
 {
-        g_debug ("GnomeSettingsPluginInfo: name='%s' file='%s' location='%s'",
+        g_debug ("CinnamonSettingsPluginInfo: name='%s' file='%s' location='%s'",
                  info->priv->name,
                  info->priv->file,
                  info->priv->location);
 }
 
 static gboolean
-gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
+cinnamon_settings_plugin_info_fill_from_file (CinnamonSettingsPluginInfo *info,
                                            const char              *filename)
 {
         GKeyFile *plugin_file = NULL;
@@ -170,7 +170,7 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
         int       priority;
         gboolean  ret;
 
-        gnome_settings_profile_start ("%s", filename);
+        cinnamon_settings_profile_start ("%s", filename);
 
         ret = FALSE;
 
@@ -261,20 +261,20 @@ gnome_settings_plugin_info_fill_from_file (GnomeSettingsPluginInfo *info,
 
         ret = TRUE;
  out:
-        gnome_settings_profile_end ("%s", filename);
+        cinnamon_settings_profile_end ("%s", filename);
 
         return ret;
 }
 
-GnomeSettingsPluginInfo *
-gnome_settings_plugin_info_new_from_file (const char *filename)
+CinnamonSettingsPluginInfo *
+cinnamon_settings_plugin_info_new_from_file (const char *filename)
 {
-        GnomeSettingsPluginInfo *info;
+        CinnamonSettingsPluginInfo *info;
         gboolean                 res;
 
-        info = g_object_new (GNOME_TYPE_SETTINGS_PLUGIN_INFO, NULL);
+        info = g_object_new (CINNAMON_TYPE_SETTINGS_PLUGIN_INFO, NULL);
 
-        res = gnome_settings_plugin_info_fill_from_file (info, filename);
+        res = cinnamon_settings_plugin_info_fill_from_file (info, filename);
         if (! res) {
                 g_object_unref (info);
                 info = NULL;
@@ -286,18 +286,18 @@ gnome_settings_plugin_info_new_from_file (const char *filename)
 static void
 plugin_enabled_cb (GSettings               *settings,
                    const gchar             *key,
-                   GnomeSettingsPluginInfo *info)
+                   CinnamonSettingsPluginInfo *info)
 {
         if (g_strcmp0 (key, "active") == 0) {
                 if (g_settings_get_boolean (settings, "active"))
-                        gnome_settings_plugin_info_activate (info);
+                        cinnamon_settings_plugin_info_activate (info);
                 else
-                        gnome_settings_plugin_info_deactivate (info);
+                        cinnamon_settings_plugin_info_deactivate (info);
         }
 }
 
 void
-gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info,
+cinnamon_settings_plugin_info_set_settings_prefix (CinnamonSettingsPluginInfo *info,
                                                 const char              *settings_prefix)
 {
         int priority;
@@ -316,16 +316,16 @@ gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info,
 }
 
 static void
-_deactivate_plugin (GnomeSettingsPluginInfo *info)
+_deactivate_plugin (CinnamonSettingsPluginInfo *info)
 {
-        gnome_settings_plugin_deactivate (info->priv->plugin);
+        cinnamon_settings_plugin_deactivate (info->priv->plugin);
         g_signal_emit (info, signals [DEACTIVATED], 0);
 }
 
 gboolean
-gnome_settings_plugin_info_deactivate (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_deactivate (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         if (!info->priv->active || !info->priv->available) {
                 return TRUE;
@@ -341,7 +341,7 @@ gnome_settings_plugin_info_deactivate (GnomeSettingsPluginInfo *info)
 
 
 static gboolean
-load_plugin_module (GnomeSettingsPluginInfo *info)
+load_plugin_module (CinnamonSettingsPluginInfo *info)
 {
         char    *path;
         char    *dirname;
@@ -349,13 +349,13 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
 
         ret = FALSE;
 
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
         g_return_val_if_fail (info->priv->file != NULL, FALSE);
         g_return_val_if_fail (info->priv->location != NULL, FALSE);
         g_return_val_if_fail (info->priv->plugin == NULL, FALSE);
         g_return_val_if_fail (info->priv->available, FALSE);
 
-        gnome_settings_profile_start ("%s", info->priv->location);
+        cinnamon_settings_profile_start ("%s", info->priv->location);
 
         dirname = g_path_get_dirname (info->priv->file);
         g_return_val_if_fail (dirname != NULL, FALSE);
@@ -364,13 +364,13 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
         g_free (dirname);
         g_return_val_if_fail (path != NULL, FALSE);
 
-        info->priv->module = G_TYPE_MODULE (gnome_settings_module_new (path));
+        info->priv->module = G_TYPE_MODULE (cinnamon_settings_module_new (path));
         g_free (path);
 
         if (!g_type_module_use (info->priv->module)) {
                 g_warning ("Cannot load plugin '%s' since file '%s' cannot be read.",
                            info->priv->name,
-                           gnome_settings_module_get_path (GNOME_SETTINGS_MODULE (info->priv->module)));
+                           cinnamon_settings_module_get_path (CINNAMON_SETTINGS_MODULE (info->priv->module)));
 
                 g_object_unref (G_OBJECT (info->priv->module));
                 info->priv->module = NULL;
@@ -381,17 +381,17 @@ load_plugin_module (GnomeSettingsPluginInfo *info)
                 goto out;
         }
 
-        info->priv->plugin = GNOME_SETTINGS_PLUGIN (gnome_settings_module_new_object (GNOME_SETTINGS_MODULE (info->priv->module)));
+        info->priv->plugin = CINNAMON_SETTINGS_PLUGIN (cinnamon_settings_module_new_object (CINNAMON_SETTINGS_MODULE (info->priv->module)));
 
         g_type_module_unuse (info->priv->module);
         ret = TRUE;
  out:
-        gnome_settings_profile_end ("%s", info->priv->location);
+        cinnamon_settings_profile_end ("%s", info->priv->location);
         return ret;
 }
 
 static gboolean
-_activate_plugin (GnomeSettingsPluginInfo *info)
+_activate_plugin (CinnamonSettingsPluginInfo *info)
 {
         gboolean res = TRUE;
 
@@ -405,7 +405,7 @@ _activate_plugin (GnomeSettingsPluginInfo *info)
         }
 
         if (res) {
-                gnome_settings_plugin_activate (info->priv->plugin);
+                cinnamon_settings_plugin_activate (info->priv->plugin);
                 g_signal_emit (info, signals [ACTIVATED], 0);
         } else {
                 g_warning ("Error activating plugin '%s'", info->priv->name);
@@ -415,10 +415,10 @@ _activate_plugin (GnomeSettingsPluginInfo *info)
 }
 
 gboolean
-gnome_settings_plugin_info_activate (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_activate (CinnamonSettingsPluginInfo *info)
 {
 
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         if (! info->priv->available) {
                 return FALSE;
@@ -437,91 +437,91 @@ gnome_settings_plugin_info_activate (GnomeSettingsPluginInfo *info)
 }
 
 gboolean
-gnome_settings_plugin_info_is_active (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_is_active (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         return (info->priv->available && info->priv->active);
 }
 
 gboolean
-gnome_settings_plugin_info_get_enabled (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_enabled (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         return (info->priv->enabled);
 }
 
 gboolean
-gnome_settings_plugin_info_is_available (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_is_available (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
 
         return (info->priv->available != FALSE);
 }
 
 const char *
-gnome_settings_plugin_info_get_name (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_name (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->name;
 }
 
 const char *
-gnome_settings_plugin_info_get_description (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_description (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->desc;
 }
 
 const char **
-gnome_settings_plugin_info_get_authors (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_authors (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), (const char **)NULL);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), (const char **)NULL);
 
         return (const char **)info->priv->authors;
 }
 
 const char *
-gnome_settings_plugin_info_get_website (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_website (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->website;
 }
 
 const char *
-gnome_settings_plugin_info_get_copyright (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_copyright (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->copyright;
 }
 
 
 const char *
-gnome_settings_plugin_info_get_location (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_location (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), NULL);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), NULL);
 
         return info->priv->location;
 }
 
 int
-gnome_settings_plugin_info_get_priority (GnomeSettingsPluginInfo *info)
+cinnamon_settings_plugin_info_get_priority (CinnamonSettingsPluginInfo *info)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info), PLUGIN_PRIORITY_DEFAULT);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), PLUGIN_PRIORITY_DEFAULT);
 
         return info->priv->priority;
 }
 
 void
-gnome_settings_plugin_info_set_priority (GnomeSettingsPluginInfo *info,
+cinnamon_settings_plugin_info_set_priority (CinnamonSettingsPluginInfo *info,
                                          int                      priority)
 {
-        g_return_if_fail (GNOME_IS_SETTINGS_PLUGIN_INFO (info));
+        g_return_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info));
 
         info->priv->priority = priority;
 }

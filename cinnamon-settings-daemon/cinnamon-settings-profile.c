@@ -32,10 +32,10 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "gnome-settings-profile.h"
+#include "cinnamon-settings-profile.h"
 
 void
-_gnome_settings_profile_log (const char *func,
+_cinnamon_settings_profile_log (const char *func,
                              const char *note,
                              const char *format,
                              ...)

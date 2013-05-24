@@ -18,59 +18,59 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GNOME_SETTINGS_PLUGIN_INFO_H__
-#define __GNOME_SETTINGS_PLUGIN_INFO_H__
+#ifndef __CINNAMON_SETTINGS_PLUGIN_INFO_H__
+#define __CINNAMON_SETTINGS_PLUGIN_INFO_H__
 
 #include <glib-object.h>
 #include <gmodule.h>
 
 G_BEGIN_DECLS
-#define GNOME_TYPE_SETTINGS_PLUGIN_INFO              (gnome_settings_plugin_info_get_type())
-#define GNOME_SETTINGS_PLUGIN_INFO(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_TYPE_SETTINGS_PLUGIN_INFO, GnomeSettingsPluginInfo))
-#define GNOME_SETTINGS_PLUGIN_INFO_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),  GNOME_TYPE_SETTINGS_PLUGIN_INFO, GnomeSettingsPluginInfoClass))
-#define GNOME_IS_SETTINGS_PLUGIN_INFO(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_TYPE_SETTINGS_PLUGIN_INFO))
-#define GNOME_IS_SETTINGS_PLUGIN_INFO_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_TYPE_SETTINGS_PLUGIN_INFO))
-#define GNOME_SETTINGS_PLUGIN_INFO_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj),  GNOME_TYPE_SETTINGS_PLUGIN_INFO, GnomeSettingsPluginInfoClass))
+#define CINNAMON_TYPE_SETTINGS_PLUGIN_INFO              (cinnamon_settings_plugin_info_get_type())
+#define CINNAMON_SETTINGS_PLUGIN_INFO(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), CINNAMON_TYPE_SETTINGS_PLUGIN_INFO, CinnamonSettingsPluginInfo))
+#define CINNAMON_SETTINGS_PLUGIN_INFO_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),  CINNAMON_TYPE_SETTINGS_PLUGIN_INFO, CinnamonSettingsPluginInfoClass))
+#define CINNAMON_IS_SETTINGS_PLUGIN_INFO(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), CINNAMON_TYPE_SETTINGS_PLUGIN_INFO))
+#define CINNAMON_IS_SETTINGS_PLUGIN_INFO_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), CINNAMON_TYPE_SETTINGS_PLUGIN_INFO))
+#define CINNAMON_SETTINGS_PLUGIN_INFO_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj),  CINNAMON_TYPE_SETTINGS_PLUGIN_INFO, CinnamonSettingsPluginInfoClass))
 
-typedef struct GnomeSettingsPluginInfoPrivate GnomeSettingsPluginInfoPrivate;
+typedef struct CinnamonSettingsPluginInfoPrivate CinnamonSettingsPluginInfoPrivate;
 
 typedef struct
 {
         GObject                         parent;
-        GnomeSettingsPluginInfoPrivate *priv;
-} GnomeSettingsPluginInfo;
+        CinnamonSettingsPluginInfoPrivate *priv;
+} CinnamonSettingsPluginInfo;
 
 typedef struct
 {
         GObjectClass parent_class;
 
-        void          (* activated)         (GnomeSettingsPluginInfo *info);
-        void          (* deactivated)       (GnomeSettingsPluginInfo *info);
-} GnomeSettingsPluginInfoClass;
+        void          (* activated)         (CinnamonSettingsPluginInfo *info);
+        void          (* deactivated)       (CinnamonSettingsPluginInfo *info);
+} CinnamonSettingsPluginInfoClass;
 
-GType            gnome_settings_plugin_info_get_type           (void) G_GNUC_CONST;
+GType            cinnamon_settings_plugin_info_get_type           (void) G_GNUC_CONST;
 
-GnomeSettingsPluginInfo *gnome_settings_plugin_info_new_from_file (const char *filename);
+CinnamonSettingsPluginInfo *cinnamon_settings_plugin_info_new_from_file (const char *filename);
 
-void             gnome_settings_plugin_info_set_settings_prefix (GnomeSettingsPluginInfo *info, const char *settings_prefix);
-gboolean         gnome_settings_plugin_info_activate        (GnomeSettingsPluginInfo *info);
-gboolean         gnome_settings_plugin_info_deactivate      (GnomeSettingsPluginInfo *info);
+void             cinnamon_settings_plugin_info_set_settings_prefix (CinnamonSettingsPluginInfo *info, const char *settings_prefix);
+gboolean         cinnamon_settings_plugin_info_activate        (CinnamonSettingsPluginInfo *info);
+gboolean         cinnamon_settings_plugin_info_deactivate      (CinnamonSettingsPluginInfo *info);
 
-gboolean         gnome_settings_plugin_info_is_active       (GnomeSettingsPluginInfo *info);
-gboolean         gnome_settings_plugin_info_get_enabled     (GnomeSettingsPluginInfo *info);
-gboolean         gnome_settings_plugin_info_is_available    (GnomeSettingsPluginInfo *info);
+gboolean         cinnamon_settings_plugin_info_is_active       (CinnamonSettingsPluginInfo *info);
+gboolean         cinnamon_settings_plugin_info_get_enabled     (CinnamonSettingsPluginInfo *info);
+gboolean         cinnamon_settings_plugin_info_is_available    (CinnamonSettingsPluginInfo *info);
 
-const char      *gnome_settings_plugin_info_get_name        (GnomeSettingsPluginInfo *info);
-const char      *gnome_settings_plugin_info_get_description (GnomeSettingsPluginInfo *info);
-const char     **gnome_settings_plugin_info_get_authors     (GnomeSettingsPluginInfo *info);
-const char      *gnome_settings_plugin_info_get_website     (GnomeSettingsPluginInfo *info);
-const char      *gnome_settings_plugin_info_get_copyright   (GnomeSettingsPluginInfo *info);
-const char      *gnome_settings_plugin_info_get_location    (GnomeSettingsPluginInfo *info);
-int              gnome_settings_plugin_info_get_priority    (GnomeSettingsPluginInfo *info);
+const char      *cinnamon_settings_plugin_info_get_name        (CinnamonSettingsPluginInfo *info);
+const char      *cinnamon_settings_plugin_info_get_description (CinnamonSettingsPluginInfo *info);
+const char     **cinnamon_settings_plugin_info_get_authors     (CinnamonSettingsPluginInfo *info);
+const char      *cinnamon_settings_plugin_info_get_website     (CinnamonSettingsPluginInfo *info);
+const char      *cinnamon_settings_plugin_info_get_copyright   (CinnamonSettingsPluginInfo *info);
+const char      *cinnamon_settings_plugin_info_get_location    (CinnamonSettingsPluginInfo *info);
+int              cinnamon_settings_plugin_info_get_priority    (CinnamonSettingsPluginInfo *info);
 
-void             gnome_settings_plugin_info_set_priority    (GnomeSettingsPluginInfo *info,
+void             cinnamon_settings_plugin_info_set_priority    (CinnamonSettingsPluginInfo *info,
                                                              int                      priority);
 
 G_END_DECLS
 
-#endif  /* __GNOME_SETTINGS_PLUGIN_INFO_H__ */
+#endif  /* __CINNAMON_SETTINGS_PLUGIN_INFO_H__ */

@@ -18,53 +18,53 @@
  *
  */
 
-#ifndef __GNOME_SETTINGS_MANAGER_H
-#define __GNOME_SETTINGS_MANAGER_H
+#ifndef __CINNAMON_SETTINGS_MANAGER_H
+#define __CINNAMON_SETTINGS_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GNOME_TYPE_SETTINGS_MANAGER         (gnome_settings_manager_get_type ())
-#define GNOME_SETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManager))
-#define GNOME_SETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManagerClass))
-#define GNOME_IS_SETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GNOME_TYPE_SETTINGS_MANAGER))
-#define GNOME_IS_SETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GNOME_TYPE_SETTINGS_MANAGER))
-#define GNOME_SETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManagerClass))
+#define CINNAMON_TYPE_SETTINGS_MANAGER         (cinnamon_settings_manager_get_type ())
+#define CINNAMON_SETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CINNAMON_TYPE_SETTINGS_MANAGER, CinnamonSettingsManager))
+#define CINNAMON_SETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CINNAMON_TYPE_SETTINGS_MANAGER, CinnamonSettingsManagerClass))
+#define CINNAMON_IS_SETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CINNAMON_TYPE_SETTINGS_MANAGER))
+#define CINNAMON_IS_SETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CINNAMON_TYPE_SETTINGS_MANAGER))
+#define CINNAMON_SETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CINNAMON_TYPE_SETTINGS_MANAGER, CinnamonSettingsManagerClass))
 
-typedef struct GnomeSettingsManagerPrivate GnomeSettingsManagerPrivate;
+typedef struct CinnamonSettingsManagerPrivate CinnamonSettingsManagerPrivate;
 
 typedef struct
 {
         GObject                      parent;
-        GnomeSettingsManagerPrivate *priv;
-} GnomeSettingsManager;
+        CinnamonSettingsManagerPrivate *priv;
+} CinnamonSettingsManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
 
-        void          (* plugin_activated)         (GnomeSettingsManager *manager,
+        void          (* plugin_activated)         (CinnamonSettingsManager *manager,
                                                     const char           *name);
-        void          (* plugin_deactivated)       (GnomeSettingsManager *manager,
+        void          (* plugin_deactivated)       (CinnamonSettingsManager *manager,
                                                     const char           *name);
-} GnomeSettingsManagerClass;
+} CinnamonSettingsManagerClass;
 
 typedef enum
 {
-        GNOME_SETTINGS_MANAGER_ERROR_GENERAL
-} GnomeSettingsManagerError;
+        CINNAMON_SETTINGS_MANAGER_ERROR_GENERAL
+} CinnamonSettingsManagerError;
 
-#define GNOME_SETTINGS_MANAGER_ERROR gnome_settings_manager_error_quark ()
+#define CINNAMON_SETTINGS_MANAGER_ERROR cinnamon_settings_manager_error_quark ()
 
-GQuark                 gnome_settings_manager_error_quark         (void);
-GType                  gnome_settings_manager_get_type   (void);
+GQuark                 cinnamon_settings_manager_error_quark         (void);
+GType                  cinnamon_settings_manager_get_type   (void);
 
-GnomeSettingsManager * gnome_settings_manager_new        (void);
-gboolean               gnome_settings_manager_start      (GnomeSettingsManager *manager,
+CinnamonSettingsManager * cinnamon_settings_manager_new        (void);
+gboolean               cinnamon_settings_manager_start      (CinnamonSettingsManager *manager,
                                                           GError              **error);
-void                   gnome_settings_manager_stop       (GnomeSettingsManager *manager);
+void                   cinnamon_settings_manager_stop       (CinnamonSettingsManager *manager);
 
 G_END_DECLS
 
-#endif /* __GNOME_SETTINGS_MANAGER_H */
+#endif /* __CINNAMON_SETTINGS_MANAGER_H */

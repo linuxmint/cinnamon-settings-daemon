@@ -27,7 +27,7 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#include "gnome-settings-session.h"
+#include "cinnamon-settings-session.h"
 
 #ifdef HAVE_SYSTEMD
 #include <systemd/sd-login.h>
@@ -113,9 +113,9 @@ sd_source_new (void)
 
 #endif
 
-static void     gnome_settings_session_finalize	(GObject		*object);
+static void     cinnamon_settings_session_finalize	(GObject		*object);
 
-#define GNOME_SETTINGS_SESSION_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_SESSION, GnomeSettingsSessionPrivate))
+#define CINNAMON_SETTINGS_SESSION_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_SETTINGS_SESSION, CinnamonSettingsSessionPrivate))
 
 #define CONSOLEKIT_NAME			"org.freedesktop.ConsoleKit"
 #define CONSOLEKIT_PATH			"/org/freedesktop/ConsoleKit"
@@ -126,7 +126,7 @@ static void     gnome_settings_session_finalize	(GObject		*object);
 #define CONSOLEKIT_SEAT_INTERFACE       "org.freedesktop.ConsoleKit.Seat"
 #define CONSOLEKIT_SESSION_INTERFACE    "org.freedesktop.ConsoleKit.Session"
 
-struct GnomeSettingsSessionPrivate
+struct CinnamonSettingsSessionPrivate
 {
 #ifdef HAVE_SYSTEMD
         GSource                   *sd_source;
@@ -135,7 +135,7 @@ struct GnomeSettingsSessionPrivate
 	GCancellable		*cancellable;
 #endif
 	gchar			*session_id;
-	GnomeSettingsSessionState state;
+	CinnamonSettingsSessionState state;
 };
 
 enum {
@@ -144,24 +144,24 @@ enum {
 	PROP_LAST
 };
 
-G_DEFINE_TYPE (GnomeSettingsSession, gnome_settings_session, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CinnamonSettingsSession, cinnamon_settings_session, G_TYPE_OBJECT)
 
-GnomeSettingsSessionState
-gnome_settings_session_get_state (GnomeSettingsSession *session)
+CinnamonSettingsSessionState
+cinnamon_settings_session_get_state (CinnamonSettingsSession *session)
 {
-	g_return_val_if_fail (GNOME_IS_SETTINGS_SESSION (session),
-			      GNOME_SETTINGS_SESSION_STATE_UNKNOWN);
+	g_return_val_if_fail (CINNAMON_IS_SETTINGS_SESSION (session),
+			      CINNAMON_SETTINGS_SESSION_STATE_UNKNOWN);
 	return session->priv->state;
 }
 
 static void
-gnome_settings_session_set_state (GnomeSettingsSession *session,
+cinnamon_settings_session_set_state (CinnamonSettingsSession *session,
 				  gboolean active)
 {
-        GnomeSettingsSessionState  state;
+        CinnamonSettingsSessionState  state;
 
-        state = active ? GNOME_SETTINGS_SESSION_STATE_ACTIVE
-                       : GNOME_SETTINGS_SESSION_STATE_INACTIVE;
+        state = active ? CINNAMON_SETTINGS_SESSION_STATE_ACTIVE
+                       : CINNAMON_SETTINGS_SESSION_STATE_INACTIVE;
         if (session->priv->state != state) {
                 session->priv->state = state;
                 g_object_notify (G_OBJECT (session), "state");
@@ -169,12 +169,12 @@ gnome_settings_session_set_state (GnomeSettingsSession *session,
 }
 
 static void
-gnome_settings_session_get_property (GObject *object,
+cinnamon_settings_session_get_property (GObject *object,
 				     guint prop_id,
 				     GValue *value,
 				     GParamSpec *pspec)
 {
-	GnomeSettingsSession *session = GNOME_SETTINGS_SESSION (object);
+	CinnamonSettingsSession *session = CINNAMON_SETTINGS_SESSION (object);
 
 	switch (prop_id) {
 	case PROP_STATE:
@@ -187,39 +187,39 @@ gnome_settings_session_get_property (GObject *object,
 }
 
 GType
-gnome_settings_session_state_get_type (void)
+cinnamon_settings_session_state_get_type (void)
 {
 	static GType etype = 0;
 	if (etype == 0) {
 		static const GEnumValue values[] = {
-			{ GNOME_SETTINGS_SESSION_STATE_UNKNOWN,
+			{ CINNAMON_SETTINGS_SESSION_STATE_UNKNOWN,
 			  "unknown", "Unknown" },
-			{ GNOME_SETTINGS_SESSION_STATE_ACTIVE,
+			{ CINNAMON_SETTINGS_SESSION_STATE_ACTIVE,
 			  "active", "Active" },
-			{ GNOME_SETTINGS_SESSION_STATE_INACTIVE,
+			{ CINNAMON_SETTINGS_SESSION_STATE_INACTIVE,
 			  "inactive", "Inactive" },
 			{ 0, NULL, NULL }
 			};
-		etype = g_enum_register_static ("GnomeSettingsSessionState", values);
+		etype = g_enum_register_static ("CinnamonSettingsSessionState", values);
 	}
 	return etype;
 }
 
 static void
-gnome_settings_session_class_init (GnomeSettingsSessionClass *klass)
+cinnamon_settings_session_class_init (CinnamonSettingsSessionClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->get_property = gnome_settings_session_get_property;
-	object_class->finalize = gnome_settings_session_finalize;
-	g_type_class_add_private (klass, sizeof (GnomeSettingsSessionPrivate));
+	object_class->get_property = cinnamon_settings_session_get_property;
+	object_class->finalize = cinnamon_settings_session_finalize;
+	g_type_class_add_private (klass, sizeof (CinnamonSettingsSessionPrivate));
 
 	g_object_class_install_property (object_class,
 					 PROP_STATE,
 					 g_param_spec_enum ("state",
 							    "The session state",
 							    NULL,
-							    GNOME_TYPE_SETTINGS_SESSION_STATE,
-							    GNOME_SETTINGS_SESSION_STATE_UNKNOWN,
+							    CINNAMON_TYPE_SETTINGS_SESSION_STATE,
+							    CINNAMON_SETTINGS_SESSION_STATE_UNKNOWN,
 							    G_PARAM_READABLE));
 }
 
@@ -228,11 +228,11 @@ gnome_settings_session_class_init (GnomeSettingsSessionClass *klass)
 static gboolean
 sessions_changed (gpointer user_data)
 {
-        GnomeSettingsSession *session = user_data;
+        CinnamonSettingsSession *session = user_data;
         gboolean active;
 
         active = sd_session_is_active (session->priv->session_id);
-        gnome_settings_session_set_state (session, active);
+        cinnamon_settings_session_set_state (session, active);
 
         return TRUE;
 }
@@ -240,17 +240,17 @@ sessions_changed (gpointer user_data)
 #else /* HAVE_SYSTEMD */
 
 static void
-gnome_settings_session_proxy_signal_cb (GDBusProxy *proxy,
+cinnamon_settings_session_proxy_signal_cb (GDBusProxy *proxy,
 					const gchar *sender_name,
 					const gchar *signal_name,
 					GVariant *parameters,
-					GnomeSettingsSession *session)
+					CinnamonSettingsSession *session)
 {
 	gboolean active;
 	if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
 		g_variant_get (parameters, "(b)", &active);
 		g_debug ("emitting active: %i", active);
-		gnome_settings_session_set_state (session, active);
+		cinnamon_settings_session_set_state (session, active);
 	}
 }
 
@@ -260,7 +260,7 @@ is_active_cb (GObject *source_object, GAsyncResult *res, gpointer user_data)
 	gboolean active = FALSE;
 	GError *error = NULL;
 	GVariant *result;
-	GnomeSettingsSession *session = GNOME_SETTINGS_SESSION (user_data);
+	CinnamonSettingsSession *session = CINNAMON_SETTINGS_SESSION (user_data);
 
 	/* is our session active */
 	result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
@@ -272,11 +272,11 @@ is_active_cb (GObject *source_object, GAsyncResult *res, gpointer user_data)
 		return;
 	}
 	g_variant_get (result, "(b)", &active);
-	gnome_settings_session_set_state (session, active);
+	cinnamon_settings_session_set_state (session, active);
 
 	/* watch for changes */
 	g_signal_connect (session->priv->proxy_session, "g-signal",
-			  G_CALLBACK (gnome_settings_session_proxy_signal_cb),
+			  G_CALLBACK (cinnamon_settings_session_proxy_signal_cb),
 			  session);
 
 	g_variant_unref (result);
@@ -286,7 +286,7 @@ static void
 got_session_proxy_cb (GObject *source_object, GAsyncResult *res, gpointer user_data)
 {
 	GError *error = NULL;
-	GnomeSettingsSession *session = GNOME_SETTINGS_SESSION (user_data);
+	CinnamonSettingsSession *session = CINNAMON_SETTINGS_SESSION (user_data);
 
 	/* connect to session */
 	session->priv->proxy_session = g_dbus_proxy_new_for_bus_finish (res,
@@ -315,7 +315,7 @@ got_session_path_cb (GObject *source_object, GAsyncResult *res, gpointer user_da
 {
 	GVariant *result;
 	GError *error = NULL;
-	GnomeSettingsSession *session = GNOME_SETTINGS_SESSION (user_data);
+	CinnamonSettingsSession *session = CINNAMON_SETTINGS_SESSION (user_data);
 
 	result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
 					   res,
@@ -349,7 +349,7 @@ got_manager_proxy_cb (GObject *source_object, GAsyncResult *res, gpointer user_d
 	GDBusProxy *proxy_manager;
 	GError *error = NULL;
 	guint32 pid;
-	GnomeSettingsSession *session = GNOME_SETTINGS_SESSION (user_data);
+	CinnamonSettingsSession *session = CINNAMON_SETTINGS_SESSION (user_data);
 
 	proxy_manager = g_dbus_proxy_new_for_bus_finish (res, &error);
 	if (proxy_manager == NULL) {
@@ -374,9 +374,9 @@ got_manager_proxy_cb (GObject *source_object, GAsyncResult *res, gpointer user_d
 #endif /* HAVE_SYSTEMD */
 
 static void
-gnome_settings_session_init (GnomeSettingsSession *session)
+cinnamon_settings_session_init (CinnamonSettingsSession *session)
 {
-	session->priv = GNOME_SETTINGS_SESSION_GET_PRIVATE (session);
+	session->priv = CINNAMON_SETTINGS_SESSION_GET_PRIVATE (session);
 
 #ifdef HAVE_SYSTEMD
         sd_pid_get_session (getpid(), &session->priv->session_id);
@@ -403,11 +403,11 @@ gnome_settings_session_init (GnomeSettingsSession *session)
 }
 
 static void
-gnome_settings_session_finalize (GObject *object)
+cinnamon_settings_session_finalize (GObject *object)
 {
-	GnomeSettingsSession *session;
+	CinnamonSettingsSession *session;
 
-	session = GNOME_SETTINGS_SESSION (object);
+	session = CINNAMON_SETTINGS_SESSION (object);
 
         g_free (session->priv->session_id);
 
@@ -424,13 +424,13 @@ gnome_settings_session_finalize (GObject *object)
 	g_object_unref (session->priv->cancellable);
 #endif
 
-	G_OBJECT_CLASS (gnome_settings_session_parent_class)->finalize (object);
+	G_OBJECT_CLASS (cinnamon_settings_session_parent_class)->finalize (object);
 }
 
-GnomeSettingsSession *
-gnome_settings_session_new (void)
+CinnamonSettingsSession *
+cinnamon_settings_session_new (void)
 {
-	GnomeSettingsSession *session;
-	session = g_object_new (GNOME_TYPE_SETTINGS_SESSION, NULL);
-	return GNOME_SETTINGS_SESSION (session);
+	CinnamonSettingsSession *session;
+	session = g_object_new (CINNAMON_TYPE_SETTINGS_SESSION, NULL);
+	return CINNAMON_SETTINGS_SESSION (session);
 }

@@ -19,51 +19,51 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GNOME_SETTINGS_PLUGIN_H__
-#define __GNOME_SETTINGS_PLUGIN_H__
+#ifndef __CINNAMON_SETTINGS_PLUGIN_H__
+#define __CINNAMON_SETTINGS_PLUGIN_H__
 
 #include <glib-object.h>
 #include <gmodule.h>
 
 G_BEGIN_DECLS
-#define GNOME_TYPE_SETTINGS_PLUGIN              (gnome_settings_plugin_get_type())
-#define GNOME_SETTINGS_PLUGIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_TYPE_SETTINGS_PLUGIN, GnomeSettingsPlugin))
-#define GNOME_SETTINGS_PLUGIN_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),  GNOME_TYPE_SETTINGS_PLUGIN, GnomeSettingsPluginClass))
-#define GNOME_IS_SETTINGS_PLUGIN(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_TYPE_SETTINGS_PLUGIN))
-#define GNOME_IS_SETTINGS_PLUGIN_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_TYPE_SETTINGS_PLUGIN))
-#define GNOME_SETTINGS_PLUGIN_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj),  GNOME_TYPE_SETTINGS_PLUGIN, GnomeSettingsPluginClass))
+#define CINNAMON_TYPE_SETTINGS_PLUGIN              (cinnamon_settings_plugin_get_type())
+#define CINNAMON_SETTINGS_PLUGIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), CINNAMON_TYPE_SETTINGS_PLUGIN, CinnamonSettingsPlugin))
+#define CINNAMON_SETTINGS_PLUGIN_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),  CINNAMON_TYPE_SETTINGS_PLUGIN, CinnamonSettingsPluginClass))
+#define CINNAMON_IS_SETTINGS_PLUGIN(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), CINNAMON_TYPE_SETTINGS_PLUGIN))
+#define CINNAMON_IS_SETTINGS_PLUGIN_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), CINNAMON_TYPE_SETTINGS_PLUGIN))
+#define CINNAMON_SETTINGS_PLUGIN_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj),  CINNAMON_TYPE_SETTINGS_PLUGIN, CinnamonSettingsPluginClass))
 
 typedef struct
 {
         GObject parent;
-} GnomeSettingsPlugin;
+} CinnamonSettingsPlugin;
 
 typedef struct
 {
         GObjectClass parent_class;
 
         /* Virtual public methods */
-        void            (*activate)                     (GnomeSettingsPlugin *plugin);
-        void            (*deactivate)                   (GnomeSettingsPlugin *plugin);
-} GnomeSettingsPluginClass;
+        void            (*activate)                     (CinnamonSettingsPlugin *plugin);
+        void            (*deactivate)                   (CinnamonSettingsPlugin *plugin);
+} CinnamonSettingsPluginClass;
 
-GType            gnome_settings_plugin_get_type           (void) G_GNUC_CONST;
+GType            cinnamon_settings_plugin_get_type           (void) G_GNUC_CONST;
 
-void             gnome_settings_plugin_activate           (GnomeSettingsPlugin *plugin);
-void             gnome_settings_plugin_deactivate         (GnomeSettingsPlugin *plugin);
+void             cinnamon_settings_plugin_activate           (CinnamonSettingsPlugin *plugin);
+void             cinnamon_settings_plugin_deactivate         (CinnamonSettingsPlugin *plugin);
 
 /*
  * Utility macro used to register plugins
  *
- * use: GNOME_SETTINGS_PLUGIN_REGISTER (PluginName, plugin_name)
+ * use: CINNAMON_SETTINGS_PLUGIN_REGISTER (PluginName, plugin_name)
  */
-#define GNOME_SETTINGS_PLUGIN_REGISTER(PluginName, plugin_name)                \
+#define CINNAMON_SETTINGS_PLUGIN_REGISTER(PluginName, plugin_name)                \
         G_DEFINE_DYNAMIC_TYPE (PluginName,                                     \
                                plugin_name,                                    \
-                               GNOME_TYPE_SETTINGS_PLUGIN)                     \
+                               CINNAMON_TYPE_SETTINGS_PLUGIN)                     \
                                                                                \
 G_MODULE_EXPORT GType                                                          \
-register_gnome_settings_plugin (GTypeModule *type_module)                      \
+register_cinnamon_settings_plugin (GTypeModule *type_module)                      \
 {                                                                              \
         plugin_name##_register_type (type_module);                             \
                                                                                \
@@ -77,4 +77,4 @@ plugin_name##_class_finalize (PluginName##Class *plugin_name##_class)          \
 
 G_END_DECLS
 
-#endif  /* __GNOME_SETTINGS_PLUGIN_H__ */
+#endif  /* __CINNAMON_SETTINGS_PLUGIN_H__ */

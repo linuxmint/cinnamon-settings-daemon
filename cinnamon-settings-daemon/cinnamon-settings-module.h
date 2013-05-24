@@ -18,29 +18,29 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GNOME_SETTINGS_MODULE_H
-#define GNOME_SETTINGS_MODULE_H
+#ifndef CINNAMON_SETTINGS_MODULE_H
+#define CINNAMON_SETTINGS_MODULE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GNOME_TYPE_SETTINGS_MODULE               (gnome_settings_module_get_type ())
-#define GNOME_SETTINGS_MODULE(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_TYPE_SETTINGS_MODULE, GnomeSettingsModule))
-#define GNOME_SETTINGS_MODULE_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_TYPE_SETTINGS_MODULE, GnomeSettingsModuleClass))
-#define GNOME_IS_SETTINGS_MODULE(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_TYPE_SETTINGS_MODULE))
-#define GNOME_IS_SETTINGS_MODULE_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((obj), GNOME_TYPE_SETTINGS_MODULE))
-#define GNOME_SETTINGS_MODULE_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_TYPE_SETTINGS_MODULE, GnomeSettingsModuleClass))
+#define CINNAMON_TYPE_SETTINGS_MODULE               (cinnamon_settings_module_get_type ())
+#define CINNAMON_SETTINGS_MODULE(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), CINNAMON_TYPE_SETTINGS_MODULE, CinnamonSettingsModule))
+#define CINNAMON_SETTINGS_MODULE_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST ((klass), CINNAMON_TYPE_SETTINGS_MODULE, CinnamonSettingsModuleClass))
+#define CINNAMON_IS_SETTINGS_MODULE(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CINNAMON_TYPE_SETTINGS_MODULE))
+#define CINNAMON_IS_SETTINGS_MODULE_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((obj), CINNAMON_TYPE_SETTINGS_MODULE))
+#define CINNAMON_SETTINGS_MODULE_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), CINNAMON_TYPE_SETTINGS_MODULE, CinnamonSettingsModuleClass))
 
-typedef struct _GnomeSettingsModule GnomeSettingsModule;
+typedef struct _CinnamonSettingsModule CinnamonSettingsModule;
 
-GType                    gnome_settings_module_get_type          (void) G_GNUC_CONST;
+GType                    cinnamon_settings_module_get_type          (void) G_GNUC_CONST;
 
-GnomeSettingsModule     *gnome_settings_module_new               (const gchar *path);
+CinnamonSettingsModule     *cinnamon_settings_module_new               (const gchar *path);
 
-const char              *gnome_settings_module_get_path          (GnomeSettingsModule *module);
+const char              *cinnamon_settings_module_get_path          (CinnamonSettingsModule *module);
 
-GObject                 *gnome_settings_module_new_object        (GnomeSettingsModule *module);
+GObject                 *cinnamon_settings_module_new_object        (CinnamonSettingsModule *module);
 
 G_END_DECLS
 

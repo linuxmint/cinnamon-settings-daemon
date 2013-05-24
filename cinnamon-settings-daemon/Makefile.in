@@ -52,8 +52,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-gsd_PROGRAMS = gnome-settings-daemon$(EXEEXT)
-subdir = gnome-settings-daemon
+csd_PROGRAMS = cinnamon-settings-daemon$(EXEEXT)
+subdir = cinnamon-settings-daemon
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -92,39 +92,39 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(privlibdir)" "$(DESTDIR)$(gsddir)" \
+am__installdirs = "$(DESTDIR)$(privlibdir)" "$(DESTDIR)$(csddir)" \
 	"$(DESTDIR)$(apidir)"
 LTLIBRARIES = $(privlib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-libgsd_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+libcsd_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 am__objects_1 =
-am_libgsd_la_OBJECTS = libgsd_la-gnome-settings-profile.lo \
-	libgsd_la-gnome-settings-session.lo $(am__objects_1)
-libgsd_la_OBJECTS = $(am_libgsd_la_OBJECTS)
+am_libcsd_la_OBJECTS = libcsd_la-cinnamon-settings-profile.lo \
+	libcsd_la-cinnamon-settings-session.lo $(am__objects_1)
+libcsd_la_OBJECTS = $(am_libcsd_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libgsd_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libgsd_la_CFLAGS) \
-	$(CFLAGS) $(libgsd_la_LDFLAGS) $(LDFLAGS) -o $@
-PROGRAMS = $(gsd_PROGRAMS)
-am_gnome_settings_daemon_OBJECTS =  \
-	gnome_settings_daemon-main.$(OBJEXT) \
-	gnome_settings_daemon-gnome-settings-manager.$(OBJEXT) \
-	gnome_settings_daemon-gnome-settings-plugin.$(OBJEXT) \
-	gnome_settings_daemon-gnome-settings-plugin-info.$(OBJEXT) \
-	gnome_settings_daemon-gnome-settings-module.$(OBJEXT) \
+libcsd_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libcsd_la_CFLAGS) \
+	$(CFLAGS) $(libcsd_la_LDFLAGS) $(LDFLAGS) -o $@
+PROGRAMS = $(csd_PROGRAMS)
+am_cinnamon_settings_daemon_OBJECTS =  \
+	cinnamon_settings_daemon-main.$(OBJEXT) \
+	cinnamon_settings_daemon-cinnamon-settings-manager.$(OBJEXT) \
+	cinnamon_settings_daemon-cinnamon-settings-plugin.$(OBJEXT) \
+	cinnamon_settings_daemon-cinnamon-settings-plugin-info.$(OBJEXT) \
+	cinnamon_settings_daemon-cinnamon-settings-module.$(OBJEXT) \
 	$(am__objects_1)
-gnome_settings_daemon_OBJECTS = $(am_gnome_settings_daemon_OBJECTS)
-gnome_settings_daemon_DEPENDENCIES = libgsd.la $(am__DEPENDENCIES_1) \
+cinnamon_settings_daemon_OBJECTS = $(am_cinnamon_settings_daemon_OBJECTS)
+cinnamon_settings_daemon_DEPENDENCIES = libcsd.la $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gnome_settings_daemon_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+cinnamon_settings_daemon_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gnome_settings_daemon_CFLAGS) $(CFLAGS) \
-	$(gnome_settings_daemon_LDFLAGS) $(LDFLAGS) -o $@
+	$(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) \
+	$(cinnamon_settings_daemon_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -159,8 +159,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libgsd_la_SOURCES) $(gnome_settings_daemon_SOURCES)
-DIST_SOURCES = $(libgsd_la_SOURCES) $(gnome_settings_daemon_SOURCES)
+SOURCES = $(libcsd_la_SOURCES) $(cinnamon_settings_daemon_SOURCES)
+DIST_SOURCES = $(libcsd_la_SOURCES) $(cinnamon_settings_daemon_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -229,9 +229,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -391,9 +391,9 @@ top_srcdir = @top_srcdir@
 NULL = 
 INCLUDES = \
 	-DDATADIR=\""$(datadir)"\"				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
-	-DGNOME_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
+	-DCINNAMON_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	$(SETTINGS_DAEMON_CFLAGS)				\
@@ -402,64 +402,64 @@ INCLUDES = \
 	$(SYSTEMD_CFLAGS)					\
 	$(NULL)
 
-privlibdir = $(pkglibdir)-$(GSD_API_VERSION)
+privlibdir = $(pkglibdir)-$(CSD_API_VERSION)
 privlib_LTLIBRARIES = \
-	libgsd.la		\
+	libcsd.la		\
 	$(NULL)
 
-libgsd_la_SOURCES = \
-	gnome-settings-profile.c	\
-	gnome-settings-profile.h	\
-	gnome-settings-session.c	\
-	gnome-settings-session.h	\
+libcsd_la_SOURCES = \
+	cinnamon-settings-profile.c	\
+	cinnamon-settings-profile.h	\
+	cinnamon-settings-session.c	\
+	cinnamon-settings-session.h	\
 	$(NULL)
 
-libgsd_la_CPPFLAGS = \
+libcsd_la_CPPFLAGS = \
 	$(DISABLE_DEPRECATED_CFLAGS)	\
 	$(NULL)
 
-libgsd_la_CFLAGS = \
+libcsd_la_CFLAGS = \
 	$(NULL)
 
-libgsd_la_LIBADD = \
+libcsd_la_LIBADD = \
 	$(SYSTEMD_LIBS)		\
 	$(GIOUNIX_LIBS)		\
 	$(NULL)
 
-libgsd_la_LDFLAGS = \
+libcsd_la_LDFLAGS = \
 	-export-dynamic		\
 	-avoid-version		\
 	-no-undefined		\
 	$(NULL)
 
-gsddir = $(libexecdir)
-apidir = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
+csddir = $(libexecdir)
+apidir = $(includedir)/cinnamon-settings-daemon-$(CSD_API_VERSION)/cinnamon-settings-daemon
 api_DATA = \
-	gnome-settings-plugin.h
+	cinnamon-settings-plugin.h
 
-gnome_settings_daemon_SOURCES = \
+cinnamon_settings_daemon_SOURCES = \
 	main.c				\
-	gnome-settings-manager.c	\
-	gnome-settings-manager.h	\
-	gnome-settings-plugin.c		\
-	gnome-settings-plugin.h		\
-	gnome-settings-plugin-info.c	\
-	gnome-settings-plugin-info.h	\
-	gnome-settings-module.c		\
-	gnome-settings-module.h		\
+	cinnamon-settings-manager.c	\
+	cinnamon-settings-manager.h	\
+	cinnamon-settings-plugin.c		\
+	cinnamon-settings-plugin.h		\
+	cinnamon-settings-plugin-info.c	\
+	cinnamon-settings-plugin-info.h	\
+	cinnamon-settings-module.c		\
+	cinnamon-settings-module.h		\
 	$(NULL)
 
-gnome_settings_daemon_CPPFLAGS = \
+cinnamon_settings_daemon_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
-gnome_settings_daemon_CFLAGS = \
+cinnamon_settings_daemon_CFLAGS = \
 	$(AM_CFLAGS)
 
-gnome_settings_daemon_LDFLAGS = \
+cinnamon_settings_daemon_LDFLAGS = \
 	$(AM_LDFLAGS)
 
-gnome_settings_daemon_LDADD = \
-	libgsd.la		\
+cinnamon_settings_daemon_LDADD = \
+	libcsd.la		\
 	$(SETTINGS_DAEMON_LIBS)		\
 	$(LIBNOTIFY_LIBS)		\
 	$(GNOME_DESKTOP_LIBS)		\
@@ -478,9 +478,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu gnome-settings-daemon/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu cinnamon-settings-daemon/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu gnome-settings-daemon/Makefile
+	  $(AUTOMAKE) --gnu cinnamon-settings-daemon/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -533,14 +533,14 @@ clean-privlibLTLIBRARIES:
 	  echo rm -f $${locs}; \
 	  rm -f $${locs}; \
 	}
-libgsd.la: $(libgsd_la_OBJECTS) $(libgsd_la_DEPENDENCIES) $(EXTRA_libgsd_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libgsd_la_LINK) -rpath $(privlibdir) $(libgsd_la_OBJECTS) $(libgsd_la_LIBADD) $(LIBS)
-install-gsdPROGRAMS: $(gsd_PROGRAMS)
+libcsd.la: $(libcsd_la_OBJECTS) $(libcsd_la_DEPENDENCIES) $(EXTRA_libcsd_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(libcsd_la_LINK) -rpath $(privlibdir) $(libcsd_la_OBJECTS) $(libcsd_la_LIBADD) $(LIBS)
+install-csdPROGRAMS: $(csd_PROGRAMS)
 	@$(NORMAL_INSTALL)
-	@list='$(gsd_PROGRAMS)'; test -n "$(gsddir)" || list=; \
+	@list='$(csd_PROGRAMS)'; test -n "$(csddir)" || list=; \
 	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(gsddir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(gsddir)" || exit 1; \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(csddir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(csddir)" || exit 1; \
 	fi; \
 	for p in $$list; do echo "$$p $$p"; done | \
 	sed 's/$(EXEEXT)$$//' | \
@@ -558,32 +558,32 @@ install-gsdPROGRAMS: $(gsd_PROGRAMS)
 	while read type dir files; do \
 	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
 	    test -z "$$files" || { \
-	    echo " $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(gsddir)$$dir'"; \
-	    $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(gsddir)$$dir" || exit $$?; \
+	    echo " $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(csddir)$$dir'"; \
+	    $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(csddir)$$dir" || exit $$?; \
 	    } \
 	; done
 
-uninstall-gsdPROGRAMS:
+uninstall-csdPROGRAMS:
 	@$(NORMAL_UNINSTALL)
-	@list='$(gsd_PROGRAMS)'; test -n "$(gsddir)" || list=; \
+	@list='$(csd_PROGRAMS)'; test -n "$(csddir)" || list=; \
 	files=`for p in $$list; do echo "$$p"; done | \
 	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
 	      -e 's/$$/$(EXEEXT)/' `; \
 	test -n "$$list" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(gsddir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(gsddir)" && rm -f $$files
+	echo " ( cd '$(DESTDIR)$(csddir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(csddir)" && rm -f $$files
 
-clean-gsdPROGRAMS:
-	@list='$(gsd_PROGRAMS)'; test -n "$$list" || exit 0; \
+clean-csdPROGRAMS:
+	@list='$(csd_PROGRAMS)'; test -n "$$list" || exit 0; \
 	echo " rm -f" $$list; \
 	rm -f $$list || exit $$?; \
 	test -n "$(EXEEXT)" || exit 0; \
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gnome-settings-daemon$(EXEEXT): $(gnome_settings_daemon_OBJECTS) $(gnome_settings_daemon_DEPENDENCIES) $(EXTRA_gnome_settings_daemon_DEPENDENCIES) 
-	@rm -f gnome-settings-daemon$(EXEEXT)
-	$(AM_V_CCLD)$(gnome_settings_daemon_LINK) $(gnome_settings_daemon_OBJECTS) $(gnome_settings_daemon_LDADD) $(LIBS)
+cinnamon-settings-daemon$(EXEEXT): $(cinnamon_settings_daemon_OBJECTS) $(cinnamon_settings_daemon_DEPENDENCIES) $(EXTRA_cinnamon_settings_daemon_DEPENDENCIES) 
+	@rm -f cinnamon-settings-daemon$(EXEEXT)
+	$(AM_V_CCLD)$(cinnamon_settings_daemon_LINK) $(cinnamon_settings_daemon_OBJECTS) $(cinnamon_settings_daemon_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -591,13 +591,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_settings_daemon-gnome-settings-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_settings_daemon-gnome-settings-module.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin-info.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_settings_daemon-main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsd_la-gnome-settings-profile.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsd_la-gnome-settings-session.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-module.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin-info.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_settings_daemon-main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcsd_la-cinnamon-settings-profile.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcsd_la-cinnamon-settings-session.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -620,89 +620,89 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libgsd_la-gnome-settings-profile.lo: gnome-settings-profile.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsd_la_CPPFLAGS) $(CPPFLAGS) $(libgsd_la_CFLAGS) $(CFLAGS) -MT libgsd_la-gnome-settings-profile.lo -MD -MP -MF $(DEPDIR)/libgsd_la-gnome-settings-profile.Tpo -c -o libgsd_la-gnome-settings-profile.lo `test -f 'gnome-settings-profile.c' || echo '$(srcdir)/'`gnome-settings-profile.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsd_la-gnome-settings-profile.Tpo $(DEPDIR)/libgsd_la-gnome-settings-profile.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-profile.c' object='libgsd_la-gnome-settings-profile.lo' libtool=yes @AMDEPBACKSLASH@
+libcsd_la-cinnamon-settings-profile.lo: cinnamon-settings-profile.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsd_la_CPPFLAGS) $(CPPFLAGS) $(libcsd_la_CFLAGS) $(CFLAGS) -MT libcsd_la-cinnamon-settings-profile.lo -MD -MP -MF $(DEPDIR)/libcsd_la-cinnamon-settings-profile.Tpo -c -o libcsd_la-cinnamon-settings-profile.lo `test -f 'cinnamon-settings-profile.c' || echo '$(srcdir)/'`cinnamon-settings-profile.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcsd_la-cinnamon-settings-profile.Tpo $(DEPDIR)/libcsd_la-cinnamon-settings-profile.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-profile.c' object='libcsd_la-cinnamon-settings-profile.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsd_la_CPPFLAGS) $(CPPFLAGS) $(libgsd_la_CFLAGS) $(CFLAGS) -c -o libgsd_la-gnome-settings-profile.lo `test -f 'gnome-settings-profile.c' || echo '$(srcdir)/'`gnome-settings-profile.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsd_la_CPPFLAGS) $(CPPFLAGS) $(libcsd_la_CFLAGS) $(CFLAGS) -c -o libcsd_la-cinnamon-settings-profile.lo `test -f 'cinnamon-settings-profile.c' || echo '$(srcdir)/'`cinnamon-settings-profile.c
 
-libgsd_la-gnome-settings-session.lo: gnome-settings-session.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsd_la_CPPFLAGS) $(CPPFLAGS) $(libgsd_la_CFLAGS) $(CFLAGS) -MT libgsd_la-gnome-settings-session.lo -MD -MP -MF $(DEPDIR)/libgsd_la-gnome-settings-session.Tpo -c -o libgsd_la-gnome-settings-session.lo `test -f 'gnome-settings-session.c' || echo '$(srcdir)/'`gnome-settings-session.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsd_la-gnome-settings-session.Tpo $(DEPDIR)/libgsd_la-gnome-settings-session.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-session.c' object='libgsd_la-gnome-settings-session.lo' libtool=yes @AMDEPBACKSLASH@
+libcsd_la-cinnamon-settings-session.lo: cinnamon-settings-session.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsd_la_CPPFLAGS) $(CPPFLAGS) $(libcsd_la_CFLAGS) $(CFLAGS) -MT libcsd_la-cinnamon-settings-session.lo -MD -MP -MF $(DEPDIR)/libcsd_la-cinnamon-settings-session.Tpo -c -o libcsd_la-cinnamon-settings-session.lo `test -f 'cinnamon-settings-session.c' || echo '$(srcdir)/'`cinnamon-settings-session.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcsd_la-cinnamon-settings-session.Tpo $(DEPDIR)/libcsd_la-cinnamon-settings-session.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-session.c' object='libcsd_la-cinnamon-settings-session.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsd_la_CPPFLAGS) $(CPPFLAGS) $(libgsd_la_CFLAGS) $(CFLAGS) -c -o libgsd_la-gnome-settings-session.lo `test -f 'gnome-settings-session.c' || echo '$(srcdir)/'`gnome-settings-session.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsd_la_CPPFLAGS) $(CPPFLAGS) $(libcsd_la_CFLAGS) $(CFLAGS) -c -o libcsd_la-cinnamon-settings-session.lo `test -f 'cinnamon-settings-session.c' || echo '$(srcdir)/'`cinnamon-settings-session.c
 
-gnome_settings_daemon-main.o: main.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-main.o -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-main.Tpo -c -o gnome_settings_daemon-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-main.Tpo $(DEPDIR)/gnome_settings_daemon-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='gnome_settings_daemon-main.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-main.o: main.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-main.o -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-main.Tpo -c -o cinnamon_settings_daemon-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-main.Tpo $(DEPDIR)/cinnamon_settings_daemon-main.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='cinnamon_settings_daemon-main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
 
-gnome_settings_daemon-main.obj: main.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-main.obj -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-main.Tpo -c -o gnome_settings_daemon-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-main.Tpo $(DEPDIR)/gnome_settings_daemon-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='gnome_settings_daemon-main.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-main.obj: main.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-main.obj -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-main.Tpo -c -o cinnamon_settings_daemon-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-main.Tpo $(DEPDIR)/cinnamon_settings_daemon-main.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='cinnamon_settings_daemon-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
 
-gnome_settings_daemon-gnome-settings-manager.o: gnome-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-manager.o -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-manager.Tpo -c -o gnome_settings_daemon-gnome-settings-manager.o `test -f 'gnome-settings-manager.c' || echo '$(srcdir)/'`gnome-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-manager.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-manager.c' object='gnome_settings_daemon-gnome-settings-manager.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-manager.o: cinnamon-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-manager.o -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-manager.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-manager.o `test -f 'cinnamon-settings-manager.c' || echo '$(srcdir)/'`cinnamon-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-manager.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-manager.c' object='cinnamon_settings_daemon-cinnamon-settings-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-manager.o `test -f 'gnome-settings-manager.c' || echo '$(srcdir)/'`gnome-settings-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-manager.o `test -f 'cinnamon-settings-manager.c' || echo '$(srcdir)/'`cinnamon-settings-manager.c
 
-gnome_settings_daemon-gnome-settings-manager.obj: gnome-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-manager.obj -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-manager.Tpo -c -o gnome_settings_daemon-gnome-settings-manager.obj `if test -f 'gnome-settings-manager.c'; then $(CYGPATH_W) 'gnome-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-manager.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-manager.c' object='gnome_settings_daemon-gnome-settings-manager.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-manager.obj: cinnamon-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-manager.obj -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-manager.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-manager.obj `if test -f 'cinnamon-settings-manager.c'; then $(CYGPATH_W) 'cinnamon-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-manager.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-manager.c' object='cinnamon_settings_daemon-cinnamon-settings-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-manager.obj `if test -f 'gnome-settings-manager.c'; then $(CYGPATH_W) 'gnome-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-manager.obj `if test -f 'cinnamon-settings-manager.c'; then $(CYGPATH_W) 'cinnamon-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-manager.c'; fi`
 
-gnome_settings_daemon-gnome-settings-plugin.o: gnome-settings-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-plugin.o -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin.Tpo -c -o gnome_settings_daemon-gnome-settings-plugin.o `test -f 'gnome-settings-plugin.c' || echo '$(srcdir)/'`gnome-settings-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-plugin.c' object='gnome_settings_daemon-gnome-settings-plugin.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-plugin.o: cinnamon-settings-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-plugin.o -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-plugin.o `test -f 'cinnamon-settings-plugin.c' || echo '$(srcdir)/'`cinnamon-settings-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-plugin.c' object='cinnamon_settings_daemon-cinnamon-settings-plugin.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-plugin.o `test -f 'gnome-settings-plugin.c' || echo '$(srcdir)/'`gnome-settings-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-plugin.o `test -f 'cinnamon-settings-plugin.c' || echo '$(srcdir)/'`cinnamon-settings-plugin.c
 
-gnome_settings_daemon-gnome-settings-plugin.obj: gnome-settings-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-plugin.obj -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin.Tpo -c -o gnome_settings_daemon-gnome-settings-plugin.obj `if test -f 'gnome-settings-plugin.c'; then $(CYGPATH_W) 'gnome-settings-plugin.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-plugin.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-plugin.c' object='gnome_settings_daemon-gnome-settings-plugin.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-plugin.obj: cinnamon-settings-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-plugin.obj -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-plugin.obj `if test -f 'cinnamon-settings-plugin.c'; then $(CYGPATH_W) 'cinnamon-settings-plugin.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-plugin.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-plugin.c' object='cinnamon_settings_daemon-cinnamon-settings-plugin.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-plugin.obj `if test -f 'gnome-settings-plugin.c'; then $(CYGPATH_W) 'gnome-settings-plugin.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-plugin.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-plugin.obj `if test -f 'cinnamon-settings-plugin.c'; then $(CYGPATH_W) 'cinnamon-settings-plugin.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-plugin.c'; fi`
 
-gnome_settings_daemon-gnome-settings-plugin-info.o: gnome-settings-plugin-info.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-plugin-info.o -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin-info.Tpo -c -o gnome_settings_daemon-gnome-settings-plugin-info.o `test -f 'gnome-settings-plugin-info.c' || echo '$(srcdir)/'`gnome-settings-plugin-info.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin-info.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin-info.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-plugin-info.c' object='gnome_settings_daemon-gnome-settings-plugin-info.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-plugin-info.o: cinnamon-settings-plugin-info.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-plugin-info.o -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin-info.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-plugin-info.o `test -f 'cinnamon-settings-plugin-info.c' || echo '$(srcdir)/'`cinnamon-settings-plugin-info.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin-info.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin-info.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-plugin-info.c' object='cinnamon_settings_daemon-cinnamon-settings-plugin-info.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-plugin-info.o `test -f 'gnome-settings-plugin-info.c' || echo '$(srcdir)/'`gnome-settings-plugin-info.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-plugin-info.o `test -f 'cinnamon-settings-plugin-info.c' || echo '$(srcdir)/'`cinnamon-settings-plugin-info.c
 
-gnome_settings_daemon-gnome-settings-plugin-info.obj: gnome-settings-plugin-info.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-plugin-info.obj -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin-info.Tpo -c -o gnome_settings_daemon-gnome-settings-plugin-info.obj `if test -f 'gnome-settings-plugin-info.c'; then $(CYGPATH_W) 'gnome-settings-plugin-info.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-plugin-info.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin-info.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-plugin-info.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-plugin-info.c' object='gnome_settings_daemon-gnome-settings-plugin-info.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-plugin-info.obj: cinnamon-settings-plugin-info.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-plugin-info.obj -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin-info.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-plugin-info.obj `if test -f 'cinnamon-settings-plugin-info.c'; then $(CYGPATH_W) 'cinnamon-settings-plugin-info.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-plugin-info.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin-info.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-plugin-info.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-plugin-info.c' object='cinnamon_settings_daemon-cinnamon-settings-plugin-info.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-plugin-info.obj `if test -f 'gnome-settings-plugin-info.c'; then $(CYGPATH_W) 'gnome-settings-plugin-info.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-plugin-info.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-plugin-info.obj `if test -f 'cinnamon-settings-plugin-info.c'; then $(CYGPATH_W) 'cinnamon-settings-plugin-info.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-plugin-info.c'; fi`
 
-gnome_settings_daemon-gnome-settings-module.o: gnome-settings-module.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-module.o -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-module.Tpo -c -o gnome_settings_daemon-gnome-settings-module.o `test -f 'gnome-settings-module.c' || echo '$(srcdir)/'`gnome-settings-module.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-module.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-module.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-module.c' object='gnome_settings_daemon-gnome-settings-module.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-module.o: cinnamon-settings-module.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-module.o -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-module.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-module.o `test -f 'cinnamon-settings-module.c' || echo '$(srcdir)/'`cinnamon-settings-module.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-module.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-module.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-module.c' object='cinnamon_settings_daemon-cinnamon-settings-module.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-module.o `test -f 'gnome-settings-module.c' || echo '$(srcdir)/'`gnome-settings-module.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-module.o `test -f 'cinnamon-settings-module.c' || echo '$(srcdir)/'`cinnamon-settings-module.c
 
-gnome_settings_daemon-gnome-settings-module.obj: gnome-settings-module.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -MT gnome_settings_daemon-gnome-settings-module.obj -MD -MP -MF $(DEPDIR)/gnome_settings_daemon-gnome-settings-module.Tpo -c -o gnome_settings_daemon-gnome-settings-module.obj `if test -f 'gnome-settings-module.c'; then $(CYGPATH_W) 'gnome-settings-module.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-module.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_settings_daemon-gnome-settings-module.Tpo $(DEPDIR)/gnome_settings_daemon-gnome-settings-module.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-settings-module.c' object='gnome_settings_daemon-gnome-settings-module.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_settings_daemon-cinnamon-settings-module.obj: cinnamon-settings-module.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -MT cinnamon_settings_daemon-cinnamon-settings-module.obj -MD -MP -MF $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-module.Tpo -c -o cinnamon_settings_daemon-cinnamon-settings-module.obj `if test -f 'cinnamon-settings-module.c'; then $(CYGPATH_W) 'cinnamon-settings-module.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-module.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-module.Tpo $(DEPDIR)/cinnamon_settings_daemon-cinnamon-settings-module.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-settings-module.c' object='cinnamon_settings_daemon-cinnamon-settings-module.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(gnome_settings_daemon_CFLAGS) $(CFLAGS) -c -o gnome_settings_daemon-gnome-settings-module.obj `if test -f 'gnome-settings-module.c'; then $(CYGPATH_W) 'gnome-settings-module.c'; else $(CYGPATH_W) '$(srcdir)/gnome-settings-module.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_settings_daemon_CPPFLAGS) $(CPPFLAGS) $(cinnamon_settings_daemon_CFLAGS) $(CFLAGS) -c -o cinnamon_settings_daemon-cinnamon-settings-module.obj `if test -f 'cinnamon-settings-module.c'; then $(CYGPATH_W) 'cinnamon-settings-module.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-settings-module.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -831,7 +831,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(privlibdir)" "$(DESTDIR)$(gsddir)" "$(DESTDIR)$(apidir)"; do \
+	for dir in "$(DESTDIR)$(privlibdir)" "$(DESTDIR)$(csddir)" "$(DESTDIR)$(apidir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -866,7 +866,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-gsdPROGRAMS clean-libtool \
+clean-am: clean-generic clean-csdPROGRAMS clean-libtool \
 	clean-privlibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
@@ -887,7 +887,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-apiDATA install-gsdPROGRAMS \
+install-data-am: install-apiDATA install-csdPROGRAMS \
 	install-privlibLTLIBRARIES
 
 install-dvi: install-dvi-am
@@ -934,18 +934,18 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-apiDATA uninstall-gsdPROGRAMS \
+uninstall-am: uninstall-apiDATA uninstall-csdPROGRAMS \
 	uninstall-privlibLTLIBRARIES
 
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-gsdPROGRAMS clean-libtool clean-privlibLTLIBRARIES \
+	clean-csdPROGRAMS clean-libtool clean-privlibLTLIBRARIES \
 	cscopelist ctags distclean distclean-compile distclean-generic \
 	distclean-libtool distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-apiDATA \
 	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-gsdPROGRAMS install-html \
+	install-exec install-exec-am install-csdPROGRAMS install-html \
 	install-html-am install-info install-info-am install-man \
 	install-pdf install-pdf-am install-privlibLTLIBRARIES \
 	install-ps install-ps-am install-strip installcheck \
@@ -953,7 +953,7 @@ uninstall-am: uninstall-apiDATA uninstall-gsdPROGRAMS \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-apiDATA \
-	uninstall-gsdPROGRAMS uninstall-privlibLTLIBRARIES
+	uninstall-csdPROGRAMS uninstall-privlibLTLIBRARIES
 
 
 # vim: ts=8

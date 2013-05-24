@@ -33,23 +33,23 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-pnp-ids.h>
 
-#include "gnome-settings-plugin-info.h"
-#include "gnome-settings-manager.h"
-#include "gnome-settings-profile.h"
+#include "cinnamon-settings-plugin-info.h"
+#include "cinnamon-settings-manager.h"
+#include "cinnamon-settings-profile.h"
 
-#define GSD_MANAGER_DBUS_PATH "/org/gnome/SettingsDaemon"
-#define GSD_MANAGER_DBUS_NAME "org.gnome.SettingsDaemon"
+#define CSD_MANAGER_DBUS_PATH "/org/cinnamon/SettingsDaemon"
+#define CSD_MANAGER_DBUS_NAME "org.cinnamon.SettingsDaemon"
 
-#define DEFAULT_SETTINGS_PREFIX "org.gnome.settings-daemon"
+#define DEFAULT_SETTINGS_PREFIX "org.cinnamon.settings-daemon"
 
-#define PLUGIN_EXT ".gnome-settings-plugin"
+#define PLUGIN_EXT ".cinnamon-settings-plugin"
 
-#define GNOME_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_SETTINGS_MANAGER, GnomeSettingsManagerPrivate))
+#define CINNAMON_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_SETTINGS_MANAGER, CinnamonSettingsManagerPrivate))
 
 static const gchar introspection_xml[] =
-"<node name='/org/gnome/SettingsDaemon'>"
-"  <interface name='org.gnome.SettingsDaemon'>"
-"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gnome_settings_manager'/>"
+"<node name='/org/cinnamon/SettingsDaemon'>"
+"  <interface name='org.cinnamon.SettingsDaemon'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='cinnamon_settings_manager'/>"
 "    <signal name='PluginActivated'>"
 "      <arg name='name' type='s'/>"
 "    </signal>"
@@ -59,7 +59,7 @@ static const gchar introspection_xml[] =
 "  </interface>"
 "</node>";
 
-struct GnomeSettingsManagerPrivate
+struct CinnamonSettingsManagerPrivate
 {
         guint                       owner_id;
         GDBusNodeInfo              *introspection_data;
@@ -69,50 +69,50 @@ struct GnomeSettingsManagerPrivate
         GSList                     *plugins;
 };
 
-static void     gnome_settings_manager_class_init  (GnomeSettingsManagerClass *klass);
-static void     gnome_settings_manager_init        (GnomeSettingsManager      *settings_manager);
-static void     gnome_settings_manager_finalize    (GObject                   *object);
+static void     cinnamon_settings_manager_class_init  (CinnamonSettingsManagerClass *klass);
+static void     cinnamon_settings_manager_init        (CinnamonSettingsManager      *settings_manager);
+static void     cinnamon_settings_manager_finalize    (GObject                   *object);
 
-G_DEFINE_TYPE (GnomeSettingsManager, gnome_settings_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CinnamonSettingsManager, cinnamon_settings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 GQuark
-gnome_settings_manager_error_quark (void)
+cinnamon_settings_manager_error_quark (void)
 {
         static GQuark ret = 0;
         if (ret == 0) {
-                ret = g_quark_from_static_string ("gnome_settings_manager_error");
+                ret = g_quark_from_static_string ("cinnamon_settings_manager_error");
         }
 
         return ret;
 }
 
 static void
-maybe_activate_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
+maybe_activate_plugin (CinnamonSettingsPluginInfo *info, gpointer user_data)
 {
-        if (gnome_settings_plugin_info_get_enabled (info)) {
+        if (cinnamon_settings_plugin_info_get_enabled (info)) {
                 gboolean res;
-                res = gnome_settings_plugin_info_activate (info);
+                res = cinnamon_settings_plugin_info_activate (info);
                 if (res) {
-                        g_debug ("Plugin %s: active", gnome_settings_plugin_info_get_location (info));
+                        g_debug ("Plugin %s: active", cinnamon_settings_plugin_info_get_location (info));
                 } else {
-                        g_debug ("Plugin %s: activation failed", gnome_settings_plugin_info_get_location (info));
+                        g_debug ("Plugin %s: activation failed", cinnamon_settings_plugin_info_get_location (info));
                 }
         } else {
-                g_debug ("Plugin %s: inactive", gnome_settings_plugin_info_get_location (info));
+                g_debug ("Plugin %s: inactive", cinnamon_settings_plugin_info_get_location (info));
         }
 }
 
 static gint
-compare_location (GnomeSettingsPluginInfo *a,
-                  GnomeSettingsPluginInfo *b)
+compare_location (CinnamonSettingsPluginInfo *a,
+                  CinnamonSettingsPluginInfo *b)
 {
         const char *loc_a;
         const char *loc_b;
 
-        loc_a = gnome_settings_plugin_info_get_location (a);
-        loc_b = gnome_settings_plugin_info_get_location (b);
+        loc_a = cinnamon_settings_plugin_info_get_location (a);
+        loc_b = cinnamon_settings_plugin_info_get_location (b);
 
         if (loc_a == NULL || loc_b == NULL) {
                 return -1;
@@ -122,20 +122,20 @@ compare_location (GnomeSettingsPluginInfo *a,
 }
 
 static int
-compare_priority (GnomeSettingsPluginInfo *a,
-                  GnomeSettingsPluginInfo *b)
+compare_priority (CinnamonSettingsPluginInfo *a,
+                  CinnamonSettingsPluginInfo *b)
 {
         int prio_a;
         int prio_b;
 
-        prio_a = gnome_settings_plugin_info_get_priority (a);
-        prio_b = gnome_settings_plugin_info_get_priority (b);
+        prio_a = cinnamon_settings_plugin_info_get_priority (a);
+        prio_b = cinnamon_settings_plugin_info_get_priority (b);
 
         return prio_a - prio_b;
 }
 
 static void
-emit_signal (GnomeSettingsManager    *manager,
+emit_signal (CinnamonSettingsManager    *manager,
              const char              *signal,
              const char              *name)
 {
@@ -148,8 +148,8 @@ emit_signal (GnomeSettingsManager    *manager,
 
         if (g_dbus_connection_emit_signal (manager->priv->connection,
                                            NULL,
-                                           GSD_MANAGER_DBUS_PATH,
-                                           GSD_MANAGER_DBUS_NAME,
+                                           CSD_MANAGER_DBUS_PATH,
+                                           CSD_MANAGER_DBUS_NAME,
                                            "PluginActivated",
                                            g_variant_new ("(s)", name),
                                            &error) == FALSE) {
@@ -160,24 +160,24 @@ emit_signal (GnomeSettingsManager    *manager,
 }
 
 static void
-on_plugin_activated (GnomeSettingsPluginInfo *info,
-                     GnomeSettingsManager    *manager)
+on_plugin_activated (CinnamonSettingsPluginInfo *info,
+                     CinnamonSettingsManager    *manager)
 {
         const char *name;
 
-        name = gnome_settings_plugin_info_get_location (info);
-        g_debug ("GnomeSettingsManager: emitting plugin-activated %s", name);
+        name = cinnamon_settings_plugin_info_get_location (info);
+        g_debug ("CinnamonSettingsManager: emitting plugin-activated %s", name);
         emit_signal (manager, "PluginActivated", name);
 }
 
 static void
-on_plugin_deactivated (GnomeSettingsPluginInfo *info,
-                       GnomeSettingsManager    *manager)
+on_plugin_deactivated (CinnamonSettingsPluginInfo *info,
+                       CinnamonSettingsManager    *manager)
 {
         const char *name;
 
-        name = gnome_settings_plugin_info_get_location (info);
-        g_debug ("GnomeSettingsManager: emitting plugin-deactivated %s", name);
+        name = cinnamon_settings_plugin_info_get_location (info);
+        g_debug ("CinnamonSettingsManager: emitting plugin-deactivated %s", name);
         emit_signal (manager, "PluginDeactivated", name);
 }
 
@@ -202,17 +202,17 @@ is_schema (const char *schema)
 
 
 static void
-_load_file (GnomeSettingsManager *manager,
+_load_file (CinnamonSettingsManager *manager,
             const char           *filename)
 {
-        GnomeSettingsPluginInfo *info;
+        CinnamonSettingsPluginInfo *info;
         char                    *key_name;
         GSList                  *l;
 
         g_debug ("Loading plugin: %s", filename);
-        gnome_settings_profile_start ("%s", filename);
+        cinnamon_settings_profile_start ("%s", filename);
 
-        info = gnome_settings_plugin_info_new_from_file (filename);
+        info = cinnamon_settings_plugin_info_new_from_file (filename);
         if (info == NULL) {
                 goto out;
         }
@@ -226,7 +226,7 @@ _load_file (GnomeSettingsManager *manager,
 
         key_name = g_strdup_printf ("%s.plugins.%s",
                                     DEFAULT_SETTINGS_PREFIX,
-                                    gnome_settings_plugin_info_get_location (info));
+                                    cinnamon_settings_plugin_info_get_location (info));
 
         /* Ignore unknown schemas or else we'll assert */
         if (is_schema (key_name)) {
@@ -238,7 +238,7 @@ _load_file (GnomeSettingsManager *manager,
                 g_signal_connect (info, "deactivated",
                                   G_CALLBACK (on_plugin_deactivated), manager);
 
-                gnome_settings_plugin_info_set_settings_prefix (info, key_name);
+                cinnamon_settings_plugin_info_set_settings_prefix (info, key_name);
         } else {
                 g_warning ("Ignoring unknown module '%s'", key_name);
         }
@@ -251,11 +251,11 @@ _load_file (GnomeSettingsManager *manager,
                 g_object_unref (info);
         }
 
-        gnome_settings_profile_end ("%s", filename);
+        cinnamon_settings_profile_end ("%s", filename);
 }
 
 static void
-_load_dir (GnomeSettingsManager *manager,
+_load_dir (CinnamonSettingsManager *manager,
            const char           *path)
 {
         GError     *error;
@@ -263,7 +263,7 @@ _load_dir (GnomeSettingsManager *manager,
         const char *name;
 
         g_debug ("Loading settings plugins from dir: %s", path);
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         error = NULL;
         d = g_dir_open (path, 0, &error);
@@ -289,33 +289,33 @@ _load_dir (GnomeSettingsManager *manager,
 
         g_dir_close (d);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
-_load_all (GnomeSettingsManager *manager)
+_load_all (CinnamonSettingsManager *manager)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         /* load system plugins */
-        _load_dir (manager, GNOME_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
+        _load_dir (manager, CINNAMON_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
 
         manager->priv->plugins = g_slist_sort (manager->priv->plugins, (GCompareFunc) compare_priority);
         g_slist_foreach (manager->priv->plugins, (GFunc) maybe_activate_plugin, NULL);
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
-_unload_plugin (GnomeSettingsPluginInfo *info, gpointer user_data)
+_unload_plugin (CinnamonSettingsPluginInfo *info, gpointer user_data)
 {
-        if (gnome_settings_plugin_info_get_enabled (info)) {
-                gnome_settings_plugin_info_deactivate (info);
+        if (cinnamon_settings_plugin_info_get_enabled (info)) {
+                cinnamon_settings_plugin_info_deactivate (info);
         }
         g_object_unref (info);
 }
 
 static void
-_unload_all (GnomeSettingsManager *manager)
+_unload_all (CinnamonSettingsManager *manager)
 {
          g_slist_foreach (manager->priv->plugins, (GFunc) _unload_plugin, NULL);
          g_slist_free (manager->priv->plugins);
@@ -325,7 +325,7 @@ _unload_all (GnomeSettingsManager *manager)
 static void
 on_bus_gotten (GObject             *source_object,
                GAsyncResult        *res,
-               GnomeSettingsManager *manager)
+               CinnamonSettingsManager *manager)
 {
         GDBusConnection *connection;
         GError *error = NULL;
@@ -339,7 +339,7 @@ on_bus_gotten (GObject             *source_object,
         manager->priv->connection = connection;
 
         g_dbus_connection_register_object (connection,
-                                           GSD_MANAGER_DBUS_PATH,
+                                           CSD_MANAGER_DBUS_PATH,
                                            manager->priv->introspection_data->interfaces[0],
                                            NULL,
                                            NULL,
@@ -348,7 +348,7 @@ on_bus_gotten (GObject             *source_object,
 }
 
 static void
-register_manager (GnomeSettingsManager *manager)
+register_manager (CinnamonSettingsManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (manager->priv->introspection_data != NULL);
@@ -360,7 +360,7 @@ register_manager (GnomeSettingsManager *manager)
 }
 
 gboolean
-gnome_settings_manager_start (GnomeSettingsManager *manager,
+cinnamon_settings_manager_start (CinnamonSettingsManager *manager,
                               GError              **error)
 {
         gboolean ret;
@@ -369,13 +369,13 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
 
         ret = FALSE;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         if (!g_module_supported ()) {
-                g_warning ("gnome-settings-daemon is not able to initialize the plugins.");
+                g_warning ("cinnamon-settings-daemon is not able to initialize the plugins.");
                 g_set_error (error,
-                             GNOME_SETTINGS_MANAGER_ERROR,
-                             GNOME_SETTINGS_MANAGER_ERROR_GENERAL,
+                             CINNAMON_SETTINGS_MANAGER_ERROR,
+                             CINNAMON_SETTINGS_MANAGER_ERROR_GENERAL,
                              "Plugins not supported");
 
                 goto out;
@@ -384,21 +384,21 @@ gnome_settings_manager_start (GnomeSettingsManager *manager,
         g_debug ("loading PNPIDs");
         manager->priv->pnp_ids = gnome_pnp_ids_new ();
 
-        gnome_settings_profile_start ("initializing plugins");
+        cinnamon_settings_profile_start ("initializing plugins");
         manager->priv->settings = g_settings_new (DEFAULT_SETTINGS_PREFIX ".plugins");
 
         _load_all (manager);
-        gnome_settings_profile_end ("initializing plugins");
+        cinnamon_settings_profile_end ("initializing plugins");
 
         ret = TRUE;
  out:
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return ret;
 }
 
 void
-gnome_settings_manager_stop (GnomeSettingsManager *manager)
+cinnamon_settings_manager_stop (CinnamonSettingsManager *manager)
 {
         g_debug ("Stopping settings manager");
 
@@ -414,62 +414,62 @@ gnome_settings_manager_stop (GnomeSettingsManager *manager)
 }
 
 static void
-gnome_settings_manager_dispose (GObject *object)
+cinnamon_settings_manager_dispose (GObject *object)
 {
-        GnomeSettingsManager *manager;
+        CinnamonSettingsManager *manager;
 
-        manager = GNOME_SETTINGS_MANAGER (object);
+        manager = CINNAMON_SETTINGS_MANAGER (object);
 
-        gnome_settings_manager_stop (manager);
+        cinnamon_settings_manager_stop (manager);
 
-        G_OBJECT_CLASS (gnome_settings_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (cinnamon_settings_manager_parent_class)->dispose (object);
 }
 
 static void
-gnome_settings_manager_class_init (GnomeSettingsManagerClass *klass)
+cinnamon_settings_manager_class_init (CinnamonSettingsManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->dispose = gnome_settings_manager_dispose;
-        object_class->finalize = gnome_settings_manager_finalize;
+        object_class->dispose = cinnamon_settings_manager_dispose;
+        object_class->finalize = cinnamon_settings_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GnomeSettingsManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CinnamonSettingsManagerPrivate));
 }
 
 static void
-gnome_settings_manager_init (GnomeSettingsManager *manager)
+cinnamon_settings_manager_init (CinnamonSettingsManager *manager)
 {
 
-        manager->priv = GNOME_SETTINGS_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CINNAMON_SETTINGS_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gnome_settings_manager_finalize (GObject *object)
+cinnamon_settings_manager_finalize (GObject *object)
 {
-        GnomeSettingsManager *manager;
+        CinnamonSettingsManager *manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GNOME_IS_SETTINGS_MANAGER (object));
+        g_return_if_fail (CINNAMON_IS_SETTINGS_MANAGER (object));
 
-        manager = GNOME_SETTINGS_MANAGER (object);
+        manager = CINNAMON_SETTINGS_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
 
-        G_OBJECT_CLASS (gnome_settings_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (cinnamon_settings_manager_parent_class)->finalize (object);
 }
 
-GnomeSettingsManager *
-gnome_settings_manager_new (void)
+CinnamonSettingsManager *
+cinnamon_settings_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GNOME_TYPE_SETTINGS_MANAGER,
+                manager_object = g_object_new (CINNAMON_TYPE_SETTINGS_MANAGER,
                                                NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
                 register_manager (manager_object);
         }
 
-        return GNOME_SETTINGS_MANAGER (manager_object);
+        return CINNAMON_SETTINGS_MANAGER (manager_object);
 }

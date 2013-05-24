@@ -20,18 +20,18 @@
 
 #include "config.h"
 
-#include "gnome-settings-module.h"
+#include "cinnamon-settings-module.h"
 
 #include <gmodule.h>
 
-typedef struct _GnomeSettingsModuleClass GnomeSettingsModuleClass;
+typedef struct _CinnamonSettingsModuleClass CinnamonSettingsModuleClass;
 
-struct _GnomeSettingsModuleClass
+struct _CinnamonSettingsModuleClass
 {
         GTypeModuleClass parent_class;
 };
 
-struct _GnomeSettingsModule
+struct _CinnamonSettingsModule
 {
         GTypeModule parent_instance;
 
@@ -41,18 +41,18 @@ struct _GnomeSettingsModule
         GType       type;
 };
 
-typedef GType (*GnomeSettingsModuleRegisterFunc) (GTypeModule *);
+typedef GType (*CinnamonSettingsModuleRegisterFunc) (GTypeModule *);
 
-G_DEFINE_TYPE (GnomeSettingsModule, gnome_settings_module, G_TYPE_TYPE_MODULE)
+G_DEFINE_TYPE (CinnamonSettingsModule, cinnamon_settings_module, G_TYPE_TYPE_MODULE)
 
 static gboolean
-gnome_settings_module_load (GTypeModule *gmodule)
+cinnamon_settings_module_load (GTypeModule *gmodule)
 {
-        GnomeSettingsModule            *module;
-        GnomeSettingsModuleRegisterFunc register_func;
+        CinnamonSettingsModule            *module;
+        CinnamonSettingsModuleRegisterFunc register_func;
         gboolean                        res;
 
-        module = GNOME_SETTINGS_MODULE (gmodule);
+        module = CINNAMON_SETTINGS_MODULE (gmodule);
 
         g_debug ("Loading %s", module->path);
 
@@ -65,7 +65,7 @@ gnome_settings_module_load (GTypeModule *gmodule)
         }
 
         /* extract symbols from the lib */
-        res = g_module_symbol (module->library, "register_gnome_settings_plugin", (void *) &register_func);
+        res = g_module_symbol (module->library, "register_cinnamon_settings_plugin", (void *) &register_func);
         if (! res) {
                 g_warning ("%s", g_module_error ());
                 g_module_close (module->library);
@@ -86,9 +86,9 @@ gnome_settings_module_load (GTypeModule *gmodule)
 }
 
 static void
-gnome_settings_module_unload (GTypeModule *gmodule)
+cinnamon_settings_module_unload (GTypeModule *gmodule)
 {
-        GnomeSettingsModule *module = GNOME_SETTINGS_MODULE (gmodule);
+        CinnamonSettingsModule *module = CINNAMON_SETTINGS_MODULE (gmodule);
 
         g_debug ("Unloading %s", module->path);
 
@@ -99,15 +99,15 @@ gnome_settings_module_unload (GTypeModule *gmodule)
 }
 
 const gchar *
-gnome_settings_module_get_path (GnomeSettingsModule *module)
+cinnamon_settings_module_get_path (CinnamonSettingsModule *module)
 {
-        g_return_val_if_fail (GNOME_IS_SETTINGS_MODULE (module), NULL);
+        g_return_val_if_fail (CINNAMON_IS_SETTINGS_MODULE (module), NULL);
 
         return module->path;
 }
 
 GObject *
-gnome_settings_module_new_object (GnomeSettingsModule *module)
+cinnamon_settings_module_new_object (CinnamonSettingsModule *module)
 {
         g_debug ("Creating object of type %s", g_type_name (module->type));
 
@@ -119,45 +119,45 @@ gnome_settings_module_new_object (GnomeSettingsModule *module)
 }
 
 static void
-gnome_settings_module_init (GnomeSettingsModule *module)
+cinnamon_settings_module_init (CinnamonSettingsModule *module)
 {
-        g_debug ("GnomeSettingsModule %p initialising", module);
+        g_debug ("CinnamonSettingsModule %p initialising", module);
 }
 
 static void
-gnome_settings_module_finalize (GObject *object)
+cinnamon_settings_module_finalize (GObject *object)
 {
-        GnomeSettingsModule *module = GNOME_SETTINGS_MODULE (object);
+        CinnamonSettingsModule *module = CINNAMON_SETTINGS_MODULE (object);
 
-        g_debug ("GnomeSettingsModule %p finalizing", module);
+        g_debug ("CinnamonSettingsModule %p finalizing", module);
 
         g_free (module->path);
 
-        G_OBJECT_CLASS (gnome_settings_module_parent_class)->finalize (object);
+        G_OBJECT_CLASS (cinnamon_settings_module_parent_class)->finalize (object);
 }
 
 static void
-gnome_settings_module_class_init (GnomeSettingsModuleClass *class)
+cinnamon_settings_module_class_init (CinnamonSettingsModuleClass *class)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (class);
         GTypeModuleClass *module_class = G_TYPE_MODULE_CLASS (class);
 
-        object_class->finalize = gnome_settings_module_finalize;
+        object_class->finalize = cinnamon_settings_module_finalize;
 
-        module_class->load = gnome_settings_module_load;
-        module_class->unload = gnome_settings_module_unload;
+        module_class->load = cinnamon_settings_module_load;
+        module_class->unload = cinnamon_settings_module_unload;
 }
 
-GnomeSettingsModule *
-gnome_settings_module_new (const char *path)
+CinnamonSettingsModule *
+cinnamon_settings_module_new (const char *path)
 {
-        GnomeSettingsModule *result;
+        CinnamonSettingsModule *result;
 
         if (path == NULL || path[0] == '\0') {
                 return NULL;
         }
 
-        result = g_object_new (GNOME_TYPE_SETTINGS_MODULE, NULL);
+        result = g_object_new (CINNAMON_TYPE_SETTINGS_MODULE, NULL);
 
         g_type_module_set_name (G_TYPE_MODULE (result), path);
         result->path = g_strdup (path);

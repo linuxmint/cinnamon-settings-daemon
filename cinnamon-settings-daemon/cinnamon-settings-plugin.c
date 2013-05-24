@@ -21,41 +21,41 @@
 
 #include "config.h"
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
-G_DEFINE_TYPE (GnomeSettingsPlugin, gnome_settings_plugin, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CinnamonSettingsPlugin, cinnamon_settings_plugin, G_TYPE_OBJECT)
 
 static void
-dummy (GnomeSettingsPlugin *plugin)
+dummy (CinnamonSettingsPlugin *plugin)
 {
         /* Empty */
 }
 
 static void
-gnome_settings_plugin_class_init (GnomeSettingsPluginClass *klass)
+cinnamon_settings_plugin_class_init (CinnamonSettingsPluginClass *klass)
 {
         klass->activate = dummy;
         klass->deactivate = dummy;
 }
 
 static void
-gnome_settings_plugin_init (GnomeSettingsPlugin *plugin)
+cinnamon_settings_plugin_init (CinnamonSettingsPlugin *plugin)
 {
         /* Empty */
 }
 
 void
-gnome_settings_plugin_activate (GnomeSettingsPlugin *plugin)
+cinnamon_settings_plugin_activate (CinnamonSettingsPlugin *plugin)
 {
-        g_return_if_fail (GNOME_IS_SETTINGS_PLUGIN (plugin));
+        g_return_if_fail (CINNAMON_IS_SETTINGS_PLUGIN (plugin));
 
-        GNOME_SETTINGS_PLUGIN_GET_CLASS (plugin)->activate (plugin);
+        CINNAMON_SETTINGS_PLUGIN_GET_CLASS (plugin)->activate (plugin);
 }
 
 void
-gnome_settings_plugin_deactivate  (GnomeSettingsPlugin *plugin)
+cinnamon_settings_plugin_deactivate  (CinnamonSettingsPlugin *plugin)
 {
-        g_return_if_fail (GNOME_IS_SETTINGS_PLUGIN (plugin));
+        g_return_if_fail (CINNAMON_IS_SETTINGS_PLUGIN (plugin));
 
-        GNOME_SETTINGS_PLUGIN_GET_CLASS (plugin)->deactivate (plugin);
+        CINNAMON_SETTINGS_PLUGIN_GET_CLASS (plugin)->deactivate (plugin);
 }

@@ -2,9 +2,9 @@ NULL =
 
 INCLUDES = \
 	-DDATADIR=\""$(datadir)"\"				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
-	-DGNOME_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
+	-DCINNAMON_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	$(SETTINGS_DAEMON_CFLAGS)				\
@@ -13,69 +13,69 @@ INCLUDES = \
 	$(SYSTEMD_CFLAGS)					\
 	$(NULL)
 
-privlibdir = $(pkglibdir)-$(GSD_API_VERSION)
+privlibdir = $(pkglibdir)-$(CSD_API_VERSION)
 
 privlib_LTLIBRARIES =		\
-	libgsd.la		\
+	libcsd.la		\
 	$(NULL)
 
-libgsd_la_SOURCES =		\
-	gnome-settings-profile.c	\
-	gnome-settings-profile.h	\
-	gnome-settings-session.c	\
-	gnome-settings-session.h	\
+libcsd_la_SOURCES =		\
+	cinnamon-settings-profile.c	\
+	cinnamon-settings-profile.h	\
+	cinnamon-settings-session.c	\
+	cinnamon-settings-session.h	\
 	$(NULL)
 
-libgsd_la_CPPFLAGS = 		\
+libcsd_la_CPPFLAGS = 		\
 	$(DISABLE_DEPRECATED_CFLAGS)	\
 	$(NULL)
 
-libgsd_la_CFLAGS =		\
+libcsd_la_CFLAGS =		\
 	$(NULL)
 
-libgsd_la_LIBADD =		\
+libcsd_la_LIBADD =		\
 	$(SYSTEMD_LIBS)		\
 	$(GIOUNIX_LIBS)		\
 	$(NULL)
 
-libgsd_la_LDFLAGS =		\
+libcsd_la_LDFLAGS =		\
 	-export-dynamic		\
 	-avoid-version		\
 	-no-undefined		\
 	$(NULL)
 
-gsddir = $(libexecdir)
+csddir = $(libexecdir)
 
-gsd_PROGRAMS = \
-	gnome-settings-daemon
+csd_PROGRAMS = \
+	cinnamon-settings-daemon
 
-apidir   = $(includedir)/gnome-settings-daemon-$(GSD_API_VERSION)/gnome-settings-daemon
+apidir   = $(includedir)/cinnamon-settings-daemon-$(CSD_API_VERSION)/cinnamon-settings-daemon
 api_DATA = 				\
-	gnome-settings-plugin.h
+	cinnamon-settings-plugin.h
 
-gnome_settings_daemon_SOURCES =		\
+cinnamon_settings_daemon_SOURCES =		\
 	main.c				\
-	gnome-settings-manager.c	\
-	gnome-settings-manager.h	\
-	gnome-settings-plugin.c		\
-	gnome-settings-plugin.h		\
-	gnome-settings-plugin-info.c	\
-	gnome-settings-plugin-info.h	\
-	gnome-settings-module.c		\
-	gnome-settings-module.h		\
+	cinnamon-settings-manager.c	\
+	cinnamon-settings-manager.h	\
+	cinnamon-settings-plugin.c		\
+	cinnamon-settings-plugin.h		\
+	cinnamon-settings-plugin-info.c	\
+	cinnamon-settings-plugin-info.h	\
+	cinnamon-settings-module.c		\
+	cinnamon-settings-module.h		\
 	$(NULL)
 
-gnome_settings_daemon_CPPFLAGS = \
+cinnamon_settings_daemon_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
-gnome_settings_daemon_CFLAGS = 		\
+cinnamon_settings_daemon_CFLAGS = 		\
 	$(AM_CFLAGS)
 
-gnome_settings_daemon_LDFLAGS = 	\
+cinnamon_settings_daemon_LDFLAGS = 	\
 	$(AM_LDFLAGS)
 
-gnome_settings_daemon_LDADD = 		\
-	libgsd.la		\
+cinnamon_settings_daemon_LDADD = 		\
+	libcsd.la		\
 	$(SETTINGS_DAEMON_LIBS)		\
 	$(LIBNOTIFY_LIBS)		\
 	$(GNOME_DESKTOP_LIBS)		\
