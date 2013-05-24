@@ -1,6 +1,6 @@
-# Slovak translation for gnome-settings-daemon.
+# Slovak translation for cinnamon-settings-daemon.
 # Copyright (C) 2000-2005, 2007-2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 # Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>, 2000-2004.
 # Marcel Telka <marcel@telka.sk>, 2005.
 # Peter Tuharsky <tuharsky@misbb.sk>, 2007.
@@ -9,7 +9,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-05-25 17:49+0000\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 "X-Poedit-Language: Slovak\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Démon nastavení GNOME"
 
 # summary
@@ -192,9 +192,9 @@ msgstr "Aktivácia tohto zásuvného modulu"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
-"Či má byť tento zásuvný modul aktivovaný programom gnome-settings-daemon "
+"Či má byť tento zásuvný modul aktivovaný programom cinnamon-settings-daemon "
 "alebo nie"
 
 # summary
@@ -226,7 +226,7 @@ msgstr "Priorita tohto zásuvného modulu"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "Priorita, ktorá sa má pre tento modul použiť v rade spúšťania programom gnome-"
 "settings-daemon"
@@ -1382,22 +1382,22 @@ msgstr ""
 "okrem podmienených a vynútene zakázaných. "
 
 # Popis voľby príkazového riadka
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Povoliť ladiaci kód"
 
 # Popis voľby príkazového riadka
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Ukončí sa po určitom čase (vhodné pre ladenie)"
 
 # Name
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Prístupnosť klávesnice"
 
 # Description
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Modul prístupnosti klávesnice"
 
@@ -1572,12 +1572,12 @@ msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Stlačiť a po_držať klávesy pre ich prijatie (pomalé klávesy)"
 
 # plugin name
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Nastavenia pristupnosti"
 
 # plugin desc
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Modul pre nastavenie prístupnosti"
 
@@ -1740,33 +1740,33 @@ msgid "_Unmount"
 msgstr "_Odpojiť"
 
 # plugin name
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Pozadie"
 
 # plugin desc
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Modul Pozadie"
 
 # plugin name
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Schránka"
 
 # plugin desc
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Modul Schránka"
 
 # plugin name
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1757
 msgid "Color"
 msgstr "Farba"
 
 # plugin desc
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Modul Farba"
 
@@ -1796,7 +1796,7 @@ msgstr "Tlačiareň „%s“ by mala byť čoskoro rekalibrovaná."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2149
 #: ../plugins/color/gsd-color-manager.c:2165
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Modul Farba pre Démon nastavení GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1810,12 +1810,12 @@ msgid "Color calibration device removed"
 msgstr "Odobrané zariadenie pre kalibráciu farieb"
 
 # plugin name
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Atrapa"
 
 # Plugin desc
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Modul Atrapa"
 
@@ -1980,7 +1980,7 @@ msgstr "Nastavenia regiónu a jazyka"
 
 # BUG: https://bugzilla.gnome.org/show_bug.cgi?id=669732
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1989,7 +1989,7 @@ msgstr[1] "Klávesnica"
 msgstr[2] "Klávesnice"
 
 # plugin desc
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Modul Klávesnica"
 
@@ -2025,12 +2025,12 @@ msgid "System Sounds"
 msgstr "Systémové zvuky"
 
 # plugin name
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Multimediálne klávesy"
 
 # plugin desc
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Modul Multimediálne klávesy"
 
@@ -2047,7 +2047,7 @@ msgstr ""
 
 # BUG: https://bugzilla.gnome.org/show_bug.cgi?id=669732
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
 msgid "Mouse"
 msgid_plural "Mice"
@@ -2056,7 +2056,7 @@ msgstr[1] "Myš"
 msgstr[2] "Myši"
 
 # plugin desc
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Modul Myš"
 
@@ -2606,7 +2606,7 @@ msgstr "Záložný zdroj vydrží %s"
 #: ../plugins/power/gsd-power-manager.c:1427
 #: ../plugins/power/gsd-power-manager.c:1608
 #: ../plugins/power/gsd-power-manager.c:1757
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Napájanie"
 
@@ -2957,7 +2957,7 @@ msgid "Authentication is required to modify the laptop brightness"
 msgstr "Na úpravu jasu notebooku sa vyžaduje overenie totožnosti "
 
 # plugin desc
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Modul Napájanie"
 
@@ -3193,12 +3193,12 @@ msgid "Printer '%s': '%s'."
 msgstr "Tlačiareň „%s“: „%s“"
 
 # plugin name
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Oznámenia tlače"
 
 # plugin desc
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Modul Oznámenia tlače"
 
@@ -3562,21 +3562,21 @@ msgid "Could not apply the stored configuration for monitors"
 msgstr "Nie je možné použiť uložené nastavenia pre monitory"
 
 # plugin name
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
 # plugin desc
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Nastavenia veľkosti a rotácie obrazovky"
 
 # plugin name
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Nastavenia X"
 
 # plugin desc
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Spravovanie nastavenia X"

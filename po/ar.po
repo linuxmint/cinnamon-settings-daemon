@@ -1,4 +1,4 @@
-# translation of gnome-settings-daemon.HEAD.po to Arabic
+# translation of cinnamon-settings-daemon.HEAD.po to Arabic
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2003 THE PACKAGE'S COPYRIGHT HOLDER
 # Sayed Jaffer Al-Mosawi <mosawi@arabeyes.org>, 2002.
@@ -11,7 +11,7 @@
 # Abdelmonam Kouka <abdelmonam.kouka@ubuntume.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.HEAD\n"
+"Project-Id-Version: cinnamon-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-26 06:01+0200\n"
 "PO-Revision-Date: 2012-08-26 06:01+0200\n"
@@ -26,8 +26,8 @@ msgstr ""
 "X-Generator: Virtaal 0.7.0\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "عفريت إعدادات جنوم"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -158,7 +158,7 @@ msgstr "فعِّل هذه الملحقة"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
@@ -188,7 +188,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
@@ -1004,19 +1004,19 @@ msgid ""
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "فعّل كود تتبع الأخطاء"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "اخرج بعد مدة (للتنقيح)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "إتاحة لوحة المفاتيح"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "ملحق إتاحة لوحة المفاتيح"
 
@@ -1160,11 +1160,11 @@ msgstr "_تجاهل نقرات المفاتيح المكررة"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "اضغط وأم_سك الأزرار لتقبلهم (المفاتيح البطيئة)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "إعدادات الإتاحة"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "ملحقة إعدادات الإتاحة"
 
@@ -1296,28 +1296,28 @@ msgstr "أ_خرِج"
 msgid "_Unmount"
 msgstr "ا_فصل"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "الخلفية"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "ملحق الخلفية"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "الحافظة"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "ملحق الحافظة"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "الألوان"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "ملحق الألوان"
 
@@ -1345,7 +1345,7 @@ msgstr "الطابعة '%s' تحتاج لإعادة المعايرة في أقر
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "ملحقة ألوان عفريت إعدادات جنوم"
 
 #. TRANSLATORS: this is a sound description
@@ -1358,11 +1358,11 @@ msgstr "أضيف جهاز معايرة ألوان"
 msgid "Color calibration device removed"
 msgstr "أزيل جهاز معايرة الألوان"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "لا شيء"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "ملحق لا شيء"
 
@@ -1470,7 +1470,7 @@ msgid "Examine…"
 msgstr "افحص…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1481,7 +1481,7 @@ msgstr[3] "لوحات مفاتيح"
 msgstr[4] "لوحات مفاتيح"
 msgstr[5] "لوحات مفاتيح"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "ملحق لوحة المفاتيح"
 
@@ -1521,11 +1521,11 @@ msgstr[5] "%u إدخال"
 msgid "System Sounds"
 msgstr "أصوات النظام"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "مفاتيح الوسائط"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "ملحق مفاتيح الوسائط"
 
@@ -1539,7 +1539,7 @@ msgid ""
 msgstr "إتاحة الفأرة تتطلب تثبيت Mousetweaks على نظامك."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1550,7 +1550,7 @@ msgstr[3] "فأرات"
 msgstr[4] "فأرات"
 msgstr[5] "فأرات"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "ملحق الفأرة"
 
@@ -2131,7 +2131,7 @@ msgstr "‏%s باقي من طاقة مزود الطاقة اللامنقطعة"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "الطاقة"
 
@@ -2463,7 +2463,7 @@ msgstr "غيّر سطوع الحاسوب"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "الاستيثاق مطلوب لتغيير سطوع الحاسوب"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "ملحق الطاقة"
 
@@ -2696,11 +2696,11 @@ msgstr "تحذير من الطابعة"
 msgid "Printer '%s': '%s'."
 msgstr "الطابعة '%s': ‏'%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "تنبيهات الطباعة"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "ملحقة تنبيهات الطباعة"
 
@@ -3106,19 +3106,19 @@ msgstr "يحاول تبديل إعدادات الشاشة على أي حال."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "تعذّر تطبيق الإعدادات المحفوظة على الشاشات"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "اختر إعدادات حجم الشاشة والدوران"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "إعدادات X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "أدِر إعدادات X"
 

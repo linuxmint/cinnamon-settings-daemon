@@ -10,7 +10,7 @@ XSLTPROC_FLAGS = \
 	$(AM_V_GEN) $(XSLTPROC) $(XSLTPROC_FLAGS) http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
 
 man_MANS = \
-	gnome-settings-daemon.1
+	cinnamon-settings-daemon.1
 
 xml_files = $(man_MANS:.1=.xml)
 

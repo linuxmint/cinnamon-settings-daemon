@@ -1,5 +1,5 @@
-# gnome-settings-daemon Korean translation
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# cinnamon-settings-daemon Korean translation
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 #
 # Young-Ho Cha <ganadist@chollian.net>, 2002, 2006
 # Changwoo Ryu <cwryu@debian.org>, 2002-2006, 2007-2012.
@@ -9,7 +9,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
@@ -22,8 +22,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "그놈 설정 데몬"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -160,8 +160,8 @@ msgstr "이 플러그인 활성화"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "gnome-settings-daemon에서 플러그인을 활성화할지 여부"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "cinnamon-settings-daemon에서 플러그인을 활성화할지 여부"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -190,8 +190,8 @@ msgstr "이 플러그인 사용 우선 순위"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "gnome-settings-daemon 시작 대기열에서 이 플러그인 사용 우선 순위"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "cinnamon-settings-daemon 시작 대기열에서 이 플러그인 사용 우선 순위"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1034,19 +1034,19 @@ msgstr ""
 "읽어들일 GTK+ 모듈을 나타내는 문자열의 목록. 보통 조건에 따라 읽어들이거나 강"
 "제로 사용 금지할 모듈과 별개로 추가로 읽어들일 모듈."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "디버깅 코드 사용"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "일정 시간 후에 끝냅니다(디버깅 용도)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "접근성 키보드"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "접근성 키보드 플러그인"
 
@@ -1187,11 +1187,11 @@ msgstr "중복된 키 누름 무시(_I) (탄력 키)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "키를 오래 누르고 있어야 입력(_H) (느린 키)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "접근성 설정"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "접근성 설정 플러그인"
 
@@ -1323,28 +1323,28 @@ msgstr "꺼내기(_E)"
 msgid "_Unmount"
 msgstr "마운트 해제(_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "배경"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "배경 플러그인"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "클립보드"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "클립보드 플러그인"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "색"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "색 플러그인"
 
@@ -1372,7 +1372,7 @@ msgstr "곧 '%s' 프린터를 재조정해야 합니다."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "그놈 설정 데몬 색 플러그인"
 
 #. TRANSLATORS: this is a sound description
@@ -1385,11 +1385,11 @@ msgstr "색 조정 장치를 추가했습니다"
 msgid "Color calibration device removed"
 msgstr "색 조정 장치를 제거했습니다"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "더미"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "더미 플러그인"
 
@@ -1497,13 +1497,13 @@ msgid "Examine…"
 msgstr "검사…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "키보드"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "키보드 플러그인"
 
@@ -1533,11 +1533,11 @@ msgstr[0] "%u개 입력"
 msgid "System Sounds"
 msgstr "시스템 소리"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "미디어 키"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "미디어 키 플러그인"
 
@@ -1551,13 +1551,13 @@ msgid ""
 msgstr "마우스 접근성을 사용하려면 시스템에 Mousetweaks를 설치해야 합니다."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "마우스"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "마우스 플러그인"
 
@@ -2075,7 +2075,7 @@ msgstr "UPS 비상 전원 %s 남음"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "전원"
 
@@ -2410,7 +2410,7 @@ msgstr "노트북 밝기 수정"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "노트북 밝기를 수정하려면 인증이 필요합니다"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "전원 플러그인"
 
@@ -2643,11 +2643,11 @@ msgstr "프린터 경고"
 msgid "Printer '%s': '%s'."
 msgstr "프린터 '%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "인쇄 알림"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "인쇄 알림 플러그인"
 
@@ -3024,18 +3024,18 @@ msgstr "그래도 모니터 설정을 전환합니다."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "저장한 모니터 설정을 적용할 수 없습니다"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "화면 크기 및 회전 설정을 합니다"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X 설정"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X 설정 관리"

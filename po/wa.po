@@ -268,143 +268,143 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
+#: ../data/cinnamon-settings-daemon.schemas.in.h:1
 msgid "Enable accessibility keyboard plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/cinnamon-settings-daemon.schemas.in.h:2
 msgid "Enable background plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/cinnamon-settings-daemon.schemas.in.h:3
 msgid "Enable clipboard plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/cinnamon-settings-daemon.schemas.in.h:4
 msgid "Enable default editor plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/cinnamon-settings-daemon.schemas.in.h:5
 msgid "Enable font plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/cinnamon-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/cinnamon-settings-daemon.schemas.in.h:7
 msgid "Enable keyboard plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/cinnamon-settings-daemon.schemas.in.h:8
 msgid "Enable media keys plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/cinnamon-settings-daemon.schemas.in.h:9
 msgid "Enable mouse plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/cinnamon-settings-daemon.schemas.in.h:10
 #, fuzzy
 msgid "Enable screensaver plugin"
 msgstr "Waitroûle"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/cinnamon-settings-daemon.schemas.in.h:11
 msgid "Enable sound plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/cinnamon-settings-daemon.schemas.in.h:12
 msgid "Enable typing breaks plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/cinnamon-settings-daemon.schemas.in.h:13
 msgid "Enable xrandr plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/cinnamon-settings-daemon.schemas.in.h:14
 msgid "Enable xrdb plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/cinnamon-settings-daemon.schemas.in.h:15
 msgid "Enable xsettings plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/cinnamon-settings-daemon.schemas.in.h:16
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/cinnamon-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/cinnamon-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/cinnamon-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/cinnamon-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/cinnamon-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/cinnamon-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/cinnamon-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/cinnamon-settings-daemon.schemas.in.h:24
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/cinnamon-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the default text editor setting."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/cinnamon-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/cinnamon-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/cinnamon-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/cinnamon-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/cinnamon-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:49
+#: ../cinnamon-settings-daemon/main.c:49
 msgid "Don't become a daemon"
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../cinnamon-settings-daemon/main.c:50
 msgid "GConf prefix from which to load plugin settings"
 msgstr ""
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr ""
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr ""
 
@@ -476,36 +476,36 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr ""
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Background"
 msgstr "Fond"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr ""
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr ""
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr ""
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:1
 msgid "Font"
 msgstr "Fonte"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:2
 msgid "Font plugin"
 msgstr ""
 
@@ -564,19 +564,19 @@ msgid ""
 "which is linked to the key (%s)"
 msgstr ""
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr ""
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr ""
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "Taprece"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Keyboard plugin"
 msgstr "Rascourtis del taprece"
@@ -631,12 +631,12 @@ msgid ""
 "Verify that the machine is correctly configured."
 msgstr ""
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Media keys"
 msgstr "Sori"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr ""
 
@@ -654,11 +654,11 @@ msgstr ""
 msgid "Mouse Preferences"
 msgstr "Preferinces pol sori"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Sori"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr ""
 
@@ -676,12 +676,12 @@ msgstr ""
 msgid "_Do not show this message again"
 msgstr ""
 
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
+#: ../plugins/screensaver/screensaver.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Screensaver"
 msgstr "Waitroûle"
 
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
+#: ../plugins/screensaver/screensaver.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Screensaver plugin"
 msgstr "Waitroûle"
@@ -758,28 +758,28 @@ msgstr "Tchoezi on fitchî di son"
 msgid "System Sounds"
 msgstr "segondes"
 
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+#: ../plugins/sound/sound.cinnamon-settings-plugin.in.h:1
 msgid "Sound"
 msgstr "Son"
 
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+#: ../plugins/sound/sound.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Sound plugin"
 msgstr "Son"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:1
 msgid "Typing Break"
 msgstr ""
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:2
 msgid "Typing break plugin"
 msgstr ""
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr ""
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr ""
 
@@ -788,11 +788,11 @@ msgstr ""
 msgid "Cannot determine user's home directory"
 msgstr ""
 
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:1
 msgid "Manage the X resource database"
 msgstr ""
 
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:2
 msgid "X Resource Database"
 msgstr ""
 
@@ -801,12 +801,12 @@ msgstr ""
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Manage X Settings"
 msgstr "Sipepieus apontiaedjes"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "X Settings"
 msgstr "Sipepieus apontiaedjes"
@@ -1825,7 +1825,7 @@ msgstr "Sipepieus apontiaedjes"
 #~ msgid "Desktop Preferences"
 #~ msgstr "Preferinces del taprece"
 
-#~ msgid "GNOME Control Center"
+#~ msgid "Cinnamon Settings"
 #~ msgstr "Cinte di Contrôle di GNOME"
 
 #~ msgid "The GNOME configuration tool"

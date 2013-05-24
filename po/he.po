@@ -22,8 +22,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Hebrew\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "מנוע ההגדרות של GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -141,8 +141,8 @@ msgstr "Activation of this plugin"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -171,8 +171,8 @@ msgstr "Priority to use for this plugin"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -882,19 +882,19 @@ msgstr "List of explicitly enabled GTK+ modules"
 msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 msgstr "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Enable debugging code"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Exit after a time (for debugging)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "מקלדת נגישות"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "תוסף מקלדת נגישות"
 
@@ -1021,11 +1021,11 @@ msgstr "ה_תעלמות מלחיצות מקשים נשנות (הקפצת מקש�
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "יש ללחוץ ולהח_זיק כדי לקבלם (מקשים אטיים)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "הגדרות נגישות"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "תוסף הגדרות נגישות"
 
@@ -1151,28 +1151,28 @@ msgstr "_שליפה"
 msgid "_Unmount"
 msgstr "_ניתוק"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "רקע"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "תוסף רקע"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "לוח"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "תוסף לוח"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "צבע"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "תוסף צבע"
 
@@ -1200,7 +1200,7 @@ msgstr "יש לכייל את המדפסת '%s' מחדש בהקדם האפשרי.
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "תוסף הצבע של מנוע ההגדרות של GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1213,11 +1213,11 @@ msgstr "נוסף התקן כיול צבע"
 msgid "Color calibration device removed"
 msgstr "התקן כיול צבע הוסר"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "מדומה"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "תוסף מדומה"
 
@@ -1301,14 +1301,14 @@ msgid "Examine…"
 msgstr "בחינה…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "מקלדת"
 msgstr[1] "מקלדות"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "תוסף מקלדת"
 
@@ -1340,11 +1340,11 @@ msgstr[1] "%u קלטים"
 msgid "System Sounds"
 msgstr "צלילי מערכת"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "מקשי מדיה"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "תוסף מקשי מדיה"
 
@@ -1357,14 +1357,14 @@ msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "נגישות עכבר דורשת ש־mousetweaks תהיה מותקנת במערכת."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "עכבר"
 msgstr[1] "עכברים"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "תוסף עכבר"
 
@@ -1899,7 +1899,7 @@ msgstr "נותרו %s מעצמת הגיבוי של האל־פסק"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "צריכת חשמל"
 
@@ -2189,7 +2189,7 @@ msgstr "שינוי בהירות מסך המחשב הנייד"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "נדרש אימות כדי לשנות את בהירות מסך המחשב הנייד"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "תוסף חשמל"
 
@@ -2422,11 +2422,11 @@ msgstr "אזהרת מדפסת"
 msgid "Printer '%s': '%s'."
 msgstr "מדפסת '%s':‏ '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "התרעות ההדפסה"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "תוסף התרעות ההדפסה"
 
@@ -2801,19 +2801,19 @@ msgstr "מתבצע נסיון להחלפת תצורת הצג בכל אופן"
 msgid "Could not apply the stored configuration for monitors"
 msgstr "לא ניתן להחיל את התצורה השמורה על הצגים"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "הגדרות גודל וסיבוב מסך"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "הגדרות X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "ניהול הגדרות X"
 
@@ -3071,13 +3071,13 @@ msgstr "ניהול הגדרות X"
 #~ msgid "smartcard driver"
 #~ msgstr "מנהל התקן הכרטיס החכם"
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 #~ msgstr ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 #~ msgid "Do you want to activate Slow Keys?"
 #~ msgstr "האם ברצונך לאפשר הפעלת מקשים אטיים?"
 #~ msgid "Do you want to deactivate Slow Keys?"
@@ -3201,14 +3201,14 @@ msgstr "ניהול הגדרות X"
 #~ "Turn on laptop monitor after system boot if user plugs in external "
 #~ "monitor on system boot."
 #~ msgid ""
-#~ "Usually, gnome-settings-daemon configures internal and external monitors "
+#~ "Usually, cinnamon-settings-daemon configures internal and external monitors "
 #~ "according to the turn_on_external_monitors_at_startup and "
 #~ "turn_on_laptop_monitor_at_startup settings and determines an appropriate "
 #~ "cloning/side-by-side mode. Setting this key to True disables this, and "
 #~ "the monitor settings are not touched at all (unless there is an explicit "
 #~ "user configuration)."
 #~ msgstr ""
-#~ "Usually, gnome-settings-daemon configures internal and external monitors "
+#~ "Usually, cinnamon-settings-daemon configures internal and external monitors "
 #~ "according to the turn_on_external_monitors_at_startup and "
 #~ "turn_on_laptop_monitor_at_startup settings and determines an appropriate "
 #~ "cloning/side-by-side mode. Setting this key to True disables this, and "

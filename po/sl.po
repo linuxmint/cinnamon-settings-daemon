@@ -1,6 +1,6 @@
-# Slovenian translations for gnome-settings-deamon.
+# Slovenian translations for cinnamon-settings-deamon.
 # Copyright (C) 2000-2007 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-settings-deamon package.
+# This file is distributed under the same license as the cinnamon-settings-deamon package.
 #
 # Andraž Tori <andraz.tori1@guest.arnes.si>, 2002.
 # Matjaž Horvat <m@owca.info>, 2005 - 2006.
@@ -9,8 +9,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-deamon master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Project-Id-Version: cinnamon-settings-deamon master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-09-16 01:21+0000\n"
 "PO-Revision-Date: 2012-09-16 21:02+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
@@ -24,8 +24,8 @@ msgstr ""
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Ozadnji program nastavitev GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -143,8 +143,8 @@ msgstr "Omogočitev tega vstavka"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Ali naj ta vstavek gnome-settings-deamon omogoči ali ne"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Ali naj ta vstavek cinnamon-settings-deamon omogoči ali ne"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -173,8 +173,8 @@ msgstr "Prednost, ki jo uporablja ta vstavek"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Prednost za uporabo tega vstavka v čakalni vrsti zagona gnome-settings-daemon"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Prednost za uporabo tega vstavka v čakalni vrsti zagona cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -884,19 +884,19 @@ msgstr "Seznam eksplicitno omogočenih modulov GTK+"
 msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 msgstr "Seznam nizov, ki predstavlja module GTK+, ki bodo naloženi poleg pogojno in prisilno onemogočenih."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Omogoči razhroščevanje kode"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Končaj po določenem času (za razhroščevanje)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Dostopnost tipkovnice"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Vstavek dostopnosti tipkovnice"
 
@@ -1023,11 +1023,11 @@ msgstr "_Prezri podvojene pritiske tipk"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Pritisni in _zadrži tipko (počasne tipke)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Nastavitve dostopnosti"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Vstavek nastavitev dostopnosti"
 
@@ -1153,28 +1153,28 @@ msgstr "_Izvrzi"
 msgid "_Unmount"
 msgstr "_Odklopi"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Ozadje"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Vstavek ozadja"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Odložišče"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Vstavek odložišča"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Barva"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Vstavek barv"
 
@@ -1202,7 +1202,7 @@ msgstr "Tiskalnik '%s' bo treba kmalu ponovno umeriti."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Vstavek barve ozadnjega programa GNOME nastavitev"
 
 #. TRANSLATORS: this is a sound description
@@ -1215,11 +1215,11 @@ msgstr "Naprava za umerjanje barve je dodana"
 msgid "Color calibration device removed"
 msgstr "Naprava za umerjanje barve je bila odstranjena"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Poskusno"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Poskusni vstavek"
 
@@ -1303,7 +1303,7 @@ msgid "Examine…"
 msgstr "Preišči ..."
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1312,7 +1312,7 @@ msgstr[1] "Tipkovnica"
 msgstr[2] "Tipkovnici"
 msgstr[3] "Tipkovnice"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Vstavek tipkovnice"
 
@@ -1348,11 +1348,11 @@ msgstr[3] "%u dovodi"
 msgid "System Sounds"
 msgstr "Sistemski zvoki"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Predstavne tipke"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Vstavek predstavnih tipk"
 
@@ -1365,7 +1365,7 @@ msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Dostopnost miške zahteva namestitev programa Mousetweaks v sistem."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1374,7 +1374,7 @@ msgstr[1] "Miška"
 msgstr[2] "Miški"
 msgstr[3] "Miške"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Vstavek miške"
 
@@ -1935,7 +1935,7 @@ msgstr "%s preostale napetosti varovala UPS"
 #: ../plugins/power/gsd-power-manager.c:1459
 #: ../plugins/power/gsd-power-manager.c:1641
 #: ../plugins/power/gsd-power-manager.c:1788
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Poraba"
 
@@ -2225,7 +2225,7 @@ msgstr "Spremeni svetlost zaslona prenosnika"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Za spremembo svetlosti zaslona prenosnika je zahtevano skrbniško dovoljenje"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Vsavek porabe"
 
@@ -2458,11 +2458,11 @@ msgstr "Opozorilo tiskalnika"
 msgid "Printer '%s': '%s'."
 msgstr "Tiskalnik '%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Obvestila tiskanja"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Vstavek obvestil tiskanja"
 
@@ -2849,19 +2849,19 @@ msgstr "Poskus preklopa nastavitev zaslona."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ni mogoče uporabiti shranjenih nastavitev za zaslone."
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Nastavitev velikosti in obračanja zaslona"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Nastavitve X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Upravljanje nastavitev strežnika X"
 

@@ -11,7 +11,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 3.3.5\n"
+"Project-Id-Version: cinnamon-settings-daemon 3.3.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-14 13:58+0800\n"
 "PO-Revision-Date: 2012-07-13 17:14+0800\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME 設定值伺服程式"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -159,8 +159,8 @@ msgstr "這個外掛程式的使用情況"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "這個外掛程式是否要在 gnome-settings-daemon 中啟用"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "這個外掛程式是否要在 cinnamon-settings-daemon 中啟用"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -189,8 +189,8 @@ msgstr "這個外掛程式的優先順序"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "這個外掛程式用於 gnome-settings-daemon 啟動佇列中的優先順序"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "這個外掛程式用於 cinnamon-settings-daemon 啟動佇列中的優先順序"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1032,19 +1032,19 @@ msgid ""
 "in addition to conditional and forcibly disabled ones."
 msgstr "表示要載入的 GTK+ 模組的字串清單，通常還有條件和明確停用的項目。"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "啟用除錯碼"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "一段時間後離開（偵錯用）"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "鍵盤可存取性"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "鍵盤可存取性外掛程式"
 
@@ -1185,11 +1185,11 @@ msgstr "忽略重複按下的按鍵（回鍵）(_I)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "按住按鍵來接受他們（遲緩按鍵）"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "無障礙設定值"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "無障礙設定值外掛程式"
 
@@ -1320,28 +1320,28 @@ msgstr "退出(_E)"
 msgid "_Unmount"
 msgstr "卸載(_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "背景"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "背景圖片外掛程式"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "剪貼簿"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "剪貼簿外掛程式"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "顏色"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "顏色外掛程式"
 
@@ -1369,7 +1369,7 @@ msgstr "印表機「%s」不應該這麼快就重新校正。"
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME 設定值伺服程式顏色外掛程式"
 
 #. TRANSLATORS: this is a sound description
@@ -1382,11 +1382,11 @@ msgstr "加入的顏色校正裝置"
 msgid "Color calibration device removed"
 msgstr "移除的顏色校正裝置"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "偽裝"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "偽裝外掛程式"
 
@@ -1489,13 +1489,13 @@ msgid "Examine…"
 msgstr "檢查…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "鍵盤"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "鍵盤外掛程式"
 
@@ -1525,11 +1525,11 @@ msgstr[0] "%u 輸入"
 msgid "System Sounds"
 msgstr "系統音效"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "多媒體按鍵"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "多媒體按鍵外掛程式"
 
@@ -1543,13 +1543,13 @@ msgid ""
 msgstr "滑鼠無障礙功能需要您的系統安裝 Mousetweaks。"
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "滑鼠"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "滑鼠外掛程式"
 
@@ -2065,7 +2065,7 @@ msgstr "剩下 %s 的 UPS 備援電力"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "電源"
 
@@ -2383,7 +2383,7 @@ msgstr "修改筆記型電腦亮度"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "修改筆記型電腦亮度需要驗證"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "電源外掛程式"
 
@@ -2616,11 +2616,11 @@ msgstr "列印機警示"
 msgid "Printer '%s': '%s'."
 msgstr "印表機「%s」：「%s」。"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "列印通知"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "列印通知外掛程式"
 
@@ -2996,19 +2996,19 @@ msgstr "嘗試強制切換顯示器。"
 msgid "Could not apply the stored configuration for monitors"
 msgstr "無法套用已儲存的顯示器組態"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "設定螢幕大小與旋轉設定值"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X 設定值"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "管理 X 設定值"
 

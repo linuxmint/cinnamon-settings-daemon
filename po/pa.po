@@ -1,4 +1,4 @@
-# translation of gnome-settings-daemon.HEAD.po to Punjabi
+# translation of cinnamon-settings-daemon.HEAD.po to Punjabi
 # Punjabi translation of gnome-control-center.HEAD.
 # Copyright (C) 2004 THE gnome-control-center.HEAD'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-control-center.HEAD package.
@@ -9,7 +9,7 @@
 # Amanpreet Singh Alam <aalam@users.sf.net>, 2009, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.HEAD\n"
+"Project-Id-Version: cinnamon-settings-daemon.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-08-16 22:35+0000\n"
@@ -27,8 +27,8 @@ msgstr ""
 "\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "ਗਨੋਮ ਸੈਟਿੰਗ ਡੈਮਨ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -176,8 +176,8 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਦੀ ਐਕਟੀਵੇਸ਼ਨ"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "ਕੀ ਇਹ ਪਲੱਗਇਨ gnome-settings-daemon  ਵਲੋਂ ਐਕਟੀਵੇਟ ਕੀਤੀ ਜਾਵੇ ਜਾਂ ਨਾ"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "ਕੀ ਇਹ ਪਲੱਗਇਨ cinnamon-settings-daemon  ਵਲੋਂ ਐਕਟੀਵੇਟ ਕੀਤੀ ਜਾਵੇ ਜਾਂ ਨਾ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -206,8 +206,8 @@ msgstr "ਇਹ ਪਲੱਗਇਨ ਵਰਤਣ ਲਈ ਤਰਜੀਹ"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "gnome-settings-daemon ਸ਼ੁਰੂਆਤ ਕਤਾਰ ਵਿੱਚ ਇਹ ਪਲੱਗਇਨ ਦੀ ਵਰਤਣ ਲਈ ਤਰਜੀਹ"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "cinnamon-settings-daemon ਸ਼ੁਰੂਆਤ ਕਤਾਰ ਵਿੱਚ ਇਹ ਪਲੱਗਇਨ ਦੀ ਵਰਤਣ ਲਈ ਤਰਜੀਹ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1113,19 +1113,19 @@ msgstr ""
 "ਵਿੱਚ ਬੰਦ ਕੀਤਾ "
 "ਹੁੰਦਾ ਹੈ।"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "ਡੀਬੱਗ ਕੋਡ ਯੋਗ"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "ਸਮੇਂ ਬਾਅਦ ਬੰਦ ਕਰੋ (ਡੀਬੱਗ ਕਰਨ ਲਈ)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਕੀਬੋਰਡ ਪਲੱਗਇਨ"
 
@@ -1269,11 +1269,11 @@ msgstr "ਇੰਨੇ ਅੰਤਰਾਲ ਵਿੱਚ ਦੂਹਰੀ ਸਵਿ�
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "ਉਨ੍ਹਾਂ ਨੂੰ ਮਨਜ਼ੂਰ ਕਰਨ ਵਾਸਤੇ ਦੱਬੋ ਅਤੇ ਦੱਬੀ ਰੱਖੋ (ਹੌਲੀ ਸਵਿੱਚਾਂ) (_h)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "ਅਸੈੱਸਬਿਲਟੀ ਸੈਟਿੰਗ ਪਲੱਗਇਨ"
 
@@ -1407,28 +1407,28 @@ msgstr "ਬਾਹਰ ਕੱਢੋ(_E)"
 msgid "_Unmount"
 msgstr "ਅਣ-ਮਾਊਂਟ(_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "ਬੈਕਗਰਾਊਂਡ"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "ਬੈਕਗਰਾਊਂਡ ਪਲੱਗਇਨ"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "ਕਲਿੱਪਬੋਰਡ"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "ਕਲਿੱਪਬੋਰਡ ਪਲੱਗਇਨ"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "ਰੰਗ"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "ਰੰਗ ਪਲੱਗਇਨ"
 
@@ -1456,7 +1456,7 @@ msgstr "ਪਰਿੰਟਰ '%s' ਨੂੰ ਛੇਤੀ ਹੀ ਮੁੜ-ਕੈ�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "ਗਨੋਮ ਸੈਟਿੰਗ ਡੈਮਨ ਰੰਗ ਪਲੱਗਇਨ"
 
 #. TRANSLATORS: this is a sound description
@@ -1469,11 +1469,11 @@ msgstr "ਰੰਗ ਕੈਲੀਬਰੇਸ਼ਨ ਜੰਤਰ ਜੋੜਿਆ �
 msgid "Color calibration device removed"
 msgstr "ਰੰਗ ਕੈਲੀਬਰੇਸ਼ਨ ਜੰਤਰ ਹਟਾਇਆ ਗਿਆ"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ਡੰਮੀ"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "ਡੰਮੀ ਪਲੱਗਇਨ"
 
@@ -1587,14 +1587,14 @@ msgid "Examine…"
 msgstr "ਜਾਂਚ ਕਰੋ…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "ਕੀ-ਬੋਰਡ"
 msgstr[1] "ਕੀ-ਬੋਰਡ"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "ਕੀ-ਬੋਰਡ ਪਲੱਗਇਨ"
 
@@ -1626,11 +1626,11 @@ msgstr[1] "%u ਇੰਪੁੱਟ"
 msgid "System Sounds"
 msgstr "ਸਿਸਟਮ ਸਾਊਂਡ"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "ਮੀਡਿਆ ਸਵਿੱਚਾਂ"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "ਮੀਡਿਆ ਸਵਿੱਚ ਪਲੱਗਇਨ"
 
@@ -1644,14 +1644,14 @@ msgid ""
 msgstr "ਮਾਊਂਸ ਸੁਲੱਭਤਾ ਲਈ ਤੁਹਾਡੇ ਸਿਸਟਮ ਉੱਤੇ Mousetweaks ਇੰਸਟਾਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "ਮਾਊਸ"
 msgstr[1] "ਮਾਊਸ"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "ਮਾਊਂਸ ਪਲੱਗਇਨ"
 
@@ -2182,7 +2182,7 @@ msgstr "UPS ਦੀ %s ਬੈਕਅੱਪ ਊਰਜਾ ਬਾਕੀ"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "ਪਾਵਰ"
 
@@ -2543,7 +2543,7 @@ msgstr "ਲੈਪਟਾਪ ਚਮਕ ਬਦਲੋ"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "ਲੈਪਟਾਪ ਚਮਕ ਬਦਲਣ ਲਈ ਪਰਮਾਣਕਿਤਾ ਦੀ ਲੋੜ ਹੈ"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "ਪਾਵਰ ਪਲੱਗਇਨ"
 
@@ -2776,11 +2776,11 @@ msgstr "ਪਰਿੰਟਰ ਚੇਤਾਵਨੀ"
 msgid "Printer '%s': '%s'."
 msgstr "ਪਰਿੰਟਰ '%s': '%s'"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "ਪਰਿੰਟ-ਨੋਟੀਫਿਕੇਸ਼ਨ"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "ਪਰਿੰਟ-ਨੋਟੀਫਿਕੇਸ਼ਨ ਪਲੱਗਇਨ"
 
@@ -3165,19 +3165,19 @@ msgstr "ਕਿਵੇਂ ਵੀ ਮਾਨੀਟਰ ਸੰਰਚਨਾ ਲਈ ਬ�
 msgid "Could not apply the stored configuration for monitors"
 msgstr "ਮਾਨੀਟਰਾਂ ਲਈ ਸੰਭਾਲੀ ਸੰਰਚਨਾ ਲਾਗੂ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "ਸਕਰੀਨ ਸਾਈਜ਼ ਅਤੇ ਘੁੰਮਾਉਣ ਸੈਟਿੰਗ ਸੈੱਟਅੱਪ"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X ਸੈਟਿੰਗ"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X ਸੈਟਿੰਗ ਪਰਬੰਧ"
 
@@ -3327,12 +3327,12 @@ msgstr "X ਸੈਟਿੰਗ ਪਰਬੰਧ"
 #~ msgstr "ਕੰਪਿਊਟਰ ਹੁਣੇ ਮੁੜ-ਚਾਲੂ ਕਰੋ"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
-#~ msgstr "gnome-settings-daemon ਸ਼ੁਰੂਆਤ ਕਤਾਰ ਵਿੱਚ ਇਹ ਪਲੱਗਇਨ ਵਰਤਣ ਲਈ ਤਰਜੀਹ।"
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
+#~ msgstr "cinnamon-settings-daemon ਸ਼ੁਰੂਆਤ ਕਤਾਰ ਵਿੱਚ ਇਹ ਪਲੱਗਇਨ ਵਰਤਣ ਲਈ ਤਰਜੀਹ।"
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "ਕੀ ਇਹ ਪਲੱਗਇਨ gnome-settings-daemon  ਵਲੋਂ ਐਕਟੀਵੇਟ ਕੀਤੀ ਜਾਵੇ ਜਾਂ ਨਾ।"
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "ਕੀ ਇਹ ਪਲੱਗਇਨ cinnamon-settings-daemon  ਵਲੋਂ ਐਕਟੀਵੇਟ ਕੀਤੀ ਜਾਵੇ ਜਾਂ ਨਾ।"
 
 #~ msgid "If notifications are allowed to be shown"
 #~ msgstr "ਕੀ ਨੋਟੀਫਿਕੇਸ਼ਨ ਵੇਖਾਉਣ ਦੀ ਮਨਜ਼ੂਰੀ ਹੈ"

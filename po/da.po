@@ -31,7 +31,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-16 03:21+0200\n"
 "PO-Revision-Date: 2012-09-16 02:41+0200\n"
@@ -43,8 +43,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME-indstillingsdæmon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -190,8 +190,8 @@ msgstr "Aktivering af dette udvidelsesmodul"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Om dette udvidelsesmodul skal aktiveres af gnome-settings-daemon"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Om dette udvidelsesmodul skal aktiveres af cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -220,9 +220,9 @@ msgstr "Prioriteten for dette udvidelsesmodul"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"Prioriteten for dette udvidelsesmodul i gnome-settings-daemons opstartskø"
+"Prioriteten for dette udvidelsesmodul i cinnamon-settings-daemons opstartskø"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1126,19 +1126,19 @@ msgstr ""
 "Oftest er disse i forlængelse af betingede eller eksplicit deaktiverede "
 "moduler."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Aktivér fejlsøgningskode"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Afslut efter et stykke tid (til fejlsøgning)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Tilgængelighedstastatur"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Tastaturtilgængelighedsmodul"
 
@@ -1281,11 +1281,11 @@ msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr ""
 "Tryk på taster og _hold dem nede for at acceptere dem (langsomme taster)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Tilgængelighedsindstillinger"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Udvidelsesmodul for tilgængelighedsindstillinger"
 
@@ -1417,28 +1417,28 @@ msgstr "Skub _ud"
 msgid "_Unmount"
 msgstr "_Afmontér"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Baggrund"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Baggrundsmodul"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Udklipsholder"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Udklipsholdermodul"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Farve"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Udvidelsesmodul for farver"
 
@@ -1466,7 +1466,7 @@ msgstr "Printeren \"%s\" bør rekalibreres snarest."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Farve-udvidelsesmodul for GNOME-indstillingsdæmon"
 
 #. TRANSLATORS: this is a sound description
@@ -1479,11 +1479,11 @@ msgstr "Farvekalibreringsenhed tilføjet"
 msgid "Color calibration device removed"
 msgstr "Farvekalibreringsenhed fjernet"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Test"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Testmodul"
 
@@ -1592,14 +1592,14 @@ msgid "Examine…"
 msgstr "Undersøg…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Tastatur"
 msgstr[1] "Tastaturer"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Tastaturmodul"
 
@@ -1631,11 +1631,11 @@ msgstr[1] "%u input"
 msgid "System Sounds"
 msgstr "Systemlyde"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Medietaster"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Medietastmodul"
 
@@ -1649,14 +1649,14 @@ msgid ""
 msgstr "Musetilgængelighed kræver at Mousetweaks er installeret på dit system."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Mus"
 msgstr[1] "Mus"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Musemodul"
 
@@ -2190,7 +2190,7 @@ msgstr "%s af nødstrømsforsyningen tilbage"
 #: ../plugins/power/gsd-power-manager.c:1459
 #: ../plugins/power/gsd-power-manager.c:1641
 #: ../plugins/power/gsd-power-manager.c:1788
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Strøm"
 
@@ -2538,7 +2538,7 @@ msgstr "Ændring af den bærbares lysstyrke"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Ændring af den bærbares lysstyrke kræver godkendelse"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Udvidelsesmodul for strøm"
 
@@ -2773,11 +2773,11 @@ msgstr "Printeradvarsel"
 msgid "Printer '%s': '%s'."
 msgstr "Printer \"%s\": \"%s\"."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Udskriftspåmindelser"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Udvidelsesmodul for udskriftspåmindelser"
 
@@ -3171,19 +3171,19 @@ msgstr "Forsøger at ændre monitorkonfiguration alligevel."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunne ikke anvende gemt konfiguration for monitorer"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Indstil skærmstørrelse og rotation"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X-indstillinger"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Håndtér indstillinger for X"
 
@@ -3496,14 +3496,14 @@ msgstr "Håndtér indstillinger for X"
 #~ msgstr "Vil du deaktivere blivende taster?"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
-#~ "Prioritet for dette udvidelsesmodul i gnome-settings-daemons opstartskø."
+#~ "Prioritet for dette udvidelsesmodul i cinnamon-settings-daemons opstartskø."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 #~ msgstr ""
-#~ "Om dette udvidelsesmodul vil blive aktiveret af gnome-settings-daemon."
+#~ "Om dette udvidelsesmodul vil blive aktiveret af cinnamon-settings-daemon."
 
 #~ msgid "Binding to enable or disable the touchpad."
 #~ msgstr "Genvej til at slå pegepladen til eller fra."
@@ -5021,13 +5021,13 @@ msgstr "Håndtér indstillinger for X"
 #~ msgstr "Temaet kan ikke slettes"
 
 #~ msgid ""
-#~ "Unable to start the settings manager 'gnome-settings-daemon'.\n"
+#~ "Unable to start the settings manager 'cinnamon-settings-daemon'.\n"
 #~ "Without the GNOME settings manager running, some preferences may not take "
 #~ "effect. This could indicate a problem with Bonobo, or a non-GNOME (e.g. "
 #~ "KDE) settings manager may already be active and conflicting with the "
 #~ "GNOME settings manager."
 #~ msgstr ""
-#~ "Kunne ikke starte konfigurationshåndteringen \"gnome-settings-daemon\".\n"
+#~ "Kunne ikke starte konfigurationshåndteringen \"cinnamon-settings-daemon\".\n"
 #~ "Når den ikke kører, træder nogle indstillinger måske ikke i kraft. Dette "
 #~ "kan indikere et problem med Bonobo eller at en anden "
 #~ "konfigurationshåndtering som ikke er relateret til Gnome (f.eks. KDE), "

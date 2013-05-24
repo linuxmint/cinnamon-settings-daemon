@@ -19,8 +19,8 @@ msgstr ""
 "20)) ? 1: 2);;\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Serviciul de configurări GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -197,9 +197,9 @@ msgstr "Prioritatea folosirii acestui modul"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"Prioritatea folosirii acestui modul în coada de pornire a gnome-settings-"
+"Prioritatea folosirii acestui modul în coada de pornire a cinnamon-settings-"
 "deamon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
@@ -309,8 +309,8 @@ msgstr "Facilitate de atingere Wacom"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Dacă acest modul va fi activat de către gnome-settings-daemon sau nu"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Dacă acest modul va fi activat de către cinnamon-settings-daemon sau nu"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
 msgid "The duration a display profile is valid"
@@ -1124,19 +1124,19 @@ msgstr ""
 "moderat și  „full” pentru maxim (poate cauza distorsionarea formei "
 "literelor)."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Activează codul pentru depanare"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Ieși după un timp (pentru depanare)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Accesibilitate tastatură"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Modul accesibilitate tastatură"
 
@@ -1277,11 +1277,11 @@ msgstr "_Ignoră apăsările duplicate de taste (taste ce sar)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "A_păsați scurtătura de tastatură, câte o tastă pe rând (taste încete)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Configurări de accesibilitate"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Modul pentru configurările de accesibilitate"
 
@@ -1415,28 +1415,28 @@ msgstr "Scoat_e"
 msgid "_Unmount"
 msgstr "_Demontează"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Fundal"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Modul fundal"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Clipboard"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Modul clipboard"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1640
 msgid "Color"
 msgstr "Culoare"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Modul culoare"
 
@@ -1464,7 +1464,7 @@ msgstr "Imprimanta „%s” trebuie recalibrată în curând."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2034
 #: ../plugins/color/gsd-color-manager.c:2050
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Modul culoare la serviciul de configurări GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1485,11 +1485,11 @@ msgstr "Modifică data și ora sistemului"
 msgid "To change time or date settings, you need to authenticate."
 msgstr "Pentru a schimba ora sau data, este obligatorie autentificarea."
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Nimic"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Modul demonstrativ"
 
@@ -1635,7 +1635,7 @@ msgid "Region and Language Settings"
 msgstr "Configurări de regiune și limbă"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1643,7 +1643,7 @@ msgstr[0] "Tastatură"
 msgstr[1] "Tastaturi"
 msgstr[2] "Tastaturi"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Modul tastatură"
 
@@ -1677,11 +1677,11 @@ msgstr[2] "%u de intrări"
 msgid "System Sounds"
 msgstr "Sunete de sistem"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Taste media"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Modul taste media"
 
@@ -1697,7 +1697,7 @@ msgstr ""
 "dumneavoastră."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1705,7 +1705,7 @@ msgstr[0] "Maus"
 msgstr[1] "Mausuri"
 msgstr[2] "Mausuri"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Modul maus"
 
@@ -2251,7 +2251,7 @@ msgstr "A mai rămas %s din energia de rezervă a UPS-ului"
 #: ../plugins/power/gsd-power-manager.c:1367
 #: ../plugins/power/gsd-power-manager.c:1548
 #: ../plugins/power/gsd-power-manager.c:1697
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Alimentare"
 
@@ -2598,7 +2598,7 @@ msgstr ""
 msgid "Modify the laptop brightness"
 msgstr "Modifică luminozitatea laptopului"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Modul alimentare"
 
@@ -2812,11 +2812,11 @@ msgstr "Tipărirea s-a terminat"
 msgid "Printing"
 msgstr "Se tipărește"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Notificări de tipărire"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Modulul notificărilor de tipărire"
 
@@ -3098,32 +3098,32 @@ msgstr "Se încearcă oricum comutarea configurării monitorului."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nu s-a putut aplica configurația stocată pentru monitoare"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Definire dimensiune și rotire ecran"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "Administrare de configurări X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Configurări X"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
-#~ "Prioritatea folosirii acestui modul în coada de pornire a gnome-settings-"
+#~ "Prioritatea folosirii acestui modul în coada de pornire a cinnamon-settings-"
 #~ "deamon."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 #~ msgstr ""
-#~ "Dacă acest modul va fi activat de către gnome-settings-daemon sau nu."
+#~ "Dacă acest modul va fi activat de către cinnamon-settings-daemon sau nu."
 
 #~ msgid "If notifications are allowed to be shown"
 #~ msgstr "Dacă este permis ca notificările să fie afișate"

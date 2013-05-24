@@ -43,7 +43,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
 "PO-Revision-Date: 2012-07-24 11:55+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
@@ -55,8 +55,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 0.2\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Υπηρεσία ρυθμίσεων GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -174,8 +174,8 @@ msgstr "Ενεργοποίηση αυτού του πρόσθετου"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Εάν αυτό το πρόσθετο θα ενεργοποιηθεί από το gnome-settings-daemon ή όχι"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Εάν αυτό το πρόσθετο θα ενεργοποιηθεί από το cinnamon-settings-daemon ή όχι"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -204,8 +204,8 @@ msgstr "Προτεραιότητα της χρήσης για αυτό το πρ
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Η προτεραιότητα χρήσης για αυτό το πρόσθετο στην ουρά εκκίνησης του gnome-settings-daemon"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Η προτεραιότητα χρήσης για αυτό το πρόσθετο στην ουρά εκκίνησης του cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -922,19 +922,19 @@ msgstr "Κατάλογος ρητώς ενεργοποιημένων ενοτή�
 msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 msgstr "Μια λίστα συμβολοσειρών που αντιπροσωπεύουν τις ενότητες GTK+ που δεν θα φορτωθούν, συνήθως ως αντικαταστάτες των απενεργοποιημένων."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Ενεργοποίηση κώδικα εκσφαλμάτωσης"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Έξοδος μετά από ένα χρονικό διάστημα (για αποσφαλμάτωση)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Προσιτότητα πληκτρολογίου"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Πρόσθετη λειτουργία προσιτότητας πληκτρολογίου"
 
@@ -1061,11 +1061,11 @@ msgstr "Να α_γνοούνται τα διπλά πατήματα πλήκτρ
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Πατήστε και _κρατήστε τα πλήκτρα πατημένα για αποδοχή (Αργά πλήκτρα)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Ρυθμίσεις προσβασιμότητας"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Πρόσθετο ρυθμίσεων προσβασιμότητας"
 
@@ -1191,28 +1191,28 @@ msgstr "Ε_ξαγωγή"
 msgid "_Unmount"
 msgstr "Α_ποπροσάρτηση"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Παρασκήνιο"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Πρόσθετη λειτουργία παρασκηνίου"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Πρόχειρο"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Πρόσθετη λειτουργία προχείρου"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Χρώμα"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Πρόσθετο χρώματος"
 
@@ -1240,7 +1240,7 @@ msgstr "Ο εκτυπωτής '%s' πρέπει να καλιμπραριστε�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Υπηρεσία ρυθμίσεων χρωμάτων του GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1253,11 +1253,11 @@ msgstr "Προστέθηκε βαθμονόμηση χρωμάτων συσκε�
 msgid "Color calibration device removed"
 msgstr "Αφαιρέθηκε βαθμονόμηση χρωμάτων συσκευής"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Ψεύτικη"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Ψεύτικη πρόσθετη λειτουργία"
 
@@ -1341,14 +1341,14 @@ msgid "Examine…"
 msgstr "Εξέταση…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Πληκτρολόγιο"
 msgstr[1] "Πληκτρολόγια"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Πρόσθετη λειτουργία πληκτρολογίου"
 
@@ -1380,11 +1380,11 @@ msgstr[1] "Είσοδοι %u "
 msgid "System Sounds"
 msgstr "Ήχοι συστήματος"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Πλήκτρα πολυμέσων"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Πρόσθετη λειτουργία πλήκτρων πολυμέσων"
 
@@ -1397,14 +1397,14 @@ msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Η προσιτότητα ποντικιού απαιτεί το mousetweaks να είναι εγκατεστημένο στο σύστημα σας."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Ποντίκι"
 msgstr[1] "Ποντίκια"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Πρόσθετη λειτουργία ποντικιού"
 
@@ -1939,7 +1939,7 @@ msgstr "%s λειτουργίας απομένουν μέσω του UPS"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Ενέργεια"
 
@@ -2234,7 +2234,7 @@ msgstr "Τροποποιήστε τη φωτεινότητα του φορητο
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Απαιτείται πιστοποίηση για την τροποποίηση της φωτεινότητας του φορητού υπολογιστή"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Πρόσθετο ενέργειας"
 
@@ -2467,11 +2467,11 @@ msgstr "Προειδοποίηση εκτυπωτή"
 msgid "Printer '%s': '%s'."
 msgstr "Εκτυπωτής '%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Ειδοποιήσεις εκτύπωσης"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Πρόσθετο ειδοποιήσεων εκτύπωσης"
 
@@ -2846,19 +2846,19 @@ msgstr "Γίνεται παρόλα αυτά προσπάθεια αλλαγής
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Αδυναμία εφαρμογής των αποθηκευμένων ρυθμίσεων για τις οθόνες"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Ρύθμιση μεγέθους οθόνης και περιστροφής"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Ρυθμίσεις X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Διαχείριση ρυθμίσεων X"
 
@@ -3064,14 +3064,14 @@ msgstr "Διαχείριση ρυθμίσεων X"
 #~ "Ενεργοποίηση της οθόνης του φορητού μετά την εκκίνηση του συστήματος αν ο "
 #~ "χρήστης συνδέσει εξωτερική οθόνη κατά την εκκίνηση του συστήματος."
 #~ msgid ""
-#~ "Usually, gnome-settings-daemon configures internal and external monitors "
+#~ "Usually, cinnamon-settings-daemon configures internal and external monitors "
 #~ "according to the turn_on_external_monitors_at_startup and "
 #~ "turn_on_laptop_monitor_at_startup settings and determines an appropriate "
 #~ "cloning/side-by-side mode. Setting this key to True disables this, and "
 #~ "the monitor settings are not touched at all (unless there is an explicit "
 #~ "user configuration)."
 #~ msgstr ""
-#~ "Συνήθως, το gnome-settings-daemon ρυθμίζει τις εσωτερικές και εξωτερικές "
+#~ "Συνήθως, το cinnamon-settings-daemon ρυθμίζει τις εσωτερικές και εξωτερικές "
 #~ "οθόνες σύμφωνα με τις ρυθμίσεις των παραμέτρων "
 #~ "_άνοιγμα_εξωτερικής_οθόνης_κατά την _εκκίνηση και _άνοιγμα της _οθόνης "
 #~ "του _φορητού_κατά την _εκκίνηση και αποφασίζει για την κατάλληλη "

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=gnome-settings-daemon&component=general\n"
+"cgi?product=cinnamon-settings-daemon&component=general\n"
 "POT-Creation-Date: 2010-03-10 10:23+0000\n"
 "PO-Revision-Date: 2010-03-13 08:10+0100\n"
 "Last-Translator: Torstein Adolf Winterseth <kvikende@fsfe.org>\n"
@@ -418,136 +418,136 @@ msgstr ""
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Set denne til TRUE for å slå på alle styreplater"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 #| msgid "Keep GNOME settings"
-msgid "GNOME Settings Daemon"
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME innstillingsnisse"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
+#: ../data/cinnamon-settings-daemon.schemas.in.h:1
 #| msgid "Binding to open the Home folder."
 msgid "Binding to toggle the magnifier."
 msgstr "Snøggtast for å slå skjermforstørraren av og på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/cinnamon-settings-daemon.schemas.in.h:2
 #| msgid "Binding to lock the screen."
 msgid "Binding to toggle the on-screen keyboard."
 msgstr "Snøggtast for å slå tastatur på skjermen av og på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/cinnamon-settings-daemon.schemas.in.h:3
 #| msgid "Binding to lock the screen."
 msgid "Binding to toggle the screen reader."
 msgstr "Snøggtast for å slå skjermlesar av og på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/cinnamon-settings-daemon.schemas.in.h:4
 #| msgid "<b>Bounce Keys</b>"
 msgid "Bounce keys"
 msgstr "Sprettetastar"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/cinnamon-settings-daemon.schemas.in.h:5
 msgid "Command used to turn the magnifier on or off."
 msgstr "Kommando brukt for å slå forstørraren av og på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/cinnamon-settings-daemon.schemas.in.h:6
 msgid "Command used to turn the on-screen keyboard on or off."
 msgstr "Kommando brukt for å slå tastaturet på skjermen av og på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/cinnamon-settings-daemon.schemas.in.h:7
 #| msgid "Set to True to run the screensaver at login."
 msgid "Command used to turn the screen reader on or off."
 msgstr "Kommando brukt for å slå skjermlesaren av og på."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/cinnamon-settings-daemon.schemas.in.h:8
 msgid "Enable accessibility keyboard plugin"
 msgstr "Aktiver tillegg for tilgjenge for tastatur"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/cinnamon-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "Aktiver tillegg for bakgrunn"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/cinnamon-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "Aktiver tillegg for utklippstavle"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/cinnamon-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "Aktiver tillegg for skrift"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/cinnamon-settings-daemon.schemas.in.h:12
 msgid "Enable housekeeping plugin"
 msgstr "Aktiver tillegg for opprydning"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/cinnamon-settings-daemon.schemas.in.h:13
 msgid "Enable keybindings plugin"
 msgstr "Aktiver tillegg for snøggtastar"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/cinnamon-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "Aktiver tillegg for tastatur"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/cinnamon-settings-daemon.schemas.in.h:15
 msgid "Enable media keys plugin"
 msgstr "Aktiver tillegg for mediatastar"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/cinnamon-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "Aktiver tillegg for mus"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/cinnamon-settings-daemon.schemas.in.h:17
 msgid "Enable sound plugin"
 msgstr "Aktiver tillegg for lyd"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/cinnamon-settings-daemon.schemas.in.h:18
 msgid "Enable typing breaks plugin"
 msgstr "Aktiver tillegg for skrivepause"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/cinnamon-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "Aktiver tillegg for xrandr"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/cinnamon-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "Aktiver tillegg for xrdb"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/cinnamon-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "Aktiver tillegg for xsettings"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/cinnamon-settings-daemon.schemas.in.h:22
 #| msgid "Mouse Keys"
 msgid "Mouse keys"
 msgstr "Mustastar"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/cinnamon-settings-daemon.schemas.in.h:23
 #| msgid "GNOME OnScreen Keyboard"
 msgid "On-screen keyboard"
 msgstr "Tastatur på skjermen"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/cinnamon-settings-daemon.schemas.in.h:24
 #| msgid "Screensaver"
 msgid "Screen magnifier"
 msgstr "Skjermforstørrar"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/cinnamon-settings-daemon.schemas.in.h:25
 #| msgid "Screensaver"
 msgid "Screen reader"
 msgstr "Skjermlesar"
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/cinnamon-settings-daemon.schemas.in.h:26
 msgid ""
 "Set to True to enable the housekeeping plugin, to prune transient file "
 "caches."
@@ -556,52 +556,52 @@ msgstr ""
 "fjerna snøgglager."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/cinnamon-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 "Set til True for å aktivera tillegg for å handtera innstillingar for "
 "utklippstavle."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/cinnamon-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 "Set til True for å aktivera tillegg for å handtera innstillingar for "
 "skrivebordsbakgrunn."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/cinnamon-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 "Set til True for å aktivera tillegg for å handtera innstillingar for skrift."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/cinnamon-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 "Set til True for å aktivera tillegg for å handtera innstillingar for "
 "tastatur."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/cinnamon-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr "Set til True for å aktivera tillegg for å handtera innstillingar for mus."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/cinnamon-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 "Set til True for å aktivera tillegg for å handtera innstillingar for "
 "multimediatastar."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/cinnamon-settings-daemon.schemas.in.h:33
 #| msgid "Set to True to enable the plugin to manage sound settings."
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr ""
 "Set til True for å slå på tillegget for å handsama mellomlager for lydklipp."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: ../data/cinnamon-settings-daemon.schemas.in.h:34
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
@@ -610,55 +610,55 @@ msgstr ""
 "tilgjenge for tastatur."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/cinnamon-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr "Set til True for å aktivera tillegg for å handtera snøggtastar."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/cinnamon-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr "Set til True for å aktivera tillegg for å handtera skrivepauser."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/cinnamon-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 "Set til True for å aktivera tillegg for å handtera innstillingar for xrandr."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/cinnamon-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 "Set til True for å aktivera tillegg for å handtera innstillingar for xrdb."
 
 #
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/cinnamon-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr "Set til True for å aktivera tillegg for å handtera xsettings."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/cinnamon-settings-daemon.schemas.in.h:40
 #| msgid "Slow Keys Alert"
 msgid "Slow keys"
 msgstr "Trege tastar"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/cinnamon-settings-daemon.schemas.in.h:41
 #| msgid "Sticky Keys Alert"
 msgid "Sticky keys"
 msgstr "Seige tastar"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/cinnamon-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr "Namnet på snøggtasten for å slå forstørraren av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/cinnamon-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr "Namnet på snøggtasten for å slå tastaturet på skjermen av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/cinnamon-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr "Namnet på snøggtasten for å slå skjermlesaren av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/cinnamon-settings-daemon.schemas.in.h:45
 msgid ""
 "This is the name of the keyboard shortcut to toggle the magnifier. This name "
 "will be shown in the keyboard shortcut preferences dialog."
@@ -666,7 +666,7 @@ msgstr ""
 "Dette er namnet på snøggtasten for å slå forstørraren av og på. "
 "Dette namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/cinnamon-settings-daemon.schemas.in.h:46
 msgid ""
 "This is the name of the keyboard shortcut to toggle the on-screen keyboard. "
 "This name will be shown in the keyboard shortcut preferences dialog."
@@ -674,7 +674,7 @@ msgstr ""
 "Dette er namnet på snøggtasten for å slå tastatur på skjermen av og på. "
 "Dette namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/cinnamon-settings-daemon.schemas.in.h:47
 msgid ""
 "This is the name of the keyboard shortcut to toggle the screen reader. This "
 "name will be shown in the keyboard shortcut preferences dialog."
@@ -682,79 +682,79 @@ msgstr ""
 "Dette er namnet på snøggtasten for å slå skjermlesaren av og på. "
 "Dette namnet vil verta vist i dialogvindauge for snøggtastinnstillingar."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/cinnamon-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr "Slå forstørrar av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/cinnamon-settings-daemon.schemas.in.h:49
 #| msgid "GNOME OnScreen Keyboard"
 msgid "Toggle on-screen keyboard"
 msgstr "Slå tastatur på skjermen av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/cinnamon-settings-daemon.schemas.in.h:50
 #| msgid "Linux Screen Reader"
 msgid "Toggle screen reader"
 msgstr "Slå skjermlesar av og på"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/cinnamon-settings-daemon.schemas.in.h:51
 #| msgid "Beep when _accessibility features are turned on or off"
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr "Om sprettetastfunksjonen er slått på."
 
 # TNL: Kva er «mouse keys keyboard accessibility feature»?
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/cinnamon-settings-daemon.schemas.in.h:52
 #| msgid "Set your keyboard accessibility preferences"
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/cinnamon-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr "Om tastatur på skjermen er slått på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/cinnamon-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr "Om skjermforstørraren er slått på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/cinnamon-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr "Om skjermlesaren er slått på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/cinnamon-settings-daemon.schemas.in.h:56
 #| msgid "Beep when _accessibility features are turned on or off"
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr "Om trege tastarfunksjonen er slått på."
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/cinnamon-settings-daemon.schemas.in.h:57
 #| msgid "Beep when _accessibility features are turned on or off"
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr "Om seige tastarfunksjonen er slått på."
 
 #
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Enable debugging code"
 msgstr "Aktiver feilsøkingskode"
 
 #
-#: ../gnome-settings-daemon/main.c:56
+#: ../cinnamon-settings-daemon/main.c:56
 msgid "Don't become a daemon"
 msgstr "Ikkje køyr som ein nisse"
 
 #
-#: ../gnome-settings-daemon/main.c:57
+#: ../cinnamon-settings-daemon/main.c:57
 msgid "GConf prefix from which to load plugin settings"
 msgstr "GConf-prefiks for lasting av innstillingar for tillegg"
 
-#: ../gnome-settings-daemon/main.c:58
+#: ../cinnamon-settings-daemon/main.c:58
 msgid "Exit after a time - for debugging"
 msgstr "Avslutt etter ei tid - for feilsøkjing"
 
 #
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Tastatur for tilgjenge"
 
 #
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Tillegg for tastatur for tilgjenge"
 
@@ -905,42 +905,42 @@ msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Trykk inn tastatursnarvegar ein tast om gongen (seige tastar)"
 
 #
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Bakgrunn"
 
 #
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Tillegg for bakgrunn"
 
 #
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Utklippstavle"
 
 #
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Tillegg for utklippstavle"
 
 #
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Dummy"
 
 #
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Dummy-tillegg"
 
 #
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:1
 msgid "Font"
 msgstr "Skrift"
 
 #
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:2
 msgid "Font plugin"
 msgstr "Tillegg for skrift"
 
@@ -1081,21 +1081,21 @@ msgstr ""
 "som er bunde til tasten «%s»"
 
 #
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr "Snøggtastar"
 
 #
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "Tillegg for snøggtastar"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "Tastatur"
 
 #
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Tillegg for tastatur"
 
@@ -1243,12 +1243,12 @@ msgid "System Sounds"
 msgstr "Systemlydar"
 
 #
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Mediatastar"
 
 #
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Tillegg for medietastar"
 
@@ -1268,31 +1268,31 @@ msgstr "Tilgjenge for mus krev at mousetweaks er installert på systemet."
 msgid "Mouse Preferences"
 msgstr "Eigenskapar for mus"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Mus"
 
 #
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Tillegg for mus"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:1
 msgid "Typing Break"
 msgstr "Skrivepause"
 
 #
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:2
 msgid "Typing break plugin"
 msgstr "Tillegg for skrivepause"
 
 #
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Rediger innstillingar for skjermstørrelse og rotasjon"
 
 #
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -1389,12 +1389,12 @@ msgid "Cannot determine user's home directory"
 msgstr "Klarte ikkje avgjera heimekatalogen til brukaren"
 
 #
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:1
 msgid "Manage the X resource database"
 msgstr "Handter X-ressursdatabasen"
 
 #
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:2
 msgid "X Resource Database"
 msgstr "X-ressursdatabase"
 
@@ -1404,12 +1404,12 @@ msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf-nøkkelen «%s» er sett til type «%s», men den venta typen er «%s»\n"
 
 #
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "Handter innstillingar for X"
 
 #
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Innstillingar for X"
 
@@ -2597,13 +2597,13 @@ msgstr "Innstillingar for X"
 #~ msgstr "Drakt kan ikkje slettast"
 
 #~ msgid ""
-#~ "Unable to start the settings manager 'gnome-settings-daemon'.\n"
+#~ "Unable to start the settings manager 'cinnamon-settings-daemon'.\n"
 #~ "Without the GNOME settings manager running, some preferences may not take "
 #~ "effect. This could indicate a problem with Bonobo, or a non-GNOME (e.g. "
 #~ "KDE) settings manager may already be active and conflicting with the "
 #~ "GNOME settings manager."
 #~ msgstr ""
-#~ "Kan ikkje starta «gnome-settings-daemon», programmet som styrer "
+#~ "Kan ikkje starta «cinnamon-settings-daemon», programmet som styrer "
 #~ "innstillingane. Når dette programmet ikkje køyrer, kan det vera nokon av "
 #~ "brukarvala dine som ikkje vert verksame. Dette kan tyda på eit problem "
 #~ "med Bonobo, eller meat ein annan innstillingshandsamar (t.d. KDE sin) "

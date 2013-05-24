@@ -1,4 +1,4 @@
-# Norwegian bokmål translation of gnome-settings-daemon.
+# Norwegian bokmål translation of cinnamon-settings-daemon.
 # Copyright (C) 1999-2005 Free Software Foundation, Inc.
 #
 # Kjartan Maraas <kmaraas@gnome.org>, 1999-2012.
@@ -6,7 +6,7 @@
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 3.5.x\n"
+"Project-Id-Version: cinnamon-settings-daemon 3.5.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-28 07:45+0200\n"
 "PO-Revision-Date: 2012-07-26 10:29+0200\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME konfigurasjonstjeneste"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -150,9 +150,9 @@ msgstr "Aktivering av dette tillegget"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
-"Om dette tillegget ville blitt aktivert av gnome-settings-daemon eller ikke"
+"Om dette tillegget ville blitt aktivert av cinnamon-settings-daemon eller ikke"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -181,7 +181,7 @@ msgstr "Prioritet som skal brukes for dette tilegget"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "Prioritet som skal brukes for dette tilegget i oppstartskøen for gnome-"
 "settings-daemon"
@@ -1003,19 +1003,19 @@ msgid ""
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Aktiver kode for feilsøking"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Avslutt etter oppgitt tid (for feilsøking)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Tastatur for tilgjengelighet"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Tillegg for tastatur for tilgjengelighet"
 
@@ -1156,11 +1156,11 @@ msgstr "_Ignorer dupliserte tastetrykk"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Trykk ned og _hold inne taster for å godta dem (trege taster)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Innstillinger for tilgjengelighet"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Tillegg for innstillinger for tilgjengelighet"
 
@@ -1292,28 +1292,28 @@ msgstr "_Løs ut"
 msgid "_Unmount"
 msgstr "A_vmonter"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Bakgrunn"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Tillegg for bakgrunn"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Utklippstavle"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Tillegg for utklippstavle"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Farger"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Tillegg for farger"
 
@@ -1341,7 +1341,7 @@ msgstr "Skriver «%s» bør kalibreres på nytt snart."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Fargetillegg for GNOME konfigurasjonstjeneste"
 
 #. TRANSLATORS: this is a sound description
@@ -1354,11 +1354,11 @@ msgstr "Enhet for kalibrering av farger ble lagt til"
 msgid "Color calibration device removed"
 msgstr "Enhet for kalibrering av farger ble fjernet"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Dummy"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Dummy-tillegg"
 
@@ -1466,14 +1466,14 @@ msgid "Examine…"
 msgstr "Undersøk …"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Tastatur"
 msgstr[1] "Tastatur"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Tillegg for tastatur"
 
@@ -1505,11 +1505,11 @@ msgstr[1] "%u innganger"
 msgid "System Sounds"
 msgstr "Systemlyder"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Medietaster"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Tillegg for medietaster"
 
@@ -1524,14 +1524,14 @@ msgstr ""
 "Tilgjengelighet for mus krever at Mousetweaks er installert på systemet."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Mus"
 msgstr[1] "Mus"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Tillegg for mus"
 
@@ -2062,7 +2062,7 @@ msgstr "%s UPS reservestrøm gjenstår"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Strøm"
 
@@ -2409,7 +2409,7 @@ msgstr "Endre lysstyrke på datamaskinen"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Autentisering kreves for å endre lysstyrke på datamaskinen"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Tillegg for strøm"
 
@@ -2642,11 +2642,11 @@ msgstr "Skriveradvarsel"
 msgid "Printer '%s': '%s'."
 msgstr "Skriver «%s»: «%s»."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Utskriftsvarsling"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Tillegg for varsling av utskrift"
 
@@ -3034,18 +3034,18 @@ msgstr "Prøver å bytte skjermkonfigurasjon likevel."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunne ikke bruke lagret konfigurasjon for skjermer"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Rediger innstillinger for skjermstørrelse og rotasjon"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Innstillinger for X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Håndter innstillinger for X"

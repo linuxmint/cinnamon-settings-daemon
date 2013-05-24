@@ -1,6 +1,6 @@
 # Dutch translation for Gnome Settings Daemon
 #
-# This file is distributed under the same license as the gnome-settings-daemon
+# This file is distributed under the same license as the cinnamon-settings-daemon
 # package.
 #
 # Bas Wagter <B.J.Wagter@bk.tudelft.nl>
@@ -19,7 +19,7 @@
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2010–2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-30 21:29+0200\n"
 "PO-Revision-Date: 2012-03-24 10:46+0100\n"
@@ -35,8 +35,8 @@ msgstr ""
 "X-DamnedLies-Scope: partial\n"
 
 # behouden/gebruiken
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Gnome-instellingenvoorziening"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -184,8 +184,8 @@ msgstr "Activatie van deze plug-in"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Of de plug-in door gnome-settings-daemon geactiveerd moet worden"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Of de plug-in door cinnamon-settings-daemon geactiveerd moet worden"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -214,7 +214,7 @@ msgstr "Te gebruiken prioriteit voor deze plug-in"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "Te gebruiken prioriteit van deze plug-in in de opstartvolgorde van gnome-"
 "settings-daemon"
@@ -1209,19 +1209,19 @@ msgstr ""
 "Een lijst van strings die weergeeft welke GTK+-modules geladen zullen "
 "worden, naast voorwaardelijke en expliciet uitgeschakelde modules."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Debug-code inschakelen"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Na enige tijd afsluiten (voor debuggen)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Toetsenbord-toegankelijkheid"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Toetsenbord-toegankelijkheid-plugin"
 
@@ -1364,11 +1364,11 @@ msgstr "Dubbele toetsaanslagen ne_geren (kaatstoetsen)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Toetsen in_drukken en vasthouden om ze te bevestigen (Trage Toetsen)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Toegankelijkheidsinstellingen"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Plug-in voor toegankelijkheidsinstellingen"
 
@@ -1502,28 +1502,28 @@ msgstr "_Uitwerpen"
 msgid "_Unmount"
 msgstr "_Ontkoppelen"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Achtergrond"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Achtergrondplug-in"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Klembord"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Klembord-plug-in"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1757
 msgid "Color"
 msgstr "Kleur"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Kleur-plug-in"
 
@@ -1552,7 +1552,7 @@ msgstr "De printer ‘%s’ moet binnenkort gekalibreerd worden."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2149
 #: ../plugins/color/gsd-color-manager.c:2165
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Gnome Settings Daemon kleur-plug-in"
 
 #. TRANSLATORS: this is a sound description
@@ -1566,11 +1566,11 @@ msgid "Color calibration device removed"
 msgstr "Kleur-kalibratieapparaat verwijderd"
 
 # dummy/simulatie/probeersel/test/leeg/
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Dummy"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Dummy-plug-in"
 
@@ -1715,14 +1715,14 @@ msgid "Region and Language Settings"
 msgstr "Regio- en taalinstellingen"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Toetsenbord"
 msgstr[1] "Toetsenborden"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Toetsenbord-plugin"
 
@@ -1754,11 +1754,11 @@ msgstr[1] "%u audio-invoer"
 msgid "System Sounds"
 msgstr "Systeemgeluiden"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Mediatoetsen"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Mediatoetsen-plugin"
 
@@ -1774,14 +1774,14 @@ msgstr ""
 "is."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Muis"
 msgstr[1] "Muizen"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Muis-plugin"
 
@@ -2312,7 +2312,7 @@ msgstr "%s backup-stroom beschikbaar"
 #: ../plugins/power/gsd-power-manager.c:1427
 #: ../plugins/power/gsd-power-manager.c:1608
 #: ../plugins/power/gsd-power-manager.c:1757
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energie"
 
@@ -2664,7 +2664,7 @@ msgstr "Helderheid aanpassen"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Authenticatie is vereist om de helderheid van de laptop aan te passen"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Energie-plug-in"
 
@@ -2897,11 +2897,11 @@ msgstr "Printerwaarschuwing"
 msgid "Printer '%s': '%s'."
 msgstr "Printer ‘%s’: ‘%s’."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Afdruknotificaties"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Plug-in voor afdruknotificaties"
 
@@ -3251,20 +3251,20 @@ msgstr "Toch aan het proberen de monitorconfiguratie aan te passen."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kon de opgeslagen monitorconfiguratie niet toepassen"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
 # draaistand/orientatie/ligging/rotatie
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Schermafmeting en draaistand instellen"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X-instellingen"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X-instellingen beheren"
 
@@ -3880,14 +3880,14 @@ msgstr "X-instellingen beheren"
 #~ " • Het resultaat van <b>%s</b>"
 
 #~ msgid ""
-#~ "Usually, gnome-settings-daemon configures internal and external monitors "
+#~ "Usually, cinnamon-settings-daemon configures internal and external monitors "
 #~ "according to the turn_on_external_monitors_at_startup and "
 #~ "turn_on_laptop_monitor_at_startup settings and determines an appropriate "
 #~ "cloning/side-by-side mode. Setting this key to True disables this, and "
 #~ "the monitor settings are not touched at all (unless there is an explicit "
 #~ "user configuration)."
 #~ msgstr ""
-#~ "Normaal configureert gnome-settings-daemon interne en externe "
+#~ "Normaal configureert cinnamon-settings-daemon interne en externe "
 #~ "beeldschermen aan de hand van deturn_on_external_monitors_at_startup en "
 #~ "turn_on_laptop_monitor_at_startup instellingen en bepaald zo de juiste "
 #~ "instellingen voor klonen of naast-elkaar. Als u deze waarde op True "

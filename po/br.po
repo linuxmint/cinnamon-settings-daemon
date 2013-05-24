@@ -303,260 +303,260 @@ msgstr ""
 msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
+#: ../data/cinnamon-settings-daemon.schemas.in.h:1
 msgid "Binding to toggle the magnifier."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/cinnamon-settings-daemon.schemas.in.h:2
 msgid "Binding to toggle the on-screen keyboard."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/cinnamon-settings-daemon.schemas.in.h:3
 msgid "Binding to toggle the screen reader."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/cinnamon-settings-daemon.schemas.in.h:4
 msgid "Bounce keys"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/cinnamon-settings-daemon.schemas.in.h:5
 msgid "Command used to turn the magnifier on or off."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/cinnamon-settings-daemon.schemas.in.h:6
 msgid "Command used to turn the on-screen keyboard on or off."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/cinnamon-settings-daemon.schemas.in.h:7
 msgid "Command used to turn the screen reader on or off."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/cinnamon-settings-daemon.schemas.in.h:8
 #, fuzzy
 msgid "Enable accessibility keyboard plugin"
 msgstr "Gweredekaat enlugellad "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/cinnamon-settings-daemon.schemas.in.h:9
 msgid "Enable background plugin"
 msgstr "Gweredekaat enlugellad an drekleur"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/cinnamon-settings-daemon.schemas.in.h:10
 msgid "Enable clipboard plugin"
 msgstr "Gweredekaat enlugellad ar golver"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/cinnamon-settings-daemon.schemas.in.h:11
 msgid "Enable font plugin"
 msgstr "Gweredekaat enlugellad an nodrezhoù"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/cinnamon-settings-daemon.schemas.in.h:12
 #, fuzzy
 msgid "Enable housekeeping plugin"
 msgstr "Gweredekaat enlugellad "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/cinnamon-settings-daemon.schemas.in.h:13
 #, fuzzy
 msgid "Enable keybindings plugin"
 msgstr "Gweredekaat enlugellad "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/cinnamon-settings-daemon.schemas.in.h:14
 msgid "Enable keyboard plugin"
 msgstr "Gweredekaat enlugellad ar c'hlavier"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/cinnamon-settings-daemon.schemas.in.h:15
 #, fuzzy
 msgid "Enable media keys plugin"
 msgstr "Gweredekaat enlugellad "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/cinnamon-settings-daemon.schemas.in.h:16
 msgid "Enable mouse plugin"
 msgstr "Gweredekaat enlugellad al logodenn"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/cinnamon-settings-daemon.schemas.in.h:17
 msgid "Enable sound plugin"
 msgstr "Gweredekaat enlugellad ar son"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/cinnamon-settings-daemon.schemas.in.h:18
 #, fuzzy
 msgid "Enable typing breaks plugin"
 msgstr "Gweredekaat enlugellad "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/cinnamon-settings-daemon.schemas.in.h:19
 msgid "Enable xrandr plugin"
 msgstr "Gweredekaat enlugellad xrandr"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/cinnamon-settings-daemon.schemas.in.h:20
 msgid "Enable xrdb plugin"
 msgstr "Gweredekaat enlugellad xrdb"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/cinnamon-settings-daemon.schemas.in.h:21
 msgid "Enable xsettings plugin"
 msgstr "Gweredekaat enlugellad "
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/cinnamon-settings-daemon.schemas.in.h:22
 msgid "Mouse keys"
 msgstr "Alc'hwezioù al logodenn"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/cinnamon-settings-daemon.schemas.in.h:23
 msgid "On-screen keyboard"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/cinnamon-settings-daemon.schemas.in.h:24
 msgid "Screen magnifier"
 msgstr "Loupenn ar skramm"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/cinnamon-settings-daemon.schemas.in.h:25
 msgid "Screen reader"
 msgstr "Lenner skramm"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/cinnamon-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the housekeeping plugin, to prune transient file caches."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/cinnamon-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/cinnamon-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/cinnamon-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/cinnamon-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:31
+#: ../data/cinnamon-settings-daemon.schemas.in.h:31
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:32
+#: ../data/cinnamon-settings-daemon.schemas.in.h:32
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:33
+#: ../data/cinnamon-settings-daemon.schemas.in.h:33
 msgid "Set to True to enable the plugin to manage sound sample caches."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:34
+#: ../data/cinnamon-settings-daemon.schemas.in.h:34
 msgid "Set to True to enable the plugin to manage the accessibility keyboard settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:35
+#: ../data/cinnamon-settings-daemon.schemas.in.h:35
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:36
+#: ../data/cinnamon-settings-daemon.schemas.in.h:36
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:37
+#: ../data/cinnamon-settings-daemon.schemas.in.h:37
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:38
+#: ../data/cinnamon-settings-daemon.schemas.in.h:38
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:39
+#: ../data/cinnamon-settings-daemon.schemas.in.h:39
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:40
+#: ../data/cinnamon-settings-daemon.schemas.in.h:40
 msgid "Slow keys"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:41
+#: ../data/cinnamon-settings-daemon.schemas.in.h:41
 msgid "Sticky keys"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:42
+#: ../data/cinnamon-settings-daemon.schemas.in.h:42
 msgid "The name of the keyboard shortcut to toggle the magnifier"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:43
+#: ../data/cinnamon-settings-daemon.schemas.in.h:43
 msgid "The name of the keyboard shortcut to toggle the on-screen keyboard"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:44
+#: ../data/cinnamon-settings-daemon.schemas.in.h:44
 msgid "The name of the keyboard shortcut to toggle the screen reader"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:45
+#: ../data/cinnamon-settings-daemon.schemas.in.h:45
 msgid "This is the name of the keyboard shortcut to toggle the magnifier. This name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:46
+#: ../data/cinnamon-settings-daemon.schemas.in.h:46
 msgid "This is the name of the keyboard shortcut to toggle the on-screen keyboard. This name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:47
+#: ../data/cinnamon-settings-daemon.schemas.in.h:47
 msgid "This is the name of the keyboard shortcut to toggle the screen reader. This name will be shown in the keyboard shortcut preferences dialog."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:48
+#: ../data/cinnamon-settings-daemon.schemas.in.h:48
 msgid "Toggle magnifier"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:49
+#: ../data/cinnamon-settings-daemon.schemas.in.h:49
 msgid "Toggle on-screen keyboard"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:50
+#: ../data/cinnamon-settings-daemon.schemas.in.h:50
 msgid "Toggle screen reader"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:51
+#: ../data/cinnamon-settings-daemon.schemas.in.h:51
 msgid "Whether the bounce keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:52
+#: ../data/cinnamon-settings-daemon.schemas.in.h:52
 msgid "Whether the mouse keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:53
+#: ../data/cinnamon-settings-daemon.schemas.in.h:53
 msgid "Whether the on-screen keyboard is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:54
+#: ../data/cinnamon-settings-daemon.schemas.in.h:54
 msgid "Whether the screen magnifier is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:55
+#: ../data/cinnamon-settings-daemon.schemas.in.h:55
 msgid "Whether the screen reader is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:56
+#: ../data/cinnamon-settings-daemon.schemas.in.h:56
 msgid "Whether the slow keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:57
+#: ../data/cinnamon-settings-daemon.schemas.in.h:57
 msgid "Whether the sticky keys keyboard accessibility feature is turned on."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Don't become a daemon"
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:56
+#: ../cinnamon-settings-daemon/main.c:56
 msgid "GConf prefix from which to load plugin settings"
 msgstr ""
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr ""
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr ""
 
@@ -685,36 +685,36 @@ msgstr ""
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Drekleur"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Enlugellad an drekleur"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Golver"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Enlugellad ar golver"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Dummy plugin"
 msgstr "Enlugellad"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:1
 msgid "Font"
 msgstr "Nodrezh"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:2
 msgid "Font plugin"
 msgstr "Enlugellad an nodrezh"
 
@@ -821,19 +821,19 @@ msgid ""
 "which is linked to the key (%s)"
 msgstr ""
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr ""
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr ""
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "Klavier"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Enlugellad ar c'hlavier"
 
@@ -886,11 +886,11 @@ msgstr "Reizhiad sonioù"
 msgid "GNOME Volume Control"
 msgstr "Reoler an ampled GNOME"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Alc'hwezioù ar media"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Enlugellad alc'hwezioù ar media"
 
@@ -906,27 +906,27 @@ msgstr ""
 msgid "Mouse Preferences"
 msgstr "Gwellvezioù al logodenn"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Logodenn"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Enlugellad al logodenn"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:1
 msgid "Typing Break"
 msgstr ""
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:2
 msgid "Typing break plugin"
 msgstr ""
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr ""
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -1016,11 +1016,11 @@ msgstr ""
 msgid "Cannot determine user's home directory"
 msgstr ""
 
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:1
 msgid "Manage the X resource database"
 msgstr ""
 
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:2
 msgid "X Resource Database"
 msgstr ""
 
@@ -1029,11 +1029,11 @@ msgstr ""
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr ""
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "Ardeiñ an arventennoù X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Arventennoù X"
 

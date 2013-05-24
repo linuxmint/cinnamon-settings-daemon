@@ -1,4 +1,4 @@
-# translation of gnome-settings-daemon.HEAD.ta.po to Tamil
+# translation of cinnamon-settings-daemon.HEAD.ta.po to Tamil
 # Tamil translation of gnome-control-center
 # Copyright (C) 2002
 # This file is distributed under the same license as the gnome-control-center.
@@ -12,7 +12,7 @@
 # Dr,T,Vasudevan <agnihot3@gmail.com>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.HEAD.ta\n"
+"Project-Id-Version: cinnamon-settings-daemon.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-02 16:57+0530\n"
 "PO-Revision-Date: 2012-09-02 17:38+0530\n"
@@ -29,8 +29,8 @@ msgstr ""
 "\n"
 "X-Generator: Lokalize 1.1\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME அமைவுகள் கிங்கரன்"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -215,7 +215,7 @@ msgstr "சொருகிக்கான முன்னுரிமை"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr "க்னோம்-அமைப்பு-கிங்கரன் துவக்க வரிசையில் இந்த சொருகிக்கு முன்னுரிமை"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
@@ -336,7 +336,7 @@ msgstr "வாகாம் தொடுதல் அம்சம்"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "க்னோம்-அமைப்பு-கிங்கரன் ஆல் இந்த சொருகி செயலாக்கப்படுமா இல்லையா"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
@@ -1053,19 +1053,19 @@ msgstr ""
 "பலமாக்கல் தெவை இல்லை. \"சற்று\": அடிப்படை பலமாக்கம். \"நடுத்தரம்\" \"முழு\" அதிக பட்ச "
 "பலமாக்கம்.( எழுத்துருவே மாறிவிடலாம்.)"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "வழுநீக்கி  சொருகியை செயல்படுத்து"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "(பிழை திருத்த) சிறிய தாமதத்தின் பின் வெளியேறு"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "விசைப்பலகை அணுகல் "
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "விசைப்பலகை அணுகல்  சொருகி"
 
@@ -1205,11 +1205,11 @@ msgstr "(_I) இரட்டை விசை அமுத்தலை புற�
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "(_P) குறுக்கு விசைகளை ஒரு நேரத்தில் ஒன்று என அழுத்தவும்."
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "அணுகல் அமைப்புகள்"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "அணுகல்  அமைப்புகள் சொருகி"
 
@@ -1341,28 +1341,28 @@ msgstr "வெளியேற்று (_E)"
 msgid "_Unmount"
 msgstr "இறக்கு (_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "பின்னணி"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "பின்னணி சொருகி"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "ஒட்டுப்பலகை"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "ஒட்டுப்பலகை சொருகி"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "நிறம்"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "நிற  சொருகி"
 
@@ -1390,7 +1390,7 @@ msgstr "அச்சுப்பொறி '%s'  சீக்கிரம் ம�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME அமைவுகள் கிங்கரன் நிற சொருகி"
 
 #. TRANSLATORS: this is a sound description
@@ -1403,11 +1403,11 @@ msgstr "நிற அளவீடு சாதனம் சேர்க்கப
 msgid "Color calibration device removed"
 msgstr "நிற அளவீடு சாதனம் நீக்கப்பட்டது"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "டம்மி"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "டம்மி சொருகி"
 
@@ -1515,14 +1515,14 @@ msgid "Examine…"
 msgstr "சோதி..."
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "விசைப்பலகை"
 msgstr[1] "விசைப்பலகைகள்"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "விசைப்பலகை சொருகி"
 
@@ -1554,11 +1554,11 @@ msgstr[1] "%u உள்ளீடுகள்"
 msgid "System Sounds"
 msgstr "கணினி ஒலிகள்"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "ஊடக விசைகள்"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "ஊடக விசைகள் சொருகி"
 
@@ -1571,14 +1571,14 @@ msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "சொடுக்கி அணுகலுக்கு மவுஸ்ட்வீக்ஸ் ஐ உங்கள் கணினியில் நிறுவி இருக்க வேண்டும்."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "சொடுக்கி"
 msgstr[1] "சொடுக்கிகள்"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "சொடுக்கி சொருகி"
 
@@ -2109,7 +2109,7 @@ msgstr "யூபிஎஸ் மின்சக்தியில்  %s  ம�
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "சக்தி"
 
@@ -2447,7 +2447,7 @@ msgstr "மடிக்கணினி திரை வெளிச்சத்�
 msgid "Modify the laptop brightness"
 msgstr "மடிக்கணினி திரை வெளிச்சத்தை மாற்றுக"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "சக்தி சொருகி"
 
@@ -2680,11 +2680,11 @@ msgstr "அச்சுப்பொறி எச்சரிக்கை"
 msgid "Printer '%s': '%s'."
 msgstr "அச்சுப்பொறி '%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "அச்சு அறிவிப்புகள்"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "அச்சு அறிவிப்பு சொருகி"
 
@@ -3067,19 +3067,19 @@ msgstr "மானிட்டர் கட்டமைப்பை எப்ப�
 msgid "Could not apply the stored configuration for monitors"
 msgstr "மானிட்டர்களுக்கான சேமிக்கப்பட்ட கட்டமைப்பை செயல்படுத்த முடியவில்லை"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "திரை அளவு மற்றும் சுழற்சி அமைப்பு"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "X அமைப்பை மேலாளுக"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X அமைப்புகள்"
 
@@ -3234,12 +3234,12 @@ msgstr "X அமைப்புகள்"
 #~ msgstr "இப்போது கணினியை மீண்டும் துவக்கவும்"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
 #~ "துவக்க வரிசையில் க்னோம்-அமைப்பு-கிங்கரன் ஆல் இந்த சொருகி செயலாக்கப்பட முன்னுரிமை"
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 #~ msgstr "க்னோம்-அமைப்பு-கிங்கரன் ஆல் இந்த சொருகி செயலாக்கப்படுமா இல்லையா"
 
 #~ msgid "If notifications are allowed to be shown"

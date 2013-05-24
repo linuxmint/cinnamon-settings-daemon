@@ -1,5 +1,5 @@
 # GNOME sätetedeemoni eesti keele tõlge.
-# Estonian translation of GNOME Settings Daemon.
+# Estonian translation of Cinnamon Settings Daemon.
 #
 # Copyright (C) 1999, 2002, 2003, 2005, 2006 Free Software Foundation, Inc.
 # Copyright (C) 2007–2011 The Gnome Project.
@@ -14,7 +14,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNOME Settings Daemon MASTER\n"
+"Project-Id-Version: Cinnamon Settings Daemon MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-09-23 10:26+0000\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-msgid "GNOME Settings Daemon"
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME sätetedeemon"
 
 msgid "Smartcard removal action"
@@ -127,14 +127,14 @@ msgstr "Seadme lisamisel või eemaldamisel käivitatav käsk."
 msgid "Activation of this plugin"
 msgstr "Selle plugina aktiveerimine"
 
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "Kas see plugin aktiveeritakse GNOME sätetedeemoni poolt või mitte"
 
 msgid "Priority to use for this plugin"
 msgstr "Selle plugina kasutamise prioriteet"
 
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Selle plugina olulisus gnome-settings-daemon'i käivitusjärjekorras"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Selle plugina olulisus cinnamon-settings-daemon'i käivitusjärjekorras"
 
 msgid "Wacom stylus absolute mode"
 msgstr "Wacomi krihvli absoluutrežiim"
@@ -1090,7 +1090,7 @@ msgid "The printer '%s' should be recalibrated soon."
 msgstr "Printerit '%s' tuleks varsti uuesti kalibreerida."
 
 #. TRANSLATORS: this is the application name
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME sätetedeemoni värviplugin"
 
 #. TRANSLATORS: this is a sound description

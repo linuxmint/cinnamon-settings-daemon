@@ -1,4 +1,4 @@
-# Simplified Chinese translation for gnome-settings-daemon,
+# Simplified Chinese translation for cinnamon-settings-daemon,
 #    original from gnome-control-center.
 # Copyright (C) 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011 Free Software Foundation, Inc.
 # some translations stolen from tranditional chinese translation
@@ -20,7 +20,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon master\n"
+"Project-Id-Version: cinnamon-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
@@ -34,8 +34,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME 设置守护程序"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -171,8 +171,8 @@ msgstr "激活该插件"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "是否该插件应由 gnome-settings-daemon 激活"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "是否该插件应由 cinnamon-settings-daemon 激活"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -201,8 +201,8 @@ msgstr "使用该插件的优先程度"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "在 gnome-settings-daemon 启动队列中使用该插件的优先程度"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "在 cinnamon-settings-daemon 启动队列中使用该插件的优先程度"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1051,19 +1051,19 @@ msgid ""
 msgstr ""
 "代表将加载的 GTK+ 模块的字符串列表，通常加上有条件的和强制禁止的一些模块。"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "启用调试代码"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "一段时间后退出(调试用)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "辅助功能键盘"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "辅助功能键盘插件"
 
@@ -1207,11 +1207,11 @@ msgstr "忽略快速重复按键(回键)(_I)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "请按住键以接受慢速键(_H)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "辅助功能设置"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "辅助功能设置插件"
 
@@ -1341,28 +1341,28 @@ msgstr "弹出(_E)"
 msgid "_Unmount"
 msgstr "卸载(_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "背景"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "背景插件"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "剪贴板"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "剪贴板插件"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "颜色"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "颜色插件"
 
@@ -1390,7 +1390,7 @@ msgstr "打印机“%s”应该尽快校准。"
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME 设置守护程序颜色插件"
 
 #. TRANSLATORS: this is a sound description
@@ -1403,11 +1403,11 @@ msgstr "已添加颜色校准设备"
 msgid "Color calibration device removed"
 msgstr "已移除颜色校准设备"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "过渡"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "过渡插件"
 
@@ -1508,13 +1508,13 @@ msgid "Examine…"
 msgstr "分析..."
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "键盘"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "键盘插件"
 
@@ -1544,11 +1544,11 @@ msgstr[0] "%u 输入"
 msgid "System Sounds"
 msgstr "系统声音"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "媒体键"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "媒体键插件"
 
@@ -1562,13 +1562,13 @@ msgid ""
 msgstr "鼠标辅助功能需要在您的系统中安装 Mousetweaks。"
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "鼠标"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "鼠标插件"
 
@@ -2084,7 +2084,7 @@ msgstr "剩余 %s 的 UPS 备用电量"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "电源"
 
@@ -2410,7 +2410,7 @@ msgstr "修改笔记本亮度"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "修改笔记本亮度需要认证"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "电源插件"
 
@@ -2643,11 +2643,11 @@ msgstr "打印机警告"
 msgid "Printer '%s': '%s'."
 msgstr "打印机“%s”：“%s”。"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "打印提醒"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr " 打印提醒插件"
 
@@ -3031,19 +3031,19 @@ msgstr "正在尝试改变显示器配置。"
 msgid "Could not apply the stored configuration for monitors"
 msgstr "无法应用原保存的显示器配置。"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "设置屏幕尺寸及旋转"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X 设置"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "管理 X 设置"
 
@@ -3185,12 +3185,12 @@ msgstr "管理 X 设置"
 #~ msgstr "现在重启"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
-#~ msgstr "在 gnome-settings-daemon 启动队列中使用该插件的优先程度"
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
+#~ msgstr "在 cinnamon-settings-daemon 启动队列中使用该插件的优先程度"
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "是否该插件应被 gnome-settings-daemon 激活。"
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "是否该插件应被 cinnamon-settings-daemon 激活。"
 
 #~ msgid "If notifications are allowed to be shown"
 #~ msgstr "是否允许显示通知"
@@ -3458,14 +3458,14 @@ msgstr "管理 X 设置"
 #~ msgstr "系统启动时，如果用户插入外部显示器，打开笔记本显示器。"
 
 #~ msgid ""
-#~ "Usually, gnome-settings-daemon configures internal and external monitors "
+#~ "Usually, cinnamon-settings-daemon configures internal and external monitors "
 #~ "according to the turn_on_external_monitors_at_startup and "
 #~ "turn_on_laptop_monitor_at_startup settings and determines an appropriate "
 #~ "cloning/side-by-side mode. Setting this key to True disables this, and "
 #~ "the monitor settings are not touched at all (unless there is an explicit "
 #~ "user configuration)."
 #~ msgstr ""
-#~ "通常情况下，gnome-settings-daemon 会根据 "
+#~ "通常情况下，cinnamon-settings-daemon 会根据 "
 #~ "turn_on_external_monitors_at_startup 和 turn_on_laptop_monitor_at_startup "
 #~ "设定来配置内部和外部的显示器，并决定合适的“克隆/肩并肩”模式。设定该键值为 "
 #~ "True 则禁止该功能而根本不理会显示器设定(除非这里有单独指定的用户配置)。"

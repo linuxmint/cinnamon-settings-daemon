@@ -1,19 +1,19 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.gsdwacom" path="/org/gnome/settings-daemon/plugins/gsdwacom/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.csdwacom" path="/org.cinnamon.settings-daemon/plugins/csdwacom/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
     </key>
     <key name="priority" type="i">
       <default>6</default>
       <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom">
-    <child name="stylus" schema="org.gnome.settings-daemon.peripherals.wacom.stylus"/>
-    <child name="eraser" schema="org.gnome.settings-daemon.peripherals.wacom.eraser"/>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom">
+    <child name="stylus" schema="org.cinnamon.settings-daemon.peripherals.wacom.stylus"/>
+    <child name="eraser" schema="org.cinnamon.settings-daemon.peripherals.wacom.eraser"/>
 
     <!-- is-absolute applies to all tools but PAD, CURSOR is hard-coded -->
     <key name="is-absolute" type="b">
@@ -31,7 +31,7 @@
       <_summary>Wacom tablet aspect ratio</_summary>
       <_description>Enable this to restrict the Wacom tablet area to match the aspect ratio of the output.</_description>
     </key>
-    <key name="rotation" enum="org.gnome.settings-daemon.GsdWacomRotation">
+    <key name="rotation" enum="org.cinnamon.settings-daemon.CsdWacomRotation">
       <default>'none'</default>
       <_summary>Wacom tablet rotation</_summary>
       <_description>Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise.</_description>
@@ -52,7 +52,7 @@
       <_description>EDID information of monitor to map tablet to. Must be in the format [vendor, product, serial]. ["","",""] disables mapping.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.stylus">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.stylus">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom stylus pressure curve</_summary>
@@ -69,7 +69,7 @@
       <_description>Set this to the pressure value at which a stylus click event is generated.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.eraser">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.eraser">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <_summary>Wacom eraser pressure curve</_summary>
@@ -86,8 +86,8 @@
       <_description>Set this to the pressure value at which an eraser click event is generated.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.peripherals.wacom.tablet-button">
-    <key name="action-type" enum="org.gnome.settings-daemon.GsdWacomActionType">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.tablet-button">
+    <key name="action-type" enum="org.cinnamon.settings-daemon.CsdWacomActionType">
       <default>'none'</default>
       <_summary>Wacom button action type</_summary>
       <_description>The type of action triggered by the button being pressed.</_description>

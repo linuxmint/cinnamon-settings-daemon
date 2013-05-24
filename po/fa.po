@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-07-13 18:55+0000\n"
 "PO-Revision-Date: 2011-07-27 13:10+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
@@ -28,8 +28,8 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-DamnedLies-Scope: partial\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "شبح تنظیمات گنوم"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -161,8 +161,8 @@ msgstr "الویت برای استفاده از این افزونه"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "الویت برای استفاده از این افزونه در صف شروع gnome-settings-daemon"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "الویت برای استفاده از این افزونه در صف شروع cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
@@ -174,7 +174,7 @@ msgstr "الویت برای استفاده از این افزونه در صف ش
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "اینکه آیا این افزونه توسط شبح تنظیمات گنوم فعال می‌شود یا خیر"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
@@ -220,12 +220,12 @@ msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
-msgstr "الویت برای استفاده از این افزونه در صف شروع gnome-settings-daemon."
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
+msgstr "الویت برای استفاده از این افزونه در صف شروع cinnamon-settings-daemon."
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
@@ -902,19 +902,19 @@ msgstr "شرخش تبلت Wacom"
 msgid "Wacom touch feature"
 msgstr "امکانات لمسی Wacom"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "فعال‌سازی اشکال‌زدایی کد"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "خروج بعد یک مدت (جهت اشکال‌زدایی)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "دسترسی‌پذیری صفحه کلید"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "افزونه دسترسی‌پذیری صفحه‌کلید"
 
@@ -1048,11 +1048,11 @@ msgstr "نا_دیده گرفتن دوبار فشردن یک کلید (کلیده
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_فشردن کلیدهای میان‌بر، یکی در هر لحظه (کلیدهای چسبان)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "تنظیمات دسترسی‌پذیری"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "افزونه‌ی تنظیمات دسترسی‌پذیری"
 
@@ -1178,28 +1178,28 @@ msgstr "_بیرون دادن"
 msgid "_Unmount"
 msgstr "_پیاده‌کردن"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "پس‌زمینه"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "افزونه‌ی پس‌زمینه"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "تخته‌گیره"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "افزونه‌ی تخته‌گیره"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #| msgid "Solid Color"
 msgid "Color"
 msgstr "رنگ"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 #| msgid "Clipboard plugin"
 msgid "Color plugin"
 msgstr "افزونه رنگ"
@@ -1239,8 +1239,8 @@ msgstr "چاپگر «%s» باید سریعا درجه‌بندی مجدد شو�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:1932
 #: ../plugins/color/gsd-color-manager.c:1950
-#| msgid "GNOME Settings Daemon"
-msgid "GNOME Settings Daemon Color Plugin"
+#| msgid "Cinnamon Settings Daemon"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "افزونه رنگ شبح تنظیمات گنوم"
 
 #. TRANSLATORS: this is a sound description
@@ -1253,16 +1253,16 @@ msgstr "دستگاه درجه‌بندی رنگ اضافه شد"
 msgid "Color calibration device removed"
 msgstr "دستگاه درجه‌بندی رنگ حذف شد"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ساختگی"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "افزونه‌ی ساختگی"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gsd-power-manager.c:1153
 #: ../plugins/power/gsd-power-manager.c:1329
 #: ../plugins/power/gsd-power-manager.c:1507
@@ -1271,7 +1271,7 @@ msgstr "افزونه‌ی ساختگی"
 msgid "Power"
 msgstr "انرژی"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 #| msgid "Mouse plugin"
 msgid "Power plugin"
 msgstr "افزونه انرژی"
@@ -1508,7 +1508,7 @@ msgstr[1] "صفحه‌نمایش"
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/power/gpm-common.c:581
 #: ../plugins/power/gpm-common.c:848
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #| msgid "Mouse"
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1518,7 +1518,7 @@ msgstr[1] "موشی"
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/power/gpm-common.c:585
 #: ../plugins/power/gpm-common.c:872
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #| msgid "Keyboard"
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -2221,15 +2221,15 @@ msgstr ""
 "خطا در حین تلاش برای اجرای(%s)\n"
 "که به کلید (%s) پیوند شده است"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr "کلیدهای مقید"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "افزونه‌ی کلیدهای مقید"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "افزونه‌ی صفحه‌کلید"
 
@@ -2311,11 +2311,11 @@ msgstr[1] "%Iu ورودی"
 msgid "System Sounds"
 msgstr "صداهای سیستم"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "کلید‌های رسانه"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "افزونه‌ی کلیدهای رسانه"
 
@@ -2327,15 +2327,15 @@ msgstr "نمی‌توان امکانات دسترسی‌پذیری صفحه‌ک
 msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "امکانات دسترسی‌پذیری موشی احتیاج به نصب Mousetweaks بر روی سیستم دارد."
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "افزونه‌ی موشی"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "اعلان‌های چاپ"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "افزونه‌ی اعلان چاپ"
 
@@ -2551,11 +2551,11 @@ msgstr "هیچ راه‌انداز چاپگری برای %s وجود ندارد.
 msgid "No driver for this printer."
 msgstr "هیچ راه‌اندازی برای این چاپگر وجود ندارد."
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "برپاسازی تنظیمات اندازه و چرخش صفحه‌نمایش"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -2607,11 +2607,11 @@ msgstr "درحال تلاش برای تعویض پیکربندی صفحه‌نم
 msgid "Could not apply the stored configuration for monitors"
 msgstr "نمی‌توان پیکربندی ذخیره شده برای صفحه‌نمایش‌ها را اعمال کرد"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "مدیریت تنظیمات X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "تنظیمات X"
 
@@ -3433,7 +3433,7 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgid_plural "pixels"
 #~ msgstr[0] "نقطه"
 #~ msgid ""
-#~ "Unable to start the settings manager 'gnome-settings-daemon'.\n"
+#~ "Unable to start the settings manager 'cinnamon-settings-daemon'.\n"
 #~ "Without the GNOME settings manager running, some preferences may not take "
 #~ "effect. This could indicate a problem with Bonobo, or a non-GNOME (e.g. "
 #~ "KDE) settings manager may already be active and conflicting with the "
@@ -4415,7 +4415,7 @@ msgstr "رد کردن دستگاه‌ها"
 #~ msgid "Desktop Preferences"
 #~ msgstr "ترجیحات رومیزی"
 
-#~ msgid "GNOME Control Center"
+#~ msgid "Cinnamon Settings"
 #~ msgstr "مرکز کنترل گنوم"
 
 #~ msgid "The GNOME configuration tool"

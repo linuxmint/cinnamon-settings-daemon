@@ -1,4 +1,4 @@
-# Uyghur translation for gnome-settings-daemon.
+# Uyghur translation for cinnamon-settings-daemon.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Gheyret Kenji<gheyret@yahoo.com>,2010.
@@ -7,8 +7,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-12-20 14:33+0000\n"
 "PO-Revision-Date: 2011-04-26 17:28+0600\n"
 "Last-Translator: Sahran <sahran.ug@gmail.com>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "گىنوم تەڭشەك مۇئەككىلى"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -151,8 +151,8 @@ msgstr "بۇ قىستۇرمىنى ئاكتىپلاش"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "مەزكۇر قىستۇرما gnome-settings-daemon ئارقىلىق ئاكتىپلىنامدۇ يوق"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "مەزكۇر قىستۇرما cinnamon-settings-daemon ئارقىلىق ئاكتىپلىنامدۇ يوق"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -181,8 +181,8 @@ msgstr "بۇ قىستۇرمىنى ئىشلىتىشنىڭ مەرتىۋىسى"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "gnome-settings-daemon نىڭ قوزغىلىش ئۆچىرىتىدىكى مەزكۇر قىستۇرمىنىڭ مەرتىۋىسى"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "cinnamon-settings-daemon نىڭ قوزغىلىش ئۆچىرىتىدىكى مەزكۇر قىستۇرمىنىڭ مەرتىۋىسى"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -979,19 +979,19 @@ msgid ""
 "in addition to conditional and forcibly disabled ones."
 msgstr "يۈكلىمەكچى بولغان GTK+ بۆلىكىنىڭ ھەرپ تىزىقى تىزىمىغا ۋەكىللىك قىلىدۇ، ئادەتتە شەرتلىك ۋە مەجبۇرىي چەكلەيدىغان بىر قىسىم بۆلەكلەر قوشۇلىدۇ."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "سازلاش كودىنى قوزغات"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "بىردەمدىن كېيىن چېكىن - سازلاش ئۈچۈن"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "قوشۇمچە ئىقتىدارلىق ھەرپتاختا"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "ھەرپتاختا قىستۇرمىسىنىڭ قوشۇمچە ئىقتىدارى"
 
@@ -1125,11 +1125,11 @@ msgstr "تېز سۈرئەتتە تەكرار كۇنۇپكا بېسىشقا پە�
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "كۇنۇپكىنى بېسىپ تۇرۇپ ئاستىلىتىش كۇنۇپكىسىغا قوشۇلۇڭ(_H)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "قوشۇمچە ئىقتىدار تەڭشىكى"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "قوشۇمچە ئىقتىدار تەڭشەك قىستۇرمىسى"
 
@@ -1259,28 +1259,28 @@ msgstr "دىسكىنى چىقىرىش(_E)"
 msgid "_Unmount"
 msgstr "ئېگەرسىزلە(_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "تەگلىك"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "تەگلىك قىستۇرمىسى"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "چاپلاش تاختىسى"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "چاپلاش تاختىسى قىستۇرمىسى"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1808
 msgid "Color"
 msgstr "رەڭ"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "رەڭ قىستۇرمىسى"
 
@@ -1308,7 +1308,7 @@ msgstr "پرىنتېر ‹%s› پات ئارىدا قايتا تەڭشىلىش�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2201
 #: ../plugins/color/gsd-color-manager.c:2217
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME تەڭشەك مۇئەككىلى رەڭ قىستۇرمىسى"
 
 #. TRANSLATORS: this is a sound description
@@ -1321,11 +1321,11 @@ msgstr "رەڭ تەڭشەش ئۈسكۈنىسى قوشۇلدى"
 msgid "Color calibration device removed"
 msgstr "رەڭ تەڭشەش ئۈسكۈنىسى چىقىرىۋېتىلدى"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "مەۋھۇم"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "مەۋھۇم قىستۇرما"
 
@@ -1421,13 +1421,13 @@ msgid "Examine…"
 msgstr "تەكشۈر…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "ھەرپتاختا"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "ھەرپتاختا قىستۇرمىسى"
 
@@ -1457,11 +1457,11 @@ msgstr[0] "%u كىرگۈزۈلمە"
 msgid "System Sounds"
 msgstr "سىستېما ئاۋازى"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "ۋاسىتە كۇنۇپكىلىرى"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "ۋاسىتە كۇنۇپكىلىرى قىستۇرمىسى"
 
@@ -1475,13 +1475,13 @@ msgid ""
 msgstr "چاشقىنەك قوشۇمچە ئىقتىدارى سىستېمىڭىزغا Mousetweaks ئورنىتىشىڭىزنى تەلەپ قىلىدۇ."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "چاشقىنەك"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "چاشقىنەك قىستۇرمىسى:"
 
@@ -1997,7 +1997,7 @@ msgstr "UPS دا يەنە %s زاپاس توك بار"
 #: ../plugins/power/gsd-power-manager.c:1499
 #: ../plugins/power/gsd-power-manager.c:1681
 #: ../plugins/power/gsd-power-manager.c:1828
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "توك مەنبە"
 
@@ -2312,7 +2312,7 @@ msgstr "يان كومپيۇتېر يورۇقلۇقىنى ئۆزگەرتىش"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "يان كومپيۇتېرنىڭ يورۇقلۇقىنى ئۆزگەرتىش ئۈچۈن سالاھىيەت دەلىللەش زۆرۈر"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "توك مەنبە قىستۇرمىسى"
 
@@ -2545,11 +2545,11 @@ msgstr "پرىنتېر ئاگاھلاندۇرۇشى"
 msgid "Printer '%s': '%s'."
 msgstr "پرىنتېر ‹%s› : ‹%s›"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "بېسىش - ئۇقتۇرۇشلار"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "بېسىش - ئۇقتۇرۇشلار قىستۇرمىسى"
 
@@ -2925,31 +2925,31 @@ msgstr "ئېكران سەپلىمىسىنى ئالماشتۇرۇۋېرىدۇ."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "ئېكراننىڭ ساقلانغان سەپلىمىسىنى قوللانغىلى بولمىدى"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "ئېكران چوڭلۇقى ۋە ئايلاندۇرۇش تەڭشىكىنى تەڭشەش"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X تەڭشىكى"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X تەڭشىكى باشقۇرۇش"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
-#~ "gnome-settings-daemon نىڭ قوزغىلىش ئۆچىرىتىدىكى مەزكۇر قىستۇرمىنىڭ "
+#~ "cinnamon-settings-daemon نىڭ قوزغىلىش ئۆچىرىتىدىكى مەزكۇر قىستۇرمىنىڭ "
 #~ "ئالدىنلىقى."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "مەزكۇر قىستۇرما gnome-settings-daemon ئارقىلىق ئاكتىپلىنامدۇ يوق."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "مەزكۇر قىستۇرما cinnamon-settings-daemon ئارقىلىق ئاكتىپلىنامدۇ يوق."
 
 #~ msgid "Allowed keys"
 #~ msgstr "رۇخسەت قىلىنغان كۇنۇپكىلار"

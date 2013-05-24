@@ -755,7 +755,7 @@
 
 2008-04-23  Vincent Untz  <vuntz@gnome.org>
 
-	* POTFILES.skip: Add data/gnome-settings-daemon.desktop.in here so that
+	* POTFILES.skip: Add data/cinnamon-settings-daemon.desktop.in here so that
 	distcheck works.
 
 2008-04-22  Kjartan Maraas  <kmaraas@gnome.org>
@@ -877,7 +877,7 @@
 2008-02-26  Matthias Clasen  <mclasen@redhat.com>
 
 	* *.po: Remove obsolete translations by running
-	msgmerge -U $po gnome-settings-daemon.pot.
+	msgmerge -U $po cinnamon-settings-daemon.pot.
 	See
 	http://mail.gnome.org/archives/gnome-i18n/2008-February/msg00123.html
 

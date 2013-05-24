@@ -1,5 +1,5 @@
-# gnome-settings-daemon ja.po.
-# Copyright (C) 1998-2011 gnome-settings-daemon's COPRYRIGHT HOLDER
+# cinnamon-settings-daemon ja.po.
+# Copyright (C) 1998-2011 cinnamon-settings-daemon's COPRYRIGHT HOLDER
 # Yukihiro Nakai <Nakai@abricot.co.jp>, 1998.
 # Eiichiro ITANI <emu@ceres.dti.ne.jp>, 1999.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2000, 2009-2010.
@@ -15,7 +15,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon master\n"
+"Project-Id-Version: cinnamon-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-09-24 15:43+0000\n"
@@ -28,8 +28,8 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME 設定デーモン"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -187,9 +187,9 @@ msgstr "このプラグインの優先度"
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"gnome-settings-daemon の起動時のキューで、このプラグインが使用される優先度"
+"cinnamon-settings-daemon の起動時のキューで、このプラグインが使用される優先度"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
@@ -203,9 +203,9 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
-"このプラグインが gnome-settings-daemon でアクティベーションされるかどうか"
+"このプラグインが cinnamon-settings-daemon でアクティベーションされるかどうか"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
@@ -1040,19 +1040,19 @@ msgstr ""
 msgid "Wacom touch feature"
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "デバッグ情報を有効にする"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "しばらくしてから終了する (デバッグ用)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "アクセシビリティ・キーボード"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "アクセシビリティ・キーボードのプラグイン"
 
@@ -1199,12 +1199,12 @@ msgstr "キーを素早く押下したり押し続けた場合は無視する(_I
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "固定キーを有効にする(_P)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Accessibility settings"
 msgstr "アクセシビリティ"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Accessibility settings plugin"
 msgstr "アクセシビリティ・キーボードのプラグイン"
@@ -1336,28 +1336,28 @@ msgstr "取り出す(_E)"
 msgid "_Unmount"
 msgstr ""
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "背景"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "背景のプラグイン"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "クリップボード"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "クリップボードのプラグイン"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1526
 msgid "Color"
 msgstr ""
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 #| msgid "Clipboard plugin"
 msgid "Color plugin"
@@ -1392,8 +1392,8 @@ msgstr ""
 #: ../plugins/color/gsd-color-manager.c:1924
 #: ../plugins/color/gsd-color-manager.c:1942
 #, fuzzy
-#| msgid "GNOME Settings Daemon"
-msgid "GNOME Settings Daemon Color Plugin"
+#| msgid "Cinnamon Settings Daemon"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME 設定デーモン"
 
 #. TRANSLATORS: this is a sound description
@@ -1406,16 +1406,16 @@ msgstr ""
 msgid "Color calibration device removed"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ダミー"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "ダミーのプラグイン"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gsd-power-manager.c:1197
 #: ../plugins/power/gsd-power-manager.c:1375
 #: ../plugins/power/gsd-power-manager.c:1556
@@ -1423,7 +1423,7 @@ msgstr "ダミーのプラグイン"
 msgid "Power"
 msgstr ""
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 #| msgid "Mouse plugin"
 msgid "Power plugin"
@@ -1631,7 +1631,7 @@ msgstr[0] ""
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 #| msgid "Mouse"
 msgid "Mouse"
@@ -1640,7 +1640,7 @@ msgstr[0] "マウス"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 #| msgid "Keyboard"
 msgid "Keyboard"
@@ -2406,15 +2406,15 @@ msgstr ""
 "(%s) を実行する際にエラーが発生しました。\n"
 "これはキー (%s) にリンクしています。"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr "キーバインディング"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "キーバインディングのプラグイン"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "キーボードのプラグイン"
 
@@ -2501,11 +2501,11 @@ msgstr[0] "%u 入力"
 msgid "System Sounds"
 msgstr "システムの効果音"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "メディア・キー"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "メディア・キーのプラグイン"
 
@@ -2520,15 +2520,15 @@ msgstr ""
 "マウスのアクセシビリティに関する機能を有効にするには mousetweaks がインストー"
 "ルされている必要があります。"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "マウスのプラグイン"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr ""
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr ""
 
@@ -2743,11 +2743,11 @@ msgstr ""
 msgid "No driver for this printer."
 msgstr ""
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "画面の大きさや回転といった設定を管理します"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -2799,11 +2799,11 @@ msgstr "いずれにせよ、モニターの設定を切り替えてみます"
 msgid "Could not apply the stored configuration for monitors"
 msgstr "保存したモニターの設定を適用できませんでした"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "X の設定を管理します"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X の設定"
 
@@ -3058,15 +3058,15 @@ msgid "Ignore devices"
 msgstr "無視"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
-#~ "gnome-settings-daemon の起動時のキューで、このプラグインが使用される優先"
+#~ "cinnamon-settings-daemon の起動時のキューで、このプラグインが使用される優先"
 #~ "度。"
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 #~ msgstr ""
-#~ "このプラグインが gnome-settings-daemon でアクティベーションされるかどう"
+#~ "このプラグインが cinnamon-settings-daemon でアクティベーションされるかどう"
 #~ "か。"
 
 #~ msgid "Binding to enable or disable the touchpad."

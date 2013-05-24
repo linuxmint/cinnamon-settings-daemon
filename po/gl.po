@@ -1,4 +1,4 @@
-# Galician translation of gnome-settings-daemon
+# Galician translation of cinnamon-settings-daemon
 # (C) 2002 Free Software Foundation, Inc.
 #
 # Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
@@ -16,7 +16,7 @@
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.master\n"
+"Project-Id-Version: cinnamon-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-17 00:33+0200\n"
 "PO-Revision-Date: 2012-08-16 15:46+0200\n"
@@ -29,8 +29,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Lokalize 1.0\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Daemon de configuracións do GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -179,8 +179,8 @@ msgstr "Activación de este engadido"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Indica se gnome-settings-daemon activará este complemento ou non"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Indica se cinnamon-settings-daemon activará este complemento ou non"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -209,9 +209,9 @@ msgstr "Prioridade de uso para este engadido"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"Prioridade que usar para este engadido na cola de inicio de gnome-settings-"
+"Prioridade que usar para este engadido na cola de inicio de cinnamon-settings-"
 "daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
@@ -1127,19 +1127,19 @@ msgstr ""
 "Unha lista de cadeas que representan os módulos de GTK+ que se cargarán, "
 "xeralmente ademais dos condicionais e os desactivados á forza."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Activar o código de depuración"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Saír despois de tempo (para depurar)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Accesibilidade do teclado"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Engadido de accesibilidade do teclado"
 
@@ -1283,11 +1283,11 @@ msgstr "_Ignorar a pulsación duplicada de teclas (teclas de rebote)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Premer e _manter as teclas para aceptalas (Teclas lentas)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Configuración de accesibilidade"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Engadido de configuración de accesibilidade"
 
@@ -1420,28 +1420,28 @@ msgstr "_Expulsar"
 msgid "_Unmount"
 msgstr "_Desmontar"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Fondo"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Engadido de fondo"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Portapapeis"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Engadido de portapapeis"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Cor"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Engadido de cor"
 
@@ -1469,7 +1469,7 @@ msgstr "A impresora «%s» deberíase recalibrar pronto."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Complemento de cor do administrador de preferencias de GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1482,11 +1482,11 @@ msgstr "Dispositivo de calibración de cor engadido"
 msgid "Color calibration device removed"
 msgstr "Retirouse o dispositivo de calibración de cor"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Simulación"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Engadido de simulación"
 
@@ -1597,14 +1597,14 @@ msgid "Examine…"
 msgstr "Examinar…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Teclado"
 msgstr[1] "Teclados"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Engadido do teclado"
 
@@ -1636,11 +1636,11 @@ msgstr[1] "%u Entradas"
 msgid "System Sounds"
 msgstr "Sons do sistema"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Teclas multimedia"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Engadido das teclas multimedia"
 
@@ -1655,14 +1655,14 @@ msgstr ""
 "A accesibilidade de rato require ter instalado mousetweaks no seu sistema."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Rato"
 msgstr[1] "Ratos"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Engadido do rato"
 
@@ -2193,7 +2193,7 @@ msgstr "%s de enerxía do SAI restante"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Enerxía"
 
@@ -2540,7 +2540,7 @@ msgid "Authentication is required to modify the laptop brightness"
 msgstr ""
 "Requírese autenticación para modificar o brillo da pantalla do portátil"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Engadido de enerxía"
 
@@ -2773,11 +2773,11 @@ msgstr "Aviso da impresora"
 msgid "Printer '%s': '%s'."
 msgstr "Impresora «%s»: «%s»."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Notificacións de impresión"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Engadido de notificacións de impresión"
 
@@ -3174,18 +3174,18 @@ msgstr "Tentando cambiar a configuración da pantalla de todas formas."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Non foi posíbel aplicarlle a configuración almacenada aos monitores"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Definir o tamaño da pantalla e as configuracións de rotación"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Configuracións de X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Xestionar as configuracións de X"

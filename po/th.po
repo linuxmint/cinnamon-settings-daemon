@@ -1,6 +1,6 @@
-# Thai gnome-settings-daemon translation.
+# Thai cinnamon-settings-daemon translation.
 # Copyright (C) 2003-2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 # Paisa Seeluangsawat <paisa@users.sf.net>, 2003, 2004.
 # Supakorn Siddhichai <supakorn.siddhichai@nectec.or.th>, 2004.
 # Supranee Thirawatthanasuk <supranee@opentle.org>, 2004.
@@ -10,7 +10,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-10-09 09:13+0000\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "ดีมอนค่าตั้ง GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -161,8 +161,8 @@ msgstr "เรียกทำงานปลั๊กอินนี้"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "กำหนดว่าจะเรียกใช้ปลั๊กอินนี้จาก gnome-settings-daemon หรือไม่"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "กำหนดว่าจะเรียกใช้ปลั๊กอินนี้จาก cinnamon-settings-daemon หรือไม่"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -191,8 +191,8 @@ msgstr "ลำดับความสำคัญของปลั๊กอิ
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "ลำดับความสำคัญของปลั๊กอินนี้ในคิวการเรียกทำงานของ gnome-settings-daemon"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "ลำดับความสำคัญของปลั๊กอินนี้ในคิวการเรียกทำงานของ cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1041,19 +1041,19 @@ msgstr ""
 "รายชื่อของมอดูล GTK+ ที่จะโหลด "
 "ซึ่งโดยปกติเป็นการระบุเพิ่มเติมจากมอดูลที่ปิดใช้แบบมีเงื่อนไขหรือบังคับปิด"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "เปิดใช้โค้ดส่วนดีบั๊ก"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "ออกจากโปรแกรมหลังเวลาที่กำหนด (ใช้สำหรับดีบั๊ก)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "สิ่งอำนวยความสะดวกสำหรับแป้นพิมพ์"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "ปลั๊กอินจัดการสิ่งอำนวยความสะดวกสำหรับแป้นพิมพ์"
 
@@ -1193,11 +1193,11 @@ msgstr "_ละเลยปุ่มกดซ้ำ (ป้องกันกา
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "รับปุ่มกดแบบแ_ช่ (การพิมพ์แบบช้า)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "ตั้งค่าสิ่งอำนวยความสะดวก"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "ปลั๊กอินตั้งค่าสิ่งอำนวยความสะดวก"
 
@@ -1328,28 +1328,28 @@ msgstr "เ_อาสื่อออก"
 msgid "_Unmount"
 msgstr "เ_ลิกเมานท์"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "พื้นหลัง"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "ปลั๊กอินจัดการพื้นหลัง"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "คลิปบอร์ด"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "ปลั๊กอินจัดการคลิปบอร์ด"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1801
 msgid "Color"
 msgstr "สี"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "ปลั๊กอินจัดการสี"
 
@@ -1377,7 +1377,7 @@ msgstr "เครื่องพิมพ์ '%s' ควรเทียบมา
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2194
 #: ../plugins/color/gsd-color-manager.c:2210
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "ปลั๊กอินจัดการสีของดีมอนค่าตั้ง GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1390,11 +1390,11 @@ msgstr "เพิ่มอุปกรณ์เทียบมาตรฐาน
 msgid "Color calibration device removed"
 msgstr "เอาอุปกรณ์เทียบมาตรฐานสีออก"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "หุ่น"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "ปลั๊กอินหุ่น"
 
@@ -1497,13 +1497,13 @@ msgid "Examine…"
 msgstr "ตรวจสอบ…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "แป้นพิมพ์"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "ปลั๊กอินจัดการแป้นพิมพ์"
 
@@ -1533,11 +1533,11 @@ msgstr[0] "เสียงเข้า %u ช่อง"
 msgid "System Sounds"
 msgstr "เสียงของระบบ"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "ปุ่มสั่งการสื่อ"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "ปลั๊กอินจัดการปุ่มสั่งการสื่อ"
 
@@ -1551,13 +1551,13 @@ msgid ""
 msgstr "การใช้สิ่งอำนวยความสะดวกสำหรับเมาส์ ต้องติดตั้ง Mousetweaks ในระบบด้วย"
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "เมาส์"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "ปลั๊กอินจัดการเมาส์"
 
@@ -2073,7 +2073,7 @@ msgstr "UPS มีพลังงานสำรองเหลือ %s"
 #: ../plugins/power/gsd-power-manager.c:1459
 #: ../plugins/power/gsd-power-manager.c:1641
 #: ../plugins/power/gsd-power-manager.c:1788
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "พลังงาน"
 
@@ -2396,7 +2396,7 @@ msgstr "ปรับความสว่างแล็ปท็อป"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "ต้องยืนยันตัวบุคคลก่อนปรับความสว่างแล็ปท็อป"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "ปลั๊กอินจัดการพลังงาน"
 
@@ -2629,11 +2629,11 @@ msgstr "คำเตือนจากเครื่องพิมพ์"
 msgid "Printer '%s': '%s'."
 msgstr "เครื่องพิมพ์ '%s': '%s'"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "การแจ้งเหตุเครื่องพิมพ์"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "ปลั๊กอินแจ้งเหตุเครื่องพิมพ์"
 
@@ -3009,29 +3009,29 @@ msgstr "จะพยายามเปลี่ยนค่าตั้งขอ
 msgid "Could not apply the stored configuration for monitors"
 msgstr "ไม่สามารถเริ่มใช้ค่าตั้งของจอภาพที่บันทึกไว้"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "ตั้งค่าความละเอียดของจอภาพและการหมุนภาพบนจอ"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "ค่าตั้งของ X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "จัดการค่าตั้งของ X"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
-#~ msgstr "ลำดับความสำคัญของปลั๊กอินนี้ในคิวการเรียกทำงานของ gnome-settings-daemon"
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
+#~ msgstr "ลำดับความสำคัญของปลั๊กอินนี้ในคิวการเรียกทำงานของ cinnamon-settings-daemon"
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "กำหนดว่าจะเรียกใช้ปลั๊กอินนี้จาก gnome-settings-daemon หรือไม่"
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "กำหนดว่าจะเรียกใช้ปลั๊กอินนี้จาก cinnamon-settings-daemon หรือไม่"
 
 #~ msgid "Allowed keys"
 #~ msgstr "ปุ่มที่อนุญาตให้ใช้"

@@ -1,11 +1,11 @@
-# Vietnamese Translation for GNOME Settings Daemon.
+# Vietnamese Translation for Cinnamon Settings Daemon.
 # Copyright © 2009 Free Software Foundation, Inc.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2004,2007,2009,2011-2012.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon 2.25.90\n"
+"Project-Id-Version: cinnamon-settings-daemon 2.25.90\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-08-23 06:05+0000\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.8\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Trình nền Thiết lập GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -159,8 +159,8 @@ msgstr "Kích hoạt phần bổ sung này"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Có kích hoạt phần bổ sung này trong gnome-settings-daemon hay không"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Có kích hoạt phần bổ sung này trong cinnamon-settings-daemon hay không"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -189,9 +189,9 @@ msgstr "Độ ưu tiên của phần bổ sung này"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"Độ ưu tiên của phần bổ sung này trong chuỗi khởi động gnome-settings-daemon"
+"Độ ưu tiên của phần bổ sung này trong chuỗi khởi động cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1060,19 +1060,19 @@ msgstr ""
 "Danh sách các module GTK+ sẽ được tải vào; thông thường ở chế độ cưỡng chế "
 "tắt hay có điều kiện."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Bật mã gỡ lỗi"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Thóat sau một khoảng thời gian (để tìm lỗi)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Bàn phím khả năng truy cập"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Phần mở rộng bàn phím khả năng truy cập"
 
@@ -1212,11 +1212,11 @@ msgstr "_Bỏ qua phím nhấn bị trùng (Phím nảy)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Nhấn và _giữ phím để chấp nhận (Phím chậm)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Thiết lập khả năng truy cập"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Phần mở rộng thiết lập khả năng truy cập"
 
@@ -1347,28 +1347,28 @@ msgstr "Đẩy _ra"
 msgid "_Unmount"
 msgstr "_Gỡ gắn kết"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Nền"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Phần mở rộng nền"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Bảng nháp"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Phần mở rộng bảng nháp"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Màu"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Phần mở rộng màu"
 
@@ -1396,7 +1396,7 @@ msgstr "Máy in '%s' sẽ được cân chỉnh sớm."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Phần bổ sung màu sắc cho trình nền thiết lập GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1409,11 +1409,11 @@ msgstr "Đã thêm thiết bị cân chỉnh màu"
 msgid "Color calibration device removed"
 msgstr "Đã loại bỏ thiết bị cân chỉnh màu"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Giả"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Phần mở rộng giả"
 
@@ -1522,13 +1522,13 @@ msgid "Examine…"
 msgstr "Kiểm tra..."
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Bàn phím"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Phần mở rộng bàn phím"
 
@@ -1558,11 +1558,11 @@ msgstr[0] "%u đầu vào"
 msgid "System Sounds"
 msgstr "Âm thanh hệ thống"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Phím nhạc/phim"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Phần mở rộng phím nhạc/phim"
 
@@ -1576,13 +1576,13 @@ msgid ""
 msgstr "Khả năng truy cập chuột cần Mousetweaks được cài đặt trước."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Chuột"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Phần mở rộng chuột"
 
@@ -2100,7 +2100,7 @@ msgstr "Còn %s năng lượng dự trữ UPS"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Năng lượng"
 
@@ -2436,7 +2436,7 @@ msgstr "Điều chỉnh độ sáng laptop"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Cần xác thực để điều chỉnh độ sáng laptop"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Phần bổ sung năng lượng"
 
@@ -2669,11 +2669,11 @@ msgstr "Cảnh báo máy in"
 msgid "Printer '%s': '%s'."
 msgstr "Máy in '%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Thông báo in"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Phần mở rộng thông báo in"
 
@@ -3049,19 +3049,19 @@ msgstr "Vẫn đang thử chuyển đổi cấu hình của thiết bị hiển 
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Không thể áp dụng cấu hình đã lưu cho thiết bị hiển thị"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Thiết lập kích cỡ màn hình và chức năng xoay"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Thiết lập X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Quản lý thiết lập X"
 
@@ -3356,14 +3356,14 @@ msgstr "Quản lý thiết lập X"
 #~ msgstr "Bạn cần xác thực để thay đổi thiết lập thời gian."
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
-#~ "Thứ tự ưu tiên cho phần bổ sung này trong cho64i khởi động gnome-settings-"
+#~ "Thứ tự ưu tiên cho phần bổ sung này trong cho64i khởi động cinnamon-settings-"
 #~ "daemon."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "Có bật phần bổ sung này bằng gnome-settings-daemon hay không"
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "Có bật phần bổ sung này bằng cinnamon-settings-daemon hay không"
 
 #~ msgid "Binding to enable or disable the touchpad."
 #~ msgstr "Tổ hợp phím bật/tắt touchpad."

@@ -1,6 +1,6 @@
-# Hungarian translation of gnome-settings-daemon.
+# Hungarian translation of cinnamon-settings-daemon.
 # Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 #
 # Szabolcs Ban <shooby at gnome dot hu>, 1998, 1999, 2000.
 # Emese Kovacs <emese at gnome dot hu>, 2001.
@@ -12,7 +12,7 @@
 # Mate ORY <orymate at gmail d0t com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon master\n"
+"Project-Id-Version: cinnamon-settings-daemon master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
@@ -26,8 +26,8 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME beállításdémon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -174,8 +174,8 @@ msgstr "Bővítmény aktiválása"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "A bővítményt aktiválja-e a gnome-settings-daemon"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "A bővítményt aktiválja-e a cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -204,8 +204,8 @@ msgstr "A bővítmény prioritása"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "A bővítmény prioritása a gnome-settings-daemon indítási sorában"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "A bővítmény prioritása a cinnamon-settings-daemon indítási sorában"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1114,19 +1114,19 @@ msgstr ""
 "A betöltendő GTK+ modulokat képviselő karakterláncok listája, általában a "
 "feltételeseken és a kifejezetten letiltottakon túl."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Hibakeresési kód engedélyezése"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Kilépés egy idő után (hibakövetéshez)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Billentyűzet akadálymentesítése"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Billentyűzet akadálymentesítése bővítmény"
 
@@ -1267,11 +1267,11 @@ msgstr "_Kettőzött billentyűleütések mellőzése (billentyűszűrés)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Billentyűk lenyomva _tartása az elfogadásukhoz (lassú billentyűk)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Akadálymentesítési beállítások"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Akadálymentesítési beállítások bővítmény"
 
@@ -1405,28 +1405,28 @@ msgstr "_Kiadás"
 msgid "_Unmount"
 msgstr "_Leválasztás"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Háttér"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Háttér bővítmény"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Vágólap"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Vágólap bővítmény"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Színek"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Színbővítmény"
 
@@ -1454,7 +1454,7 @@ msgstr "A(z) „%s” nyomtatót hamarosan újra kell kalibrálni."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME beállításdémon színbővítmény"
 
 #. TRANSLATORS: this is a sound description
@@ -1467,11 +1467,11 @@ msgstr "Színkalibrációs eszköz hozzáadva"
 msgid "Color calibration device removed"
 msgstr "Színkalibrációs eszköz eltávolítva"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Hamis"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Hamis bővítmény"
 
@@ -1580,14 +1580,14 @@ msgid "Examine…"
 msgstr "Vizsgálat…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Billentyűzet"
 msgstr[1] "Billentyűzetek"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Billentyűzet bővítmény"
 
@@ -1619,11 +1619,11 @@ msgstr[1] "%u bemenet"
 msgid "System Sounds"
 msgstr "Rendszerhangok"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Médiabillentyűk"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Médiabillentyűk bővítmény"
 
@@ -1638,14 +1638,14 @@ msgstr ""
 "Az egér akadálymentesítése megköveteli a Mousetweaks jelenlétét a rendszeren."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Egér"
 msgstr[1] "Egerek"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Egér bővítmény"
 
@@ -2176,7 +2176,7 @@ msgstr "%s szünetmentes tápellátás van hátra"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energiagazdálkodás"
 
@@ -2532,7 +2532,7 @@ msgstr "A noteszgép fényerejének módosítása"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Hitelesítés szükséges a noteszgép fényerejének módosításához"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Energiagazdálkodási bővítmény"
 
@@ -2765,11 +2765,11 @@ msgstr "Nyomtatófigyelmeztetés"
 msgid "Printer '%s': '%s'."
 msgstr "„%s” nyomtató: „%s”."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Nyomtatási értesítések"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Nyomtatási értesítések bővítmény"
 
@@ -3166,19 +3166,19 @@ msgstr "Kísérlet a monitor beállításainak átváltására mindenképp."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "A tárolt beállítás nem alkalmazható a monitorokra"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "A képernyőméret és -forgatás beállítása"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X-beállítások"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X-beállítások kezelése"
 
@@ -3498,12 +3498,12 @@ msgstr "X-beállítások kezelése"
 #~ msgstr "Ki szeretné kapcsolni a Ragadós billentyűket?"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
-#~ msgstr "A bővítmény prioritása a gnome-settings-daemon indítási sorában."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
+#~ msgstr "A bővítmény prioritása a cinnamon-settings-daemon indítási sorában."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "A bővítményt aktiválja-e a gnome-settings-daemon."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "A bővítményt aktiválja-e a cinnamon-settings-daemon."
 
 #~ msgid "Binding to enable or disable the touchpad."
 #~ msgstr "Gyorsbillentyű az érintőtábla engedélyezéséhez vagy letiltásához."

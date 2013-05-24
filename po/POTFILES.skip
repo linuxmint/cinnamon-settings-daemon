@@ -6,7 +6,7 @@
 # Without these files, "make distcheck" fails.  Please do not
 # remove these unless you fix "make distcheck" a different way.
 #
-data/gnome-settings-daemon.desktop.in
+data/cinnamon-settings-daemon.desktop.in
 data/org.gnome.settings-daemon.peripherals.gschema.xml.in
 data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.color.gschema.xml.in

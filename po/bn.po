@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bn\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-03-21 10:21+0000\n"
 "PO-Revision-Date: 2011-04-04 15:48+0600\n"
 "Last-Translator: Israt Jahan <israt@ankur.org.bd>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "X-Language: bn_BD\n"
 "X-DamnedLies-Scope: partial\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
-msgstr "GNOME Settings ডেমন"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
+msgstr "Cinnamon Settings ডেমন"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
@@ -416,20 +416,20 @@ msgstr ""
 "জন্য \"grayscale\", ও সাব-পিক্সেল অ্যান্টি-অ্যালায়েসিংয়ের জন্য (শুধুমাত্র LCD পর্দায় "
 "প্রযোজ্য) \"rgba\"।"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "কোড ডিবাগ ব্যবস্থা সক্রিয় করুন"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 #| msgid "Exit after a time - for debugging"
 msgid "Exit after a time (for debugging)"
 msgstr "নির্দিষ্ট সময় পর প্রস্থান (ডিবাগের জন্য)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "সহায়ক প্রযুক্তি বিশিষ্ট কী-বোর্ড"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "সহায়ক প্রযুক্তি বিশিষ্ট কী-বোর্ডের প্লাগ-ইন"
 
@@ -574,21 +574,21 @@ msgstr "দুইবার কি চাপা হলে তা উপেক্�
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "কীবোর্ড শর্ট-কাট চাপার সময় একবারে একটি কি চাপা হবে (স্টিকি-কী) (_P)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 #| msgid "Accessibility"
 msgid "Accessibility settings"
 msgstr "স্বাচ্ছন্দ্যকরণ সেটিং"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 #| msgid "Accessibility keyboard plugin"
 msgid "Accessibility settings plugin"
 msgstr "স্বাচ্ছন্দ্যকরণ সেটিং প্লাগইন"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+#: ../plugins/automount/automount.cinnamon-settings-plugin.in.h:1
 msgid "Automount"
 msgstr "স্বয়ংক্রিয়মাউন্ট"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+#: ../plugins/automount/automount.cinnamon-settings-plugin.in.h:2
 #| msgid "Font plugin"
 msgid "Automounter plugin"
 msgstr "অটোমাউন্টার প্লাগ-ইন"
@@ -718,27 +718,27 @@ msgstr "বের করা (_E)"
 msgid "_Unmount"
 msgstr "আনমাউন্ট (_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "পটভূমি"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "পটভূমির প্লাগ-ইন"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "ক্লিপ-বোর্ড"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "ক্লিপ-বোর্ডের প্লাগ-ইন"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ডামি"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "ডামি প্লাগ-ইন"
 
@@ -867,19 +867,19 @@ msgstr ""
 "কী (key) (%s) এর সাথে যুক্ত\n"
 "(%s) চালাতে সমস্যা হয়েছে"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr "কী-বাইন্ডিং"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "কী-বাইন্ডিং প্লাগ-ইন"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "কী-বোর্ড"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "কী-বোর্ড প্লাগ-ইন"
 
@@ -958,11 +958,11 @@ msgstr[1] "%u-টি ইনপুট"
 msgid "System Sounds"
 msgstr "সিস্টেমের শব্দ"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "মিডিয়া কী"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "মিডিয়া-কি প্লাগ-ইন"
 
@@ -983,19 +983,19 @@ msgstr ""
 msgid "Universal Access"
 msgstr "সার্বজনীন ব্যবহার"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "মাউস"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "মাউস প্লাগ-ইন"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "মুদ্রণ-ঘোষনা"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "মুদ্রণ-ঘোষনা প্লাগইন"
 
@@ -1206,11 +1206,11 @@ msgstr "%s এর জন্য কোনো প্রিন্টার ড্�
 msgid "No driver for this printer."
 msgstr "এ প্রিন্টারের জন্য কোনো প্রিন্টার ড্রাইভার নেই।"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "পর্দার মাপ ও আবর্তন সংক্রান্ত বৈশিষ্ট্য নির্ধারণ করুন"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -1263,11 +1263,11 @@ msgstr "তথাপি মনিটর সংক্রান্ত কনফি
 msgid "Could not apply the stored configuration for monitors"
 msgstr "মনিটরের জন্য সংরক্ষিত কনফিগারেশন প্রয়োগ করতে ব্যর্থ"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "X-এর বৈশিষ্ট্য পরিচালনা করুন"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X সংক্রান্ত বৈশিষ্ট্য"
 

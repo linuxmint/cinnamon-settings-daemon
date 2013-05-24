@@ -1,6 +1,6 @@
-# Swedish messages for gnome-settings-daemon
+# Swedish messages for cinnamon-settings-daemon
 # Copyright (C) 1998-2012 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 #
 # FIXME: "Cursor" and "Pointer" are used inconsistently throughout the
 # application! Needs to be bug reported.
@@ -11,7 +11,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-29 07:49+0200\n"
 "PO-Revision-Date: 2012-03-28 08:01+0100\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME-inställningsdemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -170,9 +170,9 @@ msgstr "Aktivering av denna insticksmodul"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
-"Huruvida denna insticksmodul ska aktiveras genom gnome-settings-daemon eller "
+"Huruvida denna insticksmodul ska aktiveras genom cinnamon-settings-daemon eller "
 "inte"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
@@ -202,7 +202,7 @@ msgstr "Prioritet att använda för denna insticksmodul"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "Prioritet att använda för denna insticksmodul i uppstartskön för gnome-"
 "settings-daemon"
@@ -1190,19 +1190,19 @@ msgstr ""
 "En lista över strängar som representerar GTK+-moduler som ska läsas in, "
 "oftast i tillägg till villkor och de som tvingats som inaktiverade."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Aktivera felsökningskod"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Avsluta efter en stund (för felsökning)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Hjälpmedelstangentbord"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Insticksmodul för hjälpmedelstangentbord"
 
@@ -1343,11 +1343,11 @@ msgstr "_Ignorera dubletta tangenttryckningar (Studsande tangenter)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Tryck och _håll ner tangenter för att acceptera dem (Tröga tangenter)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Hjälpmedelsinställningar"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Insticksmodul för hjälpmedelsinställningar"
 
@@ -1481,28 +1481,28 @@ msgstr "Mata _ut"
 msgid "_Unmount"
 msgstr "_Avmontera"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Bakgrund"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Insticksmodul för bakgrund"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Urklipp"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Insticksmodul för urklipp"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1757
 msgid "Color"
 msgstr "Färg"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Insticksmodul för färg"
 
@@ -1530,7 +1530,7 @@ msgstr "Skrivaren \"%s\" bör kalibreras om snart."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2149
 #: ../plugins/color/gsd-color-manager.c:2165
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Färginsticksmodul för GNOME-inställningsdemon"
 
 #. TRANSLATORS: this is a sound description
@@ -1543,11 +1543,11 @@ msgstr "Enhet för färgkalibrering lades till"
 msgid "Color calibration device removed"
 msgstr "Enhet för färgkalibrering togs bort"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Dummy"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Insticksmodul för dummy"
 
@@ -1690,14 +1690,14 @@ msgid "Region and Language Settings"
 msgstr "Inställningar för region och språk"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Tangentbord"
 msgstr[1] "Tangentbord"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Insticksmodul för tangentbord"
 
@@ -1729,11 +1729,11 @@ msgstr[1] "%u ingångar"
 msgid "System Sounds"
 msgstr "Systemljud"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Mediatangenter"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Insticksmodul för mediatangenter"
 
@@ -1749,14 +1749,14 @@ msgstr ""
 "system."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Mus"
 msgstr[1] "Möss"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Insticksmodul för mus"
 
@@ -2287,7 +2287,7 @@ msgstr "%s av UPS-reservström återstår"
 #: ../plugins/power/gsd-power-manager.c:1427
 #: ../plugins/power/gsd-power-manager.c:1608
 #: ../plugins/power/gsd-power-manager.c:1757
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Effekt"
 
@@ -2640,7 +2640,7 @@ msgstr "Ändra ljusstyrkan på bärbar dator"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Autentisering krävs för att ändra ljusstyrka för bärbara datorer"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Insticksmodul för ström"
 
@@ -2873,11 +2873,11 @@ msgstr "Skrivarvarning"
 msgid "Printer '%s': '%s'."
 msgstr "Skrivaren \"%s\": \"%s\"."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Utskriftsnotifieringar"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Insticksmodulen Utskriftsnotifieringar"
 
@@ -3224,19 +3224,19 @@ msgstr "Försöker att växla till skärmkonfigurationen ändå."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Kunde inte tillämpa lagrad konfiguration för skärmar"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Konfigurera skärmstorlek och roteringsinställningar"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X-inställningar"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Hantera X-inställningar"
 
@@ -3353,15 +3353,15 @@ msgstr "Hantera X-inställningar"
 #~ "inställningskatalog finns i listan. Detta är användbart för nedlåsning."
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
 #~ "Prioritet att använda för denna insticksmodul i uppstartskön för gnome-"
 #~ "settings-daemon."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 #~ msgstr ""
-#~ "Huruvida denna insticksmodul ska aktiveras av gnome-settings-daemon eller "
+#~ "Huruvida denna insticksmodul ska aktiveras av cinnamon-settings-daemon eller "
 #~ "inte."
 
 #~ msgid "If notifications are allowed to be shown"

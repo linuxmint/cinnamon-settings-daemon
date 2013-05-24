@@ -21,8 +21,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME संयोजना डीमन"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -166,8 +166,8 @@ msgstr "या प्लगइनला सुरू करणे"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "gnome-settings-daemon तर्फे हे प्लगइन सुरू होईल किंवा नाही"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "cinnamon-settings-daemon तर्फे हे प्लगइन सुरू होईल किंवा नाही"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -196,9 +196,9 @@ msgstr "या प्लगइनकरीता वापरण्याजो�
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"gnome-settings-daemon स्टार्टअप क्युऊमध्ये या प्लगइनकरीता वापरण्याजोगी "
+"cinnamon-settings-daemon स्टार्टअप क्युऊमध्ये या प्लगइनकरीता वापरण्याजोगी "
 "प्राधान्यता"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
@@ -1115,19 +1115,19 @@ msgstr ""
 "स्ट्रिंग्स्ची सूची प्रस्तुत करणारे, लोड न करण्याजोगी GTK+ घटके, सहसा "
 "परिस्थितीनुरूप व जबरनपणे बंद करण्याच्या व्यतिरिक्त."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "डीबगींग कोड कार्यान्वीत करा"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "वेळानंतर बाहेर पडा (डिबगिंगकरीता)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "प्रवेशीय कळफलक"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "प्रवेशीय कळफलक प्लगइन"
 
@@ -1275,12 +1275,12 @@ msgstr "पुन्हापुन्हा कि दाबल्यास द
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "स्वीकारण्याकरीता कि दाबा व जरा वेळ धरून ठेवा (हळु कि) (_h)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 #| msgid "Accessibility"
 msgid "Accessibility settings"
 msgstr "ॲक्सेसिबिलिटि सेटिंग्स्"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 #| msgid "Accessibility keyboard plugin"
 msgid "Accessibility settings plugin"
 msgstr "ॲक्सेसिबिलिटि सेटिंग्स् प्लगइन"
@@ -1416,28 +1416,28 @@ msgstr "बाहेर काढा (_E)"
 msgid "_Unmount"
 msgstr "माऊंट अशक्य करा (_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "पार्श्वभूमी"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "पार्श्वभूमी प्लगइन"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "क्लिपबोर्ड"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "क्लिपबोर्ड प्लगइन"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "रंग"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 #| msgid "Clipboard plugin"
 msgid "Color plugin"
 msgstr "रंग प्लगइन"
@@ -1466,8 +1466,8 @@ msgstr "छपाईयंत्र '%s' यास पटकन कॅलिब�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-#| msgid "GNOME Settings Daemon"
-msgid "GNOME Settings Daemon Color Plugin"
+#| msgid "Cinnamon Settings Daemon"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME सेटिंग्स् डिमन रंग प्लगइन"
 
 #. TRANSLATORS: this is a sound description
@@ -1480,11 +1480,11 @@ msgstr "रंग कॅलिब्रेशन साधन समाविष
 msgid "Color calibration device removed"
 msgstr "रंग कॅलिब्रेशन साधन काढून टाकले"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "नकल्ल"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "नकल्ल प्लगइन"
 
@@ -1603,7 +1603,7 @@ msgid "Examine…"
 msgstr "विश्लेषण करा..."
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 #| msgid "Keyboard"
 msgid "Keyboard"
@@ -1611,7 +1611,7 @@ msgid_plural "Keyboards"
 msgstr[0] "किबोर्ड"
 msgstr[1] "कळफलक"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "कळफलक प्लगइन"
 
@@ -1643,11 +1643,11 @@ msgstr[1] "%u इंपुटस्"
 msgid "System Sounds"
 msgstr "प्रणाली आवाज"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "मिडीया कि"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "मिडीया कि पल्गइन"
 
@@ -1664,7 +1664,7 @@ msgstr ""
 "माऊस ॲक्सेसिबिलिटिकरीता माऊसट्विक्स् प्रणालीवर प्रतिष्ठापीत असणे आवश्यक आहे."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 #| msgid "Mouse"
 msgid "Mouse"
@@ -1672,7 +1672,7 @@ msgid_plural "Mice"
 msgstr[0] "माऊस"
 msgstr[1] "माउस"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "माऊस प्लगइन"
 
@@ -2209,7 +2209,7 @@ msgstr "UPS बॅकअप पावरचे %s उर्वरित"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "पावर"
 
@@ -2556,7 +2556,7 @@ msgstr "लॅपटॉप उजळपणा संपादित करा"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "लॅपटॉपचा उजळपणा संपादित करण्यासाठी ओळखपटवणे आवश्यक आहे"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 #| msgid "Mouse plugin"
 msgid "Power plugin"
 msgstr "पावर प्लगइन"
@@ -2791,11 +2791,11 @@ msgstr "छपाईयंत्र सावधानता"
 msgid "Printer '%s': '%s'."
 msgstr "छपाईयंत्र '%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "छपाई-सूचना"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "छपाई-सूचना प्लगइन"
 
@@ -3182,19 +3182,19 @@ msgstr "मॉनीटर संयोजना कसेही करून �
 msgid "Could not apply the stored configuration for monitors"
 msgstr "मॉनीटर करीता साठविलेली संयोजना लागू करणे शक्य नाही"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "पडदा आकार व चक्राकार संयोजना निश्चित करा"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X संयोजना"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X संयोजना व्यवस्थापीत करा"
 

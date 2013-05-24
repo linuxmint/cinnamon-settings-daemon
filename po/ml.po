@@ -1,7 +1,7 @@
-# translation of gnome-settings-daemon.master.ml.po to
-# translation of gnome-settings-daemon.HEAD.ml.po to
-# This file is distributed under the same license as the gnome-settings-daemon package.
-# Copyright (C) 2003-2008 gnome-settings-daemon'S COPYRIGHT HOLDER.
+# translation of cinnamon-settings-daemon.master.ml.po to
+# translation of cinnamon-settings-daemon.HEAD.ml.po to
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
+# Copyright (C) 2003-2008 cinnamon-settings-daemon'S COPYRIGHT HOLDER.
 # FSF-India <locale@gnu.org.in>, 2003.
 # Santhosh|സന്തോഷ് Thottingal|തോട്ടിങ്ങല്‍ <santhosh00@gmail.com>, 2007.
 # Ani Peter <apeter@redhat.com>, 2007, 2009.
@@ -10,8 +10,8 @@
 # Praveen|പ്രവീണ്‍ A|എ <pravi.a@gmail.com>, 2007,2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.master.ml\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Project-Id-Version: cinnamon-settings-daemon.master.ml\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-03-21 10:21+0000\n"
 "PO-Revision-Date: 2011-04-01 16:16+0530\n"
 "Last-Translator: \n"
@@ -23,8 +23,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "ഗ്നോമിലെ സജ്ജീകരണങ്ങളുടെ നിരന്തരപ്രവൃത്തി"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -173,7 +173,7 @@ msgstr "ഈ പ്ലഗിന്‍ ഉപയോഗിയ്ക്കുന്�
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
@@ -184,7 +184,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
@@ -261,12 +261,12 @@ msgstr "Subsequent free percentage notify threshold"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
@@ -958,19 +958,19 @@ msgstr "വാക്കൊം ടാബ്ലെറ്റ് റൊട്ടേ�
 msgid "Wacom touch feature"
 msgstr "വാക്കൊം ടച്ച് വിശേഷത"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "പിഴവുതിരുത്തല്‍കോഡ് പ്രാവര്‍ത്തികമാക്കുക. "
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "ഒരു സമയത്തിനു് ശേഷം പുറത്തു് കടക്കുക (ഡീബഗ്ഗിങിനു്)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "സാമീപ്യത കീബോര്‍ഡ്"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "സാമീപ്യത കീബോര്‍ഡ് സമ്യോജകം"
 
@@ -1115,23 +1115,23 @@ msgstr ""
 "കീബോര്‍ട് ചുരുക്കവഴി-കീകള്‍ ഓരോന്നായി അമര്‍ത്തുക (സ്റ്റിക്കി കീകള്‍)_Press keyboard shortcuts "
 "one key at a time (Sticky Keys)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 #| msgid "Accessibility"
 msgid "Accessibility settings"
 msgstr "സാമീപ്യത "
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 #| msgid "Accessibility keyboard plugin"
 msgid "Accessibility settings plugin"
 msgstr "സാമീപ്യത കീബോര്‍ഡ് സമ്യോജകം"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+#: ../plugins/automount/automount.cinnamon-settings-plugin.in.h:1
 msgid "Automount"
 msgstr "Automount"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+#: ../plugins/automount/automount.cinnamon-settings-plugin.in.h:2
 #| msgid "Font plugin"
 msgid "Automounter plugin"
 msgstr "ഓട്ടോമൌണ്ടര്‍ പ്ലഗിന്‍"
@@ -1257,27 +1257,27 @@ msgstr "_പുറത്തെടുക്കുക"
 msgid "_Unmount"
 msgstr "_അണ്‍മൌണ്ട് ചെയ്യുക"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "പശ്ചാത്തലം"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "പശ്ചാത്തലചിത്രം സമ്യോജകം "
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "താല്‍കാലിക വിവര ശേഖരം"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "താല്‍കാലിക വിവര ശേഖരം  സംയോജകം"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "വ്യാജന്‍"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "വ്യാജന്‍ സംയോജകം"
 
@@ -1405,19 +1405,19 @@ msgstr ""
 "(%s) പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പിശക് ,\n"
 "ഇത് (%s) കീയുമായി ലിങ്ക് ചെയ്തിരിക്കുന്നു."
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr "കീ-ബന്ധങ്ങള്‍ "
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "കീ-ബന്ധങ്ങള്‍ സംയോജകം"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "കീബോര്‍ഡ്"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "കീബോര്‍ഡ് സംയോജകം"
 
@@ -1501,11 +1501,11 @@ msgstr[1] "%u ഇന്‍പുട്ടുകള്‍"
 msgid "System Sounds"
 msgstr "സിസ്റ്റത്തിന്റെ ശബ്ദങ്ങള്‍"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "മാധ്യമ സംയോജകം"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr " സംയോജകം"
 
@@ -1526,19 +1526,19 @@ msgstr "മൌസ് സാമീപ്യത മൌസ്-ട്വീക്സ
 msgid "Universal Access"
 msgstr "ആഗോള സമീപന മുന്‍ഗണനകള്‍"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "മൌസ്"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "മൌസ് സംയോജകം"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "പ്രിന്റ് അറിയിപ്പുകള്‍"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "പ്രിന്റ് അറിയിപ്പിനുള്ള പ്ലഗിന്‍"
 
@@ -1750,11 +1750,11 @@ msgstr "%s-നു് പ്രിന്റര്‍ ഡ്രൈവര്‍ ല
 msgid "No driver for this printer."
 msgstr "ഈ പ്രിന്ററിനു് ഡ്രൈവര്‍ ലഭ്യമല്ല."
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "സ്ക്രീന്‍ വലിപ്പവും തിരിക്കലും സജ്ജീകരിക്കുക"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR(എക്സ്-റാന്റ്-ആര്‍)"
 
@@ -1806,11 +1806,11 @@ msgstr "മോണിറ്റര്‍ ക്രമീകരണം എങ്ങ�
 msgid "Could not apply the stored configuration for monitors"
 msgstr "മോണിറ്ററുകള്‍ക്കുള്ള സൂക്ഷിച്ചിട്ടുള്ള ക്രമീകരണം പ്രായോഗികമാക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "എക്സ് സജ്ജീകരണങ്ങള്‍ കയ്കാര്യം ചെയ്യുക"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "എക്സ് സജ്ജീകരണങ്ങള്‍"
 

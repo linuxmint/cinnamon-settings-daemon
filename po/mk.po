@@ -1,4 +1,4 @@
-# translation of gnome-settings-daemon.HEAD.mk.po to Macedonian
+# translation of cinnamon-settings-daemon.HEAD.mk.po to Macedonian
 # translation of gnome-control-center.HEAD.mk.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER.
@@ -14,8 +14,8 @@
 # Arangel Angov <arangel@linux.net.mk>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.HEAD.mk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Project-Id-Version: cinnamon-settings-daemon.HEAD.mk\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-12-12 16:58+0000\n"
 "PO-Revision-Date: 2012-01-06 02:00+0100\n"
 "Last-Translator: Jovan N\n"
@@ -26,8 +26,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= n==1 || n%10==1 ? 0 : 1\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Демонот за поставувања на GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -173,8 +173,8 @@ msgstr "Приоритет кој ќе се користи за овој при�
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Приоритет кој ќе се користи за овој приклучок во редот на gnome-settings-daemon"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Приоритет кој ќе се користи за овој приклучок во редот на cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise."
@@ -264,8 +264,8 @@ msgstr "Својство за допир на Wacom"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Дали gnome-settings-daemon да го активира овој приклучок"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Дали cinnamon-settings-daemon да го активира овој приклучок"
 
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
 msgid "The duration a display profile is valid"
@@ -888,19 +888,19 @@ msgstr "Типот на антиалиасинг кој ќе се користи
 msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
 msgstr "Типот на хинтинг кој ќе се користи за рендерирање на фонтови. Можни вредности се „none“ за без хинтинг, „slight“ основен хинтинг, „medium“ - среден хинтинг и „full“ за целосен хинтинг (кој може да предизвика искривување на формата на фонтот)."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Вклучи го кодот за дебагирање"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Излези после одредено време (за дебагирање)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Тастатура за пристапност"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Додаток за пристапност на тастатурата"
 
@@ -1032,12 +1032,12 @@ msgstr "_Игнорирај ги дуплите притискања на коп
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Притиснете на кратенките на тастатурата едно по едно (лепливи копчиња)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 #| msgid "Accessibility Keyboard"
 msgid "Accessibility settings"
 msgstr "Поставувања за пристапност"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 #| msgid "Accessibility keyboard plugin"
 msgid "Accessibility settings plugin"
 msgstr "Приклучок за поставувања за пристапност"
@@ -1166,28 +1166,28 @@ msgstr "_Извади"
 msgid "_Unmount"
 msgstr "_Одмонтирај"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Позадина"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Додаток за позадина"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Табла со исечоци"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Додатоко за таблата со исечоци"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1640
 msgid "Color"
 msgstr "Боја"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 #| msgid "Clipboard plugin"
 msgid "Color plugin"
 msgstr "Приклучок за боја"
@@ -1216,8 +1216,8 @@ msgstr "Печеатачот „%s“ ќе треба да се рекалибр
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2034
 #: ../plugins/color/gsd-color-manager.c:2050
-#| msgid "GNOME Settings Daemon"
-msgid "GNOME Settings Daemon Color Plugin"
+#| msgid "Cinnamon Settings Daemon"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Приклучок за боја за демонот за поставувања на GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1239,11 +1239,11 @@ msgstr "Промени ги поставувањата за време и дат
 msgid "To change time or date settings, you need to authenticate."
 msgstr "За да ги промените поставувањата за датум и време мора да се автентицирате."
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Тест"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Додаток за тест"
 
@@ -1364,7 +1364,7 @@ msgid "Region and Language Settings"
 msgstr "Поставувања за јазик и регион"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 #: ../plugins/power/gpm-common.c:872
 #| msgid "Keyboard"
@@ -1373,7 +1373,7 @@ msgid_plural "Keyboards"
 msgstr[0] "Тастатура"
 msgstr[1] "Тастатури"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Додаток за тастатура"
 
@@ -1405,11 +1405,11 @@ msgstr[1] "%u влезови"
 msgid "System Sounds"
 msgstr "Системски звуци"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Музички копчиња"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Додаток за копчињата за музика"
 
@@ -1424,7 +1424,7 @@ msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Пристапноста за глушецот има бара да го имате инсталирано Mousetweaks на Вашиот систем."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 #: ../plugins/power/gpm-common.c:848
 #| msgid "Mouse"
@@ -1433,7 +1433,7 @@ msgid_plural "Mice"
 msgstr[0] "Глушец"
 msgstr[1] "Глувци"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Додаток за глушец"
 
@@ -1983,7 +1983,7 @@ msgstr "%s на резервна енергија преостаната во UP
 #: ../plugins/power/gsd-power-manager.c:1368
 #: ../plugins/power/gsd-power-manager.c:1549
 #: ../plugins/power/gsd-power-manager.c:1698
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Енергија"
 
@@ -2269,7 +2269,7 @@ msgstr "Потребна е автентикација за промена на 
 msgid "Modify the laptop brightness"
 msgstr "Промени ја светлоста на лаптопот"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 #| msgid "Mouse plugin"
 msgid "Power plugin"
 msgstr "Приклучок за енергијата"
@@ -2485,11 +2485,11 @@ msgstr "Печатењето е завршено"
 msgid "Printing"
 msgstr "Печатам"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Print-notifications"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Приклучокот „Print-notifications“"
 
@@ -2742,19 +2742,19 @@ msgstr "Пробувам да ја сменам конфигурацијата �
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не можам да ја применам зачуваната конфигурација за мониторите"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Постави ги поставувањата за големина на екранот и ротацијата"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "Менаџирај поставувања за X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Поставувања за X"
 

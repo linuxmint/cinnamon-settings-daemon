@@ -1,4 +1,4 @@
-# Bulgarian translation of gnome-settings-daemon po-file.
+# Bulgarian translation of cinnamon-settings-daemon po-file.
 # Copyright (C) 2002, 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 # Copyright (C) 2009, 2010, 2012 Free Software Foundation, Inc.
 # Copyright (C) 2010 Damyan Ivanov.
@@ -12,7 +12,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon master\n"
+"Project-Id-Version: cinnamon-settings-daemon master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-02 07:11+0300\n"
 "PO-Revision-Date: 2012-10-02 07:10+0300\n"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Сървър за настройките на GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -174,8 +174,8 @@ msgstr "Стартиране на тази приставка"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Дали приставката да се стартира от gnome-settings-daemon или не"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Дали приставката да се стартира от cinnamon-settings-daemon или не"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -204,9 +204,9 @@ msgstr "Приоритет на приставката"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"Приоритет на приставката в опашката за стартиране на gnome-settings-daemon"
+"Приоритет на приставката в опашката за стартиране на cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1108,19 +1108,19 @@ msgstr ""
 "Списък от имената на модулите на GTK+, които да бъдат заредени. Той допълва "
 "модулите, които се зареждат при определено условие или са изключени."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Включване на код за изчистване на грешки"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Изход след време — за изчистване на грешки"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Достъпност на клавиатурата"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Приставка за достъпност на клавиатурата"
 
@@ -1264,11 +1264,11 @@ msgstr ""
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "_Задържане на клавишите след натискане (бавни клавиши)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Настройки на достъпността"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Приставка за настройките на достъпността"
 
@@ -1400,28 +1400,28 @@ msgstr "_Изваждане"
 msgid "_Unmount"
 msgstr "_Демонтиране"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Фон"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Приставка за фон"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Буфер за обмен"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Приставка за буфера за обмен"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1801
 msgid "Color"
 msgstr "Цветове"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Приставка за цветове"
 
@@ -1449,7 +1449,7 @@ msgstr "Принтерът „%s“ скоро ще трябва да бъде �
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2194
 #: ../plugins/color/gsd-color-manager.c:2210
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Приставка за цветове към сървъра за настройките на GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1462,11 +1462,11 @@ msgstr "Добавено е устройство за калибриране п�
 msgid "Color calibration device removed"
 msgstr "Махнато е устройство за калибриране по цвят"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Фиктивна"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Фиктивна приставка (за тестване)"
 
@@ -1574,14 +1574,14 @@ msgid "Examine…"
 msgstr "Проверка…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Клавиатура"
 msgstr[1] "Клавиатури"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Приставка за клавиатурата"
 
@@ -1613,11 +1613,11 @@ msgstr[1] "%u изхода"
 msgid "System Sounds"
 msgstr "Системните звуци"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Мултимедийни клавиши"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Приставка за мултимедийни клавиши"
 
@@ -1632,14 +1632,14 @@ msgstr ""
 "За достъпност на мишката на системата трябва да е инсталиран Mousetweaks."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Мишка"
 msgstr[1] "Мишки"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Приставка за мишката"
 
@@ -2170,7 +2170,7 @@ msgstr "Остават %s работа от непрекъсваемо токо�
 #: ../plugins/power/gsd-power-manager.c:1459
 #: ../plugins/power/gsd-power-manager.c:1641
 #: ../plugins/power/gsd-power-manager.c:1788
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Заряд"
 
@@ -2520,7 +2520,7 @@ msgstr "Промяна на яркостта на екрана"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "За промяна на яркостта на екрана се изисква идентификация"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Приставка за захранването"
 
@@ -2753,11 +2753,11 @@ msgstr "Предупреждение за печат"
 msgid "Printer '%s': '%s'."
 msgstr "Принтерът „%s“: „%s“."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Уведомяване при печат"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Приставка за уведомяване при печат"
 
@@ -3146,18 +3146,18 @@ msgstr "Опит за смяна на настройките на екрана �
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Запазените настройките на екраните не можаха да бъдат приложени"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Настройки за размер на екрана и ротация"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Настройки на X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Управление на настройките на X"

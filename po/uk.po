@@ -21,8 +21,8 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Служба параметрів GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -167,8 +167,8 @@ msgstr "Увімкнення цього додатка"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Чи цей додаток буде увімкнено через gnome-settings-daemon, чи ні"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Чи цей додаток буде увімкнено через cinnamon-settings-daemon, чи ні"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -197,8 +197,8 @@ msgstr "Пріоритет цього додатка"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Пріоритет цього додатка у черзі запуску gnome-settings-daemon"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Пріоритет цього додатка у черзі запуску cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1080,19 +1080,19 @@ msgstr ""
 "Перелік рядків модулів GTK+, що буде завантажено, а також умовні та "
 "примусово вимкнені. "
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Увімкнути налагоджувальний код"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Вийти після певного часу (для зневадження)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Технології доступності"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Модуль технологій доступності клавіатури"
 
@@ -1235,11 +1235,11 @@ msgstr "_Ігнорувати швидкі повторні натискання
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Приймати клавіші лише після т_ривалого натискання (Повільні клавіші)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Налаштування доступності"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Додаток налаштувань доступності"
 
@@ -1372,28 +1372,28 @@ msgstr "_Витягнути"
 msgid "_Unmount"
 msgstr "_Демонтувати"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Тло"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Модуль тла робочого столу"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Буфер обміну"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Модуль буферу обміну"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Колір"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Додаток коліру"
 
@@ -1421,7 +1421,7 @@ msgstr "Принтер «%s» невдовзі повинен бути відк�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Додаток олрів для служби параметрів GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1434,11 +1434,11 @@ msgstr "Пристрій для калібрування кольору дода
 msgid "Color calibration device removed"
 msgstr "Пристрій для калібрування кольору додано"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Заглушка"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Модуль-заглушка"
 
@@ -1546,7 +1546,7 @@ msgid "Examine…"
 msgstr "Оглянути…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1554,7 +1554,7 @@ msgstr[0] "Клавіатура"
 msgstr[1] "Клавіатури"
 msgstr[2] "Клавіатури"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Модуль клавіатури"
 
@@ -1588,11 +1588,11 @@ msgstr[2] "%u входів"
 msgid "System Sounds"
 msgstr "Системні звуки"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Мультимедійний клавіші"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Модуль мультимедійних клавіш"
 
@@ -1608,7 +1608,7 @@ msgstr ""
 "Mousetweaks."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1616,7 +1616,7 @@ msgstr[0] "Миша"
 msgstr[1] "Миші"
 msgstr[2] "Миші"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Модуль миші"
 
@@ -2160,7 +2160,7 @@ msgstr "Залишилось %s з резервного живлення UPS"
 #: ../plugins/power/gsd-power-manager.c:1459
 #: ../plugins/power/gsd-power-manager.c:1641
 #: ../plugins/power/gsd-power-manager.c:1788
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Живлення"
 
@@ -2506,7 +2506,7 @@ msgstr "Змінити яскравість ноутбука"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Потрібна аутентифікація для зміни яскравості ноутбука"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Додаток живлення"
 
@@ -2739,11 +2739,11 @@ msgstr "Попередження принтера"
 msgid "Printer '%s': '%s'."
 msgstr "Принтер «%s»: «%s»."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Сповіщення принтера"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Додаток сповіщення принтера"
 
@@ -3136,19 +3136,19 @@ msgstr "Конфігурація моніторів застосовується
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не вдається застосувати збережену конфігурацію моніторів"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Встановити розмір екрану та параметри повороту"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Параметри X Window"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Керування параметрами X Window"
 
@@ -3398,12 +3398,12 @@ msgstr "Керування параметрами X Window"
 #~ msgstr "Встановити розмір екрану та параметри повороту"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
-#~ msgstr "Пріоритет цього додатка в черзі при запуску gnome-settings-daemon."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
+#~ msgstr "Пріоритет цього додатка в черзі при запуску cinnamon-settings-daemon."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "Чи цей додаток увімкнути за допомогою gnome-settings-daemon, чи ні."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "Чи цей додаток увімкнути за допомогою cinnamon-settings-daemon, чи ні."
 
 #~ msgid "Do you want to activate Slow Keys?"
 #~ msgstr "Бажаєте ввімкнути режим \"Повільні клавіші\"?"

@@ -1,11 +1,11 @@
-# translation of gnome-settings-daemon.master.kn.po to Kannada
+# translation of cinnamon-settings-daemon.master.kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Shankar Prasad <svenkate@redhat.com>, 2008, 2009, 2010, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.master.kn\n"
+"Project-Id-Version: cinnamon-settings-daemon.master.kn\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-12-05 12:34+0000\n"
@@ -19,8 +19,8 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME ಸಿದ್ಧತೆಗಳ ಡೀಮನ್"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -170,8 +170,8 @@ msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ನ ಸಕ್ರಿಯಗೊಳಿಕ�
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ ಅನ್ನು gnome-settings-daemon ಇಂದ ಸಕ್ರಿಯಗೊಳಿಸಬೇಕೆ ಅಥವ ಬೇಡವೆ"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ ಅನ್ನು cinnamon-settings-daemon ಇಂದ ಸಕ್ರಿಯಗೊಳಿಸಬೇಕೆ ಅಥವ ಬೇಡವೆ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -200,9 +200,9 @@ msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ಗಾಗಿ ಬಳಸಬೇಕಿರ�
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"ಈ ಪ್ಲಗ್‌ಇನ್‌ಗಾಗಿ gnome-settings-daemon ಆರಂಭದ ಸರತಿಯಲ್ಲಿ ಬಳಸಬೇಕಿರುವ ಆದ್ಯತೆ"
+"ಈ ಪ್ಲಗ್‌ಇನ್‌ಗಾಗಿ cinnamon-settings-daemon ಆರಂಭದ ಸರತಿಯಲ್ಲಿ ಬಳಸಬೇಕಿರುವ ಆದ್ಯತೆ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1121,19 +1121,19 @@ msgstr ""
 "GTK+ ಮಾಡ್ಯೂಲ್‌ಗಳನ್ನು ಪ್ರತಿನಿಧಿಸುವ ಲೋಡ್ ಮಾಡಲಾಗುವ ವಾಕ್ಯಾಂಶಗಳ ಪಟ್ಟಿ, ಸಾಮಾನ್ಯವಾಗಿ "
 "ನಿಬಂಧಾತ್ಮಕವಾಗಿ ಮತ್ತು ಒತ್ತಾಯಪೂರ್ವಕವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದ್ದು."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "ದೋಷನಿವಾರಣಾ ಸಂಕೇತವನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "ನಿಗದಿತ ಸಮಯದ ನಂತರ ನಿರ್ಗಮಿಸು (ದೋಷನಿವಾರಣೆಗಾಗಿ)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "ನಿಲುಕಣಾ ಕೀಲಿಮಣೆ"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "ನಿಲುಕಣಾ ಕೀಲಿಮಣೆ ಪ್ಲಗ್ಇನ್"
 
@@ -1280,11 +1280,11 @@ msgstr "ನಕಲಿ ಕೀಲಿಒತ್ತುಗಳನ್ನು ಆಲಕ್�
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "ಕೀಲಿಗಳನ್ನು ಅಂಗೀಕರಿಸಲು ಅವನ್ನು ಒತ್ತಿ ಹಿಡಿಯಿರಿ(ನಿಧಾನ ಕೀಲಿಗಳು) (_h)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "ನಿಲುಕಣೆಯ ಸಿದ್ಧತೆಗಳು"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "ನಿಲುಕಣಾ ಸಿದ್ಧತೆಗಳ ಪ್ಲಗ್ಇನ್"
 
@@ -1420,28 +1420,28 @@ msgstr "ಹೊರತಳ್ಳು (_E)"
 msgid "_Unmount"
 msgstr "ಇಳಿಸು (_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "ಹಿನ್ನಲೆ"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "ಹಿನ್ನಲೆ ಪ್ಲಗ್ಇನ್"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "ಕ್ಲಿಪ್‌ಬೋರ್ಡ್"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಪ್ಲಗ್ಇನ್"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1808
 msgid "Color"
 msgstr "ಬಣ್ಣ"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "ಬಣ್ಣದ ಪ್ಲಗ್ಇನ್"
 
@@ -1469,7 +1469,7 @@ msgstr "'%s' ಮುದ್ರಕವನ್ನು ಮರಳಿ ಕ್ಯಾಲಿ�
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2201
 #: ../plugins/color/gsd-color-manager.c:2217
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME ಸಿದ್ಧತೆಗಳ ಡೀಮನ್ ಬಣ್ಣದ ಪ್ಲಗ್‌ಇನ್"
 
 #. TRANSLATORS: this is a sound description
@@ -1482,11 +1482,11 @@ msgstr "ಬಣ್ಣದ ಕ್ಯಾಲಿಬ್ರೇಶನ್‌ ಸಾಧನ�
 msgid "Color calibration device removed"
 msgstr "ಬಣ್ಣದ ಕ್ಯಾಲಿಬ್ರೇಶನ್‌ ಸಾಧನವನ್ನು ತೆಗೆದುಹಾಕಲಾಗಿದೆ"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "ಡಮ್ಮಿ"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "ಡಮ್ಮಿ ಪ್ಲಗ್ಇನ್"
 
@@ -1605,14 +1605,14 @@ msgid "Examine…"
 msgstr "ಪರಿಶೀಲಿಸು…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "ಕೀಲಿಮಣೆ"
 msgstr[1] "ಕೀಲಿಮಣೆಗಳು"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "ಕೀಲಿ ಮಣೆ ಪ್ಲಗ್ಇನ್"
 
@@ -1644,11 +1644,11 @@ msgstr[1] "%u ಇನ್‌ಪುಟ್‌ಗಳು"
 msgid "System Sounds"
 msgstr "ಗಣಕದ ಧ್ವನಿಗಳು"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "ಮೀಡಿಯಾ ಕೀಲಿಗಳು"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "ಮೀಡಿಯಾ ಕೀಲಿಗಳು ಪ್ಲಗ್ಇನ್"
 
@@ -1665,14 +1665,14 @@ msgstr ""
 "ಮೌಸ್‌ ನಿಲುಕಣೆಗಾಗಿ ನಿಮ್ಮ ಗಣಕದಲ್ಲಿ ಮೌಸ್‌ಟ್ವೀಕ್‌ಗಳು ಅನುಸ್ಥಾಪಿಸಬೇಕಾಗುತ್ತದೆ."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "ಮೌಸ್"
 msgstr[1] "ಮೌಸ್‌ಗಳು"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "ಮೌಸ್ ಪ್ಲಗ್‌ಇನ್"
 
@@ -2203,7 +2203,7 @@ msgstr "%s ನಷ್ಟು UPS ಬ್ಯಾಕ್ಅಪ್ ವಿದ್ಯುಚ
 #: ../plugins/power/gsd-power-manager.c:1499
 #: ../plugins/power/gsd-power-manager.c:1681
 #: ../plugins/power/gsd-power-manager.c:1828
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "ವಿದ್ಯುಚ್ಛಕ್ತಿ"
 
@@ -2545,7 +2545,7 @@ msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್‌ನ ಪ್ರಕಾಶತೆಯನ�
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್‌ನ ಪ್ರಕಾಶತೆಯನ್ನು ಹೆಚ್ಚಿಸಲು ದೃಢೀಕರಣದ ಅಗತ್ಯವಿದೆ"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "ವಿದ್ಯುಚ್ಛಕ್ತಿ ಪ್ಲಗ್‌ಇನ್"
 
@@ -2778,11 +2778,11 @@ msgstr "ಮುದ್ರಕದ ಎಚ್ಚರಿಕೆ"
 msgid "Printer '%s': '%s'."
 msgstr "'%s' ಮುದ್ರಕ: '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "ಮುದ್ರಣ-ಸೂಚನೆಗಳ ಪ್ಲಗ್‌ಇನ್"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "ಮುದ್ರಣ-ಸೂಚನೆಗಳ ಪ್ಲಗ್‌ಇನ್"
 
@@ -3168,19 +3168,19 @@ msgstr "ಆದರೂ ಸಹ ತೆರೆಯ ಸಂರಚನೆಯನ್ನು �
 msgid "Could not apply the stored configuration for monitors"
 msgstr "ತೆರೆಗಳಿಗಾಗಿ ಶೇಖರಿಸಲಾದ ಸಂರಚನೆಯನ್ನು ಅನ್ವಯಿಸಲಾಗಿಲ್ಲ"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "ತೆರೆಯ ಗಾತ್ರ ಹಾಗು ಸುತ್ತುವಿಕೆಯನ್ನು ಹೊಂದಿಸು"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X ಸಿದ್ಧತೆಗಳು"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X ಸಿದ್ಧತೆಗಳನ್ನು ವ್ಯವಸ್ಥಾಪಿಸು"
 

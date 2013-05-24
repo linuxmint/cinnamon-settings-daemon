@@ -1,13 +1,13 @@
-# translation of po_gnome-settings-daemon-km.po to Khmer
-# Khmer translation for gnome-settings-daemon
+# translation of po_cinnamon-settings-daemon-km.po to Khmer
+# Khmer translation for cinnamon-settings-daemon
 # Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 # Khoem Sokhem <khoemsokhem@khmeros.info>, 2012.
 # sutha <sutha@khmeros.info>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: po_gnome-settings-daemon-km\n"
+"Project-Id-Version: po_cinnamon-settings-daemon-km\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-09-27 08:43+0000\n"
@@ -22,8 +22,8 @@ msgstr ""
 "X-Generator: WordForge 0.8 RC1\n"
 "X-Language: km-KH\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "ដេមិន​ការ​កំណត់ GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -156,7 +156,7 @@ msgstr "ការ​ធ្វើឲ្យ​សកម្ម​នៃ​កម្
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "ថា​តើ​កម្មវិធី​ជំនួយ​នេះ​គួរ​ត្រូវ​បាន​ធ្វើឲ្យ​សកម្ម​ដោយ​ដេមិន​ការ​កំណត់ gnome ដែរ ឬទេ"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
@@ -186,7 +186,7 @@ msgstr "អាទិភាព​ដែល​ត្រូវ​ប្រើ​ស
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr "អាទិភាព​ដែល​ត្រូវ​ប្រើ​សម្រាប់​កម្មវិធី​ជំនួយ​នេះ​នៅ​ក្នុង​ជួរ​ចាប់ផ្ដើម​ដេមិន​ការ​កំណត់ gnome"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
@@ -1045,19 +1045,19 @@ msgstr ""
 "បញ្ជី​ខ្សែ​អក្សរ​បង្ហាញ​អំពី​ម៉ូឌុល GTK+ ដែល​នឹង​ត្រូវ​បាន​ផ្ទុក ជាធម្មតា​នៅ​ក្នុង​​ការ​បន្ថែម​ទៅកាន់​លក្ខខ័ណ្ឌ និង​"
 "ម៉ូឌុល​ដែល​បាន​បិទ​ដោយ​បង្ខំ ។"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "បើក​កូដ​បំបាត់​កំហុស"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "ចេញ​បន្ទាប់​ពេល (សម្រាប់​ការ​បំបាត់​កំហុស)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "ក្ដារចុច​មធ្យោបាយ​ងាយស្រួល"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "កម្មវិធី​ជំនួយ​ក្ដារចុច​មធ្យោបាយ​ងាយស្រួល"
 
@@ -1197,11 +1197,11 @@ msgstr "មិន​អើពើ​ការ​ចុច​គ្រាប់ច
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "ចុច និង​សង្កត់​គ្រាប់ចុច​ដើម្បី​ព្រម​ទទួល​ពួកគេ (គ្រាប់ចុច​យឺត)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "ការ​កំណត់​មធ្យោបាយ​ងាយស្រួល"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "កម្មវិធី​ជំនួយ​ការ​កំណត់​មធ្យោបាយ​ងាយស្រួល"
 
@@ -1333,28 +1333,28 @@ msgstr "ច្រានចេញ"
 msgid "_Unmount"
 msgstr "អាន់ម៉ោន"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "ផ្ទៃ​ខាងក្រោយ"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "កម្មវិធី​ជំនូយ​ផ្ទៃ​ខាងក្រោយ"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "ក្ដារ​តម្បៀត​ខ្ទាស់"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "កម្មវិធី​ជំនួយ​ក្ដារ​តម្បៀត​ខ្ទាស់"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1801
 msgid "Color"
 msgstr "ពណ៌"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "កម្មវិធី​ជំនួយ​ពណ៌"
 
@@ -1382,7 +1382,7 @@ msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' គួរតែ​
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2194
 #: ../plugins/color/gsd-color-manager.c:2210
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "កម្មវិធី​ជំនួយ​ពណ៌​ដេមិន​ការ​កំណត់ GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1395,11 +1395,11 @@ msgstr "បាន​បន្ថែម​ឧបករណ៍​ក្រិត​
 msgid "Color calibration device removed"
 msgstr "បាន​យក​ឧបករណ៍​ក្រិត​តាម​ខ្នាត​ពណ៌​ចេញ"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Dummy"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "កម្មវិធី​ជំនួយ Dummy"
 
@@ -1505,13 +1505,13 @@ msgid "Examine…"
 msgstr "ត្រួតពិនិត្យ…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "ក្ដារចុច"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "កម្មវិធី​ជំនួយ​ក្ដារចុច"
 
@@ -1541,11 +1541,11 @@ msgstr[0] "ព័ត៌មាន​បញ្ចូល %u"
 msgid "System Sounds"
 msgstr "សំឡេង​ប្រព័ន្ធ"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "គ្រាប់ចុច​មេឌៀ"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "កម្មវិធី​ជំនួយ​គ្រាប់ចុច​មេឌៀ"
 
@@ -1559,13 +1559,13 @@ msgid ""
 msgstr "ភាព​ងាយស្រួល​កណ្ដុរ​ទាមទារ​ឲ្យ​ដំឡើង Mousetweaks នៅ​លើ​ប្រពន្ធ​របស់​អ្នក ។"
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "កណ្ដុរ"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "កម្មវិធី​ជំនួយ​កណ្ដុរ"
 
@@ -2081,7 +2081,7 @@ msgstr "ថាមពល​បម្រុងទុក​របស់​យូភ
 #: ../plugins/power/gsd-power-manager.c:1459
 #: ../plugins/power/gsd-power-manager.c:1641
 #: ../plugins/power/gsd-power-manager.c:1788
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "ថាមពល"
 
@@ -2408,7 +2408,7 @@ msgstr "បាន​ទាមទារ​ការ​ផ្ទៀងផ្ទា
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "បាន​ទាមទារ​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ​​ដើម្បី​កែប្រែ​ពន្លឺ​កុំព្យូទ័រ​យួរដៃ"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "កម្មវិធី​គ្រប់គ្រង​ថាមពល"
 
@@ -2641,11 +2641,11 @@ msgstr "ការ​ព្រមាន​ម៉ាស៊ីន​បោះពុ
 msgid "Printer '%s': '%s'."
 msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' ៖ '%s' ។"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "បោះពុម្ព​ការ​ជូនដំណឹង"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "កម្មវិធី​ជំនួយ​បោះពុម្ព​ការ​ជូនដំណឹង"
 
@@ -3023,19 +3023,19 @@ msgstr "អញ្ចឹង​សាកល្បង​ប្ដូរ​ការ
 msgid "Could not apply the stored configuration for monitors"
 msgstr "មិន​អាច​អនុវត្ត​ការ​កំណត់​រចនាសម្ព័ន្ធ​ដែល​បាន​ស្ដារ​សម្រាប់​ម៉ូនីទ័រ​បាន​ទេ"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "រៀបចំ​ទំហំ​អេក្រង់ និង​ការ​កំណត់​ការ​បង្វិល"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "ការ​កំណត់ X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "គ្រប់គ្រង​ការ​កំណត់ X"
 

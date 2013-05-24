@@ -1,4 +1,4 @@
-# translation of gnome-settings-daemon.master.te.po to Telugu
+# translation of cinnamon-settings-daemon.master.te.po to Telugu
 # Telugu translation of control-center
 # Copyright (C) 2005 Free Software Foundation, Andhra Pradesh.
 # This file is distributed under the same license as the control-center package.
@@ -9,7 +9,7 @@
 # Krishnababu Krothapalli <kkrothap@redhat.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.master.te\n"
+"Project-Id-Version: cinnamon-settings-daemon.master.te\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
@@ -27,8 +27,8 @@ msgstr ""
 "\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME అమర్పుల డెమోన్"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -177,7 +177,7 @@ msgstr "ఈ ప్లగ్‌ఇన్‌ని క్రియాశీలీ�
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
 "గ్నోమ్-అమరికలు-డీమన్ ద్వారా ఈ ప్లగగ్‌ఇన్‌ను క్రియాశీలీకరించునో లేదో తెలుపుము"
 
@@ -208,7 +208,7 @@ msgstr "ఈ ప్లగ్‌ఇన్ కొఱకు ఉపయోగించ
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "గ్నోమ్-అమరికలు-డీమన్ మొదలుపెట్టు వరుసలో ఈ ప్లగ్‌ఇన్ కొఱకు ఉపయోగించు "
 "ప్రాధామ్యము ఇచ్చెను"
@@ -1147,19 +1147,19 @@ msgstr ""
 "బలవంతముగా నిర్వీర్యం "
 "అగునట్టివాటిని బర్తీచేయబడును."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "డీబగ్గింగ్ కోడ్‌ను చేతనంచేయుము"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "కొంత సమయము తర్వాత బయటకు త్రోయుము(లోపనిరర్మూలనకు)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "అందుబాటు కీబోర్డు"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "అందుబాటు కీబోర్డు ప్లగ్ఇన్"
 
@@ -1302,11 +1302,11 @@ msgstr "బూటకపు కీ వత్తులను వదిలివే
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "కీలను ఆమోదించుటకు వాటిని వత్తి పట్టివుంచుము (స్లో కీలు) (_h)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "అందుబాటు అమరికలు"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "అందుబాటు అమరికల ప్లగ్ఇన్"
 
@@ -1442,28 +1442,28 @@ msgstr "బయటకుపంపుము(_E)"
 msgid "_Unmount"
 msgstr "అన్‌మౌంట్(_U)"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "బ్యాక్‌గ్రౌండ్"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "బ్యాక్‌గ్రౌండ్ ప్లగ్ఇన్"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "క్లిప్‌బోర్డు"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "క్లిప్‌బోర్డు ప్లగ్ఇన్"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "వర్ణము"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "వర్ణపు  ప్లగ్ఇన్"
 
@@ -1491,7 +1491,7 @@ msgstr "'%s'అను ముద్రణాయంత్రమును త్వ
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME అమర్పుల డెమోన్ వర్ణపు ప్లగ్‌ఇన్"
 
 #. TRANSLATORS: this is a sound description
@@ -1504,11 +1504,11 @@ msgstr "వర్ణము క్రమాంకనపు పరికరము�
 msgid "Color calibration device removed"
 msgstr "వర్ణము క్రమాంకనపు పరికరమును త్యజించెను"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "నకిలీ"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "నకిలీ ప్లగ్ఇన్"
 
@@ -1620,14 +1620,14 @@ msgid "Examine…"
 msgstr "పరీక్షించు…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "కీబోర్డు"
 msgstr[1] "కీబోర్డులు"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "కీబోర్డు ప్లగ్ఇన్"
 
@@ -1659,11 +1659,11 @@ msgstr[1] "%u ఇన్పుట్లు"
 msgid "System Sounds"
 msgstr "సిస్టమ్ శబ్దములు"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "మాద్యమం కీలు"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "మాద్యమం కీల ప్లగ్ఇన్"
 
@@ -1679,14 +1679,14 @@ msgstr ""
 "అనసరంఉంది."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "మౌస్"
 msgstr[1] "మౌస్‌లు"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "మౌస్ ప్లగ్ఇన్"
 
@@ -2217,7 +2217,7 @@ msgstr "UPS బాక్‌అప్ శక్తి %s మిగిలినద
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "శక్తి"
 
@@ -2579,7 +2579,7 @@ msgstr "లాప్‌టాప్ కాంతిని మార్చుమ�
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "లాప్‌టాప్ కాంతిని మార్చుటకు ధ్రువీకరించుట అవసరము"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "అధికారపు ప్లగ్ఇన్"
 
@@ -2812,11 +2812,11 @@ msgstr "ముద్రించు హెచ్చరిక"
 msgid "Printer '%s': '%s'."
 msgstr "ప్రింటర్'%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "ప్రకటనలను ముద్రించుము"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "ప్రకటనల ప్లగ్‌ఇన్‌ను ముద్రించుము"
 
@@ -3212,19 +3212,19 @@ msgstr "ఏమైనప్పటికి మానిటర్ ఆకృతీ�
 msgid "Could not apply the stored configuration for monitors"
 msgstr "మానిటర్ల కొరకు నిల్వవుంచిన ఆకృతీకరణను ఆపాదించలేక పోయింది"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "తెర పరిమాణంను మరియు సర్దుబాటు అమరికలను అమర్చుము"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X అమరికలు"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "X అమరికలను నిర్వహించు"
 

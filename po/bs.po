@@ -266,145 +266,145 @@ msgid ""
 "\" for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:1
+#: ../data/cinnamon-settings-daemon.schemas.in.h:1
 #, fuzzy
 msgid "Enable accessibility keyboard plugin"
 msgstr "_Omogući osobine pristupačnosti tastature"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:2
+#: ../data/cinnamon-settings-daemon.schemas.in.h:2
 msgid "Enable background plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:3
+#: ../data/cinnamon-settings-daemon.schemas.in.h:3
 msgid "Enable clipboard plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:4
+#: ../data/cinnamon-settings-daemon.schemas.in.h:4
 msgid "Enable default editor plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:5
+#: ../data/cinnamon-settings-daemon.schemas.in.h:5
 msgid "Enable font plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:6
+#: ../data/cinnamon-settings-daemon.schemas.in.h:6
 msgid "Enable keybindings plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:7
+#: ../data/cinnamon-settings-daemon.schemas.in.h:7
 msgid "Enable keyboard plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:8
+#: ../data/cinnamon-settings-daemon.schemas.in.h:8
 msgid "Enable media keys plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:9
+#: ../data/cinnamon-settings-daemon.schemas.in.h:9
 msgid "Enable mouse plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:10
+#: ../data/cinnamon-settings-daemon.schemas.in.h:10
 #, fuzzy
 msgid "Enable screensaver plugin"
 msgstr "Pokreni XScreenSaver pri prijavi"
 
-#: ../data/gnome-settings-daemon.schemas.in.h:11
+#: ../data/cinnamon-settings-daemon.schemas.in.h:11
 msgid "Enable sound plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:12
+#: ../data/cinnamon-settings-daemon.schemas.in.h:12
 msgid "Enable typing breaks plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:13
+#: ../data/cinnamon-settings-daemon.schemas.in.h:13
 msgid "Enable xrandr plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:14
+#: ../data/cinnamon-settings-daemon.schemas.in.h:14
 msgid "Enable xrdb plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:15
+#: ../data/cinnamon-settings-daemon.schemas.in.h:15
 msgid "Enable xsettings plugin"
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:16
+#: ../data/cinnamon-settings-daemon.schemas.in.h:16
 msgid "Set to True to enable the plugin to manage clipboard settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:17
+#: ../data/cinnamon-settings-daemon.schemas.in.h:17
 msgid "Set to True to enable the plugin to manage desktop background settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:18
+#: ../data/cinnamon-settings-daemon.schemas.in.h:18
 msgid "Set to True to enable the plugin to manage font settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:19
+#: ../data/cinnamon-settings-daemon.schemas.in.h:19
 msgid "Set to True to enable the plugin to manage keyboard settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:20
+#: ../data/cinnamon-settings-daemon.schemas.in.h:20
 msgid "Set to True to enable the plugin to manage mouse settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:21
+#: ../data/cinnamon-settings-daemon.schemas.in.h:21
 msgid "Set to True to enable the plugin to manage multimedia keys settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:22
+#: ../data/cinnamon-settings-daemon.schemas.in.h:22
 msgid "Set to True to enable the plugin to manage screensaver settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:23
+#: ../data/cinnamon-settings-daemon.schemas.in.h:23
 msgid "Set to True to enable the plugin to manage sound settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:24
+#: ../data/cinnamon-settings-daemon.schemas.in.h:24
 msgid ""
 "Set to True to enable the plugin to manage the accessibility keyboard "
 "settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:25
+#: ../data/cinnamon-settings-daemon.schemas.in.h:25
 msgid ""
 "Set to True to enable the plugin to manage the default text editor setting."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:26
+#: ../data/cinnamon-settings-daemon.schemas.in.h:26
 msgid "Set to True to enable the plugin to manage the keybindings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:27
+#: ../data/cinnamon-settings-daemon.schemas.in.h:27
 msgid "Set to True to enable the plugin to manage typing breaks."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:28
+#: ../data/cinnamon-settings-daemon.schemas.in.h:28
 msgid "Set to True to enable the plugin to manage xrandr settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:29
+#: ../data/cinnamon-settings-daemon.schemas.in.h:29
 msgid "Set to True to enable the plugin to manage xrdb settings."
 msgstr ""
 
-#: ../data/gnome-settings-daemon.schemas.in.h:30
+#: ../data/cinnamon-settings-daemon.schemas.in.h:30
 msgid "Set to True to enable the plugin to manage xsettings."
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:49
+#: ../cinnamon-settings-daemon/main.c:49
 msgid "Don't become a daemon"
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:50
+#: ../cinnamon-settings-daemon/main.c:50
 msgid "GConf prefix from which to load plugin settings"
 msgstr ""
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Accessibility Keyboard"
 msgstr "_Pristupačnost"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Accessibility keyboard plugin"
 msgstr "_Pristupačnost"
@@ -484,36 +484,36 @@ msgstr ""
 msgid "Sticky Keys Alert"
 msgstr "Upozorenje na ljepljive tipke"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Background"
 msgstr "Koristi _pozadinu"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr ""
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr ""
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr ""
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:1
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:1
 msgid "Font"
 msgstr "Font"
 
-#: ../plugins/font/font.gnome-settings-plugin.in.h:2
+#: ../plugins/font/font.cinnamon-settings-plugin.in.h:2
 msgid "Font plugin"
 msgstr ""
 
@@ -574,19 +574,19 @@ msgstr ""
 "Greška pri pokušaju pokretanja (%s)\n"
 "koje je vezano za tipku (%s)"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr ""
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr ""
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "Tastatura"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Keyboard plugin"
 msgstr "Kratice tastature"
@@ -645,12 +645,12 @@ msgstr ""
 "Nisam mogao staviti računar u spavajući modus.\n"
 "Provjerite da li je računar ispravno podešen."
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Media keys"
 msgstr "Tipke miša"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr ""
 
@@ -669,11 +669,11 @@ msgstr ""
 msgid "Mouse Preferences"
 msgstr "Osobine miša"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Miš"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr ""
 
@@ -696,12 +696,12 @@ msgstr ""
 msgid "_Do not show this message again"
 msgstr "_Nemoj više prikazivati ovu poruku"
 
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:1
+#: ../plugins/screensaver/screensaver.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Screensaver"
 msgstr "Pokreni XScreenSaver"
 
-#: ../plugins/screensaver/screensaver.gnome-settings-plugin.in.h:2
+#: ../plugins/screensaver/screensaver.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Screensaver plugin"
 msgstr "Pokreni XScreenSaver pri prijavi"
@@ -781,29 +781,29 @@ msgstr "Izaberite zvučnu datoteku"
 msgid "System Sounds"
 msgstr "sekundi"
 
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:1
+#: ../plugins/sound/sound.cinnamon-settings-plugin.in.h:1
 msgid "Sound"
 msgstr "Zvuk"
 
-#: ../plugins/sound/sound.gnome-settings-plugin.in.h:2
+#: ../plugins/sound/sound.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Sound plugin"
 msgstr "Zvučna datoteka"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:1
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:1
 msgid "Typing Break"
 msgstr "Pauza u tipkanju"
 
-#: ../plugins/typing-break/typing-break.gnome-settings-plugin.in.h:2
+#: ../plugins/typing-break/typing-break.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "Typing break plugin"
 msgstr "Pauza u tipkanju"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr ""
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr ""
 
@@ -812,11 +812,11 @@ msgstr ""
 msgid "Cannot determine user's home directory"
 msgstr "Ne mogu odrediti početni direktorij korisnika"
 
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:1
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:1
 msgid "Manage the X resource database"
 msgstr ""
 
-#: ../plugins/xrdb/xrdb.gnome-settings-plugin.in.h:2
+#: ../plugins/xrdb/xrdb.cinnamon-settings-plugin.in.h:2
 msgid "X Resource Database"
 msgstr ""
 
@@ -825,12 +825,12 @@ msgstr ""
 msgid "GConf key %s set to type %s but its expected type was %s\n"
 msgstr "GConf ključ %s je postavljen na tip %s, a očekivani tip je %s\n"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 #, fuzzy
 msgid "Manage X Settings"
 msgstr "Koristi postavke za X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 #, fuzzy
 msgid "X Settings"
 msgstr "Koristi postavke za X"
@@ -1271,13 +1271,13 @@ msgstr "Koristi postavke za X"
 #~ msgstr "Bez pozadine"
 
 #~ msgid ""
-#~ "Unable to start the settings manager 'gnome-settings-daemon'.\n"
+#~ "Unable to start the settings manager 'cinnamon-settings-daemon'.\n"
 #~ "Without the GNOME settings manager running, some preferences may not take "
 #~ "effect. This could indicate a problem with Bonobo, or a non-GNOME (e.g. "
 #~ "KDE) settings manager may already be active and conflicting with the "
 #~ "GNOME settings manager."
 #~ msgstr ""
-#~ "Ne mogu pokrenuti upravitelj postavki 'gnome-settings-daemon'.\n"
+#~ "Ne mogu pokrenuti upravitelj postavki 'cinnamon-settings-daemon'.\n"
 #~ "Bez upravitelja postavki za GNOME neke opcije neće raditi. Ovo može "
 #~ "ukazivati na problem sa Bonobo ili je možda neki ne-GNOME (npr. KDE) "
 #~ "upravitelj postavki već aktivan i u konfliktu sa upraviteljom postavki za "
@@ -2508,7 +2508,7 @@ msgstr "Koristi postavke za X"
 #~ msgid "Desktop Preferences"
 #~ msgstr "Opcije pozadine desktopa"
 
-#~ msgid "GNOME Control Center"
+#~ msgid "Cinnamon Settings"
 #~ msgstr "GNOME Kontrolni centar"
 
 #~ msgid "The GNOME configuration tool"

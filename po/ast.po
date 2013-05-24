@@ -1,11 +1,11 @@
-# Asturian translation for gnome-settings-daemon
+# Asturian translation for cinnamon-settings-daemon
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 # Xandru Armesto <xandru@softastur.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-09-27 09:21+0000\n"
@@ -21,8 +21,8 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-09-27 12:32+0000\n"
 "X-Poedit-Language: asturian\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Degorriu de configuración de GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -186,9 +186,9 @@ msgstr "Prioridá d'usu pa esti complementu"
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"Prioridá qu'usar pa esti complementu na cola d'aniciu de gnome-settings-"
+"Prioridá qu'usar pa esti complementu na cola d'aniciu de cinnamon-settings-"
 "daemon"
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
@@ -203,8 +203,8 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Indica si gnome-settings-daemon activará esti complementu o non"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Indica si cinnamon-settings-daemon activará esti complementu o non"
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
@@ -1124,19 +1124,19 @@ msgstr "Wacom: rotación de la tableta"
 msgid "Wacom touch feature"
 msgstr "Wacomo: carauterística de toque"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Activar el códigu de depuración"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Colar dempués d'un tiempu (pa depuración)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Accesibilidá del tecláu"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Complementu d'accesibilidá del tecláu"
 
@@ -1279,11 +1279,11 @@ msgstr "_Inorar les pulsaciones de (tecles repetidas)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Calcar combinaciones de tecles tecla a tecla (tecles persistentes)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Configuración d'accesibilidá"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Complementu de configuración d'accesibilidá"
 
@@ -1417,28 +1417,28 @@ msgstr "E_spulsar"
 msgid "_Unmount"
 msgstr "_Desmontar"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Fondu de pantalla"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Complementu de fondu de pantalla"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Cartafueyu"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Complementu del cartafueyu"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1523
 msgid "Color"
 msgstr "Color"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Complementu de color"
 
@@ -1470,7 +1470,7 @@ msgstr "La imprentadora «%s» tendría de recalibrase aína."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:1920
 #: ../plugins/color/gsd-color-manager.c:1936
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Complementu de color del alministrador de preferencies de GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1483,16 +1483,16 @@ msgstr "Preseos de calibración de color amestáu"
 msgid "Color calibration device removed"
 msgstr "Preseos de calibración de color desaniciáu"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "De prueba"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Complementu de prueba"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gsd-power-manager.c:1190
 #: ../plugins/power/gsd-power-manager.c:1366
 #: ../plugins/power/gsd-power-manager.c:1545
@@ -1500,7 +1500,7 @@ msgstr "Complementu de prueba"
 msgid "Power"
 msgstr "Enerxía"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Adautador de corriente"
 
@@ -1709,7 +1709,7 @@ msgstr[1] "Monitores"
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Mur"
@@ -1717,7 +1717,7 @@ msgstr[1] "Mures"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Tecláu"
@@ -2502,15 +2502,15 @@ msgstr ""
 "Hebo un fallu al intentar executar (%s)\n"
 "que ta asociáu a la tecla (%s)"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr "Combinaciones de tecles"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "Complementu de combinaciones de tecles"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Complementu de tecláu"
 
@@ -2594,11 +2594,11 @@ msgstr[1] "%u entraes"
 msgid "System Sounds"
 msgstr "Soníos del sistema"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Tecles multimedia"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Complementu de tecles multimedia"
 
@@ -2613,15 +2613,15 @@ msgstr ""
 "L'accesibilidá del mur requier que los axustes finos del mur tean instalaos "
 "nel to sistema."
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Complementu del mur"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Notificaciones de la imprentadora"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Complementu de notificaciones de la imprentadora"
 
@@ -2834,11 +2834,11 @@ msgstr "Nun esiste un controlador d'imprentadora pa %s."
 msgid "No driver for this printer."
 msgstr "Nun esiste un controlador pa esta imprentadora."
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Afitar los axustes de tamañu y rotación de la pantalla"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -2891,11 +2891,11 @@ msgstr "Intentando camudar la configuración del monitor de toes formes."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nun pudo aplicase la configuración almacenada pa los monitores"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "Xestionar los axustes de les X"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "Axustes de les X"
 

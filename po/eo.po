@@ -1,13 +1,13 @@
-# Esperanto translation for gnome-settings-daemon.
+# Esperanto translation for cinnamon-settings-daemon.
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
-# This file is distributed under the same license as the gnome-settings-daemon package.
+# This file is distributed under the same license as the cinnamon-settings-daemon package.
 # Aisano < >, 2011.
 # Michael MORONI < >, 2011.
 # Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-10-04 18:00+0000\n"
@@ -22,8 +22,8 @@ msgstr ""
 "X-Generator: Launchpad (build 14124)\n"
 "Language: eo\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Demono de GNOME-agordoj"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -179,7 +179,7 @@ msgstr "Prioritato de tiu kromprogramo"
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid ""
-"Priority to use for this plugin in gnome-settings-daemon startup queue"
+"Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
@@ -195,7 +195,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid ""
-"Whether this plugin would be activated by gnome-settings-daemon or not"
+"Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
 
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
@@ -1005,19 +1005,19 @@ msgstr ""
 msgid "Wacom touch feature"
 msgstr ""
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Enŝalti sencimigan kodon"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Eliri post iom da tempo (por sencimigo)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Facile uzebla klavaro"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr ""
 
@@ -1168,11 +1168,11 @@ msgstr ""
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr ""
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Alireblecaj agordoj"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr ""
 
@@ -1305,28 +1305,28 @@ msgstr "_Elĵeti"
 msgid "_Unmount"
 msgstr "_Demeti"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Fono"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Ekranfona kroomaĵo"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Tondujo"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Tondujo kromprogramo"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1526
 msgid "Color"
 msgstr "Koloro"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Kolor-kromprogramo"
 
@@ -1358,7 +1358,7 @@ msgstr ""
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:1924
 #: ../plugins/color/gsd-color-manager.c:1942
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr ""
 
 #. TRANSLATORS: this is a sound description
@@ -1371,16 +1371,16 @@ msgstr ""
 msgid "Color calibration device removed"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr ""
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr ""
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gsd-power-manager.c:1198
 #: ../plugins/power/gsd-power-manager.c:1376
 #: ../plugins/power/gsd-power-manager.c:1557
@@ -1388,7 +1388,7 @@ msgstr ""
 msgid "Power"
 msgstr "Energio"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Energio-kromprogramo"
 
@@ -1597,7 +1597,7 @@ msgstr[1] "Monitoroj"
 
 #. TRANSLATORS: wireless mice with internal batteries
 #: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] "Muso"
@@ -1605,7 +1605,7 @@ msgstr[1] "Musoj"
 
 #. TRANSLATORS: wireless keyboard with internal battery
 #: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] "Klavaro"
@@ -2358,15 +2358,15 @@ msgstr ""
 "Eraro dum provo ruli (%s)\n"
 "kiu estas ligita al la klavo (%s)"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr ""
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr ""
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Klavara kromprogramo"
 
@@ -2446,11 +2446,11 @@ msgstr[1] "%u enigoj"
 msgid "System Sounds"
 msgstr "Sistemaj sonoj"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr ""
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr ""
 
@@ -2463,15 +2463,15 @@ msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Musa kromprogramo"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr ""
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr ""
 
@@ -2677,11 +2677,11 @@ msgstr "Neniu presilpelilo por %s."
 msgid "No driver for this printer."
 msgstr "Neniu presilpelilo por tiu presilo."
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Agordi ekranajn grandon kaj rotacion"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -2734,11 +2734,11 @@ msgstr "Mi tamen provas ŝanĝi la ekranan agordon."
 msgid "Could not apply the stored configuration for monitors"
 msgstr ""
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr ""
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X-agordoj"
 

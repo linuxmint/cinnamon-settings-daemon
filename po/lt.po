@@ -1,4 +1,4 @@
-# Lithuanian translation of gnome-settings-daemon
+# Lithuanian translation of cinnamon-settings-daemon
 # Copyright © 2000-2008, 2010 Free Software Foundation, Inc.
 # Gediminas Paulauskas <menesis@chatsubo.lt>, 2000-2002.
 # Vaidotas Zemlys <mpiktas@delfi.lt>, 2003.
@@ -9,8 +9,8 @@
 # Algimantas Margevičius <gymka@mail.ru>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
 "PO-Revision-Date: 2012-08-22 22:16+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
@@ -23,8 +23,8 @@ msgstr ""
 "X-Generator: Virtaal 0.7.0\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME nustatymų tarnyba"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -142,8 +142,8 @@ msgstr "Šio įskiepio aktyvavimas"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Ar gnome-settings-daemon aktyvuos šį įskiepį, ar ne"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Ar cinnamon-settings-daemon aktyvuos šį įskiepį, ar ne"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -172,8 +172,8 @@ msgstr "Šio įskiepio naudojimo prioritetas"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Šio įskiepio naudojimo prioritetas gnome-settings-daemon startavimo eilėje"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Šio įskiepio naudojimo prioritetas cinnamon-settings-daemon startavimo eilėje"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -894,19 +894,19 @@ msgstr "Išreikštinai įjungtų GTK+ modulių"
 msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 msgstr "Eilučių sąrašas, nurodanti GTK+ modulius, kurie bus pakrauti, dažniausiai papildomai prie sąlyginių ir išoriškai uždraustų."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Įjungti derinimo kodą"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Išeiti po tam tikro laiko (derinimui)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Klaviatūros pritaikymas neįgaliesiems"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Klaviatūros pritaikymo neįgaliesiems įskiepis"
 
@@ -1033,11 +1033,11 @@ msgstr "_Nepaisyti pasikartojančių paspaudimų (šoklieji klavišai)"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Nuspausti ir _laikyti klavišus, norint juos įvesti (lėtieji klavišai)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Pritaikymo neįgaliesiems nustatymai"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Pritaikymo neįgaliesiems įskiepis"
 
@@ -1163,28 +1163,28 @@ msgstr "Iš_stumti"
 msgid "_Unmount"
 msgstr "_Atjungti"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Fonas"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Fono įskiepis"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Iškarpinė"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Iškarpinės įskiepis"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Spalva"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Spalvos įskiepis"
 
@@ -1212,8 +1212,8 @@ msgstr "Spausdintuvas „%s“ greitai turėtų būti per-kalibruotas."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
-msgstr "GNOME Settings Daemon spalvos įskiepis"
+msgid "Cinnamon Settings Daemon Color Plugin"
+msgstr "Cinnamon Settings Daemon spalvos įskiepis"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187
@@ -1225,11 +1225,11 @@ msgstr "Pridėtas spalvų kalibravimo prietaisas"
 msgid "Color calibration device removed"
 msgstr "Pašalintas spalvų kalibravimo prietaisas"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Butaforinis"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Butaforinis įskiepis"
 
@@ -1313,7 +1313,7 @@ msgid "Examine…"
 msgstr "Ištirti…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1321,7 +1321,7 @@ msgstr[0] "Klaviatūra"
 msgstr[1] "Klaviatūros"
 msgstr[2] "Klaviatūrų"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Klaviatūros įskiepis"
 
@@ -1355,11 +1355,11 @@ msgstr[2] "%u įvesčių"
 msgid "System Sounds"
 msgstr "Sistemos garsai"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Multimedijos klavišai"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Multimedijos klavišų įskiepis"
 
@@ -1372,7 +1372,7 @@ msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr "Norint pritaikyti pelę neįgaliesiems, sistemoje turi būti įdiegta Mousetweaks programa."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1380,7 +1380,7 @@ msgstr[0] "Pelė"
 msgstr[1] "Pelės"
 msgstr[2] "Pelių"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Pelės įskiepis"
 
@@ -1928,7 +1928,7 @@ msgstr "Liko %s NSŠ atsarginės energijos"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Energija"
 
@@ -2223,7 +2223,7 @@ msgstr "Keisti nešiojamojo kompiuterio ekrano ryškumą"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Būtina patvirtinti tapatybę norint pakeisti nešiojamojo kompiuterio ekrano ryškumą"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Energijos įskiepis"
 
@@ -2456,11 +2456,11 @@ msgstr "Spausdintuvo perspėjimas"
 msgid "Printer '%s': '%s'."
 msgstr "Spausdintuvas „%s“: „%s“."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Spausdinimo įspėjimai"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Spausdinimo įspėjimų įskiepis"
 
@@ -2849,19 +2849,19 @@ msgstr "Vis vien bandoma pakeisti vaizduoklio nustatymus."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nepavyko pritaikyti įrašytų vaizduoklių nustatymų"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Nustatyti ekrano dydį ir pasukimą"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X serverio nustatymai"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Tvarkyti X serverio nustatymus"
 

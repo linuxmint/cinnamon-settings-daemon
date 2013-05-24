@@ -23,8 +23,8 @@ msgstr ""
 "2);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME iestatījumu dēmons"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -169,8 +169,8 @@ msgstr "Šī spraudņa aktivizēšana"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Vai šo spraudni aktivizēs gnome-settings-daemon vai nē"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Vai šo spraudni aktivizēs cinnamon-settings-daemon vai nē"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -199,9 +199,9 @@ msgstr "Prioritāte, ko izmantot šim spraudnim"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
-"Prioritāte, ko izmantot šim spraudnim gnome-settings-daemon startēšanās rindā"
+"Prioritāte, ko izmantot šim spraudnim cinnamon-settings-daemon startēšanās rindā"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1103,19 +1103,19 @@ msgstr ""
 "Saraksts ar virknēm, kas apzīme GTK+ moduļus, kuri tiks ielādēti, parasti "
 "klāt pie nosacījuma no piespiedu kārtā deaktivētajiem."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Ieslēgt atkļūdošans kodu"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Iziet pēc laika (atkļūdošanai)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Pieejamības tastatūra"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Pieejamības tastatūras spraudnis"
 
@@ -1257,11 +1257,11 @@ msgstr "_Ignorēt dubultu taustiņu nospiešanu (atlecošie taustiņi):"
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "Spiediet un _turiet taustiņus, lai tos pieņemtu (lēnie taustiņi)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Pieejamības iestatījumi"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Pieejamības iestatījumu spraudnis"
 
@@ -1395,28 +1395,28 @@ msgstr "_Izgrūst"
 msgid "_Unmount"
 msgstr "_Atmontēt"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Fons"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Fona spraudnis"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Starpliktuve"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Starpliktuves spraudnis"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Krāsa"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Krāsu spraudnis"
 
@@ -1444,7 +1444,7 @@ msgstr "Printeri '%s' drīz vajadzētu pārkalibrēt."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME iestatījumu dēmona krāsu spraudnis"
 
 #. TRANSLATORS: this is a sound description
@@ -1457,11 +1457,11 @@ msgstr "Krāsu kalibrēšanas ierīce pievienota"
 msgid "Color calibration device removed"
 msgstr "Krāsu kalibrēšanas ierīce noņemta"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Makets"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Maketa spraudnis"
 
@@ -1569,7 +1569,7 @@ msgid "Examine…"
 msgstr "Izpētīt…"
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1577,7 +1577,7 @@ msgstr[0] "Tastatūra"
 msgstr[1] "Tastatūras"
 msgstr[2] "Tastatūru"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Tastatūras spraudnis"
 
@@ -1611,11 +1611,11 @@ msgstr[2] "%u ievadkanālu"
 msgid "System Sounds"
 msgstr "Sistēmas skaņas"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Mediju taustiņi"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Mediju taustiņu spraudnis"
 
@@ -1629,7 +1629,7 @@ msgid ""
 msgstr "Peles pieejamībai ir nepieciešams uzinstalēts Mousetweaks."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1637,7 +1637,7 @@ msgstr[0] "Pele"
 msgstr[1] "Peles"
 msgstr[2] "Peļu"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Peles spraudnis"
 
@@ -2181,7 +2181,7 @@ msgstr "Atlicis %s no UPS jaudas"
 #: ../plugins/power/gsd-power-manager.c:1459
 #: ../plugins/power/gsd-power-manager.c:1641
 #: ../plugins/power/gsd-power-manager.c:1788
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Barošana"
 
@@ -2521,7 +2521,7 @@ msgstr "Mainīt klēpjdatora gaišumu"
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Nepieciešama autentifikācija, lai mainītu klēpjdatora gaišumu"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Barošanas spraudnis"
 
@@ -2754,11 +2754,11 @@ msgstr "Printera brīdinājums"
 msgid "Printer '%s': '%s'."
 msgstr "Printeris '%s': '%s'."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Drukāšanas paziņojumi"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Drukāšanas paziņojumu spraudnis"
 
@@ -3153,19 +3153,19 @@ msgstr "Mēģina tāpat pārslēgt monitora konfigurāciju."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Nevarēja piemērot monitoriem saglabāto konfigurāciju"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Iestatiet ekrāna izmēra un pagriešanas iestatījumus"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "X iestatījumi"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Pārvaldīt X iestatījumus"
 
@@ -3331,14 +3331,14 @@ msgstr "Pārvaldīt X iestatījumus"
 #~ msgstr "Pārstartēt datoru tagad"
 
 #~ msgid ""
-#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 #~ msgstr ""
-#~ "Prioritāte, ko izmantot šim spraudnim gnome-settings-daemon startēšanās "
+#~ "Prioritāte, ko izmantot šim spraudnim cinnamon-settings-daemon startēšanās "
 #~ "rindā."
 
 #~ msgid ""
-#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
-#~ msgstr "Vai šo spraudni aktivizēs gnome-settings-daemon vai nē."
+#~ "Whether this plugin would be activated by cinnamon-settings-daemon or not."
+#~ msgstr "Vai šo spraudni aktivizēs cinnamon-settings-daemon vai nē."
 
 #~ msgid "Allowed keys"
 #~ msgstr "Atļautie taustiņi"

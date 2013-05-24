@@ -1,9 +1,9 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.media-keys" path="/org/gnome/settings-daemon/plugins/media-keys/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.media-keys" path="/org.cinnamon.settings-daemon/plugins/media-keys/">
      <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
     </key>
     <key name="custom-keybindings" type="as">
       <default>[]</default>
@@ -68,7 +68,7 @@
     <key name="priority" type="i">
       <default>98</default>
       <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
     <key name="screensaver" type="s">
       <default>'&lt;Control&gt;&lt;Alt&gt;l'</default>
@@ -182,7 +182,7 @@
     </key>
   </schema>
 
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.media-keys.custom-keybinding">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.media-keys.custom-keybinding">
     <key name="name" type="s">
       <default>''</default>
       <_summary>Name</_summary>

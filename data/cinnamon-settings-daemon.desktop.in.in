@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 _Name=GNOME Settings Daemon
-Exec=@libexecdir@/gnome-settings-daemon
+Exec=@libexecdir@/cinnamon-settings-daemon
 OnlyShowIn=GNOME;Unity;
 NoDisplay=true
 X-GNOME-Autostart-Phase=Initialization

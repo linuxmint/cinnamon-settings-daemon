@@ -4,7 +4,7 @@
 # Kasia Bondarava <kasia.bondarava@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon.master\n"
+"Project-Id-Version: cinnamon-settings-daemon.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-07-10 11:33+0000\n"
@@ -21,8 +21,8 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1: 2);\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "Дэман настройкі GNOME"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -166,8 +166,8 @@ msgstr "Уключэнне гэтага плугіна"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
-msgstr "Ці гэты плугін будзе ўключаны дэманам gnome-settings-daemon"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
+msgstr "Ці гэты плугін будзе ўключаны дэманам cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
@@ -196,8 +196,8 @@ msgstr "Прыярытэт гэтага плугіна"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
-msgstr "Прыярытэт гэтага плугіна ў чарзе запуску дэмана gnome-settings-daemon"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
+msgstr "Прыярытэт гэтага плугіна ў чарзе запуску дэмана cinnamon-settings-daemon"
 
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
@@ -1089,19 +1089,19 @@ msgstr ""
 "Спіс тэкставых ланцужкоў, якія прадстаўляюць модулі GTK+, якія будуць "
 "загружаны, звычайна ў дадатак да абумоўленых і прымусова выключаных."
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Задзейнічаць адладачны код"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Выйсці праз пэўны час (карысна для адладкі)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Даступная клавіятура"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Плугін даступнай клавіятуры"
 
@@ -1242,11 +1242,11 @@ msgstr "_Ігнараваць паўторныя ўціскі клавіш (ры
 msgid "Press and _hold keys to accept them (Slow Keys)"
 msgstr "На_цісніце і ўтрымлівайце клавішы, каб ухваліць марудныя клавішы"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Настройкі даступнасці"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Плугін настройкі даступнасці"
 
@@ -1378,28 +1378,28 @@ msgstr "_Выняць"
 msgid "_Unmount"
 msgstr "_Адмацаваць"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Фон"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Плугін фона"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Буфер абмену"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Плугін буфера абмену"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 #: ../plugins/color/gsd-color-manager.c:1792
 msgid "Color"
 msgstr "Колер"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 msgid "Color plugin"
 msgstr "Плугін колеру"
 
@@ -1427,7 +1427,7 @@ msgstr "Трэба перакалібраваць прынтар \"%s\"."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
-msgid "GNOME Settings Daemon Color Plugin"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "Плугін колеру для дэмана настройкі GNOME"
 
 #. TRANSLATORS: this is a sound description
@@ -1440,11 +1440,11 @@ msgstr "З'явілася новае прыстасаванне для калі�
 msgid "Color calibration device removed"
 msgstr "Выдалена прыстасаванне для каліброўкі колераў"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Пустышка"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Плугін-пустышка"
 
@@ -1554,7 +1554,7 @@ msgid "Examine…"
 msgstr "Даследаваць..."
 
 #. TRANSLATORS: wireless keyboard with internal battery
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:585
 msgid "Keyboard"
 msgid_plural "Keyboards"
@@ -1562,7 +1562,7 @@ msgstr[0] "Клавіятура"
 msgstr[1] "Клавіятуры"
 msgstr[2] "Клавіятуры"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Плугін клавіятуры"
 
@@ -1596,11 +1596,11 @@ msgstr[2] "%u уваходаў"
 msgid "System Sounds"
 msgstr "Сістэмныя гукі"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Медыяклавішы"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Плугін медыяклавіш"
 
@@ -1614,7 +1614,7 @@ msgid ""
 msgstr "Функцыі даступнасці мышы вымагаюць усталяванага Mousetweaks."
 
 #. TRANSLATORS: wireless mice with internal batteries
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gpm-common.c:581
 msgid "Mouse"
 msgid_plural "Mice"
@@ -1622,7 +1622,7 @@ msgstr[0] "Мыш"
 msgstr[1] "Мышы"
 msgstr[2] "Мышы"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Плугін мышы"
 
@@ -2168,7 +2168,7 @@ msgstr "засталося %s запасной энергіі UPS-а"
 #: ../plugins/power/gsd-power-manager.c:1454
 #: ../plugins/power/gsd-power-manager.c:1636
 #: ../plugins/power/gsd-power-manager.c:1783
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 msgid "Power"
 msgstr "Сілкаванне энергіяй"
 
@@ -2521,7 +2521,7 @@ msgid "Authentication is required to modify the laptop brightness"
 msgstr ""
 "Каб змяняць настройкі яркасці ноўтбука, спачатку трэба прайсці ідэнтыфікацыю"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 msgid "Power plugin"
 msgstr "Плугін сілкавання энергіяй"
 
@@ -2754,11 +2754,11 @@ msgstr "Перасцярога ад прынтара"
 msgid "Printer '%s': '%s'."
 msgstr "Прынтар \"%s\": \"%s\"."
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Апавяшчэнні аб друку"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Плугін апавяшчэнняў аб друку"
 
@@ -3148,19 +3148,19 @@ msgstr "Прымусовая спроба змянення настроек ма
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Не ўдалося ўжыць захаваныя настройкі манітораў"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "XRandR"
 msgstr "XRandR"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "Set up screen size and rotation settings"
 msgstr "Настройка памеру экрана і павароту выявы"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "X Settings"
 msgstr "Настройкі сістэмы Х"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "Manage X Settings"
 msgstr "Настройка сістэмы Х"
 

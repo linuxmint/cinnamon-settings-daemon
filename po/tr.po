@@ -10,9 +10,9 @@
 # Muhammet Kara <muhammet.k@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-settings-daemon\n"
+"Project-Id-Version: cinnamon-settings-daemon\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=gnome-settings-daemon&keywords=I18N+L10N&component=general\n"
+"cgi?product=cinnamon-settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-07-04 16:55+0000\n"
 "PO-Revision-Date: 2011-07-08 17:29+0300\n"
 "Last-Translator: Muhammet Kara <muhammet.k@gmail.com>\n"
@@ -24,8 +24,8 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 "Language: tr\n"
 
-#: ../data/gnome-settings-daemon.desktop.in.in.h:1
-msgid "GNOME Settings Daemon"
+#: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
+msgid "Cinnamon Settings Daemon"
 msgstr "GNOME Ayarlar Servisi"
 
 #: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
@@ -181,7 +181,7 @@ msgstr "Bu eklenti için kullanım önceliği"
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "Bu eklentinin gnome ayarlar servisinin başlangıç kuyruğundaki kullanım "
 "önceliği"
@@ -196,7 +196,7 @@ msgstr ""
 #: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
 #: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 #: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
 "Bu eklentinin gnome ayarlar servisi tarafından aktifleştirilip "
 "aktifleştirilmeyeceği"
@@ -260,14 +260,14 @@ msgstr "Ardışık boş alan yüzdesi bildirim eşiği"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
-msgid "Priority to use for this plugin in gnome-settings-daemon startup queue."
+msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 msgstr ""
 "Bu eklentinin gnome ayarlar yöneticisi servisinin başlangıç kuyruğundaki "
 "kullanım önceliği"
 
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
 #: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
-msgid "Whether this plugin would be activated by gnome-settings-daemon or not."
+msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 msgstr ""
 "Bu eklentinin gnome ayarlar servisi tarafından aktifleştirilip "
 "aktifleştirilmeyeceği."
@@ -1142,19 +1142,19 @@ msgstr "Wacom tablet rotasyonu"
 msgid "Wacom touch feature"
 msgstr "Wacom dokunma özelliği"
 
-#: ../gnome-settings-daemon/main.c:54
+#: ../cinnamon-settings-daemon/main.c:54
 msgid "Enable debugging code"
 msgstr "Hata ayıklama kodunu etkinleştir"
 
-#: ../gnome-settings-daemon/main.c:55
+#: ../cinnamon-settings-daemon/main.c:55
 msgid "Exit after a time (for debugging)"
 msgstr "Bir süre sonra çık (hata ayıklama için)"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility Keyboard"
 msgstr "Erişilebilirlik Klavyesi"
 
-#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility keyboard plugin"
 msgstr "Erişilebilirlik klavyesi eklentisi"
 
@@ -1301,19 +1301,19 @@ msgstr "_Yinelenen tuşları yok say (Sıçrama Tuşları)"
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
 msgstr "_Klavye kısayollarına bir kerede bir tuşa bas (Yapışken Tuşlar)"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:1
 msgid "Accessibility settings"
 msgstr "Erişilebilirlik ayarları"
 
-#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+#: ../plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in.h:2
 msgid "Accessibility settings plugin"
 msgstr "Erişilebilirlik ayarları eklentisi"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:1
+#: ../plugins/automount/automount.cinnamon-settings-plugin.in.h:1
 msgid "Automount"
 msgstr "Otomatik Bağla"
 
-#: ../plugins/automount/automount.gnome-settings-plugin.in.h:2
+#: ../plugins/automount/automount.cinnamon-settings-plugin.in.h:2
 msgid "Automounter plugin"
 msgstr "Otomatik bağlayıcı eklentisi"
 
@@ -1438,27 +1438,27 @@ msgstr "_Çıkart"
 msgid "_Unmount"
 msgstr "_Çıkart"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:1
 msgid "Background"
 msgstr "Arkaplan"
 
-#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+#: ../plugins/background/background.cinnamon-settings-plugin.in.h:2
 msgid "Background plugin"
 msgstr "Arkaplan eklentisi"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:1
 msgid "Clipboard"
 msgstr "Pano"
 
-#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+#: ../plugins/clipboard/clipboard.cinnamon-settings-plugin.in.h:2
 msgid "Clipboard plugin"
 msgstr "Pano eklentisi"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:1
 msgid "Color"
 msgstr "Renk"
 
-#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+#: ../plugins/color/color.cinnamon-settings-plugin.in.h:2
 #| msgid "Clipboard plugin"
 msgid "Color plugin"
 msgstr "Renk eklentisi"
@@ -1498,8 +1498,8 @@ msgstr "'%s' yazıcısının yakında yeniden düzeltilmesi gerekiyor."
 #. TRANSLATORS: this is the application name
 #: ../plugins/color/gsd-color-manager.c:1932
 #: ../plugins/color/gsd-color-manager.c:1950
-#| msgid "GNOME Settings Daemon"
-msgid "GNOME Settings Daemon Color Plugin"
+#| msgid "Cinnamon Settings Daemon"
+msgid "Cinnamon Settings Daemon Color Plugin"
 msgstr "GNOME Ayarlar Servisi Renk Eklentisi"
 
 #. TRANSLATORS: this is a sound description
@@ -1512,16 +1512,16 @@ msgstr "Renk düzeltme aygıtı eklendi"
 msgid "Color calibration device removed"
 msgstr "Renk düzeltme aygıtı kaldırıldı"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:1
 msgid "Dummy"
 msgstr "Aptal"
 
-#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+#: ../plugins/dummy/dummy.cinnamon-settings-plugin.in.h:2
 msgid "Dummy plugin"
 msgstr "Yalancı eklenti"
 
 #. TRANSLATORS: this is the notification application name
-#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:1
 #: ../plugins/power/gsd-power-manager.c:1000
 #: ../plugins/power/gsd-power-manager.c:1177
 #: ../plugins/power/gsd-power-manager.c:1358
@@ -1529,7 +1529,7 @@ msgstr "Yalancı eklenti"
 msgid "Power"
 msgstr "Güç"
 
-#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+#: ../plugins/power/power.cinnamon-settings-plugin.in.h:2
 #| msgid "Mouse plugin"
 msgid "Power plugin"
 msgstr "Güç eklentisi"
@@ -1990,19 +1990,19 @@ msgstr ""
 "(%s) çalıştırırken hata\n"
 "(%s) tuşu ile bağlı"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:1
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:1
 msgid "Keybindings"
 msgstr "Tuş bağları"
 
-#: ../plugins/keybindings/keybindings.gnome-settings-plugin.in.h:2
+#: ../plugins/keybindings/keybindings.cinnamon-settings-plugin.in.h:2
 msgid "Keybindings plugin"
 msgstr "Tuş bağları eklentisi"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:1
 msgid "Keyboard"
 msgstr "Klavye"
 
-#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+#: ../plugins/keyboard/keyboard.cinnamon-settings-plugin.in.h:2
 msgid "Keyboard plugin"
 msgstr "Klavye eklentisi"
 
@@ -2087,11 +2087,11 @@ msgstr[0] "%u Giriş"
 msgid "System Sounds"
 msgstr "Sistem Sesleri"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:1
 msgid "Media keys"
 msgstr "Ortam tuşları"
 
-#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+#: ../plugins/media-keys/media-keys.cinnamon-settings-plugin.in.h:2
 msgid "Media keys plugin"
 msgstr "Ortam tuşları eklentisi"
 
@@ -2105,19 +2105,19 @@ msgid ""
 msgstr ""
 "Fare erişilebilirliği, Mousetweaks'in sisteminizde yüklü olmasını gerektirir."
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:1
 msgid "Mouse"
 msgstr "Fare"
 
-#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+#: ../plugins/mouse/mouse.cinnamon-settings-plugin.in.h:2
 msgid "Mouse plugin"
 msgstr "Fare eklentisi"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:1
 msgid "Print-notifications"
 msgstr "Yazdırma-uyarıları"
 
-#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+#: ../plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in.h:2
 msgid "Print-notifications plugin"
 msgstr "Yazdırma-uyarıları eklentisi"
 
@@ -2334,11 +2334,11 @@ msgstr "%s için yazıcı sürücüsü yok."
 msgid "No driver for this printer."
 msgstr "Bu yazıcı için yazıcı sürücüsü yok."
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:1
 msgid "Set up screen size and rotation settings"
 msgstr "Ekran boyutu ve döndürme çevirimi ayarlarını ata"
 
-#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+#: ../plugins/xrandr/xrandr.cinnamon-settings-plugin.in.h:2
 msgid "XRandR"
 msgstr "XRandR"
 
@@ -2390,11 +2390,11 @@ msgstr "Gene de ekran yapılandırmasına geçmeye çalışılıyor."
 msgid "Could not apply the stored configuration for monitors"
 msgstr "Ekranlar için kayıtlı yapılandırma uygulanamadı"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:1
 msgid "Manage X Settings"
 msgstr "X Ayarlarını Yönet"
 
-#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+#: ../plugins/xsettings/xsettings.cinnamon-settings-plugin.in.h:2
 msgid "X Settings"
 msgstr "X Ayarları"
 
