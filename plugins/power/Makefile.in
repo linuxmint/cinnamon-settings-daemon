@@ -57,7 +57,7 @@ libexec_PROGRAMS = csd-test-power$(EXEEXT) $(am__EXEEXT_1)
 @HAVE_GUDEV_TRUE@	csd-backlight-helper
 
 @HAVE_GUDEV_TRUE@am__append_2 = \
-@HAVE_GUDEV_TRUE@	org.gnome.settings-daemon.plugins.power.policy.in.in
+@HAVE_GUDEV_TRUE@	org.cinnamon.settings-daemon.plugins.power.policy.in.in
 
 subdir = plugins/power
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
@@ -453,7 +453,7 @@ plugin_in_files = \
 
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.gnome.settings-daemon.plugins.power.policy.in
+polkit_policy_in_files = org.cinnamon.settings-daemon.plugins.power.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
@@ -491,8 +491,8 @@ EXTRA_DIST = $(plugin_in_files) $(csd_backlight_helper_SOURCES) \
 
 CLEANFILES = \
 	$(plugin_DATA)					\
-	org.gnome.settings-daemon.plugins.power.policy	\
-	org.gnome.settings-daemon.plugins.power.policy.in
+	org.cinnamon.settings-daemon.plugins.power.policy	\
+	org.cinnamon.settings-daemon.plugins.power.policy.in
 
 all: all-am
 
@@ -1051,7 +1051,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES uninstall-polkit_policyDATA
 
 
-org.gnome.settings-daemon.plugins.power.policy.in: org.gnome.settings-daemon.plugins.power.policy.in.in Makefile
+org.cinnamon.settings-daemon.plugins.power.policy.in: org.cinnamon.settings-daemon.plugins.power.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 @INTLTOOL_POLICY_RULE@

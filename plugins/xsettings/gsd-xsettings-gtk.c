@@ -25,7 +25,7 @@
 
 #include "csd-xsettings-gtk.h"
 
-#define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
+#define XSETTINGS_PLUGIN_SCHEMA "org.cinnamon.settings-daemon.plugins.xsettings"
 
 #define GTK_MODULES_DISABLED_KEY "disabled-gtk-modules"
 #define GTK_MODULES_ENABLED_KEY  "enabled-gtk-modules"

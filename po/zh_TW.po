@@ -27,11 +27,11 @@ msgstr ""
 msgid "Cinnamon Settings Daemon"
 msgstr "GNOME 設定值伺服程式"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
 msgstr "智慧卡移除動作"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
@@ -39,31 +39,31 @@ msgstr ""
 "將它設定為「none」、「lock_screen」或「force_logout」之一。這個動作會在用來登"
 "入的智慧卡移除後執行。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "打字時停用觸控板"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr "如果您在打字時容易不小心碰到觸控板，可將此項設定為 TRUE。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Enable horizontal scrolling"
 msgstr "啟用水平捲動"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr "設定此項為 TRUE 可使用水平捲動，如同以 scroll_method 選取的方式一般。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Select the touchpad scroll method"
 msgstr "選擇觸控板捲動方式"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
@@ -71,158 +71,158 @@ msgstr ""
 "選擇觸控板的捲動方式。支援的數值有：「disabled」(停用)、「edge-scrolling」(邊"
 "緣捲動)、「two-finger-scrolling」(兩指式捲動)。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable mouse clicks with touchpad"
 msgstr "啟用觸控板的滑鼠點擊"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr "設定此項為 TRUE 可以在觸控板上輕點來送出滑鼠點擊的指令。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Enable touchpad"
 msgstr "啟用觸控板"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "設定此項為 TRUE 以啟用所有的觸控板。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr "當按下及放開 Control 鍵後，加強顯示目前指標的位置。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Double click time"
 msgstr "雙擊時間"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Length of a double click in milliseconds."
 msgstr "雙擊的時間長度，以毫秒計算。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid "Drag threshold"
 msgstr "拖曳距離界限"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Distance before a drag is started."
 msgstr "拖曳開始前的距離。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid "Middle button emulation"
 msgstr "模擬滑鼠中鍵"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr "啟用透過同時按下左鍵和右鍵來模擬滑鼠中鍵。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr "手寫板的方向是否被鎖定，或是會自動旋轉。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Device hotplug custom command"
 msgstr "裝置熱插拔自訂指令"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Command to be run when a device is added or removed."
 msgstr "當加入或移除裝置時要執行的指令。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "這個外掛程式的使用情況"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "這個外掛程式是否要在 cinnamon-settings-daemon 中啟用"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "這個外掛程式的優先順序"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr "這個外掛程式用於 cinnamon-settings-daemon 啟動佇列中的優先順序"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
 msgstr "Wacom 觸控筆絕對模式"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the tablet to absolute mode."
 msgstr "啟用此項將繪圖板設為絕對模式。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Wacom tablet area"
 msgstr "Wacom 繪圖板區域"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "將此項設為工具使用區域的 x1, y1 和 x2, y2。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom tablet aspect ratio"
 msgstr "Wacom 繪圖板長寬比"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
 msgstr "啟用此項將 Wacom 繪圖板區域設為符合輸出的長寬比。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom tablet rotation"
 msgstr "Wacom 繪圖板旋轉"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
@@ -230,27 +230,27 @@ msgstr ""
 "將此項設為「none」、「cw」為順時鐘 90 度，「half」為 180 度，而「ccw」為 90 "
 "度逆時鐘。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Wacom touch feature"
 msgstr "Wacom touch 功能"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr "啟用此選項後使用者觸碰繪圖板時會移動游標。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Wacom tablet PC feature"
 msgstr "Wacom 平板 PC 功能"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr "啟用此項會讓筆尖壓下時只回報觸控筆事件。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom display mapping"
 msgstr "Wacom 顯示對映"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
@@ -258,117 +258,117 @@ msgstr ""
 "要對應到繪圖板的螢幕 EDID 資訊。必須為 [vendor, product, serial] 格式。 "
 "[\"\",\"\",\"\"] 則會停用對應。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus pressure curve"
 msgstr "Wacom 觸控筆壓力曲線"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr "將此項設為觸控筆壓力曲線的 x1, y1 和 x2, y2。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus button mapping"
 msgstr "Wacom 觸控筆按鈕對映"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Set this to the logical button mapping."
 msgstr "將此項設為邏輯按鈕映射。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom stylus pressure threshold"
 msgstr "Wacom 觸控筆壓力臨界值"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr "將此項設為觸控筆點選事件產生的壓力值。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure curve"
 msgstr "Wacom 橡皮擦壓力曲線"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr "將此項設為橡皮擦壓力曲線的 x1, y1 和 x2, y2。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom eraser button mapping"
 msgstr "Wacom 橡皮擦按鈕對映"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom eraser pressure threshold"
 msgstr "Wacom 橡皮擦壓力臨界值"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr "將此項設為橡皮擦點選事件產生的壓力值。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom button action type"
 msgstr "Wacom 按鈕類型"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The type of action triggered by the button being pressed."
 msgstr "當按鈕被下時觸發的動作類型。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combination for the custom action"
 msgstr "自訂動作的熱鍵組合"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
 msgstr "當自訂動作的按鈕被下時產生的鍵盤捷徑鍵。"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 #, fuzzy
 #| msgid "Key combination for the custom action"
 msgid "Key combinations for an elevator custom action"
 msgstr "自訂動作的熱鍵組合"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
 msgstr "當觸控環或觸控列用在自訂動作 (上接在下之後) 時產生的鍵盤捷徑鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
 msgstr "顯示器設定組合有效期限"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
 msgstr "這是顯示器顏色設定組合被認為無效所需的天數。"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "The duration a printer profile is valid"
 msgstr "印表機設定組合有效的期間"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr "這是印表機顏色設定組合被認為無效所需的天數。"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Mount paths to ignore"
 msgstr "要忽略的掛載路徑"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr "指定要忽略磁碟空間不足的掛載路徑清單。"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Free percentage notify threshold"
 msgstr "可用空間百分比通知界限"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
@@ -376,367 +376,367 @@ msgstr ""
 "開始警告磁碟空間不足的剩餘空間百分比界限。如果可用空間的百分比低於這個值就會"
 "顯示警告。"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 msgid "Subsequent free space percentage notify threshold"
 msgstr "後續可用百分比通知界限"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
 msgstr "指定可用磁碟空間減少時發出後續警告前的百分比。"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Free space notify threshold"
 msgstr "可用空間通知界限"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
 msgstr "指定一個 GB 數值。如果可用空間大於此數值，就不會顯示警告。"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid "Minimum notify period for repeated warnings"
 msgstr "重覆警示的最小通知期間"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
 msgstr "以分鐘指定的時間。後續的儲存區警告出現頻率不會高於這個週期。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 msgid "Custom keybindings"
 msgstr "自訂組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 msgid "List of custom keybindings"
 msgstr "自訂組合鍵的清單"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Launch calculator"
 msgstr "執行計算機"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to launch the calculator."
 msgstr "執行計算機的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Launch email client"
 msgstr "執行電子郵件客戶端"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the email client."
 msgstr "執行電子郵件客戶端的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Eject"
 msgstr "退出"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to eject an optical disc."
 msgstr "退出光碟片的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Launch help browser"
 msgstr "執行說明文件瀏覽器"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the help browser."
 msgstr "執行說明文件瀏覽器的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Home folder"
 msgstr "個人資料夾"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to open the Home folder."
 msgstr "開啟家目錄的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Launch media player"
 msgstr "執行媒體播放程式"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to launch the media player."
 msgstr "執行媒體播放程式的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Next track"
 msgstr "下一首歌曲"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to skip to next track."
 msgstr "跳到下一首的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Pause playback"
 msgstr "暫停播放"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "暫停播放的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Play (or play/pause)"
 msgstr "播放（或播放/暫停）"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "開始播放(或切換播放/暫停)的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Log out"
 msgstr "登出"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to log out."
 msgstr "登出的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Previous track"
 msgstr "上一首歌曲"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to skip to previous track."
 msgstr "跳回上一首的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Lock screen"
 msgstr "鎖定畫面"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Binding to lock the screen."
 msgstr "鎖定螢幕的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Search"
 msgstr "搜尋"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Binding to launch the search tool."
 msgstr "執行搜尋工具的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Stop playback"
 msgstr "停止播放"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Binding to stop playback."
 msgstr "停止播放的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Volume down"
 msgstr "調低音量"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Binding to lower the system volume."
 msgstr "降低系統音量的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Volume mute"
 msgstr "靜音"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Binding to mute the system volume."
 msgstr "設定系統靜音的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Volume up"
 msgstr "調高音量"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Binding to raise the system volume."
 msgstr "提高系統音量的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Take a screenshot"
 msgstr "拍下螢幕截圖"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Binding to take a screenshot."
 msgstr "拍下螢幕截圖的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot of a window"
 msgstr "拍下視窗的螢幕截圖"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Binding to take a screenshot of a window."
 msgstr "拍下視窗的螢幕截圖的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Take a screenshot of an area"
 msgstr "拍下區域的螢幕截圖"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Binding to take a screenshot of an area."
 msgstr "拍下區域的螢幕截圖的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Copy a screenshot to clipboard"
 msgstr "複製螢幕截圖到剪貼簿。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "複製螢幕截圖到剪貼簿的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "複製視窗的螢幕截圖到剪貼簿。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "複製視窗的螢幕截圖到剪貼簿的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "複製區域的螢幕截圖到剪貼簿。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "複製區域的螢幕截圖到剪貼簿的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
 msgstr "執行網頁瀏覽器"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
 msgstr "執行網頁瀏覽器的組合鍵。"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
 msgstr "切換放大鏡"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Binding to show the screen magnifier"
 msgstr "顯示螢幕放大鏡的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Toggle screen reader"
 msgstr "切換螢幕閱讀器"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Binding to start the screen reader"
 msgstr "啟動螢幕閱讀器的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
 msgstr "切換螢幕鍵盤"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Binding to show the on-screen keyboard"
 msgstr "顯示螢幕鍵盤的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
 msgstr "將文字放大"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Binding to increase the text size"
 msgstr "繫結到將文字放大"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Decrease text size"
 msgstr "將文字縮小"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Binding to decrease the text size"
 msgstr "繫結到將文字縮小"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Toggle contrast"
 msgstr "切換對比"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Binding to toggle the interface contrast"
 msgstr "繫結到切換介面對比"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Magnifier zoom in"
 msgstr "放大鏡拉近"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Binding for the magnifier to zoom in"
 msgstr "螢幕放大鏡拉近的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
 msgstr "放大鏡拉遠"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Binding for the magnifier to zoom out"
 msgstr "螢幕放大鏡拉遠的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Switch input source"
 msgstr "切換輸入來源"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Binding to select the next input source"
 msgstr "跳到下一個輸入來源的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Switch input source backward"
 msgstr "反向切換輸入來源"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Binding to select the previous input source"
 msgstr "跳回上一個輸入來源的組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name"
 msgstr "名稱"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Name of the custom binding"
 msgstr "自訂組合鍵的名稱"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Binding"
 msgstr "組合鍵"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Binding for the custom binding"
 msgstr "自訂組合鍵的組合"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command"
 msgstr "指令"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
 msgid "Command to run when the binding is invoked"
 msgstr "當呼叫組合鍵時要執行的指令"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage considered low"
 msgstr "百分比認為低電量"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 msgid ""
 "The percentage of the battery when it is considered low. Only valid when use-"
 "time-for-policy is false."
 msgstr ""
 "電池被認為低電量時的百分比。只有當 use-time-for-policy 為 false 時有效。"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered critical"
 msgstr "百分比認為電量極低"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 msgid ""
 "The percentage of the battery when it is considered critical. Only valid "
 "when use-time-for-policy is false."
 msgstr ""
 "電池被認為電量極低時的百分比。只有當 use-time-for-policy 為 false 時有效。"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 msgid "Percentage action is taken"
 msgstr "百分比採取動作"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:10
 msgid ""
 "The percentage of the battery when the critical action is performed. Only "
 "valid when use-time-for-policy is false."
@@ -744,22 +744,22 @@ msgstr ""
 "電池要採取電量極低動作時的百分比。只有當 use-time-for-policy 為 false 時有"
 "效。"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "The time remaining when low"
 msgstr "當低電量時剩餘的時間"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid ""
 "The time remaining in seconds of the battery when it is considered low. Only "
 "valid when use-time-for-policy is true."
 msgstr ""
 "電池被認為低電量時的剩餘時間。只有當 use-time-for-policy 為 true 時有效。"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "The time remaining when critical"
 msgstr "當電量極低時剩餘的時間"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid ""
 "The time remaining in seconds of the battery when it is considered critical. "
 "Only valid when use-time-for-policy is true."
@@ -767,11 +767,11 @@ msgstr ""
 "電池被認為電量極低時的剩餘時間(秒)。只有當 use-time-for-policy 為 true 時有"
 "效。"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid "The time remaining when action is taken"
 msgstr "當採取動作時剩餘的時間"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid ""
 "The time remaining in seconds of the battery when critical action is taken. "
 "Only valid when use-time-for-policy is true."
@@ -779,11 +779,11 @@ msgstr ""
 "電池要採取電量極低動作時的剩餘時間(秒)。只有當 use-time-for-policy 為 true 時"
 "有效。"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "Whether to use time-based notifications"
 msgstr "是否使用基於時間的通知"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid ""
 "If time based notifications should be used. If set to false, then the "
 "percentage change is used instead, which may fix a broken ACPI BIOS."
@@ -791,11 +791,11 @@ msgstr ""
 "是否使用基於時間的通知。如果設定為 false，會使用百分比變更來代替，這或許能修"
 "正有問題的 ACPI BIOS。"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 msgid "If we should show the recalled battery warning for a broken battery"
 msgstr "是否應對損壞的電池顯示回廠電池警示"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid ""
 "If we should show the recalled battery warning for a broken battery. Set "
 "this to false only if you know your battery is okay."
@@ -803,20 +803,20 @@ msgstr ""
 "是否應對損壞的電池顯示回廠電池警示。如果您知道自己的電池沒有問題，可以把這個"
 "選項設為 false。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "Use mobile broadband connections"
 msgstr "使用行動寬頻連線"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr "使用行動寬頻連線，像是 GSM 和 CDMA 來檢查更新。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically download updates in the background without confirmation"
 msgstr "不要求確認就在背景自動下載更新"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
@@ -825,11 +825,11 @@ msgstr ""
 "不要求確認就在背景自動下載更新。更新會在使用有線網路連線時自動下載；如果啟用"
 "「connection-use-mobile」則使用行動寬頻也會下載。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
 msgstr "多久檢查更新"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
@@ -838,11 +838,11 @@ msgstr ""
 "多久檢查更新。數值為秒數。這是在安全性更新發布後經過的最大時間總數，而更新會"
 "自動安裝或通知使用者。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "How often to notify the user that non-critical updates are available"
 msgstr "多久通知使用者有非重大更新可用"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -852,11 +852,11 @@ msgstr ""
 "多久告訴使用者有非重大更新。數值為秒數。安全性更新通知永遠會在檢查更新後顯"
 "示，但是非重大更新通知顯示的頻率應該少一些。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "The last time we told the user about non-critical notifications"
 msgstr "我們通知使用者有非重大更新的最後時刻"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
@@ -864,73 +864,73 @@ msgstr ""
 "我們通知使用者有非重大更新的最後時刻。數值為以電腦紀元計算的數值，或 0 代表永"
 "不使用。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades"
 msgstr "多久檢查是否有發行版本的更新"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr "多久檢查是否有發行版本的更新。數值為秒數。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to refresh the package cache"
 msgstr "多久重新整理套件快取"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr "多久重新整理套件快取。數值為秒數。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "Check for updates when running on battery power"
 msgstr "當使用電池電力時檢查更新"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "Check for updates when running on battery power."
 msgstr "當使用電池電力時檢查更新。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "Notify the user when distribution upgrades are available"
 msgstr "當有發行版本升級可用時通知使用者"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Notify the user when distribution upgrades are available."
 msgstr "當有發行版本升級可用時通知使用者。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Ask the user if additional firmware should be installed"
 msgstr "如果要安裝額外的韌體先詢問使用者"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid ""
 "Ask the user if additional firmware should be installed if it is available."
 msgstr "如果要安裝額外的韌體，而且可以取得時先詢問使用者"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Firmware files that should not be searched for"
 msgstr "不包含在搜尋中的韌體檔案"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
 msgstr ""
 "不包含在搜尋中的韌體檔案，以逗號分隔。這些項目可以包含 '*' 和 '?' 字元。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Devices that should be ignored"
 msgstr "應忽略的裝置"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
 msgstr "要忽略的裝置，以逗號分隔。這些項目可以包含 '*' 和 '?' 字元。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "The filenames on removable media that designate it a software source."
 msgstr "可移除式媒體上的檔案名稱，為軟體的來源。"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -940,11 +940,11 @@ msgstr ""
 "當插入可移除式媒體，會檢查它的根目錄是否含有任何重要的檔案名稱。如果檔案名稱"
 "符合，就會進行更新檢查。這樣可以讓後續安裝的磁碟用來更新執行中的系統。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "RandR 的預設組態檔案"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -956,11 +956,11 @@ msgstr ""
 "用者家目錄的 ~/.config/monitors.xml。如果使用者沒有這個檔案，或是雖然有卻不符"
 "含使用者的螢幕設定，就會以這個設定鍵指定的檔案來代替。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 msgid "Whether to turn off specific monitors after boot"
 msgstr "開機後是否關閉指定的螢幕"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
@@ -969,11 +969,11 @@ msgstr ""
 "「clone」(複製) 會在所有螢幕顯示同樣東西，「dock」(停駐)會關閉內部螢幕，「do-"
 "nothing」(不做任何事) 會使用預設的 Xorg 行為（在最近版本中為延伸桌面）"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
 msgstr "平滑化"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -983,11 +983,11 @@ msgstr ""
 "「grayscale」為標準的灰階平滑化，而「rgba」是子像素平滑化（只適用 LCD 螢"
 "幕）。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "Hinting"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -997,11 +997,11 @@ msgstr ""
 "「slight」為基本式，「medium」為中等程度，而「full」是最大的 hinting（可能造"
 "成字體破碎）。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
 msgstr "RGBA 順序"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -1012,21 +1012,21 @@ msgstr ""
 "有：「rgb」為紅色在左(最常用)，「bgr」為藍色在左，「vrgb」為紅色在上，"
 "「vbgr」為紅色在下。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "明確停用的 GTK+ 模組的清單"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
 msgstr "表示不載入的 GTK+ 模組的字串清單，即使在它們的組態中預設是啟用的。"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "明確啟用的 GTK+ 模組的清單"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
@@ -2375,11 +2375,11 @@ msgstr "電源管理程式"
 #. - A normal active user on the local machine does not need permission
 #. to change the backlight brightness.
 #.
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:5
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:5
 msgid "Modify the laptop brightness"
 msgstr "修改筆記型電腦亮度"
 
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:6
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "修改筆記型電腦亮度需要驗證"
 
@@ -2940,11 +2940,11 @@ msgstr "底部按鈕 #%d"
 #. - A normal active user on the local machine does not need permission
 #. to change the LED setting for a Wacom tablet
 #.
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+#: ../plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in.h:5
 msgid "Modify the lit LED for a Wacom tablet"
 msgstr "修改 Wacom 繪圖板的發光 LED"
 
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+#: ../plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr "修改 Wacom 繪圖板的發亮 LED 需要驗證"
 

@@ -30,861 +30,861 @@ msgstr ""
 msgid "Cinnamon Settings Daemon"
 msgstr "Демонот за поставувања на GNOME"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Command to be run when a device is added or removed."
 msgstr "Команда која ќе се извршува кога се става или вади некој уред."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid "Device hotplug custom command"
 msgstr "Сопствена команда за жешко вклучување на уреди"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "Оневозможи го тачпадот при пишување"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Distance before a drag is started."
 msgstr "Растојание после кое ќе започне влечење."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Double click time"
 msgstr "Време за двоен клик"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid "Drag threshold"
 msgstr "Праг за влечење"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:7
 #| msgid "Enable font plugin"
 msgid "Enable horizontal scrolling"
 msgstr "Овозможи хоризонтално движење"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Enable mouse clicks with touchpad"
 msgstr "Овозможи кликање со тачпад"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable touchpad"
 msgstr "Овозможи тачпад"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid "Enables middle mouse button emulation through simultaneous left and right button click."
 msgstr "Овозможува емулација на среден клик со истовремено кликање на десното и левото копче."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Highlights the current location of the pointer when the Control key is pressed and released."
 msgstr "Ја осветлува тековната локација на покажувачот со притискање и отпуштање на копчето Control."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Должина на двоен клик во милисекунди."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Middle button emulation"
 msgstr "Емулација на среден клик."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Select the touchpad scroll method"
 msgstr "Одберете метод за движење со тачпад."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Select the touchpad scroll method. Supported values are: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
 msgstr "Одберете метод за движење со тачпадот. Поддржани методи се: \"disabled\", \"edge-scrolling\", \"two-finger-scrolling\"."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid "Set this to TRUE if you have problems with accidentally hitting the touchpad while typing."
 msgstr "Поставете го ова на TRUE ако на грешка го притискате тачпадот при пишување."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key."
 msgstr "Поставете го ова на TRUE за да овозможите хоризонтално движење на истиот метод избран со клучот scroll_method."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr "Поставете го ова на TRUE за да испраќате кликања со допир на тачпадот."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Поставете го ова на TRUE за да ги овозможите сите тачпади."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The action will get performed when the smartcard used for log in is removed."
 msgstr "Поставете го ова на \"none\", \"lock-screen\" или \"force-logout\". Дејството ќе се изврши кога смарт картичката за најава е отстранета."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Smartcard removal action"
 msgstr "Дејство при отстранување на смарт картичка"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr "Дали ориентацијата на таблетот е заклучена или автоматски се ротира."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Activation of this plugin"
 msgstr "Активација на овој приклучок"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr "Овозможете го ова за да стрелката да се движи кога корисникот го допира таблетот."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr "Овозможете го ова за да се пријавуваат настани само кога е допрен врвот на стилото."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 msgid "Enable this to set the tablet to absolute mode."
 msgstr "Овозможете го ова за да го поставите таблетот во апсолутен режим."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin"
 msgstr "Приоритет кој ќе се користи за овој приклучок"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr "Приоритет кој ќе се користи за овој приклучок во редот на cinnamon-settings-daemon"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise."
 msgstr "Поставете го ова на 'none', 'cw' за 90 степени во насока на стрелките на часовникот, 'half' за 180 степени и 'ccw' за 90 обратна насока на стрелките на часовникот."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Set this to the logical button mapping."
 msgstr "Поставете го ова за логичко мапирање на копчиња."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Set this to the pressure value at which a stylus click event is generated."
 msgstr "Поставете го ова на вредноста на притисокот на стилото за кој ќе се генерира настан."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid "Set this to the pressure value at which an eraser click event is generated."
 msgstr "Поставете го ова на вредноста на притисокот на кој што ќе се генерира настан на бришачот."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "Поставете го ова на x1, y1 и x2, y2 на површината која се користи од алатките."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr "Поставете го ова на x1, y1 и x2, y2 на кривата на притисокот која се применува на бришачот."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr "Поставете го ова на x1, y1 и x2, y2 на кривата на притисокот која се применува на стилото."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Wacom eraser button mapping"
 msgstr "Мапирање на копчиња на Wacom бришач"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Wacom eraser pressure curve"
 msgstr "Крива на притисок на Wacom бришач"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Wacom eraser pressure threshold"
 msgstr "Праг на притисок на Wacom бришач"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom pad button mapping"
 msgstr "Мапирање на копчиња на Wacom таблет"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid "Wacom stylus absolute mode"
 msgstr "Апсолутен режим на Wacom стило"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus button mapping"
 msgstr "Мапирање на копчиња на Wacom стило"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Wacom stylus pressure curve"
 msgstr "Крива на притисок на Wacom стило"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus pressure threshold"
 msgstr "Праг на притисок на Wacom стило"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom tablet PC feature"
 msgstr "Својство за PC на Wacom таблет"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom tablet area"
 msgstr "Површина на Wacom таблет"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Wacom tablet rotation"
 msgstr "Ротација на Wacom таблет"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom touch feature"
 msgstr "Својство за допир на Wacom"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "Дали cinnamon-settings-daemon да го активира овој приклучок"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:4
 msgid "The duration a display profile is valid"
 msgstr "Времетраењето за кое профилот за приказ е валиден"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a printer profile is valid"
 msgstr "Времетраењето за кое профилот за печатач е валиден"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid "This is the number of days after which the display color profile is considered invalid."
 msgstr "Ова претставува бројот ан денови после кои профилот за боја на приказот се смета за невалиден."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "This is the number of days after which the printer color profile is considered invalid."
 msgstr "Ова претставува бројот ан денови после кои профилот за боја на печатач се смета за невалиден."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr "Праг во проценти за известување за простор"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Free space notify threshold"
 msgstr "Праг во проценти за известување за празен простор"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
 msgstr "Минимален период на известување за повторливи предупредувања"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "Патеки за монтирање кои ќе се игнорираат"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid "Percentage free space threshold for initial warning of low disk space. If the percentage free space drops below this, a warning will be shown."
 msgstr "Проценти на празен простор после кои ќе почнат предупредувањата за малку преостанат празен простор."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr "Одредете листа на патеки за монтирање кои ќе се игнорираат кога ќе имаат малку празен простор."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid "Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period."
 msgstr "Одредете време во минути. Последователните предупредувања за просторот непа да се појавуваат во помали интервали од овој."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid "Specify an amount in GB. If the amount of free space is more than this, no warning will be shown."
 msgstr "Одредете количина во GB. Ако количината на празен простор е повеќе од оваа, нема да се прикажуваат предупредувања."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid "Specify the percentage that the free disk space should reduce by before issuing a subsequent warning."
 msgstr "Одрете го процентот до кој што треба да се намали празниот простор за да почнат да се издаваат последователни предупредувања."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Праг на последователни известувања за празен простор"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 #| msgid "Hinting"
 msgid "Binding"
 msgstr "Поврзување"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 msgid "Binding for the custom binding"
 msgstr "Поврзување за сопственото поврзување"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 msgid "Binding for the magnifier to zoom in"
 msgstr "Поврзување за зумирање на зголемувачот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Binding for the magnifier to zoom out"
 msgstr "Поврзување за одзумирање на зголемувачот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 #| msgid "Binding to raise the system volume."
 msgid "Binding to decrease the text size"
 msgstr "Поврзување за намалување на големината на текстот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 #| msgid "Binding to eject an optical disk."
 msgid "Binding to eject an optical disc."
 msgstr "Поврзување за исфрлање на отпичкиот диск"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 #| msgid "Binding to raise the system volume."
 msgid "Binding to increase the text size"
 msgstr "Поврзување за зголемување на големината на текстот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "Поврзување за лансирање на калкулаторот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "Поврзување за лансирање на клиентот за е-пошта."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "Поврзување за лансирање на прелистувачот за помош."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "Поврзување за лансирање на пуштачот на медиуми."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "Поврзување за лансирање на алатката за пребарување."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "Поврзување за лансирање на веб прелистувачот."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "Поврзување за заклучување на екранот."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "Поврзување за одјава."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "Поврзување за спуштање на јачината на звукот."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "Поврзување за исклучување на системскиот звук."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "Поврзување за отворање на домашната папка."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "Поврзување за паузирање на плејбек."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "Поврзување за подигнување на јачината на звукот."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 #| msgid "Binding to lock the screen."
 msgid "Binding to show the on-screen keyboard"
 msgstr "Поврзување за покажување на екранска тастатура"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 #| msgid "Binding to lock the screen."
 msgid "Binding to show the screen magnifier"
 msgstr "Поврзување за покажување на зголемувач на екранот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "Поврзување за прескокнување на наредната песна."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "Поврзување за прескокнување на претходната песна."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Поврзување за пуштање на плејбекот (или менување помеѓу пушти/пауза)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 #| msgid "Binding to lock the screen."
 msgid "Binding to start the screen reader"
 msgstr "Поврзување за стартување на зголемувач на екранот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "Поврзување за стопирање на плејбекот."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 #| msgid "Binding to lock the screen."
 msgid "Binding to take a screenshot of a window."
 msgstr "Поврзување за сликање на прозорец."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 #| msgid "Binding to lock the screen."
 msgid "Binding to take a screenshot."
 msgstr "Поврзување за сликање на екранот."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 #| msgid "Binding to launch the email client."
 msgid "Binding to toggle the interface contrast"
 msgstr "Поврзување за менување на контрастот на интерфејсот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Command"
 msgstr "Команда"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Command to run when the binding is invoked"
 msgstr "Команда која ќе се изврши кога ќе се повика поврзувањето"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 #| msgid "Keybindings"
 msgid "Custom keybindings"
 msgstr "Сопствени поврзувања на копчиња"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Decrease text size"
 msgstr "Намали ја големината на текстот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Eject"
 msgstr "Извади"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Home folder"
 msgstr "Домашен директориум"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Increase text size"
 msgstr "Зголеми ја големината на текстот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch calculator"
 msgstr "Лансирај калкулатор"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Launch email client"
 msgstr "Лансирај клиент за е-пошта"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Launch help browser"
 msgstr "Пушти прелистувач за помош"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Launch media player"
 msgstr "Пуштач на музика"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Launch web browser"
 msgstr "Пушти веб прелистувач"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "List of custom keybindings"
 msgstr "Листа на сопствени поврзувања на копчиња"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Lock screen"
 msgstr "Заклучи екран"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Log out"
 msgstr "Одјави се"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Magnifier zoom in"
 msgstr "Зумирање на зголемувачот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Magnifier zoom out"
 msgstr "Одзумирање на зголемувачот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Name"
 msgstr "Име"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Name of the custom binding"
 msgstr "Име на сопственото поврзување"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Next track"
 msgstr "Наредна песна"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Pause playback"
 msgstr "Паузирај плејбек"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Play (or play/pause)"
 msgstr "Свири (или свири/пауза)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Previous track"
 msgstr "Претходна песна"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Search"
 msgstr "Пребарувај"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Stop playback"
 msgstr "Стопирај плејбек"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Take a screenshot"
 msgstr "Сликај го екранот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Take a screenshot of a window"
 msgstr "Сликај прозорец"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Toggle contrast"
 msgstr "Вклучи/исклучи контраст"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Toggle magnifier"
 msgstr "Вклучи/исклучи зголемувач"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 #| msgid "Use on-screen _keyboard"
 msgid "Toggle on-screen keyboard"
 msgstr "Вклучи/исклучи екранска тастатура"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 #| msgid "Use screen _reader"
 msgid "Toggle screen reader"
 msgstr "Вклучи/исклучи читач на екранот"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Volume down"
 msgstr "Намали јачина звук"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Volume mute"
 msgstr "Исклучи звук"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Volume up"
 msgstr "Зголемни јачина на звук"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 msgid "If time based notifications should be used. If set to false, then the percentage change is used instead, which may fix a broken ACPI BIOS."
 msgstr "Дали да се користат временски известувања. Ако е поставено на false, тогаш ќе се користи процентот на промена, со што може да се поправи расипан ACPI BIOS. "
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 msgid "If we should show the recalled battery warning for a broken battery"
 msgstr "Дали да се покажува предупредување за батерија повлечена од произведувачот"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 msgid "If we should show the recalled battery warning for a broken battery. Set this to false only if you know your battery is okay."
 msgstr "Дали да се покажува предупредување за батерија повлечена од произведувачот. Поставете го ова на false, ако сте сигурни дека батеријата е во ред."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage action is taken"
 msgstr "Процент на кој ќе се преземе дејство"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 msgid "Percentage considered critical"
 msgstr "Процент кој се смета за критичен"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered low"
 msgstr "Процент кој се смета за низок"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:10
 msgid "The percentage of the battery when it is considered critical. Only valid when use-time-for-policy is false."
 msgstr "Процентот на батеријата кој се смета за критичен. Користете го ова само ако use-time-for-policy е false."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "The percentage of the battery when it is considered low. Only valid when use-time-for-policy is false."
 msgstr "Процентот на батеријата кој се смета за низок. Користете го ова само ако use-time-for-policy е false."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid "The percentage of the battery when the critical action is performed. Only valid when use-time-for-policy is false."
 msgstr "Процентот на батеријата кога се презема дејство. Користете го ова само ако use-time-for-policy е false."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "The time remaining in seconds of the battery when critical action is taken. Only valid when use-time-for-policy is true."
 msgstr "Преостанато време во секунди кога се презема критичното дејство. Користете го ова само ако use-time-for-policy е false."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid "The time remaining in seconds of the battery when it is considered critical. Only valid when use-time-for-policy is true."
 msgstr "Времето на батеријата преостанато во секунди кое се смета за критично. Користете го ова само ако use-time-for-policy е false."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid "The time remaining in seconds of the battery when it is considered low. Only valid when use-time-for-policy is true."
 msgstr "Времето на батеријата преостанато во секунди за кое батеријата се смета за празна. Користете го ова само ако use-time-for-policy е false."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid "The time remaining when action is taken"
 msgstr "Времето преостанато пред да се преземе дејство"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "The time remaining when critical"
 msgstr "Времето преостанато за прогласување на критична"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid "The time remaining when low"
 msgstr "Времето преостанато за прогласување на празна"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid "Whether to use time-based notifications"
 msgstr "Дали да се користат временски известувања"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 msgid "Ask the user if additional firmware should be installed"
 msgstr "Прашај го корисникот дали да се инсталира дополнителен фирмвер."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 msgid "Ask the user if additional firmware should be installed if it is available."
 msgstr "Прашај го корисникот дали да се инсталира дополнителен фирмвер, ако е достапен."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 msgid "Automatically download updates in the background without confirmation"
 msgstr "Автоматски преземај ги ажурирањата во позадина, без потврда"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "Automatically download updates in the background without confirmation. Updates will be auto-downloaded when using wired network connnections, and also WiFi if 'connection-use-wifi' is enabled and mobile broadband if 'connection-use-mobile' is enabled."
 msgstr "Автоматски преземај ги ажурирањата во позадина, без потврда. Ажурирањата ќе бидат автоматски преземени при користење на жичена мрежна врска, како и WiFi, ако е овозможен клучот „connection-use-wifi“ и мобилен широкопојасен интернет ако е овозможен клучот „connection-use-mobile“."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Automatically install these types of updates"
 msgstr "Автоматски инсталирај ги овој тип на ажурирања"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically install these types of updates."
 msgstr "Автоматски инсталирај ги овој тип на ажурирања."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
 msgstr "Уреди кои ќе се игнорираат"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "Devices that should be ignored, separated by commas. These can include '*' and '?' characters."
 msgstr "Уреди кои ќе се игнорираат, разделени со запирки. Може да ги содржат знаците „*“ и „?“."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
 msgstr "Датотеките за фирмвер кои не треба да се бараат"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "Firmware files that should not be searched for, separated by commas. These can include '*' and '?' characters."
 msgstr "Датотеките за фирмвер кои не треба да се бараат, разделени со запирки. Може да ги содржат знаците „*“ и „?“."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
 msgstr "Земи листа на ажурирања кога ќе започне сесијата"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Get the update list when the session starts, even if not scheduled to."
 msgstr "Земи листа на ажурирања кога ќе започне сесијата, дури и ако ажурирањето не е на распоред."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "How often to check for distribution upgrades"
 msgstr "Колку често да се проверува за надградби на дистрибуцијата"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr "Колку често да се проверува за надградби на дистрибуцијата. Вредноста е во секунди"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
 msgstr "Колку често да се проверува за ажурирања"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to check for updates. Value is in seconds. This is a maximum amount of time that can pass between a security update being published, and the update being automatically installed or the user notified."
 msgstr "Колку често да се проверува за ажурирања. Вредноста е во секунди. Ова е максималното количество на време кое може да помине пред да се објави безбедносно ажурирање, тоа да се инсталира автоматски или да се извести корисникот."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to notify the user that non-critical updates are available"
 msgstr "Колку често да се известува корисникот дека има некритични ажурирања"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "How often to refresh the package cache"
 msgstr "Колку често да се освежува кешот на пакети"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr "Колку често да се освежува кешот на пакети. Вредноста е во секунди."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "How often to tell the user there are non-critical updates. Value is in seconds. Security update notifications are always shown after the check for updates, but non-critical notifications should be shown a lot less frequently."
 msgstr "Колку често да му се кажува на корисникот дека име некритични ажурирања. Известувањата за безбедносни ажурирања секогаш се прикажуваат после проверките дали има ажурирања, но некритичните треба да се прикажуваат поретко."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Install updates automatically when running on battery power"
 msgstr "Инсталирај ги ажурирањата автоматски кога сум на батерија"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Install updates automatically when running on battery power."
 msgstr "Инсталирај ги ажурирањата автоматски кога сум на батерија."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid "Notify the user for completed updates"
 msgstr "Извести го корисникот дека ажурирањата се готови"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Notify the user for completed updates where the user needs to restart"
 msgstr "Извести го корисникот дека ажурирањата се готови кога треба да рестартира"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Notify the user for completed updates where the user needs to restart."
 msgstr "Извести го корисникот дека ажурирањата се готови кога треба да рестартира."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Notify the user for completed updates. This may be a useful notification for some users as installing updates prevents shutdown."
 msgstr "Извести го корисникот дека ажурирањата се готови. Ова може да биде корисно, бидејќи инсталирањето на ажурирањата спречува исклучување."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Notify the user when distribution upgrades are available"
 msgstr "Извести го корисникот кога има надградби за дистрибуцијата"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "Notify the user when distribution upgrades are available."
 msgstr "Извести го корисникот кога има надградби за дистрибуцијата."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid "Notify the user when the automatic update was not started on battery power"
 msgstr "Извести го корисникот кога автоматското ажурирање не се стартува кога се користи батерија"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid "Notify the user when the update was not automatically started because the machine is running on battery power."
 msgstr "Извести го корисникот кога автоматското ажурирање не се стартува бидејќи машината работи на батерија."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 msgid "Notify the user when the update was started"
 msgstr "Извести го корисникот дека ажурирањето започна"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
 msgstr "Извести го корисникот дека ажурирањето започна."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
 msgstr "Имињата на датотеките на отстранливите медиуми кои ќе бидат означени како извор на софтвер."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
 msgstr "Кореновиот директориум кој ќе се користи за додавање и отстранување пакети"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid "The install root to use when processing packages, which is changed when using LTSP or when testing."
 msgstr "Кореновиот директориум кој ќе се користи за додавање и отстранување пакети, кој се променува при користење на LTSP или при тестирање."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
 msgid "The last time we notified the user about non-critical updates. Value is in seconds since the epoch, or zero for never."
 msgstr "Последниот пат кога корисникот е известен за некритични ажурирања. Вредноста е во секунди. Нула значи никогаш."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
 msgid "The last time we told the user about non-critical notifications"
 msgstr "Последниот пат кога корисникот беше известен за некритични ажурирања"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid "The number of seconds at session startup to wait before checking for updates"
 msgstr "Бројот на секунди по стартување на сесијата кој треба да се почека за да се започне со проверка дали има ажурирања"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid "The number of seconds at session startup to wait before checking for updates. Value is in seconds."
 msgstr "Бројот на секунди по стартување на сесијата кој треба да се почека за да се започне со проверка дали има ажурирања. Вредноста е во секунди."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid "Use WiFi (wireless LAN) connections to check for updates. It may be faster to download packages when on a wired connection, and the VPN or proxy required may also only be available on wired connections."
 msgstr "Користи WiFi (безжичен LAN) врски за проверка за ажурирања. Преземањето на пакети може да биде побрзо со жичена врска. На жичана врска може да бидат достапни и VPN и прокси."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid "Use WiFi connections"
 msgstr "Користи WiFi врски"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid "Use mobile broadband connections"
 msgstr "Користи мобилни широкопојасни врски врски "
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 msgid "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr "Користи мобилни широкопојасни врски врски  како GSM или CDMA за проверка дали има ажурирања"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
 msgid "When removable media is inserted, it is checked to see if it contains any important filenames in the root directory. If the filename matches, then an updates check is performed. This allows post-install disks to be used to update running systems."
 msgstr "Кога се става отстранлив уред се проверува дали содржи важни имиња на датотеки во кореновиот директориум. Ако некое име на датотека се совпадне, тогаш се извршува проверка за ажурирање. Ова овозможува да се користат пост-инсталациски дискови за ажурирање на системи кои веќе се во користење."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 msgid "'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)"
 msgstr "'clone' ќе го прикаже истото на двата монитори, 'dock' ќе се префрли на надворешниот монитор и 'do-nothing' ќе го користи стандардното однесување на Xorg (во поновите верзии ќе ја расшири работната површина)"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "Датотека за стандардната конфигурација на RandR"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid "The XRandR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories. If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead."
 msgstr "Приклучокот за XRandR ќе ја побара стандардната конфигурација во датотеката одредена со овој клуч. Оваа датотека е слична на ~/.config/monitors.xml која вообичаено се чува во домашните директориуми на корисниците. Ако корисникот нема таква датотека или има, но не се совпаѓа со поставувањето на мониторите, тогаш ќе се користи датотеката одредена со овој клуч."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid "Whether to turn off specific monitors after boot"
 msgstr "Дали да се исклучат одредени монитори по пуштањето"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones."
 msgstr "Листа на знаковни низи кои претставуваат GTK+ модули кои ќе се вчитаат, најчесто покрај тие кои се условно или насилно оневозможени."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid "A list of strings representing the GTK+ modules that will not be loaded, even if enabled by default in their configuration."
 msgstr "Листа на знаковни низи кои претставуваат GTK+ модули кои нема да се вчитаат, дури и ако се овозможени во нивната стандардна конфигурација."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "Антиалијасинг"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "Совети"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "Листа на експлицитно оневозможени GTK+ модули"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "Листа на експлицитно овозможени GTK+ модули"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "RGBA редослед"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "The order of subpixel elements on an LCD screen; only used when antialiasing is set to \"rgba\". Possible values are: \"rgb\" for red on left (most common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red on bottom."
 msgstr "Редоследот на подпикселните елементи на LCD екранот; се користи само кога антиалијасингот е поставен на „rgba“. Можни вредности се „rgb“ за црвено на левата страна (вообичаено), „bgr“ за сино на левата страна, „vrgb“ за црвено на врвот и „vbgr“ за црвено на дното."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid "The type of antialiasing to use when rendering fonts. Possible values are: \"none\" for no antialiasing, \"grayscale\" for standard grayscale antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgstr "Типот на антиалиасинг кој ќе се користи при исцртување на фонтовите: Можни вредности се: „ништо“ за без антиалиасинг, „grayscale“ за стандарден сив антиалиасинг, „rgba“ за субпиксел антиалиасинг (само за LCD екрани)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid "The type of hinting to use when rendering fonts. Possible values are: \"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" for maximum hinting (may cause distortion of letter forms)."
 msgstr "Типот на хинтинг кој ќе се користи за рендерирање на фонтови. Можни вредности се „none“ за без хинтинг, „slight“ основен хинтинг, „medium“ - среден хинтинг и „full“ за целосен хинтинг (кој може да предизвика искривување на формата на фонтот)."
 
@@ -2257,7 +2257,7 @@ msgstr "Лаптопот се затвора"
 msgid "Power Manager"
 msgstr "Менаџер на енергија"
 
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:1
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:1
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "Потребна е автентикација за промена на светлоста на лаптопот"
 
@@ -2265,7 +2265,7 @@ msgstr "Потребна е автентикација за промена на 
 #. - A normal active user on the local machine does not need permission
 #. to change the backlight brightness.
 #.
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:6
 msgid "Modify the laptop brightness"
 msgstr "Промени ја светлоста на лаптопот"
 

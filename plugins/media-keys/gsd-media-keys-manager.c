@@ -94,9 +94,9 @@ static const gchar introspection_xml[] =
 "</node>";
 
 #define SETTINGS_INTERFACE_DIR "org.gnome.desktop.interface"
-#define SETTINGS_POWER_DIR "org.gnome.settings-daemon.plugins.power"
-#define SETTINGS_XSETTINGS_DIR "org.gnome.settings-daemon.plugins.xsettings"
-#define SETTINGS_TOUCHPAD_DIR "org.gnome.settings-daemon.peripherals.touchpad"
+#define SETTINGS_POWER_DIR "org.cinnamon.settings-daemon.plugins.power"
+#define SETTINGS_XSETTINGS_DIR "org.cinnamon.settings-daemon.plugins.xsettings"
+#define SETTINGS_TOUCHPAD_DIR "org.cinnamon.settings-daemon.peripherals.touchpad"
 #define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
 #define HIGH_CONTRAST "HighContrast"
 

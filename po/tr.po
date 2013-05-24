@@ -28,68 +28,68 @@ msgstr ""
 msgid "Cinnamon Settings Daemon"
 msgstr "GNOME Ayarlar Servisi"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Command to be run when a device is added or removed."
 msgstr "Bir aygıt eklendiğinde veya çıkartıldığında çalıştırılacak komut."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid "Device hotplug custom command"
 msgstr "Cihaz takıldığında çalıştırılacak özelleştirilmiş komut"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "Yazarken touchpad'i devre dışı bırak"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Distance before a drag is started."
 msgstr "Bir sürükleme başlamadan önceki mesafe."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Double click time"
 msgstr "Çift tıklama süresi"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid "Drag threshold"
 msgstr "Sürükleme eşiği"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Enable horizontal scrolling"
 msgstr "Yatay kaydırmayı etkinleştir"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Enable mouse clicks with touchpad"
 msgstr "Touchpad ile fare tıklamasını etkinleştir"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable touchpad"
 msgstr "Touchpad'i etkinleştir"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr ""
 "Hızlı sol ve sağ tıklama ile orta tıklanmış gibi davranmayı aktif hale getirir"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr "Ctrl tuşuna basılıp bırakıldığında imlecin yerini gösterir"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "Milisaniye cinsinden çift tıklama süresi."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Middle button emulation"
 msgstr "Orta tık öykünümü"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Select the touchpad scroll method"
 msgstr "Touchpad kaydırma yönetimini seçin"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
@@ -98,14 +98,14 @@ msgstr ""
 "(kapalı), \"edge-scrolling\" (kenar kaydırması), \"two-finger-scrolling\" "
 "(iki parmak kaydırması)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr ""
 "Eğer yazarken touchpad'e dokunma sorunu yaşıyorsanız bunu doğru olarak atayın."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -113,18 +113,18 @@ msgstr ""
 "Eğer scroll_method anahtarında seçili yöntemle aynı şekilde yatay kaydırma "
 "istiyorsanız bunu doğru olarak atayın."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "Touchpad üzerine vurarak fare tıklamaları göndermek istiyorsanız bunu doğru "
 "olarak atayın."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "Tüm touchpadleri etkinleştirmek için bunu TRUE olarak ayarlayın."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The action "
 "will get performed when the smartcard used for log in is removed."
@@ -133,91 +133,91 @@ msgstr ""
 "birine ayarlayın. Giriş için kullanılan akıllı kart çıkartıldığında "
 "seçtiğiniz eylem gerçekleşecektir."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Smartcard removal action"
 msgstr "Akıllı kart çıkartıldığında uygulanacak eylem"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "Bu eklentinin aktifleştirilmesi"
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "Bu eklenti için kullanım önceliği"
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "Bu eklentinin gnome ayarlar servisinin başlangıç kuyruğundaki kullanım "
 "önceliği"
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:10
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
 "Bu eklentinin gnome ayarlar servisi tarafından aktifleştirilip "
 "aktifleştirilmeyeceği"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr "Boş yüzdesi bildirme eşiği"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Free space notify threshold"
 msgstr "Boş alan bildirim eşiği"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
 msgstr "Tekrarlanan uyarılar için azami süre"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "Yok sayılacak bağlama yolları"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If the "
 "percentage free space drops below this, a warning will be shown."
@@ -225,13 +225,13 @@ msgstr ""
 "İlk düşük disk alanı uyarısı için boş alan oranı (yüzde) eşiği. Eğer boş alan "
 "yüzdesi bu değerin altına düşerse, bir uyarı gösterilir."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "Boş alanı düşük olduğunda gözardı edilecek bağlama yollarının listesini "
 "belirtin."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -239,7 +239,7 @@ msgstr ""
 "Dakika olarak bir süre belirleyin. Bir birim için birbirini izleyen uyarılar "
 "bu dönemden daha sık gösterilmeyecek."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
@@ -247,32 +247,32 @@ msgstr ""
 "GB cinsinden bir miktar belirtin. Eğer boş alan miktarı bu değerden daha "
 "fazla ise, hiçbir uyarı gösterilmez."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
 msgstr ""
 "Bir sonraki uyarı öncesi boş alanın azalması gereken yüzdeyi belirtin."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Ardışık boş alan yüzdesi bildirim eşiği"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 msgstr ""
 "Bu eklentinin gnome ayarlar yöneticisi servisinin başlangıç kuyruğundaki "
 "kullanım önceliği"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 msgstr ""
 "Bu eklentinin gnome ayarlar servisi tarafından aktifleştirilip "
 "aktifleştirilmeyeceği."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:2
 msgid ""
 "If time based notifications should be used. If set to false, then the "
 "percentage change is used instead, which may fix a broken ACPI BIOS."
@@ -281,239 +281,239 @@ msgstr ""
 "olarak ayarlanırsa, yerine yüzde değişimi kullanılır; bu, sorunlu bir ACPI "
 "BIOS'u için yararlı olabilir."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:3
 msgid "Percentage action is taken"
 msgstr "Eylemin gerçekleştirileceği yüzde"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:4
 msgid "Percentage considered critical"
 msgstr "Tehlikeli biçimde düşük sayılan yüzde"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage considered low"
 msgstr "Düşük sayılan yüzde"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 msgid ""
 "The percentage of the battery when it is considered critical. Only valid when "
 "use-time-for-policy is false."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 msgid ""
 "The percentage of the battery when it is considered low. Only valid when "
 "use-time-for-policy is false."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:10
 msgid ""
 "The percentage of the battery when the critical action is performed. Only "
 "valid when use-time-for-policy is false."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid ""
 "The time remaining in seconds of the battery when critical action is taken. "
 "Only valid when use-time-for-policy is true."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid ""
 "The time remaining in seconds of the battery when it is considered critical. "
 "Only valid when use-time-for-policy is true."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid ""
 "The time remaining in seconds of the battery when it is considered low. Only "
 "valid when use-time-for-policy is true."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid "The time remaining when action is taken"
 msgstr "Eylem uygulanacağı zaman kalan zaman"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid "The time remaining when critical"
 msgstr "Tehlikeli biçimde düşükken kalan zaman"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid "The time remaining when low"
 msgstr "Düşükken kalan zaman"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid "Whether to use time-based notifications"
 msgstr "Zaman temelli bildirimlerin kullanılıp kullanılmayacağı"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:2
 msgid "If notifications are allowed to be shown"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:3
 msgid ""
 "If notifications should be shown at session start if a profile is invalid."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 #| msgid "The selected configuration for displays could not be applied"
 msgid "The duration a display profile is valid"
 msgstr "Bir görüntü profilinin geçerli olacağı süre"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "The duration a printer profile is valid"
 msgstr "Bir yazıcı profilinin geçerli olacağı süre"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:9
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
 msgstr "İzin verilen tuşlar"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding for the magnifier to zoom in"
 msgstr "Büyütece geçiş yapmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding for the magnifier to zoom out"
 msgstr "Büyütece geçiş yapmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to decrease the text size"
 msgstr "Bir optik diski çıkarmak için gerekli bağlar"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 #, fuzzy
 #| msgid "Binding to eject an optical disk."
 msgid "Binding to eject an optical disc."
 msgstr "Bir optik diski çıkarmak için gerekli bağlar"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to increase the text size"
 msgstr "Bir optik diski çıkarmak için gerekli bağlar"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the calculator."
 msgstr "Hesap makinesinin başlatılması için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the email client."
 msgstr "E-posta istemcisi başlatmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the help browser."
 msgstr "Yardım tarayıcısı başlatmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the media player."
 msgstr "Ortam yürütücüsü başlatmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the search tool."
 msgstr "Arama aracını başlatmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the web browser."
 msgstr "Web tarayıcı başlatmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to lock the screen."
 msgstr "Ekranı kilitlemek için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to log out."
 msgstr "Çıkış için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to lower the system volume."
 msgstr "Sistem sesini azaltmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to mute the system volume."
 msgstr "Sistem sesini kesmek için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to open the Home folder."
 msgstr "Başlangıç klasörünü açmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to pause playback."
 msgstr "Ses çalmayı duraklatmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to raise the system volume."
 msgstr "Sistem sesini arttırmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 #, fuzzy
 #| msgid "Binding to toggle the on-screen keyboard."
 msgid "Binding to show the on-screen keyboard"
 msgstr "Ekran klavyesine geçiş yapmak için bağ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding to show the screen magnifier"
 msgstr "Orca Ekran Okuyucu ve Büyüteci"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Binding to skip to next track."
 msgstr "Sonraki parçaya geçmek için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to previous track."
 msgstr "Önceki parçaya geçmek için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "Çaldırmayı başlatmak için bağ (ya da çaldırma/duraklatma geçisi)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 #, fuzzy
 #| msgid "Binding to toggle the screen reader."
 msgid "Binding to start the screen reader"
 msgstr "Çaldırmayı başlatmak için bağ (ya da çaldırma/duraklatma geçisi)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 msgid "Binding to stop playback."
 msgstr "Çaldırmayı durdurmak için bağ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding to toggle the interface contrast"
 msgstr "Çaldırmayı başlatmak için bağ (ya da çaldırma/duraklatma geçisi)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Decrease text size"
 msgstr "Metin boyutunu küçült"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Eject"
 msgstr "Çıkart"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Home folder"
 msgstr "Başlangıç klasörü"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 #, fuzzy
 #| msgid ""
 #| "If non-empty, keybindings will be ignored unless their GConf directory is "
@@ -525,114 +525,114 @@ msgstr ""
 "Eğer boş değilse, kendi GConf  dizini listede olmadığı sürece tuş bağı yok "
 "sayılır. Bu kilitleme için kullanışlıdır."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Increase text size"
 msgstr "Metin boyutunu büyüt"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Launch calculator"
 msgstr "Hesap makinesini başlat"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch email client"
 msgstr "E-posta istemcisini başlat"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch help browser"
 msgstr "Yardım tarayıcı aç"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch media player"
 msgstr "Ortam yürütücüsünü başlat"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch web browser"
 msgstr "Web tarayıcı aç"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Lock screen"
 msgstr "Ekranı kilitle"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Log out"
 msgstr "Çıkış"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Magnifier zoom in"
 msgstr "Büyüteci yakınlaştır"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom out"
 msgstr "Büyüteci uzaklaştır"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Next track"
 msgstr "Diğer parça"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Pause playback"
 msgstr "Çaldırmayı duraklat"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Play (or play/pause)"
 msgstr "Çal (veya çal/duraklat)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Previous track"
 msgstr "Önceki parça"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Search"
 msgstr "Arama"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Stop playback"
 msgstr "Çaldırmayı durdur"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Toggle contrast"
 msgstr "Zıtlığı değiştir"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Toggle magnifier"
 msgstr "Büyüteci seç"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle on-screen keyboard"
 msgstr "Ekran klavyesini seç"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle screen reader"
 msgstr "Ekran okuyucusunu seç"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Volume down"
 msgstr "Sesi azalt"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Volume mute"
 msgstr "Sesi kes"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume up"
 msgstr "Sesi arttır"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 msgid "Ask the user if additional firmware should be installed"
 msgstr "Ek aygıt yazılımlarının yüklenilip yüklenilmeyeceğini kullanıcıya sor"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 msgid ""
 "Ask the user if additional firmware should be installed if it is available."
 msgstr ""
 "Eğer kullanılabilir durumdaysa, ek aygıt yazılımlarının yüklenilip "
 "yüklenilmeyeceğini kullanıcıya sor."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 msgid "Automatically download updates in the background without confirmation"
 msgstr "Güncellemeleri onay almadan arka planda otomatik olarak indir"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
@@ -644,21 +644,21 @@ msgstr ""
 "üzerinden, eğer 'connection-use-mobile' aktifse, mobil genişbant hizmeti "
 "üzerinden otomatik olarak indirilecektir."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 #| msgid "Automatically update these types of updates"
 msgid "Automatically install these types of updates"
 msgstr "Bu tür güncellemeleri otomatik olarak kur"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 #| msgid "Automatically update these types of updates."
 msgid "Automatically install these types of updates."
 msgstr "Bu tür güncellemeleri otomatik olarak kur."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
 msgstr "Gözardı edilmesi gereken aygıtlar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
@@ -666,11 +666,11 @@ msgstr ""
 "Gözardı edilmesi gereken aygıtlar, virgülle ayrılmış olarak. Bunlar '*' ve "
 "'?' karakterlerini de içerebilir."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
 msgstr "Aranması gerekmeyen aygıt yazılımı dosyaları"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
@@ -678,29 +678,29 @@ msgstr ""
 "Aranması gerekmeyen aygıt yazılımı dosyaları, virgülle ayrılmış olarak. "
 "Bunlar '*' ve '?' karakterlerini de içerebilir."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
 msgstr "Oturum başladığında güncelleme listesini al"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Get the update list when the session starts, even if not scheduled to."
 msgstr ""
 "Oturum başladığında güncelleme listesini al, buna zamanlanmış olmasa bile."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "How often to check for distribution upgrades"
 msgstr "Dağıtım güncellemelerinin ne sıklıkla kontrol edileceği"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr ""
 "Dağıtım güncellemelerinin saniye cinsinden ne sıklıkla kontrol edileceği."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
 msgstr "Güncellemeler ne sıklıkla kontrol edilsin"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum amount "
 "of time that can pass between a security update being published, and the "
@@ -711,20 +711,20 @@ msgstr ""
 "yüklenmesı veya kullanıcının bu güncellemeden haberdar edilmesi arasında "
 "geçebilecek maksimum zamandır."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 "Kullanıcının kritik olmayan güncellemelerden ne sıklıkla haberdar edileceği"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "How often to refresh the package cache"
 msgstr "Paket önbelleğinin ne sıklıkla yenileneceği"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr "Paket önbelleğinin saniye cinsinden ne sıklıkla yenileneceği."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -735,31 +735,31 @@ msgstr ""
 "edildikten sonra gösterilir, fakat kritik olmayan uyarılar bundan biraz daha "
 "az sıklıkla gösterilmelidir."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Install updates automatically when running on battery power"
 msgstr "Pil devredeyken güncellemeleri otomatik olarak yükle"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Install updates automatically when running on battery power."
 msgstr "Pil devredeyken güncellemeleri otomatik olarak yükle"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid "Notify the user for completed updates"
 msgstr "Kullanıcıyı tamamlanmış güncellemelerden haberdar et"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Notify the user for completed updates where the user needs to restart"
 msgstr ""
 "Kuullanıcıyı yeniden başlatma gerektirecek  tamamlanmış güncellemelerden "
 "haberdar et"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Notify the user for completed updates where the user needs to restart."
 msgstr ""
 "Kuullanıcıyı yeniden başlatma gerektirecek  tamamlanmış güncellemelerden "
 "haberdar et"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid ""
 "Notify the user for completed updates. This may be a useful notification for "
 "some users as installing updates prevents shutdown."
@@ -767,22 +767,22 @@ msgstr ""
 "Tamamlanmış güncellemelerden kullanıcıyı haberdar et. Güncellemeleri yüklemek "
 "bilgisayarı kapatmayı engellediğinden bu kullanışlı bir uyarı olabilir."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Notify the user when distribution upgrades are available"
 msgstr "Dağıtım güncellemeleri çıktığında kullanıcıyı haberdar et"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "Notify the user when distribution upgrades are available."
 msgstr "Dağıtım güncellemeleri çıktığında kullanıcıyı haberdar et"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "Notify the user when the automatic update was not started on battery power"
 msgstr ""
 "Pil gücü kullanılıyorken otomatik güncelleme başlatılamadığında kullanıcıyı "
 "uyar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid ""
 "Notify the user when the update was not automatically started because the "
 "machine is running on battery power."
@@ -790,25 +790,25 @@ msgstr ""
 "Makine pil gücünde çalıştığı için güncellemeler otomatik olarak "
 "başlatılamadığında kullanıcıyı uyar."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 msgid "Notify the user when the update was started"
 msgstr "Güncelleme başlatılamadığında kullanıcıyı uyar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
 msgstr "Güncelleme başlatılamadığında kullanıcıyı uyar"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 "Yazılım kaynağı olarak tayin edilmiş, çıkarılabilir ortam üzerindeki dosya "
 "isimleri."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
 msgstr "Paket eklerken ve çıkartırkenki kök yükleme yolu"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid ""
 "The install root to use when processing packages, which is changed when using "
 "LTSP or when testing."
@@ -816,7 +816,7 @@ msgstr ""
 "Paket işlemleri yapılırken, ITSP kullanırken veya test yaparken değişebilen, "
 "kullanılacak kök yol."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
@@ -824,18 +824,18 @@ msgstr ""
 "Saniye cinsinden, en son kullanıcının kritik olmayan güncellemelerden ne "
 "zaman haberdar edildiği. Hiçbir zaman için bu değer sıfırdır."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
 msgid "The last time we told the user about non-critical notifications"
 msgstr ""
 "Kritik olmayan uyarılardan en son ne zaman kullanıcının haberdar edildiği."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid ""
 "The number of seconds at session startup to wait before checking for updates"
 msgstr ""
 "Güncellemeleri kontrol etmek için oturum başlangıcında kaç saniye bekleneceği."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid ""
 "The number of seconds at session startup to wait before checking for updates. "
 "Value is in seconds."
@@ -843,7 +843,7 @@ msgstr ""
 "Güncellemeleri kontrol etmek için oturum başlangıcında saniye cinsinden ne "
 "kadar süre bekleneceği."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid ""
 "Use WiFi (wireless LAN) connections to check for updates. It may be faster to "
 "download packages when on a wired connection, and the VPN or proxy required "
@@ -853,22 +853,22 @@ msgstr ""
 "kullanmak paketleri indirirken daha hızlı olabilir. Ayrıca gereken VPN veya "
 "proxy sadece kablolu bağlantı ile mevcut olabilir."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid "Use WiFi connections"
 msgstr "WiFi bağlantısı kullan"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid "Use mobile broadband connections"
 msgstr "Mobil genişbant bağlantısı kullan"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 "Güncellemeleri kontrol etmek için GSM veya CDMA gibi mobil genişbant "
 "bağlantılarını kullan."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -880,7 +880,7 @@ msgstr ""
 "varsa, bir güncelleme kontrolü yapılır. Bu yükleme sonrası diskleri ile "
 "mevcut sistemi güncellemek için kullanılır."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 #, fuzzy
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
@@ -891,11 +891,11 @@ msgstr ""
 "kapatacaktır, 'do-nothing' öntanımlı Xorg davranışlarını kullanır (yeni "
 "versiyonlarda masaüstünü uzat)"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "RandR için öntanımlı yapılandırma dosyası"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
 "The XRandR plugin will look for a default configuration in the file specified "
 "by this key. This is similar to the ~/.config/monitors.xml that normally gets "
@@ -909,12 +909,12 @@ msgstr ""
 "değilse, veya monitör kurulumuyla eşleşmeyen bir tanesi ne sahipse, o zaman "
 "bu anahtar ile belirlenmiş dosya diğerinin yerine kullanılacaktır."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid "Whether to turn off specific monitors after boot"
 msgstr ""
 "Sistemi başlattıktan sonra belirli monitörlerin kapatılıp kapatılmayacağı"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
@@ -922,7 +922,7 @@ msgstr ""
 "Yüklenecek GTK+ modüllerini temsil eden karakter katarlarını tutan liste; "
 "Genellikle ek olarak durumsal veya zorla kapatılmış olanları."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, even "
 "if enabled by default in their configuration."
@@ -931,27 +931,27 @@ msgstr ""
 "kendi yapılandırmalarında öntanımlı olarak etkin hale getirilecek olsalar "
 "bile."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "Yumuşatma"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "Düzeltme"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "Alenen devredışı bırakılmış GTK+ modüllerinin listesi"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "Alenen etkinleştirilmiş GTK+ modüllerinin listesi"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "RGBA sırası"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -963,7 +963,7 @@ msgstr ""
 "solda (en yaygın), \"bgr\" - mavi solda. \"vrgb\"- kırmızı yukarıda. \"vbgr\" "
 "- kırmızı aşağıda."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -973,7 +973,7 @@ msgstr ""
 "\"none\" - yumuşatma yok. \"grayscale\" - standart gri ölçek yumuşatma ve "
 "\"rgba\"  - alt piksel yumuşatma (sadece LCD ekranlar)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: "
 "\"none\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and "
@@ -983,7 +983,7 @@ msgstr ""
 "düzeltme yok, \"slight\", \"medium\", ve \"full\" - mümkün olduğunca çok "
 "düzeltme (harf biçimlerinde bozulmalara sebep olabilir)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 #| msgid ""
 #| "Enable this to only move the cursor when the user touches the tablet."
 msgid "Enable this to move the cursor when the user touches the tablet."
@@ -991,25 +991,25 @@ msgstr ""
 "Kullanıcı tablete dokunduğunda imleci hareket ettirmek için bunu "
 "etkinleştirin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr ""
 "Stylus kalemin ucu ile dokunulduğunda, sadece stylus olaylarını bildirmek "
 "için bunu etkinleştirin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 msgid "Enable this to set the cursor to absolute mode."
 msgstr "İmleci, göreli olmayan moda almak için bunu etkinleştirin"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Enable this to set the eraser to absolute mode."
 msgstr "Silgiyi göreli olmayan moda almak için bunu etkinleştirin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the stylus to absolute mode."
 msgstr "Stylusu göreli olmayan moda almak için bunu etkinleştirin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
@@ -1017,128 +1017,128 @@ msgstr ""
 "Bunu 'hiçbiri', saat yönünde 90 derece için 'cw', 180 derece için 'half' ve "
 "saat yönünün tersinde 90 derece için 'ccw' olarak işaretleyin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid "Set this to the logical button mapping."
 msgstr "Bunu mantıksal buton eşleşmesine girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
 "Bunu bir staylus tıklaması olayı oluşturulması için gereken basınç değeri "
 "olarak girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
 "Bunu bir silgi tıklaması olayı oluşturulması için gereken basınç değeri "
 "olarak girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
 msgstr ""
 "Bunu imleç tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak "
 "girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
 msgstr ""
 "Bunu silgi tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak "
 "girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
 msgstr ""
 "Bunu pad tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
 msgstr ""
 "Bunu stylus tarafından kullanılabilen alan manasında x1,y1 ve x2,y2 olarak "
 "girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 "Bunu silgiye uygulanan basınç eğrisi manasında x1,y1 ve x2,y2 olarak girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 "Bunu stylusa uygulanan basınç eğrisi manasında x1,y1 ve x2,y2 olarak girin."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom cursor absolute mode"
 msgstr "Wacom göreli olmayan imleç modu"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Wacom cursor button mapping"
 msgstr "Wacom imleç tuş eşleşmesi"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom cursor tablet area"
 msgstr "Wacom imleç tablet alanı"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser absolute mode"
 msgstr "Wacom göreli olmayan silgi modu"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom eraser button mapping"
 msgstr "Wacom silgi buton eşleşmesi"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Wacom eraser pressure curve"
 msgstr "Wacom silgi basınç eğrisi"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure threshold"
 msgstr "Wacom silgi basınç eşiği"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom eraser tablet area"
 msgstr "Wacom silgi tablet alanı"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom pad button mapping"
 msgstr "Wacom pad buton eşleşmesi "
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom pad tablet area"
 msgstr "Wacom pad tablet alanı"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom stylus absolute mode"
 msgstr "Wacom göreli olmayan stylus modu"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom stylus button mapping"
 msgstr "Wacom stylus buton eşleşmesi"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "Wacom stylus pressure curve"
 msgstr "Wacom stylus basınç eğrisi"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Wacom stylus pressure threshold"
 msgstr "Wacom stylus basınç eşiği"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid "Wacom stylus tablet area"
 msgstr "Wacom stylus tablet alanı"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Wacom tablet PC feature"
 msgstr "Wacom tablet PC özeliği"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid "Wacom tablet rotation"
 msgstr "Wacom tablet rotasyonu"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
 msgid "Wacom touch feature"
 msgstr "Wacom dokunma özelliği"
 

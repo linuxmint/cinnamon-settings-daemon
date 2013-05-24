@@ -447,13 +447,13 @@ libcsdwacom_la_LIBADD = \
 	$(WACOM_LIBS)
 
 polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
+polkit_policy_in_files = org.cinnamon.settings-daemon.plugins.wacom.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
 csd_wacom_led_helper_SOURCES = csd-wacom-led-helper.c
 EXTRA_DIST = $(csd_wacom_led_helper_SOURCES) \
-	org.gnome.settings-daemon.plugins.wacom.policy.in.in \
+	org.cinnamon.settings-daemon.plugins.wacom.policy.in.in \
 	$(plugin_in_files) README.config-storage
 @HAVE_GUDEV_TRUE@csd_wacom_led_helper_LDFLAGS = \
 @HAVE_GUDEV_TRUE@	$(BACKLIGHT_HELPER_LIBS)			\
@@ -527,8 +527,8 @@ plugin_in_files = wacom.cinnamon-settings-plugin.in
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 CLEANFILES = \
 	$(plugin_DATA)					\
-	org.gnome.settings-daemon.plugins.wacom.policy	\
-	org.gnome.settings-daemon.plugins.wacom.policy.in
+	org.cinnamon.settings-daemon.plugins.wacom.policy	\
+	org.cinnamon.settings-daemon.plugins.wacom.policy.in
 
 all: all-am
 
@@ -1073,7 +1073,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES uninstall-polkit_policyDATA
 
 
-org.gnome.settings-daemon.plugins.wacom.policy.in: org.gnome.settings-daemon.plugins.wacom.policy.in.in Makefile
+org.cinnamon.settings-daemon.plugins.wacom.policy.in: org.cinnamon.settings-daemon.plugins.wacom.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 @INTLTOOL_POLICY_RULE@

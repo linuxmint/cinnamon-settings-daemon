@@ -25,11 +25,11 @@ msgstr ""
 msgid "Cinnamon Settings Daemon"
 msgstr "GNOME संयोजना डीमन"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
 msgstr "स्मार्टकार्ड काढून टाकण्याची कृती"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
@@ -38,21 +38,21 @@ msgstr ""
 "करा. लॉगइनकरीता वापरले जाणारे स्मार्टकार्ड काढून टाकल्यावर कृती सुरू केली "
 "जाईल."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "टाईपकरतेवेळी टचपॅड अकार्यक्षम करा"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr "टाईप करतेवेळी टचपॅडला चुकीने हात लागल्यास यांस TRUE सेट करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Enable horizontal scrolling"
 msgstr "आडवे स्क्रोलींग कार्यक्षम करा"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -61,11 +61,11 @@ msgstr ""
 "स्वीकारण्याकरीता याला "
 "TRUE असे सेट करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Select the touchpad scroll method"
 msgstr "टचपॅड स्क्रोल पद्धत नीवडा"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:8
 #| msgid ""
 #| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
 #| "- edge scrolling, 2 - two-finger scrolling"
@@ -77,151 +77,151 @@ msgstr ""
 "\"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\" असे आहेत."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable mouse clicks with touchpad"
 msgstr "टचपॅडसह माऊस क्लिक्स् कार्यक्षम करा"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
 "टचपॅडवर टॅप केल्यानंतर माऊस क्लिक्स् पाठवण्यासाठी यांस TRUE असे सेट करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Enable touchpad"
 msgstr "टचपॅड सुरू करा"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "सर्व टचपॅडस् सुरू करण्यासाठी यास TRUE असे सेट करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr "कंट्रोल कि दाबले व सोडल्यानंतर पॉईंटरचे सध्याचे ठिकाण ठळक करतो."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Double click time"
 msgstr "डबल क्लिक वेळ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Length of a double click in milliseconds."
 msgstr "मिलिसेकंदातील डबल क्लिकची लांबी."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid "Drag threshold"
 msgstr "ड्रॅग थ्रेशहोल्ड"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Distance before a drag is started."
 msgstr "ड्रॅग सुरू करण्यापूर्वी अंतर."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid "Middle button emulation"
 msgstr "मधल्या बटनचे एम्युलेशन"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr "सतत डावे व उजवे बटन क्लिकने मिडल माऊस बटन इम्युलेशन सुरू करत आहे."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr "टॅबलेटचे निर्देशन कुलूपबंद आहे, किंवा स्वयंरित्या गोल फिरते."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Device hotplug custom command"
 msgstr "डिव्हाइस hotplug पसंतीचे आदेश"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Command to be run when a device is added or removed."
 msgstr "डिव्हाइस समाविष्ट किंवा काढून टाकल्यावर चालवण्याजोगी आदेश."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "या प्लगइनला सुरू करणे"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "cinnamon-settings-daemon तर्फे हे प्लगइन सुरू होईल किंवा नाही"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "या प्लगइनकरीता वापरण्याजोगी प्राधान्यता"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "cinnamon-settings-daemon स्टार्टअप क्युऊमध्ये या प्लगइनकरीता वापरण्याजोगी "
 "प्राधान्यता"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
 msgstr "वॅकॉम स्टायलस ॲबसोल्युट मोड"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the tablet to absolute mode."
 msgstr "टॅबलेटला ॲब्सोल्युट मोडमध्ये ठरवण्याकरीता यास सुरू करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Wacom tablet area"
 msgstr "वॅकॉम टॅबलेट क्षेत्र"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "यास साधनांतर्फे वापरण्याजोगी क्षेत्राच्या x1, y1 व x2, y2 करीता ठरवा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom tablet aspect ratio"
 msgstr "वॅकॉम टॅबलेट ॲस्पेक्ट प्रमाण"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
@@ -229,11 +229,11 @@ msgstr ""
 "आउटपुटचे ॲस्पेक्ट प्रमाण जुळण्याकरीता वॅकॉम टॅबलेट क्षेत्र प्रतिबंध "
 "करण्यसाठी यास सुरू करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom tablet rotation"
 msgstr "वॅकॉम टॅबलेट चक्रगती"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
@@ -241,27 +241,27 @@ msgstr ""
 "90 डिग्री घड्याळाच्या दिशाकरीता 'none', 'cw', 180 डिग्रीकरीता 'half', व "
 "90 डिग्री घड्याळाच्या उलटदिशाकरीता 'ccw' असे मूल्य ठरवा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Wacom touch feature"
 msgstr "वॅकॉम टच गुणधर्म"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr "वापरकर्ता टॅबलेटला हात लावल्यावर कर्सर हलवण्यासाठी यास सुरू करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Wacom tablet PC feature"
 msgstr "वॅकॉम टॅबलेट PC गुणधर्म"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr "स्टायलस घटनांना रिपोर्ट करण्यासाठी टिप दाबल्यावर यास सुरू करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom display mapping"
 msgstr "वॅकॉम डिस्पले मॅपिंग"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
@@ -269,79 +269,79 @@ msgstr ""
 "मॉनिटरची EDID माहिती ज्यास टॅबलेटसह मॅप केले जाईल. रूपण [vendor, "
 "product, serial] असे हवे. [\"\",\"\",\"\"] मॅपिंग बंद करते."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus pressure curve"
 msgstr "वॅकॉम स्टायलस प्रेशर कर्व्ह"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 "यास स्टायलसकरीता लागू केलेल्या प्रेशर कर्व्हच्या x1, y1 व x2, y2 करीता ठरवा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus button mapping"
 msgstr "वॅकॉम स्टायलस बटन मॅपिंग"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Set this to the logical button mapping."
 msgstr "यास लॉजिकल बटन मॅपिंगकरीता ठरवा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom stylus pressure threshold"
 msgstr "वॅकॉम स्टायलस प्रेशर थ्रेशहोल्ड"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr "स्टायलस क्लिक इव्हेंट निर्माण होईल असे प्रेशर मूल्यकरीता सेट करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure curve"
 msgstr "वॅकॉम इरेजर प्रेशर कर्व्ह"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 "यास इरेजरकरीता लागू केलेल्या प्रेशर कर्व्हच्या x1, y1 व x2, y2 करीता ठरवा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom eraser button mapping"
 msgstr "वॅकॉम इरेजर बटनची मॅपिंग"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom eraser pressure threshold"
 msgstr "वॅकॉम इरेजर प्रेशर थ्रेशहोल्ड"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr "इरेजेर क्लिक इव्हेंट निर्माण होईल अशा प्रेशर मूल्यकरीता यास सेट करा."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom button action type"
 msgstr "वॅकॉम बटन कृती प्रकार"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The type of action triggered by the button being pressed."
 msgstr "दाबलेल्या बटनतर्फे निर्माण होणाऱ्या कृतीचे प्रकार."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combination for the custom action"
 msgstr "पसंतीच्या कृतीकरीता किची जोडणी"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
 msgstr "पसंतीच्या कृतीकरीता बटन दाबल्यास निर्माण झालेले किबोर्ड शॉर्टकट."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Key combinations for an elevator custom action"
 msgstr "एलिवेटर पसंतीच्या कृतीकरीता किचे एकीकरण"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
@@ -349,42 +349,42 @@ msgstr ""
 "पसंतीच्या कृतीकरीता (अपच्या पाठोपाठ ) चचरिंग किंवा टचस्ट्रिपचा वापर केल्यास "
 "किबोर्ड शार्टकटस् निर्माण होतात."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 #| msgid "The selected configuration for displays could not be applied"
 msgid "The duration a display profile is valid"
 msgstr "डिस्पले प्रोफाइल वैध राहेल असा कालावधि"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
 msgstr "दिवसांची संख्या ज्यानंतर डिस्पले रंग प्रोफाइल अवैध ठरवले जाते."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "The duration a printer profile is valid"
 msgstr "छपाईयंत्र प्रोफाइल वैध राहते ते कालावधि"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
 msgstr ""
 "दिवसांची संख्या ज्यानंतर छपाईयंत्र डिस्पले रंग प्रोफाइल अवैध ठरवले जाते."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Mount paths to ignore"
 msgstr "दुर्लक्ष करण्याजोगी माऊंट मार्गे"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "जागा कमी पडत असल्यास दुर्लक्ष करण्याजोगी माऊंट मार्गांची सूची निर्देशीत करा."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Free percentage notify threshold"
 msgstr "मोकळी टक्केवारी सूचना मर्यादा"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 #| msgid ""
 #| "Percentage free space threshold for initial warning of low disk space. If "
 #| "the percentage free space drops below this, a warning will be shown"
@@ -395,12 +395,12 @@ msgstr ""
 "कमी डिस्क जागेच्या प्रारंभीक सावधानताकरीता मोकळी जागा मर्यादेची टक्केवारी. "
 "मोकळ्या जागेची टक्केवारी यापेक्षा कमी आढळल्यास, सावधानता दाखवले जाईल."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 #| msgid "Subsequent free percentage notify threshold"
 msgid "Subsequent free space percentage notify threshold"
 msgstr "परस्पर मोकळी जागा टक्केवारी मर्यादा सूचीत करते"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 #| msgid ""
 #| "Specify the percentage that the free disk space should reduce by before "
 #| "issuing a subsequent warning"
@@ -411,12 +411,12 @@ msgstr ""
 "परस्पर सावधानता दाखवण्यापूर्वी मोकळी डिस्क जागा कमी करण्यासाठी टक्केवारी "
 "निर्देशीत करा."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 #| msgid "Free space no notify threshold"
 msgid "Free space notify threshold"
 msgstr "मोकळी जागा सूचीत करण्यासाठी मर्यादा"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 #| msgid ""
 #| "Specify an amount in GB. If the amount of free space is more than this, "
 #| "no warning will be shown"
@@ -427,11 +427,11 @@ msgstr ""
 "प्रमाण GB मध्ये निर्देशीत करा. मोकळी जागा यापेक्षा जास्त असल्यास, सावधानता "
 "दाखवली जाणार नाही."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid "Minimum notify period for repeated warnings"
 msgstr "सतत सावधानतासाठी कमाल सूचना कालावधी"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -440,333 +440,333 @@ msgstr ""
 "वारंवार "
 "आढळणार नाही."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 #| msgid "Keybindings"
 msgid "Custom keybindings"
 msgstr "पसंतीची किबाइंडिंग्स्"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 msgid "List of custom keybindings"
 msgstr "पसंतीच्या किबाइंडिंग्स्ची सूची"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Launch calculator"
 msgstr "गणनयंत्र दाखल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to launch the calculator."
 msgstr "गणनायंत्र दाखलन करीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Launch email client"
 msgstr "ईमेल क्लाऐंट दाखल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the email client."
 msgstr "ईमेल क्लाऐंट दाखलन करीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Eject"
 msgstr "बाहेर काढा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 #| msgid "Binding to eject an optical disk."
 msgid "Binding to eject an optical disc."
 msgstr "ऑपटिकल डिस्क बाहेर काढण्यासाठी बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Launch help browser"
 msgstr "मदत ब्राऊजर दाखल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the help browser."
 msgstr "मदत ब्राऊजर दाखलन करीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Home folder"
 msgstr "मुख्य संचयीका"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to open the Home folder."
 msgstr "मुख्य संचयीका उघढण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Launch media player"
 msgstr "मिडीया वादक दाखल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to launch the media player."
 msgstr "मिडीया वादक दाखलन करीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Next track"
 msgstr "पुढचे गाणी"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to skip to next track."
 msgstr "पुढची गाणी वगळण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Pause playback"
 msgstr "आवाज स्तब्ध करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "प्लेबॅक स्तब्ध करण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Play (or play/pause)"
 msgstr "चालवा (किंवा चालवा/स्तब्ध)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "प्लेबॅक चालविण्याकरीता बांधणी (किंवा चालवा/स्तब्ध बदल लागू करा)."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Log out"
 msgstr "लॉग आउट"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to log out."
 msgstr "बाहेर पडण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Previous track"
 msgstr "पूर्वीचे गाणी"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to skip to previous track."
 msgstr "पूर्वीचे गाणी वगळण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Lock screen"
 msgstr "पडदा कुलूप बंद करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Binding to lock the screen."
 msgstr "पडदा कुलूपबंद करण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Search"
 msgstr "शोधा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Binding to launch the search tool."
 msgstr "शोध साधन दाखलन करीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Stop playback"
 msgstr "गाणी थांबवा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Binding to stop playback."
 msgstr "प्लेबॅक थांबविण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Volume down"
 msgstr "आवाज कमी"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Binding to lower the system volume."
 msgstr "प्रणाली आवाज कमी करण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Volume mute"
 msgstr "आवाज मुक"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Binding to mute the system volume."
 msgstr "प्रणाली आवाज पूर्णपणे बंद करण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Volume up"
 msgstr "आवाज जास्त"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Binding to raise the system volume."
 msgstr "प्रणाली आवाज वाढविण्याकरीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Take a screenshot"
 msgstr "स्क्रीनशॉट घ्या"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 #| msgid "Binding to lock the screen."
 msgid "Binding to take a screenshot."
 msgstr "स्क्रीनकास्ट घेण्यासाठी बाइंडिंग."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot of a window"
 msgstr "पटलाचे स्क्रीनशॉट घ्या"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 #| msgid "Binding to toggle the screen reader."
 msgid "Binding to take a screenshot of a window."
 msgstr "पटलाचे स्क्रीनशॉट घेण्यासाठी बाइंडिंग."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Take a screenshot of an area"
 msgstr "क्षेत्राचे स्क्रीनशॉट घ्या"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 #| msgid "Binding to toggle the screen reader."
 msgid "Binding to take a screenshot of an area."
 msgstr "क्षेत्राचे स्क्रीनशॉट घेण्यासाठी बाइंडिंग."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Copy a screenshot to clipboard"
 msgstr "स्क्रीनशॉटचे क्लिपबोर्डवर प्रत बनवा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 #| msgid "Binding to toggle the on-screen keyboard."
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "स्क्रीनशॉटचे क्लिपबोर्डवर प्रत बनवण्यासाठी बाइंड करा."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "पटलाचे स्क्रीनशॉट क्लिपबोर्डवर प्रत बनवा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "पटलाचे स्क्रीनशॉट याचे क्लिपबोर्डवर प्रत बनवण्यासाठी बाइंड करत आहे."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "क्षेत्राचे स्क्रीनशॉट क्लिपबोर्डवर प्रत बनवा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "पटलाचे स्क्रीनशॉट याचे क्लिपबोर्डवर प्रत बनवण्यासाठी बाइंड करत आहे."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
 msgstr "वेब ब्राऊर दाखल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
 msgstr "वेब ब्राऊजर दाखलन करीता बांधणी."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
 msgstr "टॉगल वर्धक"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding to show the screen magnifier"
 msgstr "स्क्रीन मॅगनिफायर दाखवण्याकरीता बाइंडिंग."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Toggle screen reader"
 msgstr "स्क्रीन रिडर टॉगल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 #| msgid "Binding to toggle the screen reader."
 msgid "Binding to start the screen reader"
 msgstr "स्क्रीन रिडर सुरू करण्यासाठी बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
 msgstr "ऑन-स्क्रीन कळफलक टॉगल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 #| msgid "Binding to toggle the on-screen keyboard."
 msgid "Binding to show the on-screen keyboard"
 msgstr "ऑनस्क्रीन किबोर्ड दाखवण्याकरीता बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
 msgstr "मजकूर आकार वाढवा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 #| msgid "Binding to raise the system volume."
 msgid "Binding to increase the text size"
 msgstr "मजकूर आकार वाढवण्याकरीता बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Decrease text size"
 msgstr "मजकूर आकार कमी करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 #| msgid "Binding to raise the system volume."
 msgid "Binding to decrease the text size"
 msgstr "मजकूर आकार कमी करण्यासाठी बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 #| msgid "Toggle screen reader"
 msgid "Toggle contrast"
 msgstr "काँट्रास्टमध्ये बदल करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding to toggle the interface contrast"
 msgstr "इंटरफेस काँट्रास्ट बदलण्याकरीता बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Magnifier zoom in"
 msgstr "मॅगनिफायर मोठे करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding for the magnifier to zoom in"
 msgstr "झूम करण्यासाठी मॅगनिफायरकरीता बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
 msgstr "मॅगनिफायर छोटे करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding for the magnifier to zoom out"
 msgstr "मॅगनिफायरला झूम अशक्य करण्यासाठी बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Switch input source"
 msgstr "इंपुट स्रोत स्विच् करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 #| msgid "Binding to skip to next track."
 msgid "Binding to select the next input source"
 msgstr "पुढील इंपुट स्रोत नवीडण्यासाठी बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Switch input source backward"
 msgstr "इंपुट स्रोत पाठिमागे स्विच् करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 #| msgid "Binding to skip to previous track."
 msgid "Binding to select the previous input source"
 msgstr "मागील इंपुट स्रोत नीवडण्यासाठी बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name"
 msgstr "नाव"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Name of the custom binding"
 msgstr "पसंतीच्या बाइंडिंगचे नाव"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 #| msgid "Keybindings"
 msgid "Binding"
 msgstr "बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Binding for the custom binding"
 msgstr "पसंतीच्या बाइंडिंगकरीता बाइंडिंग"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command"
 msgstr "आदेश"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
 msgid "Command to run when the binding is invoked"
 msgstr "बाइंडिंग सुरू केल्यावर चालवण्याजोगी आदेश"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage considered low"
 msgstr "कमी सझले जाणारि टक्केवारि"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 msgid ""
 "The percentage of the battery when it is considered low. Only valid when use-"
 "time-for-policy is false."
@@ -774,11 +774,11 @@ msgstr ""
 "बॅटरिची टक्केवारि, जेव्हा त्यास कमी ठरवले जाते. तेंव्हाच वैध ठरते जेव्हा "
 "युज-टाइम-फॉर-पॉलिसि खोठे ठरते."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered critical"
 msgstr "गंभीर असे विचार केले जाते"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 msgid ""
 "The percentage of the battery when it is considered critical. Only valid "
 "when use-time-for-policy is false."
@@ -786,11 +786,11 @@ msgstr ""
 "बॅटरिची टक्केवारि, जेव्हा त्यास गंभीर ठरवले जाते. जेव्हा युज-टाइम-फॉर-पॉलिसि "
 "खोठे ठरते तेव्हाच वैध ठरते."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 msgid "Percentage action is taken"
 msgstr "लागू करण्याजोगी कृतीची टक्केवारि"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:10
 msgid ""
 "The percentage of the battery when the critical action is performed. Only "
 "valid when use-time-for-policy is false."
@@ -798,11 +798,11 @@ msgstr ""
 "बॅटरिची टक्केवारि, जेव्हा त्यास गंभीर ठरवले जाते. जेव्हा युज-टाइम-फॉर-पॉलिसि "
 "खोठे ठरते तेव्हाच वैध ठरते."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "The time remaining when low"
 msgstr "कमी असताना उर्वरित वेळ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid ""
 "The time remaining in seconds of the battery when it is considered low. Only "
 "valid when use-time-for-policy is true."
@@ -810,11 +810,11 @@ msgstr ""
 "सेकंदातील उर्वरित वेळ जेव्हा बॅटरि कमी ठरवली जाते. तेंव्हाच वैध ठरते जेव्हा "
 "युज-टाइम-फॉर-पॉलिसि खरे ठरते."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "The time remaining when critical"
 msgstr "गंभीर असताना उर्वरित वेळ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid ""
 "The time remaining in seconds of the battery when it is considered critical. "
 "Only valid when use-time-for-policy is true."
@@ -822,11 +822,11 @@ msgstr ""
 "सेकंदातील उर्वरित वेळ जेव्हा बॅटरि गंभीर ठरवली जाते. तेंव्हाच वैध ठरते जेव्हा "
 "युज-टाइम-फॉर-पॉलिसि खरे ठरते."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid "The time remaining when action is taken"
 msgstr "कृती लागू केल्यावर उर्वरित वेळ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid ""
 "The time remaining in seconds of the battery when critical action is taken. "
 "Only valid when use-time-for-policy is true."
@@ -834,11 +834,11 @@ msgstr ""
 "सेकंदातील उर्वरित वेळ जेव्हा गंभीर कृती घेतली जाते. तेंव्हाच वैध ठरते जेव्हा "
 "युज-टाइम-फॉर-पॉलिसि खरे ठरते."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "Whether to use time-based notifications"
 msgstr "वेळ-आधारित सूचनांचा वापर करायचे"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid ""
 "If time based notifications should be used. If set to false, then the "
 "percentage change is used instead, which may fix a broken ACPI BIOS."
@@ -846,11 +846,11 @@ msgstr ""
 "टाइम आधारित सूचनांचा वापर करायचे. खोटेकरीता ठरवल्यास, त्याऐवजी टक्केवारीचा "
 "वापर केला जातो, ज्यामुळे खंडीत ACPI BIOS चे निर्धारण केले जाते."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 msgid "If we should show the recalled battery warning for a broken battery"
 msgstr "विनाउपयोग बॅटरिकरीता रिकॉल बॅटरि दाखवायचे"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid ""
 "If we should show the recalled battery warning for a broken battery. Set "
 "this to false only if you know your battery is okay."
@@ -858,22 +858,22 @@ msgstr ""
 "खंडीत बॅटरिकरीता रिकॉल्ड बॅटरि दाखवायची. बॅटरि चांगली आहे याची खात्री "
 "असल्यावरच यास खोटेकरीता ठरवा."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "Use mobile broadband connections"
 msgstr "मोबाइल ब्रॉडबँड जोडणीचा वापर करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 "सुधारणांकरीता तपासणी करीता मोबाइल ब्रॉडबँड जोडणींचा जसे कि GSM व CDMA यांचा "
 "वापर करा."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically download updates in the background without confirmation"
 msgstr "पार्श्वभूमीत विना खात्री पटवून स्वयंरित्या सुधारणा डाऊनलोड करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
@@ -883,11 +883,11 @@ msgstr ""
 "करतेवेळी, व 'connection-use-mobile' सुरू असल्यास  व "
 "'connection-use-mobile' सुरू असल्यास सुधारणा स्वयं-डाऊनलोड केले जाईल."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
 msgstr "सुधारणांकरीता कधी तपासणी करायची"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
@@ -898,11 +898,11 @@ msgstr ""
 "स्वयंरित्या प्रतिष्ठापीत होण्याजोगी सुधारणा किंवा वापरकर्त्याला सूचीत करणे, "
 "या अंतर्गत पाठवणे शक्य आहे."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "How often to notify the user that non-critical updates are available"
 msgstr "विना-गंभीर सुधारणा उपलब्ध आहे याची वापरकर्त्याला केव्हा सूचना द्यायची"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -913,11 +913,11 @@ msgstr ""
 "सुधारणा सूचना नेहमी सुधारणांकरीता तपासणी नंतर कळवले जाते, परंतु विना-गंभीर "
 "सूचना वारंवार दाखवणे आवश्यक आहे."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "The last time we told the user about non-critical notifications"
 msgstr "वापरकर्त्याला विना-गंभीर सूचनांविषयी अखेरीस कळवल्याची वेळ"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
@@ -925,53 +925,53 @@ msgstr ""
 "विना-गंभीर सुधारणांविषयी वापरकर्त्याला सूचीत केले ती शेवटची वेळ. इपॉकपासून "
 "मूल्य सेकंद, किंवा कधिच नाहीकरीता शून्य असू शकते."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades"
 msgstr "वितरण सुधारणांकरिता किती वेळाने तपासायचे"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr "वितरण सुधारणांकरिता किती वेळाने तपासायचे. मूल्य सेकंदामध्ये."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to refresh the package cache"
 msgstr "संकुल कॅशे कितीवेळाने पुनःताजे करायचे"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr "संकुल कॅशे कितीवेळाने पुनःताजे करायचे. मूल्य सेकंदात."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "Check for updates when running on battery power"
 msgstr "बॅटरि पावरवर चालवतेवेळी सुधारणांकरीता तपासणी करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "Check for updates when running on battery power."
 msgstr "बॅटरि पावरवर चालवतेवेळी सुधारणांकरीता तपासणी करा."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "Notify the user when distribution upgrades are available"
 msgstr "वितरण सुधारणा उपलब्ध असल्यास वापरकर्त्याला सूचीत करा"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Notify the user when distribution upgrades are available."
 msgstr "वितरण सुधारणा उपलब्ध असल्यास वापरकर्त्याला सूचीत करा."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Ask the user if additional firmware should be installed"
 msgstr "अगाऊ फर्मवेअर प्रतिष्ठापीत करायचे असे वापरकर्त्याला विचारा"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid ""
 "Ask the user if additional firmware should be installed if it is available."
 msgstr ""
 "उपलब्ध असल्यास अगाऊ फर्मवेअर प्रतिष्ठापीत करायचे असे वापरकर्त्याला विचारा."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Firmware files that should not be searched for"
 msgstr "फर्मवेअर फाइल्स् ज्याचा शोध घेऊ नका"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
@@ -979,11 +979,11 @@ msgstr ""
 "स्वल्पविरामतर्फे विभाजीत, फर्मवेअर फाइल्स् शोधू नका. यामध्ये '*' व '?' अक्षरे "
 "समाविष्टीत असू शकते."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Devices that should be ignored"
 msgstr "वगळण्याजोगी साधने"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
@@ -991,11 +991,11 @@ msgstr ""
 "स्वल्पविरामतर्फे विभाजीत, साधने शोधू नका. यामध्ये '*' व '?' अक्षरे समाविष्टीत "
 "असू शकते."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "The filenames on removable media that designate it a software source."
 msgstr "सॉफ्टवेअर स्रोत घोषीत करणारे काढून टाकण्याजोगी मिडीयाचे फाइलनावे."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -1007,11 +1007,11 @@ msgstr ""
 "सुधारणा तपासणी सुरू केली जाते. कार्यरत प्रणालींना सुधारित करण्यासाठी "
 "पोस्ट-इंस्टॉल डिस्क्स् वापरणे शक्य होते."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "RandR करीता पूर्वनिर्धारित संरचनाकरीता फाइल"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -1026,11 +1026,11 @@ msgstr ""
 "किंवा वापरकर्त्याच्या मॉनिटरच्या मांडणीसह जुळत नसल्यास, या कितर्फे निर्देशीत "
 "फाइलचा वापर त्याऐवजी केले जाईल."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 msgid "Whether to turn off specific monitors after boot"
 msgstr "बूट नंतर ठराविक मॉनिटर्स् बंद करायचे"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
@@ -1040,11 +1040,11 @@ msgstr ""
 "'do-nothing' पूर्वनिर्धारित Xorg वर्तनचा वापर करेल (डेस्कटॉपला सध्याच्या "
 "आवृत्तीत एक्सटेंड करा)"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
 msgstr "ऍन्टीअलायजींग"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -1056,11 +1056,11 @@ msgstr ""
 "\"rgba\" "
 "उपपीक्सेल ऍन्टीअलायसींग करीता (फक्त LCD पडदा)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "हिंटींग"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -1072,11 +1072,11 @@ msgstr ""
 "\"rgba\" "
 "उपपीक्सेल अलायसींग करीता (फक्त LCD पडदा करीता)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
 msgstr "RGBA क्रमवारी"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -1091,11 +1091,11 @@ msgstr ""
 "वरील "
 "लाल करीता, \"vbgr\" तळातील लाल करीता."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "GTK+ घटकांची सुव्यक्तपणे बंद केलेली सूची"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
@@ -1103,11 +1103,11 @@ msgstr ""
 "स्ट्रिंग्स्ची सूची प्रस्तुत करणारे, लोड न करण्याजोगी GTK+ घटके, संरचनामध्ये "
 "जरी पूर्वनिर्धारितपणे सुरू केले जाते."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "GTK+ घटकांची सुव्यक्तपणे सुरू केलेली सूची"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
@@ -2548,11 +2548,11 @@ msgstr "पावर मॅनेजर"
 #. - A normal active user on the local machine does not need permission
 #. to change the backlight brightness.
 #.
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:5
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:5
 msgid "Modify the laptop brightness"
 msgstr "लॅपटॉप उजळपणा संपादित करा"
 
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:6
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "लॅपटॉपचा उजळपणा संपादित करण्यासाठी ओळखपटवणे आवश्यक आहे"
 
@@ -3125,11 +3125,11 @@ msgstr "तळ बटन #%d"
 #. - A normal active user on the local machine does not need permission
 #. to change the LED setting for a Wacom tablet
 #.
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+#: ../plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in.h:5
 msgid "Modify the lit LED for a Wacom tablet"
 msgstr "वॅकॉम टॅबलेटकरीता लिट LED संपादित करा"
 
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+#: ../plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr "वॅकॉम टॅबलेटकरीता LED सुरू करण्यासाठी ओळख पटवणे आवश्यक आहे"
 

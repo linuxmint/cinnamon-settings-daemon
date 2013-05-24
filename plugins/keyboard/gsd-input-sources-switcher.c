@@ -32,7 +32,7 @@
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 
-#define CSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
+#define CSD_KEYBOARD_DIR "org.cinnamon.settings-daemon.peripherals.keyboard"
 #define KEY_SWITCHER "input-sources-switcher"
 
 static GSettings *input_sources_settings;

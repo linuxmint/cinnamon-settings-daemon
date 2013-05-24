@@ -41,11 +41,11 @@
 
 #define CSD_WACOM_STYLUS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_WACOM_STYLUS, CsdWacomStylusPrivate))
 
-#define WACOM_TABLET_SCHEMA "org.gnome.settings-daemon.peripherals.wacom"
-#define WACOM_DEVICE_CONFIG_BASE "/org/gnome/settings-daemon/peripherals/wacom/%s-%s/"
-#define WACOM_STYLUS_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.stylus"
-#define WACOM_ERASER_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.eraser"
-#define WACOM_BUTTON_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.tablet-button"
+#define WACOM_TABLET_SCHEMA "org.cinnamon.settings-daemon.peripherals.wacom"
+#define WACOM_DEVICE_CONFIG_BASE "/org.cinnamon.settings-daemon/peripherals/wacom/%s-%s/"
+#define WACOM_STYLUS_SCHEMA "org.cinnamon.settings-daemon.peripherals.wacom.stylus"
+#define WACOM_ERASER_SCHEMA "org.cinnamon.settings-daemon.peripherals.wacom.eraser"
+#define WACOM_BUTTON_SCHEMA "org.cinnamon.settings-daemon.peripherals.wacom.tablet-button"
 
 static struct {
 	CinnamonSettingsRRRotation  rotation;
@@ -313,7 +313,7 @@ csd_wacom_tablet_button_copy (CsdWacomTabletButton *button)
  * Tablet-wide settings: applied to each tool on the tablet. e.g. rotation
  * Tool-specific settings: applied to one tool only.
  */
-#define SETTINGS_WACOM_DIR         "org.gnome.settings-daemon.peripherals.wacom"
+#define SETTINGS_WACOM_DIR         "org.cinnamon.settings-daemon.peripherals.wacom"
 #define SETTINGS_STYLUS_DIR        "stylus"
 #define SETTINGS_ERASER_DIR        "eraser"
 

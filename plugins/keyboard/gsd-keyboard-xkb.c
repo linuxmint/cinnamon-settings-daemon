@@ -48,7 +48,7 @@
 #include "delayed-dialog.h"
 #include "cinnamon-settings-profile.h"
 
-#define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
+#define SETTINGS_KEYBOARD_DIR "org.cinnamon.settings-daemon.plugins.keyboard"
 
 static CsdKeyboardManager *manager = NULL;
 

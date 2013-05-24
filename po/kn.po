@@ -23,11 +23,11 @@ msgstr ""
 msgid "Cinnamon Settings Daemon"
 msgstr "GNOME ಸಿದ್ಧತೆಗಳ ಡೀಮನ್"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
 msgstr "ಸ್ಮಾರ್ಟ್ ಕಾರ್ಡ್ ತೆಗೆದುಹಾಕುವಿಕೆ ಕ್ರಿಯೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
@@ -37,11 +37,11 @@ msgstr ""
 "ನಿರ್ವಹಿಸಬೇಕಿರುವ "
 "ಕಾರ್ಯ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "ಟೈಪ್ ಮಾಡುವಾಗ ಟಚ್‌ಪ್ಯಾಡನ್ನು ಅಶಕ್ತಗೊಳಿಸು"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -49,11 +49,11 @@ msgstr ""
 "ಟೈಪಿಸುವಾಗ ಆಕಸ್ಮಿಕವಾಗಿ ಟಚ್‌ಪ್ಯಾಡ್ ಗೆ ಕೈ ತಾಗುವ ತೊಂದರೆ ಇದ್ದರೆ ಇದನ್ನು TRUE ಗೆ "
 "ಬದಲಾಯಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Enable horizontal scrolling"
 msgstr "ಅಡ್ಡ ಚಲಿಸುವಿಕೆಯನ್ನು ಶಕ್ತಗೊಳಿಸು"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -61,11 +61,11 @@ msgstr ""
 "scroll_method ಕೀಲಿಯಿಂದ ಆರಿಸಲಾದ ವಿಧಾನದ ರೀತಿಯಲ್ಲಿಯೆ ಅಡ್ಡ ಚಲನೆಯನ್ನು ಅನುಮತಿಸಲು "
 "ಇದನ್ನು TRUE ಗೆ ಬದಲಾಯಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Select the touchpad scroll method"
 msgstr "ಟಚ್‌ಪ್ಯಾಡ್ ಚಲನೆಯ ವಿಧಾನವನ್ನು ಆರಿಸಿ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid ""
 "Select the touchpad scroll method. Supported values are: \"disabled\", "
 "\"edge-scrolling\", \"two-finger-scrolling\"."
@@ -74,11 +74,11 @@ msgstr ""
 "\"edge-"
 "scrolling\", \"two-finger-scrolling\"."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable mouse clicks with touchpad"
 msgstr "ಟಚ್‌ಪ್ಯಾಡಿನಿಂದ ಮೌಸ್‌ಕ್ಲಿಕ್‌ಗಳನ್ನು ಶಕ್ತಗೊಳಿಸಿ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr ""
@@ -86,15 +86,15 @@ msgstr ""
 "ಶಕ್ತಗೊಳಿಸಲು ಇದನ್ನು "
 "TRUE ಗೆ ಬದಲಾಯಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid "Enable touchpad"
 msgstr "ಟಚ್‌ಪ್ಯಾಡನ್ನು ಸಕ್ರಿಯಗೊಳಿಸು"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "ಟಚ್‌ಪ್ಯಾಡ್‌ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಇದನ್ನು TRUE ಗೆ ಬದಲಾಯಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
@@ -102,27 +102,27 @@ msgstr ""
 "ನಿಯಂತ್ರಕ ಕೀಲಿಯನ್ನು ಒತ್ತಿ ನಂತರ ಬಿಟ್ಟಾಗ ಸೂಚಕದ ಪ್ರಸಕ್ತ ಸ್ಥಳವನ್ನು ಎತ್ತಿ "
 "ತೋರಿಸುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Double click time"
 msgstr "ಜೋಡಿ ಕ್ಲಿಕ್ ಸಮಯ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:15
 msgid "Length of a double click in milliseconds."
 msgstr "ಜೋಡಿ-ಕ್ಲಿಕ್‌ನ (ಡಬಲ್ ಕ್ಲಿಕ್) ಗಾತ್ರ, ಮಿಲಿಸೆಕೆಂಡುಗಳಲ್ಲಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid "Drag threshold"
 msgstr "ಎಳೆಯುವ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid "Distance before a drag is started."
 msgstr "ಎಳೆಯುವಿಕೆಯನ್ನು ಆರಂಭಗೊಳಿಸುವುದಕ್ಕೂ ಮುಂಚಿನ ದೂರ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid "Middle button emulation"
 msgstr "ಮಧ್ಯದ ಗುಂಡಿಯ ಎಮ್ಯುಲೇಶನ್"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:19
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
@@ -130,101 +130,101 @@ msgstr ""
 "ಒಂದೇ ಬಾರಿಗೆ ಎಡ ಮತ್ತು ಬಲ ಗುಂಡಿಯನ್ನು ಕ್ಲಿಕ್ ಮಾಡುವ ಮೂಲಕ ಮೌಸ್‌ನ ಮಧ್ಯದ ಗುಂಡಿಯನ್ನು "
 "ಅನುಕರಣೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid "Whether the tablet's orientation is locked, or rotated automatically."
 msgstr ""
 "ಕಿಸೆಗಣಕದ ವಾಲಿಕೆಯನ್ನು ಲಾಕ್ ಮಾಡಲಾಗಿದೆಯೆ ಅಥವ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ತಿರುಗಿಸಲಾಗಿದೆಯೆ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Device hotplug custom command"
 msgstr "ಸಾಧನ ಹಾಟ್‌ಪ್ಲಗ್‌ ಅಗತ್ಯಾನುಗುಣ ಆಜ್ಞೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:22
 msgid "Command to be run when a device is added or removed."
 msgstr "ಸಾಧನವನ್ನು ಸೇರಿಸಿದಾಗ ಅಥವ ತೆಗೆದುಹಾಕಿದಾಗ ಚಲಾಯಿಸಬೇಕಿರುವ ಆಜ್ಞೆ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ನ ಸಕ್ರಿಯಗೊಳಿಕೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ ಅನ್ನು cinnamon-settings-daemon ಇಂದ ಸಕ್ರಿಯಗೊಳಿಸಬೇಕೆ ಅಥವ ಬೇಡವೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "ಈ ಪ್ಲಗ್‌ಇನ್‌ಗಾಗಿ ಬಳಸಬೇಕಿರುವ ಆದ್ಯತೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
-#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 "ಈ ಪ್ಲಗ್‌ಇನ್‌ಗಾಗಿ cinnamon-settings-daemon ಆರಂಭದ ಸರತಿಯಲ್ಲಿ ಬಳಸಬೇಕಿರುವ ಆದ್ಯತೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Wacom stylus absolute mode"
 msgstr "ವೇಕಾಮ್ ಸ್ಟೈಲಸ್‌ನ ಪರಿಪೂರ್ಣ ಸ್ಥಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the tablet to absolute mode."
 msgstr "ಕಿಸೆಗಣಕವನ್ನು ಪರಿಪೂರ್ಣ ಸ್ಥಿತಿಗೆ ಹೊಂದಿಸಲು ಇದನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Wacom tablet area"
 msgstr "ವೇಕಾಮ್ ಕಿಸೆಗಣಕ (ಟ್ಯಾಬ್ಲೆಟ್) ಪ್ರದೇಶ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
 msgstr "ಇದನ್ನು ಉಪಕರಣಗಳು ಬಳಸಬಹುದಾದ ಜಾಗದ x1, y1 ಮತ್ತು x2, y2 ಗೆ ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid "Wacom tablet aspect ratio"
 msgstr "ವೇಕಾಮ್ ಕಿಸೆಗಣಕದ ಆಕಾರ ಅನುಪಾತ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid ""
 "Enable this to restrict the Wacom tablet area to match the aspect ratio of "
 "the output."
@@ -233,11 +233,11 @@ msgstr ""
 "ನಿರ್ಬಂಧಿಸಲು "
 "ಇದನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Wacom tablet rotation"
 msgstr "ವೇಕಾಮ್ ಕಿಸೆಗಣಕ (ಟ್ಯಾಬ್ಲೆಟ್) ತಿರುಗಿಸುವಿಕೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
@@ -246,30 +246,30 @@ msgstr ""
 "ಮತ್ತು "
 "90 ಡಿಗ್ರಿ ಅಪ್ರದಕ್ಷಿಣೆಗಾಗಿ 'ccw' ಗೆ ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Wacom touch feature"
 msgstr "ವೇಕಾಮ್‌ನ ಸ್ಪರ್ಶ ಸವಲತ್ತು"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Enable this to move the cursor when the user touches the tablet."
 msgstr ""
 "ಬಳಕೆದಾರರು ಕಿಸೆಗಣಕವನ್ನು ಮುಟ್ಟಿದಾಗ ತೆರೆಸೂಚಕವು ಚಲಿಸುವಂತೆ ಮಾಡಲು ಇದನ್ನು "
 "ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Wacom tablet PC feature"
 msgstr "ವೇಕಾಮ್ ಕಿಸೆಗಣಕ (ಟ್ಯಾಬ್ಲೆಟ್) PC ಸವಲತ್ತು"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr ""
 "ತುದಿಯನ್ನು ಒತ್ತಿದಾಗ ಕೇವಲ ಸ್ಟೈಲಸ್ ಘಟನಕೆಗಳನ್ನು ವರದಿ ಮಾಡಲು ಇದನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Wacom display mapping"
 msgstr "ವೇಕಾಮ್ ಪ್ರದರ್ಶಕದ ಮ್ಯಾಪಿಂಗ್"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid ""
 "EDID information of monitor to map tablet to. Must be in the format [vendor, "
 "product, serial]. [\"\",\"\",\"\"] disables mapping."
@@ -278,73 +278,73 @@ msgstr ""
 "ರೂಪದಲ್ಲಿರಬೇಕು. [\"\",\"\",\"\"] ಎನ್ನುವುದು ಮ್ಯಾಪಿಂಗ್ ಅನ್ನು "
 "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom stylus pressure curve"
 msgstr "ವೇಕಾಮ್ ಸ್ಟೈಲಸ್‌ನ ಒತ್ತಡದ ವಕ್ರರೇಖೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 "ಇದನ್ನು ಸ್ಟೈಲಸ್‌ಗೆ ಅನ್ವಯಿಸಲಾದ ಒತ್ತಡ ವಕ್ರರೇಖೆಯ x1, y1 ಮತ್ತು x2, y2 ಗೆ ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom stylus button mapping"
 msgstr "ವೇಕಾಮ್ ಸ್ಟೈಲಸ್ ಗುಂಡಿ ಮ್ಯಾಪಿಂಗ್"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Set this to the logical button mapping."
 msgstr "ಇದನ್ನು ತಾರ್ಕಿಕ ಗುಂಡಿ ಮ್ಯಾಪಿಂಗ್‌ಗೆ ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom stylus pressure threshold"
 msgstr "ವೇಕಾಮ್ ಸ್ಟೈಲಸ್‌ನ ಒತ್ತಡದ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid ""
 "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
 "ಒಂದು ಸ್ಟೈಲಸ್ ಕ್ಲಿಕ್ ಘಟನೆಯನ್ನು ಹೊಂದಿಸಬೇಕಿರುವ ಒಂದು ಒತ್ತಡದ ಮೌಲ್ಯಕ್ಕೆ ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure curve"
 msgstr "ವೇಕಾಮ್ ಉಜ್ಜುಗದ (ಇರೇಸರ್) ಒತ್ತಡದ ವಕ್ರರೇಖೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid ""
 "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 "ಇದನ್ನು ಉಜ್ಜುಗಕ್ಕೆ (ಇರೇಸರ್) ಅನ್ವಯಿಸಲಾದ ಒತ್ತಡ ವಕ್ರರೇಖೆಯ x1, y1 ಮತ್ತು x2, y2 ಗೆ "
 "ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom eraser button mapping"
 msgstr "ವೇಕಾಮ್ ಉಜ್ಜುಗ (ಇರೇಸರ್) ಗುಂಡಿ ಮ್ಯಾಪಿಂಗ್"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom eraser pressure threshold"
 msgstr "ವೇಕಾಮ್ ಉಜ್ಜುಗದ (ಇರೇಸರ್) ಒತ್ತಡದ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid ""
 "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
 "ಒಂದು ಉಜ್ಜುಗ (ಇರೇಸರ್) ಕ್ಲಿಕ್ ಘಟನೆಯನ್ನು ಹೊಂದಿಸಬೇಕಿರುವ ಒಂದು ಒತ್ತಡದ ಮೌಲ್ಯಕ್ಕೆ "
 "ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom button action type"
 msgstr "ವೇಕಾಮ್ ಗುಂಡಿ ಕ್ರಿಯೆಯ ಬಗೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "The type of action triggered by the button being pressed."
 msgstr "ಒತ್ತಲಾಗುತ್ತಿರುವ ಗುಂಡಿಯಿಂದ ನಡೆಸಲಾಗುವ ಕಾರ್ಯದ ಬಗೆ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Key combination for the custom action"
 msgstr "ಅಗತ್ಯಾನುಗುಣ ಕ್ರಿಯೆಯ ಕೀಲಿ ಸಂಯೋಜನೆ"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid ""
 "The keyboard shortcut generated when the button is pressed for custom "
 "actions."
@@ -352,11 +352,11 @@ msgstr ""
 "ಅಗತ್ಯಾನುಗುಣ ಆಯ್ಕೆಗಳಿಗಾಗಿ ಗುಂಡಿಯನ್ನು ಒತ್ತಿದಾಗ ಉತ್ಪಾದಿಸಲಾಗುವ ಕೀಲಿಮಣೆಯ ಸುಲಭ "
 "ಆಯ್ಕೆ."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Key combinations for an elevator custom action"
 msgstr "ಎತ್ತುಗದ ಅಗತ್ಯಾನುಗುಣ ಕ್ರಿಯೆಗಾಗಿನ ಕೀಲಿ ಸಂಯೋಜನೆಗಳು"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid ""
 "The keyboard shortcuts generated when a touchring or touchstrip is used for "
 "custom actions (up followed by down)."
@@ -365,11 +365,11 @@ msgstr ""
 "ಉತ್ಪಾದಿಸಲಾಗುವ "
 "ಕೀಲಿಮಣೆಯ ಸುಲಭ ಆಯ್ಕೆ (ಮೇಲೆ ನಂತರ ಕೆಳಗೆ)."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:5
 msgid "The duration a display profile is valid"
 msgstr "ಮುದ್ರಕದ ಪ್ರೊಫೈಲ್ ಅಮಾನ್ಯತೆಯ ಕಾಲಾವಧಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid ""
 "This is the number of days after which the display color profile is "
 "considered invalid."
@@ -377,11 +377,11 @@ msgstr ""
 "ಇಷ್ಟು ದಿನಗಳ ನಂತರ ಪ್ರದರ್ಶಕದ ಬಣ್ಣದ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಅಮಾನ್ಯವಾಗಿದೆ ಎಂದು "
 "ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:7
 msgid "The duration a printer profile is valid"
 msgstr "ಮುದ್ರಕದ ಪ್ರೊಫೈಲ್ ಮಾನ್ಯವಾಗಿರುವ ಕಾಲಾವಧಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
 "This is the number of days after which the printer color profile is "
 "considered invalid."
@@ -389,21 +389,21 @@ msgstr ""
 "ಇಷ್ಟು ದಿನಗಳ ನಂತರ ಮುದ್ರಕದ ಬಣ್ಣದ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಅಮಾನ್ಯವಾಗಿದೆ ಎಂದು "
 "ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 msgid "Mount paths to ignore"
 msgstr "ಆಲಕ್ಷಿಸಬೇಕಿರುವ ಆರೋಹಣಾ ಮಾರ್ಗಗಳು"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr ""
 "ಸ್ಥಳಾವಕಾಶವು ಕಡಿಮೆ ಇದ್ದಾಗ ಯಾವ ಆರೋಹಣಾ ಮಾರ್ಗಗಳ ಪಟ್ಟಿಯನ್ನು ಆಲಕ್ಷಿಸಬೇಕು ಎಂದು "
 "ಸೂಚಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Free percentage notify threshold"
 msgstr "ಮುಕ್ತ ಪ್ರತಿಶತ ಸೂಚನೆಯ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown."
@@ -413,11 +413,11 @@ msgstr ""
 "ಮಿತಿ. ಮುಕ್ತ ಸ್ಥಳದ ಪ್ರತಿಶತವು ಇದಕ್ಕಿಂತ ಕಡಿಮೆಯಾದಲ್ಲಿ, ಒಂದು ಎಚ್ಚರಿಕೆಯನ್ನು "
 "ತೋರಿಸಲಾಗುತ್ತದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
 msgid "Subsequent free space percentage notify threshold"
 msgstr "ಆನಂತರದ ಮುಕ್ತ ಸ್ಥಳದ ಪ್ರತಿಶತ ಸೂಚನಾ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
 msgid ""
 "Specify the percentage that the free disk space should reduce by before "
 "issuing a subsequent warning."
@@ -426,11 +426,11 @@ msgstr ""
 "ಬೇಕು "
 "ಎಂದು ಸೂಚಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Free space notify threshold"
 msgstr "ಮುಕ್ತ ಸ್ಥಳದ ಸೂಚನೆಯ ಮಿತಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify an amount in GB. If the amount of free space is more than this, no "
 "warning will be shown."
@@ -439,11 +439,11 @@ msgstr ""
 "ಯಾವುದೆ "
 "ಎಚ್ಚರಿಕೆಗಳು ಕಾಣಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 msgid "Minimum notify period for repeated warnings"
 msgstr "ಪುನರಾವರ್ತಿತ ಎಚ್ಚರಿಕೆಗಳ ಕನಿಷ್ಟ ಸೂಚನಾ ಕಾಲಾವಧಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -452,317 +452,317 @@ msgstr ""
 "ನಂತರ "
 "ಕಾಣಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 msgid "Custom keybindings"
 msgstr "ಅಗತ್ಯಾನುಗುಣ ಕೀಲಿಬದ್ಧತೆಗಳು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 msgid "List of custom keybindings"
 msgstr "ಅಗತ್ಯಾನುಗುಣ ಕೀಲಿಬದ್ಧತೆಗಳ ಪಟ್ಟಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 msgid "Launch calculator"
 msgstr "ಕ್ಯಾಲ್ಕುಲೇಟರನ್ನು ಆರಂಭಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 msgid "Binding to launch the calculator."
 msgstr "ಕ್ಯಾಲ್ಕುಲೇಟರನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 msgid "Launch email client"
 msgstr "ಇಮೈಲ್ ಕ್ಲೈಂಟನ್ನು ಆರಂಭಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 msgid "Binding to launch the email client."
 msgstr "ಇಮೈಲ್ ಕ್ಲೈಂಟನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Eject"
 msgstr "ಹೊರತಳ್ಳು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to eject an optical disc."
 msgstr "ಒಂದು ಆಪ್ಟಿಕಲ್ ಡಿಸ್ಕನ್ನು ಹೊರತಳ್ಳುವ ಬದ್ಧತೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Launch help browser"
 msgstr "ನೆರವಿನ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the help browser."
 msgstr "ನೆರವಿನ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Home folder"
 msgstr "ನೆಲೆ ಕಡತಕೋಶ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to open the Home folder."
 msgstr "ನೆಲೆ ಕಡತಕೋಶವನ್ನು ತೆರೆಯಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Launch media player"
 msgstr "ಮೀಡಿಯಾ ಪ್ಲೇಯರನ್ನು ಆರಂಭಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to launch the media player."
 msgstr "ಮೀಡಿಯಾ ಪ್ಲೇಯರನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Next track"
 msgstr "ಮುಂದಿನ ಹಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to skip to next track."
 msgstr "ಮುಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Pause playback"
 msgstr "ಪ್ಲೇಬ್ಯಾಕನ್ನು ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತಗೊಳಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತಗೊಳಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Play (or play/pause)"
 msgstr "ಪ್ಲೇ (ಅಥವ ಪ್ಲೇ/ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr ""
 "ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು(ಅಥವ ಪ್ಲೇ/ತಾತ್ಕಾಲಿಕ ಸ್ಥಗಿತದ ನಡುವೆ ಬದಲಾಯಿಸಲು) ಆರಂಭಿಸಲು "
 "ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 msgid "Log out"
 msgstr "ನಿರ್ಗಮಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to log out."
 msgstr "ನಿರ್ಗಮಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Previous track"
 msgstr "ಹಿಂದಿನ ಹಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to skip to previous track."
 msgstr "ಹಿಂದಿನ ಹಾಡಿಗೆ ಹೋಗಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 msgid "Lock screen"
 msgstr "ತೆರೆಯನ್ನು ಲಾಕ್ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Binding to lock the screen."
 msgstr "ತೆರೆಯನ್ನು ಲಾಕ್ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Search"
 msgstr "ಹುಡುಕು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Binding to launch the search tool."
 msgstr "ಹುಡುಕು ಉಪಕರಣವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 msgid "Stop playback"
 msgstr "ಪ್ಲೇಬ್ಯಾಕನ್ನು ನಿಲ್ಲಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Binding to stop playback."
 msgstr "ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು ನಿಲ್ಲಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Volume down"
 msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಇಳಿಕೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Binding to lower the system volume."
 msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಕಡಿಮೆ ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Volume mute"
 msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಮೂಕ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Binding to mute the system volume."
 msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಮೂಕಗೊಳಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Volume up"
 msgstr "ಧ್ವನಿ ಪ್ರಮಾಣ ಏರಿಕೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Binding to raise the system volume."
 msgstr "ಗಣಕದ ಧ್ವನಿ ಪರಿಮಾಣವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Take a screenshot"
 msgstr "ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Binding to take a screenshot."
 msgstr "ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Take a screenshot of a window"
 msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Binding to take a screenshot of a window."
 msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳುವ ಬದ್ಧತೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Take a screenshot of an area"
 msgstr "ಒಂದು ಜಾಗದ ತೆರೆಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Binding to take a screenshot of an area."
 msgstr "ಒಂದು ಜಾಗದ ತೆರೆ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Copy a screenshot to clipboard"
 msgstr "ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
 msgid "Binding to copy a screenshot to clipboard."
 msgstr "ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡುವ ಬದ್ಧತೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot of a window to clipboard."
 msgstr "ಕಿಟಕಿಯ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡುವ ಬದ್ಧತೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "ಒಂದು ಜಾಗದ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of an area to clipboard."
 msgstr "ಒಂದು ಜಾಗದ ತೆರೆಚಿತ್ರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡಿಗೆ ಪ್ರತಿ ಮಾಡುವ ಬದ್ಧತೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
 msgstr "ಜಾಲ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Binding to launch the web browser."
 msgstr "ಜಾಲ ವೀಕ್ಷಕವನ್ನು ಆರಂಭಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle magnifier"
 msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಟಾಗಲ್ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Binding to show the screen magnifier"
 msgstr "ತೆರೆಯ ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ತೋರಿಸಲು ಬದ್ಧವಾಗಿದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Toggle screen reader"
 msgstr "ತೆರೆ ಓದುಗನನ್ನು ಟಾಗಲ್ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Binding to start the screen reader"
 msgstr "ತೆರೆಯ ಓದುಗನನ್ನು ತೋರಿಸಲು ಬದ್ಧವಾಗಿದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Toggle on-screen keyboard"
 msgstr "ತೆರೆಯ ಮೇಲಣ ಕೀಲಿ ಮಣೆಯನ್ನು ಟಾಗಲ್ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
 msgid "Binding to show the on-screen keyboard"
 msgstr "ತೆರೆಯ-ಮೇಲಣ ಕೀಲಿಮಣೆಯನ್ನು ತೋರಿಸಲು ಬದ್ಧವಾಗಿದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
 msgid "Increase text size"
 msgstr "ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ಹೆಚ್ಚಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
 msgid "Binding to increase the text size"
 msgstr "ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
 msgid "Decrease text size"
 msgstr "ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ಕುಗ್ಗಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
 msgid "Binding to decrease the text size"
 msgstr "ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
 msgid "Toggle contrast"
 msgstr "ಕಾಂಟ್ರಾಸ್ಟನ್ನು ಹೊರಳಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
 msgid "Binding to toggle the interface contrast"
 msgstr "ಸಂಪರ್ಕಸಾಧನದ ವೈದೃಶ್ಯವನ್ನು ಹೊರಳಿಸಲು ಬದ್ಧವಾಗಿದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
 msgid "Magnifier zoom in"
 msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಗಾತ್ರ ಹೆಚ್ಚಿಸುವಿಕೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
 msgid "Binding for the magnifier to zoom in"
 msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಗಾತ್ರ ಹೆಚ್ಚಿಸಲು ಬದ್ಧವಾಗಿದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
 msgid "Magnifier zoom out"
 msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಗಾತ್ರ ಕುಗ್ಗಿಸುವಿಕೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
 msgid "Binding for the magnifier to zoom out"
 msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಗಾತ್ರ ಕುಗ್ಗಿಸಲು ಬದ್ಧವಾಗಿದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
 msgid "Switch input source"
 msgstr "ಇನ್‌ಪುಟ್ ಆಕರವನ್ನು ಬದಲಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
 msgid "Binding to select the next input source"
 msgstr "ಮುಂದಿನ ಇನ್‌ಪುಟ್‌ ಆಕರವನ್ನು ಆರಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
 msgid "Switch input source backward"
 msgstr "ಇನ್‌ಪುಟ್ ಆಕರವನ್ನು ಹಿಂದಕ್ಕೆ ಮರಳಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
 msgid "Binding to select the previous input source"
 msgstr "ಹಿಂದಿನ ಇನ್‌ಪುಟ್‌ ಆಕರವನ್ನು ಆರಿಸಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
 msgid "Name"
 msgstr "ಹೆಸರು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
 msgid "Name of the custom binding"
 msgstr "ಅಗತ್ಯಾನುಗುಣ ಬದ್ಧತೆಯ ಹೆಸರು"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
 msgid "Binding"
 msgstr "ಬದ್ಧತೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
 msgid "Binding for the custom binding"
 msgstr "ಮ್ಯಾಗ್ನಿಫೈಯರ್ ಅನ್ನು ಹೊರಳಿಸಲು ಮಾಡಲು ಬದ್ಧವಾಗಿದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
 msgid "Command"
 msgstr "ಆಜ್ಞೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
 msgid "Command to run when the binding is invoked"
 msgstr "ಬದ್ಧತೆಯನ್ನು ರದ್ದುಗೊಳಿಸಿದಾಗ ಚಲಾಯಿಸಬೇಕಿರುವ ಆಜ್ಞೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:5
 msgid "Percentage considered low"
 msgstr "ಕಡಿಮೆ ಪರಿಗಣಿಸಲಾಗುವ ಪ್ರತಿಶತ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:6
 msgid ""
 "The percentage of the battery when it is considered low. Only valid when use-"
 "time-for-policy is false."
@@ -770,11 +770,11 @@ msgstr ""
 "ಬ್ಯಾಟರಿಯು ಯಾವ ಪ್ರತಿಶತದಲ್ಲಿದ್ದಾಗ ಅದನ್ನು ಕೆಳಮಟ್ಟದಲ್ಲಿದೆ ಎಂದು ಪರಿಗಣಿಸಬೇಕು. "
 "ಪಾಲಿಸಿಗಾಗಿನ ಬಳಕೆಯ ಸಮಯವು false ಆಗಿದ್ದಲ್ಲಿ ಮಾತ್ರ ಇದು ಮಾನ್ಯವಾಗಿರುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:7
 msgid "Percentage considered critical"
 msgstr "ಗಂಭೀರ ಪರಿಗಣಿಸಲಾಗುವ ಪ್ರತಿಶತ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 msgid ""
 "The percentage of the battery when it is considered critical. Only valid "
 "when use-time-for-policy is false."
@@ -782,11 +782,11 @@ msgstr ""
 "ಬ್ಯಾಟರಿಯು ಯಾವ ಪ್ರತಿಶತದಲ್ಲಿದ್ದಾಗ ಅದನ್ನು ಗಂಭೀರ ಮಟ್ಟದಲ್ಲಿದೆ ಎಂದು ಪರಿಗಣಿಸಬೇಕು. "
 "ಪಾಲಿಸಿಗಾಗಿನ ಬಳಕೆಯ ಸಮಯವು false ಆಗಿದ್ದಲ್ಲಿ ಮಾತ್ರ ಇದು ಮಾನ್ಯವಾಗಿರುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:9
 msgid "Percentage action is taken"
 msgstr "ಪ್ರತಿಶತದ ಕ್ರಿಯೆಯನ್ನು ತೆಗೆದುಕೊಳ್ಳಲಾಗಿದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:10
 msgid ""
 "The percentage of the battery when the critical action is performed. Only "
 "valid when use-time-for-policy is false."
@@ -794,11 +794,11 @@ msgstr ""
 "ಗಂಭೀರಮಟ್ಟದ ಕ್ರಿಯೆಯನ್ನು ನಿರ್ವಹಿಸಿದಾಗ ಬ್ಯಾಟರಿಯ ಪ್ರತಿಶತ. ಪಾಲಿಸಿಗಾಗಿನ ಬಳಕೆಯ ಸಮಯವು "
 "false ಆಗಿದ್ದಲ್ಲಿ ಮಾತ್ರ ಇದು ಮಾನ್ಯವಾಗಿರುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:11
 msgid "The time remaining when low"
 msgstr "ಕಡಿಮೆ ಇದ್ದಾಗ ಬಾಕಿ ಇರುವ ಸಮಯ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:12
 msgid ""
 "The time remaining in seconds of the battery when it is considered low. Only "
 "valid when use-time-for-policy is true."
@@ -806,11 +806,11 @@ msgstr ""
 "ಬ್ಯಾಟರಿಯನ್ನು ಕೆಳಮಟ್ಟದಲ್ಲಿದೆ ಎಂದು ಪರಿಗಣಿಸಿದಾಗ ಅದರ ಉಳಿದಿರುವ ಸಮಯ ಸೆಕೆಂಡುಗಳಲ್ಲಿ. "
 "ಪಾಲಿಸಿಗಾಗಿನ ಬಳಕೆಯ ಸಮಯವು false ಆಗಿದ್ದಲ್ಲಿ ಮಾತ್ರ ಇದು ಮಾನ್ಯವಾಗಿರುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:13
 msgid "The time remaining when critical"
 msgstr "ಗಂಭೀರ ಸ್ಥಿತಿಯಲ್ಲಿದ್ದಾಗ ಬಾಕಿ ಇರುವ ಸಮಯ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:14
 msgid ""
 "The time remaining in seconds of the battery when it is considered critical. "
 "Only valid when use-time-for-policy is true."
@@ -819,11 +819,11 @@ msgstr ""
 "ಸೆಕೆಂಡುಗಳಲ್ಲಿ. ಪಾಲಿಸಿಗಾಗಿನ ಬಳಕೆಯ ಸಮಯವು false ಆಗಿದ್ದಲ್ಲಿ ಮಾತ್ರ ಇದು "
 "ಮಾನ್ಯವಾಗಿರುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:15
 msgid "The time remaining when action is taken"
 msgstr "ಕ್ರಿಯೆಯು ನಡೆದಾಗ ಬಾಕಿ ಇರುವ ಸಮಯ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:16
 msgid ""
 "The time remaining in seconds of the battery when critical action is taken. "
 "Only valid when use-time-for-policy is true."
@@ -831,11 +831,11 @@ msgstr ""
 "ಗಂಭೀರ ಕ್ರಿಯೆಯನ್ನು ನಡೆಸಿದಾಗ ಬ್ಯಾಟರಿಯ ಉಳಿದಿರುವ ಸಮಯ ಸೆಕೆಂಡುಗಳಲ್ಲಿ. ಪಾಲಿಸಿಗಾಗಿನ "
 "ಬಳಕೆಯ ಸಮಯವು false ಆಗಿದ್ದಲ್ಲಿ ಮಾತ್ರ ಇದು ಮಾನ್ಯವಾಗಿರುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:17
 msgid "Whether to use time-based notifications"
 msgstr "ಸಮಯ-ಆಧರಿತವಾದ ಸೂಚನೆಗಳನ್ನು ಬಳಸಬೇಕೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:18
 msgid ""
 "If time based notifications should be used. If set to false, then the "
 "percentage change is used instead, which may fix a broken ACPI BIOS."
@@ -843,13 +843,13 @@ msgstr ""
 "ಸಮಯ ಆಧರಿತವಾದ ಸೂಚನೆಗಳನ್ನು ಬಳಸಬೇಕಿದ್ದಲ್ಲಿ. false ಹೊಂದಿಸಿದಲ್ಲಿ, ಬದಲಾವಣೆಯ "
 "ಪ್ರತಿಶತವನ್ನು ಬಳಸಲಾಗುತ್ತದೆ, ಇದು ತಪ್ಪು ACPI BIOS ಅನ್ನು ಸರಿಪಡಿಸಬಹುದು."
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 msgid "If we should show the recalled battery warning for a broken battery"
 msgstr ""
 "ಒಂದು ಹಾಳಾದ ಬ್ಯಾಟರಿಗಾಗಿ ಹಿಂದಕ್ಕೆ ಪಡೆಯಲಾಗಿದೆ ಎನ್ನುವ ಎಚ್ಚರಿಕೆಯನ್ನು ನಾವು "
 "ತೋರಿಸಬೇಕಿದ್ದಲ್ಲಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid ""
 "If we should show the recalled battery warning for a broken battery. Set "
 "this to false only if you know your battery is okay."
@@ -858,23 +858,23 @@ msgstr ""
 "ತೋರಿಸಬೇಕಿದ್ದಲ್ಲಿ. ನಿಮ್ಮ ಬ್ಯಾಟರಿ ಸರಿ ಇದೆ ಎಂದು ನಿಮಗೆ ಗೊತ್ತಿದ್ದಲ್ಲಿ ಇದನ್ನು false "
 "ಗೆ ಹೊಂದಿಸಿ."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid "Use mobile broadband connections"
 msgstr "ಮೊಬೈಲ್ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್ ಸಂಪರ್ಕಗಳನ್ನು ಬಳಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid ""
 "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 "ಅಪ್‌ಡೇಟ್‌ಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸಲು GSM ಮತ್ತು CDMA ಯಂತಹ ಮೊಬೈಲ್ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್ "
 "ಸಂಪರ್ಕಗಳನ್ನು ಬಳಸು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically download updates in the background without confirmation"
 msgstr ""
 "ಖಚಿತ ಪಡಿಸಲು ಕೇಳದೇ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಹಿನ್ನಲೆಯಲ್ಲಿ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
@@ -885,11 +885,11 @@ msgstr ""
 "(connection-use-mobile) ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿದಲ್ಲಿ ಮೊಬೈಲ್‌ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್‌ "
 "ಮುಖಾಂತರ ಅಪ್‌ಡೇಟ್‌ಗಳು ಸ್ವಯಂ-ಚಾಲಿತವಾಗಿ ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತದೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
 msgstr "ಅಪ್‌ಡೇಟ್‌ಗಳಿಗಾಗಿ ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ಪರೀಕ್ಷಿಸಬೇಕು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
@@ -899,13 +899,13 @@ msgstr ""
 "ಅಪ್‌ಡೇಟ್ ಅನ್ನು ಪ್ರಕಟಿಸುವ, ಮತ್ತು ಅಪ್‌ಡೇಟ್‌ಗ ಅನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಅನುಸ್ಥಾಪಿಸುವ "
 "ಅಥವ ಬಳಕೆದಾರರಿಗೆ ಸೂಚಿಸುವ ನಡುವೆ ಜರುಗಬೇಕಿರುವ ಗರಿಷ್ಟ ಸಮಯದ ಪ್ರಮಾಣ."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 "ಗಂಭೀರವಲ್ಲದ ಅಪ್‌ಡೇಟ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ ಎಂದು ಬಳಕೆದಾರರಿಗೆ ಎಷ್ಟು ಬಾರಿ ಪದೇ ಪದೇ "
 "ಸೂಚಿಸಬೇಕು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -917,11 +917,11 @@ msgstr ""
 "ಪರಿಶೀಲಿಸಿದ ನಂತರ ನೀಡಬೇಕು, ಆದರೆ ಗಂಭೀರವಲ್ಲದ ಅಪ್‌ಡೇಟ್‌ ಅನ್ನು ಪದೇ ಪದೇ "
 "ಸೂಚಿಸಲಾಗುವುದಿಲ್ಲ."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "The last time we told the user about non-critical notifications"
 msgstr "ಗಂಭೀರವಲ್ಲದ ಸೂಚನೆಗಳನ್ನು ನಾವು ಬಳಕೆದಾರರಿಗೆ ಕಡೆಯ ಬಾರಿಗೆ ನೀಡಿದ್ದು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
@@ -930,53 +930,53 @@ msgstr ""
 "ನೀಡಿದ್ದು. ಮೌಲ್ಯವು ಯುಗದ ಆರಂಭದ ನಂತರದಿಂದ ಸೆಕೆಂಡುಗಳಲ್ಲಿರುತ್ತದೆ, ಅಥವ ಎಂದೂ ನೀಡರದೇ "
 "ಇದ್ದಲ್ಲಿ ಸೊನ್ನೆಯಾಗಿರುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades"
 msgstr "ವಿತರಣೆಯ ನವೀಕರಣಗಳಿಗಾಗಿ ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ಪರೀಕ್ಷಿಸಬೇಕು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr "ವಿತರಣೆಯ ನವೀಕರಣಗಳಿಗಾಗಿ ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ಪರೀಕ್ಷಿಸಬೇಕು. ಸೆಕೆಂಡುಗಳಲ್ಲಿ."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid "How often to refresh the package cache"
 msgstr "ಪ್ಯಾಕೇಜ್ ಕ್ಯಾಶೆಯನ್ನು ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ತಾಜಾಗೊಳಿಸಬೇಕು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr "ಪ್ಯಾಕೇಜ್ ಕ್ಯಾಶೆಯನ್ನು ಎಷ್ಟು ಸಮಯಕ್ಕೊಮ್ಮೆ ತಾಜಾಗೊಳಿಸಬೇಕು. ಸೆಕೆಂಡುಗಳಲ್ಲಿ."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "Check for updates when running on battery power"
 msgstr "ಬ್ಯಾಟರಿ ವಿದ್ಯುಚ್ಛಕ್ತಿಯಲ್ಲಿ ಚಲಾಯಿತಗೊಳ್ಳುವಾಗ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "Check for updates when running on battery power."
 msgstr "ಬ್ಯಾಟರಿ ವಿದ್ಯುಚ್ಛಕ್ತಿಯಲ್ಲಿ ಚಲಾಯಿತಗೊಳ್ಳುವಾಗ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid "Notify the user when distribution upgrades are available"
 msgstr "ವಿತರಣೆಯ ನವೀಕರಣವು ಲಭ್ಯವಿದ್ದಾಗ ಬಳಕೆದಾರರಿಗೆ ಸೂಚಿಸು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Notify the user when distribution upgrades are available."
 msgstr "ವಿತರಣೆಯ ನವೀಕರಣವು ಲಭ್ಯವಿದ್ದಾಗ ಬಳಕೆದಾರರಿಗೆ ಸೂಚಿಸು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Ask the user if additional firmware should be installed"
 msgstr "ಹೆಚ್ಚುವರಿ ಫರ್ಮವೇರುಗಳನ್ನು ಅನುಸ್ಥಾಪಿಬೇಕಿದ್ದರೆ ಬಳಕೆದಾರನನ್ನು ಕೇಳು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid ""
 "Ask the user if additional firmware should be installed if it is available."
 msgstr ""
 "ಲಭ್ಯವಿದ್ದಲ್ಲಿ ಹೆಚ್ಚುವರಿ ಫರ್ಮವೇರುಗಳನ್ನು ಅನುಸ್ಥಾಪಿಬೇಕಿದ್ದರೆ ಬಳಕೆದಾರನನ್ನು ಕೇಳು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Firmware files that should not be searched for"
 msgstr "ಹುಡುಕಬಾರದೆ ಇರುವ ಫರ್ಮವೇರ್ ಕಡತಗಳು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
@@ -984,11 +984,11 @@ msgstr ""
 "ಹುಡುಕಬಾರದೆ ಇರುವ ಫರ್ಮವೇರ್ ಕಡತಗಳು. ವಿರಾಮ ಚಿಹ್ನೆಗಳಿಂದ ಪ್ರತ್ಯೇಕಿಸಬೇಕು. ಇವು '*' "
 "ಮತ್ತು \"?\" ಚಿಹ್ನೆಗಳನ್ನು ಹೊಂದಿರಬಹುದು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid "Devices that should be ignored"
 msgstr "ಕಡೆಗಣಿಸಬೇಕಿರುವ ಸಾಧನಗಳು"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
@@ -996,12 +996,12 @@ msgstr ""
 "ಕಡೆಗಣಿಸಬೇಕಿರುವ ಸಾಧನಗಳು. ವಿರಾಮ ಚಿಹ್ನೆಗಳಿಂದ ಪ್ರತ್ಯೇಕಿಸಬೇಕು. ಇವು '*' ಮತ್ತು \"?\" "
 "ಚಿಹ್ನೆಗಳನ್ನು ಹೊಂದಿರಬಹುದು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 "ಒಂದು ತಂತ್ರಾಂಶ ಮೂಲವೆಂದು ಪರಿಗಣಿಸುವ ತೆಗೆದುಹಾಕಬಹುದಾದ ಮಾಧ್ಯಮದಲ್ಲಿನ ಕಡತಗ ಹೆಸರುಗಳು."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -1013,11 +1013,11 @@ msgstr ""
 "ಒಂದು ಅಪ್‌ಡೇಟ್ ಪರಿಶೀಲನೆಯನ್ನು ನಡೆಸಲಾಗುತ್ತದೆ. ಇದು ಚಾಲನೆಯಲ್ಲಿರುವ ವ್ಯವಸ್ಥೆಗಳನ್ನು "
 "ಅಪ್‌ಡೇಟ್ ಮಾಡಲು ಅನುಸ್ಥಾಪನಾ-ನಂತರದ ಡಿಸ್ಕುಗಳನ್ನು ಅನುಮತಿಸುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr "RandR ಗಾಗಿನ ಪೂರ್ವನಿಯೋಜಿತ ಸಂರಚನೆಯ ಕಡತ"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -1031,11 +1031,11 @@ msgstr ""
 "ಸಿದ್ಧತೆಗೆ ಹೊಂದಿಕೆಯಾಗದೆ ಇದ್ದಲ್ಲಿ, ಈ ಕಡತದಿಂದ ಸೂಚಿಸಲಾದ ಕಡತವನ್ನು ಬದಲಿಯಾಗಿ "
 "ಬಳಸಲಾಗುತ್ತದೆ."
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
 msgid "Whether to turn off specific monitors after boot"
 msgstr "ಬೂಟ್‌ನ ನಂತರ ನಿಶ್ಚಿತ ಪರದೆಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬೇಕೆ"
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
@@ -1046,11 +1046,11 @@ msgstr ""
 "'ಎನನ್ನೂ-ಮಾಡಬೇಡ' (ಡು-ನತಿಂಗ್) ಎನ್ನುವುದು ಪೂರ್ವನಿಯೋಜಿತ Xorg ವರ್ತನೆಯನ್ನು ಬಳಸುತ್ತದೆ "
 "(ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಗಳಲ್ಲಿ ಡೆಸ್ಕ್‍ಟಾಪ್ ಅನ್ನು ವಿಸ್ತರಿಸುತ್ತದೆ)"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
 msgid "Antialiasing"
 msgstr "ಆಂಟಿಅಲಿಯಾಸಿಂಗ್"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -1063,11 +1063,11 @@ msgstr ""
 "\"rgba"
 "\" (ಕೇವಲ LCD ತೆರೆಗಳಿಗೆ ಮಾತ್ರ)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "ಹಿಂಟಿಂಗ್"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -1079,11 +1079,11 @@ msgstr ""
 "ಮಟ್ಟಕ್ಕಾಗಿ \"ಮಧ್ಯಮ\", ಹಾಗು ಗರಿಷ್ಟ ಹಿಂಟಿಂಗ್‌ಗಾಗಿ \"ಸಂಪೂರ್ಣ\" (ಇದು ಅಕ್ಷರಗಳನ್ನು "
 "ವಿರೂಪಗೊಳಿಸಬಹುದು)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "RGBA order"
 msgstr "RGBA ಕ್ರಮ"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -1097,11 +1097,11 @@ msgstr ""
 "ಸಾಮಾನ್ಯ), ಎಡಭಾಗದಲ್ಲಿ ನೀಲಿಗಾಗಿ \"bgr\", ಮೇಲ್ಭಾಗದಲ್ಲಿ ಕೆಂಪಿಗಾಗಿ \"vrgb\", "
 "ಅಡಿಭಾಗದಲ್ಲಿ ಕೆಂಪಿಗಾಗಿ \"vbgr\"."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid "List of explicitly disabled GTK+ modules"
 msgstr "ಸ್ಪಷ್ಟವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾದ GTK+ ಮಾಡ್ಯೂಲ್‌ಗಳ ಪಟ್ಟಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
@@ -1109,11 +1109,11 @@ msgstr ""
 "GTK+ ಮಾಡ್ಯೂಲ್‌ಗಳನ್ನು ಪ್ರತಿನಿಧಿಸುವ ವಾಕ್ಯಾಂಶಗಳನ್ನು ಸಂರಚನೆಯಲ್ಲಿ ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ "
 "ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದ್ದರೂ ಸಹ ಲೋಡ್ ಮಾಡಬಾರದಿರುವ ಅವುಗಳ ಪಟ್ಟಿ."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid "List of explicitly enabled GTK+ modules"
 msgstr "ಸ್ಪಷ್ಟವಾಗಿ ಸಕ್ರಿಯಗೊಳಿಸಲಾದ GTK+ ಮಾಡ್ಯೂಲ್‌ಗಳ ಪಟ್ಟಿ"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
@@ -2537,11 +2537,11 @@ msgstr "ವಿದ್ಯುಚ್ಛಕ್ತಿ ವ್ಯವಸ್ಥಾಪಕ"
 #. - A normal active user on the local machine does not need permission
 #. to change the backlight brightness.
 #.
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:5
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:5
 msgid "Modify the laptop brightness"
 msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್‌ನ ಪ್ರಕಾಶತೆಯನ್ನು ಮಾರ್ಪಡಿಸು"
 
-#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+#: ../plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in.h:6
 msgid "Authentication is required to modify the laptop brightness"
 msgstr "ಲ್ಯಾಪ್‌ಟಾಪ್‌ನ ಪ್ರಕಾಶತೆಯನ್ನು ಹೆಚ್ಚಿಸಲು ದೃಢೀಕರಣದ ಅಗತ್ಯವಿದೆ"
 
@@ -3111,11 +3111,11 @@ msgstr "ಕೆಳಗಿನ ಗುಂಡಿ #%d"
 #. - A normal active user on the local machine does not need permission
 #. to change the LED setting for a Wacom tablet
 #.
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+#: ../plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in.h:5
 msgid "Modify the lit LED for a Wacom tablet"
 msgstr "ಒಂದು ವೇಕಾಮ್ ಟ್ಯಾಬ್ಲೆಟ್‌ಗಾಗಿ LED ಯನ್ನು ಮಾರ್ಪಡಿಸಿ"
 
-#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+#: ../plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in.h:6
 msgid "Authentication is required to modify the lit LED for a Wacom tablet"
 msgstr "ಒಂದು ವೇಕಾಮ್ ಟ್ಯಾಬ್ಲೆಟ್‌ಗಾಗಿ LED ಯನ್ನು ಮಾರ್ಪಡಿಸಲು ದೃಢೀಕರಣದ ಅಗತ್ಯವಿದೆ"
 

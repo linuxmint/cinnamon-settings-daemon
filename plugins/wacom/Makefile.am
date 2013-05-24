@@ -32,12 +32,12 @@ libcsdwacom_la_LIBADD  =						\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(WACOM_LIBS)
 
-org.gnome.settings-daemon.plugins.wacom.policy.in: org.gnome.settings-daemon.plugins.wacom.policy.in.in Makefile
+org.cinnamon.settings-daemon.plugins.wacom.policy.in: org.cinnamon.settings-daemon.plugins.wacom.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 @INTLTOOL_POLICY_RULE@
 polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
+polkit_policy_in_files = org.cinnamon.settings-daemon.plugins.wacom.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
@@ -58,7 +58,7 @@ else
 libexec_PROGRAMS =
 endif
 
-EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
+EXTRA_DIST += org.cinnamon.settings-daemon.plugins.wacom.policy.in.in
 
 libexec_PROGRAMS += csd-test-wacom csd-list-wacom
 
@@ -130,7 +130,7 @@ plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-
 EXTRA_DIST += $(plugin_in_files) README.config-storage
 CLEANFILES =						\
 	$(plugin_DATA)					\
-	org.gnome.settings-daemon.plugins.wacom.policy	\
-	org.gnome.settings-daemon.plugins.wacom.policy.in
+	org.cinnamon.settings-daemon.plugins.wacom.policy	\
+	org.cinnamon.settings-daemon.plugins.wacom.policy.in
 
 @CSD_INTLTOOL_PLUGIN_RULE@

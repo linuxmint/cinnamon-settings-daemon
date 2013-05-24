@@ -1379,7 +1379,7 @@ csd_updates_manager_start (CsdUpdatesManager *manager,
                           G_CALLBACK (settings_changed_cb), manager);
 
         /* get ftp settings */
-        manager->priv->settings_csd = g_settings_new ("org.gnome.settings-daemon.plugins.updates");
+        manager->priv->settings_csd = g_settings_new ("org.cinnamon.settings-daemon.plugins.updates");
         g_signal_connect (manager->priv->settings_csd, "changed",
                           G_CALLBACK (settings_csd_changed_cb), manager);
 

@@ -54,8 +54,8 @@
 
 #define CSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_MOUSE_MANAGER, CsdMouseManagerPrivate))
 
-#define SETTINGS_MOUSE_DIR         "org.gnome.settings-daemon.peripherals.mouse"
-#define SETTINGS_TOUCHPAD_DIR      "org.gnome.settings-daemon.peripherals.touchpad"
+#define SETTINGS_MOUSE_DIR         "org.cinnamon.settings-daemon.peripherals.mouse"
+#define SETTINGS_TOUCHPAD_DIR      "org.cinnamon.settings-daemon.peripherals.touchpad"
 
 /* Keys for both touchpad and mouse */
 #define KEY_LEFT_HANDED         "left-handed"                /* a boolean for mouse, an enum for touchpad */

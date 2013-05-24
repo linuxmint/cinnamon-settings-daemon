@@ -13,7 +13,7 @@
   <vendor_url>http://git.gnome.org/browse/cinnamon-settings-daemon</vendor_url>
   <icon_name>battery</icon_name>
 
-  <action id="org.gnome.settings-daemon.plugins.power.backlight-helper">
+  <action id="org.cinnamon.settings-daemon.plugins.power.backlight-helper">
     <!-- SECURITY:
           - A normal active user on the local machine does not need permission
             to change the backlight brightness.

@@ -57,7 +57,7 @@
 #define UPOWER_DBUS_INTERFACE                   "org.freedesktop.UPower"
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
-#define CSD_POWER_SETTINGS_SCHEMA               "org.gnome.settings-daemon.plugins.power"
+#define CSD_POWER_SETTINGS_SCHEMA               "org.cinnamon.settings-daemon.plugins.power"
 
 #define CSD_DBUS_SERVICE                        "org.gnome.SettingsDaemon"
 #define CSD_DBUS_PATH                           "/org/gnome/SettingsDaemon"

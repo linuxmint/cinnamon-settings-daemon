@@ -53,7 +53,7 @@
 #  define HOST_NAME_MAX 255
 #endif
 
-#define CSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
+#define CSD_KEYBOARD_DIR "org.cinnamon.settings-daemon.peripherals.keyboard"
 
 #define KEY_REPEAT         "repeat"
 #define KEY_CLICK          "click"

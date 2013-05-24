@@ -24,7 +24,7 @@
 
 #include "csd-ldsm-dialog.h"
 
-#define SETTINGS_HOUSEKEEPING_DIR     "org.gnome.settings-daemon.plugins.housekeeping"
+#define SETTINGS_HOUSEKEEPING_DIR     "org.cinnamon.settings-daemon.plugins.housekeeping"
 
 enum
 {

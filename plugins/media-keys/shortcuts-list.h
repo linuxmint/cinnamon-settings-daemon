@@ -23,7 +23,7 @@
 
 #include "csd-keygrab.h"
 
-#define SETTINGS_BINDING_DIR "org.gnome.settings-daemon.plugins.media-keys"
+#define SETTINGS_BINDING_DIR "org.cinnamon.settings-daemon.plugins.media-keys"
 
 typedef enum {
         TOUCHPAD_KEY,

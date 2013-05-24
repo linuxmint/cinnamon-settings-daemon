@@ -12,7 +12,7 @@
   <vendor_url>http://git.gnome.org/browse/cinnamon-settings-daemon</vendor_url>
   <icon_name>input-tablet</icon_name>
 
-  <action id="org.gnome.settings-daemon.plugins.wacom.wacom-led-helper">
+  <action id="org.cinnamon.settings-daemon.plugins.wacom.wacom-led-helper">
     <!-- SECURITY:
           - A normal active user on the local machine does not need permission
             to change the LED setting for a Wacom tablet

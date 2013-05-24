@@ -1,19 +1,19 @@
 # Files with translatable strings.
 # Please keep this file in alphabetical order.
 data/cinnamon-settings-daemon.desktop.in.in
-data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in
-data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in
-data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in
+data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in
 cinnamon-settings-daemon/main.c
 [type: gettext/ini]plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in
 plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
@@ -39,7 +39,7 @@ plugins/mouse/gsd-mouse-manager.c
 [type: gettext/ini]plugins/mouse/mouse.cinnamon-settings-plugin.in
 plugins/power/gpm-common.c
 plugins/power/gsd-power-manager.c
-plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in
+plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in
 [type: gettext/ini]plugins/power/power.cinnamon-settings-plugin.in
 plugins/print-notifications/gsd-printer.c
 plugins/print-notifications/gsd-print-notifications-manager.c
@@ -49,7 +49,7 @@ plugins/smartcard/gsd-smartcard-manager.c
 plugins/updates/gsd-updates-firmware.c
 plugins/updates/gsd-updates-manager.c
 plugins/wacom/gsd-wacom-device.c
-plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in
+plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in
 plugins/xrandr/gsd-xrandr-manager.c
 [type: gettext/ini]plugins/xrandr/xrandr.cinnamon-settings-plugin.in
 plugins/xsettings/gsd-xsettings-manager.c

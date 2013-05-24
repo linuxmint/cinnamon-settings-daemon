@@ -16,7 +16,7 @@
 # ignored from future configuration.
 #
 # Set the script to be used with:
-# gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command /path/to/script/input-devices.sh
+# gsettings set org.cinnamon.settings-daemon.peripherals.input-devices hotplug-command /path/to/script/input-devices.sh
 #
 
 args=`getopt "t:i:" $*`

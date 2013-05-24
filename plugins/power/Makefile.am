@@ -45,12 +45,12 @@ plugin_in_files = 					\
 
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
-org.gnome.settings-daemon.plugins.power.policy.in: org.gnome.settings-daemon.plugins.power.policy.in.in Makefile
+org.cinnamon.settings-daemon.plugins.power.policy.in: org.cinnamon.settings-daemon.plugins.power.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 @INTLTOOL_POLICY_RULE@
 polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.gnome.settings-daemon.plugins.power.policy.in
+polkit_policy_in_files = org.cinnamon.settings-daemon.plugins.power.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
@@ -94,7 +94,7 @@ csd_backlight_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)
 
 EXTRA_DIST += 						\
-	org.gnome.settings-daemon.plugins.power.policy.in.in
+	org.cinnamon.settings-daemon.plugins.power.policy.in.in
 endif
 
 clean-local:
@@ -102,7 +102,7 @@ clean-local:
 
 CLEANFILES = 						\
 	$(plugin_DATA)					\
-	org.gnome.settings-daemon.plugins.power.policy	\
-	org.gnome.settings-daemon.plugins.power.policy.in
+	org.cinnamon.settings-daemon.plugins.power.policy	\
+	org.cinnamon.settings-daemon.plugins.power.policy.in
 
 @CSD_INTLTOOL_PLUGIN_RULE@

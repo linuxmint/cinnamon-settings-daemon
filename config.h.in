@@ -9,6 +9,9 @@
 /* Name of default gettext domain */
 #undef GETTEXT_PACKAGE
 
+/* Have AppIndicator */
+#undef HAVE_APPINDICATOR
+
 /* Define to 1 if you have the `bind_textdomain_codeset' function. */
 #undef HAVE_BIND_TEXTDOMAIN_CODESET
 
@@ -32,9 +35,6 @@
 
 /* define if GUdev is available */
 #undef HAVE_GUDEV
-
-/* Defined if IBus support is enabled */
-#undef HAVE_IBUS
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H

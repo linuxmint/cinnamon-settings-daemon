@@ -67,7 +67,7 @@ struct CsdOrientationManagerPrivate
         gboolean orientation_lock;
 };
 
-#define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.touchscreen"
+#define CONF_SCHEMA "org.cinnamon.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
 
 #define CSD_DBUS_PATH "/org/gnome/SettingsDaemon"

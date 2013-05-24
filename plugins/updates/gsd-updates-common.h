@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 #define CSD_SETTINGS_LAST_UPDATES_NOTIFICATION          "last-updates-notification"
 #define CSD_SETTINGS_MEDIA_REPO_FILENAMES               "media-repo-filenames"
 #define CSD_SETTINGS_NOTIFY_DISTRO_UPGRADES             "notify-distro-upgrades"
-#define CSD_SETTINGS_SCHEMA                             "org.gnome.settings-daemon.plugins.updates"
+#define CSD_SETTINGS_SCHEMA                             "org.cinnamon.settings-daemon.plugins.updates"
 #define CSD_SETTINGS_UPDATE_BATTERY                     "update-battery"
 #define CSD_SETTINGS_AUTO_DOWNLOAD_UPDATES              "auto-download-updates"
 

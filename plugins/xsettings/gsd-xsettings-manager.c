@@ -47,11 +47,11 @@
 
 #define CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerPrivate))
 
-#define MOUSE_SETTINGS_SCHEMA     "org.gnome.settings-daemon.peripherals.mouse"
+#define MOUSE_SETTINGS_SCHEMA     "org.cinnamon.settings-daemon.peripherals.mouse"
 #define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
 #define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
 
-#define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
+#define XSETTINGS_PLUGIN_SCHEMA "org.cinnamon.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
 
 #define GTK_MODULES_DISABLED_KEY "disabled-gtk-modules"
@@ -333,8 +333,8 @@ translate_string_string_toolbar (CinnamonSettingsXSettingsManager *manager,
 }
 
 static TranslationEntry translations [] = {
-        { "org.gnome.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
-        { "org.gnome.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
+        { "org.cinnamon.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
+        { "org.cinnamon.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
 
         { "org.gnome.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
         { "org.gnome.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },

@@ -27,68 +27,68 @@ msgstr ""
 msgid "Cinnamon Settings Daemon"
 msgstr "ഗ്നോമിലെ സജ്ജീകരണങ്ങളുടെ നിരന്തരപ്രവൃത്തി"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Command to be run when a device is added or removed."
 msgstr "ഒരു ഡിവൈസ് ചേര്‍ക്കുമ്പോള്‍ അല്ലെങ്കില്‍ നീക്കം ചെയ്യുമ്പോള്‍ പ്രവര്‍ത്തിയ്ക്കേണ്ട കമാന്‍ഡ്."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid "Device hotplug custom command"
 msgstr "Device hotplug custom command"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:3
 msgid "Disable touchpad while typing"
 msgstr "ടൈപ്പ് ചെയ്യുമ്പോള്‍ ടച്ച്പാഡ് പ്രവര്‍ത്തന രഹിതമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:4
 msgid "Distance before a drag is started."
 msgstr "വലിച്ചിടുന്നതിനു് മുമ്പുള്ള ദൂരം."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Double click time"
 msgstr "ഡബിള്‍ ക്ലിക്കിനുള്ള സമയം"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:6
 msgid "Drag threshold"
 msgstr "ത്രെഷ്ഹോള്‍ഡ് വലിച്ചിടുക"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Enable horizontal scrolling"
 msgstr "നേരെയുള്ള സ്ക്രോളിങ് പ്രാവര്‍ത്തികമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid "Enable mouse clicks with touchpad"
 msgstr "ടച്ച്പാഡില്‍ മൌസ് ക്ലിക്കുകള്‍ പ്രവര്‍ത്തന സജ്ജമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:9
 #| msgid "Enable mouse clicks with touchpad"
 msgid "Enable touchpad"
 msgstr "ടച്ച്പാഡ് പ്രവര്‍ത്തന സജ്ജമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:10
 msgid ""
 "Enables middle mouse button emulation through simultaneous left and right "
 "button click."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:11
 msgid ""
 "Highlights the current location of the pointer when the Control key is "
 "pressed and released."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:12
 msgid "Length of a double click in milliseconds."
 msgstr "ഡബിള്‍ ക്ലിക്കിന്റെ വ്യാപ്തി മില്ലിസെക്കന്‍ഡുകളില്‍."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid "Middle button emulation"
 msgstr "മിഡില്‍ ബട്ടണ്‍ എമ്യുലേഷന്‍"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:14
 msgid "Select the touchpad scroll method"
 msgstr "ടച്ച്പാഡ് സ്ക്രോള്‍ മാര്‍ഗ്ഗം തെരഞ്ഞെടുക്കുക"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:15
 #, fuzzy
 #| msgid ""
 #| "Select the touchpad scroll method. Supported values are: 0 - disabled, 1 "
@@ -100,7 +100,7 @@ msgstr ""
 "ടച്ച്പാഡ് സ്ക്രോള്‍ മാര്‍ഗ്ഗം തെരഞ്ഞെടുക്കുക. പിന്തുണയ്ക്കുന്ന മൂല്ല്യങ്ങള്‍: 0 - പ്രവര്‍ത്തന രഹിതം, 1 - "
 "എഡ്ജ് സ്ക്രോളിങ്, 2 - ടു-ഫിംഗര്‍ സ്ക്രോളിങ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:16
 msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
@@ -108,7 +108,7 @@ msgstr ""
 "ടൈപ്പ് ചെയ്യുമ്പോള്‍ അബന്ധത്തില്‍ ടച്ച്പാഡില്‍ ഹിറ്റ് ചെയ്യുന്നതു് പ്രശ്നമുണ്ടാക്കുന്നുണ്ടെങ്കില്‍, ഇതു് TRUE "
 "ആയി സജ്ജമാക്കുക. "
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:17
 msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
@@ -116,11 +116,11 @@ msgstr ""
 "സ്ക്രോള്‍_മാര്‍ഗ്ഗമുള്ള കീയുപയോഗിച്ചു് തെരഞ്ഞെടുത്ത അതേ മാര്‍ഗ്ഗം വഴി നേരെയുള്ള സ്ക്രോളിങ് "
 "അനുവദിക്കുന്നതിനായി ഇതു് TRUE ആയി സജ്ജമാക്കുക. "
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:18
 msgid "Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
 msgstr "ടച്ച്പാഡില്‍ ടാപ്പ് ചെയ്തു മൌസ് ക്ലിക്കുകള്‍ അയയ്ക്കുന്നതിനായി ഇതു് TRUE ആയി സജ്ജമാക്കുക."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:19
 #, fuzzy
 #| msgid ""
 #| "Set this to TRUE to be able to send mouse clicks by tapping on the "
@@ -128,84 +128,84 @@ msgstr "ടച്ച്പാഡില്‍ ടാപ്പ് ചെയ്ത�
 msgid "Set this to TRUE to enable all touchpads."
 msgstr "ടച്ച്പാഡില്‍ ടാപ്പ് ചെയ്തു മൌസ് ക്ലിക്കുകള്‍ അയയ്ക്കുന്നതിനായി ഇതു് TRUE ആയി സജ്ജമാക്കുക."
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:20
 msgid ""
 "Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
 "action will get performed when the smartcard used for log in is removed."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:21
 msgid "Smartcard removal action"
 msgstr "സ്മാര്‍ട്ട്കാര്‍ഡ് നീക്കം ചെയ്യല്‍ പ്രവര്‍ത്തി"
 
 #. g-p-m is not a CSD plugin, yet
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
 msgid "Activation of this plugin"
 msgstr "ഈ പ്ലഗിന്‍ സജീവമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
 msgid "Priority to use for this plugin"
 msgstr "ഈ പ്ലഗിന്‍ ഉപയോഗിയ്ക്കുന്നതിനുള്ള മുന്‍ഗണന"
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
-#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
-#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+#: ../data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
 msgid "Free percentage notify threshold"
 msgstr "Free percentage notify threshold"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
 #, fuzzy
 #| msgid "Free space no notify threshold"
 msgid "Free space notify threshold"
 msgstr "Free space no notify threshold"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
 msgid "Minimum notify period for repeated warnings"
 msgstr "ആവര്‍ത്തിച്ചുള്ള മുന്നറിയിപ്പുകള്‍ക്കുള്ള ഏറ്റവും കുറഞ്ഞ അറിയിപ്പു് സമയം"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
 msgid "Mount paths to ignore"
 msgstr "അവഗണിക്കുവാനുള്ള മൌണ്ട് പാഥുകള്‍"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 #, fuzzy
 #| msgid ""
 #| "Percentage free space threshold for initial warning of low disk space. If "
@@ -217,11 +217,11 @@ msgstr ""
 "Percentage free space threshold for initial warning of low disk space. If "
 "the percentage free space drops below this, a warning will be shown"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
 msgid "Specify a list of mount paths to ignore when they run low on space."
 msgstr "സ്ഥലം കുറവാകുമ്പോള്‍ അവഗണിക്കുവാനുള്ള മൌണ്ട് പാഥുകളുടെ പട്ടിക വ്യക്തമാക്കുക."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
 msgid ""
 "Specify a time in minutes. Subsequent warnings for a volume will not appear "
 "more often than this period."
@@ -229,7 +229,7 @@ msgstr ""
 "സമയം മിനിറ്റുകളില്‍ വ്യക്തമാക്കുക. ഈ സമയത്തിലല്ലാതെ, ഒരു വോള്യത്തിനുള്ള മുന്നറിയിപ്പുകള്‍ "
 "ലഭ്യമാകുന്നതല്ല."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
 #, fuzzy
 #| msgid ""
 #| "Specify an amount in GB. If the amount of free space is more than this, "
@@ -241,7 +241,7 @@ msgstr ""
 "GB-ല്‍ സ്ഥലം വ്യക്തമാക്കുക. ഉപയോഗത്തിലില്ലാത്ത സ്ഥലം ഇതില്‍ കൂടുതലാണെങ്കില്‍, മുന്നറിയിപ്പു് "
 "ലഭിക്കില്ല."
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
 #, fuzzy
 #| msgid ""
 #| "Specify the percentage that the free disk space should reduce by before "
@@ -253,167 +253,167 @@ msgstr ""
 "ഒരു മുന്നറിയിപ്പ് ലഭിക്കുന്നതിനു് മുമ്പു്, ഉപയോഗത്തിലില്ലാത്ത സ്ഥലം എത്ര ശതമാനം കുറയണമെന്നു് "
 "വ്യക്തമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
 #, fuzzy
 #| msgid "Subsequent free percentage notify threshold"
 msgid "Subsequent free space percentage notify threshold"
 msgstr "Subsequent free percentage notify threshold"
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
 msgid "Priority to use for this plugin in cinnamon-settings-daemon startup queue."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:37
 msgid "Whether this plugin would be activated by cinnamon-settings-daemon or not."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
 msgid "Allowed keys"
 msgstr "അനുവദിച്ചിട്ടുള്ള കീകള്‍"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding for the magnifier to zoom in"
 msgstr "മാഗ്നിഫയര്‍ ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding for the magnifier to zoom out"
 msgstr "മാഗ്നിഫയര്‍ ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to decrease the text size"
 msgstr "സിസ്റ്റത്തിലെ ശബ്ദം കൂട്ടാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
 #, fuzzy
 #| msgid "Binding to eject an optical disk."
 msgid "Binding to eject an optical disc."
 msgstr "ഒരു ഓപ്റ്റിക്കല്‍ ഡിസ്ക് പുറത്തേക്ക് എറക്കാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to enable or disable the touchpad."
 msgstr "സിസ്റ്റത്തിലെ ശബ്ദം കൂട്ടാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
 #, fuzzy
 #| msgid "Binding to raise the system volume."
 msgid "Binding to increase the text size"
 msgstr "സിസ്റ്റത്തിലെ ശബ്ദം കൂട്ടാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
 msgid "Binding to launch the calculator."
 msgstr "കാല്‍കുലേറ്റര്‍ തുടങ്ങാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
 msgid "Binding to launch the email client."
 msgstr "ഇ-മെയില്‍ ക്ലയന്റ് തുടങ്ങാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
 msgid "Binding to launch the help browser."
 msgstr "സഹായകബ്രൌസര്‍ തുടങ്ങുവാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
 msgid "Binding to launch the media player."
 msgstr "മാധ്യമ പ്ലേയര്‍ തുടങ്ങാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
 msgid "Binding to launch the search tool."
 msgstr "തിരയല്‍ ഉപകരണം തുടങ്ങാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
 msgid "Binding to launch the web browser."
 msgstr "ബ്രൌസര്‍ തുടങ്ങുവാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
 msgid "Binding to lock the screen."
 msgstr "സ്ക്രീന്‍ പൂട്ടാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
 msgid "Binding to log out."
 msgstr "പുറത്തിറങ്ങാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
 msgid "Binding to lower the system volume."
 msgstr "സിസ്റ്റത്തിലെ ശബ്ദം കുറയ്ക്കാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
 msgid "Binding to mute the system volume."
 msgstr "സിസ്റ്റം നിശബ്ദമാക്കാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
 msgid "Binding to open the Home folder."
 msgstr "'വീട്' അറ തുറക്കാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
 msgid "Binding to pause playback."
 msgstr "പ്ലേബാക്ക് താല്‍കാലികമായി നിര്‍ത്താനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
 msgid "Binding to raise the system volume."
 msgstr "സിസ്റ്റത്തിലെ ശബ്ദം കൂട്ടാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
 #, fuzzy
 #| msgid "Binding to toggle the on-screen keyboard."
 msgid "Binding to show the on-screen keyboard"
 msgstr "ഓണ്‍ സ്ക്രീന്‍ കീബോര്‍ഡ് ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding to show the screen magnifier"
 msgstr "മാഗ്നിഫയര്‍ ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
 msgid "Binding to skip to next track."
 msgstr "അടുത്ത ട്രാക്കിലേയ്ക്കു് പോകുവാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
 msgid "Binding to skip to previous track."
 msgstr "മുമ്പുളളതിലേയ്ക്കു് പോകുവാനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
 msgid "Binding to start playback (or toggle play/pause)."
 msgstr "പ്ലേബാക്ക് തുടങ്ങാനുള്ള ബന്ധം (അല്ലെങ്കില്‍ തുടങ്ങുക/താല്‍കാലികമായി നിര്‍ത്തുക തമ്മില്‍ മാറാനുള്ളത്)"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
 #, fuzzy
 #| msgid "Binding to toggle the screen reader."
 msgid "Binding to start the screen reader"
 msgstr "സ്ക്രീന്‍ റീഡര്‍ ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
 msgid "Binding to stop playback."
 msgstr "പ്ലേബാക്ക് നിര്‍ത്താനുള്ള ബന്ധം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
 #, fuzzy
 #| msgid "Binding to toggle the magnifier."
 msgid "Binding to toggle the interface contrast"
 msgstr "മാഗ്നിഫയര്‍ ടോഗിള്‍ ചെയ്യുന്നതിനായി ബൈന്‍ഡ് ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
 msgid "Decrease text size"
 msgstr "വാചകത്തിന്റെ വ്യാപ്തി കുറയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
 msgid "Eject"
 msgstr "പുറത്തെടുക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
 msgid "Home folder"
 msgstr "തട്ടകം"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
 #, fuzzy
 #| msgid ""
 #| "If non-empty, keybindings will be ignored unless their GConf directory is "
@@ -425,117 +425,117 @@ msgstr ""
 "ശൂന്യമല്ലെങ്കില്‍, ലിസ്റ്റില്‍ GConf ഡയറക്ടറി ഇല്ലാത്തിടത്തോളം കീബൈന്‍ഡിങുകള്‍ അവഗണിക്കപ്പെടുന്നു. "
 "ഇതു് ലോക്ക്ഡൌണിനു് നല്ലതാണു്."
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
 msgid "Increase text size"
 msgstr "വാചകത്തിന്റെ വ്യാപ്തി കൂട്ടുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
 msgid "Launch calculator"
 msgstr "കാല്‍ക്കുലേറ്റര്‍ തുടങ്ങുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
 msgid "Launch email client"
 msgstr "ഇ-മെയില്‍ ക്ലയന്റ് തുടങ്ങുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
 msgid "Launch help browser"
 msgstr "സഹായകബ്രൌസര്‍ തുറക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
 msgid "Launch media player"
 msgstr "ചലച്ചിത്രദര്‍ശിനി തുടങ്ങുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
 msgid "Launch web browser"
 msgstr "ബ്രൌസര്‍ തുറക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
 msgid "Lock screen"
 msgstr "സ്ക്രീന്‍ പൂട്ടുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
 msgid "Log out"
 msgstr "പുറത്തിറങ്ങുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
 msgid "Magnifier zoom in"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
 msgid "Magnifier zoom out"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
 msgid "Next track"
 msgstr "അടുത്ത ട്രാക്ക്"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
 msgid "Pause playback"
 msgstr "പ്ലേബാക്ക് താല്‍കാലികമായി നിര്‍ത്താനുള്ള കീ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
 msgid "Play (or play/pause)"
 msgstr "പാടുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
 msgid "Previous track"
 msgstr "മുമ്പുളള ട്രാക്"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Search"
 msgstr "തെരച്ചില്‍"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Stop playback"
 msgstr "പ്ലേബാക്ക് നിര്‍ത്താനുള്ള കീ"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 #, fuzzy
 #| msgid "Toggle screen reader"
 msgid "Toggle contrast"
 msgstr "സ്ക്രീന്‍ റീഡര്‍ ടൊഗിള്‍ ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Toggle magnifier"
 msgstr "മാഗ്നിഫയര്‍ ടൊഗിള്‍ ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
 msgid "Toggle on-screen keyboard"
 msgstr "ഓണ്‍ സ്ക്രീന്‍ കീബോര്‍ഡ് ടൊഗിള്‍ ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
 msgid "Toggle screen reader"
 msgstr "സ്ക്രീന്‍ റീഡര്‍ ടൊഗിള്‍ ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
 msgid "Toggle touchpad"
 msgstr "ടച്ച്പാഡ് ടൊഗിള്‍ പാഡ്"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
 msgid "Volume down"
 msgstr "ശബ്ദം കുറയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
 msgid "Volume mute"
 msgstr "നിശ്ശബ്ദമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+#: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
 msgid "Volume up"
 msgstr "ശബ്ദം കൂട്ടുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
 msgid "Ask the user if additional firmware should be installed"
 msgstr "അധികമായ ഫേംവെയര്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യണമോ എന്നു് ഉപയോക്താവിനോടു് ചോദിയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
 msgid "Ask the user if additional firmware should be installed if it is available."
 msgstr "ലഭ്യമെങ്കില്‍, അധികമായ ഫേംവെയര്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യണമോ എന്നു് ഉപയോക്താവിനോടു് ചോദിയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
 msgid "Automatically download updates in the background without confirmation"
 msgstr "ഉറപ്പാക്കാതെ, പശ്ചാത്തലത്തില്‍ പരിഷ്കരണങ്ങള്‍ ഓട്ടോമാറ്റിക്കായി അപ്‌ലോഡ് ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
 msgid ""
 "Automatically download updates in the background without confirmation. "
 "Updates will be auto-downloaded when using wired network connnections, and "
@@ -543,19 +543,19 @@ msgid ""
 "'connection-use-mobile' is enabled."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
 msgid "Automatically update these types of updates"
 msgstr "ഇത്തരത്തിലുള്ള പരിഷ്കരണങ്ങള്‍ ഓട്ടോമാറ്റിക്കായി നടപ്പിലാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically update these types of updates."
 msgstr "ഇത്തരത്തിലുള്ള പരിഷ്കരണങ്ങള്‍ ഓട്ടോമാറ്റിക്കായി നടപ്പിലാക്കുക."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 msgid "Devices that should be ignored"
 msgstr "അവഗണിയ്ക്കേണ്ട ഡിവൈസുകള്‍"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid ""
 "Devices that should be ignored, separated by commas. These can include '*' "
 "and '?' characters."
@@ -563,56 +563,56 @@ msgstr ""
 "വേണ്ടെന്നു് വയ്ക്കേണ്ട ഡിവൈസുകള്‍, കോമാ ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിരിയ്ക്കുന്നു. ഇവയില്‍ "
 "'*', '?' എന്നീ അക്ഷരങ്ങള്‍ ഉള്‍പ്പെടാം."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid "Firmware files that should not be searched for"
 msgstr "തെരയുവാന്‍ ആവശ്യമില്ലാത്ത ഫേംവെയര്‍ ഫയലുകള്‍"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
 msgid ""
 "Firmware files that should not be searched for, separated by commas. These "
 "can include '*' and '?' characters."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
 msgid "Get the update list when the session starts"
 msgstr "സെഷന്‍ ആരംഭിയ്ക്കുമ്പോള്‍ പരിഷ്കരണ പട്ടിക ലഭ്യമാക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
 msgid "Get the update list when the session starts, even if not scheduled to."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
 msgid "How often to check for distribution upgrades"
 msgstr "വിതരണ പരിഷ്കരണങ്ങള്‍ എപ്പോള്‍ പരിശോധിയ്ക്കണം"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
 msgid "How often to check for distribution upgrades. Value is in seconds."
 msgstr "വിതരണ പരിഷ്കരണങ്ങള്‍ എപ്പോള്‍ പരിശോധിയ്ക്കണം. മൂല്ല്യം സെക്കന്‍ഡുകളില്‍."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
 msgid "How often to check for updates"
 msgstr "പരിഷ്കരണങ്ങള്‍ എപ്പോള്‍ പരിശോധിയ്ക്കണം"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
 msgid ""
 "How often to check for updates. Value is in seconds. This is a maximum "
 "amount of time that can pass between a security update being published, and "
 "the update being automatically installed or the user notified."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
 msgid "How often to notify the user that non-critical updates are available"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
 msgid "How often to refresh the package cache"
 msgstr "പാക്കേജ് കാഷ് എപ്പോള്‍ പുതുക്കണം"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
 msgid "How often to refresh the package cache. Value is in seconds."
 msgstr "പാക്കേജ് കാഷ് എപ്പോള്‍ പുതുക്കണം. മൂല്ല്യം സെക്കന്‍ഡുകളില്‍."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
@@ -620,112 +620,112 @@ msgid ""
 "frequently."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
 msgid "Install updates automatically when running on battery power"
 msgstr "ബാട്ടറി പവറില്‍ പ്രവര്‍ത്തിയ്ക്കുമ്പോള്‍ പരിഷ്കരണങ്ങള്‍ ഓട്ടോമാറ്റിക്കായി ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
 msgid "Install updates automatically when running on battery power."
 msgstr "ബാട്ടറി പവറില്‍ പ്രവര്‍ത്തിയ്ക്കുമ്പോള്‍ പരിഷ്കരണങ്ങള്‍ ഓട്ടോമാറ്റിക്കായി ഇന്‍സ്റ്റോള്‍ ചെയ്യുക."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
 msgid "Notify the user for completed updates"
 msgstr "പൂര്‍ത്തിയാക്കിയ പരിഷ്കരണങ്ങളെപ്പറ്റി ഉപയോക്താവിനെ അറിയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
 msgid "Notify the user for completed updates where the user needs to restart"
 msgstr "ഉപയോക്താവ് വീണ്ടും ആരംഭിയ്ക്കേണ്ടപ്പോള്‍ പൂര്‍ത്തിയാക്കിയ പരിഷ്കരണങ്ങളെപ്പറ്റി അറിയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid "Notify the user for completed updates where the user needs to restart."
 msgstr "ഉപയോക്താവ് വീണ്ടും ആരംഭിയ്ക്കേണ്ടപ്പോള്‍ പൂര്‍ത്തിയാക്കിയ പരിഷ്കരണങ്ങളെപ്പറ്റി അറിയ്ക്കുക."
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
 msgid ""
 "Notify the user for completed updates. This may be a useful notification for "
 "some users as installing updates prevents shutdown."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid "Notify the user when distribution upgrades are available"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
 msgid "Notify the user when distribution upgrades are available."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
 msgid "Notify the user when the automatic update was not started on battery power"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
 msgid ""
 "Notify the user when the update was not automatically started because the "
 "machine is running on battery power."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
 msgid "Notify the user when the update was started"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
 msgid "Notify the user when the update was started."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
 msgid "The filenames on removable media that designate it a software source."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
 msgid "The install root to use when adding and removing packages"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
 msgid ""
 "The install root to use when processing packages, which is changed when "
 "using LTSP or when testing."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
 msgid ""
 "The last time we notified the user about non-critical updates. Value is in "
 "seconds since the epoch, or zero for never."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
 msgid "The last time we told the user about non-critical notifications"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
 msgid "The number of seconds at session startup to wait before checking for updates"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
 msgid ""
 "The number of seconds at session startup to wait before checking for "
 "updates. Value is in seconds."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
 msgid ""
 "Use WiFi (wireless LAN) connections to check for updates. It may be faster "
 "to download packages when on a wired connection, and the VPN or proxy "
 "required may also only be available on wired connections."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
 msgid "Use WiFi connections"
 msgstr "വൈഫൈ കണക്ഷനുകള്‍ ഉപയോഗിയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
 msgid "Use mobile broadband connections"
 msgstr "മൊബൈല്‍ ബ്രോഡ്ബാന്‍ഡ് കണക്ഷനുകള്‍ ഉപയോഗിയ്ക്കുക"
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
 msgid "Use mobile broadband connections such as GSM and CDMA to check for updates."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+#: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
 msgid ""
 "When removable media is inserted, it is checked to see if it contains any "
 "important filenames in the root directory. If the filename matches, then an "
@@ -733,18 +733,18 @@ msgid ""
 "update running systems."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
 "the internal monitor, 'do-nothing' will use the default Xorg behaviour "
 "(extend the desktop in recent versions)"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
 msgid "File for default configuration for RandR"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
 msgid ""
 "The XRandR plugin will look for a default configuration in the file "
 "specified by this key. This is similar to the ~/.config/monitors.xml that "
@@ -753,43 +753,43 @@ msgid ""
 "then the file specified by this key will be used instead."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+#: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid "Whether to turn off specific monitors after boot"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
 msgid ""
 "A list of strings representing the GTK+ modules that will be loaded, usually "
 "in addition to conditional and forcibly disabled ones."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
 msgid ""
 "A list of strings representing the GTK+ modules that will not be loaded, "
 "even if enabled by default in their configuration."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
 msgid "Antialiasing"
 msgstr "ആന്റി-എലയാസിങ്ങ്"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
 msgid "Hinting"
 msgstr "<b>ഹിന്റിങ്ങ്(നിര്‍ദ്ദേശം കൊടുക്കല്‍)</b>:"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid "List of explicitly disabled GTK+ modules"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
 msgid "List of explicitly enabled GTK+ modules"
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
 msgid "RGBA order"
 msgstr "ആര്‍.ജി.ബി.എ ക്രമം"
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
 msgid ""
 "The order of subpixel elements on an LCD screen; only used when antialiasing "
 "is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
@@ -802,7 +802,7 @@ msgstr ""
 "നീല വലതുവശത്തേക്കായ്,\"vrgb\"(\"വി.ആര്‍.ജി.ബി\") മുകളിലായ്, \"vbgr\" (\"വി.ബി.ജി.ആര്‍"
 "\" ) ചുവപ്പ് താഴെയായ് വരാന്‍."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
 "The type of antialiasing to use when rendering fonts. Possible values are: "
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
@@ -813,7 +813,7 @@ msgstr ""
 "സാധാരണ ഗ്രേസ്കേല്‍ ആന്റി-എലയാസിങ്ങിനായ്,\"rgba\"( \"ആര്‍.ജി.ബി.എ\") സബ്-പിക്സെല്‍ (രണ്ടാം "
 "തരം ചിത്ര-അണു) എലയാസിങ്ങിനായ് (എല്‍.സി.ഡി സ്ക്രീനിനു മാത്രം)."
 
-#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
 msgid ""
 "The type of hinting to use when rendering fonts. Possible values are: \"none"
 "\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
@@ -824,137 +824,137 @@ msgstr ""
 "അടിസ്ഥാനപരമായതിന്,\"medium\"( \"പരിമിതം\") പരിമിതമായതിനായ് ,\"full\"( \"മുഴുവന്‍\") "
 "ഏറ്റവും കൂടുതല്‍ നിര്‍ദ്ദേശങ്ങള്‍ക്കായ് (അക്ഷര രൂപങ്ങളില്‍ വ്യത്യാസം വരുത്തിയേക്കാം)."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
 msgid "Enable this to only move the cursor when the user touches the tablet."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
 msgid "Enable this to only report stylus events when the tip is pressed."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
 msgid "Enable this to set the cursor to absolute mode."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
 msgid "Enable this to set the eraser to absolute mode."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
 msgid "Enable this to set the stylus to absolute mode."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
 msgid ""
 "Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
 "'ccw' for 90 degree counterclockwise."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid "Set this to the logical button mapping."
 msgstr "ലോജിക്കല്‍ ബട്ടണ്‍ മാപ്പിങിലേക്കു് ഇതു് സജ്ജമാക്കുക."
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
 msgid "Set this to the pressure value at which a stylus click event is generated."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
 msgid "Set this to the pressure value at which an eraser click event is generated."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
 msgid "Set this to x1, y1 and x2, y2 of the area usable by the stylus."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
 msgid "Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
 msgstr ""
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
 msgid "Wacom cursor absolute mode"
 msgstr "വാക്കൊം കര്‍സര്‍ ആബ്സല്യൂട്ട് മോഡ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
 msgid "Wacom cursor button mapping"
 msgstr "വാക്കൊം കര്‍സര്‍ ബട്ടണ്‍ മാപ്പിങ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
 msgid "Wacom cursor tablet area"
 msgstr "വാക്കൊം കര്‍സര്‍ ടാബ്ലെറ്റ് സ്ഥലം"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
 msgid "Wacom eraser absolute mode"
 msgstr "വാക്കൊം ഇറേസര്‍ ആബ്സല്യൂട്ട് മോഡ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
 msgid "Wacom eraser button mapping"
 msgstr "വാക്കൊം ഇറേസര്‍ ബട്ടണ്‍ മാപ്പിങ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
 msgid "Wacom eraser pressure curve"
 msgstr "വാക്കൊം ഇറേസര്‍ പ്രെഷര്‍ കേര്‍വ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
 msgid "Wacom eraser pressure threshold"
 msgstr "വാക്കൊം ഇറേസര്‍ പ്രെഷര്‍ ത്രെഷോള്‍ഡ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
 msgid "Wacom eraser tablet area"
 msgstr "വാക്കൊം ഇറേസര്‍ ടാബ്ലെറ്റ് സ്ഥലം"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
 msgid "Wacom pad button mapping"
 msgstr "വാക്കൊം പാഡ് ബട്ടണ്‍ മാപ്പിങ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
 msgid "Wacom pad tablet area"
 msgstr "വാക്കൊം പാഡ് ടാബ്ലെറ്റ് സ്ഥലം"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
 msgid "Wacom stylus absolute mode"
 msgstr "വാക്കൊം സ്റ്റൈലസ് ആബ്സല്യൂട്ട് മോഡ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
 msgid "Wacom stylus button mapping"
 msgstr "വാക്കൊം സ്റ്റൈലസ് ബട്ടണ്‍ മാപ്പിങ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
 msgid "Wacom stylus pressure curve"
 msgstr "വാക്കൊം സ്റ്റൈലസ് പ്രെഷര്‍ കേര്‍വ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
 msgid "Wacom stylus pressure threshold"
 msgstr "വാക്കൊം സ്റ്റൈലസ് പ്രെഷര്‍ ത്രെഷോള്‍ഡ്"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid "Wacom stylus tablet area"
 msgstr "വാക്കൊം സ്റ്റൈലസ് ടാബ്ലെറ്റ് സ്ഥലം"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
 msgid "Wacom tablet PC feature"
 msgstr "വാക്കൊം ടാബ്ലെറ്റ് പിസി വിശേഷത"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
 msgid "Wacom tablet rotation"
 msgstr "വാക്കൊം ടാബ്ലെറ്റ് റൊട്ടേഷന്‍"
 
-#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
+#: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:36
 msgid "Wacom touch feature"
 msgstr "വാക്കൊം ടച്ച് വിശേഷത"
 

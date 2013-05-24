@@ -45,7 +45,7 @@
 
 #define DISK_SPACE_ANALYZER        "baobab"
 
-#define SETTINGS_HOUSEKEEPING_DIR     "org.gnome.settings-daemon.plugins.housekeeping"
+#define SETTINGS_HOUSEKEEPING_DIR     "org.cinnamon.settings-daemon.plugins.housekeeping"
 #define SETTINGS_FREE_PC_NOTIFY_KEY   "free-percent-notify"
 #define SETTINGS_FREE_PC_NOTIFY_AGAIN_KEY "free-percent-notify-again"
 #define SETTINGS_FREE_SIZE_NO_NOTIFY  "free-size-gb-no-notify"

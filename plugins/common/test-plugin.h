@@ -35,7 +35,7 @@ has_settings (void)
 
 	list = g_settings_list_schemas ();
 	for (i = 0; list[i] != NULL; i++) {
-		if (g_str_equal (list[i], "org.gnome.settings-daemon.plugins." SCHEMA_NAME))
+		if (g_str_equal (list[i], "org.cinnamon.settings-daemon.plugins." SCHEMA_NAME))
 			return TRUE;
 	}
 	return FALSE;
@@ -66,13 +66,13 @@ main (int argc, char **argv)
 		exit (1);
 	}
 
-        settings = g_settings_new ("org.gnome.settings-daemon.plugins." SCHEMA_NAME);
+        settings = g_settings_new ("org.cinnamon.settings-daemon.plugins." SCHEMA_NAME);
         if (g_settings_get_boolean (settings, "active") != FALSE) {
 		fprintf (stderr, "Plugin '%s' is not disabled. You need to disable it before launching the test application.\n", SCHEMA_NAME);
 		fprintf (stderr, "To deactivate:\n");
-		fprintf (stderr, "\tgsettings set org.gnome.settings-daemon.plugins." SCHEMA_NAME " active false\n");
+		fprintf (stderr, "\tgsettings set org.cinnamon.settings-daemon.plugins." SCHEMA_NAME " active false\n");
 		fprintf (stderr, "To reactivate:\n");
-		fprintf (stderr, "\tgsettings set org.gnome.settings-daemon.plugins." SCHEMA_NAME " active true\n");
+		fprintf (stderr, "\tgsettings set org.cinnamon.settings-daemon.plugins." SCHEMA_NAME " active true\n");
 		exit (1);
 	}
 

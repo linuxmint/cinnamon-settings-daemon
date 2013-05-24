@@ -191,7 +191,7 @@ get_configured_remove_action (CsdSmartcardPlugin *plugin)
         char *remove_action_string;
         CsdSmartcardRemoveAction remove_action;
 
-        settings = g_settings_new ("org.gnome.settings-daemon.peripherals.smartcard");
+        settings = g_settings_new ("org.cinnamon.settings-daemon.peripherals.smartcard");
         remove_action_string = g_settings_get_string (settings, KEY_REMOVE_ACTION);
 
         if (remove_action_string == NULL) {
