@@ -1,10 +1,10 @@
-Index: gnome-settings-daemon-3.6.1/plugins/media-keys/gsd-media-keys-manager.c
+Index: cinnamon-settings-daemon-3.6.1/plugins/media-keys/csd-media-keys-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/media-keys/gsd-media-keys-manager.c	2012-10-26 10:19:49.447004173 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/media-keys/gsd-media-keys-manager.c	2012-10-26 10:20:09.391005138 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/media-keys/csd-media-keys-manager.c	2012-10-26 10:19:49.447004173 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/media-keys/csd-media-keys-manager.c	2012-10-26 10:20:09.391005138 +0200
 @@ -2291,6 +2291,9 @@
          g_debug ("Starting media_keys manager");
-         gnome_settings_profile_start (NULL);
+         cinnamon_settings_profile_start (NULL);
  
 +
 +        gvc_mixer_control_open (manager->priv->volume);
@@ -18,6 +18,6 @@ Index: gnome-settings-daemon-3.6.1/plugins/media-keys/gsd-media-keys-manager.c
  
 -        gvc_mixer_control_open (manager->priv->volume);
 -
-         gnome_settings_profile_end ("gvc_mixer_control_new");
+         cinnamon_settings_profile_end ("gvc_mixer_control_new");
  
          manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_media_keys_idle_cb, manager);

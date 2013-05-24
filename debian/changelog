@@ -1,6 +1,6 @@
 cinnamon-settings-daemon (0.0.1) olivia; urgency=low
 
-  * Initial port from gnome-settings-daemon raring 3.6.4-0ubuntu8
+  * Initial port from cinnamon-settings-daemon raring 3.6.4-0ubuntu8
 
 -- Michael Webster <miketwebster@gmail.com>  Fri, 24 May 2013 17:41:00 -0400
 

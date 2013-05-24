@@ -1,7 +1,7 @@
-Index: gnome-settings-daemon-3.6.1/data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in
+Index: cinnamon-settings-daemon-3.6.1/data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in	2012-10-05 13:56:43.000000000 +0200
-+++ gnome-settings-daemon-3.6.1/data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in	2012-10-26 10:19:49.647004183 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in	2012-10-05 13:56:43.000000000 +0200
++++ cinnamon-settings-daemon-3.6.1/data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in	2012-10-26 10:19:49.647004183 +0200
 @@ -130,6 +130,11 @@
        <_summary>Copy a screenshot of an area to clipboard</_summary>
        <_description>Binding to copy a screenshot of an area to clipboard.</_description>
@@ -14,15 +14,15 @@ Index: gnome-settings-daemon-3.6.1/data/org.gnome.settings-daemon.plugins.media-
      <key name="www" type="s">
        <default>'XF86WWW'</default>
        <_summary>Launch web browser</_summary>
-Index: gnome-settings-daemon-3.6.1/plugins/media-keys/gsd-media-keys-manager.c
+Index: cinnamon-settings-daemon-3.6.1/plugins/media-keys/csd-media-keys-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/media-keys/gsd-media-keys-manager.c	2012-10-26 10:19:49.507004176 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/media-keys/gsd-media-keys-manager.c	2012-10-26 10:20:04.815004917 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/media-keys/csd-media-keys-manager.c	2012-10-26 10:19:49.507004176 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/media-keys/csd-media-keys-manager.c	2012-10-26 10:20:04.815004917 +0200
 @@ -891,6 +891,22 @@
  }
  
  static void
-+do_terminal_action (GsdMediaKeysManager *manager)
++do_terminal_action (CsdMediaKeysManager *manager)
 +{
 +        GSettings *settings;
 +        char *term;
@@ -38,7 +38,7 @@ Index: gnome-settings-daemon-3.6.1/plugins/media-keys/gsd-media-keys-manager.c
 +}
 +
 +static void
- gnome_session_shutdown (GsdMediaKeysManager *manager)
+ gnome_session_shutdown (CsdMediaKeysManager *manager)
  {
  	GError *error = NULL;
 @@ -2087,6 +2103,9 @@
@@ -51,10 +51,10 @@ Index: gnome-settings-daemon-3.6.1/plugins/media-keys/gsd-media-keys-manager.c
          case WWW_KEY:
                  do_url_action (manager, "http", timestamp);
                  break;
-Index: gnome-settings-daemon-3.6.1/plugins/media-keys/shortcuts-list.h
+Index: cinnamon-settings-daemon-3.6.1/plugins/media-keys/shortcuts-list.h
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/media-keys/shortcuts-list.h	2012-10-05 13:56:44.000000000 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/media-keys/shortcuts-list.h	2012-10-26 10:19:49.651004184 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/media-keys/shortcuts-list.h	2012-10-05 13:56:44.000000000 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/media-keys/shortcuts-list.h	2012-10-26 10:19:49.651004184 +0200
 @@ -50,6 +50,7 @@
          SCREENSHOT_CLIP_KEY,
          WINDOW_SCREENSHOT_CLIP_KEY,

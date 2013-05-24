@@ -1,7 +1,7 @@
-Index: gnome-settings-daemon-3.6.1/gnome-settings-daemon/main.c
+Index: cinnamon-settings-daemon-3.6.1/cinnamon-settings-daemon/main.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/gnome-settings-daemon/main.c	2012-10-26 10:19:49.467004174 +0200
-+++ gnome-settings-daemon-3.6.1/gnome-settings-daemon/main.c	2012-10-26 10:19:49.527004177 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/cinnamon-settings-daemon/main.c	2012-10-26 10:19:49.467004174 +0200
++++ cinnamon-settings-daemon-3.6.1/cinnamon-settings-daemon/main.c	2012-10-26 10:19:49.527004177 +0200
 @@ -303,28 +303,6 @@
  }
  #endif
@@ -61,7 +61,7 @@ Index: gnome-settings-daemon-3.6.1/gnome-settings-daemon/main.c
 +        const char *startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
 +        g_dbus_proxy_call (proxy,
 +                           "RegisterClient",
-+                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
++                           g_variant_new ("(ss)", "cinnamon-settings-daemon", startup_id ? startup_id : ""),
 +                           G_DBUS_CALL_FLAGS_NONE,
 +                           -1,
 +                           NULL,
@@ -107,10 +107,10 @@ Index: gnome-settings-daemon-3.6.1/gnome-settings-daemon/main.c
  {
 @@ -499,6 +517,8 @@
  
-         notify_init ("gnome-settings-daemon");
+         notify_init ("cinnamon-settings-daemon");
  
 +        queue_register_client ();
 +
          bus_register ();
  
-         gnome_settings_profile_start ("gnome_settings_manager_new");
+         cinnamon_settings_profile_start ("cinnamon_settings_manager_new");

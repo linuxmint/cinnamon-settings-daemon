@@ -1,10 +1,10 @@
 ## Description: Autorotate Nexus screen
 ## Origin/Author: jani@ubuntu.com
 ## Bug: https://bugs.launchpad.net/ubuntu-nexus7/+bug/1110360
-Index: gnome-settings-daemon-3.6.4/plugins/orientation/gsd-orientation-manager.c
+Index: cinnamon-settings-daemon-3.6.4/plugins/orientation/csd-orientation-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.4.orig/plugins/orientation/gsd-orientation-manager.c	2013-02-13 13:36:14.606221356 +0200
-+++ gnome-settings-daemon-3.6.4/plugins/orientation/gsd-orientation-manager.c	2013-02-13 13:36:38.130337989 +0200
+--- cinnamon-settings-daemon-3.6.4.orig/plugins/orientation/csd-orientation-manager.c	2013-02-13 13:36:14.606221356 +0200
++++ cinnamon-settings-daemon-3.6.4/plugins/orientation/csd-orientation-manager.c	2013-02-13 13:36:38.130337989 +0200
 @@ -23,6 +23,7 @@
  
  #include "config.h"
@@ -23,10 +23,10 @@ Index: gnome-settings-daemon-3.6.4/plugins/orientation/gsd-orientation-manager.c
 +static gboolean is_mpu6050 = FALSE;
 +static char *mpu6050_accel_x = NULL;
 +static char *mpu6050_accel_y = NULL;
-+static gboolean mpu_timer(GsdOrientationManager *manager);
++static gboolean mpu_timer(CsdOrientationManager *manager);
 +
  static GObject *
- gsd_orientation_manager_constructor (GType                     type,
+ csd_orientation_manager_constructor (GType                     type,
                                 guint                      n_construct_properties,
 @@ -312,8 +321,11 @@
                  return;
@@ -76,7 +76,7 @@ Index: gnome-settings-daemon-3.6.4/plugins/orientation/gsd-orientation-manager.c
 +	return i;
 +}
 +
-+static gboolean mpu_timer(GsdOrientationManager *manager) {
++static gboolean mpu_timer(CsdOrientationManager *manager) {
 +	int x, y;
 +	static gboolean first = TRUE;
 +	OrientationUp orientation = manager->priv->prev_orientation;
@@ -109,7 +109,7 @@ Index: gnome-settings-daemon-3.6.4/plugins/orientation/gsd-orientation-manager.c
 +}
 +
  static gboolean
- gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
+ csd_orientation_manager_idle_cb (CsdOrientationManager *manager)
  {
 @@ -432,6 +493,16 @@
          g_debug ("Found accelerometer at sysfs path '%s'", manager->priv->sysfs_path);

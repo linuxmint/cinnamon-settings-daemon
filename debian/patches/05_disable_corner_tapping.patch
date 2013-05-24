@@ -2,10 +2,10 @@ Description: Disable corner tapping when disabling tap to click
 Bug: https://bugzilla.gnome.org/show_bug.cgi?id=607474
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/509724
 
-Index: gnome-settings-daemon-3.6.1/plugins/mouse/gsd-mouse-manager.c
+Index: cinnamon-settings-daemon-3.6.1/plugins/mouse/csd-mouse-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/mouse/gsd-mouse-manager.c	2012-10-05 13:56:44.000000000 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/mouse/gsd-mouse-manager.c	2012-10-26 10:20:07.735005058 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/mouse/csd-mouse-manager.c	2012-10-05 13:56:44.000000000 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/mouse/csd-mouse-manager.c	2012-10-26 10:20:07.735005058 +0200
 @@ -650,6 +650,10 @@
                                   &bytes_after, &data);
  

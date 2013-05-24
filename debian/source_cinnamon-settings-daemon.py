@@ -2,11 +2,11 @@ import os, apport.packaging, re
 from apport.hookutils import *
 
 def add_info(report):
-	# the issue is not in the gnome-settings-daemon code so reassign
-	if "Stacktrace" in report and "/usr/lib/gnome-settings-daemon-3.0" in report["Stacktrace"]:
+	# the issue is not in the cinnamon-settings-daemon code so reassign
+	if "Stacktrace" in report and "/usr/lib/cinnamon-settings-daemon-3.0" in report["Stacktrace"]:
 		for words in report["Stacktrace"].split():
-			if words.startswith("/usr/lib/gnome-settings-daemon-3.0"):
-			    if apport.packaging.get_file_package(words) != 'gnome-settings-daemon':
+			if words.startswith("/usr/lib/cinnamon-settings-daemon-3.0"):
+			    if apport.packaging.get_file_package(words) != 'cinnamon-settings-daemon':
     				report.add_package_info(apport.packaging.get_file_package(words))
     				return    			
     		    # update the title to reflect the component and tab	

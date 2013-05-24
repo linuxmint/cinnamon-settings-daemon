@@ -1,10 +1,10 @@
 # Comment: can be dropped when updating to 3.8
 # Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=672245
 #
-Index: gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c
+Index: cinnamon-settings-daemon-3.6.1/plugins/power/csd-power-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/power/gsd-power-manager.c	2012-10-26 10:19:49.591004180 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c	2012-10-26 10:20:03.975004876 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/power/csd-power-manager.c	2012-10-26 10:19:49.591004180 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/power/csd-power-manager.c	2012-10-26 10:20:03.975004876 +0200
 @@ -3852,6 +3852,12 @@
                  g_source_remove (manager->priv->critical_alert_timeout_id);
                  manager->priv->critical_alert_timeout_id = 0;

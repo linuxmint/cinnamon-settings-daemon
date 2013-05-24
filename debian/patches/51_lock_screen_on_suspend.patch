@@ -4,13 +4,13 @@ Forwarded: no, likely a Ubuntu-specific preference
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/938076
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/847814
 
-Index: gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c
+Index: cinnamon-settings-daemon-3.6.1/plugins/power/csd-power-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/power/gsd-power-manager.c	2012-10-05 13:56:44.000000000 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c	2012-10-26 10:20:11.739005253 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/power/csd-power-manager.c	2012-10-05 13:56:44.000000000 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/power/csd-power-manager.c	2012-10-26 10:20:11.739005253 +0200
 @@ -2249,9 +2249,6 @@
          GError *error = NULL;
-         GsdPowerActionType action_type;
+         CsdPowerActionType action_type;
  
 -        /* maybe lock the screen if the lid is closed */
 -        lock_screensaver (manager);
@@ -20,7 +20,7 @@ Index: gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c
                  action_type = g_settings_get_enum (manager->priv->settings,
 @@ -2268,6 +2265,9 @@
                          g_warning ("to prevent damage, now forcing suspend");
-                         do_power_action_type (manager, GSD_POWER_ACTION_SUSPEND);
+                         do_power_action_type (manager, CSD_POWER_ACTION_SUSPEND);
                          return;
 +                } else {
 +                        /* maybe lock the screen if the lid is closed */
@@ -30,7 +30,7 @@ Index: gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c
  
 @@ -3499,7 +3499,31 @@
                          UpSleepKind sleep_kind,
-                         GsdPowerManager *manager)
+                         CsdPowerManager *manager)
  {
 -        lock_screensaver (manager);
 +        gboolean do_lock;
@@ -41,7 +41,7 @@ Index: gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c
 +                return;
 +
 +        if (manager->priv->screensaver_proxy != NULL) {
-+                g_debug ("doing gnome-screensaver lock");
++                g_debug ("doing cinnamon-screensaver lock");
 +                g_dbus_proxy_call (manager->priv->screensaver_proxy,
 +                                   "Lock",
 +                                   NULL, G_DBUS_CALL_FLAGS_NONE, -1,

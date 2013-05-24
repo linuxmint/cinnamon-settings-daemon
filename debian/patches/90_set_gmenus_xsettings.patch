@@ -1,9 +1,9 @@
-Index: gnome-settings-daemon-3.6.3/plugins/xsettings/gsd-xsettings-manager.c
+Index: cinnamon-settings-daemon-3.6.3/plugins/xsettings/csd-xsettings-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.3.orig/plugins/xsettings/gsd-xsettings-manager.c	2012-11-07 10:08:12.000000000 +0100
-+++ gnome-settings-daemon-3.6.3/plugins/xsettings/gsd-xsettings-manager.c	2012-11-20 13:26:46.306775857 +0100
+--- cinnamon-settings-daemon-3.6.3.orig/plugins/xsettings/csd-xsettings-manager.c	2012-11-07 10:08:12.000000000 +0100
++++ cinnamon-settings-daemon-3.6.3/plugins/xsettings/csd-xsettings-manager.c	2012-11-20 13:26:46.306775857 +0100
 @@ -242,7 +242,9 @@
-         GsdXSettingsGtk   *gtk;
+         CsdXSettingsGtk   *gtk;
  
          guint              shell_name_watch_id;
 +        guint              unity_name_watch_id;
@@ -22,7 +22,7 @@ Index: gnome-settings-daemon-3.6.3/plugins/xsettings/gsd-xsettings-manager.c
  {
          int i;
  
-         gnome_settings_profile_start (NULL);
+         cinnamon_settings_profile_start (NULL);
 -        if (manager->priv->have_shell == have_shell)
 -                return;
 -        manager->priv->have_shell = have_shell;
@@ -36,7 +36,7 @@ Index: gnome-settings-daemon-3.6.3/plugins/xsettings/gsd-xsettings-manager.c
 +                                           manager->priv->have_unity);
          }
          queue_notify (manager);
-         gnome_settings_profile_end (NULL);
+         cinnamon_settings_profile_end (NULL);
 @@ -725,7 +728,10 @@
                     const gchar     *name_owner,
                     gpointer         user_data)
@@ -112,7 +112,7 @@ Index: gnome-settings-daemon-3.6.3/plugins/xsettings/gsd-xsettings-manager.c
 +}
 +
  gboolean
- gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
+ cinnamon_xsettings_manager_start (GnomeXSettingsManager *manager,
                                 GError               **error)
 @@ -933,6 +979,7 @@
          start_fontconfig_monitor (manager);

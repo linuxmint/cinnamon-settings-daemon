@@ -1,7 +1,7 @@
-Index: gnome-settings-daemon-3.6.1/plugins/background/gsd-background-manager.c
+Index: cinnamon-settings-daemon-3.6.1/plugins/background/csd-background-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/background/gsd-background-manager.c	2012-05-24 11:50:44.000000000 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/background/gsd-background-manager.c	2012-10-26 10:19:49.567004179 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/background/csd-background-manager.c	2012-05-24 11:50:44.000000000 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/background/csd-background-manager.c	2012-10-26 10:19:49.567004179 +0200
 @@ -412,6 +412,98 @@
                  setup_bg_and_draw_background (manager);
  }
@@ -88,7 +88,7 @@ Index: gnome-settings-daemon-3.6.1/plugins/background/gsd-background-manager.c
 +static void
 +picture_uri_changed (GSettings            *settings,
 +                     const char           *key,
-+                     GsdBackgroundManager *manager)
++                     CsdBackgroundManager *manager)
 +{
 +        const char *picture_uri = g_settings_get_string (settings, key);
 +        GFile *picture_file = g_file_new_for_uri (picture_uri);
@@ -99,10 +99,10 @@ Index: gnome-settings-daemon-3.6.1/plugins/background/gsd-background-manager.c
 +}
 +
  gboolean
- gsd_background_manager_start (GsdBackgroundManager *manager,
+ csd_background_manager_start (CsdBackgroundManager *manager,
                                GError              **error)
 @@ -424,6 +516,8 @@
-         manager->priv->settings = g_settings_new ("org.gnome.desktop.background");
+         manager->priv->settings = g_settings_new ("org.cinnamon.desktop.background");
          g_signal_connect (manager->priv->settings, "changed::draw-background",
                            G_CALLBACK (draw_background_changed), manager);
 +        g_signal_connect (manager->priv->settings, "changed::picture-uri",

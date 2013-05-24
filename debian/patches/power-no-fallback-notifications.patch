@@ -1,13 +1,13 @@
-Index: gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c
+Index: cinnamon-settings-daemon-3.6.1/plugins/power/csd-power-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.1.orig/plugins/power/gsd-power-manager.c	2012-10-26 10:19:50.083004205 +0200
-+++ gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c	2012-10-26 10:20:02.915004826 +0200
+--- cinnamon-settings-daemon-3.6.1.orig/plugins/power/csd-power-manager.c	2012-10-26 10:19:50.083004205 +0200
++++ cinnamon-settings-daemon-3.6.1/plugins/power/csd-power-manager.c	2012-10-26 10:20:02.915004826 +0200
 @@ -1636,7 +1636,7 @@
                               get_first_themed_icon_name (icon),
                               &manager->priv->notification_low);
          notify_notification_set_timeout (manager->priv->notification_low,
--                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
-+                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
+-                                         CSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
++                                         CSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
          notify_notification_set_urgency (manager->priv->notification_low,
                                           NOTIFY_URGENCY_CRITICAL);
          notify_notification_set_app_name (manager->priv->notification_low, _("Power"));
@@ -15,8 +15,8 @@ Index: gnome-settings-daemon-3.6.1/plugins/power/gsd-power-manager.c
                               get_first_themed_icon_name (icon),
                               &manager->priv->notification_low);
          notify_notification_set_timeout (manager->priv->notification_low,
--                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
-+                                         GSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
+-                                         CSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER);
++                                         CSD_POWER_MANAGER_NOTIFY_TIMEOUT_LONG);
          notify_notification_set_urgency (manager->priv->notification_low,
                                           NOTIFY_URGENCY_CRITICAL);
          notify_notification_set_app_name (manager->priv->notification_low, _("Power"));

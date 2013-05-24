@@ -58,7 +58,7 @@ main (int argc, char *argv[])
     gdk_screen_get_monitor_geometry (screen, 0, &rect);
 
     bg = gnome_bg_new ();
-    settings = g_settings_new ("org.gnome.desktop.background");
+    settings = g_settings_new ("org.cinnamon.desktop.background");
     gnome_bg_load_from_preferences (bg, settings);
 
     pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, rect.width, rect.height);

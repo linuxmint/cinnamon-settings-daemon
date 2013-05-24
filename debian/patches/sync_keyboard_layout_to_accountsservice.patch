@@ -1,7 +1,7 @@
-Index: b/plugins/keyboard/gsd-keyboard-manager.c
+Index: b/plugins/keyboard/csd-keyboard-manager.c
 ===================================================================
---- a/plugins/keyboard/gsd-keyboard-manager.c
-+++ b/plugins/keyboard/gsd-keyboard-manager.c
+--- a/plugins/keyboard/csd-keyboard-manager.c
++++ b/plugins/keyboard/csd-keyboard-manager.c
 @@ -78,12 +78,16 @@
  #define KEY_BELL_DURATION  "bell-duration"
  #define KEY_BELL_MODE      "bell-mode"
@@ -11,13 +11,13 @@ Index: b/plugins/keyboard/gsd-keyboard-manager.c
 +
  #define DEFAULT_LANGUAGE "en_US"
  
- struct GsdKeyboardManagerPrivate
+ struct CsdKeyboardManagerPrivate
  {
      guint      start_idle_id;
          GSettings *settings;
 +        GSettings *libgnomekbd_settings;
          gint       xkb_event_base;
-         GsdNumLockState old_state;
+         CsdNumLockState old_state;
          GdkDeviceManager *device_manager;
 @@ -1021,6 +1025,93 @@
          manager->priv->device_manager = device_manager;
@@ -26,7 +26,7 @@ Index: b/plugins/keyboard/gsd-keyboard-manager.c
 +static void
 +apply_libgnomekbd_settings (GSettings          *settings,
 +                            const char         *key,
-+                            GsdKeyboardManager *manager)
++                            CsdKeyboardManager *manager)
 +{
 +        gchar **layouts;
 +
@@ -111,12 +111,12 @@ Index: b/plugins/keyboard/gsd-keyboard-manager.c
 +}
 +
  static gboolean
- start_keyboard_idle_cb (GsdKeyboardManager *manager)
+ start_keyboard_idle_cb (CsdKeyboardManager *manager)
  {
 @@ -1029,6 +1120,7 @@
          g_debug ("Starting keyboard manager");
  
-         manager->priv->settings = g_settings_new (GSD_KEYBOARD_DIR);
+         manager->priv->settings = g_settings_new (CSD_KEYBOARD_DIR);
 +        manager->priv->libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_KEYBOARD_DIR);
  	manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
  	manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
@@ -131,7 +131,7 @@ Index: b/plugins/keyboard/gsd-keyboard-manager.c
 +
  	install_xkb_filter (manager);
  
-         gnome_settings_profile_end (NULL);
+         cinnamon_settings_profile_end (NULL);
 @@ -1119,6 +1215,11 @@
  		p->xkl_engine = NULL;
  	}

@@ -8,7 +8,7 @@
 52_sync_background_to_accountsservice.patch
 60_unity_hide_status_icon.patch
 61_unity_use_application_indicator.patch
-62_unity_disable_gsd_printer.patch
+62_unity_disable_csd_printer.patch
 63_unity_start_mounter.patch
 64_restore_terminal_keyboard_shortcut_schema.patch
 90_set_gmenus_xsettings.patch

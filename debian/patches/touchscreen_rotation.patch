@@ -1,10 +1,10 @@
 ## Description: correctly set up input coordinates when rotating touchscreens
 ## Origin/Author: jani@ubuntu.com
 ## Bug: https://bugzilla.gnome.org/show_bug.cgi?id=691691
-Index: gnome-settings-daemon-3.6.4/plugins/xrandr/gsd-xrandr-manager.c
+Index: cinnamon-settings-daemon-3.6.4/plugins/xrandr/csd-xrandr-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.4.orig/plugins/xrandr/gsd-xrandr-manager.c	2013-01-10 15:37:58.000000000 +0200
-+++ gnome-settings-daemon-3.6.4/plugins/xrandr/gsd-xrandr-manager.c	2013-01-29 16:28:08.946019381 +0200
+--- cinnamon-settings-daemon-3.6.4.orig/plugins/xrandr/csd-xrandr-manager.c	2013-01-10 15:37:58.000000000 +0200
++++ cinnamon-settings-daemon-3.6.4/plugins/xrandr/csd-xrandr-manager.c	2013-01-29 16:28:08.946019381 +0200
 @@ -1492,15 +1492,16 @@
  
  struct {

@@ -1,7 +1,7 @@
-Index: gnome-settings-daemon-3.6.3/configure.ac
+Index: cinnamon-settings-daemon-3.6.3/configure.ac
 ===================================================================
---- gnome-settings-daemon-3.6.3.orig/configure.ac	2012-11-19 19:54:25.827630032 +0100
-+++ gnome-settings-daemon-3.6.3/configure.ac	2012-11-19 19:54:35.111630482 +0100
+--- cinnamon-settings-daemon-3.6.3.orig/configure.ac	2012-11-19 19:54:25.827630032 +0100
++++ cinnamon-settings-daemon-3.6.3/configure.ac	2012-11-19 19:54:35.111630482 +0100
 @@ -53,6 +53,7 @@
  PA_REQUIRED_VERSION=0.9.16
  LIBWACOM_REQUIRED_VERSION=0.6
@@ -51,10 +51,10 @@ Index: gnome-settings-daemon-3.6.3/configure.ac
          PackageKit support:       ${have_packagekit}
          Smartcard support:        ${have_smartcard_support}
          Cups support:             ${enable_cups}
-Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+Index: cinnamon-settings-daemon-3.6.3/plugins/a11y-keyboard/csd-a11y-keyboard-manager.c
 ===================================================================
---- gnome-settings-daemon-3.6.3.orig/plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c	2012-11-14 13:19:27.000000000 +0100
-+++ gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c	2012-11-19 19:54:25.991630041 +0100
+--- cinnamon-settings-daemon-3.6.3.orig/plugins/a11y-keyboard/csd-a11y-keyboard-manager.c	2012-11-14 13:19:27.000000000 +0100
++++ cinnamon-settings-daemon-3.6.3/plugins/a11y-keyboard/csd-a11y-keyboard-manager.c	2012-11-19 19:54:25.991630041 +0100
 @@ -41,6 +41,10 @@
  #include <X11/XKBlib.h>
  #include <X11/extensions/XKBstr.h>
@@ -63,9 +63,9 @@ Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/gsd-a11y-keyboard-manag
 +#include <libappindicator/app-indicator.h>
 +#endif
 +
- #include "gnome-settings-profile.h"
- #include "gsd-a11y-keyboard-manager.h"
- #include "gsd-a11y-preferences-dialog.h"
+ #include "cinnamon-settings-profile.h"
+ #include "csd-a11y-keyboard-manager.h"
+ #include "csd-a11y-preferences-dialog.h"
 @@ -61,7 +65,11 @@
          GtkWidget        *stickykeys_alert;
          GtkWidget        *slowkeys_alert;
@@ -86,7 +86,7 @@ Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/gsd-a11y-keyboard-manag
 +        if (!show && manager->priv->app_indicator == NULL)
 +                return;
 +	
-+        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
++        csd_a11y_keyboard_manager_ensure_status_icon (manager);
 +	if (show)
 +		app_indicator_set_status (manager->priv->app_indicator,
 +					  APP_INDICATOR_STATUS_ACTIVE);
@@ -97,7 +97,7 @@ Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/gsd-a11y-keyboard-manag
          if (!show && manager->priv->status_icon == NULL)
                  return;
  
-         gsd_a11y_keyboard_manager_ensure_status_icon (manager);
+         csd_a11y_keyboard_manager_ensure_status_icon (manager);
          gtk_status_icon_set_visible (manager->priv->status_icon, show);
 +#endif
  }
@@ -150,17 +150,17 @@ Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/gsd-a11y-keyboard-manag
  static void
 +#ifdef HAVE_APPINDICATOR
 +on_status_icon_activate (GtkMenuItem            *item,
-+                         GsdA11yKeyboardManager *manager)
++                         CsdA11yKeyboardManager *manager)
 +#else
  on_status_icon_activate (GtkStatusIcon          *status_icon,
-                          GsdA11yKeyboardManager *manager)
+                          CsdA11yKeyboardManager *manager)
 +#endif
  {
          if (manager->priv->preferences_dialog == NULL) {
-                 manager->priv->preferences_dialog = gsd_a11y_preferences_dialog_new ();
+                 manager->priv->preferences_dialog = csd_a11y_preferences_dialog_new ();
 @@ -1102,6 +1138,26 @@
  {
-         gnome_settings_profile_start (NULL);
+         cinnamon_settings_profile_start (NULL);
  
 +#ifdef HAVE_APPINDICATOR
 +	if (!manager->priv->app_indicator) {
@@ -191,12 +191,12 @@ Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/gsd-a11y-keyboard-manag
          }
 +#endif
  
-         gnome_settings_profile_end (NULL);
+         cinnamon_settings_profile_end (NULL);
  }
-Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/Makefile.am
+Index: cinnamon-settings-daemon-3.6.3/plugins/a11y-keyboard/Makefile.am
 ===================================================================
---- gnome-settings-daemon-3.6.3.orig/plugins/a11y-keyboard/Makefile.am	2012-11-14 13:19:27.000000000 +0100
-+++ gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/Makefile.am	2012-11-19 19:54:26.275630058 +0100
+--- cinnamon-settings-daemon-3.6.3.orig/plugins/a11y-keyboard/Makefile.am	2012-11-14 13:19:27.000000000 +0100
++++ cinnamon-settings-daemon-3.6.3/plugins/a11y-keyboard/Makefile.am	2012-11-19 19:54:26.275630058 +0100
 @@ -25,6 +25,7 @@
  	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
  	$(PLUGIN_CFLAGS)					\
@@ -206,7 +206,7 @@ Index: gnome-settings-daemon-3.6.3/plugins/a11y-keyboard/Makefile.am
  	$(AM_CFLAGS)
  
 @@ -32,6 +33,7 @@
- 	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+ 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
  	$(top_builddir)/plugins/common/libcommon.la		\
  	$(LIBNOTIFY_LIBS)					\
 +	$(APPINDICATOR_LIBS)				\
