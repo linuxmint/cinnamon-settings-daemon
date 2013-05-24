@@ -1,0 +1,12 @@
+[Desktop Entry]
+_Name=Mount Helper
+_Comment=Automount and autorun plugged devices
+Exec=@LIBEXECDIR@/gnome-fallback-mount-helper
+Icon=drive-optical
+Terminal=false
+Type=Application
+Categories=
+NoDisplay=true
+OnlyShowIn=GNOME;Unity;
+X-GNOME-Autostart-Notify=true
+AutostartCondition=GNOME3 unless-session gnome

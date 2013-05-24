@@ -1,0 +1,3195 @@
+# translation of po_gnome-settings-daemon-km.po to Khmer
+# Khmer translation for gnome-settings-daemon
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the gnome-settings-daemon package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Khoem Sokhem <khoemsokhem@khmeros.info>, 2012.
+# sutha <sutha@khmeros.info>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: po_gnome-settings-daemon-km\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"settings-daemon&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-09-27 08:43+0000\n"
+"PO-Revision-Date: 2012-10-01 09:18+0700\n"
+"Last-Translator: sutha <sutha@khmeros.info>\n"
+"Language-Team: Khmer <support@khmeros>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: WordForge 0.8 RC1\n"
+"X-Language: km-KH\n"
+
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "ដេមិន​ការ​កំណត់ GNOME"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Smartcard removal action"
+msgstr "សកម្មភាព​ការ​យក Smartcard ចេញ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid ""
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"កំណត់​វា​ទៅ \"គ្មាន\" \"ចាក់សោ​អេក្រង់\" ឬ \"បង្ខំ​ចេញ\" ។ សកម្មភាព​នឹង​ប្រតិបត្តិ​នៅ​ពេល​ "
+"smartcard ត្រូវ​​បាន​ប្រើ​សម្រាប់​ចូល ឬ​យកចេញ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Disable touchpad while typing"
+msgstr "បិទ​បន្ទះ​ប៉ះ​ពេល​កំពុង​វាយ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr "កំណត់​វា​ទៅ​ពិត​ប្រសិនបើ​អ្នក​មាន​បញ្ហា​ការ​ប៉ះ​បន្ទះ​ចុច​ដោយ​ចៃដន្យ​ពេល​កំពុង​វាយ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Enable horizontal scrolling"
+msgstr "បើក​រមូរ​ផ្ដេក"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr "កំណត់វា​ទៅ​ពិត​ដើម្បី​អនុញ្ញាត​រមូរ​ផ្ដេក​តាម​វិធីសាស្ត្រ​ដូចគ្នា​ដែល​បាន​ជ្រើស ជាមួយ​សោ​វិធីសាស្ត្រ​រមូរ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Select the touchpad scroll method"
+msgstr "ជ្រើស​វិធីសាស្ត្រ​រមូរ​បន្ទះ​ប៉ះ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid ""
+"Select the touchpad scroll method. Supported values are: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr "ជ្រើស​វិធីសាស្ត្រ​រមូរ​បន្ទះ​ប៉ះ ។ តម្លៃ​គាំទ្រ​គឺ ៖ \"បិទ\" \"រមូរ​គែម\" \"រមូរ​ម្រាម​ពីរ\" ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Enable mouse clicks with touchpad"
+msgstr "បើក​ការ​ចុច​កណ្ដុរ​ជាមួយ​បន្ទះ​ប៉ះ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr "កំណត់​វា​ទៅ​ពិត​ដើម្បី​អាច​ផ្ញើ​ការ​ចុច​កណ្ដុរ​បាន​ដោយ​គ្រាន់តែ​គោះ​នៅ​លើ​បន្ទះ​ប៉ះ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid "Enable touchpad"
+msgstr "បើក​បន្ទះ​ប៉ះ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "កំណត់​វា​​ពិត ​ដើម្បី​បើក​បន្ទះ​ប៉ះ​ទាំងអស់ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid ""
+"Highlights the current location of the pointer when the Control key is "
+"pressed and released."
+msgstr "រំលេច​ទីតាំង​បច្ចុប្បន្ន​នៃ​ព្រួញ​ចង្អុល​នៅ​ពេល​ដែល​បាន​ចុច និង​ប្រលែង​គ្រាប់ចុច​បញ្ជា (Ctrl) ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Double click time"
+msgstr "ពេលវេលា​ចុច​ទ្វេដង"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid "Length of a double click in milliseconds."
+msgstr "ប្រវែង​ចុច​ទ្វេដង​គិតជា​មិល្លី​វិនាទី ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid "Drag threshold"
+msgstr "អូស​កម្រិត​ពន្លឺ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid "Distance before a drag is started."
+msgstr "ចម្ងាយ​មុន​ពេល​ចាប់ផ្ដើម​អូស"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid "Middle button emulation"
+msgstr "ការ​ត្រាប់តាម​ប៊ូតុង​កណ្ដាល"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr "បើក​ការ​ត្រាប់តាម​ប៊ូតុង​កណ្ដុរ​កណ្ដាល​ដំណាលគ្នា​ជាមួយ​ការ​ចុច​ប៊ូតុង​ឆ្វេង និង​ស្ដាំ​ដែរ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgstr "ថា​តើ​ទិស​របស់ tablet ត្រូវ​បាន​ចាក់សោ ឬ​បង្វិល​ដោយ​ស្វ័យប្រវត្តិ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Device hotplug custom command"
+msgstr "ពាក្យ​បញ្ជា​ផ្ទាល់ខ្លួន​ឧបករណ៍​ដោត"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Command to be run when a device is added or removed."
+msgstr "ពាក្យ​បញ្ជា​ដែល​ត្រូវ​ដំណើរការ​ពេល​ឧបករណ៍​ត្រូវ​បាន​បន្ថែម ឬ​យកចេញ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid "Activation of this plugin"
+msgstr "ការ​ធ្វើឲ្យ​សកម្ម​នៃ​កម្មវិធី​ជំនួយ​នេះ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr "ថា​តើ​កម្មវិធី​ជំនួយ​នេះ​គួរ​ត្រូវ​បាន​ធ្វើឲ្យ​សកម្ម​ដោយ​ដេមិន​ការ​កំណត់ gnome ដែរ ឬទេ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "Priority to use for this plugin"
+msgstr "អាទិភាព​ដែល​ត្រូវ​ប្រើ​សម្រាប់​កម្មវិធី​ជំនួយ​នេះ"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr "អាទិភាព​ដែល​ត្រូវ​ប្រើ​សម្រាប់​កម្មវិធី​ជំនួយ​នេះ​នៅ​ក្នុង​ជួរ​ចាប់ផ្ដើម​ដេមិន​ការ​កំណត់ gnome"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Wacom stylus absolute mode"
+msgstr "របៀប​ដាច់ខាត​ប៊ិក​របស់ Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Enable this to set the tablet to absolute mode."
+msgstr "បើក​វា​ដើម្បី​កំណត់ tablet ទៅ​របៀប​ដាច់ខាត ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Wacom tablet area"
+msgstr "ផ្ទៃ Wacom tablet"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
+msgstr "កំណត់​វា​ទៅ x1, y1 និង x2, y2 នៃ​ផ្ទៃ​ដែល​អាច​ប្រើ​បាន​ដោយ​ឧបករណ៍ ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+msgid "Wacom tablet aspect ratio"
+msgstr "សមាមាត្រ Wacom tablet"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid ""
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
+"the output."
+msgstr "បើក​វា​ដើម្បី​​ដាក់​កម្រិត​ផ្ទៃ Wacom tablet ក្នុង​ការ​ផ្គូផ្គង​សមាមាត្រ​​លទ្ធផល ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid "Wacom tablet rotation"
+msgstr "ការ​បង្វិល Wacom tablet"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+"កំណត់​វា​ទៅ 'គ្មាន' 'cw' បង្វិល ៩០ ដឺក្រេ​ស្រប​ទ្រនិច​នាឡិកា 'ពាក់កណ្ដាល' បង្វិល ១៨០ ដឺក្រេ និង "
+"'ccw' បង្វិល ៩០ ដឺក្រេ​ច្រាស​ទ្រនិច​នាឡិកា ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid "Wacom touch feature"
+msgstr "លក្ខណ​ពិសេស​ការ​ប៉ះ Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr "បើក​វា​ដើម្បី​ផ្លាស់ទី​ទស្សន៍ទ្រនិច​នៅ​ពេល​អ្នក​ប្រើ​ប៉ះ tablet ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid "Wacom tablet PC feature"
+msgstr "លក្ខណ​ពិសេស​របស់ Wacom tablet PC"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr "បើក​វា​ដើម្បី​រាយការណ៍​តែ​ព្រឹត្តិការណ៍​ប៊ិក​ប៉ុណ្ណោះ​នៅ​ពេល​ដែល​ព័ត៌មាន​ជំនួយ​ត្រូវ​បាន​ចុច ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid "Wacom display mapping"
+msgstr "ផ្គូផ្គង​ការ​បង្ហាញ Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"EDID information of monitor to map tablet to. Must be in the format [vendor, "
+"product, serial]. [\"\",\"\",\"\"] disables mapping."
+msgstr ""
+"ព័ត៌មាន EDID សម្រាប់​អ្នក​ត្រួតពិនិត្យ​ដើម្បី​ផ្គូផ្គង tablet ទៅ ។ ត្រូវតែ​ជា​ទម្រង់ [ក្រុមហ៊ុន​លក់ ផលិតផល "
+"សៀរៀល] ។ [\"\",\"\",\"\"] បិទ​ការ​ផ្គូផ្គង ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "Wacom stylus pressure curve"
+msgstr "ខ្សែ​កោង​សម្ពាធ Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr "កំណត់​វា​ទៅ x1, y1 និង x2, y2 នៃ​ខ្សែ​កោង​សម្ពាធ​ដែល​បាន​អនុវត្ត​ទៅកាន់​ប៊ិក ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom stylus button mapping"
+msgstr "ការ​ផ្គូផ្គង​ប៊ូតុង​ប៊ិក Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Set this to the logical button mapping."
+msgstr "កំណត់​វា​ទៅកាន់​ការ​ផ្គូផ្គង​ប៊ូតុង​សម"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom stylus pressure threshold"
+msgstr "កម្រិត​ពន្លឺ​សម្ពាធ​ប៊ិក Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr "កំណត់​វា​ទៅ​តម្លៃ​សម្ពាធ​ នៅ​ពេល​ដែល​ព្រឹត្តិការណ៍​ចុច​ប៊ិក​ត្រូវ​បាន​បង្កើត ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom eraser pressure curve"
+msgstr "ខ្សែ​កោង​សម្ពាធ​ជ័រលុប Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr "កំណត់​វា​ទៅ x1, y1 និង x2, y2 នៃ​ខ្សែ​កោង​សម្ពាធ​ដែល​បាន​អនុវត្ត​ទៅកាន់​ជ័រលុប ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom eraser button mapping"
+msgstr "ការ​ផ្គូផ្គង​ប៊ូតុង​ជ័រលុប Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom eraser pressure threshold"
+msgstr "កម្រិត​ពន្លឺ​សម្ពាធ​ជ័រលុប Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr "កំណត់​វា​ទៅកាន់​តម្លៃ​សម្ពាធ នៅ​ពេល​ដែល​ព្រឹត្តិការណ៍​ចុច​ជ័រលុប​ត្រូវ​បាន​បង្កើត ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom button action type"
+msgstr "ប្រភេទ​សកម្មភាព​ប៊ូតុង Wacom"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "The type of action triggered by the button being pressed."
+msgstr "ប្រភេទ​សកម្មភាព​ដែល​បាន​បិទ/បើក​ដោយ​ការ​ចុច​ប៊ូតុង ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Key combination for the custom action"
+msgstr "បន្សំ​គ្រាប់ចុច​សម្រាប់​សកម្មភាព​ផ្ទាល់ខ្លួន"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr "គ្រាប់ចុច​ផ្លូវកាត់​ដែល​បាន​បង្កើត​នៅ​ពេល​ដែល​បាន​ចុច​ប៊ូតុង​សម្រាប់​សកម្មភាព​ផ្ទាល់ខ្លួន ។"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
+msgid "Key combinations for an elevator custom action"
+msgstr "បន្សំ​គ្រាប់ចុច​សម្រាប់​សកម្មភាព​ផ្ទាល់ខ្លួន"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:35
+msgid ""
+"The keyboard shortcuts generated when a touchring or touchstrip is used for "
+"custom actions (up followed by down)."
+msgstr ""
+"គ្រាប់ចុច​ផ្លូវកាត់​ដែល​បាន​បង្កើត​នៅ​ពេល​ដែល​ touchring ឬ touchstrip ត្រូវ​បាន​ប្រើ​សម្រាប់​សកម្មភាព​"
+"ផ្ទាល់ខ្លួន (ឡើង​តាម​ពីក្រោយ​ដោយ​ចុះ)"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "The duration a display profile is valid"
+msgstr "ថិរវេលា​នៃ​ទម្រង់​ការ​បង្ហាញ​គឺ​ត្រឹមត្រូវ"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr "នេះ​ជា​ចំនួន​ថ្ងៃ​បន្ទាប់ពី​ទម្រង់​ពណ៌​នៃ​ការ​បង្ហាញ​ត្រូវ​បាន​គិត​ថា​ត្រឹមត្រូវ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid "The duration a printer profile is valid"
+msgstr "ថិរវេលា​នៃ​ទម្រង់​ម៉ាស៊ីន​បោះពុម្ព​គឺ​ត្រឹមត្រូវ"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr "នេះ​ជា​ចំនួន​ថ្ងៃ​បន្ទាប់ពី​ទម្រង់​ពណ៌​ម៉ាស៊ីន​បោះពុម្ព​ត្រូវ​បាន​គិត​ថា​ត្រឹមត្រូវ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+msgid "Mount paths to ignore"
+msgstr "ម៉ោន​ផ្លូវ​ដើម្បី​មិន​អើពើ"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr "បញ្ជាក់​ពី​បញ្ជី​នៃ​ចំនួន​ផ្លូវ​ដើម្បី​មិន​អើពើ នៅ​ពេល​ដែល​ពួកវា​ដំណើរការ​លើ​ទំហំ​ដែល​សល់​តិច ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+msgid "Free percentage notify threshold"
+msgstr "កម្រិត​ពន្លឺ​ការ​ជូនដំណឹង​ភាគរយ​ទំហំ​ទំនេរ"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown."
+msgstr ""
+"កម្រិត​ពន្លឺ​ការ​ជូនដំណឹង​ភាគរយ​ទំហំ​ទំនេរ​សម្រាប់​ការ​ព្រមាន​ដំបូង​អំពី​ទំហំ​ថាស​ទាប ។ ប្រសិនបើ​ភាគរយ​ទំនេរ​ទាប​ជាង​"
+"នេះ ការ​ព្រមាន​នឹង​ត្រូវ​បាន​បង្ហាញ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+msgid "Subsequent free space percentage notify threshold"
+msgstr "កម្រិត​ពន្លឺ​ការ​ជូនដំណឹង​ភាគរយ​ទំហំ​ទំនេរបន្ទាប់"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning."
+msgstr "បញ្ជាក់​ភាគរយ​ដែល​ទំហំ​ថាស​គួរ​ត្រូវ​បាន​កាត់បន្ថយ​នៅ​មុន​ពេល​ចេញផ្សាយ​ការ​ព្រមាន​បន្ទាប់ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+msgid "Free space notify threshold"
+msgstr "កម្រិត​ពន្លឺ​ការ​ជូនដំណឹង​ទំហំ​ទំនេរ"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown."
+msgstr "បញ្ជាក់​ចំនួន​គិតជា GB ។ ប្រសិនបើ​ចំនួន​ទំហំ​ទំនេរ​ច្រើន​ជាង​នេះ វា​នឹង​មិន​បង្ហាញ​ការ​ព្រមាន​ទេ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+msgid "Minimum notify period for repeated warnings"
+msgstr "រយៈពេល​ការ​ជូន​ដំណឹង​អប្បបរមា​សម្រាប់​ការ​ព្រមាន​ដដែរៗ"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"បញ្ជាក់​រយៈពេល​គិតជា​នាទី ។ ការ​ព្រមាន​បន្ទាប់​សម្រាប់​ភាគ​នឹង​មិន​លេចឡើង​ច្រើនជាង​រយៈពេល​នេះ​ទេ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+msgid "Custom keybindings"
+msgstr "ការ​ចង​គ្រាប់ចុច​ផ្ទាល់ខ្លួន"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+msgid "List of custom keybindings"
+msgstr "រាយ​​ការ​ចង​គ្រាប់ចុច​ផ្ទាល់ខ្លួន"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+msgid "Launch calculator"
+msgstr "ចាប់ផ្ដើម​ម៉ាស៊ីនគិតលេខ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+msgid "Binding to launch the calculator."
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​ម៉ាស៊ីនគិតលេខ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+msgid "Launch email client"
+msgstr "ចាប់ផ្ដើម​កម្មវិធី​អ៊ីមែល"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+msgid "Binding to launch the email client."
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​កម្មវិធី​អ៊ីមែល ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+msgid "Eject"
+msgstr "ច្រាន​ចេញ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+msgid "Binding to eject an optical disc."
+msgstr "ការ​ចង​ដើម្បី​ច្រាន​ថាស​អុបទិក​ចេញ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+msgid "Launch help browser"
+msgstr "ចាប់ផ្ដើម​កម្មវិធី​រុករក​ជំនួយ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+msgid "Binding to launch the help browser."
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​កម្មវិធី​រុករក​ជំនួយ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+msgid "Home folder"
+msgstr "ថត​ផ្ទះ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+msgid "Binding to open the Home folder."
+msgstr "ការ​ចង​ដើម្បី​បើក​ថត​ផ្ទះ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+msgid "Launch media player"
+msgstr "ចាប់ផ្ដើម​កម្មវិធី​ចាក់​មេឌៀ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+msgid "Binding to launch the media player."
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​កម្មវិធី​ចាក់​មេឌៀ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+msgid "Next track"
+msgstr "បទ​បន្ទាប់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+msgid "Binding to skip to next track."
+msgstr "ការ​ចង​ដើម្បី​រំលង​ទៅ​បទ​បន្ទាប់ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+msgid "Pause playback"
+msgstr "ផ្អាក​ការ​ចាក់​សារ​ថ្មី"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+msgid "Binding to pause playback."
+msgstr "ការ​ចង​ដើម្បី​ផ្អាក​ការ​ចាក់​សារ​ថ្មី"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+msgid "Play (or play/pause)"
+msgstr "ចាក់ (ចាក់/ផ្អាក)"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+msgid "Binding to start playback (or toggle play/pause)."
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​ចាក់​សារ​ថ្មី (បិទ-បើក​ចាក់/ផ្អាក) ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+msgid "Log out"
+msgstr "ចេញ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+msgid "Binding to log out."
+msgstr "ការ​ចង​ដើម្បី​ចេញ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+msgid "Previous track"
+msgstr "បទ​មុន"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+msgid "Binding to skip to previous track."
+msgstr "ការ​ចង​ដើម្បី​រំលង​បទ​មុន ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+msgid "Lock screen"
+msgstr "ចាក់សោ​អេក្រង់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Binding to lock the screen."
+msgstr "ការ​ចង​ដើម្បី​ចាក់សោ​អេក្រង់ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+msgid "Search"
+msgstr "ស្វែងរក"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+msgid "Binding to launch the search tool."
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​ឧបករណ៍​ស្វែងរក ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+msgid "Stop playback"
+msgstr "បញ្ឈប់​ការ​ចាក់​សារ​ថ្មី"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Binding to stop playback."
+msgstr "ការ​ចង​ដើម្បី​បញ្ឈប់​ការ​ចាក់​សារ​ថ្មី ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+msgid "Volume down"
+msgstr "បន្ថយ​កម្រិត​សំឡេង"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+msgid "Binding to lower the system volume."
+msgstr "ការ​ចង​ដើម្បី​បន្ថយ​កម្រិត​សំឡេង​ប្រព័ន្ធ​។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+msgid "Volume mute"
+msgstr "បិទ​សំឡេង"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+msgid "Binding to mute the system volume."
+msgstr "ការ​ចង​ដើម្បី​បិទ​បិទ​សំឡេង​ប្រព័ន្ធ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+msgid "Volume up"
+msgstr "បង្កើន​កម្រិត​សំឡេង"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+msgid "Binding to raise the system volume."
+msgstr "ការ​ចង​ដើម្បី​បង្កើន​កម្រិត​សំឡេង​ប្រព័ន្ធ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+msgid "Take a screenshot"
+msgstr "ថតរូប​អេក្រង់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Binding to take a screenshot."
+msgstr "ការ​ចង​ដើម្បី​ថត​រូប​អេក្រង់ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Take a screenshot of a window"
+msgstr "ថតរូប​អេក្រង់​បង្អួច"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+msgid "Binding to take a screenshot of a window."
+msgstr "ការ​ចង​ដើម្បី​ថតរូប​អេក្រង់​បង្អួច ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+msgid "Take a screenshot of an area"
+msgstr "ថតរូប​អេក្រង់​ផ្ទៃ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+msgid "Binding to take a screenshot of an area."
+msgstr "ការ​ចង​ដើម្បី​ថតរូប​អេក្រង់​ផ្ទៃ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+msgid "Copy a screenshot to clipboard"
+msgstr "ចម្លង​រូបថត​អេក្រង់​ទៅកាន់​ក្ដារ​តម្បៀត​ខ្ទាស់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+msgid "Binding to copy a screenshot to clipboard."
+msgstr "ការ​ចង​ដើម្បី​ចម្លង​រូបថត​អេក្រង់​ទៅកាន់​ក្ដារ​តម្បៀត​ខ្ទាស់ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+msgid "Copy a screenshot of a window to clipboard"
+msgstr "ចម្លង​រូបថត​អេក្រង់​បង្អួច​ទៅកាន់​ក្ដារ​តម្បៀត​ខ្ទាស់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+msgid "Binding to copy a screenshot of a window to clipboard."
+msgstr "ការ​ចង​ដើម្បី​ចម្លង​រូបថត​អេក្រង់​បង្អួច​ទៅកាន់​ក្ដារ​តម្បៀត​ខ្ទាស់ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+msgid "Copy a screenshot of an area to clipboard"
+msgstr "ចម្លង​រូបថត​អេក្រង់​ផ្ទៃ​ទៅកាន់​ក្ដារ​តម្បៀត​ខ្ទាស់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Binding to copy a screenshot of an area to clipboard."
+msgstr "ការ​ចង​ដើម្បី​ចម្លង​រូបថត​អេក្រង់​ផ្ទៃ​ទៅកាន់​ក្ដារ​តម្បៀត​ខ្ទាស់ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+msgid "Launch web browser"
+msgstr "ចាប់ផ្ដើម​កម្មវិធី​រុករក​បណ្ដាញ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+msgid "Binding to launch the web browser."
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​កម្មវិធី​រុករក​បណ្ដាញ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+msgid "Toggle magnifier"
+msgstr "បិទ/បើក​កម្មវិធី​ពង្រីក"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+msgid "Binding to show the screen magnifier"
+msgstr "ការ​ចង​ដើម្បី​បង្ហាញ​កម្មវិធី​ពង្រីក​អេក្រង់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+msgid "Toggle screen reader"
+msgstr "បិទ/បើក​កម្មវិធី​អាន​អេក្រង់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+msgid "Binding to start the screen reader"
+msgstr "ការ​ចង​ដើម្បី​ចាប់ផ្ដើម​កម្មវិធី​អាន​អេក្រង់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+msgid "Toggle on-screen keyboard"
+msgstr "បិទ/បើក​ក្ដារចុច​លើ​អេក្រង់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+msgid "Binding to show the on-screen keyboard"
+msgstr "ការ​ចង​ដើម្បី​បង្ហាញ​ក្ដារចុច​លើ​អេក្រង់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+msgid "Increase text size"
+msgstr "បង្កើន​ទំហំ​អត្ថបទ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+msgid "Binding to increase the text size"
+msgstr "ការ​ចង​ដើម្បី​បង្កើន​ទំហំ​អត្ថបទ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+msgid "Decrease text size"
+msgstr "បន្ថយ​ទំហំ​អត្ថបទ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+msgid "Binding to decrease the text size"
+msgstr "ការ​ចង​ដើម្បី​បន្ថយ​ទំហំ​អត្ថបទ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+msgid "Toggle contrast"
+msgstr "បិទ/បើក​កម្រិត​ពណ៌"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+msgid "Binding to toggle the interface contrast"
+msgstr "ការ​ចង​ដើម្បី​បិទ/បើក​កម្រិត​ពណ៌​ចំណុចប្រទាក់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+msgid "Magnifier zoom in"
+msgstr "កម្មវិធី​ពង្រីក"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+msgid "Binding for the magnifier to zoom in"
+msgstr "ការ​ចង​សម្រាប់​កម្មវិធី​ពង្រីក"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+msgid "Magnifier zoom out"
+msgstr "កម្មវិធី​បង្រួម"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+msgid "Binding for the magnifier to zoom out"
+msgstr "ការ​ចង​សម្រាប់​កម្មវិធី​បង្រួម"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Switch input source"
+msgstr "ប្ដូរ​ប្រភព​បញ្ចូល"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid "Binding to select the next input source"
+msgstr "ការ​ចង​ដើម្បី​ជ្រើស​ប្រភព​បញ្ចូល​បន្ទាប់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+msgid "Switch input source backward"
+msgstr "ប្ដូរ​ប្រភព​បញ្ចូល​ត្រឡប់"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+msgid "Binding to select the previous input source"
+msgstr "ការ​ចង់ ដើម្បី​ជ្រើស​ប្រភព​បញ្ចូល​មុន"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+msgid "Name"
+msgstr "ឈ្មោះ"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+msgid "Name of the custom binding"
+msgstr "ឈ្មោះ​ការ​ចង​ផ្ទាល់ខ្លួន"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:77
+msgid "Binding"
+msgstr "ការ​ចង"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:78
+msgid "Binding for the custom binding"
+msgstr "ការ​ចង​ផ្ទាល់ខ្លួន"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:79
+msgid "Command"
+msgstr "ពាក្យ​បញ្ជា"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:80
+msgid "Command to run when the binding is invoked"
+msgstr "ពាក្យ​បញ្ជា​ត្រូវ​ដំណើរការ​ នៅ​​​ពេល​​​ចង"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage considered low"
+msgstr "ចំនួន​ភាគរយ​ដែល​បាន​គិត​ថា​ទាប"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid ""
+"The percentage of the battery when it is considered low. Only valid when use-"
+"time-for-policy is false."
+msgstr ""
+"ចំនួន​ភាគរយ​របស់​ថ្ម​នៅ​ពេល​ដែល​វា​ត្រូវ​បាន​គិត​ថា​ខ្សោយ ។ ត្រឹមត្រូវ​តែ​នៅ​ពេល​ដែល​ពេលវេលា​ប្រើប្រាស់​សម្រាប់​"
+"គោលការណ៍​មិន​ពិត​ប៉ុណ្ណោះ​។"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Percentage considered critical"
+msgstr "ចំនួន​ភាគរយ​ដែល​បាន​គិត​ថា​ជិត​អស់"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+msgid ""
+"The percentage of the battery when it is considered critical. Only valid "
+"when use-time-for-policy is false."
+msgstr ""
+"ចំនួន​ភាគរយ​របស់​ថ្ម​នៅ​ពេល​ដែល​វា​ត្រូវ​បាន​គិត​ថា​ជិត​អស់ ។ ត្រឹមត្រូវ​តែ​នៅ​ពេល​ដែល​ពេលវេលា​ប្រើប្រាស់​សម្រាប់​"
+"គោលការណ៍​មិន​ពិត​ប៉ុណ្ណោះ​។"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+msgid "Percentage action is taken"
+msgstr "ចំនួន​ភាគរយ​នៃ​សកម្មភាព​ដែល​បាន​ធ្វើ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The percentage of the battery when the critical action is performed. Only "
+"valid when use-time-for-policy is false."
+msgstr ""
+"ចំនួន​ភាគរយ​របស់​ថ្ម​នៅ​ពេល​ដែល​សកម្មភាព​អស់​ថាមពល​ត្រូវ​បាន​អនុវត្ត ។ ត្រឹមត្រូវ​តែ​នៅ​ពេល​ដែល​ពេលវេលា​"
+"ប្រើប្រាស់​សម្រាប់​គោលការណ៍​មិន​ពិត​ប៉ុណ្ណោះ​។"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid "The time remaining when low"
+msgstr "ពេលវេលា​នៅសល់​ពេល​ថ្ម​ខ្សោយ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid ""
+"The time remaining in seconds of the battery when it is considered low. Only "
+"valid when use-time-for-policy is true."
+msgstr ""
+"ពេលវេលា​នៅសល់​របស់​ថ្ម​គិតជា​វិនាទី ពេល​ដែល​វា​ត្រូវ​បាន​គិត​ថា​ខ្សោយ ។ ត្រឹមត្រូវ​តែ​នៅ​ពេល​ដែល​ពេលវេលា​"
+"ប្រើប្រាស់​សម្រាប់​គោលការណ៍​ពិត​ប៉ុណ្ណោះ​។"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid "The time remaining when critical"
+msgstr "ពេលវេលា​នៅសល់​​នៅ​ពេល​ជិត​អស់"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The time remaining in seconds of the battery when it is considered critical. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"ពេលវេលា​នៅសល់​របស់​ថ្ម​គិតជា​វិនាទី ពេល​ដែល​វា​ត្រូវ​បាន​គិត​ថា​ជិត​អស់ ។ ត្រឹមត្រូវ​តែ​នៅ​ពេល​ដែល​ពេលវេលា​"
+"ប្រើប្រាស់​សម្រាប់​គោលការណ៍​ពិត​ប៉ុណ្ណោះ​។"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid "The time remaining when action is taken"
+msgstr "ពេលវេលា​នៅសល់​ពេល​ដែល​សកម្មភាព​ត្រូវ​បាន​ធ្វើ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid ""
+"The time remaining in seconds of the battery when critical action is taken. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"ពេលវេលា​នៅសល់​របស់​ថ្ម​គិតជា​វិនាទី ពេល​ដែល​សកម្មភាព​ជិត​អស់​ត្រូវ​បាន​ធ្វើ ។ ត្រឹមត្រូវ​តែ​នៅ​ពេល​ដែល​ពេលវេលា​"
+"ប្រើប្រាស់​សម្រាប់​គោលការណ៍​ពិត​ប៉ុណ្ណោះ​។"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+msgid "Whether to use time-based notifications"
+msgstr "ថា​តើ​ត្រូវ​ប្រើ​ការ​ជូនដំណឹង​​ពេលវេលា​មូលដ្ឋាន​ដែរ ឬទេ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid ""
+"If time based notifications should be used. If set to false, then the "
+"percentage change is used instead, which may fix a broken ACPI BIOS."
+msgstr ""
+"ថា​តើ​គួរ​ត្រូវ​ប្រើ​ការ​ជូនដំណឹង​ពេលវេលា​មូលដ្ឋាន​ដែរ ឬទេ ។ ប្រសិនបើ​បាន​កំណត់​ទៅ​មិន​ពិត នោះ​ភាគរយ​ការ​"
+"ផ្លាស់ប្ដូរ​នឹង​ត្រូវ​បាន​ប្រើ​ជំនួស ហើយ​អាច​ជួសជុល ACPI BIOS ដែល​ខូច​បាន ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+msgid "If we should show the recalled battery warning for a broken battery"
+msgstr "ថា​តើ​យើង​គួរ​បង្ហាញ​ការ​ព្រមាន​ថ្ម​​សម្រាប់​ថ្ម​ដែល​ខូច​ដែរ​ឬទេ"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+msgid ""
+"If we should show the recalled battery warning for a broken battery. Set "
+"this to false only if you know your battery is okay."
+msgstr ""
+"ថា​តើ​យើង​គួរ​បង្ហាញ​ការ​ព្រមាន​ថ្ម​​សម្រាប់​ថ្ម​ដែល​ខូច​ដែរ​ឬទេ ។ កំណត់​វា​ទៅ​មិន​ពិត​ប្រសិនបើ​អ្នក​ដឹង​ថា​ថ្ម​របស់​អ្នក​"
+"នៅ​ល្អ​តែប៉ុណ្ណោះ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid "Use mobile broadband connections"
+msgstr "ប្រើ​ការ​តភ្ជាប់​តាម​រលក​អាកាស​ចល័ត"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr "ប្រើ​ការ​តភ្ជាប់​តាម​រលក​អាកាស​ចល័ត​មាន​ដូចជា GSM និង CDMA ដើម្បី​ពិនិត្យមើល​បច្ចុប្បន្នភាព ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically download updates in the background without confirmation"
+msgstr "ទាញ​យក​បច្ចុប្បន្នភាព​ដោយ​ស្វ័យប្រវត្តិ​នៅ​ក្នុង​ផ្នែក​ខាងក្រោយ​ដោយ​គ្មាន​ការ​អះអាង"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"mobile broadband if 'connection-use-mobile' is enabled."
+msgstr ""
+"ទាញ​យក​បច្ចុប្បន្នភាព​ដោយ​ស្វ័យប្រវត្តិ​នៅ​ក្នុង​ផ្នែក​ខាងក្រោយ​ដោយ​គ្មាន​ការ​អះអាង ។ បច្ចុប្បន្នភាព​នឹង​ត្រូវ​"
+"បាន​ទាញ​យក​ដោយ​ស្វ័យប្រវត្តិ នៅ​ពេល​ប្រើ​ការ​តភ្ជាប់​បណ្ដាញ​ដោយ​ខ្សែ និង​រលក​អាកាស​ចល័ត​​នឹង​ត្រូវ​បាន​បក ​"
+"ប្រសិនបើ 'ការ​តភ្ជាប់​ដោយ​ប្រើ​ទូរស័ព្ទ​ចល័ត' ត្រូវ​បាន​បើក​នោះ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid "How often to check for updates"
+msgstr "ភាព​ញឹកញាប់​ក្នុង​ការ​ពិនិត្យមើល​បច្ចុប្បន្នភាព"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+"ភាព​ញឹកញាប់​ក្នុង​ការ​ពិនិត្យមើល​បច្ចុប្បន្នភាព ។ តម្លៃ​គិតជា​វិនាទី​ នេះ​ជា​ចំនួន​ពេលវេលា​អតិបរមា​​ដែល​អាច​"
+"បញ្ជូន​រវាង​បច្ចុប្បន្នភាព​សុវត្ថិភាព​ដែល​កំពុង​ត្រូវ​បាន​បោះពុម្ពផ្សាយ និង​បច្ចុប្បន្នភាព​ដែល​កំពុង​ត្រូវ​បាន​ដំឡើង​"
+"ដោយ​ស្វ័យប្រវត្តិ ឬ​អ្នក​ប្រើ​បាន​ជូនដំណឹង ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid "How often to notify the user that non-critical updates are available"
+msgstr "ភាព​ញឹកញាប់​ដើម្បី​​ជូនដំណឹង​អ្នកប្រើ​អំពី​បច្ចុប្បន្នភាព​មិន​សំខាន់​ដែល​មាន"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+"ភាព​ញឹកញាប់​ដើម្បី​​ជូនដំណឹង​អ្នកប្រើ​អំពី​បច្ចុប្បន្នភាព​មិន​សំខាន់​ដែល​មាន តម្លៃ​គិតជា​វិនាទី​ ។ ការ​ជូនដំណឹង​អំពី​"
+"បច្ចុប្បន្នភាព​សុវត្ថិភាព​តែងតែ​ត្រូវ​បាន​បង្ហាញ​នៅ​បន្ទាប់ពី​ការ​ពិនិត្យមើល​បច្ចុប្បន្នភាព ប៉ុន្តែ​ការ​ជូនដំណឹង​មិន​"
+"សំខាន់​គួរតែ​ត្រូវ​បាន​បង្ហាញ​តិចជាង ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "The last time we told the user about non-critical notifications"
+msgstr "ពេលវេលា​ចុងក្រោយ​ដែល​យើង​បាន​ប្រាប់​អ្នកប្រើ​អំពី​ការ​ជូនដំណឹង​មិន​សំខាន់"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+"ពេលវេលា​ចុងក្រោយ​ដែល​យើង​បាន​ជូនដំណឹង​អ្នកប្រើ​អំពី​បច្ចុប្បន្នភាព​មិន​សំខាន់ ។ តម្លៃ​គិតជា​វិនាទី​តាំងពី​សម័យ ឬ​"
+"សូន្យ​សម្រាប់​កុំ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades"
+msgstr "ភាព​ញឹកញាប់​ដែល​ត្រូវ​ពិនិត្យមើល​ការ​ចែកចាយ​ភាព​ធ្វើឲ្យ​ប្រសើរ​ឡើង"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr "ភាព​ញឹកញាប់​ដែល​ត្រូវ​ពិនិត្យមើល​ការ​ចែកចាយ​ភាព​ធ្វើឲ្យ​ប្រសើរ​ឡើង ។ តម្លៃ​គិតជា​វិនាទី ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid "How often to refresh the package cache"
+msgstr "ភាព​ញឹកញាប់​ដែល​ត្រូវ​ធ្វើឲ្យ​ឃ្លាំង​សម្ងាត់​កញ្ចប់​ស្រស់"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "ភាព​ញឹកញាប់​ដែល​ត្រូវ​ធ្វើឲ្យ​ឃ្លាំង​សម្ងាត់​កញ្ចប់​ស្រស់ ។ តម្លៃ​គិតជា​វិនាទី ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "Check for updates when running on battery power"
+msgstr "ពិនិត្យ​មើល​បច្ចុប្បន្ន​ភាព ​​ពេល​ដំណើរការ​លើ​ថាមពល​ថ្ម"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "Check for updates when running on battery power."
+msgstr "ពិនិត្យមើល​​បច្ចុប្បន្នភាព នៅ​​ពេល​ដំណើរការ​លើ​ថាមពល​ថ្ម ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid "Notify the user when distribution upgrades are available"
+msgstr "ជូនដំណឹង​អ្នកប្រើ​ពេល​ដែល​មាន​ការ​ចែកចាយ​ភាព​ធ្វើឲ្យ​ប្រសើរ​ឡើង"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Notify the user when distribution upgrades are available."
+msgstr "ជូនដំណឹង​អ្នកប្រើ​ពេល​ដែល​មាន​ការ​ចែកចាយ​ភាព​ធ្វើឲ្យ​ប្រសើរ​ឡើង ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Ask the user if additional firmware should be installed"
+msgstr "សួរ​អ្នកប្រើ​ថា​តើ​គួរតែ​ដំឡើង​កម្មវិធី​បង្កប់​បន្ថែម​ដែរ​ឬទេ"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid ""
+"Ask the user if additional firmware should be installed if it is available."
+msgstr "សួរ​អ្នកប្រើ​ថា​តើ​គួរតែ​ដំឡើង​កម្មវិធី​បង្កប់​បន្ថែម​ដែរ​ឬទេ​ប្រសិនបើ​មាន ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Firmware files that should not be searched for"
+msgstr "ឯកសារ​កម្មវិធី​បង្កប់​ដែល​គួរតែ​ត្រូវ​បាន​ស្វែងរក"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+"ឯកសារ​កម្មវិធី​បង្កប់​ដែល​គួរតែ​ត្រូវ​បាន​ស្វែងរក បំបែក​ដោយ​សញ្ញា​ក្បៀស ។ វា​អាច​រួមបញ្ចូល​ដោយ​តួអក្សរ '*' "
+"និង '?' ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid "Devices that should be ignored"
+msgstr "ឧបករណ៍​ដែល​គួរតែ​មិន​អើពើ"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr "ឧបករណ៍​ដែល​គួរតែ​មិន​អើពើ បំបែក​ដោយ​សញ្ញា​ក្បៀស ។ វា​អាច​រួមបញ្ចូល​ដោយ​តួអក្សរ '*' និង '?' ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "The filenames on removable media that designate it a software source."
+msgstr "ឈ្មោះ​ឯកសារ​នៅ​លើ​មេឌៀ​ចល័ត​ដែល​បាន​កំណត់​ថា​ជា​ប្រភព​កម្មវិធី ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
+"ពេល​បាន​បញ្ចូល​មេឌៀ​ចល័ត វា​នឹង​ត្រូវ​បាន​ពិនិត្យមើល​​ដើម្បី​ដឹង​ថា​តើ​មាន​ឯកសារ​សំខាន់​ណា​ខ្លះ​នៅ​ក្នុង​ថត root ។ "
+"ប្រសិនបើ​ឈ្មោះ​ឯកសារ​ផ្គូផ្គង បន្ទាប់​វា​នឹង​ពិនិត្យមើល​បច្ចុប្បន្នភាព ។ វា​អនុញ្ញាត​ការ​ដំឡើង​ថាស​តាម​ក្រោយ​"
+"ដែល​ត្រូវ​ប្រើ​ដើម្បី​ធ្វើ​បច្ចុប្បន្នភាព​ប្រព័ន្ធ​ដែល​កំពុង​ដំណើរការ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+msgid "File for default configuration for RandR"
+msgstr "ឯកសារ​សម្រាប់​ការ​កំណត់​រចនាសម្ព័ន្ធ RandR"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+msgid ""
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+"កម្មវិធី​ជំនួយ XRandR នឹង​ស្វែងរក​ការ​កំណត់​រចនាសម្ព័ន្ធ​លំនាំដើម​នៅ​ក្នុង​ឯកសារ​ដែល​បាន​បញ្ជាក់​ដោយ​ពាក្យ​គន្លឹះ​"
+"នេះ ។ វា​ស្រដៀងគ្នា​ទៅ​នឹង ~/.config/monitors.xml ដែល​ជាទូទៅ​វា​ផ្ទុក​នៅ​ក្នុង​ថត​ផ្ទះ​របស់​អ្នកប្រើ "
+"។ ប្រសិនបើ​អ្នកប្រើ​ពុំ​មាន​ឯកសារ​នោះ​ទេ ឬ​មាន​ដែរ​តែ​វា​មិន​ផ្គូផ្គង​ជាមួយ​អ្នក​ត្រួតពិនិត្យ​ការ​រៀបចំ​របស់​"
+"អ្នកប្រើ នោះ​ឯកសារ​ដែល​បាន​បញ្ជាក់​ដោយ​ពាក្យ​គន្លឹះ​នេះ​នឹង​ត្រូវ​បាន​ប្រើ​ជំនួស ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+msgid "Whether to turn off specific monitors after boot"
+msgstr "ថា​តើ​ត្រូវ​បិទ​ម៉ូនីទ័រ​ជាក់លាក់​ដែរ ឬទេ​បន្ទាប់​ពី​ចាប់ផ្ដើម​ឡើង"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+"'ក្លូន' នឹង​បង្ហាញ​វត្ថុ​ដូចគ្នា​នៅ​គ្រប់​ម៉ូនីទ័រ​ទាំងអស់ 'ចត' និង​បិទ​ម៉ូនីទ័រ​ខាងក្នុង 'កុំ​ធ្វើ' នឹង​ប្រើ​លក្ខណៈ "
+"Xorg លំនាំដើម (ពង្រីក​ផ្ទៃតុ​នៅ​ក្នុង​កំណែ​ថ្មីៗ)"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+msgid "Antialiasing"
+msgstr "ប្រឆាំង​ភាព​រឆេតរឆូត"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+msgid ""
+"The type of antialiasing to use when rendering fonts. Possible values are: "
+"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
+"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgstr ""
+"ប្រភេទ​ការ​ប្រឆាំង​ភាព​រឆេតរឆូត​ដែល​ត្រូវ​ប្រើ​នៅ​ពេល​បង្ហាញ​ពុម្ពអក្សរ ។ តម្លៃ​ដែល​អាច​ប្រើ​បាន​គឺ ៖ "
+"\"គ្មាន\" គ្មាន​ការ​ប្រឆាំង​ភាព​រឆេតរឆូត \"មាត្រដ្ឋាន​ប្រផេះ\" សម្រាប់​ការ​ប្រឆាំង​ភាព​រឆេតរឆូត​"
+"មាត្រដ្ឋាន​ប្រផេះ និង \"rgba\" សម្រាប់​ការ​ប្រឆាំង​ភាព​រឆេតរឆូត​ភីកសែល​រង (អេក្រង់ LCD តែប៉ុណ្ណោះ) "
+"។"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+msgid "Hinting"
+msgstr "ជំនួយ"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: \"none"
+"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
+"\" for maximum hinting (may cause distortion of letter forms)."
+msgstr ""
+"ប្រភេទ​ជំនួយ​ដែល​ត្រូវ​ប្រើ​នៅ​ពេល​បង្ហាញ​ពុម្ពអក្សរ ។ តម្លៃ​ដែល​អាច​ប្រើ​បាន​គឺ ៖ \"គ្មាន\" សម្រាប់គ្មាន​"
+"ជំនួយ \"ស្ដើង\" សម្រាប់​មូលដ្ឋាន \"មធ្យម\" សម្រាប់​កណ្ដាល និង \"ពេញ\" សម្រាប់​ជំនួយ​អតិបរមា (អាច​"
+"បណ្ដាលឲ្យ​ខូច​ទ្រង់ទ្រាយ​សំបុត្រ) ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+msgid "RGBA order"
+msgstr "លំដាប់ RGBA"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+msgid ""
+"The order of subpixel elements on an LCD screen; only used when antialiasing "
+"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
+"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
+"on bottom."
+msgstr ""
+"លំដាប់​របស់​ធាតុ​ភីកសែល​រង​នៅ​លើ​អេក្រង់ lCD ប្រើ​តែ​នៅ​ពេល​ដែល​ការ​ប្រឆាំង​នឹង​ភាប​រឆេតរឆូត​ត្រូវ​បាន​កំណត់​ទៅ "
+"\"rgba\" ប៉ុណ្ណោះ ។ តម្លៃ​ដែល​អាច​ប្រើ​បាន​គឺ​ ៖ \"rgb\" សម្រាប់​ពណ៌ក្រហម​នៅ​ឆ្វេង (ទូទៅ​បំផុត) \"bgr"
+"\" សម្រាប់​ពណ៌ខៀវ​នៅ​ខាងឆ្វេង \"vrgb\" សម្រាប់​ពណ៌ក្រហម​នៅ​ខាងលើ \"vbgr\" សម្រាប់​ពណ៌ក្រហម​នៅ​"
+"ខាងក្រោម ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "បញ្ជី​របស់​ម៉ូឌុល GTK+ ដែល​បាន​បិទ"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"បញ្ជី​ខ្សែ​អក្សរ​បង្ហាញ​អំពី​ម៉ូឌុល GTK+ ដែល​នឹង​ត្រូវ​បាន​ផ្ទុក ទោះបីជា​វា​ត្រូវ​បាន​បិទ​ដោយ​លំនាំដើម​នៅ​ក្នុង​ការ​កំណត់​"
+"រចនាសម្ព័ន្ធ​របស់​ពួកវា​ក៏ដោយ ។"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "បញ្ជី​របស់​ម៉ូឌុល GTK+ ដែល​បាន​បើក"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"បញ្ជី​ខ្សែ​អក្សរ​បង្ហាញ​អំពី​ម៉ូឌុល GTK+ ដែល​នឹង​ត្រូវ​បាន​ផ្ទុក ជាធម្មតា​នៅ​ក្នុង​​ការ​បន្ថែម​ទៅកាន់​លក្ខខ័ណ្ឌ និង​"
+"ម៉ូឌុល​ដែល​បាន​បិទ​ដោយ​បង្ខំ ។"
+
+#: ../gnome-settings-daemon/main.c:54
+msgid "Enable debugging code"
+msgstr "បើក​កូដ​បំបាត់​កំហុស"
+
+#: ../gnome-settings-daemon/main.c:55
+msgid "Exit after a time (for debugging)"
+msgstr "ចេញ​បន្ទាប់​ពេល (សម្រាប់​ការ​បំបាត់​កំហុស)"
+
+#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+msgid "Accessibility Keyboard"
+msgstr "ក្ដារចុច​មធ្យោបាយ​ងាយស្រួល"
+
+#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+msgid "Accessibility keyboard plugin"
+msgstr "កម្មវិធី​ជំនួយ​ក្ដារចុច​មធ្យោបាយ​ងាយស្រួល"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:383
+#, c-format
+msgid "There was an error displaying help: %s"
+msgstr "មាន​កំហុស​ក្នុង​ការ​បង្ហាញ​ជំនួយ ៖ %s"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:507
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:570
+msgid "Slow Keys Turned On"
+msgstr "បាន​បើក​គ្រាប់ចុច​យឺត"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:571
+msgid "Slow Keys Turned Off"
+msgstr "បាន​បិទ​គ្រាប់ចុច​យឺត"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+msgid ""
+"You just held down the Shift key for 8 seconds.  This is the shortcut for "
+"the Slow Keys feature, which affects the way your keyboard works."
+msgstr ""
+"អ្នក​បាន​សង្កត់​គ្រាប់ចុច​ប្ដូរ (Shift) ជាប់​អស់​រយៈពេល ៨ វិនាទី ។ នេះ​ជា​ផ្លូវកាត់​សម្រាប់​លក្ខណ​ពិសេស​"
+"គ្រាប់ចុច​យឺត ដែល​ប៉ះពាល់​វិធី​ធ្វើ​ការ​នៃ​ក្ដារចុច​របស់​អ្នក ។"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:528
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:663
+#: ../plugins/mouse/gsd-mouse-manager.c:920
+msgid "Universal Access"
+msgstr "ការ​ចូល​ដំណើរការ​សាកល"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+msgid "Turn Off"
+msgstr "បិទ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:534
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:669
+msgid "Turn On"
+msgstr "បើក"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+msgid "Leave On"
+msgstr "បន្ត"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:540
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:675
+msgid "Leave Off"
+msgstr "ឈប់"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+msgid "_Turn Off"
+msgstr "បិទ"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:593
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:731
+msgid "_Turn On"
+msgstr "បើក"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+msgid "_Leave On"
+msgstr "បន្ត"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:596
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:734
+msgid "_Leave Off"
+msgstr "ឈប់"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:639
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:705
+msgid "Sticky Keys Turned On"
+msgstr "បាន​បើក​គ្រាប់ចុច​ស្អិត"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:640
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:706
+msgid "Sticky Keys Turned Off"
+msgstr "បាន​បិទ​គ្រាប់ចុច​ស្អិត"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
+msgid ""
+"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
+"the Sticky Keys feature, which affects the way your keyboard works."
+msgstr ""
+"អ្នក​បាន​ចុច​គ្រាប់ចុច​ប្ដូរ (Shift) ជាប់គ្នា​ចំនួន​ប្រាំដង ។ នេះ​ជា​ផ្លូវកាត់​សម្រាប់​លក្ខណ​ពិសេស​គ្រាប់ចុច​ស្អិត "
+"ដែល​ប៉ះពាល់​វិធី​ធ្វើ​ការ​នៃ​ក្ដារចុច​របស់​អ្នក ។"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
+msgid ""
+"You just pressed two keys at once, or pressed the Shift key 5 times in a "
+"row.  This turns off the Sticky Keys feature, which affects the way your "
+"keyboard works."
+msgstr ""
+"អ្នក​បាន​ចុច​គ្រាប់ចុច​ពីរ​ដំណាលគ្នា ឬ​អ្នក​បាន​ចុច​គ្រាប់ចុច​ប្ដូរ (Shift) ជាប់គ្នា​ចំនួន​ប្រាំដង ។ វា​នឹង​បិទ​"
+"លក្ខណ​ពិសេស​គ្រាប់ចុច​ស្អិត ដែល​ប៉ះពាល់​វិធី​ធ្វើ​ការ​នៃ​ក្ដារចុច​របស់​អ្នក ។"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:412
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
+msgid "Universal Access Preferences"
+msgstr "ចំណូលចិត្ត​ការ​ចូល​ដំណើរការ​សាកល"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
+msgid "Use on-screen _keyboard"
+msgstr "ប្រើ​ក្ដារចុច​លើ​អេក្រង់"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
+msgid "Use screen _reader"
+msgstr "ប្រើ​កម្មវិធី​អាន​អេក្រង់"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
+msgid "Use screen _magnifier"
+msgstr "ប្រើ​កម្មវិធី​ពង្រីក​អេក្រង់"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
+msgid "Enhance _contrast in colors"
+msgstr "ធ្វើឲ្យ​កម្រិត​ពណ៌​ប្រសើរ​ឡើង"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
+msgid "Make _text larger and easier to read"
+msgstr "ធ្វើឲ្យ​អត្ថបទ​ធំ និង​ងាយស្រួ​អាន"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "ចុច​គ្រាប់ចុច​ផ្លូវកាត់​មួយ​ម្ដង (គ្រាប់ចុច​ស្អិត)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "មិន​អើពើ​ការ​ចុច​គ្រាប់ចុច​ស្ទួន (គ្រាប់​ចុច​លោត)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "ចុច និង​សង្កត់​គ្រាប់ចុច​ដើម្បី​ព្រម​ទទួល​ពួកគេ (គ្រាប់ចុច​យឺត)"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+msgid "Accessibility settings"
+msgstr "ការ​កំណត់​មធ្យោបាយ​ងាយស្រួល"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+msgid "Accessibility settings plugin"
+msgstr "កម្មវិធី​ជំនួយ​ការ​កំណត់​មធ្យោបាយ​ងាយស្រួល"
+
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
+msgid "Mount Helper"
+msgstr "កម្មវិធី​ជំនួយ​ម៉ោន"
+
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
+msgid "Automount and autorun plugged devices"
+msgstr "ម៉ោន និង​ដំណើរការ​ឧបករណ៍​ដែល​បាន​ដោត​ដោយ​ស្វ័យប្រវត្តិ"
+
+#: ../plugins/automount/gsd-automount-manager.c:151
+#, c-format
+msgid "Unable to mount %s"
+msgstr "មិន​អាច​ម៉ោន %s"
+
+#: ../plugins/automount/gsd-automount-manager.c:264
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "មិន​អាច​បើក​ថត​សម្រាប់ %s"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "សួរ​ថា​ត្រូវ​ធ្វើ​អ្វី"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "មិន​ធ្វើ​អ្វី​ទាំងអស់"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "បើក​ថត"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "មិន​អាច​ច្រាន %p ចេញ​បាន​ទេ"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "មិន​អាច​ម៉ោន %p"
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio CD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ស៊ីឌី​អូឌីយ៉ូ ។"
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted an Audio DVD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ឌីវីឌី​អូឌីយ៉ូ ។"
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video DVD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ឌីវីឌី​វីដេអូ ។"
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Video CD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ស៊ីឌី​វីដេអូ ។"
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a Super Video CD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូលស៊ីឌី​វីដេអូ​ពិសេស ។"
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank CD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ស៊ីឌី​ទទេ ។"
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank DVD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ឌីវីឌី​ទទេ ។"
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ថាស Blu-Ray ទទេ ។"
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a blank HD DVD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ឌីវីឌី HD ទទេ ។"
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Photo CD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ស៊ីឌី​រូបថត ។"
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a Picture CD."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ស៊ីឌី​រូបភាព ។"
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a medium with digital photos."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ឧបករណ៍​ដែល​មាន​រូបថត​ឌីជីថល ។"
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid "You have just inserted a digital audio player."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​កម្មវិធី​ចាក់​អូឌីយ៉ូ​ឌីជីថល ។"
+
+#: ../plugins/automount/gsd-autorun.c:728
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ឧបករណ៍​ដែល​មាន​កម្មវិធី​អាច​ចាប់ផ្ដើម​ដោយ​ស្វ័យប្រវត្តិ​បាន ។"
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "You have just inserted a medium."
+msgstr "អ្នក​ទើប​បាន​បញ្ចូល​ឧបករណ៍ ។"
+
+#: ../plugins/automount/gsd-autorun.c:733
+msgid "Choose what application to launch."
+msgstr "ជ្រើស​កម្មវិធី​ដែល​ត្រូវ​ចាប់ផ្ដើម ។"
+
+#: ../plugins/automount/gsd-autorun.c:742
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+"ជ្រើស​របៀប​បើក \"%s\" និង​ថា​តើ​ត្រូវ​អនុវត្ត​អំពើ​នេះ​នៅ​ពេល​អនាគត​ដែរ​ឬទេ​សម្រាប់​ប្រភេទ​មេឌៀ​ផ្សេងទៀត "
+"\"%s\" ។"
+
+#: ../plugins/automount/gsd-autorun.c:769
+msgid "_Always perform this action"
+msgstr "អនុវត្ត​សកម្មភាព​នេះ​ជានិច្ច"
+
+#: ../plugins/automount/gsd-autorun.c:785
+msgid "_Eject"
+msgstr "ច្រានចេញ"
+
+#: ../plugins/automount/gsd-autorun.c:790
+msgid "_Unmount"
+msgstr "អាន់ម៉ោន"
+
+#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+msgid "Background"
+msgstr "ផ្ទៃ​ខាងក្រោយ"
+
+#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+msgid "Background plugin"
+msgstr "កម្មវិធី​ជំនូយ​ផ្ទៃ​ខាងក្រោយ"
+
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+msgid "Clipboard"
+msgstr "ក្ដារ​តម្បៀត​ខ្ទាស់"
+
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+msgid "Clipboard plugin"
+msgstr "កម្មវិធី​ជំនួយ​ក្ដារ​តម្បៀត​ខ្ទាស់"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/gsd-color-manager.c:1801
+msgid "Color"
+msgstr "ពណ៌"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+msgid "Color plugin"
+msgstr "កម្មវិធី​ជំនួយ​ពណ៌"
+
+#: ../plugins/color/gsd-color-manager.c:1806
+msgid "Recalibrate now"
+msgstr "ក្រិត​តាម​ខ្នាត​ឡើងវិញ​ឥឡូវ"
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1849
+msgid "Recalibration required"
+msgstr "ទាមទារ​ការ​ក្រិត​តាម​ខ្នាត​ឡើងវិញ"
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1861
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr "ទិដ្ឋភាព '%s' គួរតែ​ត្រូវ​បាន​ក្រិត​តាម​ខ្នាត​ឡើងវិញ​ក្នុង​ពេល​ឆាប់ៗ ។"
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1870
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' គួរតែ​ត្រូវ​បាន​ក្រិត​តាម​ខ្នាត​ឡើងវិញ​ក្នុង​ពេល​ឆាប់ៗ ។"
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:2194
+#: ../plugins/color/gsd-color-manager.c:2210
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "កម្មវិធី​ជំនួយ​ពណ៌​ដេមិន​ការ​កំណត់ GNOME"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:2196
+msgid "Color calibration device added"
+msgstr "បាន​បន្ថែម​ឧបករណ៍​ក្រិត​តាម​ខ្នាត​ពណ៌"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:2212
+msgid "Color calibration device removed"
+msgstr "បាន​យក​ឧបករណ៍​ក្រិត​តាម​ខ្នាត​ពណ៌​ចេញ"
+
+#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+msgid "Dummy"
+msgstr "Dummy"
+
+#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+msgid "Dummy plugin"
+msgstr "កម្មវិធី​ជំនួយ Dummy"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:334
+#, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "ទំហំ​ថាស​ទាប​នៅ​លើ \"%s\""
+
+#: ../plugins/housekeeping/gsd-disk-space.c:336
+#, c-format
+msgid ""
+"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr ""
+"ភាគ \"%s\" នៅសល់​ទំហំ​ថាស​តែ %s ប៉ុណ្ណោះ ។ អ្នក​អាច​បង្កើន​ទំហំ​ថាស​ទំនេរ​បាន​ដោយ​ការ​សម្អាត​ធុងសំរាម ។"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:340
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "ភាគ \"%s\" នៅសល់​ទំហំ​ថាស​តែ %s ប៉ុណ្ណោះ ។"
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:345
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
+msgid "Low Disk Space"
+msgstr "ទំហំ​ថាស​ទាប"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:347
+#, c-format
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr ""
+"កុំព្យូទ័រ​នេះ​នៅសល់​ទំហំ​ថាស​តែ %s ប៉ុណ្ណោះ ។ អ្នក​អាច​បង្កើន​ទំហំ​ថាស​ទំនេរ​បាន​ដោយ​ការ​សម្អាត​ធុងសំរាម ។"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:350
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "កុំព្យូទ័រ​នេះ​នៅសល់​ទំហំ​ថាស​តែ %s ប៉ុណ្ណោះ ។"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:365
+msgid "Disk space"
+msgstr "ទំហំ​ថាស"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:372
+msgid "Examine"
+msgstr "ត្រួតពិនិត្យ"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:380
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
+msgid "Empty Trash"
+msgstr "សម្អាត​ធុងសំរាម"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:387
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
+msgid "Ignore"
+msgstr "មិន​អើពើ"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again for this file system"
+msgstr "កុំ​បង្ហាញ​ការ​ព្រមាន​ម្ដងទៀត​សម្រាប់​ប្រព័ន្ធ​ឯកសារ​នេះ"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
+msgid "Don't show any warnings again"
+msgstr "កុំ​បង្ហាញ​ការ​ព្រមាន​ម្ដងទៀត"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr ""
+"អ្នក​អាច​បង្កើន​ទំហំ​ថាស​ទំនេរ​បាន​ដោយ​ការ​សម្អាត​ធុងសំរាម ការ​យក​កម្មវិធី ឬ​ឯកសារ​ដែល​មិន​ប្រើ​ចេញ ឬ​ដោយ​ការ​"
+"ផ្លាស់ទី​ឯកសារ​ទៅកាន់​ថាស ឬ​ភាគ​ថាស​ផ្សេងទៀត ។"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+"អ្នក​អាច​បង្កើន​ទំហំ​ថាស​ទំនេរ​បាន​ដោយ​ការ​យក​កម្មវិធី ឬ​ឯកសារ​ដែល​មិន​ប្រើ​ចេញ ឬ​ដោយ​ការ​ផ្លាស់ទី​ឯកសារ​ទៅកាន់​"
+"ថាស ឬ​ភាគ​ថាស​ផ្សេងទៀត ។"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+"អ្នក​អាច​បង្កើន​ទំហំ​ថាស​ទំនេរ​បាន​ដោយ​ការ​សម្អាត​ធុងសំរាម ការ​យក​កម្មវិធី ឬ​ឯកសារ​ដែល​មិន​ប្រើ​ចេញ ឬ​ដោយ​ការ​"
+"ផ្លាស់ទី​ឯកសារ​ទៅកាន់​ថាស​ខាងក្រៅ ។"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+"អ្នក​អាច​បង្កើន​ទំហំ​ថាស​ទំនេរ​បាន​ដោយ​ការ​យក​កម្មវិធី ឬ​ឯកសារ​ដែល​មិន​ប្រើ​ចេញ ឬ​ដោយ​ការ​ផ្លាស់ទី​ឯកសារ​ទៅកាន់​"
+"ថាស​ខាងក្រៅ ។"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
+msgid "Examine…"
+msgstr "ត្រួតពិនិត្យ…"
+
+#. TRANSLATORS: wireless keyboard with internal battery
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gpm-common.c:585
+msgid "Keyboard"
+msgid_plural "Keyboards"
+msgstr[0] "ក្ដារចុច"
+
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+msgid "Keyboard plugin"
+msgstr "កម្មវិធី​ជំនួយ​ក្ដារចុច"
+
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1087
+msgid "Disabled"
+msgstr "បាន​បិទ"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1094
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "លទ្ធផល %u"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1104
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "ព័ត៌មាន​បញ្ចូល %u"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1402
+msgid "System Sounds"
+msgstr "សំឡេង​ប្រព័ន្ធ"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+msgid "Media keys"
+msgstr "គ្រាប់ចុច​មេឌៀ"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+msgid "Media keys plugin"
+msgstr "កម្មវិធី​ជំនួយ​គ្រាប់ចុច​មេឌៀ"
+
+#: ../plugins/mouse/gsd-mouse-manager.c:916
+msgid "Could not enable mouse accessibility features"
+msgstr "មិន​អាច​បើក​លក្ខណ​ពិសេស​ភាព​ងាយស្រួល​កណ្ដុរ"
+
+#: ../plugins/mouse/gsd-mouse-manager.c:918
+msgid ""
+"Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr "ភាព​ងាយស្រួល​កណ្ដុរ​ទាមទារ​ឲ្យ​ដំឡើង Mousetweaks នៅ​លើ​ប្រពន្ធ​របស់​អ្នក ។"
+
+#. TRANSLATORS: wireless mice with internal batteries
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gpm-common.c:581
+msgid "Mouse"
+msgid_plural "Mice"
+msgstr[0] "កណ្ដុរ"
+
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+msgid "Mouse plugin"
+msgstr "កម្មវិធី​ជំនួយ​កណ្ដុរ"
+
+#: ../plugins/power/gpm-common.c:47
+msgid "Unknown time"
+msgstr "មិន​ស្គាល់​ពេលវេលា"
+
+#: ../plugins/power/gpm-common.c:52
+#, c-format
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "%i នាទី"
+
+#: ../plugins/power/gpm-common.c:62
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "%i ម៉ោង"
+
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: ../plugins/power/gpm-common.c:68
+#, c-format
+msgid "%i %s %i %s"
+msgstr "%i %s %i %s"
+
+#: ../plugins/power/gpm-common.c:69
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ម៉ោង"
+
+#: ../plugins/power/gpm-common.c:70
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "នាទី"
+
+#. TRANSLATORS: The laptop battery is charged, and we know a time.
+#. * The parameter is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:317
+#, c-format
+msgid "provides %s laptop runtime"
+msgstr "ផ្ដល់​ពេលវេលា​ដំណើរការ​កុំព្យូទ័រ​យួរ​ដៃ %s"
+
+#. TRANSLATORS: the device is discharging, and we have a time remaining
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:328
+#, c-format
+msgid "%s %s remaining"
+msgstr "នៅសល់ %s %s"
+
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
+#, c-format
+msgid "%s %s until charged"
+msgstr "%s %s រហូត​បាន​បញ្ចូល"
+
+#. TRANSLATORS: the device is charging, and we have a time to full and empty.
+#. * The parameter is a time string, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:356
+#, c-format
+msgid "provides %s battery runtime"
+msgstr "ផ្ដល់​ពេលវេលា​ដំណើរការ​ថ្ម %s"
+
+#. TRANSLATORS: the type of data, e.g. Laptop battery
+#: ../plugins/power/gpm-common.c:447
+msgid "Product:"
+msgstr "ផលិតផល ៖"
+
+#. TRANSLATORS: device is missing
+#. TRANSLATORS: device is charged
+#. TRANSLATORS: device is charging
+#. TRANSLATORS: device is discharging
+#: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
+msgid "Status:"
+msgstr "ស្ថានភាព ៖"
+
+#: ../plugins/power/gpm-common.c:451
+msgid "Missing"
+msgstr "បាត់"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
+msgid "Charged"
+msgstr "ថ្ម​ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
+msgid "Charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
+msgid "Discharging"
+msgstr "មិន​កំពុង​បញ្ចូល​ថ្ម"
+
+#. TRANSLATORS: percentage
+#: ../plugins/power/gpm-common.c:465
+msgid "Percentage charge:"
+msgstr "ភាគរយ​ដែល​បាន​​បញ្ចូល ៖"
+
+#. TRANSLATORS: manufacturer
+#: ../plugins/power/gpm-common.c:469
+msgid "Vendor:"
+msgstr "ក្រុមហ៊ុន​លក់ ៖"
+
+#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
+#: ../plugins/power/gpm-common.c:474
+msgid "Technology:"
+msgstr "បច្ចេកវិទ្យា ៖"
+
+#. TRANSLATORS: serial number of the battery
+#: ../plugins/power/gpm-common.c:478
+msgid "Serial number:"
+msgstr "លេខ​សម្គាល់ ៖"
+
+#. TRANSLATORS: model number of the battery
+#: ../plugins/power/gpm-common.c:482
+msgid "Model:"
+msgstr "ម៉ូដែល ៖"
+
+#. TRANSLATORS: time to fully charged
+#: ../plugins/power/gpm-common.c:487
+msgid "Charge time:"
+msgstr "រយៈពេល​បញ្ចូល​ថ្ម ៖"
+
+#. TRANSLATORS: time to empty
+#: ../plugins/power/gpm-common.c:493
+msgid "Discharge time:"
+msgstr "រយៈពេល​មិន​បាន​បញ្ចូល ៖"
+
+#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
+#: ../plugins/power/gpm-common.c:500
+msgid "Excellent"
+msgstr "ល្អ​បំផុត"
+
+#: ../plugins/power/gpm-common.c:502
+msgid "Good"
+msgstr "ល្អ"
+
+#: ../plugins/power/gpm-common.c:504
+msgid "Fair"
+msgstr "មធ្យម"
+
+#: ../plugins/power/gpm-common.c:506
+msgid "Poor"
+msgstr "ខ្សោយ"
+
+#: ../plugins/power/gpm-common.c:510
+msgid "Capacity:"
+msgstr "សមត្ថភាព ៖"
+
+#: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
+msgid "Current charge:"
+msgstr "ការ​បញ្ចូល​បច្ចុប្បន្ន ៖"
+
+#: ../plugins/power/gpm-common.c:522
+msgid "Last full charge:"
+msgstr "ការ​បញ្ចូល​ពេញ​ចុងក្រោយ ៖"
+
+#: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
+msgid "Design charge:"
+msgstr "របៀប​បញ្ចូល ៖"
+
+#: ../plugins/power/gpm-common.c:533
+msgid "Charge rate:"
+msgstr "អត្រា​ការ​បញ្ចូល ៖"
+
+#. TRANSLATORS: system power cord
+#: ../plugins/power/gpm-common.c:565
+msgid "AC adapter"
+msgid_plural "AC adapters"
+msgstr[0] "អាដាប់ទ័រ​ចរន្តឆ្លាស់"
+
+#. TRANSLATORS: laptop primary battery
+#: ../plugins/power/gpm-common.c:569
+msgid "Laptop battery"
+msgid_plural "Laptop batteries"
+msgstr[0] "ថ្ម​កុំព្យូទ័រយួរដៃ"
+
+#. TRANSLATORS: battery-backed AC power source
+#: ../plugins/power/gpm-common.c:573
+msgid "UPS"
+msgid_plural "UPSs"
+msgstr[0] "យូភីអេស"
+
+#. TRANSLATORS: a monitor is a device to measure voltage and current
+#: ../plugins/power/gpm-common.c:577
+msgid "Monitor"
+msgid_plural "Monitors"
+msgstr[0] "ម៉ូនីទ័រ"
+
+#. TRANSLATORS: portable device
+#: ../plugins/power/gpm-common.c:589
+msgid "PDA"
+msgid_plural "PDAs"
+msgstr[0] "PDA"
+
+#. TRANSLATORS: cell phone (mobile...)
+#: ../plugins/power/gpm-common.c:593
+msgid "Cell phone"
+msgid_plural "Cell phones"
+msgstr[0] "ទូរស័ព្ទ​ចល័ត"
+
+#. TRANSLATORS: media player, mp3 etc
+#: ../plugins/power/gpm-common.c:598
+msgid "Media player"
+msgid_plural "Media players"
+msgstr[0] "កម្មវិធី​ចាក់​មេឌៀ"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:602
+msgid "Tablet"
+msgid_plural "Tablets"
+msgstr[0] "Tablet"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:606
+msgid "Computer"
+msgid_plural "Computers"
+msgstr[0] "កុំព្យូទ័រ"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:670
+msgid "Lithium Ion"
+msgstr "Lithium Ion"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:674
+msgid "Lithium Polymer"
+msgstr "Lithium Polymer"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:678
+msgid "Lithium Iron Phosphate"
+msgstr "Lithium Iron Phosphate"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:682
+msgid "Lead acid"
+msgstr "Lead acid"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:686
+msgid "Nickel Cadmium"
+msgstr "Nickel Cadmium"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:690
+msgid "Nickel metal hydride"
+msgstr "Nickel metal hydride"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:694
+msgid "Unknown technology"
+msgstr "មិន​ស្គាល់​បច្ចេកវិទ្យា"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:719
+msgid "Empty"
+msgstr "ទទេ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:727
+msgid "Waiting to charge"
+msgstr "កំពុង​រង់ចាំ​បញ្ចូល"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:731
+msgid "Waiting to discharge"
+msgstr "កំពុង​រង់ចាំ​ឈប់​បញ្ចូល"
+
+#. TRANSLATORS: device not present
+#: ../plugins/power/gpm-common.c:759
+msgid "Laptop battery not present"
+msgstr "ថ្ម​កុំព្យូទ័រយួរដៃ​មិន​បង្ហាញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:763
+msgid "Laptop battery is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម​កុំព្យូទ័រ​យួរ​ដៃ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:767
+msgid "Laptop battery is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​កុំព្យូទ័រ​យួរ​ដៃ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:771
+msgid "Laptop battery is empty"
+msgstr "ថ្ម​កុំព្យូទ័រយួរដៃ​អស់"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:775
+msgid "Laptop battery is charged"
+msgstr "ថ្ម​កុំព្យូទ័រ​យួរដៃ​ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:779
+msgid "Laptop battery is waiting to charge"
+msgstr "កំពុង​រង់ចាំ​បញ្ចូល​ថ្ម​កុំព្យូទ័រ​យួរដៃ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:783
+msgid "Laptop battery is waiting to discharge"
+msgstr "កំពុង​រង់ចាំ​ឈប់​បញ្ចូល​ថ្ម​កុំព្យូទ័រ​យួរដៃ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:792
+msgid "UPS is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម​យូភីអេស"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:796
+msgid "UPS is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​យូភីអេស"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:800
+msgid "UPS is empty"
+msgstr "ថ្ម​យូភីអេស​អស់"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:804
+msgid "UPS is charged"
+msgstr "ថ្ម​យូភីអេស​ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:813
+msgid "Mouse is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម​កណ្ដុរ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:817
+msgid "Mouse is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​កណ្ដុរ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:821
+msgid "Mouse is empty"
+msgstr "កណ្ដុរ​អស់​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:825
+msgid "Mouse is charged"
+msgstr "ថ្ម​កណ្ដុរ​ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:834
+msgid "Keyboard is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម​ក្ដារចុច"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:838
+msgid "Keyboard is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​ក្ដារចុច"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:842
+msgid "Keyboard is empty"
+msgstr "ក្ដារចុច​អស់​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:846
+msgid "Keyboard is charged"
+msgstr "ថ្ម​ក្ដារចុច​ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:855
+msgid "PDA is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម PDA"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:859
+msgid "PDA is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម PDA"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:863
+msgid "PDA is empty"
+msgstr "PDA គឺ​អស់​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:867
+msgid "PDA is charged"
+msgstr "ថ្ម PDA ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:876
+msgid "Cell phone is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម​ទូរស័ព្ទ​ចល័ត"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:880
+msgid "Cell phone is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​ទូរស័ព្ទ​ចល័ត"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:884
+msgid "Cell phone is empty"
+msgstr "ទូរស័ព្ទ​ចល័ត​អស់​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:888
+msgid "Cell phone is charged"
+msgstr "ថ្ម​ទូរស័ព្ទ​ចល័ត​ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:898
+msgid "Media player is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម​កម្មវិធី​ចាក់​មេឌៀ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:902
+msgid "Media player is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​កម្មវិធី​ចាក់​មេឌៀ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:906
+msgid "Media player is empty"
+msgstr "កម្មវិធី​ចាក់​មេឌៀ​អស់​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:910
+msgid "Media player is charged"
+msgstr "ថ្ម​កម្មវិធី​ចាក់​មេឌៀ​ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:919
+msgid "Tablet is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម Tablet"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:923
+msgid "Tablet is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម Tablet"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:927
+msgid "Tablet is empty"
+msgstr "Tablet អស់​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:931
+msgid "Tablet is charged"
+msgstr "ថ្ម Tablet ពេញ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:940
+msgid "Computer is charging"
+msgstr "កំពុង​បញ្ចូល​ថ្ម​កុំព្យូទ័រ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:944
+msgid "Computer is discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​កុំព្យូទ័រ"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:948
+msgid "Computer is empty"
+msgstr "កុំព្យូទ័រ​អស់​ថ្ម"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:952
+msgid "Computer is charged"
+msgstr "ថ្ម​កុំព្យូទ័រ​ពេញ"
+
+#. TRANSLATORS: the battery may be recalled by its vendor
+#: ../plugins/power/gsd-power-manager.c:997
+msgid "Battery may be recalled"
+msgstr "ថ្ម​អាច​ត្រូវ​បាន​ប្រមូល​មក​វិញ"
+
+#: ../plugins/power/gsd-power-manager.c:1000
+#, c-format
+msgid ""
+"A battery in your computer may have been recalled by %s and you may be at "
+"risk."
+msgstr "ថ្ម​នៅ​ក្នុង​កុំព្យូទ័រ​របស់​អ្នក​អាច​ត្រូវ​បាន​ប្រមូល​មក​វិញ​ដោយ %s ហើយ​អ្នក​អាច​ប្រថុយប្រថាន ។"
+
+#: ../plugins/power/gsd-power-manager.c:1003
+msgid "For more information visit the battery recall website."
+msgstr "សម្រាប់​ព័ត៌មាន​បន្ថែម​សូម​ទស្សនា​តំបន់បណ្ដាញ​ហៅ​ប្រមូល​ថ្ម​មក​វិញ ។​"
+
+#. TRANSLATORS: button text, visit the manufacturers recall website
+#: ../plugins/power/gsd-power-manager.c:1014
+msgid "Visit recall website"
+msgstr "ទស្សនា​តំបន់បណ្ដាញ​ហៅ​ប្រមូល​មក​វិញ"
+
+#. TRANSLATORS: button text, do not show this bubble again
+#: ../plugins/power/gsd-power-manager.c:1018
+msgid "Do not show me this again"
+msgstr "កុំ​បង្ហាញ​ខ្ញុំ​ម្ដងទៀត"
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:1251
+msgid "UPS Discharging"
+msgstr "កំពុង​ឈប់​បញ្ចូល​ថ្ម​យូភីអេស"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1256
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "ថាមពល​បម្រុងទុក​របស់​យូភីអេស​នៅសល់ %s"
+
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/gsd-power-manager.c:1277
+#: ../plugins/power/gsd-power-manager.c:1459
+#: ../plugins/power/gsd-power-manager.c:1641
+#: ../plugins/power/gsd-power-manager.c:1788
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+msgid "Power"
+msgstr "ថាមពល"
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1369
+msgid "Battery low"
+msgstr "ថ្ម​ជិត​អស់ហើយ"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1372
+msgid "Laptop battery low"
+msgstr "ថ្ម​កុំព្យូទ័រយួរដៃ​ជិត​អស់ហើយ"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1379
+#, c-format
+msgid "Approximately %s remaining (%.0f%%)"
+msgstr "នៅសល់​ប្រហែល %s (%.0f%%)"
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1384
+msgid "UPS low"
+msgstr "យូភីអេស​ខ្សោយ"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1390
+#, c-format
+msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
+msgstr "ថាមពល​បម្រុង​ទុក​របស់​យូភីអេស​នៅសល់​ប្រហែល %s  (%.0f%%)"
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1395
+#: ../plugins/power/gsd-power-manager.c:1562
+msgid "Mouse battery low"
+msgstr "ថ្ម​កណ្ដុរ​ខ្សោយ"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1398
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr "ថាមពល​កណ្ដុរ​ឥត​ខ្សែ​គឺ​ខ្សោយ (%.0f%%)"
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1402
+#: ../plugins/power/gsd-power-manager.c:1570
+msgid "Keyboard battery low"
+msgstr "ថ្ម​ក្ដារចុច​ជិត​អស់ហើយ"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1405
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr "ថ្ម​ក្ដារចុច​ឥត​ខ្សែ​គឺ​ខ្សោយ (%.0f%%)"
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1409
+#: ../plugins/power/gsd-power-manager.c:1579
+msgid "PDA battery low"
+msgstr "ថ្ម PDA ជិត​អស់ហើយ"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1412
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr "ថាមពល PDA គឺ​ខ្សោយ (%.0f%%)"
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1416
+#: ../plugins/power/gsd-power-manager.c:1589
+#: ../plugins/power/gsd-power-manager.c:1600
+msgid "Cell phone battery low"
+msgstr "ថ្ម​ទូរស័ព្ទ​ចល័ត​ជិត​អស់ហើយ"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1419
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr "ថាមពល​ទូរស័ព្ទ​ចល័ត​គឺ​ខ្សោយ (%.0f%%)"
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1424
+msgid "Media player battery low"
+msgstr "ថ្ម​កម្មវិធី​ចាក់​មេឌៀ​ជិត​អស់ហើយ"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1427
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr "ថាមពល​កម្មវិធី​ចាក់​មេឌៀ​គឺ​ខ្សោយ (%.0f%%)"
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1431
+#: ../plugins/power/gsd-power-manager.c:1609
+msgid "Tablet battery low"
+msgstr "ថ្ម Tablet ជិត​អស់ហើយ"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1434
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr "ថាមពល Tablet គឺ​ខ្សោយ (%.0f%%)"
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1438
+#: ../plugins/power/gsd-power-manager.c:1618
+msgid "Attached computer battery low"
+msgstr "ថ្ម​កុំព្យូទ័រ​ដែល​បាន​ភ្ជាប់​ជាមួយ​គឺ​ជិត​អស់ហើយ"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1441
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr "ថាមពល​កុំព្យូទ័រ​ដែល​បាន​ភ្ជាប់​ជាមួយ​គឺ​ខ្សោយ (%.0f%%)"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1476
+msgid "Battery is low"
+msgstr "ថ្ម​ជិត​អស់ហើយ"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1518
+msgid "Battery critically low"
+msgstr "អស់​ថ្ម​រលីង​ហើយ"
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1521
+#: ../plugins/power/gsd-power-manager.c:1706
+msgid "Laptop battery critically low"
+msgstr "ថ្ម​កុំព្យូទ័រ​យួរ​ដៃ​អស់រលីង​ហើយ"
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1530
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr "ដោត​អាដាប់ទ័រ​របស់​អ្នក​ដើម្បី​ចៀសវាង​ការ​បាត់​ទិន្នន័យ ។"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1534
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr "កុំព្យូទ័រ​របស់​អ្នក​នឹង​ផ្អាកឥឡូវនេះ ប្រសិនបើ​មិន​ដោត​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1538
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr "កុំព្យូទ័រ​របស់​អ្នក​នឹង​សម្ងំ​ឥឡូវនេះ ប្រសិនបើ​មិន​ដោត​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1542
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr "កុំព្យូទ័រ​របស់​អ្នក​នឹង​បិទ​ឥឡូវនេះ ប្រសិនបើ​មិន​ដោត​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1550
+#: ../plugins/power/gsd-power-manager.c:1742
+msgid "UPS critically low"
+msgstr "យូភីអេស​ខ្សោយ​មែនទែន"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1556
+#, c-format
+msgid ""
+"Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
+"computer to avoid losing data."
+msgstr ""
+"ថាមពល​យូភីអេស​នៅសល់​ប្រហែល %s  (%.0f%%) ។ ស្ដារ​ចរន្ត​ឆ្លាស់​សម្រាប់​កុំព្យូទ័រ​របស់​អ្នក​ ដើម្បី​​ចៀសវាង​ការ​"
+"បាត់​ទិន្នន័យ ។"
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1565
+#, c-format
+msgid ""
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr "ថាមពល​កណ្ដុរ​ឥត​ខ្សែ​គឺ​ខ្សោយ (%.0f%%) ។ ឧបករណ៍​នេះ​នឹង​បិទ​ជាបន្ទាន់ ប្រសិនបើ​មិន​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1573
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"ថាមពល​ក្ដារចុច​ឥត​ខ្សែ​គឺ​ខ្សោយ (%.0f%%) ។ ឧបករណ៍​នេះ​នឹង​បិទ​ជាបន្ទាន់ ប្រសិនបើ​មិន​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1582
+#, c-format
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr "ថាមពល PDA គឺ​ខ្សោយ (%.0f%%) ។ ឧបករណ៍​នេះ​នឹង​បិទ​ជាបន្ទាន់ ប្រសិនបើ​មិន​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1592
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"ថាមពល​ទូរស័ព្ទ​ដៃ​គឺ​ខ្សោយ​មែនទែន (%.0f%%) ។ ឧបករណ៍​នេះ​នឹង​បិទ​ជាបន្ទាន់ ប្រសិនបើ​មិន​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1603
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"ថាមពល​កម្មវិធី​ចាក់​មេឌៀ​គឺ​ខ្សោយ​មែនទែន (%.0f%%) ។ ឧបករណ៍​នេះ​នឹង​បិទ​ជាបន្ទាន់ ប្រសិនបើ​មិន​បញ្ចូល​ថ្ម​ទេ "
+"។"
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1612
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"ថាមពល Tablet គឺ​ខ្សោយ​មែនទែន (%.0f%%) ។ ឧបករណ៍​នេះ​នឹង​បិទ​ជាបន្ទាន់ ប្រសិនបើ​មិន​បញ្ចូល​ថ្ម​ទេ ។"
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1621
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"ថាមពល​កុំព្យូទ័រ​ដែល​បាន​ភ្ជាប់​គឺ​ខ្សោយ​មែនទែន (%.0f%%) ។ ឧបករណ៍​នេះ​នឹង​បិទ​ជាបន្ទាន់ ប្រសិនបើ​មិន​បញ្ចូល​ថ្ម​"
+"ទេ ។"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1659
+#: ../plugins/power/gsd-power-manager.c:1669
+#: ../plugins/power/gsd-power-manager.c:1803
+msgid "Battery is critically low"
+msgstr "ថ្ម​អស់​រលីង​ហើយ"
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1714
+msgid ""
+"The battery is below the critical level and this computer will <b>power-off</"
+"b> when the battery becomes completely empty."
+msgstr "ថ្ម​គឺ​ស្ថិត​ក្រោម​កម្រិត​ព្រមាន ហើយ​កុំព្យូទ័រ​នឹង <b>បិទ</b> នៅ​ពេល​ដែល​ថ្ម​អស់រលីង ។"
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1720
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"suspend.\n"
+"<b>NOTE:</b> A small amount of power is required to keep your computer in a "
+"suspended state."
+msgstr ""
+"ថ្ម​គឺ​នៅ​ក្រោម​កម្រិត​ព្រមាន ហើយ​កុំព្យូទ័រ​ហៀបនឹង​ផ្អាក ។\n"
+"<b>ចំណាំ ៖</b> ចំនួន​ថាមពល​តិចតួច​ត្រូវ​បាន​ទាមទារ​ដើម្បី​រក្សាទុក​កុំព្យូទ័រ​របស់​អ្នក​នៅ​ពេល​វា​ផ្អាក ។"
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1727
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr "ថ្ម​គឺ​នៅ​ក្រោម​កម្រិត​ព្រមាន ហើយ​កុំព្យូទ័រ​ហៀបនឹង​សម្ងំ ។"
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1732
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr "ថ្ម​គឺ​នៅ​ក្រោម​កម្រិត​ព្រមាន ហើយ​កុំព្យូទ័រ​ហៀបនឹង​បិទ ។"
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1750
+msgid ""
+"UPS is below the critical level and this computer will <b>power-off</b> when "
+"the UPS becomes completely empty."
+msgstr ""
+"យូភីអេស​គឺ​ទាប​ជាង​កម្រិត​ព្រមាន ហើយ​កុំព្យូទ័រ​នេះ​នឹង <b>បិទ</b> នៅ​ពេល​ដែល​យូភីអេស​អស់​ថ្ម​មែនទែន ។"
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1756
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr "យូភីអេស​គឺ​ទាប​ជាង​កម្រិត​ព្រមាន ហើយ​កុំព្យូទ័រ​ហៀបនឹង​សម្ងំ ។"
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1761
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr "យូភីអេស​គឺ​ទាប​ជាង​កម្រិត​ព្រមាន ហើយ​កុំព្យូទ័រ​ហៀបនឹង​បិទ ។"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2149
+msgid "Lid has been opened"
+msgstr "Lid ត្រូវ​បាន​បើក"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2305
+msgid "Lid has been closed"
+msgstr "Lid ត្រូវ​បាន​បិទ"
+
+#. TRANSLATORS: this is the title of the power manager status icon
+#. * that is only shown in fallback mode
+#: ../plugins/power/gsd-power-manager.c:3668
+msgid "Power Manager"
+msgstr "កម្មវិធី​គ្រប់គ្រង​ថាមពល"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the backlight brightness.
+#.
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:5
+msgid "Modify the laptop brightness"
+msgstr "បាន​ទាមទារ​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ​​ដើម្បី​កែប្រែ​ពន្លឺ​កុំព្យូទ័រ​យួរដៃ"
+
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+msgid "Authentication is required to modify the laptop brightness"
+msgstr "បាន​ទាមទារ​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ​​ដើម្បី​កែប្រែ​ពន្លឺ​កុំព្យូទ័រ​យួរដៃ"
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+msgid "Power plugin"
+msgstr "កម្មវិធី​គ្រប់គ្រង​ថាមពល"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:891
+msgid "Configuring new printer"
+msgstr "កំពុង​កំណត់​រចនាសម្ព័ន្ធ​ម៉ាស៊ីន​បោះពុម្ព​ថ្មី"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:893
+msgid "Please wait..."
+msgstr "សូម​រង់ចាំ..."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:920
+msgid "Missing printer driver"
+msgstr "បាត់​កម្មវិធី​បញ្ជា​ម៉ាស៊ីន​បោះពុម្ព"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:929
+#, c-format
+msgid "No printer driver for %s."
+msgstr "គ្មាន​កម្មវិធី​បញ្ជា​ម៉ាស៊ីន​បោះពុម្ព​សម្រាប់ %s ។"
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:934
+msgid "No driver for this printer."
+msgstr "គ្មាន​កម្មវិធី​បញ្ជា​ម៉ាស៊ីន​បោះពុម្ព ។"
+
+#: ../plugins/print-notifications/gsd-printer.c:1032
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:233
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:658
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:747
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:790
+msgid "Printers"
+msgstr "ម៉ាស៊ីន​បោះពុម្ព"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
+msgid "Toner low"
+msgstr "ទឹក​ថ្នាំ​ជិត​អស់​ហើយ"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
+msgid "Toner empty"
+msgstr "អស់​ទឹក​ថ្នាំ"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
+msgid "Not connected?"
+msgstr "មិន​បាន​តភ្ជាប់ ?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
+msgid "Cover open"
+msgstr "បាន​បើក​គម្រប"
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
+msgid "Printer configuration error"
+msgstr "កំហុស​ក្នុង​ការ​កំណត់​រចនាសម្ព័ន្ធ​ម៉ាស៊ីន​បោះពុម្ព"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+msgid "Door open"
+msgstr "ទ្វារ​បើក"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:321
+msgid "Marker supply low"
+msgstr "កំប៉ុង​ទឹក​ថ្នាំ​ជិតអស់"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
+msgid "Out of a marker supply"
+msgstr "កំប៉ុង​ទឹក​ថ្នាំ​អស់"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+msgid "Paper low"
+msgstr "ជិត​អស់​ក្រដាស"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+msgid "Out of paper"
+msgstr "អស់​ក្រដាស"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
+msgid "Printer off-line"
+msgstr "ម៉ាស៊ីន​បោះពុម្ព​ក្រៅ​បណ្ដាញ"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#. Translators: This is a title of an error notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:733
+msgid "Printer error"
+msgstr "កំហុស​ម៉ាស៊ីន​បោះពុម្ព"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:335
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' ជិត​អស់​ទឹក​ថ្នាំ​ហើយ ។"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:337
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' អស់​ទឹក​ថ្នាំ​ហើយ ។"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:339
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "មិន​អាច​តភ្ជាប់​ម៉ាស៊ីន​បោះពុម្ព​បាន​ទេ '%s' ។"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:341
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' អាច​មិន​ត្រូវ​បាន​តភ្ជាប់ ។"
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:343
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "គម្រប​ម៉ាស៊ីន​បោះពុម្ព '%s' កំពុង​បើក ។"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "ទ្វារ​ម៉ាស៊ីន​បោះពុម្ព '%s' កំពុង​បើក ។"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:348
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' ជិត​អស់​ទឹក​ថ្នាំ ។"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:350
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' អស់​ទឹក​ថ្នាំ​ហើយ ។"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:352
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' ជិត​អស់​ក្រដាស​ហើយ ។"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:354
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' អស់​ក្រដាស​ហើយ ។"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:356
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' បច្ចុប្បន្ន​នៅ​ក្រៅ​បណ្ដាញ ។"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:358
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "មាន​បញ្ហា​នៅ​លើ​ម៉ាស៊ីន​បោះពុម្ព '%s' ។"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:435
+msgid "Printer added"
+msgstr "បាន​បន្ថែម​ម៉ាស៊ីន​បោះពុម្ព"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:443
+msgid "Printer removed"
+msgstr "បាន​យក​ម៉ាស៊ីន​បោះពុម្ព​ចេញ"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:460
+msgid "Printing stopped"
+msgstr "បាន​បញ្ឈប់​ការ​បោះពុម្ព"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:462
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:468
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:474
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:492
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:512
+#, c-format
+msgid "\"%s\" on %s"
+msgstr "\"%s\" លើ %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:466
+msgid "Printing canceled"
+msgstr "បាន​បោះបង់​ការ​បោះពុម្ព"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:472
+msgid "Printing aborted"
+msgstr "បាន​បោះបង់​ការ​បោះពុម្ព"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:478
+msgid "Printing completed"
+msgstr "បាន​បញ្ចប់​ការ​បោះពុម្ព"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:490
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:510
+msgid "Printing"
+msgstr "កំពុង​បោះពុម្ព"
+
+#. Translators: This is a title of a report notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:727
+msgid "Printer report"
+msgstr "របាយការណ៍​ម៉ាស៊ីន​បោះពុម្ព"
+
+#. Translators: This is a title of a warning notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:730
+msgid "Printer warning"
+msgstr "ការ​ព្រមាន​ម៉ាស៊ីន​បោះពុម្ព"
+
+#. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:740
+#, c-format
+msgid "Printer '%s': '%s'."
+msgstr "ម៉ាស៊ីន​បោះពុម្ព '%s' ៖ '%s' ។"
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr "បោះពុម្ព​ការ​ជូនដំណឹង"
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr "កម្មវិធី​ជំនួយ​បោះពុម្ព​ការ​ជូនដំណឹង"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:529
+msgid "received error or hang up from event source"
+msgstr "បាន​ទទួល​កំហុស ឬ​ការ​ព្យួរ​ពី​ប្រភព​ព្រឹត្តិការណ៍"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:663
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "មិន​អាច​ដំឡើង​ប្រព័ន្ធ​សុវត្ថិភាព NSS បាន​ទេ"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:791
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr "រក​មិន​ឃើញ​កម្មវិធី​បញ្ជា smartcard ដែល​សមរម្យ​ទេ"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:805
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "កម្មវិធី​បញ្ជា smartcard '%s' មិន​អាច​ផ្ទុក​បាន​ទេ"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:877
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "មិន​អាច​មើល​ព្រឹត្តិការណ៍​កាត​មកដល់​បាន​ទេ - %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1275
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr "បាន​ជួបប្រទះ​កំហុស​ដែល​មិន​រំពឹង​ទុក នៅ​ពេល​រង់ចាំ​ព្រឹត្តិការណ៍ smartcard"
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:250
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr "អ្នក​ចាំបាច់​ត្រូវតែ​ចាប់ផ្ដើម​កុំព្យូទ័រ​នេះ​ឡើងវិញ ដើម្បី​ឲ្យ​ផ្នែក​រឹង​របស់​វា​ដំណើរការ​ត្រឹមត្រូវ ។"
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:253
+#: ../plugins/updates/gsd-updates-firmware.c:280
+#: ../plugins/updates/gsd-updates-firmware.c:307
+msgid "Additional software was installed"
+msgstr "កម្មវិធី​បន្ថែម​ត្រូវ​បាន​ដំឡើង"
+
+#: ../plugins/updates/gsd-updates-firmware.c:254
+#: ../plugins/updates/gsd-updates-firmware.c:281
+#: ../plugins/updates/gsd-updates-firmware.c:308
+#: ../plugins/updates/gsd-updates-firmware.c:599
+#: ../plugins/updates/gsd-updates-manager.c:347
+#: ../plugins/updates/gsd-updates-manager.c:474
+#: ../plugins/updates/gsd-updates-manager.c:535
+#: ../plugins/updates/gsd-updates-manager.c:624
+#: ../plugins/updates/gsd-updates-manager.c:1313
+msgid "Software Updates"
+msgstr "ធ្វើ​បច្ចុប្បន្នភាព​កម្មវិធី"
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:277
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr "អ្នក​ចាំបាច់​ត្រូវតែ​យកចេញ រួច​បញ្ចូល​ផ្នែក​រឹង​នេះ​ឡើងវិញ ដើម្បី​ឲ្យ​វា​ដំណើរការ​ត្រឹមត្រូវ ។"
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:304
+msgid "Your hardware has been set up and is now ready to use."
+msgstr "ផ្នែក​រឹង​របស់​អ្នក​ត្រូវ​បាន​ដំឡើង និង​អាច​ប្រើ​បាន​ហើយ​ឥឡូវនេះ ។"
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:584
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr "ត្រូវការ​កម្មវិធី​បង្កប់​បន្ថែម​ដើម្បី​ធ្វើ​ឲ្យ​ផ្នែក​រឹង​នៅ​ក្នុង​កុំព្យូទ័រ​នេះ​ដំណើរការ​បាន​ត្រឹមត្រូវ ។"
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:598
+msgid "Additional firmware required"
+msgstr "ត្រូវការ​កម្មវិធី​បង្កប់​បន្ថែម"
+
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:604
+msgid "Install firmware"
+msgstr "ដំឡើង​កម្មវិធី​បង្កប់"
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:607
+msgid "Ignore devices"
+msgstr "មិន​អើពើ​ឧបករណ៍"
+
+#. TRANSLATORS: this is when the offline update failed
+#: ../plugins/updates/gsd-updates-manager.c:125
+msgid "Failed To Update"
+msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ធ្វើ​បច្ចុប្បន្នភាព"
+
+#. TRANSLATORS: the transaction could not be completed
+#. * as a previous transaction was unfinished
+#: ../plugins/updates/gsd-updates-manager.c:131
+msgid "A previous update was unfinished."
+msgstr "ការ​ធ្វើ​បច្ចុប្បន្ន​មុន​មិន​បាន​បញ្ចប់​​ឡើយ ។"
+
+#. TRANSLATORS: the package manager needed to download
+#. * something with no network available
+#: ../plugins/updates/gsd-updates-manager.c:141
+msgid "Network access was required but not available."
+msgstr "ទាមទារ​ចូល​ដំណើរការ​បណ្ដាញ​ ប៉ុន្តែ​មិន​អាច​ចូល​បាន​ទេ ។"
+
+#. TRANSLATORS: if the package is not signed correctly
+#. *
+#: ../plugins/updates/gsd-updates-manager.c:150
+msgid "An update was not signed in the correct way."
+msgstr "បច្ចុប្បន្នភាព​មិន​បាន​ចុះ​ហត្ថលេខា​នៅ​វិធី​ដែល​ត្រឹមត្រូវ​ឡើយ ។"
+
+#. TRANSLATORS: the transaction failed in a way the user
+#. * probably cannot comprehend. Package management systems
+#. * really are teh suck.
+#: ../plugins/updates/gsd-updates-manager.c:160
+msgid "The update could not be completed."
+msgstr "ការ​ធ្វើ​បច្ចុប្បន្នភាព​មិន​អាច​បញ្ចប់​បាន​ទេ ។"
+
+#. TRANSLATORS: the user aborted the update manually
+#: ../plugins/updates/gsd-updates-manager.c:165
+msgid "The update was cancelled."
+msgstr "បាន​បោះបង់​ការ​ធ្វើ​បច្ចុប្បន្ន ។"
+
+#. TRANSLATORS: the user must have updated manually after
+#. * the updates were prepared
+#: ../plugins/updates/gsd-updates-manager.c:171
+msgid "An offline update was requested but no packages required updating."
+msgstr ""
+"បាន​ស្នើ​ការ​ធ្វើ​បច្ចុប្បន្ន​ក្រៅ​បណ្ដាញ ប៉ុន្តែ​គ្មាន​កញ្ចប់​ដែល​បាន​ទាមទារ​​ការ​ធ្វើ​បច្ចុប្បន្ន​ភាព​ឡើយ ។"
+
+#. TRANSLATORS: we ran out of disk space
+#: ../plugins/updates/gsd-updates-manager.c:175
+msgid "No space was left on the drive."
+msgstr "គ្មាន​ទំហំ​នៅ​សល់​លើ​ដ្រាយ​ទេ ។"
+
+#. TRANSLATORS: the update process failed in a general
+#. * way, usually this message will come from source distros
+#. * like gentoo
+#: ../plugins/updates/gsd-updates-manager.c:183
+msgid "An update failed to install correctly."
+msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ធ្វើ​បច្ចុប្បន្នភាព​ការ​ដំឡើង​ត្រឹមត្រូវ ។"
+
+#. TRANSLATORS: We didn't handle the error type
+#: ../plugins/updates/gsd-updates-manager.c:188
+msgid "The offline update failed in an unexpected way."
+msgstr "បាន​បរាជ័យ​​ការ​ធ្វើ​បច្ចុប្បន្ន​ក្រៅ​បណ្ដាញ​នៅ​វិធី​ដែល​មិន​បាន​រំពឹង ។"
+
+#. TRANSLATORS: these are geeky messages from the
+#. * package manager no mortal is supposed to understand,
+#. * but google might know what they mean
+#: ../plugins/updates/gsd-updates-manager.c:197
+msgid "Detailed errors from the package manager follow:"
+msgstr "បាន​រាយការណ៍​​កំហុស​លម្អិត​ពី​កម្មវិធី​គ្រប់គ្រង​កញ្ចប់​ខាងក្រោម ៖"
+
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:343
+msgid "Distribution upgrades available"
+msgstr "មាន​ការ​ចែកចាយ​ភាព​ធ្វើឲ្យ​ប្រសើរ​ឡើង"
+
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:352
+msgid "More information"
+msgstr "ព័ត៌មាន​បន្ថែម"
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:457
+#: ../plugins/updates/gsd-updates-manager.c:518
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "ធ្វើបច្ចុប្បន្នភាព"
+
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:460
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "មាន​កម្មវិធី​ធ្វើ​បច្ចុប្បន្នភាព​សំខាន់"
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:479
+#: ../plugins/updates/gsd-updates-manager.c:540
+msgid "Install updates"
+msgstr "ដំឡើង​បច្ចុប្បន្នភាព"
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:521
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "មាន​កម្មវិធី​ធ្វើ​បច្ចុប្បន្នភាព ។"
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:612
+msgid "Updates"
+msgstr "បច្ចុប្បន្នភាព"
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:616
+msgid "Unable to access software updates"
+msgstr "មិន​អាច​ចូល​ដំណើរការ​ធ្វើ​បច្ចុប្បន្នភាព​កម្មវិធី​បាន​ទេ"
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:619
+msgid "Try again"
+msgstr "ព្យាយាម​ម្ដងទៀត"
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:981
+msgid "A transaction that cannot be interrupted is running"
+msgstr "កិច្ចការ​ដែល​មិន​អាច​ត្រូវ​បាន​បង្អាក់ គឺ​កំពុង​ដំណើរការ"
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:1274
+msgid "Software Update Installed"
+msgid_plural "Software Updates Installed"
+msgstr[0] "បាន​ដំឡើង​បច្ចុប្បន្នភាព​កម្មវិធី"
+
+#. TRANSLATORS: message when we've done offline updates
+#: ../plugins/updates/gsd-updates-manager.c:1279
+msgid "An important OS update has been installed."
+msgid_plural "Important OS updates have been installed."
+msgstr[0] "បាន​ដំឡើង​បច្ចុប្បន្នភាព​ប្រព័ន្ធ​ប្រតិបត្តិការដែល​សំខាន់ ។"
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:1302
+msgid "Software Updates Failed"
+msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ធ្វើ​បច្ចុប្បន្ន​កម្មវិធី"
+
+#. TRANSLATORS: message when we've not done offline updates
+#: ../plugins/updates/gsd-updates-manager.c:1305
+msgid "An important OS update failed to be installed."
+msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ដំឡើង​បច្ចុប្បន្នភាព​ប្រព័ន្ធ​ប្រតិបត្តិការ​ដែល​សំខាន់ ។"
+
+#. TRANSLATORS: button: review the offline update changes
+#: ../plugins/updates/gsd-updates-manager.c:1320
+msgid "Review"
+msgstr "ពិនិត្យ​ឡើងវិញ"
+
+#. TRANSLATORS: button: review the offline update changes
+#: ../plugins/updates/gsd-updates-manager.c:1325
+msgid "Show details"
+msgstr "បង្ហាញ​លម្អិត"
+
+#. TRANSLATORS: button: clear notification
+#: ../plugins/updates/gsd-updates-manager.c:1329
+msgid "OK"
+msgstr "គ្មាន​បញ្ហា"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1010
+#, c-format
+msgid "Left Ring Mode #%d"
+msgstr "របៀប​កង​ខាងឆ្វេង #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1019
+#, c-format
+msgid "Right Ring Mode #%d"
+msgstr "របៀប​កង​ខាងស្ដាំ #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1049
+#, c-format
+msgid "Left Touchstrip Mode #%d"
+msgstr "របៀប Touchstrip ខាងឆ្វេង #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1058
+#, c-format
+msgid "Right Touchstrip Mode #%d"
+msgstr "របៀប Touchstrip ខាងស្ដាំ #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1075
+#, c-format
+msgid "Left Touchring Mode Switch"
+msgstr "ការ​ប្ដូរ​របៀប Touchring ខាងឆ្វេង"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1077
+#, c-format
+msgid "Right Touchring Mode Switch"
+msgstr "ការ​ប្ដូរ​របៀប Touchring ខាងស្ដាំ"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1080
+#, c-format
+msgid "Left Touchstrip Mode Switch"
+msgstr "ការ​ប្ដូរ​របៀប Touchstrip ខាងឆ្វេង"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1082
+#, c-format
+msgid "Right Touchstrip Mode Switch"
+msgstr "ការ​ប្ដូរ​របៀប Touchstrip ខាងស្ដាំ"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1087
+#, c-format
+msgid "Mode Switch #%d"
+msgstr "ការ​ប្ដូរ​របៀប #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1159
+#, c-format
+msgid "Left Button #%d"
+msgstr "ប៊ូតុង​ខាងឆ្វេង #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1162
+#, c-format
+msgid "Right Button #%d"
+msgstr "ប៊ូតុង​ខាងស្ដាំ #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1165
+#, c-format
+msgid "Top Button #%d"
+msgstr "ប៊ូតុង​ខាងលើ #%d"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1168
+#, c-format
+msgid "Bottom Button #%d"
+msgstr "ប៊ូតុង​ខាងក្រោម #%d"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the LED setting for a Wacom tablet
+#.
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:5
+msgid "Modify the lit LED for a Wacom tablet"
+msgstr "កែប្រែ lit LED សម្រាប់ Wacom tablet"
+
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr "បាន​ទាមទារ​ការ​ផ្ទៀងផ្ទាត់​ភាព​ត្រឹមត្រូវ​ដើម្បី​កែប្រែ lit LED សម្រាប់ Wacom tablet"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:508
+msgid "Could not switch the monitor configuration"
+msgstr "មិន​អាច​ប្ដូរ​ការ​កំណត់​រចនាសម្ព័ន្ធ​ម៉ូនីទ័រ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:532
+msgid "Could not restore the display's configuration"
+msgstr "មិន​អាច​ស្ដារ​ការ​កំណត់​រចនាសម្ព័ន្ធ​ទិដ្ឋភាព​បាន​ទេ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:557
+msgid "Could not restore the display's configuration from a backup"
+msgstr "មិន​អាច​ស្ដារ​ការ​កំណត់​រចនាសម្ព័ន្ធ​ទិដ្ឋភាព​ពី​ព័ត៌មាន​បម្រុងទុក​បាន​ទេ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:578
+#, c-format
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural ""
+"The display will be reset to its previous configuration in %d seconds"
+msgstr[0] ""
+"ទិដ្ឋភាព​នឹង​ត្រូវ​បាន​កំណត់​ឡើងវិញ​ទៅកាន់​ការ​កំណត់​រចនាសម្ព័ន្ធ​មុន​របស់​វា​ក្នុងរយៈពេល %d វិនាទី​ទៀត"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:627
+msgid "Does the display look OK?"
+msgstr "តើ​ការ​បង្ហាញ​នេះ​ល្អ​ទេ ?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:634
+msgid "_Restore Previous Configuration"
+msgstr "ស្ដារ​ការ​កំណត់​រចនាសម្ព័ន្ធ​ឡើងវិញ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:635
+msgid "_Keep This Configuration"
+msgstr "រក្សាទុក​ការ​កំណត់​រចនាសម្ព័ន្ធ​នេះ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:716
+msgid "The selected configuration for displays could not be applied"
+msgstr "ការ​កំណត់​រចនាសម្ព័ន្ធ​ដែល​បាន​ជ្រើស​សម្រាប់​ការ​បង្ហាញ​មិន​អាច​អនុវត្ត​បាន​ទេ"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1374
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "មិន​អាច​ធ្វើ​ព័ត៌មាន​អេក្រង់​ឲ្យ​ស្រស់​បាន​ទេ ៖ %s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1378
+msgid "Trying to switch the monitor configuration anyway."
+msgstr "អញ្ចឹង​សាកល្បង​ប្ដូរ​ការ​កំណត់​រចនាសម្ព័ន្ធ​ម៉ូនីទ័រ ។"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1848
+msgid "Could not apply the stored configuration for monitors"
+msgstr "មិន​អាច​អនុវត្ត​ការ​កំណត់​រចនាសម្ព័ន្ធ​ដែល​បាន​ស្ដារ​សម្រាប់​ម៉ូនីទ័រ​បាន​ទេ"
+
+#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+msgid "XRandR"
+msgstr "XRandR"
+
+#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+msgid "Set up screen size and rotation settings"
+msgstr "រៀបចំ​ទំហំ​អេក្រង់ និង​ការ​កំណត់​ការ​បង្វិល"
+
+#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+msgid "X Settings"
+msgstr "ការ​កំណត់ X"
+
+#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+msgid "Manage X Settings"
+msgstr "គ្រប់គ្រង​ការ​កំណត់ X"
+
+#~ msgid "The install root to use when adding and removing packages"
+#~ msgstr "root ដំឡើង​ដែល​ត្រូវ​ប្រើ​នៅ​ពេល​បន្ថែម ឬ​យក​កញ្ចប់​ចេញ"
+
+#~ msgid ""
+#~ "The install root to use when processing packages, which is changed when "
+#~ "using LTSP or when testing."
+#~ msgstr ""
+#~ "root ដំឡើង​ដែល​ត្រូវ​ប្រើ​នៅ​ពេល​ដំណើរការ​កញ្ចប់ ដែល​វា​នឹង​ត្រូវ​បាន​ផ្លាស់ប្ដូរ​នៅ​ពេល​ប្រើ LTSP ឬ​ពេល​"
+#~ "សាកល្បង ។"
+
+#~ msgid "Use WiFi connections"
+#~ msgstr "ប្រើ​ការ​តភ្ជាប់ WiFi"
+
+#~ msgid ""
+#~ "Use WiFi (wireless LAN) connections to check for updates. It may be "
+#~ "faster to download packages when on a wired connection, and the VPN or "
+#~ "proxy required may also only be available on wired connections."
+#~ msgstr ""
+#~ "ប្រើ​ការ​តភ្ជាប់ WiFi (LAN ឥត​ខ្សែ) ដើម្បី​ពិនិត្យមើល​បច្ចុប្បន្នភាព ។ ការ​ទាញ​យក​កញ្ចប់​អាច​នឹង​មាន​"
+#~ "ល្បឿន​លឿន នៅ​ពេល​ប្រើ​ការ​តភ្ជាប់​ដោយ​ខ្សែ ហើយ​ VPN ឬ​ប្រូកស៊ី​ដែល​បាន​ទាមទារ​គឺ​អាច​មានតែ​នៅ​លើ​ការ​"
+#~ "តភ្ជាប់​មាន​ខ្សែ​ប៉ុណ្ណោះ ។"
+
+#~ msgid "Automatically install these types of updates"
+#~ msgstr "ដំឡើង​ប្រភេទ​នៃ​បច្ចុប្បន្នភាព​ទាំងនេះ​ដោយ​ស្វ័យប្រវត្តិ"
+
+#~ msgid "Automatically install these types of updates."
+#~ msgstr "ដំឡើង​ប្រភេទ​នៃ​បច្ចុប្បន្នភាព​ទាំងនេះ​ដោយ​ស្វ័យប្រវត្តិ ។"
+
+#~ msgid "Get the update list when the session starts"
+#~ msgstr "យក​បញ្ជី​បច្ចុប្បន្នភាព​នៅ​ពេល​ដែល​សម័យ​ចាប់ផ្ដើម"
+
+#~ msgid ""
+#~ "Get the update list when the session starts, even if not scheduled to."
+#~ msgstr "យក​បញ្ជី​បច្ចុប្បន្នភាព​នៅ​ពេល​ដែល​សម័យ​ចាប់ផ្ដើម ទោះបីជា​មិន​បាន​កំណត់​កាលវិភាគ​ក៏ដោយ ។"
+
+#~ msgid ""
+#~ "The number of seconds at session startup to wait before checking for "
+#~ "updates"
+#~ msgstr "ចំនួន​វិនាទី​នៅ​ពេល​សម័យ​ចាប់ផ្ដើម​ឡើង​ដើម្បី​រង់ចាំ​មុន​ពេល​ពិនិត្យមើល​បច្ចុប្បន្នភាព"
+
+#~ msgid ""
+#~ "The number of seconds at session startup to wait before checking for "
+#~ "updates. Value is in seconds."
+#~ msgstr ""
+#~ "ចំនួន​វិនាទី​នៅ​ពេល​សម័យ​ចាប់ផ្ដើម​ឡើង​ដើម្បី​រង់ចាំ​មុន​ពេល​ពិនិត្យមើល​បច្ចុប្បន្នភាព ។ តម្លៃ​គិតជា​វិនាទី ។"
+
+#~ msgid "Notify the user for completed updates"
+#~ msgstr "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​បាន​បញ្ចប់​ទាំងស្រុង"
+
+#~ msgid ""
+#~ "Notify the user for completed updates. This may be a useful notification "
+#~ "for some users as installing updates prevents shutdown."
+#~ msgstr ""
+#~ "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​បាន​បញ្ចប់​ទាំងស្រុង ។ វា​អាច​ជា​ការ​ជូនដំណឹង​ដែល​មាន​"
+#~ "ប្រយោជន៍​សម្រាប់​អ្នកប្រើ​មួយ​ចំនួន​នៅ​ពេល​កំពុង​ដំឡើង​​បច្ចុប្បន្នភាព​ការពារ​ការ​បិទ ។"
+
+#~ msgid ""
+#~ "Notify the user for completed updates where the user needs to restart"
+#~ msgstr ""
+#~ "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​បាន​បញ្ចប់​ទាំងស្រុង និង​ចាំបាច់​ត្រូវ​ចាប់ផ្ដើម​ឡើងវិញ"
+
+#~ msgid ""
+#~ "Notify the user for completed updates where the user needs to restart."
+#~ msgstr ""
+#~ "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​បាន​បញ្ចប់​ទាំងស្រុង និង​ចាំបាច់​ត្រូវ​ចាប់ផ្ដើម​ឡើងវិញ ។"
+
+#~ msgid ""
+#~ "Notify the user when the automatic update was not started on battery power"
+#~ msgstr ""
+#~ "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​ស្វ័យប្រវត្តិ​មិន​ត្រូវ​បាន​ចាប់ផ្ដើម​នៅ​លើ​ថាមពល​ថ្ម​ទេ"
+
+#~ msgid ""
+#~ "Notify the user when the update was not automatically started because the "
+#~ "machine is running on battery power."
+#~ msgstr ""
+#~ "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​មិន​ត្រូវ​បាន​ចាប់ផ្ដើម​ដោយ​ស្វ័យប្រវត្តិ​ទេ ព្រោះ​ម៉ាស៊ីន​កំពុង​"
+#~ "ដំណើរការ​នៅ​លើ​ថាមពល​ថ្ម ។"
+
+#~ msgid "Notify the user when the update was started"
+#~ msgstr "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​ត្រូវ​បាន​ចាប់ផ្ដើម"
+
+#~ msgid "Notify the user when the update was started."
+#~ msgstr "ជូនដំណឹង​អ្នកប្រើ​ប្រសិនបើ​ការ​ធ្វើ​បច្ចុប្បន្នភាព​ត្រូវ​បាន​ចាប់ផ្ដើម​ ។"
+
+#~ msgid ""
+#~ "Error activating XKB configuration.\n"
+#~ "There can be various reasons for that.\n"
+#~ "\n"
+#~ "If you report this situation as a bug, include the results of\n"
+#~ " • <b>%s</b>\n"
+#~ " • <b>%s</b>\n"
+#~ " • <b>%s</b>\n"
+#~ " • <b>%s</b>"
+#~ msgstr ""
+#~ "កំហុស​ក្នុង​ការ​ធ្វើឲ្យ​ការ​កំណត់​រចនាសម្ព័ន្ធ XKB សកម្ម ។\n"
+#~ "វា​អាច​មាន​មូលហេតុ​ច្រើន​យ៉ាង ។\n"
+#~ "\n"
+#~ "ប្រសិនបើ​អ្នក​រាយការណ៍​ស្ថានភាព​នេះ​ថា​ជា​កំហុស ដោយ​រួមបញ្ចូល​លទ្ធផល​របស់\n"
+#~ " • <b>%s</b>\n"
+#~ " • <b>%s</b>\n"
+#~ " • <b>%s</b>\n"
+#~ " • <b>%s</b>"
+
+#~ msgid "_Layouts"
+#~ msgstr "ប្លង់"
+
+#~ msgid "Show _Keyboard Layout..."
+#~ msgstr "បង្ហាញ​ប្លង់​ក្ដារចុច..."
+
+#~ msgid "Region and Language Settings"
+#~ msgstr "ការ​កំណត់​ភាសា និង​តំបន់"
+
+#~ msgid "Show _Layout Chart"
+#~ msgstr "បង្ហាញ​ប្លង​គំនូសតាង"
+
+#~ msgid "Keyboard Layout _Settings..."
+#~ msgstr "ការ​កំណត់​ប្លង់​ក្ដារចុច..."
+
+#~ msgid ""
+#~ "Automatic updates are not being installed as the computer is running on "
+#~ "battery power"
+#~ msgstr ""
+#~ "ការ​ធ្វើ​បច្ចុប្បន្នភាព​​​ស្វ័យប្រវត្តិ​មិន​ត្រូវ​បាន​ដំឡើង​ទេ នៅ​ពេល​ដែល​កុំព្យូទ័រ​កំពុង​ដំណើរការ​នៅ​លើ​ថាមពល​ថ្ម"
+
+#~ msgid "Updates not installed"
+#~ msgstr "បច្ចុប្បន្នភាព​មិន​ត្រូវ​បាន​ដំឡើង"
+
+#~ msgid "Install the updates anyway"
+#~ msgstr "អញ្ជឹង​ដំឡើង​បច្ចុប្បន្នភាព"
+
+#~ msgid "No restart is required."
+#~ msgstr "មិន​ទាមទារ​ការ​ចាប់ផ្ដើម​ឡើងវិញ​ទេ ។"
+
+#~ msgid "A restart is required."
+#~ msgstr "ទាមទារ​ការ​ចាប់ផ្ដើម​ឡើងវិញ ។"
+
+#~ msgid "You need to log out and log back in."
+#~ msgstr "អ្នក​ត្រូវតែ​ចេញ រួច​ចូល​វិញ ។"
+
+#~ msgid "You need to restart the application."
+#~ msgstr "អ្នក​ត្រូវ​ចាប់ផ្ដើម​កម្មវិធី​ឡើងវិញ ។"
+
+#~ msgid "You need to log out and log back in to remain secure."
+#~ msgstr "ដើម្បី​សុវត្ថិភាព​អ្នក​ត្រូវតែ​ចេញ រួច​ចូល​វិញ ។"
+
+#~ msgid "A restart is required to remain secure."
+#~ msgstr "ដើម្បី​សុវត្ថិភាព​អ្នក​ត្រូវតែ​ចាប់ផ្ដើម​ឡើងវិញ ។"
+
+#~ msgid "One package was skipped:"
+#~ msgid_plural "Some packages were skipped:"
+#~ msgstr[0] "កញ្ចប់​មួយ​ចំនួន​ត្រូវ​បាន​រំលង ៖"
+
+#~ msgid "Restart computer now"
+#~ msgstr "ចាប់ផ្ដើម​កុំព្យូទ័រ​ឡើងវិញ​ឥឡូវ"

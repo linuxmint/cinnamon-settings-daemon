@@ -1,0 +1,8 @@
+[GNOME Settings Plugin]
+Module=print-notifications
+IAge=0
+_Name=Print-notifications
+_Description=Print-notifications plugin
+Authors=AUTHOR
+Copyright=Copyright © 2011 AUTHOR
+Website=

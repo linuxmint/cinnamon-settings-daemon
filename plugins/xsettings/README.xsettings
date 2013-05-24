@@ -1,0 +1,35 @@
+This is very simple documentation for the 'override' GSettings key for
+gnome-setting-daemon's xsettings plugin.
+
+The override is given as a dictionary of overrides to be applied on top
+of the usual values that are exported to the X server as XSETTINGS.  The
+intent of this is to allow users to override values of programmatically
+determined settings (such as 'Gtk/ShellShowsAppMenu') and to allow
+developers to introduce new XSETTINGS for testing (without having to kill the
+gnome-settings-daemon running in the session and run their own patched
+version).
+
+The type of the overrides is 'a{sv}'.
+
+The key gives the full XSETTINGS setting name to override (for example,
+'Gtk/ShellShowsAppMenu').  The value is one of the following:
+
+ - a string ('s') for the case of a string XSETTING
+
+ - an int32 ('i') for the case of an integer XSETTING
+
+ - a 4-tuple of uint16s ('(qqqq)') for the case of a color XSETTING
+
+Dictionary items with a value that is not one of the above types will be
+ignored.  Specifically note that XSETTINGS does not have a concept of
+booleans -- you must use an integer that is either 0 or 1.
+
+An example setting for this key (as expressed in GVariant text format)
+might be:
+
+ { 'Gtk/ShellShowsAppMenu': < 0 >, 'Xft/DPI', < 98304 > }
+
+Noting that variants must be specified in the usual way (wrapped in <>).
+
+Note also that DPI in the above example is expressed in 1024ths of an
+inch.

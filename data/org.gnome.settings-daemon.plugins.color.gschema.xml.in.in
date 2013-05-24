@@ -1,0 +1,24 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.color" path="/org/gnome/settings-daemon/plugins/color/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>1</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+    <key name="recalibrate-display-threshold" type="u">
+      <default>0</default>
+      <_summary>The duration a display profile is valid</_summary>
+      <_description>This is the number of days after which the display color profile is considered invalid.</_description>
+    </key>
+    <key name="recalibrate-printer-threshold" type="u">
+      <default>0</default>
+      <_summary>The duration a printer profile is valid</_summary>
+      <_description>This is the number of days after which the printer color profile is considered invalid.</_description>
+    </key>
+  </schema>
+</schemalist>

@@ -1,0 +1,140 @@
+<?xml version='1.0'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+
+<refentry id="gnome-settings-daemon">
+
+        <refentryinfo>
+                <title>gnome-settings-daemon</title>
+                <productname>GNOME</productname>
+
+                <authorgroup>
+                        <author>
+                                <contrib>Maintainer</contrib>
+                                <firstname>Bastien</firstname>
+                                <surname>Nocera</surname>
+                                <email>hadess@hadess.net</email>
+                        </author>
+                </authorgroup>
+
+        </refentryinfo>
+
+        <refmeta>
+                <refentrytitle>gnome-settings-daemon</refentrytitle>
+                <manvolnum>1</manvolnum>
+                <refmiscinfo class="manual">User Commands</refmiscinfo>
+        </refmeta>
+
+        <refnamediv>
+                <refname>gnome-settings-daemon</refname>
+                <refpurpose>GNOME settings daemon</refpurpose>
+        </refnamediv>
+
+        <refsynopsisdiv>
+                <cmdsynopsis>
+                        <command>gnome-settings-daemon <arg choice="opt" rep="repeat">OPTION</arg></command>
+                </cmdsynopsis>
+        </refsynopsisdiv>
+
+        <refsect1>
+                <title>Description</title>
+
+                <para><command>gnome-settings-daemon</command> provides many
+                session-wide services and functions that require a
+                long-running process.
+                Among the services implemented by gnome-settings-daemon
+                are an XSettings manager, which provides theming, font
+                and other settings to GTK+ applications, and a clipboard
+                manager, which preserves clipboard contents when an
+                application exits.
+                Many user interface elements of
+                <command>gnome-shell</command> and
+                <command>gnome-control-center</command> rely on
+                gnome-settings-daemon for their functionality.
+                </para>
+
+                <para>The internal architecture of gnome-settings-daemon
+                consists of a number of plugins, which provide functionality
+                such as printer notifications, software update monitoring,
+                background changing, etc. For debugging purposes, these
+                plugins can be individually disabled by changing the
+                gsettings key <literal>org.gnome.settings-daemon.plugins.<replaceable>plugin-name</replaceable>.active</literal>, where
+                <replaceable>plugin-name</replaceable> is
+                the name of the plugin. To see a list of all plugins,
+                use the command
+                <userinput>
+                gsettings list-children org.gnome.settings-daemon.plugins
+                </userinput>
+                </para>
+
+                <para>gnome-settings-daemon takes the name
+                org.gnome.SettingsDaemon on the session bus to ensure
+                that only one instance is running. Some plugins export
+                objects under this name to make their functionality
+                available to other applications. The interfaces of
+                these objects should generally be considered private
+                and unstable.</para>
+
+                <para>gnome-settings-daemon is a required component of
+                the GNOME desktop, i.e. it is listed in the
+                RequiredComponents field of
+                <filename>/usr/share/gnome-session/sessions/gnome.session</filename>.
+                It is started in the initialization phase of the session,
+                and <command>gnome-session</command> will restart it
+                if it crashes.
+                </para>
+
+        </refsect1>
+
+        <refsect1>
+                <title>Options</title>
+
+                <variablelist>
+                        <varlistentry>
+                                <term><option>-h</option>, <option>--help</option></term>
+
+                                <listitem><para>Prints a short help
+                                text and exits.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>--debug</option></term>
+
+                                <listitem><para>Enables debugging code.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>--timed-exit</option></term>
+
+                                <listitem><para>Exits after a timeout (30 seconds) for debugging.</para></listitem>
+                        </varlistentry>
+
+                </variablelist>
+        </refsect1>
+
+        <refsect1>
+                <title>Files</title>
+                <variablelist>
+                        <varlistentry>
+                                <term><filename>/usr/share/gnome-session/sessions/gnome.session</filename></term>
+
+                                <listitem><para>GNOME session definition file where gnome-settings-daemon is listed as a required component.</para></listitem>
+                        </varlistentry>
+                        <varlistentry>
+                                <term><filename>/etc/xdg/autostart/gnome-settings-daemon.desktop</filename></term>
+
+                                <listitem><para>Autostart file for gnome-settings-daemon, where its autostart phase is set.</para></listitem>
+                        </varlistentry>
+                </variablelist>
+        </refsect1>
+
+        <refsect1>
+                <title>See Also</title>
+                <para>
+                        <citerefentry><refentrytitle>gnome-shell</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>gnome-control-center</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>gnome-session</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                </para>
+        </refsect1>
+
+</refentry>

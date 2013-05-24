@@ -1,0 +1,56 @@
+# Files with translatable strings.
+# Please keep this file in alphabetical order.
+data/gnome-settings-daemon.desktop.in.in
+data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in
+data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in
+data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in
+gnome-settings-daemon/main.c
+[type: gettext/ini]plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in
+plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c
+plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c
+[type: gettext/glade]plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui
+[type: gettext/ini]plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in
+plugins/automount/gnome-fallback-mount-helper.desktop.in.in
+plugins/automount/gsd-automount-manager.c
+plugins/automount/gsd-autorun.c
+[type: gettext/ini]plugins/background/background.gnome-settings-plugin.in
+[type: gettext/ini]plugins/clipboard/clipboard.gnome-settings-plugin.in
+[type: gettext/ini]plugins/color/color.gnome-settings-plugin.in
+plugins/color/gsd-color-manager.c
+[type: gettext/ini]plugins/dummy/dummy.gnome-settings-plugin.in
+plugins/housekeeping/gsd-disk-space.c
+plugins/housekeeping/gsd-ldsm-dialog.c
+plugins/keyboard/gsd-keyboard-manager.c
+[type: gettext/ini]plugins/keyboard/keyboard.gnome-settings-plugin.in
+plugins/media-keys/cut-n-paste/gvc-mixer-control.c
+plugins/media-keys/gsd-media-keys-manager.c
+[type: gettext/ini]plugins/media-keys/media-keys.gnome-settings-plugin.in
+plugins/mouse/gsd-mouse-manager.c
+[type: gettext/ini]plugins/mouse/mouse.gnome-settings-plugin.in
+plugins/power/gpm-common.c
+plugins/power/gsd-power-manager.c
+plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in
+[type: gettext/ini]plugins/power/power.gnome-settings-plugin.in
+plugins/print-notifications/gsd-printer.c
+plugins/print-notifications/gsd-print-notifications-manager.c
+[type: gettext/ini]plugins/print-notifications/print-notifications.gnome-settings-plugin.in
+plugins/smartcard/gsd-smartcard.c
+plugins/smartcard/gsd-smartcard-manager.c
+plugins/updates/gsd-updates-firmware.c
+plugins/updates/gsd-updates-manager.c
+plugins/wacom/gsd-wacom-device.c
+plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in
+plugins/xrandr/gsd-xrandr-manager.c
+[type: gettext/ini]plugins/xrandr/xrandr.gnome-settings-plugin.in
+plugins/xsettings/gsd-xsettings-manager.c
+[type: gettext/ini]plugins/xsettings/xsettings.gnome-settings-plugin.in

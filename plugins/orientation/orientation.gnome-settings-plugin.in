@@ -1,0 +1,8 @@
+[GNOME Settings Plugin]
+Module=orientation
+IAge=0
+_Name=Orientation
+_Description=Orientation plugin
+Authors=Peter Hutterer
+Copyright=Copyright © 2010
+Website=

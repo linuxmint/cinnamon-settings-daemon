@@ -1,0 +1,8 @@
+[GNOME Settings Plugin]
+Module=updates
+IAge=0
+_Name=Updates
+_Description=Updates plugin
+Authors=Richard Hughes
+Copyright=Copyright © 2011
+Website=

@@ -1,0 +1,8 @@
+[GNOME Settings Plugin]
+Module=power
+IAge=0
+_Name=Power
+_Description=Power plugin
+Authors=Richard Hughes
+Copyright=Copyright © 2011 Richard Hughes
+Website=

@@ -1,0 +1,8 @@
+description "The Gnome Settings Daemon"
+author "Stéphane Graber <stgraber@ubuntu.com>"
+
+start on started dbus and starting gnome-session
+stop on stopping gnome-session
+
+respawn
+exec /usr/lib/gnome-settings-daemon/gnome-settings-daemon

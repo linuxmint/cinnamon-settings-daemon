@@ -1,0 +1,79 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.updates" path="/org/gnome/settings-daemon/plugins/updates/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>300</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+    <key name="connection-use-mobile" type="b">
+      <default>false</default>
+      <_summary>Use mobile broadband connections</_summary>
+      <_description>Use mobile broadband connections such as GSM and CDMA to check for updates.</_description>
+    </key>
+    <key name="auto-download-updates" type="b">
+      <default>true</default>
+      <_summary>Automatically download updates in the background without confirmation</_summary>
+      <_description>Automatically download updates in the background without confirmation. Updates will be auto-downloaded when using wired network connnections, and mobile broadband if 'connection-use-mobile' is enabled.</_description>
+    </key>
+    <key name="frequency-get-updates" type="i">
+      <default>86400</default>
+      <_summary>How often to check for updates</_summary>
+      <_description>How often to check for updates. Value is in seconds. This is a maximum amount of time that can pass between a security update being published, and the update being automatically installed or the user notified.</_description>
+    </key>
+    <key name="frequency-updates-notification" type="i">
+      <default>604800</default>
+      <_summary>How often to notify the user that non-critical updates are available</_summary>
+      <_description>How often to tell the user there are non-critical updates. Value is in seconds. Security update notifications are always shown after the check for updates, but non-critical notifications should be shown a lot less frequently.</_description>
+    </key>
+    <key name="last-updates-notification" type="t">
+      <default>0</default>
+      <_summary>The last time we told the user about non-critical notifications</_summary>
+      <_description>The last time we notified the user about non-critical updates. Value is in seconds since the epoch, or zero for never.</_description>
+    </key>
+    <key name="frequency-get-upgrades" type="i">
+      <default>604800</default>
+      <_summary>How often to check for distribution upgrades</_summary>
+      <_description>How often to check for distribution upgrades. Value is in seconds.</_description>
+    </key>
+    <key name="frequency-refresh-cache" type="i">
+      <default>86400</default>
+      <_summary>How often to refresh the package cache</_summary>
+      <_description>How often to refresh the package cache. Value is in seconds.</_description>
+    </key>
+    <key name="update-battery" type="b">
+      <default>false</default>
+      <_summary>Check for updates when running on battery power</_summary>
+      <_description>Check for updates when running on battery power.</_description>
+    </key>
+    <key name="notify-distro-upgrades" type="b">
+      <default>false</default>
+      <_summary>Notify the user when distribution upgrades are available</_summary>
+      <_description>Notify the user when distribution upgrades are available.</_description>
+    </key>
+    <key name="enable-check-firmware" type="b">
+      <default>true</default>
+      <_summary>Ask the user if additional firmware should be installed</_summary>
+      <_description>Ask the user if additional firmware should be installed if it is available.</_description>
+    </key>
+    <key name="banned-firmware" type="s">
+      <default>'*/intel-ucode/*'</default>
+      <_summary>Firmware files that should not be searched for</_summary>
+      <_description>Firmware files that should not be searched for, separated by commas. These can include '*' and '?' characters.</_description>
+    </key>
+    <key name="ignored-devices" type="s">
+      <default>''</default>
+      <_summary>Devices that should be ignored</_summary>
+      <_description>Devices that should be ignored, separated by commas. These can include '*' and '?' characters.</_description>
+    </key>
+    <key name="media-repo-filenames" type="s">
+      <default>'media.repo,.discinfo'</default>
+      <_summary>The filenames on removable media that designate it a software source.</_summary>
+      <_description>When removable media is inserted, it is checked to see if it contains any important filenames in the root directory. If the filename matches, then an updates check is performed. This allows post-install disks to be used to update running systems.</_description>
+    </key>
+  </schema>
+</schemalist>

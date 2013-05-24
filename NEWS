@@ -1,0 +1,2803 @@
+=============
+Version 3.6.4
+=============
+
+- Don't set IBus envvars if keyboard plugin is disabled
+- Proxy the org.freedesktop.ScreenSaver D-Bus API to gnome-session as
+  needed
+
+Color:
+- Fix choosing the correct profile for "legacy" applications
+- Use a perceptual intent when creating the auto-EDID profile
+
+Keyboard:
+- Trigger input source switching on key press for Caps Lock
+- Don't migrate useless XKB IBus sources from old IBus user settings
+
+Media keys:
+- Add default shortcuts for the magnifier
+- Repeat screen and keyboard brightness keys
+
+Power:
+- Fix showing an "About to hibernate" warning when the machine cannot
+  suspend
+- Hide critical battery warning when power is plugged
+- Avoid crasher if XRandR calls fail on startup
+
+Printers:
+- Don't show notifications which are not actual errors for the user
+
+Wacom:
+- Avoid infinite recursion in gsettings callback
+- Stop capturing mouse buttons when deactivating
+
+XRandr:
+- Fix "next rotation" not working
+
+=============
+Version 3.6.3
+=============
+
+Mouse:
+- Fix horizontal natural scrolling
+
+Keyboard:
+- Add keyboard shortcuts including CapsLock to
+  switch input sources
+
+Power:
+- Fix a warning on startup
+
+=============
+Version 3.6.2
+=============
+
+- Make test applications work when libnotify was used
+
+Keyboard:
+- Add default ibus engine for Indic locales
+- Prevent 100% CPU usage related to remembering Num-Lock state
+- Don't print warning messages when resuming from suspend
+
+Power:
+- Fix screen dimming and power saving even when inhibited
+- Don't suspend, dim or blank when running in virtual machines
+- Fix warning output in the Brightness & Lock panel
+- Fix possible crash when the backlight fails to be turned off for example
+
+Updates:
+- Don't require the user to click OK to clear the message for successful
+  offline updates
+
+Sound:
+- Fix alert sound changes requiring a log out/login to apply
+
+Wacom:
+- Fix touchstrips and touchrings without a modeswitch
+
+XSettings:
+- Make startup smoother by batching settings updates together
+
+=============
+Version 3.6.1
+=============
+
+Keyboard:
+- Allow grabbing the Menu key
+- Apply XKB variants and options for each IBus engine
+- Don't setup legacy toolkits if IBus is missing
+- Add default setup for some particular languages
+- Convert old libgnomekbd and IBus configurations
+- Add support for more modifiers only combinations
+- Fix input switching eating the modifiers keys in some cases
+
+Mouse:
+- Fix "Locate Pointer" eating the Ctrl key
+- Fix "Locate Pointer" animation showing when the Ctrl key has been used
+
+Updates:
+- Never show the user a message about cancelled transactions
+
+Wacom:
+- Fix LEDs switching for some tablet models
+
+Housekeeping:
+- Fix possible crashers on exit
+
+Color:
+- Fix possible crashers on exit
+
+=============
+Version 3.6.0
+=============
+
+Keyboard:
+- Create sources from the X layouts if the configuration is empty
+- Always do that in GDM, so system-wide layouts work
+- Add modifiers-only shortcuts to switch input sources
+
+==============
+Version 3.5.92
+==============
+
+Keyboard:
+- Don't block getting the IBus global engine
+- Don't touch the XKB layout if no input sources were configured
+- Fix gtk+ IM module getting set to IBus for XKB sources
+
+Media keys:
+- Make "toggle brightness" work
+
+Color:
+- Don't warn about non-existent DMI file
+
+Power:
+- Fix some instances where an external screen would turn off
+
+Wacom:
+- Require wacom 0.6 to fix bugs with some tablets
+
+==============
+Version 3.5.91
+==============
+
+Mouse:
+- Fix natural-scroll not working until switched off and on again
+
+Keyboard:
+- Don't handle IBus for fallback, it will use the same UI it always did
+- Hook IBus support for legacy applications
+
+Power:
+- Do not attempt to change the brightness of an output that was disabled
+- Fix idle blank and sleep timeout
+
+==============
+Version 3.5.90
+==============
+
+Power:
+- Fix D-Bus path of the screensaver
+
+Mouse:
+- Add support for natural scroll for touchpads
+
+Keyboard:
+- Apply XKB options
+
+Wacom:
+- Implement the "switch monitor" combination
+
+And updated translations
+
+=============
+Version 3.5.6
+=============
+
+Build:
+- Add optional man page
+- List plugin schemas as children of the main schema
+
+Updates:
+- Remove unused code
+- Avoid compilation warnings due to PackageKit API changes
+
+Mouse:
+- If one device was ignored, we would ignore all the devices
+
+Smartcard:
+- Don't try to use smartcard drivers that didn't load
+
+Keyboard:
+- Require ibus 1.4.99 for ibus support
+
+Wacom:
+- Avoid a warning at login
+
+=============
+Version 3.5.5
+=============
+
+* Add test applications for a number of plugins
+
+Color:
+- Fix notification-related memory leaks
+
+Keyboard:
+- Add support for switching to IBus input methods
+
+Wacom:
+- Fix crasher related to screen tablets
+- Do not rotate "pad" devices
+- Apply display rotation to device that's mapped to it
+- Make shortcuts that require Shift work as expected
+- Re-apply calibration and aspect-ratio when the screen changes
+  but don't apply it to touch devices
+
+Housekeeping:
+- Fix notification-related memory leaks
+
+Updates:
+- Remove unused settings
+- Remove a number of unused notifications
+- Don't ever live-update packages in the session
+- Fix a number of memory leaks
+- Prevent crash if a device that requires a firmware is removed before the
+  firmware search completes
+
+=============
+Version 3.5.4
+=============
+
+Wacom:
+- Fix crasher related to screen matching (Olivier Fourdan)
+
+Printers:
+- Don't block the session with unreachable printers
+
+=============
+Version 3.5.3
+=============
+
+Keyboard A11y:
+- Don't crash when changing large print in fallback mode
+- Link to an existing help page
+
+Housekeeping:
+- Support new XDG thumbnail directory locations
+
+Keyboard:
+- Don't crash if LANG is empty
+
+Media-keys:
+- Make <Super> keyboard shortcuts work again
+- Use systemd to shutdown or suspend if available
+
+Mouse:
+- Only inhibits mouse clicks and scrolls with syndaemon
+
+Power:
+- End the lid-close safety timer when the lid gets opened
+- Update fallback status icon on icon state change
+- Don't leak notifications
+- Avoid duplicate translations
+- Use systemd to shutdown or suspend if available
+- Don't enable backlight helper if GUdev is not available
+
+Updates:
+- Adapt to new upstream property name
+- Add a notification for offline updates
+
+Wacom:
+- Update display mapping on monitor changes
+- Flag unknown devices created from fallback
+- Add keep aspect ratio option
+- Use GnomeRROutput instead of GnomeRROutputInfo
+- Match built-in monitor
+
+XRandr:
+- Explicitly set clone state variable when generating monitor configs
+
+=============
+Version 3.5.2
+=============
+
+- Remove ability to D-Bus activate (Ray Strode)
+
+Media-keys:
+- Get proper gnome-keyring environment (Bastien Nocera)
+- Simplify the OSD code (Bastien)
+- Add keybindings to switch input sources (Rui Matos)
+
+Mouse:
+- Fix applying settings to newly added touchpads (Owen Taylor)
+- Reduce default touchpad deactivation to 1s (Nicolas Dufresne)
+
+Housekeeping:
+- Split out 'ingnore unix mount' code (Bastien)
+
+Keyboard:
+- Always apply xmodmap (Sergey V. Udaltsov)
+- Lots of cleanups (Bastien)
+- Apply XKB layouts ourselfs and stop relying on libgnomekbd (Rui Matos)
+
+Power:
+- Disconnect from upower signals when needed (Richard Hughes)
+- Add org.gnome.settings-daemon.plugins.power.lid-close-suspend-with-extrnal-monitors
+  key to allow forcing suspend on lid close (Paolo Bonzini)
+
+Print:
+- Fix setting of default media size (Marek Kasik)
+- Don't create an unused proxy object (Matthias Clasen)
+- Speed up initialization (Matthias)
+
+Updates:
+- Automatically download updates rather than installing them (Richard)
+
+Wacom:
+- Disable wacom support on s390 (Dan Horák)
+- Disable wacom support on non-linux (Antoine Jacoutot)
+- Don't put touchscreens in relative mode (Timo Aaltonen)
+- Make tablet configuration per-machine (Bastien)
+
+Color:
+- Be quiet about unloadable profiles (Richard)
+
+Translations:
+- Catalan
+- Crimean Tatar
+- Dutch
+- Galician
+- German
+- Hebrew
+- Italian
+- Kannada
+- Norwegian bokmål
+- Slovenian
+- Swedish
+
+=============
+Version 3.4.0
+=============
+
+Wacom:
+- Check if the "last-stylus" property has been set (Olivier Fourdan)
+
+Translations:
+- Simplified Chinese (zh_CN) (YunQiang Su)
+- Hindi (Chandan Kumar)
+- Belarusian (Ihar Hrachyshka)
+- Brazilian Portuguese (Jonh Wendell)
+- French (Bruno Brouard)
+- Hebrew (Yaron Shahrabani)
+- Lithuanian (Žygimantas Beručka)
+- Portuguese (Duarte Loreto)
+- Telugu (Sasi Bhushan)
+- Traditional Chinese (Chao-Hsiung Liao)
+- Vietnamese (Nguyễn Thái Ngọc Duy)
+- Ukranian (Daniel Korostil)
+
+==============
+Version 3.3.92
+==============
+
+Color:
+- Apply the color profile even if the device has an invalid EDID (Richard Hughes)
+- Create a color device even if the device has an invalid EDID (Richard Hughes)
+- Don't use the username in the profile ID, it's optional and not-required (Richard Hughes)
+
+Common:
+- Add hint on how to set the script path (Bastien Nocera)
+- Fix library linkage on Mageia (Jani Välimaa)
+- Support explicitly setting G_MESSAGES_DEBUG (Martin Pitt)
+
+Media Keys:
+- Avoid hard-coded shortcuts not working (Bastien Nocera)
+- Call Shutdown for the logout action (Bastien Nocera)
+
+Mouse:
+- Stop syndaemon when settings-daemon dies (Martin Pitt)
+
+Power:
+- Do not emit DBus interface change signals when doing the idle dim (Richard Hughes)
+- Don't print a message when no backlights are detected (Richard Hughes)
+- Failing to clear DPMS timeouts should not be fatal (Alexandre Rostovtsev)
+- Fix broken abs_to_percentage() logic (Cosimo Cecchi)
+- Lazily connect to gnome-screensaver (Martin Pitt)
+- Lock the screensaver if the lid is closed and lock is enabled (Richard Hughes)
+- Make the idle dim time 90 seconds to match OSX (Richard Hughes)
+
+Print Notifications:
+- Add test tool (Lars Uebernickel)
+- Don't unref floating GVariant (Marek Kasik)
+
+Wacom:
+- Add README about configuration storage (Bastien Nocera)
+
+XRandR:
+- Fix the rotate display button not working (Sjoerd Simons)
+- List external display only before internal only (Bastien Nocera)
+
+XSettings:
+- Add README.xsettings about overrides (Ryan Lortie)
+- Add test-xsettings program (Ryan Lortie)
+- Add xsettings_setting_get() accessor (Ryan Lortie)
+- Add XSETTINGS_VARIANT_TYPE_COLOR macro (Ryan Lortie)
+- Always call xsettings_setting_set() (Ryan Lortie)
+- Don't return XSettingsResult codes (Ryan Lortie)
+- Introduce 'tiers' of XSettings (Ryan Lortie)
+- Load overrides on startup (Ryan Lortie)
+- Remove global 'settings' list (Ryan Lortie)
+- Switch manager to GLib memory functions (Ryan Lortie)
+- Switch to GVariant for value storage (Ryan Lortie)
+- Use GHashTable in the xsettings manager (Ryan Lortie)
+- Wire overrides into GSettings (Ryan Lortie)
+
+Translations:
+- Belarusian (Ihar Hrachyshka, Kasia Bondarava)
+- British English (Bruce Cowan)
+- Bulgarian (Alexander Shopov)
+- Catalan (Joan Duran)
+- Catalan (Valencian) (Carles Ferrando)
+- Czech (Adam Matoušek, Marek Černocký)
+- Finnish (Timo Jyrinki)
+- Galician (Fran Diéguez)
+- Gujarati (Sweta Kothari)
+- Hungarian (Gabor Kelemen)
+- Korean (Changwoo Ryu)
+- Latvian (Anita Reitere)
+- Norwegian bokmål (Kjartan Maraas)
+- Russian (Yuri Myasoedov)
+- Serbian (Мирослав Николић)
+- Slovenian (Matej Urbančič)
+- Traditional Chinese (Cheng-Chia Tseng)
+- Vietnamese (Nguyễn Thái Ngọc Duy)
+- Punjabi (A S Alam)
+- Ukranian (Daniel Korostil)
+
+==============
+Version 3.3.91
+==============
+
+Color:
+- Fix warning with non-present devices
+- Make displays without EDID data use the correct device ID
+- Create the correct device ID for EDIDs with no text data
+- Fix EDID checksum generation
+
+Power:
+- Emit a Changed() signal when the backlight changes
+- Don't overflow when pressing the keyboard brightness button
+
+Media-keys:
+- Make Alt+Print appear as Alt+Print not Alt+SysRq
+
+Wacom:
+- Add support for mode switch buttons, touchrings, touchstrips,
+  and light up the LEDs appropriately
+- Add support for current tool ID from Wacom driver
+- Fix possible crasher setting pressure curve or display area
+- Force touchpads to use relative mode and ignore mode changes
+- Fix double-event generation
+- Fix installation problems with libexecdir == libdir
+- Make monitor == -1 reset the display configuration
+
+================
+Version 3.3.90.1
+================
+
+Build:
+- Fix build with --enable-systemd
+
+==============
+Version 3.3.90
+==============
+
+Build:
+- Remove last requirement for dbus-glib
+- Remove use of deprecated g_thread_init()
+- Fix linking with -Bsymbolic
+
+Wacom:
+- Add tablet button listing and settings
+- Add display mapping
+
+Keyboard:
+- Fix blinking num-lock in some circumstances
+
+Color:
+- Set _ICC_PROFILE correctly when there is no primary device specified
+
+Power:
+- Fix possible crasher in backlight helper on error
+
+=============
+Version 3.3.5
+=============
+
+Build:
+- Remove unused date & time mechanism. gnome-control-center
+  uses a different API, provided by systemd on some systems.
+
+A11y keyboard:
+- Reduce the number of settings updates on startup
+
+Power:
+- Require a newer upower
+- Optionally use systemd to shutdown when power is low
+- Use GDBusProxy-compatible PropertiesChanged signal
+- Fix "<br>" appearing in notification popups
+
+Wacom:
+- Add a way to get/set the screen associated with a tablet
+- Don't crash when using a generic tablet
+- Add support for the puck and touch device types
+- Add support for enumerating tablet buttons
+
+Printers:
+- Also notify for unknown error reasons
+- Unify printer name usage
+
+Color:
+- Set the brightness of the display if it was saved as
+  metadata in the color profile
+
+Media keys, XSettings, Updates:
+- Fix possible crashes on exit
+
+Housekeeping, Wacom, XSettings:
+- Fix memory leaks
+
+Media keys:
+- Add screenshot keyboard shortcuts
+
+Keyboard:
+- Don't save num-lock state when caps-lock changes
+
+Automounter:
+- Optionally use systemd to check for active seat
+
+=============
+Version 3.3.4
+=============
+
+Build:
+- Fix distribution of a pre-processed desktop file
+
+Daemon:
+- Fix --debug not working
+- Remove gnome_settings_session_get_screen() and
+  gnome_settings_session_get_upower_client(), as
+  the underlying functions return singletons
+
+Color:
+- Fix some screen setups not being color corrected
+
+XRandR:
+- Better handling of docking stations and plugging of
+  external monitors (for suspend, and turning off monitors
+  to work as designed)
+
+Wacom:
+- Fix loading of the plugin
+- Fix GSettings read/write for per-tablet/per-styli configs
+- Export more tablet and stylus metadata
+
+===============
+Version 3.3.3.1
+===============
+
+Wacom:
+- Fix referenced module name (Frederic Peters)
+
+=============
+Version 3.3.3
+=============
+
+Build:
+- Require GTK+ 3.3.4 (for key accel parsing)
+- Require XI2 (for wacom support)
+
+Common:
+- Remove unused X key event code (Bastien)
+
+Wacom:
+- Lots of infrastructure buildup that I can't really
+  summarize here (Bastien Nocera)
+- Rename plugin to avoid name clash with libwacom (Bastien)
+- Use libwacom to get tablet metadata (Bastien)
+- Implement per-device and per-stylus settings (Bastien)
+
+Power:
+- Add the vendor name to the battery recall
+  warning (Dominique Leuenberger) (#664418)
+- Add automatic dimming of keyboard backlight (Alex Murray)
+Print:
+- Prevent crashes when cups sends malformed
+  D-Bus signals (Lars Uebernickel) (#665689)
+
+XSettings:
+- Set GtkShellShowsAppMenu xsetting when the shell is running (Colin Walters)
+
+
+Translations:
+ Hebrew
+ Norwegian bokmål
+ Romanian
+ Spanish
+
+=============
+Version 3.3.2
+=============
+
+Common:
+- Remove left-over debug (Bastien Nocera) (#660073)
+- Fix handling of <Primary> (Bastien Nocera)
+- Update required gnome-desktop version (Bastien Nocera)
+- Return opcode when detecting XInput2 (Bastien Nocera)
+- Add helper to get the input device node (Bastien Nocera)
+- Use XInput2 to capture and match keys (Bastien Nocera)
+- Use GTK+ functions instead of own impl (Bastien Nocera) (#663343)
+- Fix small memleak (Bastien Nocera)
+- Allow to grab 'Print' without modifiers (Florian Müllner) (#663623)
+- Require gsettings-desktop-schemas 3.3.0 (Bastien Nocera)
+
+A11y keyboard:
+- Port to GSettings (Bastien Nocera) (#631502)
+
+Automount:
+- Call bind_textdomain_codeset() (Bastien Nocera)
+
+Color:
+- Do not load all the color devices twice at startup (Richard Hughes)
+- Don't assign the same device more than once at startup (Richard Hughes)
+- Fix a crash if ~/.local is deleted at runtime (Richard Hughes) (#660664)
+- Simplify gcm_profile_store_mkdir_with_parents() (Bastien Nocera)
+- Cancel any in-progress directory searching on plugin unload (Richard Hughes)
+- Do not check for directory presence sync (Richard Hughes)
+- Fix critical warning if the user disables the internal LCD screen (Richard Hughes)
+- Reset the gamma tables when the screen configuration changes (Richard Hughes) (#660164)
+- Unbreak loading profiles at startup (Cosimo Cecchi) (#660790)
+- Do not prefix the EDID profile title with 'Default' (Richard Hughes)
+- Set model and vendor to 'unknown' if not specified or unavailable (Richard Hughes)
+
+Daemon:
+- Create a reference to a GnomePnpIds object to speed up loading (Richard Hughes)
+
+Datetime:
+- Fix build requirements (Bastien Nocera)
+
+Media keys:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+- Don't assert if the user sets the 'button-power' action to 'shutdown' (Richard Hughes)
+- Don't assert if the user sets the 'button-power' action to 'nothing' (Richard Hughes)
+- Only ever send signals to specific apps (Bastien Nocera)
+- Document the MediaPlayerKeyPressed signal (Bastien Nocera)
+- Add some D-Bus API documentation (Bastien Nocera)
+- Fix OSD touchpad icon names (Bastien Nocera) (#661179)
+- Fix suspend button not locking the screen (Bastien Nocera) (#660267)
+- Fix the suspend key not working (Bastien Nocera) (#660267)
+- Remove unused allowed-keys entry (Bastien Nocera)
+- Cache the volume change event sound (Bastien Nocera)
+- Update for GVC API (Bastien Nocera)
+- Print warning for real errors (Bastien Nocera)
+- Apply volume on the device the key came from (Bastien Nocera) (#340720)
+- Add custom shortcut type (Bastien Nocera)
+- Implement GConf keyboard shortcuts (Bastien Nocera) (#625228)
+- Redraw volume OSD when not composited (Marien Zwart) (#660990)
+- Update for gsd-keygrab API change (Bastien Nocera) (#663343)
+- Move some metacity shortcuts into g-s-d (Florian Müllner) (#663623)
+- Port custom keybindings to GSettings (Florian Müllner) (#631502)
+
+Power:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+- Do not revert to the pre-idle brightness if idle dimming is disabled (Richard Hughes) (#660434)
+- Remove some unused schema for enabling the sleep-inactive actions (Richard Hughes) (#660395)
+- Clarify what a value of 0 is for sleep-inactive-x-timeout (Richard Hughes)
+- Do not sleep-on-idle by default (Richard Hughes)
+- Simplify hiding/showing the status icon (Bastien Nocera)
+- Ensure the DPMS state is 'on' at startup (Richard Hughes) (#660482)
+- Close low-battery notification when plugged in (Florian Müllner) (#660942)
+- Remove the window filter when the plugin is unloaded (Richard Hughes)
+- Don't crash when setting the dim timeout when using NX (Richard Hughes) (#661000)
+- Call XSyncInitialize() in case GTK+ wasn't compiled with XSync support (Richard Hughes)
+- Emit 'Changed' signal to all listeners (Gary Ching-Pang Lin)
+- Fix "undefined symbol: WEXITSTATUS" error (Richard Hughes) (#662020)
+- Make non-urgent notifications transient (Florian Müllner) (#662711)
+
+Printers:
+- Fix build on systems without LC_PAPER (Bastien Nocera) (#660626)
+- Call setlocale() (Bastien Nocera) (#660632)
+- Exit gsd-printer when session ends (Marek Kasik) (#660158)
+- Correct signature when calling PrinterAddOptionDefault (Marek Kasik)
+- Don't show "Not connected?" when not needed (Marek Kasik)
+- Unown name on the system bus when session goes idle (Marek Kasik) (#660158)
+- Set requesting-user-name when getting job info (Marek Kasik)
+- Show printer-state-reasons only when printing my jobs (Marek Kasik)
+- Don't allow "/" in printer name (Marek Kasik) (#661774)
+- Make notifications resident (Marek Kasik)
+- Fix a leak (Marek Kasik)
+
+Smartcard:
+- Remove unnecessary translations (Bastien Nocera)
+
+Xrandr:
+- Use a GCancellable for g_bus_get calls so that they can be cancelled (Rodrigo Moya)
+
+Xsettings:
+- Remove workaround to deal with g-s-d not exiting correctly (Rodrigo Moya)
+- Plug mem leaks (Christian Persch) (#663239)
+
+Wacom:
+- Fix possible crasher (Bastien Nocera) (#661170)
+- Set cursor devices to be in relative mode by default (Jason Gerecke) (#662977)
+- Add classes to manage settings and properties (Bastien Nocera)
+
+Translations:
+- ast (Xandru Armesto)
+- de (Mario Blättermann)
+- eo (Kristjan SCHMIDT)
+- es (Daniel Mustieles, Jorge González)
+- gl (Fran Dieguez)
+- lt (Algimantas Margevičius)
+- nb (Kjartan Maraas)
+- nl (Redmar, Wouter Bolsterlee)
+- or (Manoj Kumar Giri)
+- sl (Matej Urbančič)
+- sv (Daniel Nylander)
+- te (krishnababu k)
+- uk (Daniel Korostil)
+- vi (Nguyễn Thái Ngọc Duy)
+
+=============
+Version 3.2.0
+=============
+
+Power:
+- Correctly put the screen and computer to sleep when idle (Richard Hughes) (#659066)
+
+Translations:
+- ca (Joan Duran, Gil Forcada)
+- ca@valencia (Carles Ferrando)
+- da (Flemming Christensen)
+- eu (Inaki Larranaga Murgoitio)
+- hu (Gabor Kelemen)
+- ja (OKANO Takayoshi)
+- ko (Changwoo Ryu)
+- or (Manoj Kumar Giri)
+- ru (Alexandre Prokoudine, Yuri Myasoedov)
+
+==============
+Version 3.1.92
+==============
+
+A11Y keyboard:
+- Show the a11y dialogue on right-click (Bastien Nocera) (#564171)
+
+Color:
+- Be less chatty when creating duplicate profiles (Richard Hughes)
+- Do not segfault when doing fast-user-switching into a new account (Richard Hughes) (#736846)
+- Use a username suffix on the profile ID (Richard Hughes) (#736846)
+- Do not show a warning when switching to a new user account (Richard Hughes)
+- Use the correct profiles when fast user switching (Richard Hughes)
+- Fix linking (Matthias Clasen) (#659086)
+
+Common:
+- Add helper to list disabled devices (Bastien Nocera)
+- Clean up X11 library dependencies (Bastien Nocera) (#657178)
+- Bump colord dependency (Rodrigo Moya)
+
+Datetime:
+- Allow chrony to be used on Fedora (Tomas Bzatek) (#655119)
+- Add NTP support for SUSE variants (Vincent Untz) (#654970)
+
+GConf:
+- Plug some memory leaks (Rodrigo Moya)
+- Disconnect callbacks when cleaning up (Rodrigo Moya)
+
+Keyboard:
+- Remember and apply NumLock status (Bastien Nocera) (#631989)
+
+Media keys:
+- Don't show a level when muted (Bastien Nocera) (#644537)
+- Fix keyboard brightness (Alex Murray) (#658689)
+- Use the same "Music" mime-type as g-c-c (Bastien Nocera)
+- There's no Beagle anymore (Bastien Nocera)
+- Use gtk_show_uri() to launch nautilus (Bastien Nocera)
+- Clean up app launching (Bastien Nocera) (#141379)
+- Clean up upower req (Bastien Nocera)
+- Remove unused empty LIBS linkage (Bastien Nocera)
+- Fix compile-time warning (Bastien Nocera)
+- Move keyboard brightness icon here (Bastien Nocera)
+- Remove OSD icons (Bastien Nocera)
+
+Mouse:
+- Add more debug for "touchpad disabled" (Bastien Nocera)
+- Try harder to re-enable devices (Bastien Nocera) (#656397)
+
+Power:
+- Make ABS_TO_PERCENTAGE warn on invalid input (Bastien Nocera) (#657364)
+- Correctly check for helper exit status (Bastien Nocera)
+- Avoid warnings without backlights (Bastien Nocera)
+- Do not connect to signals if we failed to connect (Richard Hughes)
+- Don't crash if we try to calculate the idle state before connected to gnome-session (Richard Hughes) (#657917)
+- Be less chatty when optional hardware is not attached (Richard Hughes) (#658613)
+- Fix a critical warning when getting the session inhibit state (Richard Hughes)
+- Do not handle the idle state transaction when the session is not active (Richard Hughes) (#658568)
+- Don't fall through the switch statement when shutting down (Richard Hughes) (#659202)
+- Do not leak the icon when getting device status (Richard Hughes) (#659213)
+- Protect against a potential SIGFE (Richard Hughes) (#659205)
+- Do not emit multiple 'Changed' signals when recalculating (Richard Hughes) (#659204)
+- Do not use G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES when we want to read properties (Richard Hughes) (#659066)
+- Fix compilation without libcanberra-gtk (Bastien Nocera)
+
+Printers:
+- Use the best PPD for new printer (Marek Kasik) (#658544)
+- Style fixes (Bastien Nocera)
+
+Updates:
+- Ignore virtual mountpoints when looking for external media (Richard Hughes) (#658282)
+- Use the correct icons in the notifications (Richard Hughes)
+
+Translations:
+- de (Mario Blättermann)
+- en_GB (Bruce Cowan)
+- es (Jorge González, Daniel Mustieles)
+- fi (Timo Jyrinki)
+- fr (Bruno Brouard)
+- he (Yaron Shahrabani)
+- it (Luca Ferretti)
+- ja (Jiro Matsuzawa)
+- lt (Aurimas Černius)
+- lv (Rudolfs Mazurs)
+- pl (Piotr Drąg)
+- pt (Duarte Loreto)
+- sl (Matej Urbančič)
+- sr (Мирослав Николић)
+
+==============
+Version 3.1.91
+==============
+
+Common:
+- Don't list XINPUT_LIBS twice, move X11_LIBS from LDFLAGS to LIBADD (Stefan Sauer)
+
+Color:
+- Ensure the 'Recalibration required' notification has a custom app name (Richard Hughes)
+- Fix a critical warning on startup (Richard Hughes)
+- Do not notify to recalibrate on every startup (Richard Hughes)
+
+Daemon:
+- Fix possible double-free outside gnome-session (Bastien Nocera)
+
+Gconf:
+- Double check stuff we add to the hash table (Rodrigo Moya) (#658055)
+
+Housekeeping:
+- NULL-terminate the ignore-paths array (Bastien Nocera) (#657849)
+
+Power:
+- Do not exit gnome-settings-daemon if upower fails to load (Richard Hughes)
+- Fix impossible to hit error paths (Bastien Nocera) (#657364)
+- Fix BRIGHTESS_STEP_AMOUNT calculation macro (Kamal Mostafa)
+- Do most of the work in _start () (Bastien Nocera) (#657924)
+- Never idle-dim the display to a higher brightness level (Richard Hughes) (#658144)
+
+Printers:
+- Remove redundant code (Marek Kasik)
+
+Xsettings:
+- Handle rgba-order key (Bastien Nocera) (#657525)
+- Don't poke at an empty hashtable (Bastien Nocera) (#657464)
+- Fix a stray brace (Owen Taylor)
+
+Translations:
+- be (Ihar Hrachyshka)
+- cz (Marek Černocký)
+- pt_BR (Og B. Maciel)
+- ta (Dr.T.Vasudevan)
+
+==============
+Version 3.1.90
+==============
+
+A11Y-keyboard:
+- Use GIO's DBus API instead of dbus-glib's (Rodrigo Moya)
+
+Color:
+- Don't use uninitialized GErrors (Matthias Clasen)
+- Do not set an age for display and printer profiles (Richard Hughes)
+- Remove the ability to disable notifications (Richard Hughes)
+- Do not search user-icc directories if they do not exist (Richard Hughes) (#657484)
+
+Daemon:
+- Add Unity to OnlyShowIn value for autostart desktop file (Michael Terry) (#654919)
+
+Media keys:
+- Don't go up to 11 (Bastien Nocera) (#649411)
+
+Mouse:
+- Be more careful to avoid segfaults (Matthias Clasen) (#657462)
+
+Power:
+- Ensure the critical battery beep is stopped when the AC is inserted (Richard Hughes)
+- Ensure we lock the screen before suspending on lid close (Richard Hughes) (#655924)
+- Add mention of bug 652183 (Bastien Nocera)
+
+Smartcard:
+- Use GIO's DBus API instead of dbus-glib's (Rodrigo Moya)
+
+Updates:
+- Do not log a warning if the firmware-missing file does not exist (Richard Hughes)
+- Do not log a warning at startup if getting the upgrade list is not supported (Richard Hughes) (#657483)
+
+Translations:
+- bg (Alexander Shopov)
+- id (Andika Triwidada)
+- pa (A S Alam)
+- ta (Dr.T.Vasudevan)
+- zh_CN (Aron Xu)
+
+=============
+Version 3.1.5
+=============
+
+A11y-keyboard:
+- Enable plugin by default (Rodrigo Moya) (#656287)
+
+Automount:
+- Link against the private profiler library (Cosimo Cecchi)
+- Add some missing includes (Cosimo Cecchi)
+- Don't ship the .in file, just the .in.in one (Bastien Nocera)
+- Silence two trivial -Wformat-security warnings (Richard Hughes)
+
+Color:
+- Do not show multiple warnings if colord is not available at runtime (Richard Hughes)
+- Fix a potential crash when unloading the color plugin (Richard Hughes)
+- Fix a potential crash if creating the per-user ICC directory fails (Richard Hughes)
+- Make lcms2 a hard dependency (Richard Hughes)
+
+Housekeeping:
+- Use new g_format_size() instead of g_format_size_for_display() (Javier Jardón)
+
+Media keys:
+- Don't preserve the path after filling (Cosimo Cecchi)
+- Remove the half pixel offset from the progressbar fill (Cosimo Cecchi)
+- Always round the render coordinates for media icons (Cosimo Cecchi)
+
+Power:
+- Add the idle actions (Richard Hughes)
+- Show a status icon when in fallback mode (Richard Hughes)
+- Respect the idle-dim-ac and idle-dim-battery configuration keys (Richard Hughes)
+- Add a backlight helper, as xbacklight isn't always present (Richard Hughes)
+- Fall back to the backlight helper if xbacklight is not available (Richard Hughes)
+- Fix a potential crash when unloading the power plugin (Richard Hughes)
+- Ensure we return the new percentage when changing the brightness (Richard Hughes)
+
+Updates:
+- Do not use deprecated PackageKit #defines (Richard Hughes)
+
+Wacom:
+- Invert TPCButton setting (Peter Hutterer) (#656372)
+
+Translations:
+- es (Daniel Mustieles)
+- fa (Arash Mousavi)
+- gl (Fran Dieguez)
+- he (Yaron Shahrabani)
+- ru (Yuri Kozlov)
+- sl (Andrej Žnidaršič)
+- sv (Daniel Nylander)
+- zh_HK (Chao-Hsiung Liao)
+- zh_TW (Chao-Hsiung Liao)
+
+=============
+Version 3.1.4
+=============
+
+A11y-keyboard:
+- Do proper cleanup when the plugin is stopped (Rodrigo Moya)
+
+Automount:
+- Turn the automount plugin in a separate binary (Cosimo Cecchi) (#653521)
+- Fix distcheck of .desktop.in.in file (Rodrigo Moya)
+
+Common:
+- Fix grabbing of multimedia keys (Chris Coulson)
+
+Daemon:
+- Set locale environment on gnome-session as early as possible (Rodrigo Moya) (#654182)
+- Plug memory leak (Rodrigo Moya)
+
+Datetime:
+- Use friendlier wording for date & time policykit prompt (Michael Terry) (#645951)
+
+Media keys:
+- Add button handling code from gnome-power-manager (Richard Hughes)
+
+Power:
+- Add power plugin to replace g-p-m (Richard Hughes)
+
+Translations:
+- be (Ihar Hrachyshka)
+- cz (Marek Černocký)
+- de (Mario Blättermann)
+- es (Daniel Mustieles, Jorge González, Sebi Kul, Francisco Molinero)
+- gl (Fran Dieguez)
+- he (Yaron Shahrabani)
+- lt (Aurimas Černius)
+- lv (Rudolfs Mazurs)
+- nb (Kjartan Maraas)
+- pa (A S Alam)
+- tr (Muhammet Kara)
+
+=============
+Version 3.1.3
+=============
+
+Common:
+- Use defines instead of variables for ranges (Bastien Nocera)
+- Fix function keys not being grabbed (Bastien Nocera) (#649222)
+- Allow the "Pause" key to be used (Bastien Nocera) (#653524)
+
+Clipboard:
+- Fix incremental sending from the clipboard manager (Cosimo Cecchi) (#652609)
+
+Color:
+- Fix a potential buffer-overflow when converting to wide text (Richard Hughes)
+
+Keyboard:
+- Use the same kbd layout menu labels as Gnome Shell (Jeremy Bicha) (#652836)
+- Add missing "Settings" to the string (Bastien Nocera)
+- Fix menu items actions (Bastien Nocera)
+
+Media keys:
+- Use constant for icon size in OSD (Bastien Nocera)
+- Remove progress bar borders (Bastien Nocera) (#652321)
+
+Mouse:
+- Check device is a touchpad before enabling/disabling it (Rodrigo Moya)
+
+Translations:
+- be (Ihar Hrachyshka)
+- es (Jorge González)
+- gl (Fran Diéguez)
+- he (Yaron Shahrabani)
+- nb (Kjartan Maraas)
+- sl (Matej Urbančič)
+- sr (Мирослав Николић)
+
+=============
+Version 3.1.2
+=============
+
+Common:
+- Don't try to convert show-keyboard-leds-indicator in gnome-settings-daemon.convert
+  (Chris Coulson)
+- Add touchscreen detection (Bastien Nocera)
+- Add X property setting helper (Bastien Nocera)
+- Add code to detect accelerometers (Bastien Nocera)
+- Add better error reporting for egg key parsing (Bastien Nocera)
+- Add code to allow disabling input devices (Bastien Nocera)
+
+Color:
+- Add new color plugin (Richard Hughes)
+
+Cursor:
+- Hide cursor on tablets with only a touchscreen (Bastien Nocera) (#650604)
+- Show the cursor again on exit (Bastien Nocera)
+- Fix XFixes version checking (Bastien Nocera)
+- Ignore PS/2 mice as well (Bastien Nocera)
+- Fix checking for extension pointer (Bastien Nocera)
+
+Datetime:
+- Fix ntp logic on Debian to include ntpdate as well as ntpd (Michael Terry) (#644821)
+
+GConf:
+- Add missing schema for org.gnome.settings-daemon.plugins.gconf (Rodrigo Moya) (#652200)
+
+Keybindings:
+- Complete update to egg key parsing change (Florian Müllner)
+
+Media keys:
+- Only start D-Bus when _start() is called (Bastien Nocera)
+- Simplify touchpad OSD (Bastien Nocera)
+- Hardcode the "toggle touchpad" button (Bastien Nocera)
+- Remove old-style OSD (Bastien Nocera)
+- Always use the primary monitor for display (Bastien Nocera) (#650159)
+- Make sound changes quiet with Alt (Bastien Nocera) (#651704)
+
+Mouse:
+- Use new disable/enable device code (Bastien Nocera)
+
+Orientation:
+- Add orientation plugin (Bastien Nocera)
+
+Updates:
+- Fix a string that is hard to translate (Richard Hughes) (#645749)
+
+Wacom:
+- Enable wacom touch key by default (Peter Hutterer)
+- Use property settings helper in common/ (Bastien Nocera)
+- Typedef the Wacom device types (Bastien Nocera)
+
+Xrandr:
+- Switch touchscreen rotation as wel (Bastien Nocera)
+- Fix small memory leak on shutdown (Bastien Nocera)
+- Remove the functionality to call gcm-apply when outputs change (Richard Hughes)
+- Remove rotation handling for wacom tablets (Bastien Nocera)
+
+Translations:
+- bg (Alexander Shopov)
+- ca@valencia (Carles Ferrando)
+- cz (Marek Černocký)
+- de (Mario Blättermann)
+- es (Jorge González, Daniel Mustieles)
+- fa (Arash Mousavi)
+- gl (Fran Diéguez)
+- he (Yaron Shahrabani)
+- nb (Kjartan Maraas)
+- pl (Piotr Drąg)
+- sl (Matej Urbančič)
+
+=============
+Version 3.1.1
+=============
+
+Common:
+- Add input-helper test application (Bastien Nocera)
+- Fix syndaemon never getting started (Edward Sheldrake) (#648885)
+- Add meaningful app names to notifications from plugins (Matthias Clasen) (#648911)
+
+Datetime:
+- Simplify NTP handling for distros (Bastien Nocera)
+- Fix setting NTP on Fedora 15 (Bastien Nocera)
+
+Media keys:
+- Show a popup when no media player is running (Bastien Nocera)
+- Use symbolic icon for Eject action (Bastien Nocera) (#649523)
+
+Mouse:
+- Clean up error handling (Bastien Nocera)
+- Don't crash if mouse has no FeedbackStates (Bastien Nocera) (#649539)
+
+Updates:
+- Fix the interface name (Richard Hughes)
+- Deal with absence of gnome-session gracefully (Matthias Clasen)
+
+Xrandr:
+- Never use a notification for errors (Bastien Nocera) (#648303)
+
+Translations:
+- es (Daniel Mustieles)
+- he (Yaron Shahrabani)
+- ug (Abduxukur Abdurixit)
+
+=============
+Version 3.0.3
+=============
+
+Common:
+- Use defines instead of variables for ranges (Bastien Nocera)
+- Fix function keys not being grabbed (Bastien Nocera) (#649222)
+- Allow the "Pause" key to be used (Bastien Nocera) (#653524)
+- Fix grabbing of multimedia keys (Rodrigo Moya)
+
+Wacom:
+- Enable wacom touch key by default (Peter Hutterer) (#651020)
+
+Translations:
+- bg (Alexander Shopov)
+- ca (Gil Forcada)
+- ca@valencia (Carles Ferrando)
+- cz (Marek Černocký)
+- de (Mario Blättermann)
+- es (Daniel Mustieles)
+- gl (Fran Diéguez)
+- pl (Piotr Drąg)
+- sl (Matej Urbančič)
+- sr (Мирослав Николић)
+- sv (Daniel Nylander)
+
+=============
+Version 3.0.2
+=============
+
+Common:
+- Fix syndaemon never getting started (Edward Sheldrake) (#648885)
+- Fix example input device script (Bastien Nocera)
+- Don't try to convert show-keyboard-leds-indicator in gnome-settings-daemon.convert (Chris Coulson)
+
+Date & Time:
+- Fix setting NTP on Fedora 15 (Bastien Nocera) (#648556)
+
+Media keys:
+- Use symbolic icon for Eject action (Bastien Nocera) (#649523)
+
+Mouse:
+- Don't pass NULL to device_is_touchpad (Matthias Clasen) (#649214)
+- Clean up error handling (Bastien Nocera)
+- Don't crash if mouse has no FeedbackStates (Bastien Nocera) (#649539)
+
+XRandr:
+- Never use a notification for errors (Bastien Nocera) (#648303)
+
+Translations:
+- fa (Arash Mousavi)
+- ug (Abduxukur Abdurixit)
+
+=============
+Version 3.0.1
+=============
+
+Updates: Fix firmware auto-installation
+Media-keys: Fix possible crash when sound device is removed
+
+Updated translations
+
+===============
+Version 3.0.0.1
+===============
+
+Keyboard: Fix crash showing the keyboard layout in fallback mode
+
+Updated translations
+
+=============
+Version 3.0.0
+=============
+
+Common:
+- Change default inactive sleep on battery to suspend (William Jon McCann)
+
+Keyboard:
+- Clarify actual units used for repeat rate (Bastien Nocera) (#646241)
+
+Printers:
+- Cancel CUPS' subscription policy (Marek Kasik)
+- Make CUPS' subscriptions expirable (Marek Kasik)
+- Remove old subscriptions (Marek Kasik)
+
+XSettings:
+- Try a few times to start the xsettings manager (Rodrigo Moya) (#634988)
+
+Translations:
+- bn (Jamil Ahmed)
+- ca (Jordi Serratosa)
+- cz (Marek Černocký)
+- da (Ask H. Larsen)
+- de (Christian Kirbach, Wolfgang Stöggl)
+- en_GB (Bruce Cowan)
+- eu (Iñaki Larrañaga Murgoitio)
+- he (Yaron Shahrabani)
+- hi (Rajesh Ranjan)
+- hu (Gabor Kelemen)
+- id (Dirgita)
+- ja (Takayuki KUSANO)
+- ko (Changwoo Ryu)
+- lv (Rudolfs Mazurs)
+- ml (Ani Peter)
+- nl (Wouter Bolsterlee, Hannie Dumoleyn)
+- pl (Piotr Drąg)
+- pt_BR (Djavan Fagundes)
+- ru (Yuri Myasoedov)
+- sr (Miroslav Nikolić)
+- sv (Daniel Nylander)
+- ta (Dr.T.Vasudevan)
+- ug (Abduxukur Abdurixit)
+- vi (Nguyễn Thái Ngọc Duy)
+- zh_CN (Aron Xu)
+
+===============
+Version 2.91.93
+===============
+
+Power:
+- Don't suspend the computer when idle by default
+- Add back "interactive" option
+
+Date & Time:
+- Check for the correct PolicyKit action
+
+Accessibility settings:
+- Enable plugin by default, so that screen readers and
+  on-screen keyboards work out-of-the-box
+
+And loads of translations
+
+===============
+Version 2.91.92
+===============
+
+Common:
+- Update priority of a few plugins (Bastien Nocera)
+- gdk_display_get_device_manager() retval handling (Bastien Nocera) (#685020)
+- Improve CUPS detection (Saleem Abdulrasool) (#644063)
+- Make sure G_LOG_DOMAIN is set to the plugin name for each plugin (Richard Hughes)
+- Make sure we mop up stray idle handlers (Bastien Nocera)
+- Simplify input helper (Bastien Nocera)
+- Launch a custom script on input devices (Peter Hutterer) (#635486)
+
+Daemon:
+- Fix possible crasher on exit (Bastien Nocera) (#639347)
+
+Media keys:
+- Update gvc copy/paste from control-center (Bastien Nocera)
+- Make volume go up to 11 (Bastien Nocera) (#631030)
+- Simplify volume keys handling (Sjoerd Simons) (#640963)
+
+Mouse:
+- Fix possible memory leak (Bastien Nocera)
+- Implement touchpad motion settings (Bastien Nocera) (#642474)
+- Fix shape handling in locate-pointer (Gerd Kohlberger) (#645092)
+- Handle touchpad handedness changing (Bastien Nocera)
+- Don't apply any settings if XInput isn't present (Bastien Nocera)
+- Separate device dependent calls (Bastien Nocera)
+- Remove duplicated calls on start (Bastien Nocera)
+- Remove unused supports_xinput_devices() call (Bastien Nocera)
+- Make sure syndaemon is killed when touchpad disappears (Bastien Nocera)
+- Hook up input device customisation script (Bastien Nocera)
+- Fix double-free when handling one-button touchpad (Bastien Nocera)
+- Fix crash in GHashTable usage (Bastien Nocera)
+
+Power:
+- Set the default display off time to be same as session idle time (William Jon McCann)
+
+Updates:
+- g_get_real_time() returns microseconds, not seconds since the epoch (Richard Hughes)
+- Ensure te user gets the updates notification if it's never been shown (Richard Hughes)
+- Ensure the user gets notified of normal updates at the correct interval (Richard Hughes)
+
+Translations:
+- ar (Khaled Hosny)
+- de (Mario Blättermann)
+- el (Γιώργος Στεφανάνης)
+- et (Mattias Põldaru)
+- fr (Cyril Arnaud, Gérard Baylard, Alain Lojewski and Claude Paroz)
+- gl (Fran Diéguez)
+- he (Yaron Shahrabani)
+- hu (Gabor Kelemen)
+- lt (Gintautas Miliauskas)
+- lv (Rudolfs Mazurs)
+- pl (Piotr Drąg)
+- ro (Lucian Adrian Grijincu)
+- sl (Matej Urbančič, Andrej Žnidaršič)
+- sr (Miroslav Nikolić)
+- sv (Daniel Nylander)
+
+===============
+Version 2.91.91
+===============
+
+Automount:
+- Fix crash when unlocking the screen saver
+- Don't queue volumes when session is inactive
+
+Housekeeping:
+- Use nautilus's D-Bus API to empty the trash
+
+Media keys:
+- Add magnifier in/out keybindings
+- Fix larger text/smaller text keybindings
+
+Mouse:
+- Make locate pointer feature work with GTK+ 3
+
+Printers:
+- Use new CUPS D-Bus API
+
+Updates:
+- Use auto-download updates when possible
+
+XSettings:
+- Also accept .gtk-module for GTK+ modules
+- Don't set Xft.lcdfilter, it's broken
+- Use "text-scaling-factor" key instead of DPI
+
+===============
+Version 2.91.90
+===============
+
+A11Y Settings:
+- Add new plugin (Bastien Nocera)
+
+Automount:
+- Look if the session is active before automounting new volumes (Cosimo Cecchi)
+- Disable automounting while screen is locked (Martin Pitt, Cosimo Cecchi)
+
+Background:
+- Stop pending fades if new ones initiated (Ray Strode)
+
+Date & Time:
+- Add Debian support to NTP service activation (Milan Bouchet-Valat) (#641598)
+- Fix gsd_datetime_check_tz_name() never working (Bastien Nocera) (#674999)
+
+Keyboard:
+- Update for new libgnomekbd API (Sergey V. Udaltsov)
+- Match shell behaviour for visibility (Bastien Nocera)
+- Explicitly calling gtk_widget_show_all for kbd layout (Sergey V. Udaltsov)
+
+Media keys:
+- Fix crash when keybindings change (Bastien Nocera)
+- Add more Universal Access keybindings (Bastien Nocera) (#641279)
+
+Mouse:
+- Use event driven mode for syndaemon (Pauli Nieminen) (#639623)
+- Use syndaemon -K to ignore Ctrl+C and other combos  (Peter Hutterer) (#639487)
+
+Print notification:
+- Go back to using name in notifications (William Jon McCann)
+- Check that cups is recent enough (Marek Kasik)
+
+Updates:
+- Add an updates plugin to integrate with PackageKit (Richard Hughes)
+
+XSettings:
+- Fix memleak, using wrong unref function (Bastien Nocera)
+
+Translations:
+- ar (Khaled Hosny)
+- es (Daniel Mustieles, Jorge González)
+- gl (Fran Diéguez)
+- he (Yaron Shahrabani)
+- it (Luca Ferretti)
+- ko (Changwoo Ryu)
+- nb (Kjartan Maraas)
+- pa (A S Alam)
+- zh_HK (Chao-Hsiung Liao)
+- zh_TW (Chao-Hsiung Liao)
+
+==============
+Version 2.91.9
+==============
+
+XSettings:
+- Initialize gtk-modules setting (Dan Winship)
+- Support GTK/AutoMnemonics setting (Matthias Clasen)
+
+Date & Time:
+- Use a single polkit action for this (Thomas Wood)
+
+Media keys:
+- Prevent volume underflow (Sjoerd Simons, Bastien Nocera)
+- Use symbolic icons for OSD (Matthias Clasen, Bastien Nocera)
+
+Keybindings:
+- Rename Accessibility keybindings to 'Universal Access' (William Jon McCann)
+- Mark Accessibility keybindings as system (William Jon McCann)
+
+Keyboard:
+- Don't create kbd indicators in the shell (Sergey V. Udaltsov)
+- Remove $GDM_KEYBOARD_LAYOUT handling (Bastien Nocera)
+- Fix control-center invocation (Yanko Kaneti)
+
+Housekeeping:
+- Fix an untranslatable string (Cosimo Cecchi)
+
+Print notification:
+- New plugin for print notifications (Marek Kasik)
+- Appearance and wording tweaks (William Jon McCann)
+
+- Translations:
+  Arabic
+  Estonian
+  Galician
+  Hebrew
+  Italian
+  Japanese
+  Norwegian bokmål
+  Simplified Chinese
+  Spanish
+
+
+==============
+Version 2.91.8
+==============
+
+- Connect to the right GnomeRRScreen signal
+
+==============
+Version 2.91.7
+==============
+
+- Adapt to new gnome-desktop API (Giovanni Campagna)
+- Remove unused macros (Federico Mena Quintero)
+- Translations:
+  - de (Paul Seyfert)
+  - es (Jorge González)
+  - et (Ivar Smolin, Mattias Põldaru)
+  - gl (Fran Diéguez)
+  - nb (Torstein Adolf Winterseth)
+  - pa (A S Alam )
+  - sv (Daniel Nylander)
+  - vi (Nguyễn Thái, Nguyen Vu Hung)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+================
+Version 2.91.6.2
+================
+
+- Fix a crasher with GTK+ 2.91.7 (Cosimo Cecchi)
+
+================
+Version 2.91.6.1
+================
+
+- Suppress warnings due to gdk_error_trap_pop (Cosimo Cecchi)
+- Fix build with GTK+ 2.91.7 (Cosimo Cecchi)
+
+==============
+Version 2.91.6
+==============
+
+- Port to GtkStyleContext (Bastien Nocera)
+- Suspend by default on battery power (Colin Walters)
+- Timezone and NTP improvements (Bastien Nocera)
+- Port to GtkAppChooserButton (Cosimo Cecchi)
+- Port background code to GDBus (Dan Williams)
+- Support multiple smartcard drivers (Ray Strode)
+- Background plugin misc fixes (Tomas Bzatek, Owen W. Taylor)
+
+================
+Version 2.91.5.1
+================
+
+- Handle rename of org.gnome.media-handling (Owen W. Taylor)
+
+==============
+Version 2.91.5
+==============
+
+- Add automount plugin (Tomas Bzatek)
+- Don't pass NULL strings to g_variant_new() (Bastien Nocera)
+- Properly handle gnome-session EndSession signals (Cosimo Cecchi)
+
+==============
+Version 2.91.4
+==============
+
+- Add Wacom configuration plugin (Peter Hutterer)
+- Add support for the XF86TouchpadOn/Off keys (Bastien Nocera)
+- Move some gnome-power-manager settings, so it can
+  be used in the control center (Richard Hughes)
+- Only ever call g_bus_own_name() once for the main D-Bus name (BN)
+- Register with gnome-session to avoid timeouts, and transition
+  problems on login (BN)
+- Fix possible warnings or crashers when _stop() is called without
+  _start() having been completed (William Jon McCann)
+
+==============
+Version 2.91.3
+==============
+
+- Remove xrdb plugin (Bastien Nocera)
+- Remove outdated GConf schemas (BN)
+- Handle a11y toggle shortcut keys in media-keys (BN)
+- Make volume down work when muted (BN)
+- Export the "cursor-blink-timeout" XSetting
+- Add test-system-timezone test program
+- Fix possible crasher in media-keys (William Jon McCann)
+- Make media-keys not crash when there are no listeners (BN)
+- Use a notification for the low space waring in housekeeping (WJMcC)
+- Make libnotify a hard-dependency (BN)
+- Add a real test application for housekeeping (BN)
+- Port daemon and xrandr plugin to GDBus (BN)
+- Fix possible warnings in keyboard plugin (BN)
+- Fix logout key shortcut not asking for a confirmation (BN)
+- Don't warn about low space when over 1GB is free (BN)
+
+================
+Version 2.91.2.1
+================
+
+- Require a newer gnome-desktop with GSettings support for the background plugin
+  (Tomas Bzatek)
+
+==============
+Version 2.91.2
+==============
+
+- Migration to GSettings (Bastien Nocera, Rodrigo Moya, Gerd Kohlberger,
+  Carlos García Campos)
+- Use MIME types for URL handlers (Rodrigo Moya)
+- Fix the GSD_API_VERSION definition in configure.ac (Matthias Clasen)
+- Update PolicyKit minimum requirement (Bastien Nocera)
+- Remove typing break plugin (Bastien Nocera)
+- Update the required version of gnome-desktop3/GTK3 (Bastien Nocera)
+- Require libnotify 0.6.0 (William Jon McCann)
+- KEY_SCROLL_METHOD is an enum not an int (Alban Browaeys) (#631963)
+- Don't use gdk_drawable_get_screen (Alban Browaeys) (#631931)
+- Fix version substitution in pkg-config file (Bastien Nocera) (#631866)
+- Remove status icon for monitors (Bastien Nocera) (#631995)
+- Make XInput a hard requirement (Bastien Nocera)
+- Use canberra-gtk for GTK3 (Bastien Nocera)
+- More network filesystems not to monitor (Josselin Mouette) (#606421)
+- Fix loading plugins information (Bastien Nocera) (#631933)
+- For media key, use the default application for audio/ogg (Rodrigo Moya)
+- Set priority for plugins based on settings (Bastien Nocera)
+- Never daemonise the "daemon" (Bastien Nocera)
+- Use Gdk to get events about input devices being added (Bastien Nocera)
+- Cleanup macro magic in plugin.h (Paolo Borelli) (#591798)
+- Update gnome-media cut'n'paste code (Bastien Nocera) (#612024)
+- Add gnome-settings-daemon man page (Joshua Cummings) (#588716)
+- Remove horrible xmodmap fallback code (Bastien Nocera) (#150542)
+- Remove outdated plugin (Bastien Nocera)
+- Use g_timeout_add_seconds (Bastien Nocera) (#582703)
+- Keyboard plugin improvements (Sergey V. Udaltsov)
+- Don't choke if there are old plugins laying around (William Jon McCann)
+- Check for touchpad before running syndaemon (Hernando Torque) (#632122)
+- Add icon to the "Keep settings" dialogue (Bastien Nocera) (#579021)
+- Add support for the enable-animation setting (Bastien Nocera) (#630535)
+- Export Xft.lcdfilter for OO.o's benefit (Chris Coleman) (#631924)
+- Remove XFree86 4.3.0 check (Bastien Nocera) (#632569)
+- Make fontconfig a hard dependency (Bastien Nocera)
+- Add GConf<->GSettings bridge plugin (Rodrigo Moya)
+- Show a touchpad-disabled if no touchpad (Bastien Nocera)
+- Make the "log out" key really do that (Bastien Nocera)
+- If the stored configuration fails at startup, use the fallback configurations
+  (Gary Lin)
+- Add ability to hard-code media keys (Bastien Nocera) (#623223)
+- Use $(sysconfigdir) for .ad files, since they are settings (Rodrigo Moya)
+- Enable maintainer mode (Rodrigo Moya)
+- Don't display the gnome-settings-daemon autostart in the startup applications
+  list (Rodrigo Moya)
+- Add settings key for disabling boot time configuration (Martin Pitt, Rodrigo
+  Moya) (#631388)
+- Don't access free'd memory if a volume is unmounted whilst the dialog is
+  running (Rodrigo Moya)
+- Port to GDBus (Bastien Nocera)
+- Add support for more multimedia keys (Bastien Nocera)
+- Handle video out keys in media-keys (Ray Strode) (#623223)
+- Use virtual modifier <Super> for the Windows key (Ray Strode)
+- Simplify the default XRandR behaviour (Bastien Nocera) (#634092)
+- Add middle-button-enabled key (Bastien Nocera) (#633863)
+- Prepare for the demise of size_request (Matthias Clasen) (#633320)
+- Translations:
+  - ca (Carles Ferrando)
+  - de (Mario Blättermann)
+  - es (Jorge González)
+  - gl (Fran Diéguez)
+  - he (Yaron Shahrabani)
+  - ja (Takayuki KUSANO)
+  - ko (Changwoo Ryu)
+  - nb (Kjartan Maraas)
+  - pa (A S Alam )
+
+==============
+Version 2.91.0
+==============
+
+- Give a name to the keyboard status icon (Matthias Clasen) (#610319)
+- Fix include directory to match API version (Bastien Nocera)
+- Add daemon path to pkg-config files (Bastien Nocera)
+- Don't switch mouse buttons for XTest devices (Bastien Nocera) (#627084)
+- Remove GtkObject usage (Matthias Clasen) (#630678)
+- Use gtk3 draw event instead of expose-event (William Jon McCann) (#630975)
+- Use gdk-pixbuf header (William Jon McCann) (#630975)
+- Don't use GdkColormap (William Jon McCann)
+- Use cairo regions to set input shape (William Jon McCann)
+- Adapt to GnomeBG API changes (William Jon McCann)
+- Use an empty region to ignore events (William Jon McCann)
+- Don't destroy the cairo context in draw handler (William Jon McCann)
+- Adapt to libgnomekbd API changes (Sergey V. Udaltsov)
+- Translations:
+  - ar (Khaled Hosny)
+  - bg (Damyan Ivanov)
+  - ca (Joan Duran)
+  - cz (Petr Kovar)
+  - gl (Fran Diéguez)
+
+===============
+Version 2.90.1
+===============
+
+- Apply keyboard a11y settings for newly plugged keyboards
+- Loads of compilation fixes for GTK3
+- Fix crasher when certain items are copied to the clipboard
+- Silent build by default
+
+Display:
+  - Don't try to activate display configurations where all the outputs are off
+  - Don't cycle through custom display configurations on XF86Display button press
+  - Add logging infrastructure
+
+================
+Version 2.31.5.1
+================
+
+- Include fixes from 2.31.4.2
+- Translations:
+  - nb (Kjartan Maraas)
+
+==============
+Version 2.31.5
+==============
+
+- Depend on gnome-desktop-3.0 (Rodrigo Moya)
+- Translations:
+  - es (Jorge González)
+  - gl (Fran Diéguez)
+  - he (Yaron Shahrabani)
+  - sl (Matej Urbančič)
+
+================
+Version 2.31.4.2
+================
+
+- Fix the binary name in the datetime DBus .service file (Thomas Wood)
+- Translations:
+  - gl (Fran Diéguez)
+  - he (Yaron Shahrabani)
+
+================
+Version 2.31.4.1
+================
+
+- Fix the datetime DBus .service file (Thomas Wood)
+
+==============
+Version 2.31.4
+==============
+
+- Fix build for --disable-smartcard-support (Ray Strode) (#617748)
+- Use gtk+-3.0 (Rodrigo Moya)
+- Fix launching the display configuration tool (Matthias Clasen)
+- Move clock service from gnome-panel (Rodrigo Moya, Thomas Wood)
+- Define plugindir in .pc file (Rodrigo Moya)
+- Translations:
+  - et (Ivar Smolin)
+  - lv (Rudols Mazurs)
+  - nb (Kjartan Maraas)
+
+==============
+Version 2.31.3
+==============
+
+- Fixed icon names, prefixed with kbd- (Sergey Udaltsov)
+- Use "show layout" dialog from libgnomekbd (Sergey Udaltsov)
+- Translations:
+  - et (Ivar Smolin)
+  - he (Yaron Shahrabani)
+  - sl (Matej Urbančič)
+
+==============
+Version 2.31.2
+==============
+
+- Fix installation of the xrandr helper binary (Jens Granseur) (#617782)
+- Always dist smartcard.gnome-settings-plugin (Ray Strode) (#617748)
+- Adjust XF86Display timestamps if they are out of order with RANDR
+  timestamps (Chase Douglas) (#610482)
+- Don't install template files into the icon theme (Matthias Clasen)
+- Fix loading OSD icons when there's no SVG version (Bastien Nocera) (#618023)
+- Only check for baobob if we're about to show a dialog (Ross Burton)
+- Translations:
+  - de (Mario Blättermann)
+  - en@shaw (Thomas Thurman)
+  - es (Jorge González)
+  - gl (Fran Diéguez)
+  - or (Manoj Kumar Giri)
+
+==============
+Version 2.31.1
+==============
+
+- Create the directory for the system's RANDR configuration (Federico Mena Quintero)
+- Add the logic needed for the "Make Default" button in gnome-display-properties
+  (Federico Mena Quintero)
+- Use $sysconfdir for /etc installation (Rodrigo Moya)
+- Replace deprecated GTK_WIDGET_STATE (Andre Klapper)
+- Compile with -DGSEAL_ENABLE (Andre Klapper) (#612588)
+- Use Layouts instead of Groups (Sergey Udaltsov) (#553108)
+- Add smartcard plugin (Ray Strode)
+- Software LED indicators (Sergey Udaltsov) (#616380)
+- Use LED icons instead of files (Sergey Udaltsov)
+- Translations:
+  - de (Mario Blättermann)
+  - en_GB (Philip Withnall)
+  - es (Jorge Gonzalez)
+  - gl (Francisco Diéguez)
+  - mr (Sandeep Shedmake)
+  - sk (Pavol Šimo)
+  - sl (Matej Urbančič)
+  - te (krishnababu k)
+
+==============
+Version 2.30.1
+==============
+
+- Fix keyboard indicator displaying (Martin Pitt) (#613666)
+- Default to system settings for handling multiple keyboard layouts (Martin Pitt)
+- Introduce gconf key that allows hiding the indicator (Sergey Udaltsov) (#612240)
+  (#613666)
+- Translations:
+  - ca (Jordi Serratosa)
+  - ca@valencia (Carles Ferrando)
+  - crh (Reşat SABIQ)
+  - et (Ivar Smolin)
+  - kn (Shankar Prasad)
+  - sl (Pavol Šimo)
+  - th (Theppitak Karoonboonyanan)
+
+==============
+Version 2.30.0
+==============
+
+- Protect XInput code by ifdefs if XInput isn't available (Daniel Macks) (#611670)
+- Don't play a sound when the volume doesn't change (Bastien Nocera) (#610001)
+- Fix linking with pedantic linkers (Bastien Nocera) (#610244)
+- Remove unused do_sleep_action function (Bastien Nocera)
+- Apply all keyboard settings to new keyboards (Bastien Nocera) (#610245)
+- Ensure the window is realized before we invalidate it (Richard Hughes) (#604918)
+- Replace "eject" spawn with GIO code (Bastien Nocera) (#580779)
+- Don't spawn xrdb (Martin Pitt) (#586276)
+- Add translator hint (Jens Granseuer) (#613647)
+- Disable font plugin by default (Bastien Nocera) (#613604)
+- Translations:
+  - bn (Jamil Ahmed)
+  - da (Ask H. Larsen)
+  - et (Ivar Smolin)
+  - eu (Inaki Larranaga Murgoitio)
+  - he (Nikos Bakaoukas)
+  - hu (Gabor Kelemen)
+  - ko (Changwoo Ryu)
+  - lt (Gintautas Miliauskas)
+  - nl (Hannie Dumoleyn, Reinout van Schouwen)
+  - nn (Torstein Adolf Winterseth)
+  - pa (A S Alam)
+  - pt (Duarte Loreto)
+  - ro (Adi Roiban)
+  - sl (Pavol Šimo)
+  - sr (Miloš Popović)
+  - uk (Maxim V. Dziumanenko)
+
+===============
+Version 2.29.92
+===============
+
+- Translations:
+  - bg (Alexander Shopov)
+  - ca (Joan Duran)
+  - en_GB (Bruce Cowan)
+  - fi (Timo Jyrinki)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - nb (Kjartan Maraas)
+  - pt_BR (Antonio Fernandes C. Neto)
+  - sv (Daniel Nylander)
+
+===============
+Version 2.29.91
+===============
+
+- Fn-F8 should disable/enable touch points (Peter Hutterer) (#594831)
+- Always set the position of outputs, even if they are already turned on
+  (Federico Mena Quintero)
+- Apply keyboard settings to newly plugged in devices (Federico Mena Quintero)
+  (#610245)
+- Translations:
+  - de (Jochen Skulj, Mario Blättermann)
+  - es (Jorge González)
+  - gl (Fran Diéguez)
+  - ro (Lucian Adrian Grijincu)
+  - sl (Matej Urbančič)
+  - ta (vasudeven)
+  - ru (Leonid Kanter)
+  - zh_CN (Ray Wang)
+  - zh_HK & zh_TW (Chao-Hsiung Liao)
+
+===============
+Version 2.29.90
+===============
+
+- Add gthread-2.0 to required modules for the daemon (Jens Granseuer) (#608217)
+- Centralize the use of gnome_rr_config_apply_with_time (Federico Mena Quintero)
+- Translations:
+  - et (Ivar Smolin)
+  - sl (Matej Urbančič)
+
+==============
+Version 2.29.6
+==============
+
+- Don't allow left-handed setting for single-button touchpads (Peter Hutterer)
+- Don't die on X servers without XKB (Matthias Clasen) (#604651)
+- Translations:
+  - bg (Alexander Shopov)
+  - bn (Jamil Ahmed)
+  - es (Jorge González)
+  - nb (Kjartan Maraas)
+  - ta (vasudeven)
+
+==============
+Version 2.29.5
+==============
+
+- Fix variant handling in $GDM_KEYBOARD_LAYOUT (Martin Pitt) (#596897)
+- Tighten check for XInput (Jens Granseuer)
+- Fix bluriness in level bar, and popup (Bastien Nocera) (#567249)
+- Remove unused variable (Bastien Nocera) (#599904)
+- Honour libexecdir when spawning gsd-locate-pointer (Jens Granseuer) (#599209)
+- Allow left-handed setting for touchpads (Peter Hutterer)
+- Use a rounded instead of curved rectangle (William Jon McCann)
+- Improve the media keys overlay design (William Jon McCann) (#596136)
+- Add brightness to the media-keys popup (Bastien Nocera) (#599677)
+- Fix for GSEAL goal (Bastien Nocera) (#599861)
+- Avoid volumes going over 100% (Bastien Nocera) (#600770)
+- Make OSD display more generic (Bastien Nocera) (#600951)
+- Support loading -rtl and -ltr variants of icons (Bastien Nocera) (#600984)
+- Relicense gsd-media-keys-window.[ch] to LGPL (Bastien Nocera) (#600986)
+- Hide the status icon before unreffing it (Matthias Clasen) (#601696)
+- Make eject behave better on OpenBSD (Jasper Lievisse Adriaanse) (#598573)
+- Export libexecdir in .pc file (DJ Lucas) (#596388)
+- Run gnome-color-manager apply program when the outputs change
+  (Richard Hughes)
+- Factor out function to get keycodes from keysym names (Federico Mena Quintero)
+- Handle the XF86RotateWindows hotkey by rotating a laptop's display
+  (Federico Mena Quintero)
+- Respond to monitor configuration changes when in charge (Matthias Clasen)
+  (#601203)
+- Filter invalid layouts before looking for the index of one passed by gdm
+  (Vincent Untz) (#585868)
+- Add linsysfs to list of virtual filesystems (Coleman Kane) (#604396)
+- Remove sleep keybindings (Bastien Nocera) (#170175)
+- Start an on-screen-display window (OSD) (Federico Mena Quintero)
+- Split the composited and non-composited code for the expose-event handler
+  (Federico Mena Quintero)
+- Use a hand-drawn frame instead of a GtkBuilder frame (Federico Mena Quintero)
+- Using GkbdStatus for the automatic notification icon (Sergey V. Udaltsov)
+- Implement popup menu for the notification icon (Sergey V. Udaltsov)
+- Add extra API required by GsdMediaKeysWindow (Federico Mena Quintero)
+- Add timed exit option (William Jon McCann)
+- Fixes for new libxklavier (Sergey V. Udaltsov)
+- Translations:
+  - ast (Xandru Armesto Fernandez)
+  - en@shaw (Thomas Thurman)
+  - es (Jorge González)
+  - et (Mattias Põldaru, Ivar Smolin)
+  - ja (Takayuki KUSANO)
+  - nb (Kjartan Maraas)
+  - nds (Nils-Christoph Fiedler)
+  - ru (Leonid Kanter)
+  - sl (Matej Urbančič)
+  - sv (Daniel Nylander)
+  - uk (Maxim V. Dziumanenko)
+  - vi (Nguyễn Thái Ngọc Duy)
+  - zh_CN (Aron Xu)
+
+==============
+Version 2.28.1
+==============
+
+- Try harder to use the keyboard layout passed by gdm (Vincent Untz)
+- Translations:
+  - ca (Joan Duran)
+  - el (Kostas Papadimas)
+  - or (Manoj Kumar Giri)
+  - pl (Tomasz Dominikowski)
+  - ru (Andrey Grigoriev, Alexandre Prokoudine)
+  - sl (Matej Urbančič)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+==============
+Version 2.28.0
+==============
+
+- Fix incomplete function declaration (Vincent Untz)
+- Don't install the dummy plugin whilst keeping the Makefile.am
+  almost intact for copy/paste (Bastien Nocera) (#578538)
+- Fix Touchpad left-handed issues (Bastien Nocera) (#594617)
+- Add sound effect to volume key handling (Bastien Nocera) (#404683)
+- Remove useless custom eject icon (Bastien Nocera)
+- Validate xsettings GConf keys read from the configuration (Jens Granseuer)
+  (#594821)
+- Fix compiler warnings (Jens Granseuer)
+- Translations:
+  - as (Amitakhya Phukan)
+  - cz (Petr Kovar)
+  - da (Ask H. Larsen)
+  - de (Mario Blättermann)
+  - en_GB (Bruce Cowan)
+  - hi (Rajesh Ranjan)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - ja (Takayuki KUSANO)
+  - kn (Shankar Prasad)
+  - mai (Rajesh Ranjan)
+  - ml (Ani)
+  - mr (Sandeep Shedmake)
+  - or (Manoj Kumar Giri)
+  - pa (A S Alam )
+  - pl (Piotr Drąg)
+  - ro (Adi Roiban, Dumitru Mișu Moldovan)
+  - sr (Miloš Popović)
+  - te (krishnababu k)
+  - uk (Maxim V. Dziumanenko)
+
+===============
+Version 2.27.92
+===============
+
+- Make 'Locate Pointer a separate process (Matthias Clasen) (#524499)
+- Skip button mappings only for core devices (Peter Hutterer)
+- Translations:
+  - ar (Khaled Hosny)
+  - bn (Jamil Ahmed)
+  - bn_IN (Runa Bhattacharjee)
+  - ca (Gil Forcada)
+  - ca@valencia (Carles Ferrando)
+  - et (Ivar Smolin)
+  - eu (Inaki Larranaga Murgoitio)
+  - gu (Sweta Kothari)
+  - he (Yaron Shahrabani)
+  - kn (Shankar Prasad)
+  - lt (Gintautas Miliauskas)
+  - nb (Kjartan Maraas)
+  - pt (Duarte Loreto)
+  - te (krishnababu k)
+  - tr (Baris Cicek)
+
+===============
+Version 2.27.91
+===============
+
+- Update gnome-volume-control code (Bastien Nocera)
+- Update cut'n'paste from gnome-media (Bastien Nocera)
+- Update volume control code for new API (Bastien Nocera)
+- Translations:
+  - bg (Alexander Shopov)
+  - fi (Tommi Vainikainen)
+  - ga (Seán de Búrca)
+  - ko (Changwoo Ryu)
+  - pt_BR (Henrique P. Machado)
+
+===============
+Version 2.27.90
+===============
+
+- Update gnome-volume-control from gnome-media (Bastien Nocera) (#589825)
+- Fix crash in gvc_mixer_stream_is_running() (Chris Coulson) (#590073)
+- Add '-k' option to syndaemon call for 'Disable touchpad while typing'
+  (C de-Avillez) (#590588)
+- Low disk space warning bug-fixes (Chris Coulson) (#591153)
+- Translations:
+  - br (Denis Arnaud)
+  - es (Jorge González)
+  - et (Ivar Smolin, Priit Laes and Mattias Põldaru)
+  - fr (Nicolas Repentin and Claude Paroz)
+  - gl (Antón Méixome)
+  - nb (Kjartan Maraas)
+  - or (Manoj Kumar Giri)
+  - sv (Daniel Nylander)
+  - ta (drtvasudevan)
+  - zh_CN (Ray Wang)
+
+==============
+Version 2.27.5
+==============
+
+- Only use applicable configurations for switching with the XF86Display hotkey
+  (Federico Mena Quintero)
+- Only use applicable configurations when auto-configuring outputs during hotplug
+  (Federico Mena Quintero)
+- Really lay out displays from left to right when using the XF86Display hotkey
+  (Federico Mena Quintero)
+- For the XF86Display hotkey, preserve the cycle order when sanitizing the
+  configurations (Federico Mena Quintero)
+- Remove last libglade dependency  (Felix Riemann)
+- Improved low disk space warning (Chris Coulson) (#573980)
+- Fix compiler warnings (Jens Granseuer)
+- Translations:
+  - es (Jorge González)
+  - et (Ivar Smolin)
+  - fr (Claude Paroz)
+  - he (Yaron Sharabani)
+  - sv (Daniel Nylander)
+  - ta (drtvasudevan)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+==============
+Version 2.27.4
+==============
+- Remove screensaver plugin, it's autostarted now (Matthias Clasen)
+- Don't take too long in RANDR D-Bus method implementation (Federico Mena
+  Quintero)
+- Add support for Synaptics touchpads (Matthias Clasen)
+- Don't spawn more than one syncdaemon (Matthias Clasen)
+- Depend on gnome-desktop >= 2.26.3 (Rodrigo Moya)
+- Update gnome-volume-control code from master (Bastien Nocera)
+- Fix order of arguments to strstr (Federico Mena Quintero)
+- Depend on libxklavier 4.0 (Sergey V. Udaltsov)
+- Remove libglade dependency from media-keys and keyboard plugins (Felix Riemann)
+- Translations:
+  - he (Yaron Shahrabani)
+  - hu (Gabor Kelemen)
+  - in_BN (Runa Bhattacharjee)
+  - uk (Maxim V. Dziumanenko)
+
+==============
+Version 2.27.3
+==============
+- Make the RANDR tray icon's per-monitor labels explicitly black (Federico Mena
+  Quintero) (#556050)
+- Include config.h so that the notifications code in housekeeping plugin can
+  actually be built (Jens Granseuer) (#584217)
+- Use "screen reader" instead of "screenreader" in schema (Gabor Kelemen) (#572911)
+- Lots of RANDR fixes and improvements (Federico Mena Quintero)
+- Nicer handling of broken XKB configuration in gconf (Sergey Udaltsov) (#585259)
+- Make 'locate pointer' deal with wm/cm changes (Matthias Clasen) (#585209)
+- Be more careful when comparing two key structs (Matthias Clasen) (#580616)
+- Translations:
+  - da (Ask H. Larsen)
+  - es (Jorge Gonzalez)
+  - et (Ivar Smolin)
+  - nb (Kjartan Maraas)
+  - sv (Daniel Nylander)
+  - ta (drtvasudevan)
+
+==============
+Version 2.27.1
+==============
+- Use ngettext for the reset dialog (Jens Granseuer) (#575409)
+- Replace deprecated gtk_status_icon_set_tooltip (Thomas H.P. Andersen) (#578480)
+- Updated translations:
+  - ca (Jordi Mas i Hernandez)
+  - es (Jorge Gonzalez)
+  - nb (Kjartan Maraas)
+  - sl (Matej Urban)
+  - zh_CN (Deng Xiyue)
+
+==============
+Version 2.26.1
+==============
+- Fix crash when closing the lid on some laptops (Jens Granseuer) (#576875)
+- Fix crash when closing a11y notification bubble (Jens Granseuer) (#576535)
+  (use of libnotify >= 0.4.5 highly recommended)
+- Fix problems with saving/restoring screen setup (Federico Mena Quintero)
+- Make the screen resolution confirmation dialog always appear in front of
+  the settings window (Federico Mena Quintero) (#576006)
+- Increase confirmation timeout to 30 seconds to give slower devices (like
+  projectors) time to adjust
+- Avoid some GConf roundtrips (Jens Granseuer) (#578539, #578542)
+- Build fixes (Jens Granseuer, yselkowitz@users.sourceforge.net)
+- Updated translations:
+  - ar (Khaled Hosny)
+  - as (Amitakhya Phukan)
+  - kn (Shankar Prasad)
+  - nb (Kjartan Maraas)
+  - sr (Miloš Popović)
+  - sr@latin (Miloš Popović)
+
+==============
+Version 2.26.0
+==============
+- Make build work with -Wl,-z,defs (Christopher Taylor) (#574452)
+- Updated translations:
+  - as (Amitakhya Phukan)
+  - ca (Gil Forcada)
+  - cs (Petr Kovar)
+  - da (Kenneth Nielsen)
+  - de (Mario Blättermann)
+  - el (Kostas Papadimas)
+  - eu (Inaki Larranaga Murgoitio)
+  - gl (Ignacio Casal Quinteiro)
+  - gu (Ankitkumar Patel)
+  - he (Yair Hershkovitz)
+  - hi (Rajesh Ranjan)
+  - it (Luca Ferretti)
+  - ja (Takeshi AIHANA)
+  - lt (Gintautas Miliauskas)
+  - ml (Ani Peter)
+  - mr (Sandeep Shedmake)
+  - or (Manoj Kumar Giri)
+  - ro (Mișu Moldovan)
+  - ru (Nickolay V. Shmyrev)
+  - ta (I. Felix)
+  - te (Krishnababu K)
+
+===============
+Version 2.25.92
+===============
+- don't print warnings for disabled custom shortcuts (Jens Granseuer)
+- revert screen resolution change if the user closes the confirmation window
+  using the close icon or by pressing escape (Jens Granseuer) (#571492)
+- add missing keys for a11y shortcut keys to GConf schemas (Jens Granseuer)
+  (#572807)
+- install gnome-settings-daemon-plugin.h for custom plugin developement
+  (Jens Granseuer) (#573610)
+- Updated translations:
+  - bg (Alexander Shopov)
+  - en_GB (Philip Withnall)
+  - es (Jorge Gonzalez)
+  - fi (Ilkka Tuohela)
+  - fr (Claude Paroz)
+  - gu (Sweta Kothari)
+  - hu (Gabor Kelemen)
+  - ko (Changwoo Ryu)
+  - nl (Wouter Bolsterlee)
+  - pl (Tomasz Dominikowski)
+  - pt (Duarte Loreto)
+  - pt_BR (Krix Apolinário, Vladimir Melo)
+  - sv (Daniel Nylander)
+  - th (Theppitak Karoonboonyanan)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+===============
+Version 2.25.91
+===============
+- Have gnome-session restart g-s-d if it crashes (Matthias Clasen)
+- Add --without-libnotify to disable notifications (Nirbheek Chauchan)
+- Avoid warnings due to notifications on nonexisting status icons
+  (Matthias Clasen)
+- Fix crash with invalid keyboard shortcuts (Jens Granseuer)
+- fix label for "Don't show this message again" checkbox (Luca Ferretti) (#517821)
+- HIG fix for button labels (Luca Ferretti) (#571819)
+- Don't use legacy icons for keyboard and mouse (Luca Ferretti) (#571823)
+- Fix alignment of the composited media window (Leo Iannacone) (#567249)
+- Updated translations:
+  - ast (Mikel González)
+  - ca (Gil Forcada)
+  - da (Kenneth Nielsen)
+  - es (Jorge Gonzalez)
+  - eu (Iñaki Larrañaga Murgoitio)
+  - ja (Takeshi AIHANA)
+  - nl (Wouter Bolsterlee)
+  - pl (Tomasz Dominikowski)
+  - ro (Jani Monoses)
+  - sv (Daniel Nylander)
+  - vi (Clytie Siddall)
+
+===============
+Version 2.25.90
+===============
+- Initialize thread system (Frederic Peters) (#565515)
+- Better support for Eject and Sleep actions on BSD (Jasper Lievisse Adriaanse)
+  (#565472)
+- Spawn screensaver after a 30 second timeout instead of when idle so that it
+  doesn't compete with other processes when the session starts (Jens Granseuer)
+  (#564059)
+- Add low diskspace notification (Vincent Untz) (#557647)
+- Support hotkeys for a11y tools (Matthias Clasen) (#565310)
+- Quiet xrdb when there are duplicate rules in the .ad files (Bastien Nocera)
+  (#566610)
+- Add debugging output when de/registering media players (Jens Granseuer)
+  (#564433)
+- Add a new sound plugin that tells PulseAudio to drop its sample cache when
+  the sound theme changes (Lennart Poettering) (#545386)
+- Don't pop up an error message when there's no randr configuration file
+  (Federico Mena Quintero)
+- Ungrab keys when key-related plugins are disabled (Jens Granseuer) (#567867)
+- Use PulseAudio directly to change the volume (Bastien Nocera) (#567177)
+- Don't draw_background immediately when nautilus is disabled, GnomeBG will
+  send a signal (Ray Strode)
+- Add crossfade transition when switching backgrounds (Ray Strode) (#552857)
+- Use XF86Explorer to launch the file manager (Bastien Nocera)
+- Fix possible crash when pressing Fn-F7 (Andres Freund) (#568713)
+- Delay drawing the background until SessionRunning (Ray Stode)
+- Ask for confirmation with a timeout after changing the randr configuration
+  (Federico Mena Quintero) (#545115)
+- Require gnome-desktop 2.25.6 (Jen Granseuer)
+- Plug leaks
+- Build fixes
+- Updated translations:
+  - es (Jorge González)
+  - et (Mattias Põldaru)
+  - he (Yuval Tanny)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - ko (Changwoo Ryu)
+  - nb (Kjartan Maraas)
+  - pt_BR (Krix Apolinário)
+  - sv (Daniel Nylander)
+  - zh_CN (甘露(Gan Lu))
+
+==============
+Version 2.25.3
+==============
+- Add support for fn-f7 type keys (Søren Sandmann)
+- Use D-Bus instead of an X client mesage in the xrandr plugin, so
+  the front-end can get error messages as well (Federico Mena Quintero)
+- Fix crash when the X server doesn't have the XInput extension (Jens Granseuer) (#562977)
+- Don't call umask (Behdad Esfahbod) (#563543)
+- Shut the daemon down properly when the SIGTERM signal is received or the
+  D-Bus bus goes away (Ray Strode)
+- Restore AccessX bits to original values on exit, fixes sticky keys
+  coming on when gnome-settings-daemon has exited (Ray Strode)
+- Use only top-level glib and gtk+ headers (Pedro Fragoso) (#563796)
+
+==============
+Version 2.25.2
+==============
+- No need to trap XkbQueryExtension and friends errors (Jens Granseuer) (#559346)
+- Add some performance annotations around libxklavier calls (Behdad Esfahbod)
+- Start managers in idle callbacks (Behdad Esfahbod) (#559482, #559564)
+- Only initialize fontconfig when starting up (Behdad Esfahbod) (#559550)
+- Remove unnecessary X error traps (Jens Granseuer) (#559562)
+- Init a11y status icon only when needed (Behdad Esfahbod) (#559558)
+- Reshufle plugin priorities a bit (Behdad Esfhabod)
+- Delay constructing the GnomeBg object until we need it (Behdad Esfahbod)
+  (#559639)
+- Listen for DeviceEnabled instead of DeviceAdded to be sure the mouse has
+  been initialized (William Grant) (#559827)
+- Add debugging output for volume_step (Jens Granseuer)
+- Fork before gtk_init (Behdad Esfahbod) (#559695)
+- Lockdown in the keybinding plugin (Matthias Clasen) (#553434)
+- Trap X errors so we don't crash on X servers that don't support DevicePresence
+  (Jens Granseuer) (#560618)
+- Fix handling of time = GDK_CURRENT_TIME (Jens Granseuer) (#559797)
+- Add bundle_loader linker flag to fix compilation on MacOS X (dmack@netspace.org)
+  (#522673)
+- Grab all keycodes that match the respective keysim (Mario Limonciello) (#561275)
+- Fix --no-daemon (Behdad Esfahbod)
+- Depend on libxklavier 3.8 (Sergey Udaltsov)
+- Fix checks for various X libraries (Jens Granseuer)
+- Fix check for xklavier device discovery (Jens Granseuer)
+
+==============
+Version 2.25.1
+==============
+- Ignore the 'activate' signal for deselected items so that the rotation
+  setting doesn't reset when the systray menu is opened (Eric Piel)
+  (#554951)
+- Don't make togglekeys_enable depend on global AccessX state (Jens
+  Granseuer) (#555009)
+- Fix picking up of the GDM layout (Matthias Clasen) (#554525 and
+  #555873)
+- Use printf safely (Christian Persch) (#555553)
+- Show the shutdown dialog when the power button is pressed (Matthias
+  Clasen) (#556307)
+- Support the Gtk/ButtonImages XSetting (Matthias Clasen) (#556797)
+- Clean-up volume initialization (Jens Granseuer) (#552383)
+- Make the composited volume images more clear (Bogdan Butnaru)
+  (#557307)
+- Spawn screensaver process in idle callback (Rodrigo Moya)
+- Remove sound plugin (Jens Granseuer) (#557806)
+- Replace gnome_help_display_desktop with gtk_show_uri (Jens Granseuer)
+  (#557808)
+- Listen for X device changes and reconfigure the mouse if necessary
+  (William Grant) (#549267)
+- Remove AM_MAINTAINER_MODE (Jens Granseuer) (#558503)
+- Disable xrdb plugin by default (Behdad Esfahbod) (#557807)
+- Improve performance logging annotations (Behdad Esfahbod) (#559162)
+- Cleanup font module (Behdad Esfahbod) (#559163)
+- Don't trap errors around grab_key (Behdad Esfahbod) (#559164)
+- Don't run 'mousetweaks -s' at startup (Behdad Esfahbod) (#559165)
+- Start fontconfig monitors, mouse and clipboard managers in idle
+  callbacks (Behdad Esfahbod) (#559166)
+- Preload gconf dirs when feasible (Behdad Esfahbod) (#559167)
+- Wait for initialization processes to be done before spawning other
+  processes (Behdad Esfahbod) (#559168)
+- Don't close stderr to not lose warnings (Behdad Esfahbod)
+- Use a pipe to communicate between children and parent process instead
+  of a signal (Behdad Esfahbod)
+- Updated translations:
+  - et (Priit Laes)
+  - mk (Jovan Naumovski)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - sk (Marcel Telka)
+
+==============
+Version 2.24.0
+==============
+- Fix the fix for read-only home directories (Simon Zheng) (#530975)
+- Make the volume popup not crash when invoking it on any screen but
+  the first when using a compositing manager (Jens Granseuer)
+  (#551677)
+- Add GPLv2 copyright notice explicitly so that newer versions of
+  autotools don't declare us GPLv3 (Jens Granseuer) (#551956)
+- Specify GTK modules to load in a GConf directory instead of the
+  single /desktop/gnome/gtk-modules key (Jens Granseuer) (#539840)
+- Also allow linking the module state to other boolean keys by using
+  a string value that is the name of the key to use (Jens Granseuer)
+- Made the housekeeping plugin less aggressive by default (Michael J.
+  Chudobiak) (#552680)
+- Updated translations:
+  - af (Friedel Wolff)
+  - ar (Khaled Hosny)
+  - bn_IN (Runa Bhattacharjee)
+  - ca (Gil Forcada)
+  - da (Kenneth Nielsen)
+  - el (Kostas Papadimas)
+  - et (Priit Laes)
+  - he (Yair Hershkovitz)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - kn (Shankar Prasad)
+  - lt (Gintautas Miliauskas)
+  - ml (Praveen Arimbrathodiyil)
+  - mr (Sandeep Shedmake)
+  - pl (Wadim Dziedzic)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - ro (Mişu Moldovan)
+  - ta (Tirumurthi Vasudevan)
+  - zh_CN (Funda Wang)
+
+===============
+Version 2.23.92
+===============
+- Try harder to use the keyboard layout passed by GDM (Matthias Clasen)
+  (#551062)
+- Updated translations:
+  - bg (Alexander Shopov)
+  - de (Hendrik Richter)
+  - en_GB (Philip Withnall)
+  - ga (Seán de Búrca)
+  - ko (Changwoo Ryu)
+  - nl (Reinout van Schouwen)
+  - pt (Duarte Loreto)
+  - sv (Daniel Nylander)
+
+===============
+Version 2.23.91
+===============
+- Removed translatable property on stock gtk-close (Claude Paroz)
+- Fix a constness warning (Jens Granseuer)
+- Fix a crash due to an incorrect signal handler definition (William Jon
+  McCann)
+- Use a scale factor instead of a fixed DPI (William Jon McCann)
+- Use g_warning instead of g_error when setup fails so we don't abort
+  (Jens Granseuer) (#549483)
+- Updated translations:
+  - cs (Petr Kovar)
+  - eu (Inaki Larranaga Murgoitio)
+  - fi (Ilkka Tuohela)
+  - fr (Claude Paroz)
+  - ja (Takeshi AIHANA)
+  - nb (Kjartan Maraas)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - th (Theppitak Karoonboonyanan)
+  - vi (Nguyễn Thái Ngọc Duy)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+===============
+Version 2.23.90
+===============
+- PulseAudio check to not ouput "no" twice (Jens Granseuer)
+- Add status icon when a11y hotkeys are enabled, and display Universal
+  Access preferences when it is clicked (William Jon McCann) (#526070)
+- Simplify libnotify check, fix fontconfig result output (Jens Granseuer)
+- Put the Glade file where all the others are (jens Granseuer)
+- Remove some unnecessary boilerplate (Jens Granseuer)
+- Use g_file_monitor instead of g_file_monitor_file/_directory (Jens
+  Granseuer) (#546372)
+- Remove warning that isn't (Jens Granseuer)
+- Fixed crash in randr startup (Jens Granseuer)
+- Fail xrandr initialization if we couldn't start xrandr (Matthias Clasen)
+  (#546446)
+- Try harder to clean up xrandr in _stop  so we can enable/disable the plugin
+  on the fly (Jens Granseuer)
+- For LIBSOUNDS, check for libgnomeui, not just libgnome (Federico Mena Quintero)
+- Add sexy labels when setting up dual monitors (Federico Mena Quintero)
+- Add a separator to the menu before "Configure display settings" (Federico Mena
+  Quintero)
+- Use GDK to get DPI (William Jon McCann)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - fi (Ilkka Tuohela)
+  - gl (Ignacio Casal Quinteiro)
+  - ja (Takeshi AIHANA)
+  - he (Yair Hershkovitz)
+  - ml (Praveen Arimbrathodiyil)
+  - nb (Kjartan Maraas)
+  - pt (Duarte Loreto)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+  - th (Theppitak Karoonboonyanan)
+
+==============
+Version 2.23.6
+==============
+- Remove libgnomeui dependency (James Sharpe) (#544347)
+- Bump glib dependency to 2.15 (Wouter Bolsterlee) (#544737)
+- Use standard icon names for the OSD (Matthias Clasen) (#544733)
+- Make the display notification icon configurable (Søren Sandmann)
+- Resolve NumLock dynamically (Jens Granseuer) (#165343)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - es (Jorge Gonzalez)
+  - gl (Ignacio Casal Quinteiro)
+  - nb (Kjartan Maraas)
+  - pt_BR (Leonardo Ferreira Fontenelle)
+
+==============
+Version 2.23.5
+==============
+- New settings for event sounds (Lennart Poettering) (#539786) 
+- Fix include path for building against uninstalled package.
+  (Damien Carbery) (#543289)
+- Remove 'daemon' from the warning message (Gerd Kohlberger) (#543095)
+- Make more shortcuts with shift work (Jens Granseuer) (#542275)
+- Update RandR code to use new gnome-desktop API (Soren Sandmann)
+- Fix accelerator check (Jens Granseuer) (#538699)
+- Detect and enable PulseAudio (Colin Walters) (#533198)
+
+==============
+Version 2.23.4
+==============
+- Check for fontconfig instead of xft2 (Behdad Esfahbod)
+- Send a Fontconfig/Timestamp xsettings notification whenever fontconfig
+  configurations change (Behdad Esfahbod) (#490374)
+- Properly match keybindings that need Shift for resolving the keysym
+  (Jens Granseuer, Bastien Nocera) (#536581)
+- If available use the esd_serverdir variable to locate the esd daemon
+  so it can be started even if it's not in the PATH (Jens Granseuer, Brian
+  Cameron) (#531868)
+- Updated translations:
+  - ar (Djihed Afifi)
+  - th (Theppitak Karoonboonyanan)
+
+==============
+Version 2.23.3
+==============
+- Execute the correct action when there are multiple keyboard shortcuts with
+  the same keycode but different keysyms (Bastien Nocera) (#530356)
+- Fix wallpaper handling for people running a session without nautilus
+  (Matthias Clasen) (#531487)
+- Try to keep the keyboard layout from gdm (Matthias Clasen) (#531589)
+- Don't die when the user's home directory is read-only (Brian Cameron)
+  (#530975)
+- Fix artifacts from the locate pointer animation in non-composited mode
+  (Carlos Garnacho) (#531861)
+- Pass clicks to the media popup window through to the underlying window
+  (Carlos Garnacho) (#531862)
+- Use new gnome-desktop background API and get rid of libbackground (William
+  Jon McCann)
+- Don't eat keypresses for multimedia key events in the mouse plugin (Bastien
+  Nocera)
+- Shutdown when receiving the "SessionOver" signal from gnome-session (Lucas
+  Rocha, Jens Granseuer) (#522017)
+- Fix memory leaks in the font plugin (Jens Granseuer)
+- Move the locate pointer animation with the mouse cursor (Gerd Kohlberger)
+  (#531665)
+- Fix build without GStreamer (Jens Granseuer) (#536177)
+- Updated translation:
+  - ar (Djihed Afifi)
+  - bg (Yavor Doganov)
+  - es (Jorge Gonzalez)
+  - gl (Ignacio Casal Quinteiro)
+  - nb (Kjartan Maraas)
+  - th (Theppitak Karoonboonyanan)
+  - vi (Clytie Siddall)
+
+================
+Version 2.23.1.1
+================
+- Install .desktop for gnome-settings-daemon in a standard autostart directory
+  (Lucas Rocha)
+- Updated translations:
+  - nb (Kjartan Maraas)
+
+==============
+Version 2.23.1
+==============
+- Sound server startup based on GConf setting, even when esd is disabled
+  (Alexey Shabalin) (#523743)
+- Added a new "housekeeping" plugin to set limits on the size and age of the
+  thumbnail cache (Michael J. Chudobiak) (#523159)
+- Fix mismatched modifier maping between egg and GTK (Jens Granseuer)
+- Replace some custom functionality with stock GTK (Jens Granseuer)
+- Mark string for translation (Jens Granseuer)
+- Use G_DEFINE_TYPE instead of open-coding (Jens Granseuer)
+- Change data types to match glib, avoid using time_t (Jens Granseuer)
+- Add mapping for Gtk/Modules xsetting using GConf (Jens Granseuer) (#507386)
+- Set GConf keys back to false if mousetweaks is not installed (Gerd Kohlberger)
+  (#525042)
+- Don't try to add grabas with invalid modifiers (Jens Granseuer)
+- Remove trailing newlines from messages since g_warning already takes care
+  of those (Jens Granseuer)
+- Fix various leaks (Jens Granseuer)
+- Fix TYPE macro and remove unimplemented prototype (Lorne Applebaum)
+- Add a special volume subclass for better support of IBM Thinkpad hardware
+  volume buttons (Lorne Applebaum) (#524425)
+- Initialize inited_ok or behaviour is undefined when xkb setup fails (Jens
+  Granseuer)
+- Continued attempt at making XKB setup and error handling a bit less arcane
+  and crufty (Jens Granseuer)
+- Only use the built-in default for volume_step if we get an error from GConf,
+  not just when the value is 0 which might be what the user wants (Jens
+  Granseuer)
+- Adds a "threshold" property to the AcmeVolume class that denotes the minimum
+  percentage required to actually affect the volume (Jens Granseuer)
+- Don't install any listeners or callbacks when XKB is not available (Jens
+  Granseuer)
+- Remove excessive key grab logging (Jens Granseuer)
+- Make plugins deactivation work (Jens Granseuer)
+- Properly null-terminate g_build_filename (Jens Granseuer)
+- Turn into a daemon by default and make --no-daemon work (Jens Granseuer)
+- DBus API has been stable for a while; don't define DBUS_API_SUBJECT_TO_CHANGE
+  anymore (Jens Granseuer)
+- Drop GConf backup for xkb (Sergey Udaltsov)
+- Extract some functionality used by several plugins into a separate shared
+  helper library (Jens Granseuer) (#525426)
+- Reset GConf keys when we can't launch the daemon (Jens Granseuer)
+- Updated translations:
+  - bn_IN (Runa Bhattacharjee)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - nn (Eskild Hustvedt)
+  - sk (Marcel Telka)
+  - te (Sunil Mohan Adapa)
+
+==============
+Version 2.22.1
+==============
+- Fix segfault when shutting down the typing break monitor (Jens Granseuer)
+  (#521786)
+- Set window type hint on the volume popup (Jens Granseuer) (#522232)
+- Remove unused properties from actions GUI (Jens Granseuer)
+- Reset opacity when removing the timeout (Jens Granseuer) (#522499)
+- Fix handling of child process (William Jon McCann)
+- Add a tool to test media keys (William Jon McCann)
+- Add some profiling code (William Jon McCann)
+- Fix compiler warnings (William Jon McCann)
+- Fix leaks (William Jon McCann) (#524183)
+- Add more stuff to the configuration summary (William Jon McCann)
+- Don't eat key events (Jens Granseuer) (#523676)
+- Apply keyboard settings on startup (Jens Granseuer) (#525440)
+- Make "Home" keybinding work again (Jens Granseuer)
+- Updated translations:
+  - bn_IN (Runa Bhattacharjee)
+  - et (Priit Laes)
+  - nn (Eskild Hustvedt)
+  - sk (Marcel Telka)
+  - te (Sunil Mohan Adapa)
+  - vi (Nguyễn Thái Ngọc Duy)
+
+==============
+Version 2.22.0
+==============
+
+- Actually link against libXi when building with XInput support (Jens Granseuer)
+  (#519488)
+- Disable debug by default (William Jon McCann)
+- Don't pass GError's if we're not going to use them (Jens Graseuer)
+- Remove obsolete settings for the removed default editor plugin (Jens Granseuer)
+- Updated translations:
+  - da (Kenneth Nielsen)
+  - el (Kostas Papadimas)
+  - en_GB (Philip Withnall)
+  - es (Jorge Gonzalez)
+  - et (Priit Laes)
+  - hu (Gabor Kelemen)
+  - it (Luca Ferretti)
+  - lt (Gintautas Miliauskas)
+  - mk (Arangel Angov)
+  - nb (Kjartan Maraas)
+  - nl (Vincent van Adrighem)
+  - ru (Leonid Kanter)
+  - uk (Maxim Dziumanenko)
+  - zh_HK (Chao-Hsiung Liao)
+  - zh_TW (Chao-Hsiung Liao)
+
+===============
+Version 2.21.92
+===============
+
+- Only print debug messages if --debug is used
+- Only load plugins when requested not at every start
+- Fixed #515340, Add a way to prioritise plugin load (William Jon McCann)
+- Fixed #515341, Signal when plugins finish loading (William Jon McCann)
+- Fixed #517259, Escape hostname for use in gconf key (Vincent Untz)
+- Fixed #517418, gnome-display-properties resolution change will not be used after logout or reboot (Jens Granseuer)
+- Fixed #518075, Sound plugin should start pulseaudio itself (Bastien Nocera)
+
+Translations:
+- Updated fr: Claude Paroz
+- Updated de: Hendrik Brandt
+- Updated nl: Vincent van Adrighem
+- Updated be@latin: Ihar Hrachyshka
+- Updated pt_BR: Jonh Wendell
+- Updated pt: Duarte Loreto
+- Updated ca: Gil Forcada
+- Updated *: Matthias Clasen
+- Updated oc: Yannig Marchegay
+- Updated sv: Daniel Nylander
+- Updated ja: Takeshi AIHANA
+- Updated cs: Petr Kovar
+- Updated ar: Djihed Afifi <djihed@gmail.com>
+- Updated it: Luca Ferretti
+- Updated es: Jorge Gonzalez
+- Updated th: Theppitak Karoonboonyanan
+- Updated eu: Inaki Larranaga Murgoitio
+- Updated fi: bug #518255, Ilkka Tuohela
+- Updated gl: Ignacio Casal Quinteiro
+- Updated nb: Kjartan Maraas
+- Updated pl: Artur Flinta
+
+===============
+Version 2.21.91
+===============
+
+- Use a flat directory instead of a hierarchy to install plugins
+  into (Christian Persch) (#513246)
+- Don't scan the plugins directory recursively (Christian Persch)
+  (#513246)
+- Install the settings plugin to a versioned directory to fix install
+  with libdir == libexecdir (Christan Persch) (#504203)
+- Review short and long descriptions for GConf keys (Luca Ferretti)
+  (#514047)
+- Don't crash when running the screensaver fails (Jens Granseuer)
+  (#514385)
+- Rename src folder to gnome-settings-daemon (Damien Carberry, Jens
+  Granseuer) (#511820)
+- Add uninstalled.pc file for building against an uninstalled copy of
+  g-s-d (Damien Carberry, Jens Granseuer) (#511820)
+- Add separate checks for libbackground and use external copy (Jens
+  Granseuer)
+- Use gnome_settings_daemon for the GConf path (Jens Granseuer) (#514411)
+- Release the Glade XML ASAP and keep track of the 2 widgets we need
+  (Jens Granseuer)
+- Make sure we return a GError if initialization fails (Jens Granseuer)
+  (#514926)
+- Load the XKB settings initially (Matthias Clasen) (#511771)
+- Fix leaks (Jens Granseuer)
+- Unref the GConfClient only after done with it (Jens Granseuer)
+- Check for xinput (Sebastien Bacher) (#514942)
+- Fix copy'n'paste error (Jens Granseuer) (#515426)
+- Declare variables at the beginning of a block to make older compilers
+  happy (Jens Granseuer)
+- Add back support for defining plugin start order (Jens Granseuer)
+- Assign return value from g_slist_sort to the plugins list variable
+  (Wouter Bolsterlee) (#515340)
+- Replace gnome_vfs usage with GIO (Rodrigo Moya) (#513990)
+
+=================
+Version 2.21.90.2
+=================
+
+- Use correct binary path in DBus service file (Rodrigo Moya)
+- Updated translations:
+  - sv (Daniel Nylander)
+
+=================
+Version 2.21.90.1
+=================
+
+- Use plain $libexecdir for g-s-d binary (Rodrigo Moya)
+
+===============
+Version 2.21.90
+===============
+
+- Add a more appealing animation for locate pointer feature if composite
+  is available (Carlos Garnacho)
+- Quote function names in AC_DEFUN to fix autoconf warnings (Jens Granseuer)
+- Fix build with builddir != srcdir (Christian Persch) (#509142)
+- Use g_ascii_dtostr instead of setlocale (Christian Persch) (#505470)
+- Read check for XFT2 that got loast in the g-s-d split (Jens Granseuer)
+  (#510925)
+- Fix typo in typing break key (Jens Granseuer) (#510429)
+- Define GNOME_DESKTOP_USE_UNSTABLE_API before including gnome-bg.h (Jens
+  Granseuer)
+- No longer define DBUS_API_SUBJECT_TO_CHANGE (Jens Granseuer)
+- Initialize GnomeProgram to avoid critical warnings from libgnome (Wouter
+  Bolsterlee) (#509770)
+- Hopefully allow $(libdir) to be the same directory as $(libexecdir) by
+  installing the gnome-settings-daemon binary into a subdirectory of
+  $(libexecdir) (Wouter Bolsterlee) (#504203)
+- Don't use weird autofoo stuff to install gnome-settings-daemon into another
+  directory (Wouter Bolsterlee) (#504203)
+- Suppress verbose GConf schema installation output (Wouter Bolsterlee)
+
+================
+Version 2.21.5.2
+================
+
+- Use libtool for building static libs also (Rodrigo Moya)
+- Automake fixes for allowing long file names (Rodrigo Moya)
+- Updated translations:
+  - nb (Kjartan Maraas)
+
+================
+Version 2.21.5.1
+================
+
+- Added translations from gnome-control-center module (Rodrigo Moya)
+  (#509651)
+
+===============
+Version 2.21.5
+===============
+
+- Support animated backgrounds (Soren Sandmann)
+- Init gnome-vfs and use correct name in desktop file (William Jon McCann)
+- Use new setting from libgnome to make toolbar icon size setting work
+  (William Jon McCann)
+- Add Gtk/IMModule XSetting (Akira TAGOH) (#504182)
+- Reverted patch for SUPER key modifier (Rodrigo Moya)
+- Support mousetweaks (Gerd Kohlberger) (#503547)
+- Only consider /desktop/gnome/accessibility/keyboard/enable as option
+  for enabling keyboard a11y features from the keyboard, not as global
+  switch to turn all a11y features on/off (Denis Washington)
+
+===============
+Version 2.21.4
+===============
+
+Initial development release of new gnome-settings-daemon design.

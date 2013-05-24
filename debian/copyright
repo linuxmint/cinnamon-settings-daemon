@@ -1,0 +1,72 @@
+This package was debianized by Sebastien Bacher <seb128@canonical.com> on
+Wed, 16 Jan 2008 11:12:19 +0100.
+
+It was downloaded from http://ftp.acc.umu.se/pub/GNOME/sources/gnome-settings-daemon
+
+Upstream Authors: 
+
+    Jonathan Blandford <jrb@redhat.com>
+    William Jon McCann <mccann@jhu.edu>
+
+Copyright: 
+
+    Copyright © 2001 Ximian, Inc.
+    Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
+    Copyright (C) 2000 Helix Code, Inc
+    Copyright © 2007 Matthias Clasen
+    Copyright (C) 2007 Rodrigo Moya
+    Copyright (C) 2007 Anders Carlsson
+    Copyright © 2004 Red Hat, Inc.
+    Copyright 2002 Sun Microsystems, Inc.
+    Copyright © 2005,2006 Novell, Inc.
+    Copyright © 2007 The GNOME Foundation
+    Copyright (C) 2002-2005 - Paolo Maggi
+    Copyright (C) 2002  Red Hat, Inc.
+    Copyright 1998, 2001 Tim Janik
+    Copyright � 2001 Udaltsoft
+    Copyright (C) 2001, 2002, 2003 Bastien Nocera
+    Copyright (C) 2003 Ross Burton <ross@burtonini.com>
+    Copyright © 2001 Jonathan Blandford <jrb@gnome.org>
+
+License:
+
+    This package is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+ 
+    This package is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+ 
+    You should have received a copy of the GNU General Public License
+    along with this package; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL'.
+
+eggaccelerators.h, eggaccelerators.c
+
+License:
+
+    This package is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.
+
+    This package is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this package; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU Lesser General
+Public License can be found in `/usr/share/common-licenses/LGPL'.
+
+The Debian packaging is (C) 2008, Sebastien Bacher <seb128@canonical.com> and
+is licensed under the GPL, see above.

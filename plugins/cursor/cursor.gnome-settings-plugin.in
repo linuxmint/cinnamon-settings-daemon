@@ -1,0 +1,8 @@
+[GNOME Settings Plugin]
+Module=cursor
+IAge=0
+_Name=Cursor
+_Description=Show/hide cursor on tablet devices
+Authors=Bastien Nocera <hadess@hadess.net>
+Copyright=Copyright © 2011 Red Hat, Inc.
+Website=

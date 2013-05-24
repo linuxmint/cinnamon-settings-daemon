@@ -1,0 +1,10 @@
+debian/tmp/etc
+debian/tmp/usr/lib/gnome-settings-daemon*
+debian/tmp/usr/share/icons
+debian/tmp/usr/share/locale
+debian/tmp/usr/share/gnome-settings-daemon
+debian/tmp/usr/share/GConf
+debian/tmp/usr/share/glib-2.0
+debian/tmp/usr/share/polkit-1
+debian/source_gnome-settings-daemon.py /usr/share/apport/package-hooks
+

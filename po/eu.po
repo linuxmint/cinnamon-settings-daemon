@@ -1,0 +1,3410 @@
+# translation of eu.po to Basque
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
+# Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2004, 2005.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: eu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-05 09:55+0100\n"
+"PO-Revision-Date: 2012-03-05 12:41+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
+"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
+
+#: ../data/gnome-settings-daemon.desktop.in.in.h:1
+msgid "GNOME Settings Daemon"
+msgstr "GNOMEren ezarpenen daemon-a"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:1
+msgid "Command to be run when a device is added or removed."
+msgstr "Gailu bat gehitzean edo kentzean exekutatuko den komandoa."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:2
+msgid "Device hotplug custom command"
+msgstr "Gailuaren konexioarentzako komando pertsonalizatua"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:3
+msgid "Disable touchpad while typing"
+msgstr "Desgaitu touchpad-a idaztean"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:4
+msgid "Distance before a drag is started."
+msgstr "Distantzia arrastatzen hasi aurretik."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:5
+msgid "Double click time"
+msgstr "Klik bikoitzaren denbora"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:6
+msgid "Drag threshold"
+msgstr "Arrastatzearen atalasea"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:7
+msgid "Enable horizontal scrolling"
+msgstr "Gaitu korritze horizontala"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:8
+msgid "Enable mouse clicks with touchpad"
+msgstr "Gaitu saguaren klik egitea 'touchpad'-arekin"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:9
+msgid "Enable touchpad"
+msgstr "Gaitu touchpad-a"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:10
+msgid ""
+"Enables middle mouse button emulation through simultaneous left and right "
+"button click."
+msgstr ""
+"Saguaren erdiko botoiaren emulazioa gaitzen du aldi berean ezker eta "
+"eskuineko botoiekin klik egitean"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:11
+msgid ""
+"Highlights the current location of the pointer when the Control key is "
+"pressed and released."
+msgstr ""
+"Erakuslearen uneko posizioa nabarmentzen du Kontrol tekla sakatzean eta "
+"askatzean."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:12
+msgid "Length of a double click in milliseconds."
+msgstr "Klik bikoitzaren iraupena milisegundotan."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:13
+msgid "Middle button emulation"
+msgstr "Erdiko botoiaren emulazioa."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:14
+msgid "Select the touchpad scroll method"
+msgstr "Hautatu 'touchpad'-aren korritzeko metodoa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:15
+msgid ""
+"Select the touchpad scroll method. Supported values are: \"disabled\", "
+"\"edge-scrolling\", \"two-finger-scrolling\"."
+msgstr ""
+"Hautatu 'touchpad'-aren korritzeko metodoa. Balio erabilgarriak: \"disabled"
+"\" (desgaituta), \"edge-scrolling\" (ertzean korritzea), \"two-finger-"
+"scrolling\" (bi hatzekin korritzea)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:16
+msgid ""
+"Set this to TRUE if you have problems with accidentally hitting the touchpad "
+"while typing."
+msgstr ""
+"Ezarri hau TRUE (egia) gisa idazten duzun bitartean ustekabean touchpad-a "
+"ukitzeak arazoak sortzen badizkizu."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:17
+msgid ""
+"Set this to TRUE to allow horizontal scrolling by the same method selected "
+"with the scroll_method key."
+msgstr ""
+"Ezarri hau TRUE (gisa) korritze horizontala baimentzeko (scroll_method "
+"gakoan hautatutako metodo berdinaren arabera)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:18
+msgid ""
+"Set this to TRUE to be able to send mouse clicks by tapping on the touchpad."
+msgstr ""
+"Ezarri hau TRUE (egia) gisa saguaren klik-ak bidaltzeko touchpad-ean "
+"kolpetxoak ematean."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:19
+msgid "Set this to TRUE to enable all touchpads."
+msgstr "Ezarri hau TRUE (egia) gisa touchpad guztiak gaitzeko"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:20
+msgid ""
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
+"action will get performed when the smartcard used for log in is removed."
+msgstr ""
+"Ezarri hauetariko bat: \"none\" (bat ere ez), \"lock-screen\" (blokeatu "
+"pantaila), edo  \"force-logout\" (derrigortu saioaren amaiera). Saioa "
+"hasteko txartela kentzean landuko da ekintza."
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:21
+msgid "Smartcard removal action"
+msgstr "Txartela kentzearen ekintza"
+
+#: ../data/org.gnome.settings-daemon.peripherals.gschema.xml.in.in.h:22
+msgid "Whether the tablet's orientation is locked, or rotated automatically."
+msgstr "Taularen orientazio blokeatuta dagoen edo automatikoki biratuko den."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:1
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
+msgid "Activation of this plugin"
+msgstr "Plugin honen aktibazioa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:2
+msgid ""
+"EDID information of monitor to map tablet to. Must be in the format [vendor, "
+"product, serial]. [\"\",\"\",\"\"] disables mapping."
+msgstr ""
+"Monitorearen EDID informazioa taula horri mapatzeko. "
+"Data formatu honetan idatzi behar da: [saltzailea, produktua, "
+"serie-zenbakia]. "
+"[\"\",\"\",\"\"] mapatzea desgaitzen du."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:3
+msgid "Enable this to move the cursor when the user touches the tablet."
+msgstr "Gaitu hau erabiltzaileak taula ukitzean kurtsorea mugitzeko."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:4
+msgid "Enable this to only report stylus events when the tip is pressed."
+msgstr "Gaitu hau arkatzaren gertaerei buruz jakinarazteko punta sakatzean."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:5
+msgid "Enable this to set the tablet to absolute mode."
+msgstr "Gaitu hau taula modu absolutuan ezartzeko."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:6
+msgid "Key combination for the custom action"
+msgstr "Ekintza pertsonalizatuaren tekla konbinazioa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:7
+msgid "Key combinations for an elevator custom action"
+msgstr "Igogailuaren ekintza pertsonalizatuaren tekla konbinazioa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:62
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:2
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:34
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:8
+msgid "Priority to use for this plugin"
+msgstr "Lehentasuna plugin honekin erabiltzeko"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:63
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:9
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:3
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:35
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:5
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:9
+msgid "Priority to use for this plugin in gnome-settings-daemon startup queue"
+msgstr ""
+"Lehentasuna plugin honekin erabiltzeko gnome-settings-daemon abioaren ilaran"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
+msgid ""
+"Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and "
+"'ccw' for 90 degree counterclockwise."
+msgstr ""
+"Ezarri hau 'none' (bat ere ez), 'cw' 90 gradu erlojuaren norantzan, 'half' "
+"180 graduentzako, eta 'ccw' 90 gradu erlojuaren aurkako norantzan."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
+msgid "Set this to the logical button mapping."
+msgstr "Ezarri hau botoi logikoen mapa gisa."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:12
+msgid ""
+"Set this to the pressure value at which a stylus click event is generated."
+msgstr "Ezarri hau presioaren balioari arkatzaren klik gertaera sortzen dena."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:13
+msgid ""
+"Set this to the pressure value at which an eraser click event is generated."
+msgstr ""
+"Ezarri hau presioaren balioari borragomaren klik gertaera sortzen dena."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:14
+msgid "Set this to x1, y1 and x2, y2 of the area usable by the tools."
+msgstr ""
+"Ezarri hau x1, y1 eta x2, y2 koordenatuetara tresnek erabil dezaketen area "
+"bezala."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:15
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser."
+msgstr ""
+"Ezarri hau x1, y1 eta x2, y2 koordenatuetara borragomari aplikatuko zaion "
+"presioaren kurba bezala."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:16
+msgid ""
+"Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus."
+msgstr ""
+"Ezarri hau x1, y1 eta x2, y2 koordenatuetara arkatzari aplikatuko zaion "
+"presioaren kurba bezala."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:17
+msgid ""
+"The keyboard shortcut generated when the button is pressed for custom "
+"actions."
+msgstr "Ekintza pertsonalizatuaren botoia sakatzean sortzen den lasterbidea."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:18
+msgid ""
+"The keyboard shortcuts generated when a touchring or touchstrip is used for "
+"custom actions (up followed by down)."
+msgstr ""
+"Ekintza pertsonalizatuentzako ukimen-eraztuna edo ukimen-banda erabiltzean "
+"sortzen den lasterbidea "
+"(gora ondoren behera)."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:19
+msgid "The type of action triggered by the button being pressed."
+msgstr "Sakatu den botoiak abiarazitako ekintza mota."
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:20
+msgid "Wacom button action type"
+msgstr "Wacom-eko botoiaren ekintza mota"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:21
+msgid "Wacom display mapping"
+msgstr "Wacom-eko pantailaren mapaketa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:22
+msgid "Wacom eraser button mapping"
+msgstr "Wacom-eko borragomaren botoien mapa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:23
+msgid "Wacom eraser pressure curve"
+msgstr "Wacom-eko borragomaren presioaren kurba"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:24
+msgid "Wacom eraser pressure threshold"
+msgstr "Wacom-eko borragomaren presioaren atalasea"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:25
+msgid "Wacom stylus absolute mode"
+msgstr "Wacom-eko arkatzaren modu absolutua"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:26
+msgid "Wacom stylus button mapping"
+msgstr "Wacom-eko arkatzaren botoien mapa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:27
+msgid "Wacom stylus pressure curve"
+msgstr "Wacom-eko arkatzaren presioaren kurba"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:28
+msgid "Wacom stylus pressure threshold"
+msgstr "Wacom-eko arkatzaren presioaren atalasea"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:29
+msgid "Wacom tablet PC feature"
+msgstr "Wacom taularen PC eginbidea"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:30
+msgid "Wacom tablet area"
+msgstr "Wacom taularen area"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:31
+msgid "Wacom tablet rotation"
+msgstr "Wacom taularen biraketa"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:32
+msgid "Wacom touch feature"
+msgstr "Wacom-eko ukimenaren eginbidea"
+
+#: ../data/org.gnome.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:8
+#: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:14
+#: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:76
+#: ../data/org.gnome.settings-daemon.plugins.orientation.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:19
+#: ../data/org.gnome.settings-daemon.plugins.print-notifications.gschema.xml.in.in.h:4
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:48
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:14
+msgid "Whether this plugin would be activated by gnome-settings-daemon or not"
+msgstr "gnome-settings-daemon daemon-ak plugin hau aktibatuko duen edo ez"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:4
+msgid "The duration a display profile is valid"
+msgstr "Pantailaren profila baliozkoa izango den iraupena"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:5
+msgid "The duration a printer profile is valid"
+msgstr "Inprimagailuaren profila baliozkoa izango den iraupena"
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:6
+msgid ""
+"This is the number of days after which the display color profile is "
+"considered invalid."
+msgstr ""
+"Hau egun kopurua da, Egun hauek igarotakoan pantailako koloreen profila "
+"baliogabetzat joko da."
+
+#: ../data/org.gnome.settings-daemon.plugins.color.gschema.xml.in.in.h:7
+msgid ""
+"This is the number of days after which the printer color profile is "
+"considered invalid."
+msgstr ""
+"Hau egun kopurua da, Egun hauek igarotakoan inprimagailuko koloreen profila "
+"baliogabetzat joko da."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:2
+msgid "Free percentage notify threshold"
+msgstr "Leku librearen ehunekoaren jakinarazpenaren atalasea"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
+msgid "Free space notify threshold"
+msgstr "Leku librea jakinarazteko atalasea"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:4
+msgid "Minimum notify period for repeated warnings"
+msgstr "Gutxieneko jakinarazpen aldiak abisu errepikakorrentzat"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:5
+msgid "Mount paths to ignore"
+msgstr "Muntaien bide-izenak ez ikusi egiteko"
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
+msgid ""
+"Percentage free space threshold for initial warning of low disk space. If "
+"the percentage free space drops below this, a warning will be shown."
+msgstr ""
+"Leku librearen ehunekoaren atalasea, diskoan leku libre baxua dagoela abisu "
+"emateko. Leku librearen ehunekoa mugaren azpira erortzen bada, abisu bat "
+"erakutsiko da."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:9
+msgid "Specify a list of mount paths to ignore when they run low on space."
+msgstr ""
+"Zehaztu muntaien bide-izenen zerrenda bat, leku gutxi dagoenean hauei ez "
+"ikusi egiteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:10
+msgid ""
+"Specify a time in minutes. Subsequent warnings for a volume will not appear "
+"more often than this period."
+msgstr ""
+"Zehaztu denbora minututan. Ondorengo abisuak ez dira epe hori baino lehenago "
+"agertuko."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:11
+msgid ""
+"Specify an amount in GB. If the amount of free space is more than this, no "
+"warning will be shown."
+msgstr ""
+"Zehaztu kopurua GBtan. Leku librearen kopurua hori baino handiagoa bada, ez "
+"da abisurik erakutsiko."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:12
+msgid ""
+"Specify the percentage that the free disk space should reduce by before "
+"issuing a subsequent warning."
+msgstr ""
+"Diskoaren leku libreak murriztu beharko lukeen ehunekoa zehaztu beharko luke "
+"dagokion geroztiko abisua jaurti aurretik."
+
+#: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:13
+msgid "Subsequent free space percentage notify threshold"
+msgstr "Geroztiko leku librearen ehunekoaren jakinarazpenaren atalasea"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:2
+msgid "Binding"
+msgstr "Tekla-konbinazioa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:3
+msgid "Binding for the custom binding"
+msgstr "Lotura pertsonalizatuaren tekla-konbinazioa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:4
+msgid "Binding for the magnifier to zoom in"
+msgstr "Lotura lupa handiagotzeko"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:5
+msgid "Binding for the magnifier to zoom out"
+msgstr "Lotura lupa txikiagotzeko"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:6
+msgid "Binding to copy a screenshot of a window to clipboard."
+msgstr "Lotura leiho baten pantaila-argazkia arbelean kopiatzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:7
+msgid "Binding to copy a screenshot of an area to clipboard."
+msgstr "Lotura area baten pantaila-argazkia arbelean kopiatzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:8
+msgid "Binding to copy a screenshot to clipboard."
+msgstr "Lotura pantaila-argazkia arbelean kopiatzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:9
+msgid "Binding to decrease the text size"
+msgstr "Lotura testuaren tamaina txikiagotzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:10
+msgid "Binding to eject an optical disc."
+msgstr "Lotura disko optikoa egozteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:11
+msgid "Binding to increase the text size"
+msgstr "Lotura testuaren tamaina handiagotzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:12
+msgid "Binding to launch the calculator."
+msgstr "Lotura kalkulagailua abiarazteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:13
+msgid "Binding to launch the email client."
+msgstr "Lotura posta-bezeroa abiarazteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:14
+msgid "Binding to launch the help browser."
+msgstr "Lotura laguntza-arakatzailea abiarazteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:15
+msgid "Binding to launch the media player."
+msgstr "Lotura multimedia-erreproduzitzailea abiarazteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:16
+msgid "Binding to launch the search tool."
+msgstr "Lotura bilaketa-tresna abiarazteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:17
+msgid "Binding to launch the web browser."
+msgstr "Lotura web arakatzailea abiarazteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:18
+msgid "Binding to lock the screen."
+msgstr "Lotura pantaila blokeatzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:19
+msgid "Binding to log out."
+msgstr "Lotura saioa amaitzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:20
+msgid "Binding to lower the system volume."
+msgstr "Lotura sistemako bolumena jaisteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:21
+msgid "Binding to mute the system volume."
+msgstr "Lotura sistemako bolumena mututzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:22
+msgid "Binding to open the Home folder."
+msgstr "Lotura karpeta nagusia irekitzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:23
+msgid "Binding to pause playback."
+msgstr "Lotura erreprodukzioa pausarazteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:24
+msgid "Binding to raise the system volume."
+msgstr "Lotura sistemako bolumena igotzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:25
+msgid "Binding to show the on-screen keyboard"
+msgstr "Lotura pantailako teklatua erakusteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:26
+msgid "Binding to show the screen magnifier"
+msgstr "Lotura pantailako lupa erakusteko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:27
+msgid "Binding to skip to next track."
+msgstr "Lotura hurrengo pistara saltatzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:28
+msgid "Binding to skip to previous track."
+msgstr "Lotura aurreko pistara saltatzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:29
+msgid "Binding to start playback (or toggle play/pause)."
+msgstr ""
+"Lotura erreprodukzioa hasteko (edo erreproduzitu/pausarazi txandakatzeko)."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:30
+msgid "Binding to start the screen reader"
+msgstr "Lotura pantaila irakurlea abiatzeko"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:31
+msgid "Binding to stop playback."
+msgstr "Lotura erreprodukzioa gelditzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:32
+msgid "Binding to take a screenshot of a window."
+msgstr "Lotura leiho baten pantaila-argazkia ateratzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:33
+msgid "Binding to take a screenshot of an area."
+msgstr "Lotura area baten pantaila-argazkia ateratzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:34
+msgid "Binding to take a screenshot."
+msgstr "Lotura pantaila-argazkia ateratzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:35
+msgid "Binding to toggle the interface contrast"
+msgstr "Lotura interfazearen kontrastea txandakatzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:36
+msgid "Command"
+msgstr "Komandoa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:37
+msgid "Command to run when the binding is invoked"
+msgstr "Lotura bati deitzean exekutatuko den komandoa."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:38
+msgid "Copy a screenshot of a window to clipboard"
+msgstr "Kopiatu leihoaren pantaila-argazkia arbelean"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:39
+msgid "Copy a screenshot of an area to clipboard"
+msgstr "Kopiatu area baten pantaila-argazkia arbelean"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:40
+msgid "Copy a screenshot to clipboard"
+msgstr "Kopiatu pantailaren argazkia arbelean"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:41
+msgid "Custom keybindings"
+msgstr "Laster-tekla pertsonalizatuak"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:42
+msgid "Decrease text size"
+msgstr "Txikiagotu testuaren tamaina."
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:43
+msgid "Eject"
+msgstr "Egotzi"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:44
+msgid "Home folder"
+msgstr "Karpeta nagusia"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:45
+msgid "Increase text size"
+msgstr "Handiagotu testuaren tamaina"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:46
+msgid "Launch calculator"
+msgstr "Abiarazi kalkulagailua"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:47
+msgid "Launch email client"
+msgstr "Abiarazi posta-bezeroa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:48
+msgid "Launch help browser"
+msgstr "Abiatu laguntza-arakatzailea"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:49
+msgid "Launch media player"
+msgstr "Abiarazi multimedia-erreproduzitzailea"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
+msgid "Launch web browser"
+msgstr "Abiatu web arakatzailea"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
+msgid "List of custom keybindings"
+msgstr "Laster-tekla pertsonalizatuen zerrenda"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
+msgid "Lock screen"
+msgstr "Blokeatu pantaila"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
+msgid "Log out"
+msgstr "Amaitu saioa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:54
+msgid "Magnifier zoom in"
+msgstr "Handiagotu lupa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:55
+msgid "Magnifier zoom out"
+msgstr "Txikiagotu lupa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:56
+msgid "Name"
+msgstr "Izena"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:57
+msgid "Name of the custom binding"
+msgstr "Lotura pertsonalizatuaren izena"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:58
+msgid "Next track"
+msgstr "Hurrengo pista"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:59
+msgid "Pause playback"
+msgstr "Pausarazi erreprodukzioa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:60
+msgid "Play (or play/pause)"
+msgstr "Erreproduzitu (edo Erreprod./Pausarazi)"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:61
+msgid "Previous track"
+msgstr "Aurreko pista"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:64
+msgid "Search"
+msgstr "Bilatu"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:65
+msgid "Stop playback"
+msgstr "Gelditu erreprodukzioa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:66
+msgid "Take a screenshot"
+msgstr "Atera pantaila-argazki bat"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:67
+msgid "Take a screenshot of a window"
+msgstr "Atera leiho baten pantaila-argazkia"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:68
+msgid "Take a screenshot of an area"
+msgstr "Atera area baten pantaila-argazkia"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:69
+msgid "Toggle contrast"
+msgstr "Txandakatu kontrastea"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:70
+msgid "Toggle magnifier"
+msgstr "Txandakatu lupa"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:71
+msgid "Toggle on-screen keyboard"
+msgstr "Txandakatu pantailako teklatua"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:72
+msgid "Toggle screen reader"
+msgstr "Txandakatu pantaila irakurlea"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:73
+msgid "Volume down"
+msgstr "Jaitsi bolumena"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:74
+msgid "Volume mute"
+msgstr "Mututu bolumena"
+
+#: ../data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:75
+msgid "Volume up"
+msgstr "Igo bolumena"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:2
+msgid ""
+"If time based notifications should be used. If set to false, then the "
+"percentage change is used instead, which may fix a broken ACPI BIOS."
+msgstr ""
+"Denboran oinarritutako jakinarazpenak erabili behar diren. FALSE (faltsua) "
+"bezala ezartzen bada, aldaketa ehunekotan adieraziko da, hondatutako BIOSeko "
+"ACPI finka dezake."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:3
+msgid "If we should show the recalled battery warning for a broken battery"
+msgstr ""
+"Hornitzailearen eskaeraren (bateria berari bidaltzeko) jakinarazpena "
+"bistaratu behar den hondatutako bateriaren aurrean"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:4
+msgid ""
+"If we should show the recalled battery warning for a broken battery. Set "
+"this to false only if you know your battery is okay."
+msgstr ""
+"Hornitzailearen eskaeraren (bateria berari bidaltzeko) jakinarazpena "
+"bistaratu behar den hondatutako bateriaren aurrean. Ezarri hau "
+"'false' (faltsua) gisa bateria ongi dagoela jakinez gero."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:5
+msgid "Percentage action is taken"
+msgstr "Ekintzaren ehunekoa"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:6
+msgid "Percentage considered critical"
+msgstr "Ehunekoa larria izateko"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:7
+msgid "Percentage considered low"
+msgstr "Ehunekoa baxua izateko"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:10
+msgid ""
+"The percentage of the battery when it is considered critical. Only valid "
+"when use-time-for-policy is false."
+msgstr ""
+"Bateriaren ehunekoa larria izateko. 'use&time_for_policy' FALSE (faltsua) "
+"denean soilik baliagarria."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:11
+msgid ""
+"The percentage of the battery when it is considered low. Only valid when use-"
+"time-for-policy is false."
+msgstr ""
+"Bateriaren ehunekoa baxua izateko. 'use&time_for_policy' FALSE (faltsua) "
+"denean soilik baliagarria."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:12
+msgid ""
+"The percentage of the battery when the critical action is performed. Only "
+"valid when use-time-for-policy is false."
+msgstr ""
+"Bateriaren ehunekoa ekintza larria lantzeko. 'use&time_for_policy' FALSE "
+"(faltsua) denean soilik baliagarria."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:13
+msgid ""
+"The time remaining in seconds of the battery when critical action is taken. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"Bateriari gelditzen zaion denbora (segundotan) ekintza larria lantzeko. "
+"'use&time_for_policy' TRUE (egia) denean soilik baliagarria."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:14
+msgid ""
+"The time remaining in seconds of the battery when it is considered critical. "
+"Only valid when use-time-for-policy is true."
+msgstr ""
+"Bateriari gelditzen zaion denbora (segundotan) larria izateko. "
+"'use&time_for_policy' TRUE (egia) denean soilik baliagarria."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:15
+msgid ""
+"The time remaining in seconds of the battery when it is considered low. Only "
+"valid when use-time-for-policy is true."
+msgstr ""
+"Bateriari gelditzen zaion denbora (segundotan) baxua izateko. "
+"'use&time_for_policy' TRUE (egia) denean soilik baliagarria."
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:16
+msgid "The time remaining when action is taken"
+msgstr "Denbora ekintza lantzeko"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:17
+msgid "The time remaining when critical"
+msgstr "Denbora larria izateko"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:18
+msgid "The time remaining when low"
+msgstr "Denbora baxua izateko"
+
+#: ../data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in.h:20
+msgid "Whether to use time-based notifications"
+msgstr "Denboran oinarritutako jakinarazpenak erabili edo ez"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:2
+msgid "Ask the user if additional firmware should be installed"
+msgstr "Galdetu erabiltzaileari firmware gehigarria instalatu behar den"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:3
+msgid ""
+"Ask the user if additional firmware should be installed if it is available."
+msgstr ""
+"Galdetu erabiltzaileari firmware gehigarria instalatu behar den eskuragarri "
+"egonez gero."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:4
+msgid "Automatically download updates in the background without confirmation"
+msgstr "Deskargatu automatikoki eguneraketak atzeko planoan berrespenik gabe"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:5
+msgid ""
+"Automatically download updates in the background without confirmation. "
+"Updates will be auto-downloaded when using wired network connnections, and "
+"also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+"'connection-use-mobile' is enabled."
+msgstr ""
+"Deskargatu automatikoki eguneraketak atzeko planoan berrespenik gabe. "
+"Eguneraketa automatikoki deskargatuko dira sareak haridun konexioa "
+"badarabil, eta baita WiFi sarea 'connection-use-wifi' gakoa gaituta egonez "
+"gero, eta mugikorraren banda zabala 'connection-use-mobile' gaituta egonez "
+"gero."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:6
+msgid "Automatically install these types of updates"
+msgstr "Instalatu automatikoki honelako eguneraketa motak"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
+msgid "Automatically install these types of updates."
+msgstr "Instalatu automatikoki honelako eguneraketa motak."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
+msgid "Devices that should be ignored"
+msgstr "Ez ikusi egingo diren gailuak"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
+msgid ""
+"Devices that should be ignored, separated by commas. These can include '*' "
+"and '?' characters."
+msgstr ""
+"Ez ikusi egingo diren gailuak komaz bereiztuta. '*' eta '?' karaktereak "
+"eduki ditzakete."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
+msgid "Firmware files that should not be searched for"
+msgstr "Bilaketan parte hartuko ez duten firmwarearen fitxategiak"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:11
+msgid ""
+"Firmware files that should not be searched for, separated by commas. These "
+"can include '*' and '?' characters."
+msgstr ""
+"Bilaketan parte hartuko ez duten firmwarearen fitxategiak komaz bereiztuta. "
+"'*' eta '?' karaktereak eduki ditzakete."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:12
+msgid "Get the update list when the session starts"
+msgstr "Eskuratu eguneraketen zerrenda saioa hastean"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
+msgid "Get the update list when the session starts, even if not scheduled to."
+msgstr ""
+"Eskuratu eguneraketen zerrenda saioa hastean, nahiz eta antolaketan ez egon."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:14
+msgid "How often to check for distribution upgrades"
+msgstr "Banaketaren bertsio-berritzeak begiratzeko maiztasuna"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:15
+msgid "How often to check for distribution upgrades. Value is in seconds."
+msgstr ""
+"Banaketaren bertsio-berritzeak begiratzeko maiztasuna. Balioa segundotan."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:16
+msgid "How often to check for updates"
+msgstr "Eguneraketak begiratzeko maiztasuna"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:17
+msgid ""
+"How often to check for updates. Value is in seconds. This is a maximum "
+"amount of time that can pass between a security update being published, and "
+"the update being automatically installed or the user notified."
+msgstr ""
+"Eguneraketak begiratzeko maiztasuna. Balioa segundotan. Segurtasuneko "
+"eguneraketa bat argitaratu zenetik eta eguneraketa automatikoki instalatu "
+"edo erabiltzaileari jakinarazi arte igarotako denboraren gehienezko kopurua "
+"da."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:18
+msgid "How often to notify the user that non-critical updates are available"
+msgstr ""
+"Eguneraketa ez-larriak eskuragarri daudela erabiltzaileari jakinarazteko "
+"maiztasuna"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:19
+msgid "How often to refresh the package cache"
+msgstr "Paketeen cachea freskatzeko maiztasuna"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:20
+msgid "How often to refresh the package cache. Value is in seconds."
+msgstr "Paketeen cachea freskatzeko maiztasuna. Balioa segundotan."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:21
+msgid ""
+"How often to tell the user there are non-critical updates. Value is in "
+"seconds. Security update notifications are always shown after the check for "
+"updates, but non-critical notifications should be shown a lot less "
+"frequently."
+msgstr ""
+"Eguneraketa ez-larriak eskuragarri daudela erabiltzaileari jakinarazteko "
+"maiztasuna. Balioa segundotan. Segurtasuneko eguneraketen jakinarazpenak "
+"beti erakusten dira eguneraketak begiratu ondoren, baina larriak ez direnen "
+"jakinarazpenak maiztasun gutxiagorekin bistara daitezke."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:22
+msgid "Install updates automatically when running on battery power"
+msgstr ""
+"Instalatu eguneraketa automatikoki bateriaren energiarekin funtzionatzean"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:23
+msgid "Install updates automatically when running on battery power."
+msgstr ""
+"Instalatu eguneraketa automatikoki bateriaren energiarekin funtzionatzean."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:24
+msgid "Notify the user for completed updates"
+msgstr "Jakinarazi erabiltzaileari osatutako eguneraketei buruz"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:25
+msgid "Notify the user for completed updates where the user needs to restart"
+msgstr ""
+"Jakinarazi erabiltzaileari osatutako eguneraketei buruz ordenagailua "
+"berrabiaraztea behar denean"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
+msgid "Notify the user for completed updates where the user needs to restart."
+msgstr ""
+"Jakinarazi erabiltzaileari osatutako eguneraketei buruz ordenagailua "
+"berrabiaraztea behar denean."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
+msgid ""
+"Notify the user for completed updates. This may be a useful notification for "
+"some users as installing updates prevents shutdown."
+msgstr ""
+"Jakinarazi erabiltzaileari osatutako eguneraketei buruz. Erabiltzaile "
+"batzuentzako jakinarazpen hauek erabilgarriak dira eguneraketak instalatzean "
+"ordenagailua itzaltzea saihesten delako."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
+msgid "Notify the user when distribution upgrades are available"
+msgstr ""
+"Jakinarazi erabiltzaileari banaketaren bertsio-berritzea eskuragarri "
+"dagoenean"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
+msgid "Notify the user when distribution upgrades are available."
+msgstr ""
+"Jakinarazi erabiltzaileari banaketaren bertsio-berritzea eskuragarri "
+"dagoenean."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:30
+msgid ""
+"Notify the user when the automatic update was not started on battery power"
+msgstr ""
+"Jakinarazi erabiltzaileari eguneraketa automatikoa ez dela abiarazi "
+"bateriaren energiarekin"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:31
+msgid ""
+"Notify the user when the update was not automatically started because the "
+"machine is running on battery power."
+msgstr ""
+"Jakinarazi erabiltzaileari eguneraketa ez dela automatikoki abiarazi "
+"ordenagailua bateriaren energiarekin funtzionatzen ari delako."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:32
+msgid "Notify the user when the update was started"
+msgstr "Jakinarazi erabiltzaileari eguneraketa hasten denean"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:33
+msgid "Notify the user when the update was started."
+msgstr "Jakinarazi erabiltzaileari eguneraketa hasten denean."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:36
+msgid "The filenames on removable media that designate it a software source."
+msgstr ""
+"Softwareen iturburu gisa izendatzen duen euskarri aldagarrietako fitxategi-"
+"izenak."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:37
+msgid "The install root to use when adding and removing packages"
+msgstr "Instalazioaren erroa paketeak gehitu eta kentzean erabiltzeko"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:38
+msgid ""
+"The install root to use when processing packages, which is changed when "
+"using LTSP or when testing."
+msgstr ""
+"Instalazioaren erroa paketeak prozesatzean erabiltzeko, LTSP erabiltzean edo "
+"probatzean aldatu dena."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:39
+msgid ""
+"The last time we notified the user about non-critical updates. Value is in "
+"seconds since the epoch, or zero for never."
+msgstr ""
+"Eguneraketa ez-larriei buruz erabiltzailea jakinarazi zen azken aldia. "
+"Balioa garaien hasieratik segundotan, edo zero inoiz ere ez."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:40
+msgid "The last time we told the user about non-critical notifications"
+msgstr "Eguneraketa ez-larriei buruz erabiltzailea jakinarazi zen azken aldia"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:41
+msgid ""
+"The number of seconds at session startup to wait before checking for updates"
+msgstr ""
+"Saioaren abioko segundo kopurua eguneraketak begiratu aurretik zain egoteko"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:42
+msgid ""
+"The number of seconds at session startup to wait before checking for "
+"updates. Value is in seconds."
+msgstr ""
+"Saioaren abioko segundo kopurua eguneraketak begiratu aurretik zain egoteko. "
+"Balioak segundotan dira."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:43
+msgid ""
+"Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+"to download packages when on a wired connection, and the VPN or proxy "
+"required may also only be available on wired connections."
+msgstr ""
+"Erabili WiFi (haririk gabeko sarea) konexioak eguneraketak begiratzeko. "
+"Askoz ere azkarragoa izango da paketeak haridun konexio bidez deskargatzen "
+"badira, eta VPN edo proxya haridun konexioetan soilik egon daitezke "
+"erabilgarri."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:44
+msgid "Use WiFi connections"
+msgstr "Erabili WiFi konexioak"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:45
+msgid "Use mobile broadband connections"
+msgstr "Erabili mugikorren banda zabalerako konexioak"
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:46
+msgid ""
+"Use mobile broadband connections such as GSM and CDMA to check for updates."
+msgstr ""
+"Erabili mugikorren banda zabalerako konexioak, hala nola GSM eta CDMA, "
+"eguneraketak begiratzeko."
+
+#: ../data/org.gnome.settings-daemon.plugins.updates.gschema.xml.in.in.h:47
+msgid ""
+"When removable media is inserted, it is checked to see if it contains any "
+"important filenames in the root directory. If the filename matches, then an "
+"updates check is performed. This allows post-install disks to be used to "
+"update running systems."
+msgstr ""
+"Euskarri aldagarria txertatzen denean, bere erroko direktorioan fitxategi-"
+"izen garrantzitsurik duen begiratzen da. Fitxategi-izena bat etorriz gero, "
+"eguneraketen egiaztapena landuko da. Honek instalazio ondorengo diskoak "
+"exekuzioan dauden sistemak eguneratzea baimentzen du."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:1
+msgid ""
+"'clone' will display the same thing on all monitors, 'dock' will switch off "
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
+"(extend the desktop in recent versions)"
+msgstr ""
+"'clone' (klona) gakoak gauza berdina pantaila guztietan bistaratuko du. "
+"'dock' (atrakagarria) barneko pantaila itzaliko du, 'do-nothing' (ezer ez "
+"egin) Xorg-en portaera lehenetsia erabiliko du (mahaigaina zabalduko du "
+"bertsio berrietan)"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:3
+msgid "File for default configuration for RandR"
+msgstr "RandR-ren konfigurazioko fitxategi lehenetsia"
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:6
+msgid ""
+"The XRandR plugin will look for a default configuration in the file "
+"specified by this key. This is similar to the ~/.config/monitors.xml that "
+"normally gets stored in users' home directories. If a user does not have "
+"such a file, or has one that does not match the user's setup of monitors, "
+"then the file specified by this key will be used instead."
+msgstr ""
+"XRandR pluginak konfigurazio lehenetsia bilatuko du gako honetan zehaztutako "
+"fitxategian. Hau ~/.config/monitors.xml fitxategiaren antzekoa da, normalean "
+"erabiltzaileen karpeta nagusietan egoten da gordeta. Erabiltzaile batek ez "
+"badu halako paketerik, edo erabiltzailearen monitoreen konfigurazioarekin "
+"bat ez badator, gako honetan zehaztutako fitxategia erabiliko da haren ordez."
+
+#: ../data/org.gnome.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
+msgid "Whether to turn off specific monitors after boot"
+msgstr "Abiatu ondoren monitore zehatzak itzali edo ez"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:1
+msgid ""
+"A list of strings representing the GTK+ modules that will be loaded, usually "
+"in addition to conditional and forcibly disabled ones."
+msgstr ""
+"Kargatuko diren GTK+ moduluak adierazten dituzten kateen zerrenda, "
+"baldintzako eta derrigorrez desgaitutakoez gain."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:2
+msgid ""
+"A list of strings representing the GTK+ modules that will not be loaded, "
+"even if enabled by default in their configuration."
+msgstr ""
+"Kargatuko ez diren GTK+ moduluak adierazten dituzten kateen zerrenda, nahiz "
+"eta lehenetsi gisa, haien konfigurazioa gaituta egon."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:4
+msgid "Antialiasing"
+msgstr "Antialiasing-a"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
+msgid "Hinting"
+msgstr "Hizkien tartea"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
+msgid "List of explicitly disabled GTK+ modules"
+msgstr "Esplizituki desgaitutako GTK+ moduluen zerrenda"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:7
+msgid "List of explicitly enabled GTK+ modules"
+msgstr "Esplizituki gaitutako GTK+ moduluen zerrenda"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:10
+msgid "RGBA order"
+msgstr "GBUA ordena"
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:11
+msgid ""
+"The order of subpixel elements on an LCD screen; only used when antialiasing "
+"is set to \"rgba\". Possible values are: \"rgb\" for red on left (most "
+"common), \"bgr\" for blue on left, \"vrgb\" for red on top, \"vbgr\" for red "
+"on bottom."
+msgstr ""
+"LCD pantailako azpipixel elementuen ordena, antialiasing-a \"rgba\" (gbua)"
+"balioarekin ezartzean bakarrik erabiltzen da. Balio erabilgarriak: \"rgb"
+"\" (gbu) - gorrian ezkerrean (erabiliena); \"bgr\" (ubg) - urdina ezkerrean; "
+"\"vrgb\" (bgbu) gorrian goian; \"vbgr\" (bubg) - gorria behean."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
+msgid ""
+"The type of antialiasing to use when rendering fonts. Possible values are: "
+"\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
+"antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
+msgstr ""
+"Antialiasing mota letrak errendatzean erabiltzeko. Balio erabilgarriak: "
+"\"none\" (ezer ez), antialiasing gabe; \"grayscale\" (gris-eskala), gris-"
+"eskala estandarreko antialiasing-a; \"rgba\" (gbua), azpipixeleko "
+"antialiasing-a (LCD pantailetan bakarrik)."
+
+#: ../data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
+msgid ""
+"The type of hinting to use when rendering fonts. Possible values are: \"none"
+"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
+"\" for maximum hinting (may cause distortion of letter forms)."
+msgstr ""
+"Hizkien arteko tarte mota letrak errendatzean erabiltzeko. Balio "
+"erabilgarriak: \"none\" (ezer ez), hizkien arteko tarterik ez; \"slight\", "
+"\"medium\" eta \"full\" ahalik eta hizkien arteko tarte handiena (letra-"
+"formak distortsionatzea eragin dezake)."
+
+#: ../gnome-settings-daemon/main.c:54
+msgid "Enable debugging code"
+msgstr "Gaitu arazketa-kodea"
+
+#: ../gnome-settings-daemon/main.c:55
+msgid "Exit after a time (for debugging)"
+msgstr "Irten denbora baten ostean (arazketarako)"
+
+#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:1
+msgid "Accessibility Keyboard"
+msgstr "Teklatuaren erabilerraztasuna"
+
+#: ../plugins/a11y-keyboard/a11y-keyboard.gnome-settings-plugin.in.h:2
+msgid "Accessibility keyboard plugin"
+msgstr "Teklatuaren erabilerraztasunaren plugina"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:383
+#, c-format
+msgid "There was an error displaying help: %s"
+msgstr "Errorea gertatu da laguntza bistaratzean: %s"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:508
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
+msgid "Slow Keys Turned On"
+msgstr "Tekla geldoak aktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:573
+msgid "Slow Keys Turned Off"
+msgstr "Tekla geldoak desaktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:510
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:574
+msgid ""
+"You just held down the Shift key for 8 seconds.  This is the shortcut for "
+"the Slow Keys feature, which affects the way your keyboard works."
+msgstr ""
+"Maius tekla 8 segundoz sakatuta eduki duzu. Tekla motelen eginbidearen "
+"laster-tekla da eta teklatuaren funtzionamenduari eragiten dio."
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:529
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:665
+#: ../plugins/mouse/gsd-mouse-manager.c:837
+msgid "Universal Access"
+msgstr "Sarbide unibertsala"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:535
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+msgid "Turn Off"
+msgstr "Desaktibatu"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:535
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:671
+msgid "Turn On"
+msgstr "Aktibatu"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+msgid "Leave On"
+msgstr "Utzi aktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:541
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:677
+msgid "Leave Off"
+msgstr "Utzi desaktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:733
+msgid "_Turn Off"
+msgstr "_Desaktibatu"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:595
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:733
+msgid "_Turn On"
+msgstr "_Aktibatu"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:736
+msgid "_Leave On"
+msgstr "Utzi _aktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:598
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:736
+msgid "_Leave Off"
+msgstr "Utzi _desaktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:641
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:707
+msgid "Sticky Keys Turned On"
+msgstr "Tekla itsaskorrak aktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
+msgid "Sticky Keys Turned Off"
+msgstr "Tekla itsaskorrak desaktibatuta"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
+msgid ""
+"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
+"the Sticky Keys feature, which affects the way your keyboard works."
+msgstr ""
+"Maius tekla 5 aldiz segidan sakatu duzu. Tekla itsaskorren eginbidearen "
+"laster-tekla da eta teklatuaren funtzionamenduari eragiten dio."
+
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:646
+#: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:712
+msgid ""
+"You just pressed two keys at once, or pressed the Shift key 5 times in a "
+"row.  This turns off the Sticky Keys feature, which affects the way your "
+"keyboard works."
+msgstr ""
+"Bi tekla batera sakatu dituzu edo Maius tekla 5 aldiz segidan sakatu duzu. "
+"Horrek Tekla itsasgarrien eginbidea desaktibatzen du eta horrek teklatuaren "
+"funtzionamenduari eragiten dio."
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:412
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:4
+msgid "Universal Access Preferences"
+msgstr "Sarbide unibertsalaren hobespenak"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
+msgid "Enhance _contrast in colors"
+msgstr "Hobetu _kontrastea koloreetan"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:2
+msgid "Make _text larger and easier to read"
+msgstr "Egin _testua handiagoa eta irakurtzeko errazagoa"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:3
+msgid "Press and _hold keys to accept them (Slow Keys)"
+msgstr "Sakatu eta _mantendu teklak hauek onartzeko (Tekla motelak)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:5
+msgid "Use on-screen _keyboard"
+msgstr "Erabili pantailako _teklatua"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:6
+msgid "Use screen _magnifier"
+msgstr "Erabili pantailaren _lupa"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
+msgid "Use screen _reader"
+msgstr "Erabili pantaila _irakurlea"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
+msgid "_Ignore duplicate keypresses (Bounce Keys)"
+msgstr "_Ez  ikusi egin bikoiztutako teklak sakatzean (Errebote-teklak)"
+
+#: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:9
+msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
+msgstr "_Sakatu laster-tekla bat aldiko (Tekla itsaskorrak)"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:1
+msgid "Accessibility settings"
+msgstr "Erabilerraztasunaren ezarpenak"
+
+#: ../plugins/a11y-settings/a11y-settings.gnome-settings-plugin.in.h:2
+msgid "Accessibility settings plugin"
+msgstr "Erabilerraztasunaren ezarpenen plugina"
+
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:1
+msgid "Automount and autorun plugged devices"
+msgstr "Automatikoki muntatu eta exekutatu konektatutako gailuak"
+
+#: ../plugins/automount/gnome-fallback-mount-helper.desktop.in.in.h:2
+msgid "Mount Helper"
+msgstr "Muntatzearen laguntzailea"
+
+#: ../plugins/automount/gsd-automount-manager.c:151
+#, c-format
+msgid "Unable to mount %s"
+msgstr "Ezin da %s muntatu"
+
+#: ../plugins/automount/gsd-automount-manager.c:264
+#, c-format
+msgid "Unable to open a folder for %s"
+msgstr "Ezin da %s(r)en karpeta bat ireki"
+
+#: ../plugins/automount/gsd-autorun.c:340
+msgid "Ask what to do"
+msgstr "Galdetu zer egin"
+
+#: ../plugins/automount/gsd-autorun.c:346
+msgid "Do Nothing"
+msgstr "Ezer ez egin"
+
+#: ../plugins/automount/gsd-autorun.c:352
+msgid "Open Folder"
+msgstr "Ireki karpeta"
+
+#: ../plugins/automount/gsd-autorun.c:495
+#, c-format
+msgid "Unable to eject %p"
+msgstr "Ezin da %p egotzi"
+
+#: ../plugins/automount/gsd-autorun.c:497
+#, c-format
+msgid "Unable to unmount %p"
+msgstr "Ezin da %p desmuntatu"
+
+#: ../plugins/automount/gsd-autorun.c:702
+msgid "You have just inserted an Audio CD."
+msgstr "Audio CD bat sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:704
+msgid "You have just inserted an Audio DVD."
+msgstr "Audio DVD bat sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:706
+msgid "You have just inserted a Video DVD."
+msgstr "Bideo DVD bat sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:708
+msgid "You have just inserted a Video CD."
+msgstr "Bideo CD bat sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:710
+msgid "You have just inserted a Super Video CD."
+msgstr "Super Bideo CD bat sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:712
+msgid "You have just inserted a blank CD."
+msgstr "CD hutsa sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:714
+msgid "You have just inserted a blank DVD."
+msgstr "DVD hutsa sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:716
+msgid "You have just inserted a blank Blu-Ray disc."
+msgstr "Blue-Ray disko hutsa sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:718
+msgid "You have just inserted a blank HD DVD."
+msgstr "HD DVD hutsa sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:720
+msgid "You have just inserted a Photo CD."
+msgstr "Photo CD hutsa sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:722
+msgid "You have just inserted a Picture CD."
+msgstr "Picture CD hutsa sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:724
+msgid "You have just inserted a medium with digital photos."
+msgstr "Argazki digitalak dituen euskarria sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:726
+msgid "You have just inserted a digital audio player."
+msgstr "Audioko erreproduzigailu digitala sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:728
+msgid ""
+"You have just inserted a medium with software intended to be automatically "
+"started."
+msgstr "Automatikoki abiarazteko softwarea duen euskarria sartu duzu."
+
+#. fallback to generic greeting
+#: ../plugins/automount/gsd-autorun.c:731
+msgid "You have just inserted a medium."
+msgstr "Euskarri bat sartu duzu."
+
+#: ../plugins/automount/gsd-autorun.c:733
+msgid "Choose what application to launch."
+msgstr "Aukeratu zer aplikazio abiarazi."
+
+#: ../plugins/automount/gsd-autorun.c:742
+#, c-format
+msgid ""
+"Select how to open \"%s\" and whether to perform this action in the future "
+"for other media of type \"%s\"."
+msgstr ""
+"Hautatu nola ireki \"%s\" eta ekintza hau etorkizunean \"%s\" motako beste "
+"euskarriekin ere landu behar den edo ez."
+
+#: ../plugins/automount/gsd-autorun.c:769
+msgid "_Always perform this action"
+msgstr "_Beti landu ekintza hau"
+
+#: ../plugins/automount/gsd-autorun.c:785
+msgid "_Eject"
+msgstr "_Egotzi"
+
+#: ../plugins/automount/gsd-autorun.c:790
+msgid "_Unmount"
+msgstr "_Desmuntatu"
+
+#: ../plugins/background/background.gnome-settings-plugin.in.h:1
+msgid "Background"
+msgstr "Atzeko planoa"
+
+#: ../plugins/background/background.gnome-settings-plugin.in.h:2
+msgid "Background plugin"
+msgstr "Atzeko planoaren plugina"
+
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:1
+msgid "Clipboard"
+msgstr "Arbela"
+
+#: ../plugins/clipboard/clipboard.gnome-settings-plugin.in.h:2
+msgid "Clipboard plugin"
+msgstr "Arbelaren plugina"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:1
+#: ../plugins/color/gsd-color-manager.c:1759
+msgid "Color"
+msgstr "Kolorea"
+
+#: ../plugins/color/color.gnome-settings-plugin.in.h:2
+msgid "Color plugin"
+msgstr "Kolorearen plugina"
+
+#: ../plugins/color/gsd-color-manager.c:1764
+msgid "Recalibrate now"
+msgstr "Kalibratu berriro orain"
+
+#. TRANSLATORS: this is when the device has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1806
+msgid "Recalibration required"
+msgstr "Berriro kalibratu behar da"
+
+#. TRANSLATORS: this is when the display has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1818
+#, c-format
+msgid "The display '%s' should be recalibrated soon."
+msgstr "'%s' pantaila laster berriro kalibratu beharko da."
+
+#. TRANSLATORS: this is when the printer has not been recalibrated in a while
+#: ../plugins/color/gsd-color-manager.c:1827
+#, c-format
+msgid "The printer '%s' should be recalibrated soon."
+msgstr "'%s' inprimagailua laster berriro kalibratu beharko da."
+
+#. TRANSLATORS: this is the application name
+#: ../plugins/color/gsd-color-manager.c:2153
+#: ../plugins/color/gsd-color-manager.c:2169
+msgid "GNOME Settings Daemon Color Plugin"
+msgstr "GNOMEren ezarpenen daemon-aren koloreen plugina"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:2155
+msgid "Color calibration device added"
+msgstr "Koloreak kalibratzeko gailua gehituta"
+
+#. TRANSLATORS: this is a sound description
+#: ../plugins/color/gsd-color-manager.c:2171
+msgid "Color calibration device removed"
+msgstr "Koloreak kalibratzeko gailua kenduta"
+
+#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:1
+msgid "Dummy"
+msgstr "Probakoa"
+
+#: ../plugins/dummy/dummy.gnome-settings-plugin.in.h:2
+msgid "Dummy plugin"
+msgstr "Probako plugina"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:332
+#, c-format
+msgid "Low Disk Space on \"%s\""
+msgstr "Leku baxuko diskoa \"%s\"(e)n"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:334
+#, c-format
+msgid ""
+"The volume \"%s\" has only %s disk space remaining.  You may free up some "
+"space by emptying the trash."
+msgstr ""
+"\"%s\" bolumenaren leku librea: %s. Leku piskat egin zakarrontzia hustuz."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:338
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:81
+#, c-format
+msgid "The volume \"%s\" has only %s disk space remaining."
+msgstr "\"%s\" bolumenaren leku librea: %s."
+
+#. Set up all the window stuff here
+#: ../plugins/housekeeping/gsd-disk-space.c:343
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:205
+msgid "Low Disk Space"
+msgstr "Leku baxuko diskoa"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:345
+#, c-format
+msgid ""
+"This computer has only %s disk space remaining.  You may free up some space "
+"by emptying the trash."
+msgstr ""
+"Ordenagailu honen leku librea: %s. Leku piskat egin zakarrontzia hustuz."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:348
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:84
+#, c-format
+msgid "This computer has only %s disk space remaining."
+msgstr "Ordenagailu honen leku librea: %s."
+
+#: ../plugins/housekeeping/gsd-disk-space.c:363
+msgid "Disk space"
+msgstr "Diskoko lekua"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:370
+msgid "Examine"
+msgstr "Aztertu"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:378
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:437
+msgid "Empty Trash"
+msgstr "Hustu zakarrontzia"
+
+#: ../plugins/housekeeping/gsd-disk-space.c:385
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:452
+msgid "Ignore"
+msgstr "Ez ikusi egin"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:66
+msgid "Don't show any warnings again for this file system"
+msgstr "Ez erakutsi inolako abisurik berriro fitxategi-sistema honentzako"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:68
+msgid "Don't show any warnings again"
+msgstr "Ez erakutsi abisurik aurrerantzean"
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to another disk or partition."
+msgstr ""
+"Leku librea gehiago lor dezakezu Zakarrontzia hustutzen baduzu, eta erabili "
+"gabeko programak edo fitxategiak kentzen edo beste disko edo partizio batera "
+"eramaten badituzu."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to another disk or partition."
+msgstr ""
+"Leku librea gehiago lor dezakezu erabili gabeko programak edo fitxategiak "
+"kentzen edo beste disko edo partizio batera eramaten badituzu."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
+msgid ""
+"You can free up disk space by emptying the Trash, removing unused programs "
+"or files, or moving files to an external disk."
+msgstr ""
+"Leku librea gehiago lor dezakezu Zakarrontzia hustutzen baduzu, eta erabili "
+"gabeko programak edo fitxategiak kentzen edo beste kanpoko disko batera "
+"eramaten badituzu."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
+msgid ""
+"You can free up disk space by removing unused programs or files, or by "
+"moving files to an external disk."
+msgstr ""
+"Leku librea gehiago lor dezakezu erabili gabeko programak edo fitxategiak "
+"kentzen edo beste kanpoko disko batera eramaten badituzu."
+
+#: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
+msgid "Examine…"
+msgstr "Aztertu..."
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:87
+#, c-format
+msgid ""
+"Error activating XKB configuration.\n"
+"There can be various reasons for that.\n"
+"\n"
+"If you report this situation as a bug, include the results of\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
+msgstr ""
+"Errorea XKB konfigurazioa aktibatzean.\n"
+"Hainbat arrazoi egon daitezke horretarako:\n"
+"\n"
+"Egoera honen berri ematen baduzu akats gisa, sartu hauen emaitzak ere\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>\n"
+" • <b>%s</b>"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:242
+msgid "_Layouts"
+msgstr "_Diseinuak"
+
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:248
+msgid "Show _Keyboard Layout..."
+msgstr "Erakutsi _teklatuaren diseinua..."
+
+#. translators note:
+#. * This is the name of the gnome-control-center "region" panel
+#: ../plugins/keyboard/gsd-keyboard-xkb.c:255
+msgid "Region and Language Settings"
+msgstr "Eskualde eta hizkuntzaren ezarpenak"
+
+#. TRANSLATORS: wireless keyboard with internal battery
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gpm-common.c:585 ../plugins/power/gpm-common.c:872
+msgid "Keyboard"
+msgid_plural "Keyboards"
+msgstr[0] "Teklatua"
+msgstr[1] "Teklatua"
+
+#: ../plugins/keyboard/keyboard.gnome-settings-plugin.in.h:2
+msgid "Keyboard plugin"
+msgstr "Teklatuaren plugina"
+
+#. translators:
+#. * The device has been disabled
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1087
+msgid "Disabled"
+msgstr "Desgaituta"
+
+#. translators:
+#. * The number of sound outputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1094
+#, c-format
+msgid "%u Output"
+msgid_plural "%u Outputs"
+msgstr[0] "Irteera %u"
+msgstr[1] "%u irteera"
+
+#. translators:
+#. * The number of sound inputs on a particular device
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1104
+#, c-format
+msgid "%u Input"
+msgid_plural "%u Inputs"
+msgstr[0] "Sarrera %u"
+msgstr[1] "%u sarrera"
+
+#: ../plugins/media-keys/cut-n-paste/gvc-mixer-control.c:1402
+msgid "System Sounds"
+msgstr "Sistemaren soinuak"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:1
+msgid "Media keys"
+msgstr "Multimedia-teklak"
+
+#: ../plugins/media-keys/media-keys.gnome-settings-plugin.in.h:2
+msgid "Media keys plugin"
+msgstr "Multimedia-teklen plugina"
+
+#: ../plugins/mouse/gsd-mouse-manager.c:833
+msgid "Could not enable mouse accessibility features"
+msgstr "Ezin izan da saguaren erabilerraztasunaren eginbideak gaitu"
+
+#: ../plugins/mouse/gsd-mouse-manager.c:835
+msgid ""
+"Mouse accessibility requires Mousetweaks to be installed on your system."
+msgstr ""
+"Saguaren erabilerraztasunak 'mousetweaks' sisteman instalatuta egotea "
+"eskatzen du."
+
+#. TRANSLATORS: wireless mice with internal batteries
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:1
+#: ../plugins/power/gpm-common.c:581 ../plugins/power/gpm-common.c:848
+msgid "Mouse"
+msgid_plural "Mice"
+msgstr[0] "Sagua"
+msgstr[1] "Sagua"
+
+#: ../plugins/mouse/mouse.gnome-settings-plugin.in.h:2
+msgid "Mouse plugin"
+msgstr "Saguaren plugina"
+
+#: ../plugins/power/gpm-common.c:47
+msgid "Unknown time"
+msgstr "Denbora ezezaguna"
+
+#: ../plugins/power/gpm-common.c:52
+#, c-format
+msgid "%i minute"
+msgid_plural "%i minutes"
+msgstr[0] "minutu %i"
+msgstr[1] "%i minutu"
+
+#: ../plugins/power/gpm-common.c:62
+#, c-format
+msgid "%i hour"
+msgid_plural "%i hours"
+msgstr[0] "ordu %i"
+msgstr[1] "%i ordu"
+
+#. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
+#. * Swap order with "%2$s %2$i %1$s %1$i if needed
+#: ../plugins/power/gpm-common.c:68
+#, c-format
+msgid "%i %s %i %s"
+msgstr "%i %s %i %s"
+
+#: ../plugins/power/gpm-common.c:69
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ordu"
+msgstr[1] "ordu"
+
+#: ../plugins/power/gpm-common.c:70
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minutu"
+msgstr[1] "minutu"
+
+#. TRANSLATORS: The laptop battery is charged, and we know a time.
+#. * The parameter is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:317
+#, c-format
+msgid "provides %s laptop runtime"
+msgstr "Eramangarriak eskainiko duen denbora: %s"
+
+#. TRANSLATORS: the device is discharging, and we have a time remaining
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. 7 hours 6 minutes
+#: ../plugins/power/gpm-common.c:328
+#, c-format
+msgid "%s %s remaining"
+msgstr "%s %s geratzen da"
+
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#. TRANSLATORS: device is charging, and we have a time to full and a percentage.
+#. * The first parameter is the device type, e.g. "Laptop battery" and
+#. * the second is the time, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:349 ../plugins/power/gpm-common.c:366
+#, c-format
+msgid "%s %s until charged"
+msgstr "%s %s kargatu arte"
+
+#. TRANSLATORS: the device is charging, and we have a time to full and empty.
+#. * The parameter is a time string, e.g. "7 hours 6 minutes"
+#: ../plugins/power/gpm-common.c:356
+#, c-format
+msgid "provides %s battery runtime"
+msgstr "Eskainiko duen bateriaren denbora: %s"
+
+#. TRANSLATORS: the type of data, e.g. Laptop battery
+#: ../plugins/power/gpm-common.c:447
+msgid "Product:"
+msgstr "Produktua:"
+
+#. TRANSLATORS: device is missing
+#. TRANSLATORS: device is charged
+#. TRANSLATORS: device is charging
+#. TRANSLATORS: device is discharging
+#: ../plugins/power/gpm-common.c:451 ../plugins/power/gpm-common.c:454
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:460
+msgid "Status:"
+msgstr "Egoera:"
+
+#: ../plugins/power/gpm-common.c:451
+msgid "Missing"
+msgstr "Falta da"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:454 ../plugins/power/gpm-common.c:723
+msgid "Charged"
+msgstr "Kargatuta"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:457 ../plugins/power/gpm-common.c:711
+msgid "Charging"
+msgstr "Kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:460 ../plugins/power/gpm-common.c:715
+msgid "Discharging"
+msgstr "Deskargatzen"
+
+#. TRANSLATORS: percentage
+#: ../plugins/power/gpm-common.c:465
+msgid "Percentage charge:"
+msgstr "Kargaren ehunekoa:"
+
+#. TRANSLATORS: manufacturer
+#: ../plugins/power/gpm-common.c:469
+msgid "Vendor:"
+msgstr "Hornitzailea:"
+
+#. TRANSLATORS: how the battery is made, e.g. Lithium Ion
+#: ../plugins/power/gpm-common.c:474
+msgid "Technology:"
+msgstr "Teknologia:"
+
+#. TRANSLATORS: serial number of the battery
+#: ../plugins/power/gpm-common.c:478
+msgid "Serial number:"
+msgstr "Serie-zenbakia:"
+
+#. TRANSLATORS: model number of the battery
+#: ../plugins/power/gpm-common.c:482
+msgid "Model:"
+msgstr "Modeloa:"
+
+#. TRANSLATORS: time to fully charged
+#: ../plugins/power/gpm-common.c:487
+msgid "Charge time:"
+msgstr "Kargaren denbora:"
+
+#. TRANSLATORS: time to empty
+#: ../plugins/power/gpm-common.c:493
+msgid "Discharge time:"
+msgstr "Deskargaren denbora:"
+
+#. TRANSLATORS: Excellent, Good, Fair and Poor are all related to battery Capacity
+#: ../plugins/power/gpm-common.c:500
+msgid "Excellent"
+msgstr "Oso ona"
+
+#: ../plugins/power/gpm-common.c:502
+msgid "Good"
+msgstr "Ona"
+
+#: ../plugins/power/gpm-common.c:504
+msgid "Fair"
+msgstr "Erdipurdizkoa"
+
+#: ../plugins/power/gpm-common.c:506
+msgid "Poor"
+msgstr "Baxua"
+
+#: ../plugins/power/gpm-common.c:510
+msgid "Capacity:"
+msgstr "Edukiera:"
+
+#: ../plugins/power/gpm-common.c:516 ../plugins/power/gpm-common.c:541
+msgid "Current charge:"
+msgstr "Uneko karga:"
+
+#: ../plugins/power/gpm-common.c:522
+msgid "Last full charge:"
+msgstr "Betetako azken karga:"
+
+#: ../plugins/power/gpm-common.c:528 ../plugins/power/gpm-common.c:546
+msgid "Design charge:"
+msgstr "Karga teorikoa:"
+
+#: ../plugins/power/gpm-common.c:533
+msgid "Charge rate:"
+msgstr "Kargaren emaria:"
+
+#. TRANSLATORS: system power cord
+#: ../plugins/power/gpm-common.c:565 ../plugins/power/gpm-common.c:757
+msgid "AC adapter"
+msgid_plural "AC adapters"
+msgstr[0] "AC moldagailua"
+msgstr[1] "AC moldagailuak"
+
+#. TRANSLATORS: laptop primary battery
+#: ../plugins/power/gpm-common.c:569 ../plugins/power/gpm-common.c:793
+msgid "Laptop battery"
+msgid_plural "Laptop batteries"
+msgstr[0] "Eramangarriaren bateria"
+msgstr[1] "Eramangarriaren bateriak"
+
+#. TRANSLATORS: battery-backed AC power source
+#: ../plugins/power/gpm-common.c:573 ../plugins/power/gpm-common.c:817
+msgid "UPS"
+msgid_plural "UPSs"
+msgstr[0] "UPS"
+msgstr[1] "UPSak"
+
+#. TRANSLATORS: a monitor is a device to measure voltage and current
+#: ../plugins/power/gpm-common.c:577 ../plugins/power/gpm-common.c:824
+msgid "Monitor"
+msgid_plural "Monitors"
+msgstr[0] "Monitorea"
+msgstr[1] "Monitoreak"
+
+#. TRANSLATORS: portable device
+#: ../plugins/power/gpm-common.c:589 ../plugins/power/gpm-common.c:896
+msgid "PDA"
+msgid_plural "PDAs"
+msgstr[0] "PDA"
+msgstr[1] "PDAk"
+
+#. TRANSLATORS: cell phone (mobile...)
+#: ../plugins/power/gpm-common.c:593 ../plugins/power/gpm-common.c:920
+msgid "Cell phone"
+msgid_plural "Cell phones"
+msgstr[0] "Telefono mugikorra"
+msgstr[1] "Telefono mugikorrak"
+
+#. TRANSLATORS: media player, mp3 etc
+#: ../plugins/power/gpm-common.c:598 ../plugins/power/gpm-common.c:945
+msgid "Media player"
+msgid_plural "Media players"
+msgstr[0] "Multimediaren erreproduzigailua"
+msgstr[1] "Multimedia erreproduzigailuak"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:602 ../plugins/power/gpm-common.c:969
+msgid "Tablet"
+msgid_plural "Tablets"
+msgstr[0] "Taula"
+msgstr[1] "Taulak"
+
+#. TRANSLATORS: tablet device
+#: ../plugins/power/gpm-common.c:606 ../plugins/power/gpm-common.c:993
+msgid "Computer"
+msgid_plural "Computers"
+msgstr[0] "Ordenagailua"
+msgstr[1] "Ordenagailuak"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:670
+msgid "Lithium Ion"
+msgstr "Litiozko ion"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:674
+msgid "Lithium Polymer"
+msgstr "Litiozko polimeroa"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:678
+msgid "Lithium Iron Phosphate"
+msgstr "Litiozko burdin fosfatoa"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:682
+msgid "Lead acid"
+msgstr "Berun azidoa"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:686
+msgid "Nickel Cadmium"
+msgstr "Nikel kadmioa"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:690
+msgid "Nickel metal hydride"
+msgstr "Nikel metal hidruroa"
+
+#. TRANSLATORS: battery technology
+#: ../plugins/power/gpm-common.c:694
+msgid "Unknown technology"
+msgstr "Teknologia ezezaguna"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:719
+msgid "Empty"
+msgstr "Hutsa"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:727
+msgid "Waiting to charge"
+msgstr "Kargatu arte zain"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:731
+msgid "Waiting to discharge"
+msgstr "Deskargatu arte zain"
+
+#. TRANSLATORS: device not present
+#: ../plugins/power/gpm-common.c:765
+msgid "Laptop battery not present"
+msgstr "Eramangarriaren bateria ez da ageri"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:769
+msgid "Laptop battery is charging"
+msgstr "Eramangarriaren bateria kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:773
+msgid "Laptop battery is discharging"
+msgstr "Eramangarriaren bateria deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:777
+msgid "Laptop battery is empty"
+msgstr "Eramangarriaren bateria hutsik"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:781
+msgid "Laptop battery is charged"
+msgstr "Eramangarriaren bateria kargatuta"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:785
+msgid "Laptop battery is waiting to charge"
+msgstr "Eramangarriaren bateria kargatzeko zain"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:789
+msgid "Laptop battery is waiting to discharge"
+msgstr "Eramangarriaren bateria deskargatzeko zain"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:801
+msgid "UPS is charging"
+msgstr "UPSa kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:805
+msgid "UPS is discharging"
+msgstr "UPSa deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:809
+msgid "UPS is empty"
+msgstr "UPSa hutsik dago"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:813
+msgid "UPS is charged"
+msgstr "UPSa kargatuta"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:832
+msgid "Mouse is charging"
+msgstr "Sagua kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:836
+msgid "Mouse is discharging"
+msgstr "Sagua deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:840
+msgid "Mouse is empty"
+msgstr "Sagua hutsik dago"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:844
+msgid "Mouse is charged"
+msgstr "Sagua kargatuta"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:856
+msgid "Keyboard is charging"
+msgstr "Teklatua kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:860
+msgid "Keyboard is discharging"
+msgstr "Teklatua deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:864
+msgid "Keyboard is empty"
+msgstr "Teklatua hutsik dago"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:868
+msgid "Keyboard is charged"
+msgstr "Teklatua kargatuta dago"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:880
+msgid "PDA is charging"
+msgstr "PDA kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:884
+msgid "PDA is discharging"
+msgstr "PDA deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:888
+msgid "PDA is empty"
+msgstr "PDA hutsik dago"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:892
+msgid "PDA is charged"
+msgstr "PDA kargatuta"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:904
+msgid "Cell phone is charging"
+msgstr "Telefono mugikorra kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:908
+msgid "Cell phone is discharging"
+msgstr "Telefono mugikorra deskargatzen ari da"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:912
+msgid "Cell phone is empty"
+msgstr "Telefono mugikorra hutsik"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:916
+msgid "Cell phone is charged"
+msgstr "Telefono mugikorra kargatuta"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:929
+msgid "Media player is charging"
+msgstr "Multimediaren erreproduzigailua kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:933
+msgid "Media player is discharging"
+msgstr "Multimediaren erreproduzigailua deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:937
+msgid "Media player is empty"
+msgstr "Multimediaren erreproduzigailua hutsik dago"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:941
+msgid "Media player is charged"
+msgstr "Multimediaren erreproduzigailua kargatuta dago"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:953
+msgid "Tablet is charging"
+msgstr "Taula kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:957
+msgid "Tablet is discharging"
+msgstr "Taula deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:961
+msgid "Tablet is empty"
+msgstr "Taula hutsik"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:965
+msgid "Tablet is charged"
+msgstr "Taula kargatuta"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:977
+msgid "Computer is charging"
+msgstr "Ordenagailua kargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:981
+msgid "Computer is discharging"
+msgstr "Ordenagailua deskargatzen"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:985
+msgid "Computer is empty"
+msgstr "Ordenagailua hutsik"
+
+#. TRANSLATORS: battery state
+#: ../plugins/power/gpm-common.c:989
+msgid "Computer is charged"
+msgstr "Ordenagailua kargatuta"
+
+#. TRANSLATORS: the battery may be recalled by it's vendor
+#: ../plugins/power/gsd-power-manager.c:988
+msgid "Battery may be recalled"
+msgstr "Hornitzaileak bateriaren eskaera egin du"
+
+#: ../plugins/power/gsd-power-manager.c:991
+#, c-format
+msgid ""
+"A battery in your computer may have been recalled by %s and you may be at "
+"risk."
+msgstr ""
+"Ordenagailuaren bateria hornitzaileari bidali behar zaiola ohartarazi du %s"
+"(e)k, arriskuan egon baitaiteke."
+
+#: ../plugins/power/gsd-power-manager.c:994
+msgid "For more information visit the battery recall website."
+msgstr "Xehetasun gehiagorako, bisitatu bateriaren abisuaren webgunea."
+
+#. TRANSLATORS: button text, visit the manufacturers recall website
+#: ../plugins/power/gsd-power-manager.c:1005
+msgid "Visit recall website"
+msgstr "Bisitatu abisuaren gunea"
+
+#. TRANSLATORS: button text, do not show this bubble again
+#: ../plugins/power/gsd-power-manager.c:1009
+msgid "Do not show me this again"
+msgstr "Ez erakutsi hau berriro"
+
+#. TRANSLATORS: UPS is now discharging
+#: ../plugins/power/gsd-power-manager.c:1220
+msgid "UPS Discharging"
+msgstr "UPS deskargatzen"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1225
+#, c-format
+msgid "%s of UPS backup power remaining"
+msgstr "UPS babeseko energiari %s geratzen zaio"
+
+#. TRANSLATORS: this is the notification application name
+#: ../plugins/power/gsd-power-manager.c:1246
+#: ../plugins/power/gsd-power-manager.c:1424
+#: ../plugins/power/gsd-power-manager.c:1605
+#: ../plugins/power/gsd-power-manager.c:1754
+#: ../plugins/power/power.gnome-settings-plugin.in.h:1
+msgid "Power"
+msgstr "Energia"
+
+#. TRANSLATORS: laptop battery low, and we only have one battery
+#: ../plugins/power/gsd-power-manager.c:1339
+msgid "Battery low"
+msgstr "Bateria baxua"
+
+#. TRANSLATORS: laptop battery low, and we have more than one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1342
+msgid "Laptop battery low"
+msgstr "Eramangarriaren bateria baxua"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1348
+#, c-format
+msgid "Approximately <b>%s</b> remaining (%.0f%%)"
+msgstr "Gutxi gorabehera gelditzen zaio: <b>%s</b> (%% %.0f)"
+
+#. TRANSLATORS: UPS is starting to get a little low
+#: ../plugins/power/gsd-power-manager.c:1352
+msgid "UPS low"
+msgstr "UPS baxua"
+
+#. TRANSLATORS: tell the user how much time they have got
+#: ../plugins/power/gsd-power-manager.c:1356
+#, c-format
+msgid "Approximately <b>%s</b> of remaining UPS backup power (%.0f%%)"
+msgstr "UPSri gelditzen zaion batez besteko denbora: <b>%s</b> (%% %.0f)"
+
+#. TRANSLATORS: mouse is getting a little low
+#. TRANSLATORS: the mouse battery is very low
+#: ../plugins/power/gsd-power-manager.c:1360
+#: ../plugins/power/gsd-power-manager.c:1526
+msgid "Mouse battery low"
+msgstr "Saguaren bateria baxua"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1363
+#, c-format
+msgid "Wireless mouse is low in power (%.0f%%)"
+msgstr "Haririk gabeko saguak energia baxua du (%% %.0f)"
+
+#. TRANSLATORS: keyboard is getting a little low
+#. TRANSLATORS: the keyboard battery is very low
+#: ../plugins/power/gsd-power-manager.c:1367
+#: ../plugins/power/gsd-power-manager.c:1534
+msgid "Keyboard battery low"
+msgstr "Teklatuaren bateria baxua"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1370
+#, c-format
+msgid "Wireless keyboard is low in power (%.0f%%)"
+msgstr "Haririk gabeko teklatuak energia baxua du (%% %.1f)"
+
+#. TRANSLATORS: PDA is getting a little low
+#. TRANSLATORS: the PDA battery is very low
+#: ../plugins/power/gsd-power-manager.c:1374
+#: ../plugins/power/gsd-power-manager.c:1543
+msgid "PDA battery low"
+msgstr "PDAren bateria baxua"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1377
+#, c-format
+msgid "PDA is low in power (%.0f%%)"
+msgstr "PDAk energia baxua du (%% %.0f)"
+
+#. TRANSLATORS: cell phone (mobile) is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1381
+#: ../plugins/power/gsd-power-manager.c:1553
+#: ../plugins/power/gsd-power-manager.c:1564
+msgid "Cell phone battery low"
+msgstr "Telefono mugikorraren bateria baxua"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1384
+#, c-format
+msgid "Cell phone is low in power (%.0f%%)"
+msgstr "Telefono mugikorrak energia baxua du (%% %.0f)"
+
+#. TRANSLATORS: media player, e.g. mp3 is getting a little low
+#: ../plugins/power/gsd-power-manager.c:1389
+msgid "Media player battery low"
+msgstr "Multimediaren erreproduzigailuak bateria baxua"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1392
+#, c-format
+msgid "Media player is low in power (%.0f%%)"
+msgstr "Multimediaren erreproduzigailuak energia baxua du (%% %.0f)"
+
+#. TRANSLATORS: graphics tablet, e.g. wacom is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1396
+#: ../plugins/power/gsd-power-manager.c:1573
+msgid "Tablet battery low"
+msgstr "Taularen bateria baxua"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1399
+#, c-format
+msgid "Tablet is low in power (%.0f%%)"
+msgstr "Taulak energia baxua du (%% %.0f)"
+
+#. TRANSLATORS: computer, e.g. ipad is getting a little low
+#. TRANSLATORS: the cell battery is very low
+#: ../plugins/power/gsd-power-manager.c:1403
+#: ../plugins/power/gsd-power-manager.c:1582
+msgid "Attached computer battery low"
+msgstr "Konektatutako ordenagailuak bateria baxua"
+
+#. TRANSLATORS: tell user more details
+#: ../plugins/power/gsd-power-manager.c:1406
+#, c-format
+msgid "Attached computer is low in power (%.0f%%)"
+msgstr "Konektatutako ordenagailuak energia baxua du (%% %.0f)"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1443
+msgid "Battery is low"
+msgstr "Bateria baxua"
+
+#. TRANSLATORS: laptop battery critically low, and only have one kind of battery
+#: ../plugins/power/gsd-power-manager.c:1485
+msgid "Battery critically low"
+msgstr "Bateria larriki baxua"
+
+#. TRANSLATORS: laptop battery critically low, and we have more than one type of battery
+#. TRANSLATORS: laptop battery is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1488
+#: ../plugins/power/gsd-power-manager.c:1672
+msgid "Laptop battery critically low"
+msgstr "Eramangarriaren bateria larriki baxua"
+
+#. TRANSLATORS: tell the use to insert the plug, as we're not going to do anything
+#: ../plugins/power/gsd-power-manager.c:1497
+msgid "Plug in your AC adapter to avoid losing data."
+msgstr "Entxufatu datuak galtzea saihesteko."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1501
+#, c-format
+msgid "Computer will suspend very soon unless it is plugged in."
+msgstr "Ordenagailua berehala esekituko da, ez bada entxufatzen."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1505
+#, c-format
+msgid "Computer will hibernate very soon unless it is plugged in."
+msgstr "Ordenagailua berehala hibernatuko da, ez bada entxufatzen."
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1509
+#, c-format
+msgid "Computer will shutdown very soon unless it is plugged in."
+msgstr "Ordenagailua berehala itzaliko da, ez bada entxufatzen."
+
+#. TRANSLATORS: the UPS is very low
+#. TRANSLATORS: UPS is really, really, low
+#: ../plugins/power/gsd-power-manager.c:1516
+#: ../plugins/power/gsd-power-manager.c:1708
+msgid "UPS critically low"
+msgstr "UPS larriki baxua"
+
+#. TRANSLATORS: give the user a ultimatum
+#: ../plugins/power/gsd-power-manager.c:1520
+#, c-format
+msgid ""
+"Approximately <b>%s</b> of remaining UPS power (%.0f%%). Restore AC power to "
+"your computer to avoid losing data."
+msgstr ""
+"UPSri gelditzen zaion denbora: <b>%s</b> (%% %.0f). Entxufatu ordenagailua "
+"datuak ez galtzeko."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1529
+#, c-format
+msgid ""
+"Wireless mouse is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Haririk gabeko saguak energia oso baxua du (%% %.0f). Gailua funtzionatzeari "
+"utzi egingo dio ez bada kargatzen."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1537
+#, c-format
+msgid ""
+"Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Haririk gabeko teklatuak energia oso baxua du (%% %.0f). Gailua "
+"funtzionatzeari utzi egingo dio ez bada kargatzen."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1546
+#, c-format
+msgid ""
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
+"not charged."
+msgstr ""
+"PDAk energia oso baxua du (%% %.0f). Gailua funtzionatzeari utzi egingo dio "
+"ez bada kargatzen."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1556
+#, c-format
+msgid ""
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Telefono mugikorrak energia oso baxua du (%% %.0f). Gailua funtzionatzeari "
+"utzi egingo dio ez bada kargatzen."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1567
+#, c-format
+msgid ""
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
+msgstr ""
+"Multimediaren erreproduzigailuak energia oso baxua du (%% %.0f). Gailua "
+"funtzionatzeari utzi egingo dio ez bada kargatzen."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1576
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+"Taulak energia oso baxua du (%% %.0f). Gailua funtzionatzeari utzi egingo "
+"dio ez bada kargatzen."
+
+#. TRANSLATORS: the device is just going to stop working
+#: ../plugins/power/gsd-power-manager.c:1585
+#, c-format
+msgid ""
+"Attached computer is very low in power (%.0f%%). The device will soon "
+"shutdown if not charged."
+msgstr ""
+"Konektatutako ordenagailuak energia baxua du (%% %.0f). Gailua "
+"funtzionatzeari utzi egingo dio ez bada kargatzen."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:1625
+#: ../plugins/power/gsd-power-manager.c:1635
+#: ../plugins/power/gsd-power-manager.c:1771
+msgid "Battery is critically low"
+msgstr "Bateria larriki baxua"
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1680
+msgid ""
+"The battery is below the critical level and this computer will <b>power-off</"
+"b> when the battery becomes completely empty."
+msgstr ""
+"Bateria maila larriaren azpitik dabil eta ordenagailua <b>itzali</b> egingo "
+"da bateria erabat hustutzean."
+
+#. TRANSLATORS: computer will suspend
+#: ../plugins/power/gsd-power-manager.c:1686
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"suspend.\n"
+"<b>NOTE:</b> A small amount of power is required to keep your computer in a "
+"suspended state."
+msgstr ""
+"Bateria maila larriaren azpitik dabil eta ordenagailua eseki egingo da.\n"
+"<b>Oharra:</b> energia kopuru txiki bat behar da ordenagailua esekitako "
+"egoeran mantentzeko."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1693
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"hibernate."
+msgstr ""
+"Bateria maila larriaren azpitik dabil eta ordenagailua hibernatu egingo da."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1698
+msgid ""
+"The battery is below the critical level and this computer is about to "
+"shutdown."
+msgstr ""
+"Bateria maila larriaren azpitik dabil eta ordenagailua itzali egingo da."
+
+#. TRANSLATORS: computer will shutdown without saving data
+#: ../plugins/power/gsd-power-manager.c:1716
+msgid ""
+"UPS is below the critical level and this computer will <b>power-off</b> when "
+"the UPS becomes completely empty."
+msgstr ""
+"UPS maila larriaren azpitik dabil eta ordenagailua <b>itzali</b> egingo da "
+"UPS erabat hustutzen denean."
+
+#. TRANSLATORS: computer will hibernate
+#: ../plugins/power/gsd-power-manager.c:1722
+msgid ""
+"UPS is below the critical level and this computer is about to hibernate."
+msgstr ""
+"UPS maila larriaren azpitik dabil eta ordenagailua hibernatu egingo da."
+
+#. TRANSLATORS: computer will just shutdown
+#: ../plugins/power/gsd-power-manager.c:1727
+msgid "UPS is below the critical level and this computer is about to shutdown."
+msgstr "UPS maila larriaren azpitik dabil eta ordenagailua itzali egingo da."
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2221
+msgid "Lid has been opened"
+msgstr "Tapa ireki egin da"
+
+#. TRANSLATORS: this is the sound description
+#: ../plugins/power/gsd-power-manager.c:2298
+msgid "Lid has been closed"
+msgstr "Tapa itxi egin da"
+
+#. TRANSLATORS: this is the title of the power manager status icon
+#. * that is only shown in fallback mode
+#: ../plugins/power/gsd-power-manager.c:3645
+msgid "Power Manager"
+msgstr "Energia kudeatzailea"
+
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:1
+msgid "Authentication is required to modify the laptop brightness"
+msgstr "Autentifikatu egin behar da eramangarriaren distira aldatzeko"
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the backlight brightness.
+#.
+#: ../plugins/power/org.gnome.settings-daemon.plugins.power.policy.in.in.h:6
+msgid "Modify the laptop brightness"
+msgstr "Aldatu eramangarriaren distira"
+
+#: ../plugins/power/power.gnome-settings-plugin.in.h:2
+msgid "Power plugin"
+msgstr "Energiaren plugina"
+
+#. Translators: We are configuring new printer
+#: ../plugins/print-notifications/gsd-printer.c:942
+msgid "Configuring new printer"
+msgstr "Inprimagailu berria konfiguratzen"
+
+#. Translators: Just wait
+#: ../plugins/print-notifications/gsd-printer.c:944
+msgid "Please wait..."
+msgstr "Itxoin..."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:971
+msgid "Missing printer driver"
+msgstr "Inprimagailuaren kontrolatzailea falta da"
+
+#. Translators: We have no driver installed for the device
+#: ../plugins/print-notifications/gsd-printer.c:980
+#, c-format
+msgid "No printer driver for %s."
+msgstr "Ez dago %s inprimagailuaren kontrolatzailerik."
+
+#. Translators: We have no driver installed for this printer
+#: ../plugins/print-notifications/gsd-printer.c:985
+msgid "No driver for this printer."
+msgstr "Ez dago kontrolatzailerik inprimagailu honentzako."
+
+#: ../plugins/print-notifications/gsd-printer.c:1088
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:221
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:646
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:735
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:778
+msgid "Printers"
+msgstr "Inprimagailuak"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:297
+msgid "Toner low"
+msgstr "Tonerra baxua"
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:299
+msgid "Toner empty"
+msgstr "Tonerra hutsik"
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:301
+msgid "Not connected?"
+msgstr "Ez dago konektatuta?"
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:303
+msgid "Cover open"
+msgstr "Estalkia irekita"
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:305
+msgid "Printer configuration error"
+msgstr "Errorea inprimagailuaren konfigurazioan"
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:307
+msgid "Door open"
+msgstr "Atea irekita"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:309
+msgid "Marker supply low"
+msgstr "Kartutxoa tinta gutxirekin"
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:311
+msgid "Out of a marker supply"
+msgstr "Kartutxoa tintarik gabe"
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:313
+msgid "Paper low"
+msgstr "Paper gutxi"
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:315
+msgid "Out of paper"
+msgstr "Paperik ez"
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:317
+msgid "Printer off-line"
+msgstr "Inprimagailua deskonektatuta"
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#. Translators: This is a title of an error notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:319
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:721
+msgid "Printer error"
+msgstr "Errorea inprimagailuan"
+
+#. Translators: The printer is low on toner (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:323
+#, c-format
+msgid "Printer '%s' is low on toner."
+msgstr "'%s' inprimagailuak toner baxua du."
+
+#. Translators: The printer has no toner left (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:325
+#, c-format
+msgid "Printer '%s' has no toner left."
+msgstr "'%s' inprimagailuak ez du tonerrik."
+
+#. Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:327
+#, c-format
+msgid "Printer '%s' may not be connected."
+msgstr "Baliteke '%s' inprimagailua konektatuta ez egotea."
+
+#. Translators: One or more covers on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:329
+#, c-format
+msgid "The cover is open on printer '%s'."
+msgstr "'%s' inprimagailuaren estalkia irekita dago."
+
+#. Translators: A filter or backend is not installed (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:331
+#, c-format
+msgid "There is a missing print filter for printer '%s'."
+msgstr "'%s' inprimagailuaren inprimatzeko iragazkia falta da."
+
+#. Translators: One or more doors on the printer are open (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:334
+#, c-format
+msgid "The door is open on printer '%s'."
+msgstr "'%s' inprimagailuaren atea irekita dago."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:336
+#, c-format
+msgid "Printer '%s' is low on a marker supply."
+msgstr "'%s' inprimagailuaren kartutxoak tinta guxi du."
+
+#. Translators: "marker" is one color bin of the printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:338
+#, c-format
+msgid "Printer '%s' is out of a marker supply."
+msgstr "'%s' inprimagailuaren kartutxoak ez du tintarik."
+
+#. Translators: At least one input tray is low on media (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:340
+#, c-format
+msgid "Printer '%s' is low on paper."
+msgstr "'%s' inprimagailuan paper gutxi dago."
+
+#. Translators: At least one input tray is empty (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:342
+#, c-format
+msgid "Printer '%s' is out of paper."
+msgstr "'%s' inprimagailuan ez dago paperik."
+
+#. Translators: The printer is offline (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:344
+#, c-format
+msgid "Printer '%s' is currently off-line."
+msgstr "'%s' inprimagailua unean deskonektatuta dago."
+
+#. Translators: The printer has detected an error (same as in system-config-printer)
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:346
+#, c-format
+msgid "There is a problem on printer '%s'."
+msgstr "Arazo bat dago '%s' inprimagailuan."
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:423
+msgid "Printer added"
+msgstr "Inprimagailua gehituta"
+
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:431
+msgid "Printer removed"
+msgstr "Inprimagailua kenduta"
+
+#. Translators: A print job has been stopped
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:448
+msgid "Printing stopped"
+msgstr "Inprimatzea geldituta"
+
+#. Translators: "print-job xy" on a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:450
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:456
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:462
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:468
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:480
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:500
+#, c-format
+msgid "\"%s\" on %s"
+msgstr "\"%s\" -- %s"
+
+#. Translators: A print job has been canceled
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:454
+msgid "Printing canceled"
+msgstr "Inprimatzea bertan behera utzita"
+
+#. Translators: A print job has been aborted
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:460
+msgid "Printing aborted"
+msgstr "Inprimatzea abortatuta"
+
+#. Translators: A print job has been completed
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:466
+msgid "Printing completed"
+msgstr "Inprimatzea osatuta"
+
+#. Translators: A job is printing
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:478
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:498
+msgid "Printing"
+msgstr "Inprimatzen"
+
+#. Translators: This is a title of a report notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:715
+msgid "Printer report"
+msgstr "Inprimagailuaren txostena"
+
+#. Translators: This is a title of a warning notification for a printer
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:718
+msgid "Printer warning"
+msgstr "Inprimagailuaren abisua"
+
+#. Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'."
+#: ../plugins/print-notifications/gsd-print-notifications-manager.c:728
+#, c-format
+msgid "Printer '%s': '%s'."
+msgstr "'%s' inprimagailua: '%s'."
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:1
+msgid "Print-notifications"
+msgstr "Inprimagailuen jakinarazpenak"
+
+#: ../plugins/print-notifications/print-notifications.gnome-settings-plugin.in.h:2
+msgid "Print-notifications plugin"
+msgstr "Inprimagailuen jakinarazpenen plugina"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:523
+msgid "received error or hang up from event source"
+msgstr "errorea edo esekitze bat jaso da gertaeraren iturburutik"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:657
+#, c-format
+msgid "NSS security system could not be initialized"
+msgstr "ezin izan da NSS segurtasun sistema hasieratu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:785
+#, c-format
+msgid "no suitable smartcard driver could be found"
+msgstr "ezin izan da txartelaren kontrolatzaile egokirik aurkitu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:799
+#, c-format
+msgid "smartcard driver '%s' could not be loaded"
+msgstr "ezin izan da txartelaren '%s' kontrolatzaile kargatu"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:871
+#, c-format
+msgid "could not watch for incoming card events - %s"
+msgstr "ezin izan da sarrerako txartelaren gertaerarik behatu - %s"
+
+#: ../plugins/smartcard/gsd-smartcard-manager.c:1269
+#, c-format
+msgid "encountered unexpected error while waiting for smartcard events"
+msgstr "ustekabeko errorea aurkitu da txartelaren gertaeren zain"
+
+#. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:240
+msgid ""
+"You will need to restart this computer before the hardware will work "
+"correctly."
+msgstr ""
+"Ordenagailua berrabiarazi behar duzu hardwareak ongi funtzionatu aurretik."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:243
+#: ../plugins/updates/gsd-updates-firmware.c:268
+#: ../plugins/updates/gsd-updates-firmware.c:293
+msgid "Additional software was installed"
+msgstr "Software gehigarria instalatu da"
+
+#: ../plugins/updates/gsd-updates-firmware.c:244
+#: ../plugins/updates/gsd-updates-firmware.c:269
+#: ../plugins/updates/gsd-updates-firmware.c:294
+#: ../plugins/updates/gsd-updates-firmware.c:583
+#: ../plugins/updates/gsd-updates-manager.c:203
+#: ../plugins/updates/gsd-updates-manager.c:328
+#: ../plugins/updates/gsd-updates-manager.c:387
+#: ../plugins/updates/gsd-updates-manager.c:443
+#: ../plugins/updates/gsd-updates-manager.c:575
+#: ../plugins/updates/gsd-updates-manager.c:663
+msgid "Software Updates"
+msgstr "Softwareen eguneraketak"
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:265
+msgid ""
+"You will need to remove and then reinsert the hardware before it will work "
+"correctly."
+msgstr ""
+"Hardwarea kendu eta ondoren berriro sartu behar duzu ongi funtzionatu "
+"aurretik."
+
+#. TRANSLATORS: we need to remove an replug so the new hardware can re-request the firmware
+#: ../plugins/updates/gsd-updates-firmware.c:290
+msgid "Your hardware has been set up and is now ready to use."
+msgstr "Hardwarea konfiguratu da eta orain erabiltzeko prest dago."
+
+#. TRANSLATORS: we need another package to keep udev quiet
+#: ../plugins/updates/gsd-updates-firmware.c:568
+msgid ""
+"Additional firmware is required to make hardware in this computer function "
+"correctly."
+msgstr ""
+"Firmware gehigarria behar da hardwarea ordenagailu honetan ongi funtziona "
+"dezan."
+
+#. TRANSLATORS: title of libnotify bubble
+#: ../plugins/updates/gsd-updates-firmware.c:582
+msgid "Additional firmware required"
+msgstr "Firmware gehigarria behar da"
+
+#. TRANSLATORS: button label
+#: ../plugins/updates/gsd-updates-firmware.c:588
+msgid "Install firmware"
+msgstr "Instalatu firmwarea"
+
+#. TRANSLATORS: we should ignore this device and not ask anymore
+#: ../plugins/updates/gsd-updates-firmware.c:591
+msgid "Ignore devices"
+msgstr "Ez ikusi egin gailuei"
+
+#. TRANSLATORS: a distro update is available, e.g. Fedora 8 to Fedora 9
+#: ../plugins/updates/gsd-updates-manager.c:199
+msgid "Distribution upgrades available"
+msgstr "Banaketaren bertsio-berritzea eskuragarri"
+
+#. TRANSLATORS: provides more information about the upgrade
+#: ../plugins/updates/gsd-updates-manager.c:208
+msgid "More information"
+msgstr "Informazio gehiago"
+
+#. TRANSLATORS: title in the libnotify popup
+#: ../plugins/updates/gsd-updates-manager.c:311
+#: ../plugins/updates/gsd-updates-manager.c:370
+msgid "Update"
+msgid_plural "Updates"
+msgstr[0] "Eguneraketa"
+msgstr[1] "Eguneraketak"
+
+#. TRANSLATORS: message when there are security updates
+#: ../plugins/updates/gsd-updates-manager.c:314
+msgid "An important software update is available"
+msgid_plural "Important software updates are available"
+msgstr[0] "Software baten eguneraketa garrantzitsua eskuragarri dago"
+msgstr[1] "Softwareen eguneraketa garrantzitsuak eskuragarri daude"
+
+#. TRANSLATORS: button: open the update viewer to install updates
+#: ../plugins/updates/gsd-updates-manager.c:333
+#: ../plugins/updates/gsd-updates-manager.c:392
+msgid "Install updates"
+msgstr "Instalatu eguneraketak"
+
+#. TRANSLATORS: message when there are non-security updates
+#: ../plugins/updates/gsd-updates-manager.c:373
+msgid "A software update is available."
+msgid_plural "Software updates are available."
+msgstr[0] "Software baten eguneraketa eskuragarri dago."
+msgstr[1] "Softwareen eguneraketak eskuragarri daude."
+
+#. TRANSLATORS: policy says update, but we are on battery and so prompt
+#: ../plugins/updates/gsd-updates-manager.c:438
+msgid ""
+"Automatic updates are not being installed as the computer is running on "
+"battery power"
+msgstr ""
+"Eguneraketa automatikoak ez dira instalatuko ordenagailua bateriaren "
+"energiarekin funtzionatzen ari delako"
+
+#. TRANSLATORS: informs user will not install by default
+#: ../plugins/updates/gsd-updates-manager.c:440
+msgid "Updates not installed"
+msgstr "Eguneraketak ez dira instalatu"
+
+#. TRANSLATORS: to hell with my battery life, just do it
+#: ../plugins/updates/gsd-updates-manager.c:448
+msgid "Install the updates anyway"
+msgstr "Instalatu eguneraketak hala ere"
+
+#: ../plugins/updates/gsd-updates-manager.c:464
+msgid "No restart is required."
+msgstr "Ez da berrabiarazi behar."
+
+#: ../plugins/updates/gsd-updates-manager.c:467
+msgid "A restart is required."
+msgstr "Berrabiarazi behar da."
+
+#: ../plugins/updates/gsd-updates-manager.c:470
+msgid "You need to log out and log back in."
+msgstr "Saioa amaitu eta berriro hasi behar duzu."
+
+#: ../plugins/updates/gsd-updates-manager.c:473
+msgid "You need to restart the application."
+msgstr "Aplikazioa berriro abiarazi behar duzu."
+
+#: ../plugins/updates/gsd-updates-manager.c:476
+msgid "You need to log out and log back in to remain secure."
+msgstr "Saioa amaitu eta berriro hasi behar duzu seguru mantentzeko."
+
+#: ../plugins/updates/gsd-updates-manager.c:479
+msgid "A restart is required to remain secure."
+msgstr "Berrabiarazi behar da seguru mantentzeko."
+
+#. TRANSLATORS: we did the update, but some updates were skipped and not applied
+#: ../plugins/updates/gsd-updates-manager.c:540
+msgid "One package was skipped:"
+msgid_plural "Some packages were skipped:"
+msgstr[0] "Pakete bat saltatu egin da:"
+msgstr[1] "Pakete batzuk saltatu egin dira:"
+
+#. TRANSLATORS: title: system update completed all okay
+#: ../plugins/updates/gsd-updates-manager.c:572
+msgid "The system update has completed"
+msgstr "Sistemaren eguneraketa osatu da"
+
+#. TRANSLATORS: restart computer as system packages need update
+#: ../plugins/updates/gsd-updates-manager.c:581
+msgid "Restart computer now"
+msgstr "Berrabiarazi ordenagailua orain"
+
+#. TRANSLATORS: the updates mechanism
+#: ../plugins/updates/gsd-updates-manager.c:651
+msgid "Updates"
+msgstr "Eguneraketak"
+
+#. TRANSLATORS: we failed to get the updates multiple times,
+#. * and now we need to inform the user that something might be wrong
+#: ../plugins/updates/gsd-updates-manager.c:655
+msgid "Unable to access software updates"
+msgstr "Ezin da softwareen eguneraketetara atzitu"
+
+#. TRANSLATORS: try again, this time launching the update viewer
+#: ../plugins/updates/gsd-updates-manager.c:658
+msgid "Try again"
+msgstr "Saiatu berriro"
+
+#. TRANSLATORS: the reason why we've inhibited it
+#: ../plugins/updates/gsd-updates-manager.c:1096
+msgid "A transaction that cannot be interrupted is running"
+msgstr "Eten ezin daitekeen transakzio bat exekutatzen ari da"
+
+#: ../plugins/wacom/gsd-wacom-device.c:909
+#, c-format
+msgid "Left Ring Mode #%d"
+msgstr "%d. ezkerreko eraztun modua"
+
+#: ../plugins/wacom/gsd-wacom-device.c:916
+#, c-format
+msgid "Right Ring Mode #%d"
+msgstr "%d. eskuineko eraztun modua"
+
+#: ../plugins/wacom/gsd-wacom-device.c:944
+#, c-format
+msgid "Left Touchstrip Mode #%d"
+msgstr "%d. ezkerreko ukimen-banda modua"
+
+#: ../plugins/wacom/gsd-wacom-device.c:951
+#, c-format
+msgid "Right Touchstrip Mode #%d"
+msgstr "%d. eskuineko ukimen-bandaren modua"
+
+#: ../plugins/wacom/gsd-wacom-device.c:966
+#, c-format
+msgid "Left Touchring Mode Switch"
+msgstr "Ezkerreko ukimen-eraztun moduaren aldaketa"
+
+#: ../plugins/wacom/gsd-wacom-device.c:968
+#, c-format
+msgid "Right Touchring Mode Switch"
+msgstr "Eskuineko ukimen-eraztun moduaren aldaketa"
+
+#: ../plugins/wacom/gsd-wacom-device.c:971
+#, c-format
+msgid "Left Touchstrip Mode Switch"
+msgstr "Ezkerreko ukimen-banda moduaren aldaketa"
+
+#: ../plugins/wacom/gsd-wacom-device.c:973
+#, c-format
+msgid "Right Touchstrip Mode Switch"
+msgstr "Eskuineko ukimen-banda moduaren aldaketa"
+
+#: ../plugins/wacom/gsd-wacom-device.c:978
+#, c-format
+msgid "Mode Switch #%d"
+msgstr "%d. modu aldaketa"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1050
+#, c-format
+msgid "Left Button #%d"
+msgstr "%d. ezkerreko botoia"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1053
+#, c-format
+msgid "Right Button #%d"
+msgstr "%d. eskuineko botoia"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1056
+#, c-format
+msgid "Top Button #%d"
+msgstr "%d. goiko botoia"
+
+#: ../plugins/wacom/gsd-wacom-device.c:1059
+#, c-format
+msgid "Bottom Button #%d"
+msgstr "%d. beheko botoia"
+
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:1
+msgid "Authentication is required to modify the lit LED for a Wacom tablet"
+msgstr "Autentifikatu egin behar da Wacom taularen LED argia aldatzeko."
+
+#. SECURITY:
+#. - A normal active user on the local machine does not need permission
+#. to change the LED setting for a Wacom tablet
+#.
+#: ../plugins/wacom/org.gnome.settings-daemon.plugins.wacom.policy.in.in.h:6
+msgid "Modify the lit LED for a Wacom tablet"
+msgstr "Aldatu Wacom taularen LED argia"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:500
+msgid "Could not switch the monitor configuration"
+msgstr "Ezin izan da pantailaren konfigurazioa aldatu"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:524
+msgid "Could not restore the display's configuration"
+msgstr "Ezin izan da pantailaren konfigurazioa leheneratu"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:549
+msgid "Could not restore the display's configuration from a backup"
+msgstr "Ezin izan da pantailaren konfigurazioa leheneratu babeskopiatik"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:570
+#, c-format
+msgid "The display will be reset to its previous configuration in %d second"
+msgid_plural ""
+"The display will be reset to its previous configuration in %d seconds"
+msgstr[0] "Pantaila bere aurreko konfiguraziora leheneratuko da segundo %dean"
+msgstr[1] "Pantaila bere aurreko konfiguraziora leheneratuko da %d segundotan"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:619
+msgid "Does the display look OK?"
+msgstr "Pantaila ongi ikusten da?"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:626
+msgid "_Restore Previous Configuration"
+msgstr "_Leheneratu aurreko konfigurazioa"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:627
+msgid "_Keep This Configuration"
+msgstr "_Mantendu konfigurazio hau"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:708
+msgid "The selected configuration for displays could not be applied"
+msgstr "Hautatutako pantailen konfigurazioa ezin izan da aplikatu"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1358
+#, c-format
+msgid "Could not refresh the screen information: %s"
+msgstr "Ezin izan da pantailaren informazioa freskatu: %s"
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1362
+msgid "Trying to switch the monitor configuration anyway."
+msgstr "Hala ere, pantailaren konfigurazioa aldatzen saiatzen."
+
+#: ../plugins/xrandr/gsd-xrandr-manager.c:1793
+msgid "Could not apply the stored configuration for monitors"
+msgstr "Ezin izan da pantailen gordetako konfigurazioa aplikatu"
+
+#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:1
+msgid "Set up screen size and rotation settings"
+msgstr "Konfiguratu pantailaren tamaina eta biraketa"
+
+#: ../plugins/xrandr/xrandr.gnome-settings-plugin.in.h:2
+msgid "XRandR"
+msgstr "XRandR"
+
+#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:1
+msgid "Manage X Settings"
+msgstr "Kudeatu Xen ezarpenak"
+
+#: ../plugins/xsettings/xsettings.gnome-settings-plugin.in.h:2
+msgid "X Settings"
+msgstr "Xen ezarpenak"
+
+#~ msgid "Allowed keys"
+#~ msgstr "Baimendutako teklak"
+
+#~ msgid ""
+#~ "If non-empty, keybindings will be ignored unless their settings directory "
+#~ "is in the list. This is useful for lockdown."
+#~ msgstr ""
+#~ "Ez badago hutsik, laster-teklei ez ikusi egingo zaie GConf direktorioa "
+#~ "zerrendan egon arte. Oso erabilgarria da blokeatzeko."
+
+#~ msgid "Enable this to set the cursor to absolute mode."
+#~ msgstr "Gaitu hau kurtsorea modu absolutuan ezartzeko."
+
+#~ msgid "Enable this to set the stylus to absolute mode."
+#~ msgstr "Gaitu hau arkatza modu absolutuan ezartzeko."
+
+#~ msgid "Set this to x1, y1 and x2, y2 of the area usable by the cursor."
+#~ msgstr ""
+#~ "Ezarri hau x1, y1 eta x2, y2 koordenatuetara kurtsoreak erabil dezakeen "
+#~ "area bezala."
+
+#~ msgid "Set this to x1, y1 and x2, y2 of the area usable by the eraser."
+#~ msgstr ""
+#~ "Ezarri hau x1, y1 eta x2, y2 koordenatuetara borragomak erabil dezakeen "
+#~ "area bezala."
+
+#~ msgid "Set this to x1, y1 and x2, y2 of the area usable by the pad."
+#~ msgstr ""
+#~ "Ezarri hau x1, y1 eta x2, y2 koordenatuetara pad-ak erabil dezakeen area "
+#~ "bezala."
+
+#~ msgid "Wacom cursor absolute mode"
+#~ msgstr "Wacom-eko kurtsorearen modu absolutua"
+
+#~ msgid "Wacom cursor button mapping"
+#~ msgstr "Wacom-eko kurtsorearen botoien mapa"
+
+#~ msgid "Wacom cursor tablet area"
+#~ msgstr "Wacom-eko kurtsorearen taularen area"
+
+#~ msgid "Wacom eraser absolute mode"
+#~ msgstr "Wacom-eko borragomaren modu absolutua"
+
+#~ msgid "Wacom eraser tablet area"
+#~ msgstr "Wacom-eko borragomaren taularen area"
+
+#~ msgid "Wacom stylus tablet area"
+#~ msgstr "Wacom-eko arkatzaren taularen area"
+
+#~ msgid "Default"
+#~ msgstr "Lehenetsia"
+
+#~ msgid "Key binding (%s) is invalid (%d)"
+#~ msgstr "Laster-tekla (%s) baliogabea da (%d)"
+
+#~ msgid "Key binding (%s) is incomplete"
+#~ msgstr "%s laster-tekla ez dago osorik"
+
+#~ msgid ""
+#~ "Error while trying to run (%s)\n"
+#~ "which is linked to the key (%s)"
+#~ msgstr ""
+#~ "Errorea gertatu da '%s' exekutatzen saiatzean\n"
+#~ "eta hori '%s' teklari lotuta dago"
+
+#~ msgid "Keybindings plugin"
+#~ msgstr "Laster-teklen plugina"
+
+#~ msgid ""
+#~ "Could not get default terminal. Verify that your default terminal command "
+#~ "is set and points to a valid application."
+#~ msgstr ""
+#~ "Ezin izan da terminal lehenetsia eskuratu. Ziurtatu terminal "
+#~ "lehenetsiaren komandoa ezarrita dagoela eta baliozko aplikaziora "
+#~ "bideratzen duela."
+
+#~ msgid ""
+#~ "Couldn't execute command: %s\n"
+#~ "Verify that this is a valid command."
+#~ msgstr ""
+#~ "Ezin izan da komandoa exekutatu: %s\n"
+#~ "Egiaztatu baliozko komandoa dela."
+
+#~ msgid "Module Path"
+#~ msgstr "Moduluaren bide-izena"
+
+#~ msgid "path to smartcard PKCS #11 driver"
+#~ msgstr "PKCS #11 txartelaren kontrolatzailearentzako bide-izena"
+
+#~ msgid "Slot ID"
+#~ msgstr "Erretenaren IDa"
+
+#~ msgid "The slot the card is in"
+#~ msgstr "Txartela jarrita dagoen erretena"
+
+#~ msgid "Slot Series"
+#~ msgstr "Erretenaren serieak"
+
+#~ msgid "per-slot card identifier"
+#~ msgstr "txartelaren identifikatzailea erreteneko"
+
+#~ msgid "name"
+#~ msgstr "izena"
+
+#~ msgid "Module"
+#~ msgstr "Modulua"
+
+#~ msgid "smartcard driver"
+#~ msgstr "txartelaren kontrolatzailea"
+
+#~ msgid "Change system time and date settings"
+#~ msgstr "Aldatu sistemako ordua eta dataren ezarpenak"
+
+#~ msgid "To change time or date settings, you need to authenticate."
+#~ msgstr ""
+#~ "Sistemako ordua eta dataren ezarpenak aldatzeko, autentifikatu egin behar "
+#~ "zara."
+
+#~ msgid "Do you want to activate Slow Keys?"
+#~ msgstr "Tekla geldoak aktibatzea nahi duzu?"
+
+#~ msgid "Do you want to deactivate Slow Keys?"
+#~ msgstr "Tekla geldoak desaktibatzea nahi duzu?"
+
+#~ msgid "Don't activate"
+#~ msgstr "Ez aktibatu"
+
+#~ msgid "Don't deactivate"
+#~ msgstr "Ez desaktibatu"
+
+#~ msgid "Activate"
+#~ msgstr "Aktibatu"
+
+#~ msgid "Deactivate"
+#~ msgstr "Desaktibatu"
+
+#~ msgid "Do_n't activate"
+#~ msgstr "_Ez aktibatu"
+
+#~ msgid "Do_n't deactivate"
+#~ msgstr "E_z desaktibatu"
+
+#~ msgid "_Activate"
+#~ msgstr "_Aktibatu"
+
+#~ msgid "_Deactivate"
+#~ msgstr "_Desaktibatu"
+
+#~ msgid "Do you want to activate Sticky Keys?"
+#~ msgstr "Tekla itsaskorrak aktibatzea nahi duzu?"
+
+#~ msgid "Do you want to deactivate Sticky Keys?"
+#~ msgstr "Tekla itsaskorrak desaktibatzea nahi duzu?"
+
+#~ msgid ""
+#~ "Priority to use for this plugin in gnome-settings-daemon startup queue."
+#~ msgstr ""
+#~ "Lehentasuna plugin honekin erabiltzeko gnome-settings-daemon abioaren "
+#~ "ilaran."
+
+#~ msgid ""
+#~ "Whether this plugin would be activated by gnome-settings-daemon or not."
+#~ msgstr "gnome-settings-daemon daemon-ak plugin hau aktibatuko duen edo ez."
+
+#~ msgid "Binding to enable or disable the touchpad."
+#~ msgstr "Lotura touchpad-a gaitu edo desgaitzeko."
+
+#~ msgid "Toggle touchpad"
+#~ msgstr "Txandakatu touchpad-a"
+
+#~ msgid "Automount"
+#~ msgstr "Muntaketa automatikoa"
+
+#~| msgid "Font plugin"
+#~ msgid "Automounter plugin"
+#~ msgstr "Muntaketa automatikoaren plugina"
+
+#~ msgid "Keyboard _Preferences"
+#~ msgstr "Teklatuaren _hobespenak"
+
+#~ msgid "Privileges are required to configure time and date settings."
+#~ msgstr "Pribilegioak behar dira ordua eta data konfiguratzeko."

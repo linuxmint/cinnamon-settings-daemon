@@ -1,0 +1,116 @@
+Index: gnome-settings-daemon-3.6.1/gnome-settings-daemon/main.c
+===================================================================
+--- gnome-settings-daemon-3.6.1.orig/gnome-settings-daemon/main.c	2012-10-26 10:19:49.467004174 +0200
++++ gnome-settings-daemon-3.6.1/gnome-settings-daemon/main.c	2012-10-26 10:19:49.527004177 +0200
+@@ -303,28 +303,6 @@
+ }
+ #endif
+ 
+-static void
+-got_session_proxy (GObject      *source_object,
+-                   GAsyncResult *res,
+-                   gpointer      user_data)
+-{
+-        GDBusProxy *proxy;
+-        GError *error = NULL;
+-
+-        proxy = g_dbus_proxy_new_finish (res, &error);
+-        if (proxy == NULL) {
+-                g_debug ("Could not connect to the Session manager: %s", error->message);
+-                g_error_free (error);
+-        } else {
+-#ifdef HAVE_IBUS
+-                /* This will register with gnome-session after calling Setenv. */
+-                set_legacy_ibus_env_vars (proxy);
+-#else
+-                register_with_gnome_session (proxy);
+-#endif
+-        }
+-}
+-
+ static gboolean
+ on_term_signal_pipe_closed (GIOChannel *source,
+                             GIOCondition condition,
+@@ -374,16 +352,6 @@
+ {
+         g_assert (bus != NULL);
+ 
+-        g_dbus_proxy_new (bus,
+-                          G_DBUS_PROXY_FLAGS_NONE,
+-                          NULL,
+-                          GNOME_SESSION_DBUS_NAME,
+-                          GNOME_SESSION_DBUS_OBJECT,
+-                          GNOME_SESSION_DBUS_INTERFACE,
+-                          NULL,
+-                          (GAsyncReadyCallback) got_session_proxy,
+-                          NULL);
+-
+         watch_for_term_signal (manager);
+ }
+ 
+@@ -406,6 +374,56 @@
+         gtk_main_quit ();
+ }
+ 
++static gboolean
++do_register_client (gpointer user_data)
++{
++        GDBusProxy *proxy = (GDBusProxy *) user_data;
++        g_assert (proxy != NULL);
++
++        const char *startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
++        g_dbus_proxy_call (proxy,
++                           "RegisterClient",
++                           g_variant_new ("(ss)", "gnome-settings-daemon", startup_id ? startup_id : ""),
++                           G_DBUS_CALL_FLAGS_NONE,
++                           -1,
++                           NULL,
++                           (GAsyncReadyCallback) on_client_registered,
++                           manager);
++
++        return FALSE;
++}
++
++static void
++queue_register_client (void)
++{
++        GDBusConnection *bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
++        if (!bus)
++                return;
++
++        GError *error = NULL;
++        GDBusProxy *proxy = g_dbus_proxy_new_sync (bus,
++                                                   G_DBUS_PROXY_FLAGS_NONE,
++                                                   NULL,
++                                                   GNOME_SESSION_DBUS_NAME,
++                                                   GNOME_SESSION_DBUS_OBJECT,
++                                                   GNOME_SESSION_DBUS_INTERFACE,
++                                                   NULL,
++                                                   &error);
++        g_object_unref (bus);
++
++        if (proxy == NULL) {
++                g_debug ("Could not connect to the Session manager: %s", error->message);
++                g_error_free (error);
++                return;
++        }
++
++        /* Register the daemon with gnome-session */
++        g_signal_connect (G_OBJECT (proxy), "g-signal",
++                          G_CALLBACK (on_session_over), NULL);
++
++        g_idle_add_full (G_PRIORITY_DEFAULT, do_register_client, proxy, NULL);
++}
++
+ static void
+ bus_register (void)
+ {
+@@ -499,6 +517,8 @@
+ 
+         notify_init ("gnome-settings-daemon");
+ 
++        queue_register_client ();
++
+         bus_register ();
+ 
+         gnome_settings_profile_start ("gnome_settings_manager_new");

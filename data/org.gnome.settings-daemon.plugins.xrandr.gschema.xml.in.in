@@ -1,0 +1,24 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.settings-daemon.plugins.xrandr" path="/org/gnome/settings-daemon/plugins/xrandr/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="default-configuration-file" type="s">
+      <default>'/etc/gnome-settings-daemon/xrandr/monitors.xml'</default>
+      <_summary>File for default configuration for RandR</_summary>
+      <_description>The XRandR plugin will look for a default configuration in the file specified by this key. This is similar to the ~/.config/monitors.xml that normally gets stored in users' home directories.  If a user does not have such a file, or has one that does not match the user's setup of monitors, then the file specified by this key will be used instead.</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>2</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+    <key name="default-monitors-setup" enum="org.gnome.settings-daemon.GsdXrandrBootBehaviour">
+      <default>'do-nothing'</default>
+      <_summary>Whether to turn off specific monitors after boot</_summary>
+      <_description>'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)</_description>
+    </key>
+  </schema>
+</schemalist>

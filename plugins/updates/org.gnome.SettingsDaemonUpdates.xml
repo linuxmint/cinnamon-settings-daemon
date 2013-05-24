@@ -1,0 +1,40 @@
+<!DOCTYPE node PUBLIC
+'-//freedesktop//DTD D-BUS Object Introspection 1.0//EN'
+'http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd'>
+<node>
+  <interface name='org.gnome.SettingsDaemon.Updates'>
+    <doc:doc>
+      <doc:description>
+        <doc:para>
+          The interface used for quering trivial information about the
+          update plugin in gnome-settings-daemon.
+        </doc:para>
+      </doc:description>
+    </doc:doc>
+
+    <!--*****************************************************************************************-->
+    <property name='PendingUpdates' type='b' access='read'>
+      <doc:doc>
+        <doc:description>
+          <doc:para>
+            If there are updates that have been downloaded and are waiting
+            to be applied.
+          </doc:para>
+        </doc:description>
+      </doc:doc>
+    </property>
+
+    <!-- ************************************************************ -->
+    <signal name='Changed'>
+      <doc:doc>
+        <doc:description>
+          <doc:para>
+            Some value on the interface has changed.
+          </doc:para>
+        </doc:description>
+      </doc:doc>
+    </signal>
+
+  </interface>
+</node>
+

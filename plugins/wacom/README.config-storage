@@ -1,0 +1,48 @@
+Configuration storage for Wacom tablets and styli
+
+Tablets
+-------
+
+Configuration is stored on a per-device model basis, meaning that it's
+possible to use the same device, with same configuration on 2 machines
+with a shared home directory, or replace a malfunctioning device with the
+same model and have the same configuration.
+
+It does not allow having 2 separate tablets of the same model to have different
+configurations, whether on a single machine, or using a shared home directory.
+
+The configuration scheme is:
+schema: org.gnome.settings-daemon.peripherals.wacom
+path: /org/gnome/settings-daemon/peripherals/wacom/<machine ID>-<device ID>/
+
+where <machine ID> is the D-Bus machine-id for the machine, and
+<device ID> is a unique identifier for the tablet.
+
+Stylus
+------
+
+Styli use a similar configuration scheme. The identifier for each stylus
+is the tool ID, for professional ranges, and a generic identifier for
+the consumer ranges that do not support tool ID.
+
+schema: org.gnome.settings-daemon.peripherals.wacom.stylus
+or:     org.gnome.settings-daemon.peripherals.wacom.eraser
+
+path: /org/gnome/settings-daemon/peripherals/wacom/<device ID>/<tool ID>/
+
+So each tool can be configured per tablet (so the compatible airbrush stylus
+will have different configurations on a Cintiq and an Intuos tablet)
+
+Buttons
+-------
+
+schema: org.gnome.settings-daemon.peripherals.wacom.tablet-button
+path: /org/gnome/settings-daemon/peripherals/wacom/<device ID>/<button ID>
+
+Testing
+-------
+
+You can see all the metadata held about tablets, styli and buttons using
+list-wacom, as available in the gnome-settings-daemon sources.
+
+An example output is available at: https://gist.github.com/1688632

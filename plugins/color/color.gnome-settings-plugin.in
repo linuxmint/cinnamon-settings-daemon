@@ -1,0 +1,8 @@
+[GNOME Settings Plugin]
+Module=color
+IAge=0
+_Name=Color
+_Description=Color plugin
+Authors=Richard Hughes <richard@hughsie.com>
+Copyright=Copyright © 2011 Richard Hughes
+Website=

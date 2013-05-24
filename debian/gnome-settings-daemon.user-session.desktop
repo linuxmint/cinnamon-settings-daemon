@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=GNOME Settings Daemon
+Exec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon
+Hidden=true

@@ -1,0 +1,1619 @@
+gnome-settings-daemon (3.6.4-0ubuntu8) raring; urgency=low
+
+  * debian/control.in:
+    - Breaks on g-c-c and indicator-datetime versions using the old interface
+    - recommends systemd-service (lp: #1153567)
+  * debian/gnome-settings-daemon.install:
+    - updated for the patch being dropped
+  * debian/gnome-settings-daemon.main:
+    - clean org.gnome.SettingsDaemon.DateTimeMechanism.conf conffile
+  * debian/patches/revert_git_datetime_dropping.patch:
+    - drop the upstream's revert
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 26 Mar 2013 21:20:26 +0100
+
+gnome-settings-daemon (3.6.4-0ubuntu7) raring; urgency=low
+
+  * Add upstart user session job for gnome-settings-daemon.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Tue, 12 Mar 2013 15:06:05 -0400
+
+gnome-settings-daemon (3.6.4-0ubuntu6) raring; urgency=low
+
+  * debian/patches/nexus_orientation.patch: Fix memory leak when building
+    pathnames, thanks Jean-Baptiste Lallement! (LP: #1123930)
+
+ -- Jani Monoses <jani.monoses@canonical.com>  Wed, 13 Feb 2013 13:25:19 +0200
+
+gnome-settings-daemon (3.6.4-0ubuntu5) raring; urgency=low
+
+  * debian/patches/nexus_orientation.patch: Wait until a DBus connection to
+    the xrandr module is in place before trying to change orientation.
+
+ -- Jani Monoses <jani.monoses@canonical.com>  Tue, 12 Feb 2013 00:07:12 +0200
+
+gnome-settings-daemon (3.6.4-0ubuntu4) raring; urgency=low
+
+  * debian/patches/nexus_orientation.patch: Correctly set up portrait
+    orientation on first run. Disable the timer that polls the accelerometer
+    on the Nexus 7 if the orientation-lock gsetting is set.
+
+ -- Jani Monoses <jani.monoses@canonical.com>  Mon, 11 Feb 2013 13:14:46 +0200
+
+gnome-settings-daemon (3.6.4-0ubuntu3) raring; urgency=low
+
+  * debian/patches/nexus_orientation.patch: Set up a timer to poll
+    sysfs attributes when an MPU6050 sensor is detected and calculate
+    screen orientation based on these raw accelerometer readings.
+    The kernel driver for this sensor used on the Nexus 7 does not currently
+    provide the interface expected by the current code in g-s-d, hence
+    this approach until the final one is decided upon.
+
+ -- Jani Monoses <jani.monoses@canonical.com>  Wed, 30 Jan 2013 14:13:45 +0200
+
+gnome-settings-daemon (3.6.4-0ubuntu2) raring; urgency=low
+
+  * debian/patches/touchscreen_rotation.patch:  On touchscreens 
+    rotate input coordinates by changing the Coordinate Transform Matrix
+    property instead of evdev axis properties.
+
+ -- Jani Monoses <jani.monoses@canonical.com>  Tue, 29 Jan 2013 16:28:12 +0200
+
+gnome-settings-daemon (3.6.4-0ubuntu1) raring; urgency=low
+
+  * New upstream version
+  * debian/patches/53_update_schemas_warning.patch:
+    - dropped, the issue is fixed in the new version
+  * debian/patches/bugzilla_segfault_dpms.patch:
+    - dropped the part of the patch which is included in the new tarball
+  * debian/patches/revert_new_ibus_use.patch: refreshed
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 23 Jan 2013 15:12:37 +0100
+
+gnome-settings-daemon (3.6.3-0ubuntu4) raring; urgency=low
+
+  * debian/patches/migrate_metacity_keys.patch:
+    - Migrate screenshot/terminal keys from metacity gconf as well
+      (LP: #1058004)
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Thu, 13 Dec 2012 08:49:24 +0200
+
+gnome-settings-daemon (3.6.3-0ubuntu3) raring; urgency=low
+
+  * debian/control.in: 
+    - Pre-Depends: ${misc:Pre-Depends}
+  * debian/compat, debian/control.in:
+    - updated debhelper version
+  * debian/gnome-settings-daemon.maintscript:
+  * debian/gnome-settings-daemon.postinst:
+    - clean old "/etc/gnome/config" xrdb conffiles
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 06 Dec 2012 19:31:20 +0100
+
+gnome-settings-daemon (3.6.3-0ubuntu2) raring; urgency=low
+
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - don't segfault when using the screen hotkey (lp: #1082856)
+  * debian/patches/53_update_schemas_warning.patch:
+    - don't list the updates schemas it's not used in ubuntu (lp: #1082986)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 26 Nov 2012 16:28:45 +0100
+
+gnome-settings-daemon (3.6.3-0ubuntu1) raring; urgency=low
+
+  [ Sebastien Bacher ]
+  * New upstream version (lp: #1008840)
+  * debian/patches/git*,
+    debian/patches/power-ignore-bad-dbus-requests.patch,
+    debian/patches/power-ignore-bad-dbus-requests.patch,
+    debian/patches/10_smaller_syndaemon_timeout.patch: 
+    - dropped, those fixes are in the new version
+  * debian/control.in:
+    - restore build-depends on libgnomekbd-dev, libxklavier-dev,
+      drop the build-depends on libxkbfile-dev
+  * debian/patches/20_migrate_background_uri.patch:
+    - dropped, it was only needed until the LTS
+  * debian/patches/40_xres_lcddefault.patch:
+    - dropped, that was a workaround for libreoffice that shouldn't be
+      needed and we should better fix libreoffice
+  * debian/patches/61_unity_use_application_indicator.patch:
+    - drop the keyboard indicator code, that will need to be turned 
+      into a proper indicator refactored to handle the new ibus config
+  * debian/patches/90_set_gmenus_xsettings.patch:
+    - refreshed for the new version
+  * debian/patches/revert_new_ibus_use.patch:
+    - revert keyboard code to our 3.4 version
+  * debian/patches/sync_keyboard_layout_to_accountsservice.patch:
+    - dropped, the changes are included in the previous patch
+
+  [ Robert Ancell ]
+  * New upstream release
+  * debian/control:
+    - Bump build-depends on libgnome-desktop-3-dev, libwacom-dev
+    - Drop build-depends on libgnomekbd-dev, libxklavier-dev
+    - Add build-depends on libxkbfile-dev
+
+  [ Rico Tzschichholz ]
+  * debian/control.in:
+    - Build-depend on gtk-doc-tools
+
+  [ Iain Lane ]
+  * New upstream release
+  * Refresh patches and remove those applied upstream.
+  * Remove gstreamer BDs which are now obsolete. 
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 21 Nov 2012 17:16:23 +0100
+
+gnome-settings-daemon (3.4.2-0ubuntu14) quantal; urgency=low
+
+  * debian/patches/git_power_dbus_path.patch:
+    - Fix screen not locking when lid is closed while running
+      GNOME Shell on GDM (LP: #1048420)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 28 Sep 2012 21:04:37 -0400
+
+gnome-settings-daemon (3.4.2-0ubuntu13) quantal; urgency=low
+
+  * debian/gnome-settings-daemon.gsettings-override:
+    - Dropped, override moved to ubuntu-default-settings and
+      ubuntu-gnome-default-settings
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 11 Sep 2012 21:14:56 -0400
+
+gnome-settings-daemon (3.4.2-0ubuntu12) quantal-proposed; urgency=low
+
+  * debian/patches/bugzilla_segfault_dpms.patch:
+    - Update to cover another way to get the same segfault. (LP: #971353)
+
+ -- Michael Terry <mterry@ubuntu.com>  Wed, 05 Sep 2012 15:42:01 -0400
+
+gnome-settings-daemon (3.4.2-0ubuntu11) quantal-proposed; urgency=low
+
+  * debian/patches/90_set_gmenus_xsettings.patch:
+    - restore ShellShowsAppMenu xsettings to true under unity, that's the 
+      correct thing to do since it supports appmenus and we don't need to 
+      workaroud issues with the new nautils since we reverted to the old one
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 05 Sep 2012 21:16:26 +0200
+
+gnome-settings-daemon (3.4.2-0ubuntu10) quantal; urgency=low
+
+  * 64_restore_terminal_keyboard_shortcut_schema.patch:
+    - The "Launch Terminal" schema was dropped in the gconf>gsettings
+      switch. Bring it back. (LP: #1010558, LP: #1040081)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 26 Aug 2012 12:44:27 -0400
+
+gnome-settings-daemon (3.4.2-0ubuntu9) quantal-proposed; urgency=low
+
+  [ Sebastien Bacher ]
+  * debian/control.in:
+    - don't build-depends on gconf
+    - updated gnome-control-center breaks version for gsettings
+  * debian/patches/revert_git_a11y_gsettings.patch,
+    debian/patches/revert_git_stop_using_gconf.patch,
+    debian/patches/revert_git_use_gsetting_keybindings.patch:
+    - drop the gconf to gsettings migration reverts (LP: #1035261)
+
+  [ Keng-Yu Lin ]
+  * debian/patches/git-mask-out-virtual-modifiers.patch
+    - patch from upstream git, fix the grabbing issue of the 
+      keyboard shortcut with virtual (Super, Hyper, Meta) modifier.
+      (lp: #950160)
+
+  [ Edward Donovan ]
+  * debian/source_gnome-settings-daemon.py: Fix for Python 3. (LP: #1013171)
+
+  [ Hsin-Yi, Chen (hychen) ]
+  * debian/patches/git_xrandr_explicitly_set_clone_state.patch:
+    - "xrandr; explicitly set clone state variable when generating monitor
+      configs" (LP: #1014533)
+
+  [ Michael Terry ]
+  * debian/patches/git-smartcard-crash.patch:
+    - Don't crash on login with a smartcard (LP: #1031034)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 23 Aug 2012 17:04:16 +0200
+
+gnome-settings-daemon (3.4.2-0ubuntu8) quantal; urgency=low
+
+  * debian/gnome-settings-daemon.gsettings-override:
+    - don't enable the deprecated gconf bridge
+  * debian/patches/revert_git_dropping_gconf_wrapper.patch:
+    - drop the hackish gsettings to gconf copy mechanism, it shouldn't be
+      required after the lts, the code is also make gsd sensible to .convert
+      issues as showed recently by a file-roller update (lp: #1037646)
+  * debian/rules:
+    - don't use deprecated --enable-gconf-bridge
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 20 Aug 2012 17:53:45 +0200
+
+gnome-settings-daemon (3.4.2-0ubuntu7) quantal; urgency=low
+
+  * debian/patches/git_better_xi_handling.patch:
+    - should fix multimedia keys (lp: #1034090)
+  * debian/patches/git_new_cups_build.patch:
+    - build with cups 1.6
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 08 Aug 2012 15:38:57 +0200
+
+gnome-settings-daemon (3.4.2-0ubuntu6) quantal; urgency=low
+
+  * debian/patches/90_set_gmenus_xsettings.patch:
+    - set ShellShowsAppMenu xsettings to false under unity so applications go
+      back to use normal menus, should give nautilus its preferences menu
+      entry back for example
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 11 Jul 2012 18:21:49 +0200
+
+gnome-settings-daemon (3.4.2-0ubuntu5) quantal; urgency=low
+
+  * debian/patches/10_smaller_syndaemon_timeout.patch: Update to increase
+    the size of the stack allocated array for the extra argument passed to
+    syndaemon. This fixes a crash in the PLT due to a corrupt %ebx register
+    (which holds the GOT base address on i386), which was caused in an earlier
+    function by writing zero in to the location on the stack where the value of
+    %ebx is saved. Thanks to Sebastien Bacher for spotting the buggy patch!
+    (fixes LP: #1007588)
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Mon, 18 Jun 2012 10:27:29 +0100
+
+gnome-settings-daemon (3.4.2-0ubuntu4) quantal; urgency=low
+
+  * debian/patches/62_unity_disable_gsd_printer.patch: gracefully exit the
+    print-notifications plugin when running unity
+
+ -- Lars Uebernickel <lars.uebernickel@ubuntu.com>  Mon, 11 Jun 2012 16:17:55 -0400
+
+gnome-settings-daemon (3.4.2-0ubuntu3) quantal; urgency=low
+
+  * Rebuild for the libgnome-desktop SOVER bump.
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Thu, 07 Jun 2012 15:59:11 -0600
+
+gnome-settings-daemon (3.4.2-0ubuntu2) quantal; urgency=low
+
+  * debian/patches/xsettings_signal_handling.patch:
+    - upstream bugzilla patch, fix segfaults in the xsettings code which
+      seem to happen at logout 
+      (lp: #946295, #948347, #963704)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 23 May 2012 21:50:41 +0200
+
+gnome-settings-daemon (3.4.2-0ubuntu1) quantal; urgency=low
+
+  * New upstream version:
+    Media-keys:
+    - Fix applications launching through keyboard shortcuts not using 
+      the session's ssh agent, or keyrings
+    Mouse:
+    - Fix arguments passed to the custom command
+    And a number of memory leak fixes and translation updates.
+  * debian/patches/git_keyring_environment.patch:
+    - dropped, the fix is in the new version
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 22 May 2012 21:09:19 +0200
+
+gnome-settings-daemon (3.4.1-0ubuntu2) quantal; urgency=low
+
+  * debian/patches/power-check-null-devices.patch:
+    - NULL-guard the return value of up_client_get_devices.
+      LP: #868928
+  * debian/patches/power-ignore-bad-dbus-requests.patch:
+    - If we get a DBus request while the manager isn't active, ignore it.
+      LP: #969535
+
+ -- Michael Terry <mterry@ubuntu.com>  Tue, 01 May 2012 09:30:20 -0700
+
+gnome-settings-daemon (3.4.1-0ubuntu1) precise-proposed; urgency=low
+
+  * New upstream release:
+    - Fix applying settings to touchpads
+    - Fix possible crashes when exiting
+    - Don't put touchscreens in relative mode, just touch tablets
+      (such as the Bamboo Touch)
+    - Use PrinterAddOption method to set media size
+    - Updated translations
+  * Drop patches which are upstream now:
+    - disconnect_from_up_client.patch
+    - git_device_setting.patch
+    - wacom-keep-touchscreen-absolute.patch
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 16 Apr 2012 15:55:26 +0200
+
+gnome-settings-daemon (3.4.0-0ubuntu7) precise; urgency=low
+
+  * Fix LP: #917598 - Battery critical notification using fallback alert
+    - add debian/patches/power-no-fallback-notifications.patch
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Thu, 12 Apr 2012 11:43:36 +0100
+
+gnome-settings-daemon (3.4.0-0ubuntu6) precise; urgency=low
+
+  * debian/patches/wacom-keep-touchscreen-absolute.patch:
+    - Don't set touchscreens to relative mode (LP: #949097)
+
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Wed, 11 Apr 2012 17:05:04 +0300
+
+gnome-settings-daemon (3.4.0-0ubuntu5) precise; urgency=low
+
+  * debian/patches/git_device_setting.patch:
+    - "fix applying settings to newly added touchpads" (lp: #973784)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 10 Apr 2012 22:47:06 +0200
+
+gnome-settings-daemon (3.4.0-0ubuntu4) precise; urgency=low
+
+  * debian/patches/disconnect_from_up_client.patch:
+    - Disconnect any signals from a UpClient object before we unref it.
+      UpClients are ref-counted singletons and may stay around after
+      unref, so we have to be explicit.  LP: #965487
+
+ -- Michael Terry <mterry@ubuntu.com>  Mon, 09 Apr 2012 12:45:13 -0400
+
+gnome-settings-daemon (3.4.0-0ubuntu3) precise; urgency=low
+
+  * debian/patches/correct_logout_action.patch:
+    - display the logout action on ctrl-alt-del (lp: #961501)
+  * debian/patches/60_unity_hide_status_icon.patch:
+    - don't show the power status icon under classic either (lp: #965279)
+  * debian/patches/git_keyring_environment.patch:
+    - "Get the environment from gnome-keyring When launching 
+       custom applications." (lp: #839444)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 03 Apr 2012 17:28:40 +0200
+
+gnome-settings-daemon (3.4.0-0ubuntu2) precise; urgency=low
+
+  * debian/patches/10_smaller_syndaemon_timeout.patch:
+    - don't change delay, use -t option to block the clicks (lp: #962958)
+  * debian/patches/61_unity_use_application_indicator.patch:
+    - small tweaks to be consistant with other indicators, 
+      change the order and label from the two bottom items (lp: #964178)
+  * debian/patches/bugzilla_segfault_dpms.patch:
+    - upstream fix for a segfault (lp: #956824)
+    
+  [ Iain Lane ]
+  * debian/patches/16_use_synchronous_notifications.patch: Fix invalid cast
+    causing segfault when using keyboard backlight keys. (LP: #959874)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 29 Mar 2012 21:43:49 +0200
+
+gnome-settings-daemon (3.4.0-0ubuntu1) precise-proposed; urgency=low
+
+  * New upstream release:
+    - Wacom:
+      Check if the "last-stylus" property has been set
+    - updated translations
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 27 Mar 2012 10:50:10 +0200
+
+gnome-settings-daemon (3.3.92-0ubuntu2) precise; urgency=low
+
+  * 51_lock_screen_on_suspend.patch: when closing the lid, only lock the
+    screen at this step if we're not going to suspend or hibernate.
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 20 Mar 2012 08:39:38 -0400
+
+gnome-settings-daemon (3.3.92-0ubuntu1) precise; urgency=low
+
+  [ Sebastien Bacher ]
+  * New upstream version, should fix
+    - "Option to "Lock screen afer screen turns off" is ignored"
+      (lp: #959184)
+    - "color-plugin-WARNING **: failed to get edid: unable to get 
+       EDID for output" (lp: #863359)
+  * Dropped patches included in the new version
+  * Refreshed the other patches
+
+  [ Marc Deslauriers ]
+    - 51_lock_screen_on_suspend.patch: refreshed for 3.3.92.
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 19 Mar 2012 18:57:50 +0100
+
+gnome-settings-daemon (3.3.91-0ubuntu6) precise; urgency=low
+
+  * debian/patches/61_unity_use_application_indicator.patch:
+    - update to fix issues where the keyboard indicator would not update
+      or reflect the correct layout when changing layout with the keyboard, 
+      thanks Charles Kerr (lp: #885730)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 16 Mar 2012 11:10:43 +0100
+
+gnome-settings-daemon (3.3.91-0ubuntu5) precise; urgency=low
+
+  * debian/patches/52_sync_background_to_accountsservice.patch:
+    - don't trigger a warning when using a solid color (lp: #954590)
+  * debian/patches/90_set_gmenus_xsettings.patch:
+    - update from Ryan Lortie to handle correctly new shell sessions
+
+  [ Gunnar Hjalmarsson ]
+  * debian/patches/43_disable_locale_settings.patch:
+    Description updated.
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 15 Mar 2012 19:15:43 +0100
+
+gnome-settings-daemon (3.3.91-0ubuntu4) precise; urgency=low
+
+  * Add 01_fix_multiple_syndaemons.patch: Ensure that a spawned syndaemon gets
+    killed when settings-daemon exists due to a crash, a keyboard interrupt,
+    etc. This avoids having multiple syndaemons run at the same time, which
+    can lead to the trackpad malfunctioning. (LP: #868400)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 14 Mar 2012 11:22:21 +0100
+
+gnome-settings-daemon (3.3.91-0ubuntu3) precise; urgency=low
+
+  * debian/control.in:
+    - updated gsettings-desktop-schemas requirement for the lock key
+  * debian/patches/61_unity_use_application_indicator.patch:
+    - updated indicators ids, combined with the libappindicator new version
+      that should give the correct wm_class to the fallback gtkstatusicon
+      which should fix some gnome-shell issues (lp: #878951)
+    - use set_icon_full() with "Keyboard" as a11y description (lp: #740726)
+
+  [ Marc Deslauriers ]
+  * Add a new preference to lock the screen when the system suspends.
+    (LP: #938076)
+    - 51_lock_screen_on_suspend.patch: use lock-on-suspend gsettings to
+      determine if screen should be locked.
+    - 51_always_lock_screen_on_suspend.patch: removed.
+    - 54_lazily_connect_to_screensaver.patch: refreshed.
+    - 60_unity_hide_status_icon.patch: refreshed.
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 09 Mar 2012 18:25:40 +0100
+
+gnome-settings-daemon (3.3.91-0ubuntu2) precise; urgency=low
+
+  * debian/patches/git_power_logic.patch: fix logic error, should restore
+    the screen controls (lp: #947748)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 07 Mar 2012 11:46:50 +0100
+
+gnome-settings-daemon (3.3.91-0ubuntu1) precise; urgency=low
+
+  * New upstream version:
+    - fix segfault with some wacom devices (lp: #945477)
+  * debian/patches/git_wacom_fix.patch:
+    - dropped, the fix is in the new version
+  * debian/rules: disable pkgkit support explicitly
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 05 Mar 2012 21:17:42 +0100
+
+gnome-settings-daemon (3.3.90-0ubuntu4) precise; urgency=low
+
+  * Renamed unity patches to start with <num>_unity and be in the same range,
+    it makes easier to see what patches we have
+  * debian/control.in:
+    - updated libappindicator version requirement for set_title()
+  * debian/patches/60_unity_hide_status_icon.patch:
+    - updated to fix a case not handled before (lp: #934582)
+  * debian/patches/61_unity_use_application_indicator.patch:
+    - set an indicator title for the unity hud benefit (lp: #943319) 
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 29 Feb 2012 18:28:11 +0100
+
+gnome-settings-daemon (3.3.90-0ubuntu3) precise; urgency=low
+
+  * debian/patches/git_wacom_fix.patch:
+    - deal better with some wacom devices to avoiding segfaults (lp: #934445)
+  * debian/source_gnome-settings-daemon.py:
+    - correctly separate tags with spaces so they don't get concatenated
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 24 Feb 2012 12:39:29 +0100
+
+gnome-settings-daemon (3.3.90-0ubuntu2) precise; urgency=low
+
+  * debian/gnome-settings-daemon.install:
+    - install the hook
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 21 Feb 2012 22:28:16 +0100
+
+gnome-settings-daemon (3.3.90-0ubuntu1) precise; urgency=low
+
+  * New upstream version
+  * debian/control.in:
+    - build-depends on libxtst-dev and xserver-xorg-input-wacom
+    - updated glib requirement
+  * debian/patches/buggy_error_handling_segfault.patch:
+    - dropped, the patch is in the new version
+  * debian/patches/git_numlock_status.patch:
+    - dropped, the patch is in the new version
+  * debian/rules: 
+    - drop -Bsymbolic-functions workaround, upstream fixed the issue
+  * debian/source_gnome-settings-daemon.py:
+    - set title and tag with the component which had issues for segfaults
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 21 Feb 2012 12:37:47 +0100
+
+gnome-settings-daemon (3.3.5-0ubuntu3) precise; urgency=low
+
+  * debian/patches/buggy_error_handling_segfault.patch:
+    - don't try to print an unset error variable (lp: #932953)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 16 Feb 2012 17:03:26 +0100
+
+gnome-settings-daemon (3.3.5-0ubuntu2) precise; urgency=low
+
+  * debian/patches/git_numlock_status.patch:
+    - correctly update the numlock status (lp: #933405)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 16 Feb 2012 15:47:19 +0100
+
+gnome-settings-daemon (3.3.5-0ubuntu1) precise; urgency=low
+
+  * New upstream version (lp: #931656), refreshed patches, 
+    thanks Jeremy Bicha for starting the work on the new version:
+    - change the sound level by device (lp: #340720)
+    - correctly unassign keybindings (lp: #515670)
+    - define keybinding to take a screenshot of a selection (lp: #625518)
+    - resolve some segfaults (lp: #865286)
+  * debian/control.in:
+    - build-depends on libgudev-1.0-dev
+    - breaks unity-greeter (<< 0.2.1-0ubuntu1) due to the wacom schema rename
+    - build-depends on libwacom
+    - updated gtk, gnome-desktop3, g-d-s, upower requirements
+  * debian/gnome-settings-daemon.gsettings-override:
+    - don't set deprecated "sleep-inactive-battery" key
+  * debian/patches/90_set_gmenus_xsettings.patch:
+    - refreshed, we don't handle gnome-shell xsettings yet because we still
+      ship 3.2, that patch will need an update if we go for the new version
+  * debian/patches/git_gsettings_write_only_when_required.patch;
+    debian/patches/50_add_dell_backlight.patch:
+    - dropped the fix is in the new version
+  * debian/patches/47_delay_pa_connect_to_idle.patch:
+    - commented, will need to be updated if still needed
+  * debian/patches/revert_git_datetime_dropping.patch:
+    - revert the datetime service dropping, ubuntu-system-service doesn't
+      implement the timedated interfaces
+  * debian/patches/revert_git_dropping_gconf_wrapper.patch:
+    - revert the gconf code dropping, we might still need the settings
+      gateway for the lts (though it's a bit hackish)
+  * debian/patches/revert_git_use_gsetting_keybindings.patch:
+    - revert the keybindings switch to gsettings, compiz is not ready,
+      it's likely possible to update the patch to do either according to
+      the session in use at runtime if somebody wants to work on that
+  * debian/patches/revert_git_a11y_gsettings.patch:
+    - similar to the previous one
+  * debian/patches/revert_git_stop_using_gconf.patch:
+    - don't stop using gconf, the other patches listed before need it
+  * debian/rules:
+    - don't use -Bsymbolic-functions to workaround upstream issues
+    - drop deprecated --enable-pulse option
+    - use --disable-systemd
+  * debian/watch:
+    - watch for .xz
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 15 Feb 2012 11:41:52 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu17) precise; urgency=low
+
+  * debian/patches/disable_three_touch_tap.patch
+    - Disable three-touch tap so three-touch gestures work
+
+ -- Chase Douglas <chase.douglas@ubuntu.com>  Mon, 13 Feb 2012 21:45:07 -0800
+
+gnome-settings-daemon (3.2.2-0ubuntu16) precise; urgency=low
+
+  * debian/patches/06_use_application_indicator.patch:
+    - Check for gtk3 version of libappindicator, not gtk2
+  * debian/patches/sync_keyboard_layout_to_accountsservice.patch:
+    - Sync user's list of layouts to accountsservice so it can in turn
+      inform LightDM.  LP: #915468
+
+ -- Michael Terry <mterry@ubuntu.com>  Mon, 13 Feb 2012 10:40:21 -0500
+
+gnome-settings-daemon (3.2.2-0ubuntu15) precise; urgency=low
+
+  * debian/patches/46_share_rr_screen.patch:
+    - dropped that optimization, upstream fixed it in gnome-desktop instead
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 06 Feb 2012 11:09:47 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu14) precise; urgency=low
+
+  * debian/patches/51_always_lock_screen_on_suspend.patch: added missing
+    brackets that was preventing screen locking from working at all.
+    (LP: #924336)
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 31 Jan 2012 10:10:41 -0500
+
+gnome-settings-daemon (3.2.2-0ubuntu13) precise; urgency=low
+
+  * debian/patches/51_always_lock_screen_on_suspend.patch: updated to
+    lock the screen on suspend and hibernate, but only if the user hasn't
+    configured autologin.
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Sat, 28 Jan 2012 16:15:17 -0500
+
+gnome-settings-daemon (3.2.2-0ubuntu12) precise; urgency=low
+
+  * Updated some patches with bug references
+  * debian/patches/02_missing_libs.patch:
+    - dropped, that patch is a leftover and not required nowadays
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - use the correct widget so the media key sounds work (lp: #909407)
+
+  [ Martin Pitt ]
+  * debian/gnome-settings-daemon.gsettings-override: Set default idle dim time
+    to 30 seconds. 10 seconds is a bit unnerving when you want to read
+    something or show photos. (LP: #918928)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 26 Jan 2012 22:36:41 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu11) precise; urgency=low
+
+  * debian/patches/git_gsettings_write_only_when_required.patch:
+    - git patch, don't write to gsettings when not required (i.e on login)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 19 Jan 2012 19:46:01 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu10) precise; urgency=low
+
+  * Rebuild with the newest pkgbinarymangler (lp: #913085)
+  * debian/control.in: build-depends on libnss3-dev for smartcard support
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 13 Jan 2012 17:32:40 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu9) precise; urgency=low
+
+  * Rebuild with fixed pkgbinarymangler (lp: #913085), 
+    that should fix broke permissions errors (lp: #915600)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 13 Jan 2012 11:44:32 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu8) precise; urgency=low
+
+  * debian/patches/90_set_gmenus_xsettings.patch:
+    - set the ShellShowsMenubar and ShellShowsAppMenu xsettings under unity
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 12 Jan 2012 11:34:38 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu7) precise; urgency=low
+
+  * Add 54_lazily_connect_to_screensaver.patch: Do not D-BUS activate
+    gnome-screensaver right at startup, this unnecessarily slows down boot
+    speed. Instead, D-BUS activate it the first time we actually need it.
+    (LP: #912186)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 05 Jan 2012 12:42:24 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu6) precise; urgency=low
+
+  * Add 53_disable_gsd_printer_on_unity.patch: Disable gsd-printer plugin
+    under Unity. We are still using system-config-printer for this, so no need
+    to start another service for this.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 04 Jan 2012 16:15:47 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu5) precise; urgency=low
+
+  * debian/patches/52_sync_background_to_accountsservice.patch:
+    - Watch background gsettings value and synchronize it to the
+      accountsservice daemon for the benefit of unity-greeter
+
+ -- Michael Terry <mterry@ubuntu.com>  Fri, 09 Dec 2011 15:35:40 -0500
+
+gnome-settings-daemon (3.2.2-0ubuntu4) precise; urgency=low
+
+  * 42_onlyshowin_unity.patch: the gnome-shell session is called "gnome", use
+    the correct name so nautilus doesn't open in shell sessions (lp: #892989)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 02 Dec 2011 12:12:29 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu3) precise; urgency=low
+
+  * Upload for Precise
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 16 Nov 2011 12:59:33 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu2) oneiric-proposed; urgency=low
+
+  * debian/patches/07_hide_status_icon_on_unity.patch:
+    - Never show the power status icon when running Unity (LP: #833397)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 15 Nov 2011 11:12:54 +0100
+
+gnome-settings-daemon (3.2.2-0ubuntu1) oneiric-proposed; urgency=low
+
+  * New upstream release (LP: #888526)
+  * debian/patches/00git_remove_assertions.patch:
+  * debian/patches/git_correct_suspend_bus.patch:
+    - Remove upstreamed patches
+  * debian/patches/16_use_synchronous_notifications.patch:
+  * debian/patches/45_suppress-printer-may-not-be-connected-notification.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Thu, 10 Nov 2011 12:15:05 +0100
+
+gnome-settings-daemon (3.2.1-0ubuntu3) oneiric-proposed; urgency=low
+
+  * debian/patches/00git_remove_assertions.patch:
+    - git patch to remove assertions that shouldn't be there (LP: #878486)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 25 Oct 2011 12:52:39 +0200
+
+gnome-settings-daemon (3.2.1-0ubuntu2) oneiric-proposed; urgency=low
+
+  [ Didier Roche ]
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - make our patch using the new icon name (LP: #877058)
+
+  [ Sebastien Bacher ]
+  * debian/patches/git_correct_suspend_bus.patch:
+    - git patch to fix a suspend regression in the new version (lp: #878076)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 19 Oct 2011 17:25:16 +0200
+
+gnome-settings-daemon (3.2.1-0ubuntu1) oneiric-proposed; urgency=low
+
+  * New upstream release (LP: #877326)
+  * debian/patches/00git_dont_restore_brightness.patch:
+  * debian/patches/00git_fix_reference_leaks.patch:
+  * debian/patches/00git_fix_async_dbus_crash.patch:
+  * debian/patches/00git_dont_sleep_on_idle_by_default.patch:
+  * debian/patches/00git_dont_revert_pre_idle_brigthness.patch:
+  * debian/patches/00git_avoid_undesired_sleeps.patch:
+  * debian/patches/49_fix_suspend_media_key.patch:
+    - Remove upstreamed patches
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 18 Oct 2011 11:29:23 +0200
+
+gnome-settings-daemon (3.2.0-0ubuntu5) oneiric; urgency=low
+
+  [ Rodrigo Moya ]
+  * debian/patches/00git_avoid_undesired_sleeps.patch:
+    - Avoid sleeping the computer when disabled (LP: #864479) and ditto for
+      the display (LP: #863038)
+
+  [ Marc Deslauriers ]
+  * debian/patches/51_always_lock_screen_on_suspend.patch:
+    - always lock the screen when suspending or hibernating, even if
+      automatic screen lock is disabled. (LP: #847814)
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 03 Oct 2011 17:23:23 -0400
+
+gnome-settings-daemon (3.2.0-0ubuntu4) oneiric; urgency=low
+
+  * debian/patches/00git_dont_sleep_on_idle_by_default.patch:
+    - Don't sleep on idle by default (LP: #860485)
+  * debian/patches/00git_dont_revert_pre_idle_brigthness.patch:
+    - Do not revert to the pre-idle brightness if idle dimming is disabled
+  * debian/patches/50_add_dell_backlight.patch:
+    - Add 'dell_backlight' module to gsd-backlight-helper (LP: #862474)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Thu, 29 Sep 2011 16:47:57 +0200
+
+gnome-settings-daemon (3.2.0-0ubuntu3) oneiric; urgency=low
+
+  * debian/patches/00git_fix_async_dbus_crash.patch:
+    - Fix async DBus calls crashes (LP: #832603)
+  * debian/patches/49_fix_suspend_media_key.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 28 Sep 2011 17:14:53 +0200
+
+gnome-settings-daemon (3.2.0-0ubuntu2) oneiric; urgency=low
+
+  * debian/patches/49_fix_suspend_media_key.patch: Fix screen locking when
+    suspending via a media key. (LP: #859498)
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 27 Sep 2011 11:34:03 -0400
+
+gnome-settings-daemon (3.2.0-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/patches/00git_dont_restore_brightness.patch:
+    - Don't restore brightness if it's never been set
+  * debian/patches/00git_fix_reference_leaks.patch:
+    - Fix 2 small reference leaks
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 26 Sep 2011 17:57:20 +0200
+
+gnome-settings-daemon (3.1.92-0ubuntu3) oneiric; urgency=low
+
+  * Fix LP: #854101 - various startup time improvements:
+  * debian/patches/46_share_rr_screen.patch:
+    - Share a single GnomeRRScreen across plugins, rather than having the
+      xrandr, color and power plugins each create their own, which results
+      in 3 reprobes before running the main loop. Thanks to Rodrigo Moya for
+      tidying this up a bit.
+  * debian/patches/47_delay_pa_connect_to_idle.patch:
+    - Don't connect to pulseaudio until we are running the main loop. Starting
+      pulseaudio seems to block for around a second here on my machine
+  * debian/patches/48_register_client_before_idle_callbacks.patch:
+    - Create the GDBusProxy for gnome-session synchronously, and then schedule
+      the RegisterClient call with a higher priority. This ensures that we
+      register with the session manager as soon as we start the main loop, and
+      before running any other idle callbacks
+
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - Make the volume notifications work correctly again
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Thu, 22 Sep 2011 15:44:40 +0100
+
+gnome-settings-daemon (3.1.92-0ubuntu2) oneiric; urgency=low
+
+  * debian/patches/45_suppress-printer-may-not-be-connected-notification.patch:
+    Do not show notifications if the printer state reason "connecting-to-device"
+    is reported by CUPS. The text of this state reason notificatioon is the
+    misleading "Printer XXX may not be connected" and the reason is set in
+    every print job (usually only for a short time but enough to trigger the
+    notifier). As we are after UI freeze we simply suppress this notification
+    with this patch (do not forward upstream). The real fix would be improving
+    the text, like really saying "Connecting to printer XXX ..." (LP: #842768).
+
+ -- Till Kamppeter <till.kamppeter@gmail.com>  Thu, 15 Sep 2011 18:34:24 +0200
+
+gnome-settings-daemon (3.1.92-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/control:
+    - Bump libcolord-dev build dependency
+  * debian/patches/00git_guard_against_division_by_0.patch:
+  * debian/patches/00git_dont_crash_if_session_not_ready.patch:
+  * debian/patches/00git_numlock_status.patch:
+  * debian/patches/00git_disconnect_callbacks.patch:
+    - Remove upstream patches
+  * debian/patches/06_use_application_indicator.patch:
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 19 Sep 2011 17:05:48 +0200
+
+gnome-settings-daemon (3.1.91-0ubuntu5) oneiric; urgency=low
+
+  * debian/patches/00git_disconnect_callbacks.patch:
+    - Disconnect callbacks when cleaning up (LP: #837373)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 13 Sep 2011 11:00:41 +0200
+
+gnome-settings-daemon (3.1.91-0ubuntu4) oneiric; urgency=low
+
+  * debian/patches/00git_numlock_status.patch:
+    - git backport, store the numlock status and apply it (lp: #841748)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 09 Sep 2011 15:16:09 +0200
+
+gnome-settings-daemon (3.1.91-0ubuntu3) oneiric; urgency=low
+
+  * debian/control:
+    - Build depend on libgnome-desktop3-dev >= 3.1.5, which is what upstream
+      asks for
+  * debian/patches/00git_guard_against_division_by_0.patch:
+    - Guard against dividing by 0 in ABS_TO_PERCENTAGE macro (LP: #833595)
+  * debian/patches/00git_dont_crash_if_session_not_ready.patch:
+    - Don't crash if we try to calculate the idle state before connected to
+      the session (LP: #836014)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 07 Sep 2011 12:07:45 +0200
+
+gnome-settings-daemon (3.1.91-0ubuntu2) oneiric; urgency=low
+
+  * Fix the volume OSD patch so that the volume level is displayed correctly
+    again
+    - update debian/patches/16_use_synchronous_notifications.patch
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Mon, 05 Sep 2011 17:40:06 +0100
+
+gnome-settings-daemon (3.1.91-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/patches/01_git_do_power_init_in_start.patch:
+  * debian/patches/01_git_double_check_hash_table.patch:
+  * debian/patches/01_git_fix_brightness_step_amount.patch:
+    - Remove upstreamed patches
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 05 Sep 2011 16:48:28 +0200
+
+gnome-settings-daemon (3.1.90-0ubuntu3) oneiric; urgency=low
+
+  * debian/patches/01_git_double_check_hash_table.patch:
+    - Double check stuff we add to the hash table to avoid crashes when cleaning up
+      (LP: #839322)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Fri, 02 Sep 2011 16:17:24 +0200
+
+gnome-settings-daemon (3.1.90-0ubuntu2) oneiric; urgency=low
+
+  * debian/patches/01_git_fix_brightness_step_amount.patch:
+    - Fix BRIGHTESS_STEP_AMOUNT calculation macro (LP: #827517)
+  * debian/patches/01_git_do_power_init_in_start.patch:
+    - Do power plugin initialization in _start, not _init, to avoid multiple
+      crashes (LP: #836014)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Thu, 01 Sep 2011 10:33:58 +0200
+
+gnome-settings-daemon (3.1.90-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/patches/16_use_synchronous_notifications.patch:
+  * debian/patches/42_onlyshowin_unity.patch:
+    - Rebased patches
+  * debian/patches/44_lock_before_suspend.patch:
+    - Remove upstream patch
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 29 Aug 2011 16:04:57 +0200
+
+gnome-settings-daemon (3.1.5-0ubuntu6) oneiric; urgency=low
+
+  * debian/patches/44_lock_before_suspend.patch: ensure the screen is
+    locked before suspending. (LP: #824188)
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Thu, 25 Aug 2011 23:44:36 -0400
+
+gnome-settings-daemon (3.1.5-0ubuntu5) oneiric; urgency=low
+
+  * Make the keyboard backlight notification use notify-osd too
+    - update debian/patches/16_use_synchronous_notifications.patch
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Tue, 23 Aug 2011 15:26:34 +0100
+
+gnome-settings-daemon (3.1.5-0ubuntu4) oneiric; urgency=low
+
+  * Make the brightness osd use synchronous notify-osd notifications
+    - update debian/patches/16_use_synchronous_notifications.patch
+  * Add missing liblcms2-dev build-dep
+    - update debian/control{.in}
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Mon, 22 Aug 2011 22:00:23 +0100
+
+gnome-settings-daemon (3.1.5-0ubuntu3) oneiric; urgency=low
+
+  * debian/gnome-settings-daemon.gsettings-override:
+    - Enable GConf bridge plugin by default 
+  * debian/patches/10_smaller_syndaemon_timeout.patch:
+    - Use a smaller timeout for syndaemon (LP: #801763)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 22 Aug 2011 10:46:19 +0200
+
+gnome-settings-daemon (3.1.5-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/patches/06_use_application_indicator.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 16 Aug 2011 10:31:48 +0200
+
+gnome-settings-daemon (3.1.4-0ubuntu5) oneiric; urgency=low
+
+  * debian/patches/43_disable_locale_settings.patch:
+    - Don't set locales since they are set in Oneiric by sourcing
+      ~/.profile.
+
+ -- Gunnar Hjalmarsson <ubuntu@gunnar.cc>  Mon, 15 Aug 2011 10:14:05 +0200
+
+gnome-settings-daemon (3.1.4-0ubuntu4) oneiric; urgency=low
+
+  * debian/control:
+  * debian/patches/series:
+  * debian/patches/03_disable_colord.patch:
+    - Enable building with colord (LP: #788108)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Thu, 11 Aug 2011 13:57:00 +0200
+
+gnome-settings-daemon (3.1.4-0ubuntu3) oneiric; urgency=low
+
+  * debian/patches/42_onlyshowin_unity.patch:
+    - tweak the new automount .desktop as well to run under unity (lp: #816774)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 01 Aug 2011 18:09:29 +0200
+
+gnome-settings-daemon (3.1.4-0ubuntu2) oneiric; urgency=low
+
+  * debian/control:
+    - Add missing build dependency on libupower-glib-dev
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 26 Jul 2011 15:34:10 +0200
+
+gnome-settings-daemon (3.1.4-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/control:
+    - bumo libgnome-desktop dependency
+  * debian/patches/01_git_a11y_keyboard_cleanup.patch:
+  * debian/patches/41_fix_key_grab.patch:
+    - Remove upstreamed patches
+  * debian/patches/06_use_application_indicator.patch:
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 25 Jul 2011 12:00:12 +0200
+
+gnome-settings-daemon (3.1.3-0ubuntu7) oneiric; urgency=low
+
+  * debian/patches/42_onlyshowin_unity.patch:
+    - Add Unity to OnlyShowIn value (LP: #803519)
+  * debian/control.in:
+    - Remove Debian's Vcs fields
+
+ -- Michael Terry <mterry@ubuntu.com>  Tue, 19 Jul 2011 15:02:18 -0400
+
+gnome-settings-daemon (3.1.3-0ubuntu6) oneiric; urgency=low
+
+  * debian/gnome-settings-daemon.gsettings-override:
+    - Turn on autosleep on battery for Energy Star 5.0 compliance (LP: #604635)
+    - Suspend by default when system sleep button is pressed
+    - Suspend by default for low battery as hibernate can be slow & unreliable
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 18 Jul 2011 08:03:30 +0200
+
+gnome-settings-daemon (3.1.3-0ubuntu5) oneiric; urgency=low
+
+  * debian/patches/01_git_shorter_syndaemon_delay.patch:
+    - Remove this patch, it fixes the annoyance for some users and breaks it
+      for others
+  * debian/patches/17_react_when_streams_removed.patch:
+    - Remove patch not being applied and already upstream
+  * debian/patches/01_git_a11y_keyboard_cleanup.patch:
+    - Do proper cleanup when the plugin is stopped (LP: #804946)
+  * debian/patches/06_use_application_indicator.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 12 Jul 2011 13:04:51 +0200
+
+gnome-settings-daemon (3.1.3-0ubuntu4) oneiric; urgency=low
+
+  [ Marco Trevisan (Treviño) <mail@3v1n0.net> ]
+  * debian/patches/06_use_application_indicator.patch
+    - Updated to support libappindicator scroll event to change
+      the keyboard layout via mouse-wheel
+
+  [ Chris Coulson <chris.coulson@canonical.com> ]
+  * Fix the volume OSD notifications to work properly again (when the
+    media keys work properly)
+    - update debian/patches/16_use_synchronous_notifications.patch
+  * Fix the logic in grab_key_unsafe to not reject keys which are useful
+    to grab without a modifier. Fixes the media-keys plugin
+    - add debian/patches/41_fix_key_grab.patch
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Wed, 13 Jul 2011 00:13:36 +0100
+
+gnome-settings-daemon (3.1.3-0ubuntu3) oneiric; urgency=low
+
+  * debian/gnome-settings-daemon.gsettings-override: Set default action for
+    power button back to 'interactive'. (LP: #806855)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon, 11 Jul 2011 12:19:38 +0200
+
+gnome-settings-daemon (3.1.3-0ubuntu2) oneiric; urgency=low
+
+  * debian/patches/06_use_application_indicator.patch:
+    - Fix typo in keyboard indicator icon name (LP: #805743)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 05 Jul 2011 11:35:37 +1000
+
+gnome-settings-daemon (3.1.3-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/patches/01_git_check_touchpad.patch:
+    - Remove upstreamed patch
+  * debian/patches/06_use_application_indicator.patch:
+    - Rebased
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 04 Jul 2011 22:21:28 +0200
+
+gnome-settings-daemon (3.1.2-0ubuntu2) oneiric; urgency=low
+
+  * debian/patches/01_git_shorter_syndaemon_delay.patch:
+    - Make syndaemon delay shorter (LP: #801763)
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 29 Jun 2011 11:31:41 +0200
+
+gnome-settings-daemon (3.1.2-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/control:
+    - Bump dependency on libgnome-desktop-3-dev
+    - Conflict with gnome-color-manager < 3.0
+    - Build-Depend on hwdata
+  * debian/watch:
+    - Watch .bz2 tarball and unstable series
+  * debian/patches/06_use_application_indicator.patch:
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - Rebased
+  * debian/patches/03_disable_colord.patch:
+    - Disable color plugin if colord is not found
+  * debian/patches/01git_add_missing_schema_for_gconf.patch:
+    - Remove upstreamed patch
+  * debian/patches/01_git_check_touchpad.patch:
+    - Add GIT patch to only disable touchpad, not all input devices
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Fri, 24 Jun 2011 12:33:25 +0200
+
+gnome-settings-daemon (3.0.2-1ubuntu4) oneiric; urgency=low
+
+  * debian/control.in: stop depending on libgnome2-common
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 10 Jun 2011 18:48:41 +0200
+
+gnome-settings-daemon (3.0.2-1ubuntu3) oneiric; urgency=low
+
+  * debian/patches/01git_add_missing_schema_for_gconf.patch:
+    - Add upstream patch to add missing GSettings schema for GConf conversion
+      plugin
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Fri, 10 Jun 2011 16:29:26 +0200
+
+gnome-settings-daemon (3.0.2-1ubuntu2) oneiric; urgency=low
+
+  * debian/patches/20_migrate_background_uri.patch:
+    - Convert old filenames to an URI, to have migration of GConf background
+      to GSettings work correctly
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 07 Jun 2011 16:33:00 +0200
+
+gnome-settings-daemon (3.0.2-1ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - Rebased
+  * debian/patches/41_dont_convert_nonexistant_key.patch:
+    - Removed upstreamed patch
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 24 May 2011 11:27:08 +0200
+
+gnome-settings-daemon (3.0.1-1ubuntu4) oneiric; urgency=low
+
+  * debian/gnome-settings-daemon.gconf-defaults:
+  * debian/gnome-settings-daemon.gsettings-override:
+    - Move default GConf settings to GSettings
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 23 May 2011 16:06:19 +0200
+
+gnome-settings-daemon (3.0.1-1ubuntu3) oneiric; urgency=low
+
+  * Don't try to convert show-keyboard-leds-indicator in
+    gnome-settings-daemon.convert. It has no schema, and makes
+    gsettings-data-convert crash
+    - add debian/patches/41_dont_convert_nonexistant_key.patch
+    - update debian/patches/series
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Fri, 20 May 2011 11:45:37 +0100
+
+gnome-settings-daemon (3.0.1-1ubuntu2) oneiric; urgency=low
+
+  * debian/patches/06_use_application_indicator.patch:
+    - GkbKeyboardConfig's layouts_variants is now an array of strings, not
+      a list. Fixes crash
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 18 May 2011 10:40:17 +0200
+
+gnome-settings-daemon (3.0.1-1ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 17 May 2011 16:37:27 +0200
+
+gnome-settings-daemon (3.0.0.1-1ubuntu4) oneiric; urgency=low
+
+  * debian/control:
+    - Rename build dependency from libnotify4-dev to libnotify-dev
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Tue, 17 May 2011 12:17:12 +0200
+
+gnome-settings-daemon (3.0.0.1-1ubuntu3) oneiric; urgency=low
+
+  * debian/patches/06_use_application_indicator.patch:
+    - Fix call to xkl_engine_get_instance to pass a Display, not a GdkDisplay
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 11 May 2011 09:25:54 +0200
+
+gnome-settings-daemon (3.0.0.1-1ubuntu2) oneiric; urgency=low
+
+  * debian/patches/06_use_application_indicator.patch:
+    - Fix call to non existing API
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Mon, 09 May 2011 11:24:49 +0200
+
+gnome-settings-daemon (3.0.0.1-1ubuntu1) oneiric; urgency=low
+
+  [ Guido Günther ]
+  * Bump build-dependency on libgnome-desktop-3-dev (Closes: #622689)
+
+  [ Rodrigo Moya ]
+  * Rebase from Debian, remaining Ubuntu changes:
+  * debian/control:
+    - Build-depend on libnotify4-dev, not libnotify-dev
+    - Add Buil-depend on libappindicator3-dev
+    - Add Vcs-Bzr URL
+  * debian/gnome-settings-daemon.install:
+  * debian/gnome-settings-daemon.postinst:
+    - Keep autostart files in standard directories
+  * debian/gnome-update-wallpaper-cache.c:
+  * debian/rules:
+    - Add wallpaper cache updater program
+  * debian/patches/02_missing_libs.patch:
+    - Add missing X11 libraries to build dependencies
+  * debian/patches/05_disable_corner_tapping.patch:
+    - Disable corner tapping when disabling tap to click
+  * debian/patches/06_use_application_indicator.patch:
+    - Use application indicators
+  * debian/patches/16_use_synchronous_notifications.patch:
+    - Use synchronous notifications when they are supported
+  * debian/patches/17_react_when_streams_removed.patch:
+    - React to stream-removed signal from GvcMixerControl
+  * debian/patches/40_xres_lcddefault.patch:
+    - OpenOffice.org subpixel font rendering broken with new cairo
+  * debian/gnome-settings-daemon.gconf-defaults:
+    - Needs to be moved to GSettings
+
+ -- Rodrigo Moya <rodrigo.moya@canonical.com>  Wed, 04 May 2011 13:07:16 +0200
+
+gnome-settings-daemon (3.0.0.1-1) experimental; urgency=low
+
+  * New upstream release.
+
+ -- Frederic Peters <fpeters@debian.org>  Mon, 28 Mar 2011 11:37:24 +0530
+
+gnome-settings-daemon (2.91.93-1) experimental; urgency=low
+
+  * New upstream release.
+
+ -- Frederic Peters <fpeters@debian.org>  Sun, 27 Mar 2011 19:15:59 +0530
+
+gnome-settings-daemon (2.91.92-1) experimental; urgency=low
+
+  * New upstream release.
+
+ -- Frederic Peters <fpeters@debian.org>  Wed, 23 Mar 2011 19:24:48 +0100
+
+gnome-settings-daemon (2.91.91-1) experimental; urgency=low
+
+  [Frederic Peters]
+  * New upstream release.
+
+  [Emilio Pozuelo Monfort]
+  * debian/control.in:
+    + Re-add build dependency on libxklavier-dev, since configure.ac
+      actually requires it.
+
+ -- Frederic Peters <fpeters@debian.org>  Tue, 08 Mar 2011 19:17:09 +0100
+
+gnome-settings-daemon (2.91.90-2) experimental; urgency=low
+
+  * debian/control.in:
+    * Add build-dep on recent libgnomekbd-dev
+    * Remove direct build-depend on libxklavier-dev, libgnomekbd-dev will pull
+      in the right version
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sat, 26 Feb 2011 21:26:07 +0000
+
+gnome-settings-daemon (2.91.90-1) experimental; urgency=low
+
+  * New upstream release.
+    - gnome-settings-daemon.install: keybindings for accessibility tools
+      have been moved to the gnome-control-center module.
+
+ -- Frederic Peters <fpeters@debian.org>  Tue, 22 Feb 2011 22:49:26 +0100
+
+gnome-settings-daemon (2.91.9-1) experimental; urgency=low
+
+  [ Sebastien Bacher ]
+  * debian/gnome-settings-daemon.install:
+    - install the polkit files there
+  * debian/control.in:
+    - build-depends on libpolkit-gobject-1-dev
+    - drop the build-depends on libxrandr-dev and libxrender-dev, the 
+      configure doesn't use those in the new version
+    - recommends pulseaudio since it's used for the multimedia keys
+    (Close: #611198)
+
+  [ Emilio Pozuelo Monfort ]
+  * debian/patches/02_missing_libs.patch:
+    + Removed. This was fixed upstream in a different way a long time
+      ago. The patch was also disabled on 2.91.5.1-1 without any bad
+      consequences.
+  * New upstream release.
+    + d/patches/0001-Ensure-the-volume-doesn-t-underflow-and-wrap-around.patch,
+      d/patches/13_monitor_kfreebsd.patch:
+      - Removed, fixed upstream.
+    + debian/control.in:
+      - Updated build dependencies.
+      - Update the gtk+ 3 build dependency for the new package name.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Sat, 19 Feb 2011 14:28:40 +0000
+
+gnome-settings-daemon (2.91.8-1) experimental; urgency=low
+
+  [ Sjoerd Simons ]
+  * Enable pulseaudio support
+  * Enable the settings d-conf <-> gconf bridge
+  * d/p/0001-Ensure-the-volume-doesn-t-underflow-and-wrap-around.patch
+    + Added. Fix a bug where it was possible to lower the volume below zero,
+      causing it to wrap-around to MAXUINT.
+
+  [ Emilio Pozuelo Monfort ]
+  * New upstream release.
+    + debian/control.in:
+      - Update build dependencies.
+  * debian/rules:
+    - Remove duplicated list-missing target and utils.mk include.
+    - Include autoreconf.mk before debhelper.mk to not leave cruft when
+      running clean.
+  * debian/control.in:
+    - Standards-Version is 3.9.1, no changes needed.
+    - Drop old Replaces.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Wed, 12 Jan 2011 22:48:04 +0000
+
+gnome-settings-daemon (2.91.5.1-2) experimental; urgency=low
+
+  * Make the nautilus-data depend versioned
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sun, 12 Dec 2010 14:32:07 +0000
+
+gnome-settings-daemon (2.91.5.1-1) experimental; urgency=low
+
+  * New upstream release
+  * debian/control.in: Update build-depends to gnome 3.0 versions
+  * debian/patches/01_xrdb.patch
+    - Removed. g-s-d no longer manages xrdb
+  * debian/patches/03_maintainer_mode.patch
+    - Removed. Fixed upstream
+  * debian/patches/10_clipboard_crash.patch
+    - Removed. Fixed upstream.
+  * debian/patches/12_monitor_network_fs.patch
+    - Removed. Fixed upstream
+  * debian/patches/13_monitor_kfreebsd.patch
+    - Updated
+  * debian/patches/20_gstreamer.patch
+    - Removed. Time to move to pulseaudio by default...
+  * debian/patches/30_pkgconfig-path.patch:
+    - Removed. Fixed upstream
+  * debian/patches/70_relibtoolize.patch
+    - Removed, moving to dh_autoreconf
+  * debian/patches/99_ltmain_as-needed.patch
+    - Removed, moving to dh_autoreconf
+  * debian/gnome-settings-daemon.install
+    - Updated
+  * Switch to dh_autoreconf and trigger list-missing
+  * Make gnome-settings-daemon depends on gsettings-desktop-schemas and
+    nautilus-data to pull in the necessary schema files.
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sat, 11 Dec 2010 16:20:56 +0000
+
+gnome-settings-daemon (2.30.2-2) unstable; urgency=low
+
+  * 13_monitor_kfreebsd.patch: new patch. Don’t monitor fdescfs.
+    Closes: #594891.
+  * 10_clipboard_crash.patch: stolen from upstream git. Fixes a crash in 
+    the clipboard manager. Closes: #588308.
+
+ -- Josselin Mouette <joss@debian.org>  Wed, 20 Oct 2010 01:29:10 +0200
+
+gnome-settings-daemon (2.30.2-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Switch to source format 3.0 (quilt).
+    - Add debian/source/format.
+    - Drop Build-Depends on quilt.
+    - Remove /usr/share/cdbs/1/rules/patchsys-quilt.mk from debian/rules.
+  * Refresh patches for new upstream release.
+  * debian/control.in
+    - Drop Build-Depends on dpkg-dev (>= 1.13.19) as even oldstable has a more
+      recent version.
+    - Add Vcs-Browser and Vcs-Svn fields.
+    - Bump Standards-Version to 3.9.0.
+    - Use Breaks as recommended by the new policy.
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 23 Jul 2010 01:34:51 +0200
+
+gnome-settings-daemon (2.30.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Bump build-dependencies.
+  * 11_sleepkey.patch, 40_xklavier_5.0.patch: dropped, obsolete.
+  * 20_gstreamer.patch, 30_pkgconfig-path.patch, 70_relibtoolize.patch: 
+    updated for the new version.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 27 Apr 2010 20:00:27 +0200
+
+gnome-settings-daemon (2.28.1-3) unstable; urgency=low
+
+  * Depend on libgnome2-common for the GConf schemas.
+  * 40_xklavier_5.0.patch: new patch. Get 2.28 version to work with 
+    libxklavier 5.0.
+  * Require said version to build.
+
+ -- Josselin Mouette <joss@debian.org>  Fri, 09 Apr 2010 00:17:00 +0200
+
+gnome-settings-daemon (2.28.1-2) unstable; urgency=low
+
+  * Drop libxxf86misc-dev build-dependency. This extension is only used 
+    as a fallback to XKB. Closes: #559690.
+  * 12_monitor_network_fs.patch: new patch. Don’t monitor remote 
+    filesystems for their free size. Closes: #563592.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 09 Jan 2010 10:59:14 +0100
+
+gnome-settings-daemon (2.28.1-1) unstable; urgency=low
+
+  * New upstream release.
+    - debian/patches/70_relibtoolize.patch:
+      + Updated.
+  * debian/rules: remove check-dist.mk to upload to unstable.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Thu, 22 Oct 2009 06:08:36 +0200
+
+gnome-settings-daemon (2.28.0-1) experimental; urgency=low
+
+  * Add a watch file.
+  * Add a manpage for gnome-settings-daemon, thanks Joshua Cummings!
+    Closes: #494370.
+  * debian/control.in: remove trailing whitespaces.
+  * Standards-Version is 3.8.2, no changes needed.
+  * New upstream release.
+    - debian/control.in:
+      + Bump libgtk2.0-dev and libgnome-desktop-dev build dependencies.
+      + Remove libglade2-dev build dependency, no longer needed.
+      + Build depend on libxklavier-dev >= 4.0 instead of libxklavier12-dev.
+      + Break gnome-screensaver << 2.28 since g-s-d doesn't start it anymore,
+        relaying on the autostart file in g-s 2.28.
+    - debian/patches/20_gstreamer.patch,
+      debian/patches/70_relibtoolize.patch:
+      + Updated to apply again.
+    - debian/gnome-settings-daemon.install:
+      + Install *.ui rather than *.glade.
+      + Don't install *.png, the icon is not shipped anymore.
+  * Standards-Version is 3.8.3, no changes needed.
+  * debian/rules:
+    - Don't touch every file anymore, it was done because of a broken tarball.
+    - Include check-dist.mk to avoid uploads to unstable.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Fri, 09 Oct 2009 17:26:43 +0200
+
+gnome-settings-daemon (2.26.1-2) unstable; urgency=low
+
+  * 03_maintainer_mode.patch: new patch, add AM_MAINTAINER_MODE. Fixes 
+    FTBFS.
+  * Regenerate 70_relibtoolize.patch.
+
+ -- Josselin Mouette <joss@debian.org>  Fri, 29 May 2009 16:19:52 +0200
+
+gnome-settings-daemon (2.26.1-1) unstable; urgency=low
+
+  * New upstream release.
+    + 20_gstreamer.patch: install the plugin although pulse is disabled. 
+    + Refresh 70_relibtoolize.patch.
+  * Move the autostart file to /usr/share/gnome/autostart.
+  * gnome-settings-daemon.postinst:
+    + Remove the old autostart file if needed.
+    + Only remove the xrdb stuff upon upgrades from pre-2.24.1.
+
+ -- Josselin Mouette <joss@debian.org>  Fri, 29 May 2009 11:25:35 +0200
+
+gnome-settings-daemon (2.26.0-2) experimental; urgency=low
+
+  * 20_gstreamer.patch: Initialize Gerror * variables to NULL before
+    usage. Fixes a crasher when using media keys (Closes: #524165)
+
+ -- Sjoerd Simons <sjoerd@debian.org>  Sat, 18 Apr 2009 11:00:25 +0100
+
+gnome-settings-daemon (2.26.0-1) experimental; urgency=low
+
+  * New upstream release.
+  * Update build-dependencies.
+  * Install the autostart file and the keybindings XML file.
+    + Break gnome-session < 2.24 which would attempt to start it twice 
+      with the autostart file.
+  * 11_sleepkey.patch: updated for the new version.
+  * 20_gstreamer.patch: new patch from Romain Périer, adds back support 
+    for GStreamer with a selection at compile time.
+  * 70_relibtoolize.patch: regenerated.
+  * Refresh other patches.
+  * Pass --disable-pulse to configure, to use the GStreamer code 
+    instead.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 11 Apr 2009 11:31:52 +0200
+
+gnome-settings-daemon (2.24.1-2) unstable; urgency=low
+
+  [ Josselin Mouette ]
+  * Improve package descriptions. Mention XSETTINGS. Closes: #511905.
+  * Upload to unstable.
+
+  [ Loic Minier ]
+  * Suggest x11-xserver-utils as gnome-settings-daemon attempts to run xrdb by
+    default and logs a warning when that fails.
+  * Suggest gnome-screensaver as gnome-settings-daemon attempts to start it by
+    default and logs a warning when that fails.
+  * Suggest metacity | x-window-manager as gnome-settings-daemon attemts to
+    start a window manager and logs a warning when that fails.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 07 Apr 2009 08:48:36 +0200
+
+gnome-settings-daemon (2.24.1-1) experimental; urgency=low
+
+  * New upstream release.
+    + Cleans up thumbnail cache automatically. Closes: #235067.
+  * Update build-dependencies and -dev dependencies.
+  * Standards version is 3.8.0.
+  * Switch to quilt for patch management; build-depend on quilt.
+  * 02_missing_libs.patch: explicitly add X11 libraries to 
+    SETTINGS_PLUGINS since plugins are actually relying on them being 
+    available.
+  * 70_relibtoolize.patch: new patch, relibtoolize the source.
+  * 99_ltmain_as-needed.patch: new patch, make --as-needed work.
+  * Pass -O1 -z defs --as-needed to the linker.
+    + Only warn on undefined symbols as plugins need a symbol from the 
+      daemon.
+  * Add some comments in the patches.
+  * Pass --no-act to dh_makeshlibs.
+  * gnome-settings-daemon.postinst: remove /etc/gnome/config/xrdb.
+  * Install .ad files in /etc/gnome/config to replace the ones from 
+    capplets-data which are still used.
+  * Do not install the autostart file since we still use gnome-session 
+    2.22 which will start g-s-d by hand.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 27 Dec 2008 11:29:41 +0100
+
+gnome-settings-daemon (2.22.2.1-2) unstable; urgency=low
+
+  * 08_extra_touchpad_options.patch: removed broken patch from Ubuntu. 
+    Closes: #481191.
+  * 11_sleepkey.patch: use gnome-power-cmd to suspend the computer 
+    instead of the nonexistent gdm-signal.
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 11 Nov 2008 16:08:08 +0100
+
+gnome-settings-daemon (2.22.2.1-1) unstable; urgency=low
+
+  [ Josselin Mouette ]
+  * Fix priority.
+
+  [ Sebastian Dröge ]
+  * New upstream bugfix release:
+    + debian/rules:
+      - Run touch on every file to fix up timestamps.
+
+ -- Sebastian Dröge <slomo@debian.org>  Thu, 29 May 2008 10:31:39 +0200
+
+gnome-settings-daemon (2.22.1-2) unstable; urgency=high
+
+  * Conflict against gnome-control-center < 2.21.5. Closes: #476802.
+
+ -- Josselin Mouette <joss@debian.org>  Sat, 19 Apr 2008 22:17:49 +0200
+
+gnome-settings-daemon (2.22.1-1) unstable; urgency=low
+
+  * New upstream bugfix release:
+    + debian/patches/09_locate_pointer.patch:
+      - Dropped, fixed upstream.
+
+ -- Sebastian Dröge <slomo@debian.org>  Mon, 07 Apr 2008 14:44:12 +0200
+
+gnome-settings-daemon (2.22.0-4) unstable; urgency=low
+
+  * debian/control.in:
+    + Also conflict with totem (<< 2.22.0) for the same reason.
+  * debian/gnome-settings-daemon.install:
+    + Install xrdb files into /etc/gnome/config again.
+
+ -- Sebastian Dröge <slomo@debian.org>  Sat, 22 Mar 2008 14:56:12 +0100
+
+gnome-settings-daemon (2.22.0-3) unstable; urgency=low
+
+  * Upload to unstable.
+  * debian/control.in:
+    + Add conflicts with rhythmbox (<< 0.11.5) and banshee (<< 0.13.2+dfsg-7)
+      as the multimedia keys DBus interface changed.
+
+ -- Sebastian Dröge <slomo@debian.org>  Wed, 19 Mar 2008 01:47:15 +0100
+
+gnome-settings-daemon (2.22.0-2) experimental; urgency=low
+
+  * debian/rules:
+    + Don't install the dbus service file. This is not meant to be autostarted
+      but should be started by gnome-session.
+
+ -- Sebastian Dröge <slomo@debian.org>  Sun, 16 Mar 2008 17:39:52 +0100
+
+gnome-settings-daemon (2.22.0-1) experimental; urgency=low
+
+  * New package, based on the Ubuntu packaging.
+
+ -- Sebastian Dröge <slomo@debian.org>  Wed, 12 Mar 2008 15:17:19 +0100
+

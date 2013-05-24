@@ -1,0 +1,39 @@
+.\"
+.\" gnome₋settings-daemon manual page
+.\" Copyright (c) 2009 Joshua Cummings <jrac@internode.on.net>
+.\"
+.TH GNOME-SETTINGS-DAEMON 1 "June 25 2009" ""
+.SH NAME
+gnome-settings-daemon \- Handles the GNOME session settings
+.SH SYNOPSIS
+\fBgnome-settings-daemon\fR [\fB\-\-debug\fR] [\fB\-\-no-daemon\fR]
+[\fB\-\-gconf-prefix\fR] [\fB\-\-display\fR=\fIDISPLAY\fR]
+.SH DESCRIPTION
+\fIgnome-settings-daemon\fR is responsible for setting the various preference 
+parameters of a GNOME session and the applications that run under it.
+.SH OPTIONS
+.PP
+Help options
+.TP
+\-?, \fB\-\-help\fR
+Show this help message
+.PP
+Application options
+.TP 
+\fB\-\^\-debug\fR
+Enable debugging code
+.TP
+\fB\-\^\-no-daemon\fR
+Do not detach the daemon process from its controlling terminal
+.TP
+\fB\-\^\-gconf-prefix\fR
+Specify a custom GConf settings prefix for settings manager plugins
+.TP
+\fB\-\^\-display\fR=\fIDISPLAY\fR
+X display to use
+.PP
+.SH AUTHOR
+\fBgnome-settings-daemon\fR was written by Jonathan Blandford <jrb@redhat.com> 
+and William Jon McCann <mccann@jhu.edu>.
+.PP
+This manual page was originally written by Joshua Cummings <jrac@internode.on.net>.
