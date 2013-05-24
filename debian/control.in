@@ -1,9 +1,7 @@
-Source: gnome-settings-daemon
+Source: cinnamon-settings-daemon
 Section: gnome
 Priority: optional
-Maintainer: Ubuntu Desktop Team <ubuntu-desktop@lists.ubuntu.com>
-XSBC-Original-Maintainer: Debian GNOME Maintainers <pkg-gnome-maintainers@lists.alioth.debian.org>
-Uploaders: @GNOME_TEAM@
+Maintainer: Linux Mint <root@linuxmint.com>
 Build-Depends: cdbs,
                debhelper (>= 9),
                gnome-pkg-tools,
@@ -39,9 +37,9 @@ Build-Depends: cdbs,
                libgnomekbd-dev (>= 3.5.1),
                libxklavier-dev
 Standards-Version: 3.9.3
-Vcs-Bzr: https://code.launchpad.net/~ubuntu-desktop/gnome-settings-daemon/ubuntu
+Homepage: http://cinnamon.linuxmint.com
 
-Package: gnome-settings-daemon
+Package: cinnamon-settings-daemon
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
@@ -60,11 +58,11 @@ Breaks: rhythmbox (<< 0.11.5),
         unity-greeter (<< 0.2.1-0ubuntu1),
         indicator-datetime (<< 12.10.3daily13.03.26),
 Suggests: x11-xserver-utils,
-          gnome-screensaver,
+          cinnamon-screensaver,
           metacity | x-window-manager
-Description: daemon handling the GNOME session settings
+Description: daemon handling the Cinnamon session settings
  This package contains the daemon which is responsible for setting the
- various parameters of a GNOME session and the applications that run
+ various parameters of a Cinnamon session and the applications that run
  under it. It handles the following kinds of settings:
  .
   * Keyboard: layout, accessibility options, shortcuts, media keys
@@ -78,12 +76,12 @@ Description: daemon handling the GNOME session settings
  It also sets various application settings through X resources and
  freedesktop.org XSETTINGS.
 
-Package: gnome-settings-daemon-dev
+Package: cinnamon-settings-daemon-dev
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          libdbus-glib-1-dev (>= 0.74),
          libglib2.0-dev (>= 2.26.0)
-Description: Headers for building applications communicating with gnome-settings-daemon
+Description: Headers for building applications communicating with cinnamon-settings-daemon
  This package contains header files required to build applications that
- communicate with the GNOME settings daemon over D-Bus.
+ communicate with the Cinnamon settings daemon over D-Bus.

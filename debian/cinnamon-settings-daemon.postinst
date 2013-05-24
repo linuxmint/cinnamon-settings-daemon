@@ -11,7 +11,7 @@ configure)
         rm -rf /etc/gnome/config/xrdb
     fi
     if dpkg --compare-versions "$2" lt-nl "2.26.1"; then
-        rm -f /etc/xdg/autostart/gnome-settings-daemon.desktop
+        rm -f /etc/xdg/autostart/cinnamon-settings-daemon.desktop
     fi
     if dpkg --compare-versions "$2" lt-nl "3.6.3-0ubuntu3"; then
         if [ -d /etc/gnome/config ]; then
