@@ -1,10 +1,10 @@
 AC_PREREQ([2.60])
 
-AC_INIT([gnome-settings-daemon],
+AC_INIT([cinnamon-settings-daemon],
         [3.6.4],
-        [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-settings-daemon])
+        [http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon])
 
-AC_CONFIG_SRCDIR([gnome-settings-daemon/gnome-settings-manager.c])
+AC_CONFIG_SRCDIR([cinnamon-settings-daemon/cinnamon-settings-manager.c])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-xz no-dist-gzip check-news])
 AM_MAINTAINER_MODE([enable])
@@ -14,8 +14,8 @@ m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 m4_define([gsd_api_version_major],[3])
 m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])
-GSD_API_VERSION="gsd_api_version"
-AC_SUBST(GSD_API_VERSION)
+CSD_API_VERSION="gsd_api_version"
+AC_SUBST(CSD_API_VERSION)
 
 AC_STDC_HEADERS
 AC_PROG_CXX
@@ -30,14 +30,14 @@ AC_CONFIG_HEADERS([config.h])
 
 IT_PROG_INTLTOOL([0.37.1])
 
-GETTEXT_PACKAGE=gnome-settings-daemon
+GETTEXT_PACKAGE=cinnamon-settings-daemon
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext domain])
 
 AM_GLIB_GNU_GETTEXT
 
-GSD_INTLTOOL_PLUGIN_RULE='%.gnome-settings-plugin:   %.gnome-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
-AC_SUBST([GSD_INTLTOOL_PLUGIN_RULE])
+CSD_INTLTOOL_PLUGIN_RULE='%.cinnamon-settings-plugin:   %.cinnamon-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
+AC_SUBST([CSD_INTLTOOL_PLUGIN_RULE])
 
 dnl ---------------------------------------------------------------------------
 dnl - Dependencies
@@ -74,13 +74,13 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         x11
 )
 
-GSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
+CSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
 case $host_os in
   darwin*)
-    GSD_PLUGIN_LDFLAGS="${GSD_PLUGIN_LDFLAGS} -Wl,-bundle_loader,\$(top_builddir)/gnome-settings-daemon/gnome-settings-daemon"
+    CSD_PLUGIN_LDFLAGS="${CSD_PLUGIN_LDFLAGS} -Wl,-bundle_loader,\$(top_builddir)/cinnamon-settings-daemon/cinnamon-settings-daemon"
     ;;
 esac
-AC_SUBST([GSD_PLUGIN_LDFLAGS])
+AC_SUBST([CSD_PLUGIN_LDFLAGS])
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
@@ -112,7 +112,7 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(LIBNOTIFY, libnotify >= $LIBNOTIFY_REQUIRED_VERSION,
 		  [have_libnotify=yes], have_libnotify=no)
 if test "x$have_libnotify" = xno ; then
-	AC_MSG_ERROR([libnotify is required to build gnome-settings-daemon])
+	AC_MSG_ERROR([libnotify is required to build cinnamon-settings-daemon])
 fi
 AC_SUBST(LIBNOTIFY_CFLAGS)
 AC_SUBST(LIBNOTIFY_LIBS)
@@ -426,7 +426,7 @@ fi
 # Plugins
 # ---------------------------------------------------------------------------
 
-plugindir='$(libdir)/gnome-settings-daemon-gsd_api_version'
+plugindir='$(libdir)/cinnamon-settings-daemon-gsd_api_version'
 AC_SUBST([plugindir])
 
 PLUGIN_CFLAGS="-DG_LOG_DOMAIN=\"\\\"\$(plugin_name)-plugin\\\"\" -DPLUGIN_NAME=\"\\\"\$(plugin_name)\\\"\" "
@@ -510,7 +510,7 @@ AC_SUBST(DEBUG_CFLAGS)
 
 AC_OUTPUT([
 Makefile
-gnome-settings-daemon/Makefile
+cinnamon-settings-daemon/Makefile
 plugins/Makefile
 plugins/a11y-keyboard/Makefile
 plugins/a11y-settings/Makefile
@@ -537,8 +537,8 @@ plugins/wacom/Makefile
 plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
-data/gnome-settings-daemon.pc
-data/gnome-settings-daemon-uninstalled.pc
+data/cinnamon-settings-daemon.pc
+data/cinnamon-settings-daemon-uninstalled.pc
 data/org.gnome.settings-daemon.plugins.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.xsettings.gschema.xml.in
 data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in
@@ -561,7 +561,7 @@ dnl - Show summary
 dnl ---------------------------------------------------------------------------
 
 echo "
-                    gnome-settings-daemon $VERSION
+                    cinnamon-settings-daemon $VERSION
                     =============================
 
         prefix:                   ${prefix}

@@ -138,7 +138,7 @@ msgstr ""
 msgid "Smartcard removal action"
 msgstr "സ്മാര്‍ട്ട്കാര്‍ഡ് നീക്കം ചെയ്യല്‍ പ്രവര്‍ത്തി"
 
-#. g-p-m is not a GSD plugin, yet
+#. g-p-m is not a CSD plugin, yet
 #: ../data/org.gnome.settings-daemon.plugins.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:1
 #: ../data/org.gnome.settings-daemon.plugins.keyboard.gschema.xml.in.in.h:1

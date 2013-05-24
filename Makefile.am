@@ -1,7 +1,7 @@
 NULL =
 
 SUBDIRS = 			\
-	gnome-settings-daemon	\
+	cinnamon-settings-daemon	\
 	plugins			\
 	data			\
 	po 			\

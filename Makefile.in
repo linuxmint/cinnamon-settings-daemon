@@ -101,7 +101,7 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
-DIST_SUBDIRS = gnome-settings-daemon plugins data po man
+DIST_SUBDIRS = cinnamon-settings-daemon plugins data po man
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -203,9 +203,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -363,7 +363,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 NULL = 
-SUBDIRS = gnome-settings-daemon plugins data po $(NULL) \
+SUBDIRS = cinnamon-settings-daemon plugins data po $(NULL) \
 	$(am__append_1)
 
 # Honor aclocal flags
