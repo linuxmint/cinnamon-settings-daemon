@@ -3,3 +3,4 @@ Type=Application
 Name=GNOME Settings Daemon
 Exec=/usr/lib/gnome-settings-daemon/gnome-settings-daemon
 Hidden=true
+Name[en_US]=cinnamon-settings-daemon.user-session.desktop
