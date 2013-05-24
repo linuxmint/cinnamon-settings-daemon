@@ -17,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GSD_COMMON_KEYGRAB_H
-#define __GSD_COMMON_KEYGRAB_H
+#ifndef __CSD_COMMON_KEYGRAB_H
+#define __CSD_COMMON_KEYGRAB_H
 
 G_BEGIN_DECLS
 
@@ -33,13 +33,13 @@ typedef struct {
 } Key;
 
 typedef enum {
-        GSD_KEYGRAB_NORMAL           = 0,
-        GSD_KEYGRAB_ALLOW_UNMODIFIED = 1 << 0,
-        GSD_KEYGRAB_SYNCHRONOUS      = 1 << 1
-} GsdKeygrabFlags;
+        CSD_KEYGRAB_NORMAL           = 0,
+        CSD_KEYGRAB_ALLOW_UNMODIFIED = 1 << 0,
+        CSD_KEYGRAB_SYNCHRONOUS      = 1 << 1
+} CsdKeygrabFlags;
 
 void	        grab_key_unsafe	(Key     *key,
-				 GsdKeygrabFlags flags,
+				 CsdKeygrabFlags flags,
 			         GSList  *screens);
 
 void            ungrab_key_unsafe (Key     *key,
@@ -60,4 +60,4 @@ void            grab_button      (int      deviceid,
 
 G_END_DECLS
 
-#endif /* __GSD_COMMON_KEYGRAB_H */
+#endif /* __CSD_COMMON_KEYGRAB_H */

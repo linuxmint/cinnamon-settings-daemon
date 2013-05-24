@@ -18,38 +18,38 @@
  *
  */
 
-#ifndef __GSD_HOUSEKEEPING_MANAGER_H
-#define __GSD_HOUSEKEEPING_MANAGER_H
+#ifndef __CSD_HOUSEKEEPING_MANAGER_H
+#define __CSD_HOUSEKEEPING_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_HOUSEKEEPING_MANAGER         (gsd_housekeeping_manager_get_type ())
-#define GSD_HOUSEKEEPING_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManager))
-#define GSD_HOUSEKEEPING_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerClass))
-#define GSD_IS_HOUSEKEEPING_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_HOUSEKEEPING_MANAGER))
-#define GSD_IS_HOUSEKEEPING_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_HOUSEKEEPING_MANAGER))
-#define GSD_HOUSEKEEPING_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerClass))
+#define CSD_TYPE_HOUSEKEEPING_MANAGER         (csd_housekeeping_manager_get_type ())
+#define CSD_HOUSEKEEPING_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_HOUSEKEEPING_MANAGER, CsdHousekeepingManager))
+#define CSD_HOUSEKEEPING_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_HOUSEKEEPING_MANAGER, CsdHousekeepingManagerClass))
+#define CSD_IS_HOUSEKEEPING_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_HOUSEKEEPING_MANAGER))
+#define CSD_IS_HOUSEKEEPING_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_HOUSEKEEPING_MANAGER))
+#define CSD_HOUSEKEEPING_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_HOUSEKEEPING_MANAGER, CsdHousekeepingManagerClass))
 
-typedef struct GsdHousekeepingManagerPrivate GsdHousekeepingManagerPrivate;
+typedef struct CsdHousekeepingManagerPrivate CsdHousekeepingManagerPrivate;
 
 typedef struct {
         GObject                        parent;
-        GsdHousekeepingManagerPrivate *priv;
-} GsdHousekeepingManager;
+        CsdHousekeepingManagerPrivate *priv;
+} CsdHousekeepingManager;
 
 typedef struct {
         GObjectClass   parent_class;
-} GsdHousekeepingManagerClass;
+} CsdHousekeepingManagerClass;
 
-GType                    gsd_housekeeping_manager_get_type      (void);
+GType                    csd_housekeeping_manager_get_type      (void);
 
-GsdHousekeepingManager * gsd_housekeeping_manager_new           (void);
-gboolean                 gsd_housekeeping_manager_start         (GsdHousekeepingManager  *manager,
+CsdHousekeepingManager * csd_housekeeping_manager_new           (void);
+gboolean                 csd_housekeeping_manager_start         (CsdHousekeepingManager  *manager,
                                                                  GError                 **error);
-void                     gsd_housekeeping_manager_stop          (GsdHousekeepingManager  *manager);
+void                     csd_housekeeping_manager_stop          (CsdHousekeepingManager  *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_HOUSEKEEPING_MANAGER_H */
+#endif /* __CSD_HOUSEKEEPING_MANAGER_H */

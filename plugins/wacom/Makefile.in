@@ -52,11 +52,11 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@HAVE_GUDEV_FALSE@libexec_PROGRAMS = gsd-test-wacom$(EXEEXT) \
-@HAVE_GUDEV_FALSE@	gsd-list-wacom$(EXEEXT)
-@HAVE_GUDEV_TRUE@libexec_PROGRAMS = gsd-wacom-led-helper$(EXEEXT) \
-@HAVE_GUDEV_TRUE@	gsd-test-wacom$(EXEEXT) \
-@HAVE_GUDEV_TRUE@	gsd-list-wacom$(EXEEXT)
+@HAVE_GUDEV_FALSE@libexec_PROGRAMS = csd-test-wacom$(EXEEXT) \
+@HAVE_GUDEV_FALSE@	csd-list-wacom$(EXEEXT)
+@HAVE_GUDEV_TRUE@libexec_PROGRAMS = csd-wacom-led-helper$(EXEEXT) \
+@HAVE_GUDEV_TRUE@	csd-test-wacom$(EXEEXT) \
+@HAVE_GUDEV_TRUE@	csd-list-wacom$(EXEEXT)
 subdir = plugins/wacom
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -100,55 +100,55 @@ am__installdirs = "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(libexecdir)" \
 	"$(DESTDIR)$(plugindir)" "$(DESTDIR)$(polkit_policydir)"
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-libgsdwacom_la_DEPENDENCIES =  \
+libcsdwacom_la_DEPENDENCIES =  \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-am_libgsdwacom_la_OBJECTS = libgsdwacom_la-gsd-wacom-plugin.lo \
-	libgsdwacom_la-gsd-wacom-manager.lo \
-	libgsdwacom_la-gsd-wacom-device.lo
-libgsdwacom_la_OBJECTS = $(am_libgsdwacom_la_OBJECTS)
+am_libcsdwacom_la_OBJECTS = libcsdwacom_la-csd-wacom-plugin.lo \
+	libcsdwacom_la-csd-wacom-manager.lo \
+	libcsdwacom_la-csd-wacom-device.lo
+libcsdwacom_la_OBJECTS = $(am_libcsdwacom_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libgsdwacom_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+libcsdwacom_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libgsdwacom_la_CFLAGS) $(CFLAGS) $(libgsdwacom_la_LDFLAGS) \
+	$(libcsdwacom_la_CFLAGS) $(CFLAGS) $(libcsdwacom_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_list_wacom_OBJECTS = gsd_list_wacom-list-wacom.$(OBJEXT) \
-	gsd_list_wacom-gsd-wacom-device.$(OBJEXT)
-gsd_list_wacom_OBJECTS = $(am_gsd_list_wacom_OBJECTS)
-gsd_list_wacom_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_list_wacom_OBJECTS = csd_list_wacom-list-wacom.$(OBJEXT) \
+	csd_list_wacom-csd-wacom-device.$(OBJEXT)
+csd_list_wacom_OBJECTS = $(am_csd_list_wacom_OBJECTS)
+csd_list_wacom_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gsd_list_wacom_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_list_wacom_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_list_wacom_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
+	$(csd_list_wacom_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
 	$@
-am_gsd_test_wacom_OBJECTS = gsd_test_wacom-test-wacom.$(OBJEXT) \
-	gsd_test_wacom-gsd-wacom-manager.$(OBJEXT) \
-	gsd_test_wacom-gsd-wacom-device.$(OBJEXT)
-gsd_test_wacom_OBJECTS = $(am_gsd_test_wacom_OBJECTS)
-gsd_test_wacom_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_wacom_OBJECTS = csd_test_wacom-test-wacom.$(OBJEXT) \
+	csd_test_wacom-csd-wacom-manager.$(OBJEXT) \
+	csd_test_wacom-csd-wacom-device.$(OBJEXT)
+csd_test_wacom_OBJECTS = $(am_csd_test_wacom_OBJECTS)
+csd_test_wacom_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gsd_test_wacom_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_wacom_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_wacom_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
+	$(csd_test_wacom_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
 	$@
-am_gsd_wacom_led_helper_OBJECTS =  \
-	gsd_wacom_led_helper-gsd-wacom-led-helper.$(OBJEXT)
-gsd_wacom_led_helper_OBJECTS = $(am_gsd_wacom_led_helper_OBJECTS)
-gsd_wacom_led_helper_LDADD = $(LDADD)
-gsd_wacom_led_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+am_csd_wacom_led_helper_OBJECTS =  \
+	csd_wacom_led_helper-csd-wacom-led-helper.$(OBJEXT)
+csd_wacom_led_helper_OBJECTS = $(am_csd_wacom_led_helper_OBJECTS)
+csd_wacom_led_helper_LDADD = $(LDADD)
+csd_wacom_led_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_wacom_led_helper_CFLAGS) $(CFLAGS) \
-	$(gsd_wacom_led_helper_LDFLAGS) $(LDFLAGS) -o $@
+	$(csd_wacom_led_helper_CFLAGS) $(CFLAGS) \
+	$(csd_wacom_led_helper_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -183,10 +183,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libgsdwacom_la_SOURCES) $(gsd_list_wacom_SOURCES) \
-	$(gsd_test_wacom_SOURCES) $(gsd_wacom_led_helper_SOURCES)
-DIST_SOURCES = $(libgsdwacom_la_SOURCES) $(gsd_list_wacom_SOURCES) \
-	$(gsd_test_wacom_SOURCES) $(gsd_wacom_led_helper_SOURCES)
+SOURCES = $(libcsdwacom_la_SOURCES) $(csd_list_wacom_SOURCES) \
+	$(csd_test_wacom_SOURCES) $(csd_wacom_led_helper_SOURCES)
+DIST_SOURCES = $(libcsdwacom_la_SOURCES) $(csd_list_wacom_SOURCES) \
+	$(csd_test_wacom_SOURCES) $(csd_wacom_led_helper_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -255,9 +255,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -415,33 +415,33 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 plugin_name = wacom
-plugin_LTLIBRARIES = libgsdwacom.la
-libgsdwacom_la_SOURCES = \
-	gsd-wacom-plugin.h	\
-	gsd-wacom-plugin.c	\
-	gsd-wacom-manager.h	\
-	gsd-wacom-manager.c	\
-	gsd-wacom-device.c	\
-	gsd-wacom-device.h
+plugin_LTLIBRARIES = libcsdwacom.la
+libcsdwacom_la_SOURCES = \
+	csd-wacom-plugin.h	\
+	csd-wacom-plugin.c	\
+	csd-wacom-manager.h	\
+	csd-wacom-manager.c	\
+	csd-wacom-device.c	\
+	csd-wacom-device.h
 
-libgsdwacom_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+libcsdwacom_la_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
 	$(AM_CPPFLAGS)
 
-libgsdwacom_la_CFLAGS = \
+libcsdwacom_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-libgsdwacom_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+libcsdwacom_la_LDFLAGS = \
+	$(CSD_PLUGIN_LDFLAGS)
 
-libgsdwacom_la_LIBADD = \
+libcsdwacom_la_LIBADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(WACOM_LIBS)
@@ -451,80 +451,80 @@ polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
-gsd_wacom_led_helper_SOURCES = gsd-wacom-led-helper.c
-EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES) \
+csd_wacom_led_helper_SOURCES = csd-wacom-led-helper.c
+EXTRA_DIST = $(csd_wacom_led_helper_SOURCES) \
 	org.gnome.settings-daemon.plugins.wacom.policy.in.in \
 	$(plugin_in_files) README.config-storage
-@HAVE_GUDEV_TRUE@gsd_wacom_led_helper_LDFLAGS = \
+@HAVE_GUDEV_TRUE@csd_wacom_led_helper_LDFLAGS = \
 @HAVE_GUDEV_TRUE@	$(BACKLIGHT_HELPER_LIBS)			\
 @HAVE_GUDEV_TRUE@	-lm
 
-@HAVE_GUDEV_TRUE@gsd_wacom_led_helper_CFLAGS = \
+@HAVE_GUDEV_TRUE@csd_wacom_led_helper_CFLAGS = \
 @HAVE_GUDEV_TRUE@	$(BACKLIGHT_HELPER_CFLAGS)
 
-gsd_test_wacom_SOURCES = \
+csd_test_wacom_SOURCES = \
 	test-wacom.c		\
-	gsd-wacom-manager.c	\
-	gsd-wacom-manager.h	\
-	gsd-wacom-device.c	\
-	gsd-wacom-device.h
+	csd-wacom-manager.c	\
+	csd-wacom-manager.h	\
+	csd-wacom-device.c	\
+	csd-wacom-device.h
 
-gsd_test_wacom_CPPFLAGS = \
+csd_test_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	-DSCHEMA_NAME=\""gsdwacom"\"				\
+	-DSCHEMA_NAME=\""csdwacom"\"				\
 	$(AM_CPPFLAGS)
 
-gsd_test_wacom_CFLAGS = \
+csd_test_wacom_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-gsd_test_wacom_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_wacom_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
-gsd_list_wacom_SOURCES = \
+csd_list_wacom_SOURCES = \
 	list-wacom.c		\
-	gsd-wacom-device.c	\
-	gsd-wacom-device.h
+	csd-wacom-device.c	\
+	csd-wacom-device.h
 
-gsd_list_wacom_CPPFLAGS = \
+csd_list_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-gsd_list_wacom_CFLAGS = \
+csd_list_wacom_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-gsd_list_wacom_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_list_wacom_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
-plugin_in_files = wacom.gnome-settings-plugin.in
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_in_files = wacom.cinnamon-settings-plugin.in
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 CLEANFILES = \
 	$(plugin_DATA)					\
 	org.gnome.settings-daemon.plugins.wacom.policy	\
@@ -598,8 +598,8 @@ clean-pluginLTLIBRARIES:
 	  echo rm -f $${locs}; \
 	  rm -f $${locs}; \
 	}
-libgsdwacom.la: $(libgsdwacom_la_OBJECTS) $(libgsdwacom_la_DEPENDENCIES) $(EXTRA_libgsdwacom_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libgsdwacom_la_LINK) -rpath $(plugindir) $(libgsdwacom_la_OBJECTS) $(libgsdwacom_la_LIBADD) $(LIBS)
+libcsdwacom.la: $(libcsdwacom_la_OBJECTS) $(libcsdwacom_la_DEPENDENCIES) $(EXTRA_libcsdwacom_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(libcsdwacom_la_LINK) -rpath $(plugindir) $(libcsdwacom_la_OBJECTS) $(libcsdwacom_la_LIBADD) $(LIBS)
 install-libexecPROGRAMS: $(libexec_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(libexec_PROGRAMS)'; test -n "$(libexecdir)" || list=; \
@@ -646,15 +646,15 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-list-wacom$(EXEEXT): $(gsd_list_wacom_OBJECTS) $(gsd_list_wacom_DEPENDENCIES) $(EXTRA_gsd_list_wacom_DEPENDENCIES) 
-	@rm -f gsd-list-wacom$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_list_wacom_LINK) $(gsd_list_wacom_OBJECTS) $(gsd_list_wacom_LDADD) $(LIBS)
-gsd-test-wacom$(EXEEXT): $(gsd_test_wacom_OBJECTS) $(gsd_test_wacom_DEPENDENCIES) $(EXTRA_gsd_test_wacom_DEPENDENCIES) 
-	@rm -f gsd-test-wacom$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_wacom_LINK) $(gsd_test_wacom_OBJECTS) $(gsd_test_wacom_LDADD) $(LIBS)
-gsd-wacom-led-helper$(EXEEXT): $(gsd_wacom_led_helper_OBJECTS) $(gsd_wacom_led_helper_DEPENDENCIES) $(EXTRA_gsd_wacom_led_helper_DEPENDENCIES) 
-	@rm -f gsd-wacom-led-helper$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_wacom_led_helper_LINK) $(gsd_wacom_led_helper_OBJECTS) $(gsd_wacom_led_helper_LDADD) $(LIBS)
+csd-list-wacom$(EXEEXT): $(csd_list_wacom_OBJECTS) $(csd_list_wacom_DEPENDENCIES) $(EXTRA_csd_list_wacom_DEPENDENCIES) 
+	@rm -f csd-list-wacom$(EXEEXT)
+	$(AM_V_CCLD)$(csd_list_wacom_LINK) $(csd_list_wacom_OBJECTS) $(csd_list_wacom_LDADD) $(LIBS)
+csd-test-wacom$(EXEEXT): $(csd_test_wacom_OBJECTS) $(csd_test_wacom_DEPENDENCIES) $(EXTRA_csd_test_wacom_DEPENDENCIES) 
+	@rm -f csd-test-wacom$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_wacom_LINK) $(csd_test_wacom_OBJECTS) $(csd_test_wacom_LDADD) $(LIBS)
+csd-wacom-led-helper$(EXEEXT): $(csd_wacom_led_helper_OBJECTS) $(csd_wacom_led_helper_DEPENDENCIES) $(EXTRA_csd_wacom_led_helper_DEPENDENCIES) 
+	@rm -f csd-wacom-led-helper$(EXEEXT)
+	$(AM_V_CCLD)$(csd_wacom_led_helper_LINK) $(csd_wacom_led_helper_OBJECTS) $(csd_wacom_led_helper_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -662,15 +662,15 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_list_wacom-gsd-wacom-device.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_list_wacom-list-wacom.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_wacom-gsd-wacom-device.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_wacom-gsd-wacom-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_wacom-test-wacom.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_wacom_led_helper-gsd-wacom-led-helper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsdwacom_la-gsd-wacom-device.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsdwacom_la-gsd-wacom-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsdwacom_la-gsd-wacom-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_list_wacom-csd-wacom-device.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_list_wacom-list-wacom.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_wacom-csd-wacom-device.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_wacom-csd-wacom-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_wacom-test-wacom.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_wacom_led_helper-csd-wacom-led-helper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcsdwacom_la-csd-wacom-device.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcsdwacom_la-csd-wacom-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcsdwacom_la-csd-wacom-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -693,110 +693,110 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libgsdwacom_la-gsd-wacom-plugin.lo: gsd-wacom-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libgsdwacom_la_CFLAGS) $(CFLAGS) -MT libgsdwacom_la-gsd-wacom-plugin.lo -MD -MP -MF $(DEPDIR)/libgsdwacom_la-gsd-wacom-plugin.Tpo -c -o libgsdwacom_la-gsd-wacom-plugin.lo `test -f 'gsd-wacom-plugin.c' || echo '$(srcdir)/'`gsd-wacom-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsdwacom_la-gsd-wacom-plugin.Tpo $(DEPDIR)/libgsdwacom_la-gsd-wacom-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-plugin.c' object='libgsdwacom_la-gsd-wacom-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libcsdwacom_la-csd-wacom-plugin.lo: csd-wacom-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libcsdwacom_la_CFLAGS) $(CFLAGS) -MT libcsdwacom_la-csd-wacom-plugin.lo -MD -MP -MF $(DEPDIR)/libcsdwacom_la-csd-wacom-plugin.Tpo -c -o libcsdwacom_la-csd-wacom-plugin.lo `test -f 'csd-wacom-plugin.c' || echo '$(srcdir)/'`csd-wacom-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcsdwacom_la-csd-wacom-plugin.Tpo $(DEPDIR)/libcsdwacom_la-csd-wacom-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-plugin.c' object='libcsdwacom_la-csd-wacom-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libgsdwacom_la_CFLAGS) $(CFLAGS) -c -o libgsdwacom_la-gsd-wacom-plugin.lo `test -f 'gsd-wacom-plugin.c' || echo '$(srcdir)/'`gsd-wacom-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libcsdwacom_la_CFLAGS) $(CFLAGS) -c -o libcsdwacom_la-csd-wacom-plugin.lo `test -f 'csd-wacom-plugin.c' || echo '$(srcdir)/'`csd-wacom-plugin.c
 
-libgsdwacom_la-gsd-wacom-manager.lo: gsd-wacom-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libgsdwacom_la_CFLAGS) $(CFLAGS) -MT libgsdwacom_la-gsd-wacom-manager.lo -MD -MP -MF $(DEPDIR)/libgsdwacom_la-gsd-wacom-manager.Tpo -c -o libgsdwacom_la-gsd-wacom-manager.lo `test -f 'gsd-wacom-manager.c' || echo '$(srcdir)/'`gsd-wacom-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsdwacom_la-gsd-wacom-manager.Tpo $(DEPDIR)/libgsdwacom_la-gsd-wacom-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-manager.c' object='libgsdwacom_la-gsd-wacom-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libcsdwacom_la-csd-wacom-manager.lo: csd-wacom-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libcsdwacom_la_CFLAGS) $(CFLAGS) -MT libcsdwacom_la-csd-wacom-manager.lo -MD -MP -MF $(DEPDIR)/libcsdwacom_la-csd-wacom-manager.Tpo -c -o libcsdwacom_la-csd-wacom-manager.lo `test -f 'csd-wacom-manager.c' || echo '$(srcdir)/'`csd-wacom-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcsdwacom_la-csd-wacom-manager.Tpo $(DEPDIR)/libcsdwacom_la-csd-wacom-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-manager.c' object='libcsdwacom_la-csd-wacom-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libgsdwacom_la_CFLAGS) $(CFLAGS) -c -o libgsdwacom_la-gsd-wacom-manager.lo `test -f 'gsd-wacom-manager.c' || echo '$(srcdir)/'`gsd-wacom-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libcsdwacom_la_CFLAGS) $(CFLAGS) -c -o libcsdwacom_la-csd-wacom-manager.lo `test -f 'csd-wacom-manager.c' || echo '$(srcdir)/'`csd-wacom-manager.c
 
-libgsdwacom_la-gsd-wacom-device.lo: gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libgsdwacom_la_CFLAGS) $(CFLAGS) -MT libgsdwacom_la-gsd-wacom-device.lo -MD -MP -MF $(DEPDIR)/libgsdwacom_la-gsd-wacom-device.Tpo -c -o libgsdwacom_la-gsd-wacom-device.lo `test -f 'gsd-wacom-device.c' || echo '$(srcdir)/'`gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsdwacom_la-gsd-wacom-device.Tpo $(DEPDIR)/libgsdwacom_la-gsd-wacom-device.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-device.c' object='libgsdwacom_la-gsd-wacom-device.lo' libtool=yes @AMDEPBACKSLASH@
+libcsdwacom_la-csd-wacom-device.lo: csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libcsdwacom_la_CFLAGS) $(CFLAGS) -MT libcsdwacom_la-csd-wacom-device.lo -MD -MP -MF $(DEPDIR)/libcsdwacom_la-csd-wacom-device.Tpo -c -o libcsdwacom_la-csd-wacom-device.lo `test -f 'csd-wacom-device.c' || echo '$(srcdir)/'`csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcsdwacom_la-csd-wacom-device.Tpo $(DEPDIR)/libcsdwacom_la-csd-wacom-device.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-device.c' object='libcsdwacom_la-csd-wacom-device.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libgsdwacom_la_CFLAGS) $(CFLAGS) -c -o libgsdwacom_la-gsd-wacom-device.lo `test -f 'gsd-wacom-device.c' || echo '$(srcdir)/'`gsd-wacom-device.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcsdwacom_la_CPPFLAGS) $(CPPFLAGS) $(libcsdwacom_la_CFLAGS) $(CFLAGS) -c -o libcsdwacom_la-csd-wacom-device.lo `test -f 'csd-wacom-device.c' || echo '$(srcdir)/'`csd-wacom-device.c
 
-gsd_list_wacom-list-wacom.o: list-wacom.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -MT gsd_list_wacom-list-wacom.o -MD -MP -MF $(DEPDIR)/gsd_list_wacom-list-wacom.Tpo -c -o gsd_list_wacom-list-wacom.o `test -f 'list-wacom.c' || echo '$(srcdir)/'`list-wacom.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_list_wacom-list-wacom.Tpo $(DEPDIR)/gsd_list_wacom-list-wacom.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='list-wacom.c' object='gsd_list_wacom-list-wacom.o' libtool=no @AMDEPBACKSLASH@
+csd_list_wacom-list-wacom.o: list-wacom.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -MT csd_list_wacom-list-wacom.o -MD -MP -MF $(DEPDIR)/csd_list_wacom-list-wacom.Tpo -c -o csd_list_wacom-list-wacom.o `test -f 'list-wacom.c' || echo '$(srcdir)/'`list-wacom.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_list_wacom-list-wacom.Tpo $(DEPDIR)/csd_list_wacom-list-wacom.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='list-wacom.c' object='csd_list_wacom-list-wacom.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -c -o gsd_list_wacom-list-wacom.o `test -f 'list-wacom.c' || echo '$(srcdir)/'`list-wacom.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -c -o csd_list_wacom-list-wacom.o `test -f 'list-wacom.c' || echo '$(srcdir)/'`list-wacom.c
 
-gsd_list_wacom-list-wacom.obj: list-wacom.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -MT gsd_list_wacom-list-wacom.obj -MD -MP -MF $(DEPDIR)/gsd_list_wacom-list-wacom.Tpo -c -o gsd_list_wacom-list-wacom.obj `if test -f 'list-wacom.c'; then $(CYGPATH_W) 'list-wacom.c'; else $(CYGPATH_W) '$(srcdir)/list-wacom.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_list_wacom-list-wacom.Tpo $(DEPDIR)/gsd_list_wacom-list-wacom.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='list-wacom.c' object='gsd_list_wacom-list-wacom.obj' libtool=no @AMDEPBACKSLASH@
+csd_list_wacom-list-wacom.obj: list-wacom.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -MT csd_list_wacom-list-wacom.obj -MD -MP -MF $(DEPDIR)/csd_list_wacom-list-wacom.Tpo -c -o csd_list_wacom-list-wacom.obj `if test -f 'list-wacom.c'; then $(CYGPATH_W) 'list-wacom.c'; else $(CYGPATH_W) '$(srcdir)/list-wacom.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_list_wacom-list-wacom.Tpo $(DEPDIR)/csd_list_wacom-list-wacom.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='list-wacom.c' object='csd_list_wacom-list-wacom.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -c -o gsd_list_wacom-list-wacom.obj `if test -f 'list-wacom.c'; then $(CYGPATH_W) 'list-wacom.c'; else $(CYGPATH_W) '$(srcdir)/list-wacom.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -c -o csd_list_wacom-list-wacom.obj `if test -f 'list-wacom.c'; then $(CYGPATH_W) 'list-wacom.c'; else $(CYGPATH_W) '$(srcdir)/list-wacom.c'; fi`
 
-gsd_list_wacom-gsd-wacom-device.o: gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -MT gsd_list_wacom-gsd-wacom-device.o -MD -MP -MF $(DEPDIR)/gsd_list_wacom-gsd-wacom-device.Tpo -c -o gsd_list_wacom-gsd-wacom-device.o `test -f 'gsd-wacom-device.c' || echo '$(srcdir)/'`gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_list_wacom-gsd-wacom-device.Tpo $(DEPDIR)/gsd_list_wacom-gsd-wacom-device.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-device.c' object='gsd_list_wacom-gsd-wacom-device.o' libtool=no @AMDEPBACKSLASH@
+csd_list_wacom-csd-wacom-device.o: csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -MT csd_list_wacom-csd-wacom-device.o -MD -MP -MF $(DEPDIR)/csd_list_wacom-csd-wacom-device.Tpo -c -o csd_list_wacom-csd-wacom-device.o `test -f 'csd-wacom-device.c' || echo '$(srcdir)/'`csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_list_wacom-csd-wacom-device.Tpo $(DEPDIR)/csd_list_wacom-csd-wacom-device.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-device.c' object='csd_list_wacom-csd-wacom-device.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -c -o gsd_list_wacom-gsd-wacom-device.o `test -f 'gsd-wacom-device.c' || echo '$(srcdir)/'`gsd-wacom-device.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -c -o csd_list_wacom-csd-wacom-device.o `test -f 'csd-wacom-device.c' || echo '$(srcdir)/'`csd-wacom-device.c
 
-gsd_list_wacom-gsd-wacom-device.obj: gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -MT gsd_list_wacom-gsd-wacom-device.obj -MD -MP -MF $(DEPDIR)/gsd_list_wacom-gsd-wacom-device.Tpo -c -o gsd_list_wacom-gsd-wacom-device.obj `if test -f 'gsd-wacom-device.c'; then $(CYGPATH_W) 'gsd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-device.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_list_wacom-gsd-wacom-device.Tpo $(DEPDIR)/gsd_list_wacom-gsd-wacom-device.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-device.c' object='gsd_list_wacom-gsd-wacom-device.obj' libtool=no @AMDEPBACKSLASH@
+csd_list_wacom-csd-wacom-device.obj: csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -MT csd_list_wacom-csd-wacom-device.obj -MD -MP -MF $(DEPDIR)/csd_list_wacom-csd-wacom-device.Tpo -c -o csd_list_wacom-csd-wacom-device.obj `if test -f 'csd-wacom-device.c'; then $(CYGPATH_W) 'csd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-device.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_list_wacom-csd-wacom-device.Tpo $(DEPDIR)/csd_list_wacom-csd-wacom-device.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-device.c' object='csd_list_wacom-csd-wacom-device.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_list_wacom_CFLAGS) $(CFLAGS) -c -o gsd_list_wacom-gsd-wacom-device.obj `if test -f 'gsd-wacom-device.c'; then $(CYGPATH_W) 'gsd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-device.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_list_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_list_wacom_CFLAGS) $(CFLAGS) -c -o csd_list_wacom-csd-wacom-device.obj `if test -f 'csd-wacom-device.c'; then $(CYGPATH_W) 'csd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-device.c'; fi`
 
-gsd_test_wacom-test-wacom.o: test-wacom.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -MT gsd_test_wacom-test-wacom.o -MD -MP -MF $(DEPDIR)/gsd_test_wacom-test-wacom.Tpo -c -o gsd_test_wacom-test-wacom.o `test -f 'test-wacom.c' || echo '$(srcdir)/'`test-wacom.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_wacom-test-wacom.Tpo $(DEPDIR)/gsd_test_wacom-test-wacom.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-wacom.c' object='gsd_test_wacom-test-wacom.o' libtool=no @AMDEPBACKSLASH@
+csd_test_wacom-test-wacom.o: test-wacom.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -MT csd_test_wacom-test-wacom.o -MD -MP -MF $(DEPDIR)/csd_test_wacom-test-wacom.Tpo -c -o csd_test_wacom-test-wacom.o `test -f 'test-wacom.c' || echo '$(srcdir)/'`test-wacom.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_wacom-test-wacom.Tpo $(DEPDIR)/csd_test_wacom-test-wacom.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-wacom.c' object='csd_test_wacom-test-wacom.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -c -o gsd_test_wacom-test-wacom.o `test -f 'test-wacom.c' || echo '$(srcdir)/'`test-wacom.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -c -o csd_test_wacom-test-wacom.o `test -f 'test-wacom.c' || echo '$(srcdir)/'`test-wacom.c
 
-gsd_test_wacom-test-wacom.obj: test-wacom.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -MT gsd_test_wacom-test-wacom.obj -MD -MP -MF $(DEPDIR)/gsd_test_wacom-test-wacom.Tpo -c -o gsd_test_wacom-test-wacom.obj `if test -f 'test-wacom.c'; then $(CYGPATH_W) 'test-wacom.c'; else $(CYGPATH_W) '$(srcdir)/test-wacom.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_wacom-test-wacom.Tpo $(DEPDIR)/gsd_test_wacom-test-wacom.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-wacom.c' object='gsd_test_wacom-test-wacom.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_wacom-test-wacom.obj: test-wacom.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -MT csd_test_wacom-test-wacom.obj -MD -MP -MF $(DEPDIR)/csd_test_wacom-test-wacom.Tpo -c -o csd_test_wacom-test-wacom.obj `if test -f 'test-wacom.c'; then $(CYGPATH_W) 'test-wacom.c'; else $(CYGPATH_W) '$(srcdir)/test-wacom.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_wacom-test-wacom.Tpo $(DEPDIR)/csd_test_wacom-test-wacom.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-wacom.c' object='csd_test_wacom-test-wacom.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -c -o gsd_test_wacom-test-wacom.obj `if test -f 'test-wacom.c'; then $(CYGPATH_W) 'test-wacom.c'; else $(CYGPATH_W) '$(srcdir)/test-wacom.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -c -o csd_test_wacom-test-wacom.obj `if test -f 'test-wacom.c'; then $(CYGPATH_W) 'test-wacom.c'; else $(CYGPATH_W) '$(srcdir)/test-wacom.c'; fi`
 
-gsd_test_wacom-gsd-wacom-manager.o: gsd-wacom-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -MT gsd_test_wacom-gsd-wacom-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_wacom-gsd-wacom-manager.Tpo -c -o gsd_test_wacom-gsd-wacom-manager.o `test -f 'gsd-wacom-manager.c' || echo '$(srcdir)/'`gsd-wacom-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_wacom-gsd-wacom-manager.Tpo $(DEPDIR)/gsd_test_wacom-gsd-wacom-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-manager.c' object='gsd_test_wacom-gsd-wacom-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_wacom-csd-wacom-manager.o: csd-wacom-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -MT csd_test_wacom-csd-wacom-manager.o -MD -MP -MF $(DEPDIR)/csd_test_wacom-csd-wacom-manager.Tpo -c -o csd_test_wacom-csd-wacom-manager.o `test -f 'csd-wacom-manager.c' || echo '$(srcdir)/'`csd-wacom-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_wacom-csd-wacom-manager.Tpo $(DEPDIR)/csd_test_wacom-csd-wacom-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-manager.c' object='csd_test_wacom-csd-wacom-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -c -o gsd_test_wacom-gsd-wacom-manager.o `test -f 'gsd-wacom-manager.c' || echo '$(srcdir)/'`gsd-wacom-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -c -o csd_test_wacom-csd-wacom-manager.o `test -f 'csd-wacom-manager.c' || echo '$(srcdir)/'`csd-wacom-manager.c
 
-gsd_test_wacom-gsd-wacom-manager.obj: gsd-wacom-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -MT gsd_test_wacom-gsd-wacom-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_wacom-gsd-wacom-manager.Tpo -c -o gsd_test_wacom-gsd-wacom-manager.obj `if test -f 'gsd-wacom-manager.c'; then $(CYGPATH_W) 'gsd-wacom-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_wacom-gsd-wacom-manager.Tpo $(DEPDIR)/gsd_test_wacom-gsd-wacom-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-manager.c' object='gsd_test_wacom-gsd-wacom-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_wacom-csd-wacom-manager.obj: csd-wacom-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -MT csd_test_wacom-csd-wacom-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_wacom-csd-wacom-manager.Tpo -c -o csd_test_wacom-csd-wacom-manager.obj `if test -f 'csd-wacom-manager.c'; then $(CYGPATH_W) 'csd-wacom-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_wacom-csd-wacom-manager.Tpo $(DEPDIR)/csd_test_wacom-csd-wacom-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-manager.c' object='csd_test_wacom-csd-wacom-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -c -o gsd_test_wacom-gsd-wacom-manager.obj `if test -f 'gsd-wacom-manager.c'; then $(CYGPATH_W) 'gsd-wacom-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -c -o csd_test_wacom-csd-wacom-manager.obj `if test -f 'csd-wacom-manager.c'; then $(CYGPATH_W) 'csd-wacom-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-manager.c'; fi`
 
-gsd_test_wacom-gsd-wacom-device.o: gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -MT gsd_test_wacom-gsd-wacom-device.o -MD -MP -MF $(DEPDIR)/gsd_test_wacom-gsd-wacom-device.Tpo -c -o gsd_test_wacom-gsd-wacom-device.o `test -f 'gsd-wacom-device.c' || echo '$(srcdir)/'`gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_wacom-gsd-wacom-device.Tpo $(DEPDIR)/gsd_test_wacom-gsd-wacom-device.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-device.c' object='gsd_test_wacom-gsd-wacom-device.o' libtool=no @AMDEPBACKSLASH@
+csd_test_wacom-csd-wacom-device.o: csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -MT csd_test_wacom-csd-wacom-device.o -MD -MP -MF $(DEPDIR)/csd_test_wacom-csd-wacom-device.Tpo -c -o csd_test_wacom-csd-wacom-device.o `test -f 'csd-wacom-device.c' || echo '$(srcdir)/'`csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_wacom-csd-wacom-device.Tpo $(DEPDIR)/csd_test_wacom-csd-wacom-device.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-device.c' object='csd_test_wacom-csd-wacom-device.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -c -o gsd_test_wacom-gsd-wacom-device.o `test -f 'gsd-wacom-device.c' || echo '$(srcdir)/'`gsd-wacom-device.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -c -o csd_test_wacom-csd-wacom-device.o `test -f 'csd-wacom-device.c' || echo '$(srcdir)/'`csd-wacom-device.c
 
-gsd_test_wacom-gsd-wacom-device.obj: gsd-wacom-device.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -MT gsd_test_wacom-gsd-wacom-device.obj -MD -MP -MF $(DEPDIR)/gsd_test_wacom-gsd-wacom-device.Tpo -c -o gsd_test_wacom-gsd-wacom-device.obj `if test -f 'gsd-wacom-device.c'; then $(CYGPATH_W) 'gsd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-device.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_wacom-gsd-wacom-device.Tpo $(DEPDIR)/gsd_test_wacom-gsd-wacom-device.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-device.c' object='gsd_test_wacom-gsd-wacom-device.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_wacom-csd-wacom-device.obj: csd-wacom-device.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -MT csd_test_wacom-csd-wacom-device.obj -MD -MP -MF $(DEPDIR)/csd_test_wacom-csd-wacom-device.Tpo -c -o csd_test_wacom-csd-wacom-device.obj `if test -f 'csd-wacom-device.c'; then $(CYGPATH_W) 'csd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-device.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_wacom-csd-wacom-device.Tpo $(DEPDIR)/csd_test_wacom-csd-wacom-device.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-device.c' object='csd_test_wacom-csd-wacom-device.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(gsd_test_wacom_CFLAGS) $(CFLAGS) -c -o gsd_test_wacom-gsd-wacom-device.obj `if test -f 'gsd-wacom-device.c'; then $(CYGPATH_W) 'gsd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-device.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_wacom_CPPFLAGS) $(CPPFLAGS) $(csd_test_wacom_CFLAGS) $(CFLAGS) -c -o csd_test_wacom-csd-wacom-device.obj `if test -f 'csd-wacom-device.c'; then $(CYGPATH_W) 'csd-wacom-device.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-device.c'; fi`
 
-gsd_wacom_led_helper-gsd-wacom-led-helper.o: gsd-wacom-led-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_wacom_led_helper_CFLAGS) $(CFLAGS) -MT gsd_wacom_led_helper-gsd-wacom-led-helper.o -MD -MP -MF $(DEPDIR)/gsd_wacom_led_helper-gsd-wacom-led-helper.Tpo -c -o gsd_wacom_led_helper-gsd-wacom-led-helper.o `test -f 'gsd-wacom-led-helper.c' || echo '$(srcdir)/'`gsd-wacom-led-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_wacom_led_helper-gsd-wacom-led-helper.Tpo $(DEPDIR)/gsd_wacom_led_helper-gsd-wacom-led-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-led-helper.c' object='gsd_wacom_led_helper-gsd-wacom-led-helper.o' libtool=no @AMDEPBACKSLASH@
+csd_wacom_led_helper-csd-wacom-led-helper.o: csd-wacom-led-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_wacom_led_helper_CFLAGS) $(CFLAGS) -MT csd_wacom_led_helper-csd-wacom-led-helper.o -MD -MP -MF $(DEPDIR)/csd_wacom_led_helper-csd-wacom-led-helper.Tpo -c -o csd_wacom_led_helper-csd-wacom-led-helper.o `test -f 'csd-wacom-led-helper.c' || echo '$(srcdir)/'`csd-wacom-led-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_wacom_led_helper-csd-wacom-led-helper.Tpo $(DEPDIR)/csd_wacom_led_helper-csd-wacom-led-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-led-helper.c' object='csd_wacom_led_helper-csd-wacom-led-helper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_wacom_led_helper_CFLAGS) $(CFLAGS) -c -o gsd_wacom_led_helper-gsd-wacom-led-helper.o `test -f 'gsd-wacom-led-helper.c' || echo '$(srcdir)/'`gsd-wacom-led-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_wacom_led_helper_CFLAGS) $(CFLAGS) -c -o csd_wacom_led_helper-csd-wacom-led-helper.o `test -f 'csd-wacom-led-helper.c' || echo '$(srcdir)/'`csd-wacom-led-helper.c
 
-gsd_wacom_led_helper-gsd-wacom-led-helper.obj: gsd-wacom-led-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_wacom_led_helper_CFLAGS) $(CFLAGS) -MT gsd_wacom_led_helper-gsd-wacom-led-helper.obj -MD -MP -MF $(DEPDIR)/gsd_wacom_led_helper-gsd-wacom-led-helper.Tpo -c -o gsd_wacom_led_helper-gsd-wacom-led-helper.obj `if test -f 'gsd-wacom-led-helper.c'; then $(CYGPATH_W) 'gsd-wacom-led-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-led-helper.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_wacom_led_helper-gsd-wacom-led-helper.Tpo $(DEPDIR)/gsd_wacom_led_helper-gsd-wacom-led-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-wacom-led-helper.c' object='gsd_wacom_led_helper-gsd-wacom-led-helper.obj' libtool=no @AMDEPBACKSLASH@
+csd_wacom_led_helper-csd-wacom-led-helper.obj: csd-wacom-led-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_wacom_led_helper_CFLAGS) $(CFLAGS) -MT csd_wacom_led_helper-csd-wacom-led-helper.obj -MD -MP -MF $(DEPDIR)/csd_wacom_led_helper-csd-wacom-led-helper.Tpo -c -o csd_wacom_led_helper-csd-wacom-led-helper.obj `if test -f 'csd-wacom-led-helper.c'; then $(CYGPATH_W) 'csd-wacom-led-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-led-helper.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_wacom_led_helper-csd-wacom-led-helper.Tpo $(DEPDIR)/csd_wacom_led_helper-csd-wacom-led-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-wacom-led-helper.c' object='csd_wacom_led_helper-csd-wacom-led-helper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_wacom_led_helper_CFLAGS) $(CFLAGS) -c -o gsd_wacom_led_helper-gsd-wacom-led-helper.obj `if test -f 'gsd-wacom-led-helper.c'; then $(CYGPATH_W) 'gsd-wacom-led-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-wacom-led-helper.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_wacom_led_helper_CFLAGS) $(CFLAGS) -c -o csd_wacom_led_helper-csd-wacom-led-helper.obj `if test -f 'csd-wacom-led-helper.c'; then $(CYGPATH_W) 'csd-wacom-led-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-wacom-led-helper.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1078,7 +1078,7 @@ org.gnome.settings-daemon.plugins.wacom.policy.in: org.gnome.settings-daemon.plu
 
 @INTLTOOL_POLICY_RULE@
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

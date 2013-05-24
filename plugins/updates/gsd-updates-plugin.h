@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_UPDATES_PLUGIN_H__
-#define __GSD_UPDATES_PLUGIN_H__
+#ifndef __CSD_UPDATES_PLUGIN_H__
+#define __CSD_UPDATES_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_UPDATES_PLUGIN                (gsd_updates_plugin_get_type ())
-#define GSD_UPDATES_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_UPDATES_PLUGIN, GsdUpdatesPlugin))
-#define GSD_UPDATES_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST ((k), GSD_TYPE_UPDATES_PLUGIN, GsdUpdatesPluginClass))
-#define GSD_IS_UPDATES_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_UPDATES_PLUGIN))
-#define GSD_IS_UPDATES_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_UPDATES_PLUGIN))
-#define GSD_UPDATES_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_UPDATES_PLUGIN, GsdUpdatesPluginClass))
+#define CSD_TYPE_UPDATES_PLUGIN                (csd_updates_plugin_get_type ())
+#define CSD_UPDATES_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_UPDATES_PLUGIN, CsdUpdatesPlugin))
+#define CSD_UPDATES_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST ((k), CSD_TYPE_UPDATES_PLUGIN, CsdUpdatesPluginClass))
+#define CSD_IS_UPDATES_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_UPDATES_PLUGIN))
+#define CSD_IS_UPDATES_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_UPDATES_PLUGIN))
+#define CSD_UPDATES_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_UPDATES_PLUGIN, CsdUpdatesPluginClass))
 
-typedef struct GsdUpdatesPluginPrivate GsdUpdatesPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin parent;
-        GsdUpdatesPluginPrivate *priv;
-} GsdUpdatesPlugin;
+typedef struct CsdUpdatesPluginPrivate CsdUpdatesPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdUpdatesPluginClass;
+        CinnamonSettingsSettingsPlugin parent;
+        CsdUpdatesPluginPrivate *priv;
+} CsdUpdatesPlugin;
 
-GType gsd_updates_plugin_get_type (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdUpdatesPluginClass;
+
+GType csd_updates_plugin_get_type (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_UPDATES_PLUGIN_H__ */
+#endif /* __CSD_UPDATES_PLUGIN_H__ */

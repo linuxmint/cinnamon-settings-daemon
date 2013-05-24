@@ -26,27 +26,27 @@
 #include <unistd.h>
 #include <gtk/gtk.h>
 
-#include "gsd-automount-manager.h"
+#include "csd-automount-manager.h"
 
 int
 main (int argc,
       char **argv)
 {
         GMainLoop *loop;
-        GsdAutomountManager *manager;
+        CsdAutomountManager *manager;
         GError *error = NULL;
 
         g_type_init ();
         gtk_init (&argc, &argv);
 
-        bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
+        bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
 
         loop = g_main_loop_new (NULL, FALSE);
-        manager = gsd_automount_manager_new ();
+        manager = csd_automount_manager_new ();
 
-        gsd_automount_manager_start (manager, &error);
+        csd_automount_manager_start (manager, &error);
 
         if (error != NULL) {
                 g_printerr ("Unable to start the mount manager: %s",
@@ -58,7 +58,7 @@ main (int argc,
 
         g_main_loop_run (loop);
 
-        gsd_automount_manager_stop (manager);
+        csd_automount_manager_stop (manager);
         g_main_loop_unref (loop);
 
         return 0;

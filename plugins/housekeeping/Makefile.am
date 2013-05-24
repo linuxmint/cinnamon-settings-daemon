@@ -1,30 +1,30 @@
 plugin_name = housekeeping
 
 COMMON_FILES =				\
-	gsd-disk-space.c		\
-	gsd-disk-space.h		\
-	gsd-ldsm-dialog.c		\
-	gsd-ldsm-dialog.h		\
-	gsd-disk-space-helper.h		\
-	gsd-disk-space-helper.c
+	csd-disk-space.c		\
+	csd-disk-space.h		\
+	csd-ldsm-dialog.c		\
+	csd-ldsm-dialog.h		\
+	csd-disk-space-helper.h		\
+	csd-disk-space-helper.c
 
-noinst_PROGRAMS = gsd-disk-space-test gsd-empty-trash-test
+noinst_PROGRAMS = csd-disk-space-test csd-empty-trash-test
 
-gsd_disk_space_test_SOURCES =		\
-	gsd-disk-space-test.c		\
+csd_disk_space_test_SOURCES =		\
+	csd-disk-space-test.c		\
 	$(COMMON_FILES)
-gsd_disk_space_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
-gsd_disk_space_test_CFLAGS =		\
+csd_disk_space_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
+csd_disk_space_test_CFLAGS =		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_empty_trash_test_SOURCES =		\
-	gsd-empty-trash-test.c		\
+csd_empty_trash_test_SOURCES =		\
+	csd-empty-trash-test.c		\
 	$(COMMON_FILES)
-gsd_empty_trash_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
-gsd_empty_trash_test_CFLAGS =		\
+csd_empty_trash_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
+csd_empty_trash_test_CFLAGS =		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\
@@ -34,14 +34,14 @@ plugin_LTLIBRARIES = libhousekeeping.la
 
 libhousekeeping_la_SOURCES =		\
 	$(COMMON_FILES)			\
-	gsd-housekeeping-manager.c	\
-	gsd-housekeeping-manager.h	\
-	gsd-housekeeping-plugin.c	\
-	gsd-housekeeping-plugin.h
+	csd-housekeeping-manager.c	\
+	csd-housekeeping-manager.h	\
+	csd-housekeeping-plugin.c	\
+	csd-housekeeping-plugin.h
 
 libhousekeeping_la_CPPFLAGS = 					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 libhousekeeping_la_CFLAGS = 		\
@@ -51,13 +51,13 @@ libhousekeeping_la_CFLAGS = 		\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-libhousekeeping_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
+libhousekeeping_la_LDFLAGS = $(CSD_PLUGIN_LDFLAGS)
 
 libhousekeeping_la_LIBADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
 
-plugin_in_files = housekeeping.gnome-settings-plugin.in
+plugin_in_files = housekeeping.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST = $(plugin_in_files)
 
@@ -65,4 +65,4 @@ CLEANFILES = $(plugin_DATA)
 
 DISTCLEANFILES = (plugin_DATA)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

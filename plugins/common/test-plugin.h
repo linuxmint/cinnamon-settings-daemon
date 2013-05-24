@@ -1,10 +1,10 @@
 /**
  * Create a test app for your plugin quickly.
  *
- * #define NEW gsd_media_keys_manager_new
- * #define START gsd_media_keys_manager_start
- * #define MANAGER GsdMediaKeysManager
- * #include "gsd-media-keys-manager.h"
+ * #define NEW csd_media_keys_manager_new
+ * #define START csd_media_keys_manager_start
+ * #define MANAGER CsdMediaKeysManager
+ * #include "csd-media-keys-manager.h"
  *
  * #include "test-plugin.h"
  */
@@ -47,10 +47,10 @@ main (int argc, char **argv)
         GError  *error;
         GSettings *settings;
 
-        bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
+        bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
-        notify_init ("gnome-settings-daemon");
+        notify_init ("cinnamon-settings-daemon");
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 

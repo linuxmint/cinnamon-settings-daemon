@@ -19,34 +19,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef __GSD_UPDATES_FIRMWARE_H
-#define __GSD_UPDATES_FIRMWARE_H
+#ifndef __CSD_UPDATES_FIRMWARE_H
+#define __CSD_UPDATES_FIRMWARE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_UPDATES_TYPE_FIRMWARE               (gsd_updates_firmware_get_type ())
-#define GSD_UPDATES_FIRMWARE(o)                 (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_UPDATES_TYPE_FIRMWARE, GsdUpdatesFirmware))
-#define GSD_UPDATES_FIRMWARE_CLASS(k)           (G_TYPE_CHECK_CLASS_CAST((k), GSD_UPDATES_TYPE_FIRMWARE, GsdUpdatesFirmwareClass))
-#define GSD_UPDATES_IS_FIRMWARE(o)              (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_UPDATES_TYPE_FIRMWARE))
+#define CSD_UPDATES_TYPE_FIRMWARE               (csd_updates_firmware_get_type ())
+#define CSD_UPDATES_FIRMWARE(o)                 (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_UPDATES_TYPE_FIRMWARE, CsdUpdatesFirmware))
+#define CSD_UPDATES_FIRMWARE_CLASS(k)           (G_TYPE_CHECK_CLASS_CAST((k), CSD_UPDATES_TYPE_FIRMWARE, CsdUpdatesFirmwareClass))
+#define CSD_UPDATES_IS_FIRMWARE(o)              (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_UPDATES_TYPE_FIRMWARE))
 
-typedef struct GsdUpdatesFirmwarePrivate GsdUpdatesFirmwarePrivate;
+typedef struct CsdUpdatesFirmwarePrivate CsdUpdatesFirmwarePrivate;
 
 typedef struct
 {
          GObject                         parent;
-         GsdUpdatesFirmwarePrivate      *priv;
-} GsdUpdatesFirmware;
+         CsdUpdatesFirmwarePrivate      *priv;
+} CsdUpdatesFirmware;
 
 typedef struct
 {
         GObjectClass    parent_class;
-} GsdUpdatesFirmwareClass;
+} CsdUpdatesFirmwareClass;
 
-GType                    gsd_updates_firmware_get_type          (void);
-GsdUpdatesFirmware      *gsd_updates_firmware_new               (void);
+GType                    csd_updates_firmware_get_type          (void);
+CsdUpdatesFirmware      *csd_updates_firmware_new               (void);
 
 G_END_DECLS
 
-#endif /* __GSD_UPDATES_FIRMWARE_H */
+#endif /* __CSD_UPDATES_FIRMWARE_H */

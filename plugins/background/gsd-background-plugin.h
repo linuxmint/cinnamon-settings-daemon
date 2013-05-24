@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_BACKGROUND_PLUGIN_H__
-#define __GSD_BACKGROUND_PLUGIN_H__
+#ifndef __CSD_BACKGROUND_PLUGIN_H__
+#define __CSD_BACKGROUND_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_BACKGROUND_PLUGIN                (gsd_background_plugin_get_type ())
-#define GSD_BACKGROUND_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_BACKGROUND_PLUGIN, GsdBackgroundPlugin))
-#define GSD_BACKGROUND_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_BACKGROUND_PLUGIN, GsdBackgroundPluginClass))
-#define GSD_IS_BACKGROUND_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_BACKGROUND_PLUGIN))
-#define GSD_IS_BACKGROUND_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_BACKGROUND_PLUGIN))
-#define GSD_BACKGROUND_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_BACKGROUND_PLUGIN, GsdBackgroundPluginClass))
+#define CSD_TYPE_BACKGROUND_PLUGIN                (csd_background_plugin_get_type ())
+#define CSD_BACKGROUND_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_BACKGROUND_PLUGIN, CsdBackgroundPlugin))
+#define CSD_BACKGROUND_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_BACKGROUND_PLUGIN, CsdBackgroundPluginClass))
+#define CSD_IS_BACKGROUND_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_BACKGROUND_PLUGIN))
+#define CSD_IS_BACKGROUND_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_BACKGROUND_PLUGIN))
+#define CSD_BACKGROUND_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_BACKGROUND_PLUGIN, CsdBackgroundPluginClass))
 
-typedef struct GsdBackgroundPluginPrivate GsdBackgroundPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdBackgroundPluginPrivate *priv;
-} GsdBackgroundPlugin;
+typedef struct CsdBackgroundPluginPrivate CsdBackgroundPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdBackgroundPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdBackgroundPluginPrivate *priv;
+} CsdBackgroundPlugin;
 
-GType   gsd_background_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdBackgroundPluginClass;
+
+GType   csd_background_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_BACKGROUND_PLUGIN_H__ */
+#endif /* __CSD_BACKGROUND_PLUGIN_H__ */

@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-void            gsd_delayed_show_dialog (GtkWidget *dialog);
+void            csd_delayed_show_dialog (GtkWidget *dialog);
 
 G_END_DECLS
 

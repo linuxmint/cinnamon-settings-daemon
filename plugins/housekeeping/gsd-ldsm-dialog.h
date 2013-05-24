@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * gsd-ldsm-dialog.c
+ * csd-ldsm-dialog.c
  * Copyright (C) Chris Coulson 2009 <chrisccoulson@googlemail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,45 +18,45 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _GSD_LDSM_DIALOG_H_
-#define _GSD_LDSM_DIALOG_H_
+#ifndef _CSD_LDSM_DIALOG_H_
+#define _CSD_LDSM_DIALOG_H_
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_LDSM_DIALOG             (gsd_ldsm_dialog_get_type ())
-#define GSD_LDSM_DIALOG(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), GSD_TYPE_LDSM_DIALOG, GsdLdsmDialog))
-#define GSD_LDSM_DIALOG_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), GSD_TYPE_LDSM_DIALOG, GsdLdsmDialogClass))
-#define GSD_IS_LDSM_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GSD_TYPE_LDSM_DIALOG))
-#define GSD_IS_LDSM_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), GSD_TYPE_LDSM_DIALOG))
-#define GSD_LDSM_DIALOG_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GSD_TYPE_LDSM_DIALOG, GsdLdsmDialogClass))
+#define CSD_TYPE_LDSM_DIALOG             (csd_ldsm_dialog_get_type ())
+#define CSD_LDSM_DIALOG(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), CSD_TYPE_LDSM_DIALOG, CsdLdsmDialog))
+#define CSD_LDSM_DIALOG_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), CSD_TYPE_LDSM_DIALOG, CsdLdsmDialogClass))
+#define CSD_IS_LDSM_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CSD_TYPE_LDSM_DIALOG))
+#define CSD_IS_LDSM_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), CSD_TYPE_LDSM_DIALOG))
+#define CSD_LDSM_DIALOG_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), CSD_TYPE_LDSM_DIALOG, CsdLdsmDialogClass))
 
 enum
 {
-        GSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH = -20,
-        GSD_LDSM_DIALOG_RESPONSE_ANALYZE = -21
+        CSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH = -20,
+        CSD_LDSM_DIALOG_RESPONSE_ANALYZE = -21
 };
 
-typedef struct GsdLdsmDialogPrivate GsdLdsmDialogPrivate;
-typedef struct _GsdLdsmDialogClass GsdLdsmDialogClass;
-typedef struct _GsdLdsmDialog GsdLdsmDialog;
+typedef struct CsdLdsmDialogPrivate CsdLdsmDialogPrivate;
+typedef struct _CsdLdsmDialogClass CsdLdsmDialogClass;
+typedef struct _CsdLdsmDialog CsdLdsmDialog;
 
-struct _GsdLdsmDialogClass
+struct _CsdLdsmDialogClass
 {
         GtkDialogClass parent_class;
 };
 
-struct _GsdLdsmDialog
+struct _CsdLdsmDialog
 {
         GtkDialog parent_instance;
-        GsdLdsmDialogPrivate *priv;
+        CsdLdsmDialogPrivate *priv;
 };
 
-GType gsd_ldsm_dialog_get_type (void) G_GNUC_CONST;
+GType csd_ldsm_dialog_get_type (void) G_GNUC_CONST;
 
-GsdLdsmDialog * gsd_ldsm_dialog_new (gboolean other_usable_partitions,
+CsdLdsmDialog * csd_ldsm_dialog_new (gboolean other_usable_partitions,
                                      gboolean other_partitions,
                                      gboolean display_baobab,
                                      gboolean display_empty_trash,
@@ -66,4 +66,4 @@ GsdLdsmDialog * gsd_ldsm_dialog_new (gboolean other_usable_partitions,
 
 G_END_DECLS
 
-#endif /* _GSD_LDSM_DIALOG_H_ */
+#endif /* _CSD_LDSM_DIALOG_H_ */

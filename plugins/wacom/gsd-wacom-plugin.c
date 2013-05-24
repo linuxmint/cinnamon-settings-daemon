@@ -24,39 +24,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-wacom-plugin.h"
-#include "gsd-wacom-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-wacom-plugin.h"
+#include "csd-wacom-manager.h"
 
-struct GsdWacomPluginPrivate {
-        GsdWacomManager *manager;
+struct CsdWacomPluginPrivate {
+        CsdWacomManager *manager;
 };
 
-#define GSD_WACOM_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_WACOM_PLUGIN, GsdWacomPluginPrivate))
+#define CSD_WACOM_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_WACOM_PLUGIN, CsdWacomPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdWacomPlugin, gsd_wacom_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdWacomPlugin, csd_wacom_plugin)
 
 static void
-gsd_wacom_plugin_init (GsdWacomPlugin *plugin)
+csd_wacom_plugin_init (CsdWacomPlugin *plugin)
 {
-        plugin->priv = GSD_WACOM_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_WACOM_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdWacomPlugin initializing");
+        g_debug ("CsdWacomPlugin initializing");
 
-        plugin->priv->manager = gsd_wacom_manager_new ();
+        plugin->priv->manager = csd_wacom_manager_new ();
 }
 
 static void
-gsd_wacom_plugin_finalize (GObject *object)
+csd_wacom_plugin_finalize (GObject *object)
 {
-        GsdWacomPlugin *plugin;
+        CsdWacomPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_WACOM_PLUGIN (object));
+        g_return_if_fail (CSD_IS_WACOM_PLUGIN (object));
 
-        g_debug ("GsdWacomPlugin finalizing");
+        g_debug ("CsdWacomPlugin finalizing");
 
-        plugin = GSD_WACOM_PLUGIN (object);
+        plugin = CSD_WACOM_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -64,11 +64,11 @@ gsd_wacom_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_wacom_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_wacom_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -76,7 +76,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating wacom plugin");
 
         error = NULL;
-        res = gsd_wacom_manager_start (GSD_WACOM_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_wacom_manager_start (CSD_WACOM_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start wacom manager: %s", error->message);
                 g_error_free (error);
@@ -84,22 +84,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating wacom plugin");
-        gsd_wacom_manager_stop (GSD_WACOM_PLUGIN (plugin)->priv->manager);
+        csd_wacom_manager_stop (CSD_WACOM_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_wacom_plugin_class_init (GsdWacomPluginClass *klass)
+csd_wacom_plugin_class_init (CsdWacomPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_wacom_plugin_finalize;
+        object_class->finalize = csd_wacom_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdWacomPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdWacomPluginPrivate));
 }

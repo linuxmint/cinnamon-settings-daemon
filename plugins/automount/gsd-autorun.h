@@ -1,5 +1,5 @@
 /*
- * gsd-automount.h:helpers for automounting hotplugged volumes 
+ * csd-automount.h:helpers for automounting hotplugged volumes 
  *
  * Copyright (C) 2008 Red Hat, Inc.
  *
@@ -33,21 +33,21 @@
  *
  */
 
-#ifndef __GSD_AUTORUN_H__
-#define __GSD_AUTORUN_H__
+#ifndef __CSD_AUTORUN_H__
+#define __CSD_AUTORUN_H__
 
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
-typedef void (*GsdAutorunOpenWindow) (GMount *mount,
+typedef void (*CsdAutorunOpenWindow) (GMount *mount,
 				      gpointer user_data);
 
-void gsd_autorun (GMount *mount,
+void csd_autorun (GMount *mount,
 		  GSettings *settings,
-		  GsdAutorunOpenWindow open_window_func,
+		  CsdAutorunOpenWindow open_window_func,
 		  gpointer user_data);
 
-void gsd_allow_autorun_for_volume (GVolume *volume);
-void gsd_allow_autorun_for_volume_finish (GVolume *volume);
+void csd_allow_autorun_for_volume (GVolume *volume);
+void csd_allow_autorun_for_volume_finish (GVolume *volume);
 
-#endif /* __GSD_AUTORUN_H__ */
+#endif /* __CSD_AUTORUN_H__ */

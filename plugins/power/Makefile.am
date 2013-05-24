@@ -10,16 +10,16 @@ libpower_la_SOURCES = 					\
 	gpm-phone.h					\
 	gpm-idletime.c					\
 	gpm-idletime.h					\
-	gsd-power-manager.c				\
-	gsd-power-manager.h				\
-	gsd-power-plugin.c				\
-	gsd-power-plugin.h
+	csd-power-manager.c				\
+	csd-power-manager.h				\
+	csd-power-plugin.c				\
+	csd-power-plugin.h
 
 libpower_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/				\
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"		\
 	-DSBINDIR=\"$(sbindir)\"			\
 	-DLIBEXECDIR=\"$(libexecdir)\"			\
@@ -32,18 +32,18 @@ libpower_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libpower_la_LDFLAGS = 					\
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libpower_la_LIBADD  = 					\
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(POWER_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 					\
-	power.gnome-settings-plugin.in
+	power.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 org.gnome.settings-daemon.plugins.power.policy.in: org.gnome.settings-daemon.plugins.power.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
@@ -54,43 +54,43 @@ polkit_policy_in_files = org.gnome.settings-daemon.plugins.power.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
-gsd_backlight_helper_SOURCES =				\
-	gsd-backlight-helper.c
+csd_backlight_helper_SOURCES =				\
+	csd-backlight-helper.c
 
-libexec_PROGRAMS = gsd-test-power
-gsd_test_power_SOURCES =				\
+libexec_PROGRAMS = csd-test-power
+csd_test_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
 	gpm-phone.c					\
 	gpm-phone.h					\
 	gpm-idletime.c					\
 	gpm-idletime.h					\
-	gsd-power-manager.c				\
-	gsd-power-manager.h				\
+	csd-power-manager.c				\
+	csd-power-manager.h				\
 	test-power.c
 
-gsd_test_power_CFLAGS = $(libpower_la_CFLAGS)
-gsd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
-gsd_test_power_LDADD =					\
+csd_test_power_CFLAGS = $(libpower_la_CFLAGS)
+csd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
+csd_test_power_LDADD =					\
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(POWER_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 EXTRA_DIST = 						\
 	$(plugin_in_files)				\
-	$(gsd_backlight_helper_SOURCES)
+	$(csd_backlight_helper_SOURCES)
 
 if HAVE_GUDEV
 libexec_PROGRAMS +=					\
-	gsd-backlight-helper
+	csd-backlight-helper
 
-gsd_backlight_helper_LDFLAGS =				\
+csd_backlight_helper_LDFLAGS =				\
 	$(BACKLIGHT_HELPER_LIBS)			\
 	-lm
 
-gsd_backlight_helper_CFLAGS =				\
+csd_backlight_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)
 
 EXTRA_DIST += 						\
@@ -105,4 +105,4 @@ CLEANFILES = 						\
 	org.gnome.settings-daemon.plugins.power.policy	\
 	org.gnome.settings-daemon.plugins.power.policy.in
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

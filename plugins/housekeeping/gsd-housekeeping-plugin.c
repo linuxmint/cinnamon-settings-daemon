@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-housekeeping-plugin.h"
-#include "gsd-housekeeping-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-housekeeping-plugin.h"
+#include "csd-housekeeping-manager.h"
 
-struct GsdHousekeepingPluginPrivate {
-        GsdHousekeepingManager *manager;
+struct CsdHousekeepingPluginPrivate {
+        CsdHousekeepingManager *manager;
 };
 
-#define GSD_HOUSEKEEPING_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_HOUSEKEEPING_PLUGIN, GsdHousekeepingPluginPrivate))
+#define CSD_HOUSEKEEPING_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_HOUSEKEEPING_PLUGIN, CsdHousekeepingPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdHousekeepingPlugin, gsd_housekeeping_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdHousekeepingPlugin, csd_housekeeping_plugin)
 
 static void
-gsd_housekeeping_plugin_init (GsdHousekeepingPlugin *plugin)
+csd_housekeeping_plugin_init (CsdHousekeepingPlugin *plugin)
 {
-        plugin->priv = GSD_HOUSEKEEPING_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_HOUSEKEEPING_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdHousekeepingPlugin initializing");
+        g_debug ("CsdHousekeepingPlugin initializing");
 
-        plugin->priv->manager = gsd_housekeeping_manager_new ();
+        plugin->priv->manager = csd_housekeeping_manager_new ();
 }
 
 static void
-gsd_housekeeping_plugin_finalize (GObject *object)
+csd_housekeeping_plugin_finalize (GObject *object)
 {
-        GsdHousekeepingPlugin *plugin;
+        CsdHousekeepingPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_HOUSEKEEPING_PLUGIN (object));
+        g_return_if_fail (CSD_IS_HOUSEKEEPING_PLUGIN (object));
 
-        g_debug ("GsdHousekeepingPlugin finalizing");
+        g_debug ("CsdHousekeepingPlugin finalizing");
 
-        plugin = GSD_HOUSEKEEPING_PLUGIN (object);
+        plugin = CSD_HOUSEKEEPING_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gsd_housekeeping_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_housekeeping_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_housekeeping_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating housekeeping plugin");
 
         error = NULL;
-        res = gsd_housekeeping_manager_start (GSD_HOUSEKEEPING_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_housekeeping_manager_start (CSD_HOUSEKEEPING_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start housekeeping manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating housekeeping plugin");
-        gsd_housekeeping_manager_stop (GSD_HOUSEKEEPING_PLUGIN (plugin)->priv->manager);
+        csd_housekeeping_manager_stop (CSD_HOUSEKEEPING_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_housekeeping_plugin_class_init (GsdHousekeepingPluginClass *klass)
+csd_housekeeping_plugin_class_init (CsdHousekeepingPluginClass *klass)
 {
         GObjectClass             *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_housekeeping_plugin_finalize;
+        object_class->finalize = csd_housekeeping_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdHousekeepingPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdHousekeepingPluginPrivate));
 }

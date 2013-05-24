@@ -1228,7 +1228,7 @@ client_signal_handler (GDBusConnection  *connection,
 
                 if (g_strcmp0 (signal_name, "EndSession") == 0) {
                         g_main_loop_quit (main_loop);
-                        g_debug ("Exiting gsd-printer");
+                        g_debug ("Exiting csd-printer");
                 }
         }
 }
@@ -1292,7 +1292,7 @@ main (int argc, char *argv[])
   guint            session_signal_subscription_id;
   gchar           *object_path;
 
-  bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
+  bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
   setlocale (LC_ALL, "");
@@ -1304,7 +1304,7 @@ main (int argc, char *argv[])
 
   g_type_init ();
 
-  notify_init ("gnome-settings-daemon-printer");
+  notify_init ("cinnamon-settings-daemon-printer");
 
   npn_introspection_data =
           g_dbus_node_info_new_for_xml (npn_introspection_xml, &error);
@@ -1338,7 +1338,7 @@ main (int argc, char *argv[])
                                         NULL,
                                         NULL);
 
-  object_path = register_gnome_session_client ("gsd-printer", "");
+  object_path = register_gnome_session_client ("csd-printer", "");
   if (object_path) {
           client_signal_subscription_id =
                   g_dbus_connection_signal_subscribe (connection,

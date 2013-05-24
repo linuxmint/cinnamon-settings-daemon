@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_SOUND_PLUGIN_H__
-#define __GSD_SOUND_PLUGIN_H__
+#ifndef __CSD_SOUND_PLUGIN_H__
+#define __CSD_SOUND_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_SOUND_PLUGIN                (gsd_sound_plugin_get_type ())
-#define GSD_SOUND_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_SOUND_PLUGIN, GsdSoundPlugin))
-#define GSD_SOUND_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST ((k), GSD_TYPE_SOUND_PLUGIN, GsdSoundPluginClass))
-#define GSD_IS_SOUND_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_SOUND_PLUGIN))
-#define GSD_IS_SOUND_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_SOUND_PLUGIN))
-#define GSD_SOUND_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_SOUND_PLUGIN, GsdSoundPluginClass))
+#define CSD_TYPE_SOUND_PLUGIN                (csd_sound_plugin_get_type ())
+#define CSD_SOUND_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_SOUND_PLUGIN, CsdSoundPlugin))
+#define CSD_SOUND_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST ((k), CSD_TYPE_SOUND_PLUGIN, CsdSoundPluginClass))
+#define CSD_IS_SOUND_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_SOUND_PLUGIN))
+#define CSD_IS_SOUND_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_SOUND_PLUGIN))
+#define CSD_SOUND_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_SOUND_PLUGIN, CsdSoundPluginClass))
 
-typedef struct GsdSoundPluginPrivate GsdSoundPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin parent;
-        GsdSoundPluginPrivate *priv;
-} GsdSoundPlugin;
+typedef struct CsdSoundPluginPrivate CsdSoundPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdSoundPluginClass;
+        CinnamonSettingsSettingsPlugin parent;
+        CsdSoundPluginPrivate *priv;
+} CsdSoundPlugin;
 
-GType gsd_sound_plugin_get_type (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdSoundPluginClass;
+
+GType csd_sound_plugin_get_type (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_SOUND_PLUGIN_H__ */
+#endif /* __CSD_SOUND_PLUGIN_H__ */

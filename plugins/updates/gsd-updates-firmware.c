@@ -41,20 +41,20 @@
 #include <gudev/gudev.h>
 #endif
 
-#include "gsd-updates-common.h"
-#include "gsd-updates-firmware.h"
+#include "csd-updates-common.h"
+#include "csd-updates-firmware.h"
 
-static void     gsd_updates_firmware_finalize   (GObject          *object);
+static void     csd_updates_firmware_finalize   (GObject          *object);
 
-#define GSD_UPDATES_FIRMWARE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_UPDATES_TYPE_FIRMWARE, GsdUpdatesFirmwarePrivate))
-#define GSD_UPDATES_FIRMWARE_MISSING_DIR                "/run/udev/firmware-missing"
-#define GSD_UPDATES_FIRMWARE_LOADING_DIR                "/lib/firmware"
-#define GSD_UPDATES_FIRMWARE_LOGIN_DELAY                10 /* seconds */
-#define GSD_UPDATES_FIRMWARE_PROCESS_DELAY              2 /* seconds */
-#define GSD_UPDATES_FIRMWARE_INSERT_DELAY               2 /* seconds */
-#define GSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM      "/usr/sbin/pk-device-rebind"
+#define CSD_UPDATES_FIRMWARE_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_UPDATES_TYPE_FIRMWARE, CsdUpdatesFirmwarePrivate))
+#define CSD_UPDATES_FIRMWARE_MISSING_DIR                "/run/udev/firmware-missing"
+#define CSD_UPDATES_FIRMWARE_LOADING_DIR                "/lib/firmware"
+#define CSD_UPDATES_FIRMWARE_LOGIN_DELAY                10 /* seconds */
+#define CSD_UPDATES_FIRMWARE_PROCESS_DELAY              2 /* seconds */
+#define CSD_UPDATES_FIRMWARE_INSERT_DELAY               2 /* seconds */
+#define CSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM      "/usr/sbin/pk-device-rebind"
 
-struct GsdUpdatesFirmwarePrivate
+struct CsdUpdatesFirmwarePrivate
 {
         GSettings               *settings;
         GFileMonitor            *monitor;
@@ -76,12 +76,12 @@ typedef struct {
         gchar                   *model;
         gchar                   *id;
         FirmwareSubsystem        subsystem;
-} GsdUpdatesFirmwareRequest;
+} CsdUpdatesFirmwareRequest;
 
-G_DEFINE_TYPE (GsdUpdatesFirmware, gsd_updates_firmware, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdUpdatesFirmware, csd_updates_firmware, G_TYPE_OBJECT)
 
-static void install_package_ids (GsdUpdatesFirmware *firmware);
-static void ignore_devices (GsdUpdatesFirmware *firmware);
+static void install_package_ids (CsdUpdatesFirmware *firmware);
+static void ignore_devices (CsdUpdatesFirmware *firmware);
 
 static gboolean
 subsystem_can_replug (FirmwareSubsystem subsystem)
@@ -91,10 +91,10 @@ subsystem_can_replug (FirmwareSubsystem subsystem)
         return FALSE;
 }
 
-static GsdUpdatesFirmwareRequest *
+static CsdUpdatesFirmwareRequest *
 request_new (const gchar *filename, const gchar *sysfs_path)
 {
-        GsdUpdatesFirmwareRequest *req;
+        CsdUpdatesFirmwareRequest *req;
 #ifdef HAVE_GUDEV
         GUdevDevice *device;
         GUdevClient *client;
@@ -104,7 +104,7 @@ request_new (const gchar *filename, const gchar *sysfs_path)
         const gchar *id_product;
 #endif
 
-        req = g_new0 (GsdUpdatesFirmwareRequest, 1);
+        req = g_new0 (CsdUpdatesFirmwareRequest, 1);
         req->filename = g_strdup (filename);
         req->sysfs_path = g_strdup (sysfs_path);
         req->subsystem = FIRMWARE_SUBSYSTEM_UNKNOWN;
@@ -147,7 +147,7 @@ out:
 }
 
 static void
-request_free (GsdUpdatesFirmwareRequest *req)
+request_free (CsdUpdatesFirmwareRequest *req)
 {
         g_free (req->filename);
         g_free (req->model);
@@ -157,7 +157,7 @@ request_free (GsdUpdatesFirmwareRequest *req)
 }
 
 static gboolean
-device_rebind (GsdUpdatesFirmware *firmware)
+device_rebind (CsdUpdatesFirmware *firmware)
 {
         gboolean ret;
         gchar *argv[4];
@@ -167,7 +167,7 @@ device_rebind (GsdUpdatesFirmware *firmware)
         gint exit_status = 0;
         guint i;
         GPtrArray *array;
-        const GsdUpdatesFirmwareRequest *req;
+        const CsdUpdatesFirmwareRequest *req;
         GString *string;
 
         string = g_string_new ("");
@@ -185,7 +185,7 @@ device_rebind (GsdUpdatesFirmware *firmware)
 
         /* use PolicyKit to do this as root */
         argv[0] = BINDIR "/pkexec";
-        argv[1] = GSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM;
+        argv[1] = CSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM;
         argv[2] = string->str;
         argv[3] = NULL;
         ret = g_spawn_sync (NULL,
@@ -220,7 +220,7 @@ out:
 static void
 libnotify_cb (NotifyNotification *notification, gchar *action, gpointer data)
 {
-        GsdUpdatesFirmware *firmware = GSD_UPDATES_FIRMWARE (data);
+        CsdUpdatesFirmware *firmware = CSD_UPDATES_FIRMWARE (data);
 
         if (g_strcmp0 (action, "install-firmware") == 0) {
                 install_package_ids (firmware);
@@ -239,7 +239,7 @@ on_notification_closed (NotifyNotification *notification, gpointer data)
 }
 
 static void
-require_restart (GsdUpdatesFirmware *firmware)
+require_restart (CsdUpdatesFirmware *firmware)
 {
         const gchar *message;
         gboolean ret;
@@ -266,7 +266,7 @@ require_restart (GsdUpdatesFirmware *firmware)
 }
 
 static void
-require_replug (GsdUpdatesFirmware *firmware)
+require_replug (CsdUpdatesFirmware *firmware)
 {
         const gchar *message;
         gboolean ret;
@@ -293,7 +293,7 @@ require_replug (GsdUpdatesFirmware *firmware)
 }
 
 static void
-require_nothing (GsdUpdatesFirmware *firmware)
+require_nothing (CsdUpdatesFirmware *firmware)
 {
         const gchar *message;
         gboolean ret;
@@ -322,14 +322,14 @@ require_nothing (GsdUpdatesFirmware *firmware)
 static void
 install_packages_cb (GObject *object,
                      GAsyncResult *res,
-                     GsdUpdatesFirmware *firmware)
+                     CsdUpdatesFirmware *firmware)
 {
         PkClient *client = PK_CLIENT (object);
         GError *error = NULL;
         PkResults *results = NULL;
         GPtrArray *array = NULL;
         gboolean restart = FALSE;
-        const GsdUpdatesFirmwareRequest *req;
+        const CsdUpdatesFirmwareRequest *req;
         gboolean ret;
         guint i;
         PkError *error_code = NULL;
@@ -363,7 +363,7 @@ install_packages_cb (GObject *object,
         }
 
         /* can we just rebind the device */
-        ret = g_file_test (GSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM, G_FILE_TEST_EXISTS);
+        ret = g_file_test (CSD_UPDATES_FIRMWARE_DEVICE_REBIND_PROGRAM, G_FILE_TEST_EXISTS);
         if (ret) {
                 ret = device_rebind (firmware);
                 if (ret) {
@@ -405,7 +405,7 @@ package_array_to_strv (GPtrArray *array)
 }
 
 static void
-install_package_ids (GsdUpdatesFirmware *firmware)
+install_package_ids (CsdUpdatesFirmware *firmware)
 {
         gchar **package_ids;
 
@@ -421,17 +421,17 @@ install_package_ids (GsdUpdatesFirmware *firmware)
 }
 
 static void
-ignore_devices (GsdUpdatesFirmware *firmware)
+ignore_devices (CsdUpdatesFirmware *firmware)
 {
         gchar *existing = NULL;
-        GsdUpdatesFirmwareRequest *req;
+        CsdUpdatesFirmwareRequest *req;
         GPtrArray *array;
         GString *string;
         guint i;
 
         /* get from settings */
         existing = g_settings_get_string (firmware->priv->settings,
-                                          GSD_SETTINGS_IGNORED_DEVICES);
+                                          CSD_SETTINGS_IGNORED_DEVICES);
 
         /* get existing string */
         string = g_string_new (existing);
@@ -451,7 +451,7 @@ ignore_devices (GsdUpdatesFirmware *firmware)
 
         /* set new string */
         g_settings_set_string (firmware->priv->settings,
-                               GSD_SETTINGS_IGNORED_DEVICES,
+                               CSD_SETTINGS_IGNORED_DEVICES,
                                string->str);
 
         g_free (existing);
@@ -459,7 +459,7 @@ ignore_devices (GsdUpdatesFirmware *firmware)
 }
 
 static PkPackage *
-check_available (GsdUpdatesFirmware *firmware, const gchar *filename)
+check_available (CsdUpdatesFirmware *firmware, const gchar *filename)
 {
         guint length = 0;
         GPtrArray *array = NULL;
@@ -539,12 +539,12 @@ delay_timeout_cb (gpointer data)
         guint i;
         gboolean ret;
         GString *string;
-        GsdUpdatesFirmware *firmware = GSD_UPDATES_FIRMWARE (data);
+        CsdUpdatesFirmware *firmware = CSD_UPDATES_FIRMWARE (data);
         NotifyNotification *notification;
         GPtrArray *array;
         GError *error = NULL;
         PkPackage *item = NULL;
-        const GsdUpdatesFirmwareRequest *req;
+        const CsdUpdatesFirmwareRequest *req;
         gboolean has_data = FALSE;
 
         /* message string */
@@ -621,17 +621,17 @@ out:
 }
 
 static void
-remove_banned (GsdUpdatesFirmware *firmware, GPtrArray *array)
+remove_banned (CsdUpdatesFirmware *firmware, GPtrArray *array)
 {
         gboolean ret;
         gchar **banned = NULL;
         gchar *banned_str;
-        GsdUpdatesFirmwareRequest *req;
+        CsdUpdatesFirmwareRequest *req;
         guint i, j;
 
         /* get from settings */
         banned_str = g_settings_get_string (firmware->priv->settings,
-                                            GSD_SETTINGS_BANNED_FIRMWARE);
+                                            CSD_SETTINGS_BANNED_FIRMWARE);
         if (banned_str == NULL) {
                 g_warning ("could not read banned list");
                 goto out;
@@ -666,17 +666,17 @@ out:
 }
 
 static void
-remove_ignored (GsdUpdatesFirmware *firmware, GPtrArray *array)
+remove_ignored (CsdUpdatesFirmware *firmware, GPtrArray *array)
 {
         gboolean ret;
         gchar **ignored = NULL;
         gchar *ignored_str;
-        GsdUpdatesFirmwareRequest *req;
+        CsdUpdatesFirmwareRequest *req;
         guint i, j;
 
         /* get from settings */
         ignored_str = g_settings_get_string (firmware->priv->settings,
-                                             GSD_SETTINGS_IGNORED_DEVICES);
+                                             CSD_SETTINGS_IGNORED_DEVICES);
         if (ignored_str == NULL) {
                 g_warning ("could not read ignored list");
                 goto out;
@@ -736,7 +736,7 @@ udev_text_decode (const gchar *data)
 }
 
 static gchar *
-get_device (GsdUpdatesFirmware *firmware, const gchar *filename)
+get_device (CsdUpdatesFirmware *firmware, const gchar *filename)
 {
         GFile *file;
         GFileInfo *info;
@@ -790,18 +790,18 @@ out:
 }
 
 static void
-add_filename (GsdUpdatesFirmware *firmware, const gchar *filename_no_path)
+add_filename (CsdUpdatesFirmware *firmware, const gchar *filename_no_path)
 {
         gboolean ret;
         gchar *filename_path = NULL;
         gchar *missing_path = NULL;
         gchar *sysfs_path = NULL;
-        GsdUpdatesFirmwareRequest *req;
+        CsdUpdatesFirmwareRequest *req;
         GPtrArray *array;
         guint i;
 
         /* this is the file we want to load */
-        filename_path = g_build_filename (GSD_UPDATES_FIRMWARE_LOADING_DIR,
+        filename_path = g_build_filename (CSD_UPDATES_FIRMWARE_LOADING_DIR,
                                           filename_no_path, NULL);
 
         /* file already exists */
@@ -810,7 +810,7 @@ add_filename (GsdUpdatesFirmware *firmware, const gchar *filename_no_path)
                 goto out;
 
         /* this is the file that udev created for us */
-        missing_path = g_build_filename (GSD_UPDATES_FIRMWARE_MISSING_DIR,
+        missing_path = g_build_filename (CSD_UPDATES_FIRMWARE_MISSING_DIR,
                                          filename_no_path, NULL);
         g_debug ("filename=%s -> %s", missing_path, filename_path);
 
@@ -845,7 +845,7 @@ out:
 }
 
 static void
-scan_directory (GsdUpdatesFirmware *firmware)
+scan_directory (CsdUpdatesFirmware *firmware)
 {
         gboolean ret;
         GError *error = NULL;
@@ -854,19 +854,19 @@ scan_directory (GsdUpdatesFirmware *firmware)
         gchar *filename_decoded;
         guint i;
         GPtrArray *array;
-        const GsdUpdatesFirmwareRequest *req;
+        const CsdUpdatesFirmwareRequest *req;
         guint scan_id = 0;
 
         /* should we check and show the user */
         ret = g_settings_get_boolean (firmware->priv->settings,
-                                      GSD_SETTINGS_ENABLE_CHECK_FIRMWARE);
+                                      CSD_SETTINGS_ENABLE_CHECK_FIRMWARE);
         if (!ret) {
                 g_debug ("not showing thanks to GSettings");
                 return;
         }
 
         /* open the directory of requests */
-        dir = g_dir_open (GSD_UPDATES_FIRMWARE_MISSING_DIR, 0, &error);
+        dir = g_dir_open (CSD_UPDATES_FIRMWARE_MISSING_DIR, 0, &error);
         if (dir == NULL) {
                 if (error->code != G_FILE_ERROR_NOENT) {
                         g_warning ("failed to open directory: %s",
@@ -911,15 +911,15 @@ scan_directory (GsdUpdatesFirmware *firmware)
 
         /* don't spam the user at startup, so wait a little delay */
         if (array->len > 0) {
-                scan_id = g_timeout_add_seconds (GSD_UPDATES_FIRMWARE_PROCESS_DELAY,
+                scan_id = g_timeout_add_seconds (CSD_UPDATES_FIRMWARE_PROCESS_DELAY,
                                                  delay_timeout_cb,
                                                  firmware);
-                g_source_set_name_by_id (scan_id, "[GsdUpdatesFirmware] process");
+                g_source_set_name_by_id (scan_id, "[CsdUpdatesFirmware] process");
         }
 }
 
 static gboolean
-scan_directory_cb (GsdUpdatesFirmware *firmware)
+scan_directory_cb (CsdUpdatesFirmware *firmware)
 {
         scan_directory (firmware);
         firmware->priv->timeout_id = 0;
@@ -931,7 +931,7 @@ monitor_changed_cb (GFileMonitor *monitor,
                     GFile *file,
                     GFile *other_file,
                     GFileMonitorEvent event_type,
-                    GsdUpdatesFirmware *firmware)
+                    CsdUpdatesFirmware *firmware)
 {
         if (firmware->priv->timeout_id > 0) {
                 g_debug ("clearing timeout as device changed");
@@ -940,39 +940,39 @@ monitor_changed_cb (GFileMonitor *monitor,
 
         /* wait for the device to settle */
         firmware->priv->timeout_id =
-                g_timeout_add_seconds (GSD_UPDATES_FIRMWARE_INSERT_DELAY,
+                g_timeout_add_seconds (CSD_UPDATES_FIRMWARE_INSERT_DELAY,
                                        (GSourceFunc) scan_directory_cb,
                                        firmware);
         g_source_set_name_by_id (firmware->priv->timeout_id,
-                                 "[GsdUpdatesFirmware] changed");
+                                 "[CsdUpdatesFirmware] changed");
 }
 
 static void
-gsd_updates_firmware_class_init (GsdUpdatesFirmwareClass *klass)
+csd_updates_firmware_class_init (CsdUpdatesFirmwareClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        object_class->finalize = gsd_updates_firmware_finalize;
-        g_type_class_add_private (klass, sizeof (GsdUpdatesFirmwarePrivate));
+        object_class->finalize = csd_updates_firmware_finalize;
+        g_type_class_add_private (klass, sizeof (CsdUpdatesFirmwarePrivate));
 }
 
 static void
-gsd_updates_firmware_init (GsdUpdatesFirmware *firmware)
+csd_updates_firmware_init (CsdUpdatesFirmware *firmware)
 {
         GFile *file;
         GError *error = NULL;
 
-        firmware->priv = GSD_UPDATES_FIRMWARE_GET_PRIVATE (firmware);
+        firmware->priv = CSD_UPDATES_FIRMWARE_GET_PRIVATE (firmware);
         firmware->priv->timeout_id = 0;
         firmware->priv->packages_found = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
         firmware->priv->array_requested = g_ptr_array_new_with_free_func ((GDestroyNotify) request_free);
-        firmware->priv->settings = g_settings_new (GSD_SETTINGS_SCHEMA);
+        firmware->priv->settings = g_settings_new (CSD_SETTINGS_SCHEMA);
         firmware->priv->task = pk_task_new ();
         g_object_set (firmware->priv->task,
                       "background", TRUE,
                       NULL);
 
         /* setup watch for new hardware */
-        file = g_file_new_for_path (GSD_UPDATES_FIRMWARE_MISSING_DIR);
+        file = g_file_new_for_path (CSD_UPDATES_FIRMWARE_MISSING_DIR);
         firmware->priv->monitor = g_file_monitor (file,
                                                   G_FILE_MONITOR_NONE,
                                                   NULL,
@@ -992,21 +992,21 @@ gsd_updates_firmware_init (GsdUpdatesFirmware *firmware)
 out:
         g_object_unref (file);
         firmware->priv->timeout_id =
-                g_timeout_add_seconds (GSD_UPDATES_FIRMWARE_LOGIN_DELAY,
+                g_timeout_add_seconds (CSD_UPDATES_FIRMWARE_LOGIN_DELAY,
                                        (GSourceFunc) scan_directory_cb,
                                        firmware);
         g_source_set_name_by_id (firmware->priv->timeout_id,
-                                 "[GsdUpdatesFirmware] login coldplug");
+                                 "[CsdUpdatesFirmware] login coldplug");
 }
 
 static void
-gsd_updates_firmware_finalize (GObject *object)
+csd_updates_firmware_finalize (GObject *object)
 {
-        GsdUpdatesFirmware *firmware;
+        CsdUpdatesFirmware *firmware;
 
-        g_return_if_fail (GSD_UPDATES_IS_FIRMWARE (object));
+        g_return_if_fail (CSD_UPDATES_IS_FIRMWARE (object));
 
-        firmware = GSD_UPDATES_FIRMWARE (object);
+        firmware = CSD_UPDATES_FIRMWARE (object);
 
         g_return_if_fail (firmware->priv != NULL);
         g_ptr_array_unref (firmware->priv->array_requested);
@@ -1018,13 +1018,13 @@ gsd_updates_firmware_finalize (GObject *object)
         if (firmware->priv->timeout_id > 0)
                 g_source_remove (firmware->priv->timeout_id);
 
-        G_OBJECT_CLASS (gsd_updates_firmware_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_updates_firmware_parent_class)->finalize (object);
 }
 
-GsdUpdatesFirmware *
-gsd_updates_firmware_new (void)
+CsdUpdatesFirmware *
+csd_updates_firmware_new (void)
 {
-        GsdUpdatesFirmware *firmware;
-        firmware = g_object_new (GSD_UPDATES_TYPE_FIRMWARE, NULL);
-        return GSD_UPDATES_FIRMWARE (firmware);
+        CsdUpdatesFirmware *firmware;
+        firmware = g_object_new (CSD_UPDATES_TYPE_FIRMWARE, NULL);
+        return CSD_UPDATES_FIRMWARE (firmware);
 }

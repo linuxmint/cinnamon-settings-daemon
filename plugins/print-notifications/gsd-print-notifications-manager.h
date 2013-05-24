@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GSD_PRINT_NOTIFICATIONS_MANAGER_H
-#define __GSD_PRINT_NOTIFICATIONS_MANAGER_H
+#ifndef __CSD_PRINT_NOTIFICATIONS_MANAGER_H
+#define __CSD_PRINT_NOTIFICATIONS_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER         (gsd_print_notifications_manager_get_type ())
-#define GSD_PRINT_NOTIFICATIONS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManager))
-#define GSD_PRINT_NOTIFICATIONS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManagerClass))
-#define GSD_IS_PRINT_NOTIFICATIONS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER))
-#define GSD_IS_PRINT_NOTIFICATIONS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER))
-#define GSD_PRINT_NOTIFICATIONS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManagerClass))
+#define CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER         (csd_print_notifications_manager_get_type ())
+#define CSD_PRINT_NOTIFICATIONS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, CsdPrintNotificationsManager))
+#define CSD_PRINT_NOTIFICATIONS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, CsdPrintNotificationsManagerClass))
+#define CSD_IS_PRINT_NOTIFICATIONS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER))
+#define CSD_IS_PRINT_NOTIFICATIONS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER))
+#define CSD_PRINT_NOTIFICATIONS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, CsdPrintNotificationsManagerClass))
 
-typedef struct GsdPrintNotificationsManagerPrivate GsdPrintNotificationsManagerPrivate;
+typedef struct CsdPrintNotificationsManagerPrivate CsdPrintNotificationsManagerPrivate;
 
 typedef struct
 {
         GObject                              parent;
-        GsdPrintNotificationsManagerPrivate *priv;
-} GsdPrintNotificationsManager;
+        CsdPrintNotificationsManagerPrivate *priv;
+} CsdPrintNotificationsManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdPrintNotificationsManagerClass;
+} CsdPrintNotificationsManagerClass;
 
-GType                         gsd_print_notifications_manager_get_type (void);
+GType                         csd_print_notifications_manager_get_type (void);
 
-GsdPrintNotificationsManager *gsd_print_notifications_manager_new      (void);
-gboolean                      gsd_print_notifications_manager_start    (GsdPrintNotificationsManager *manager,
+CsdPrintNotificationsManager *csd_print_notifications_manager_new      (void);
+gboolean                      csd_print_notifications_manager_start    (CsdPrintNotificationsManager *manager,
                                                                         GError                      **error);
-void                          gsd_print_notifications_manager_stop     (GsdPrintNotificationsManager *manager);
+void                          csd_print_notifications_manager_stop     (CsdPrintNotificationsManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_PRINT_NOTIFICATIONS_MANAGER_H */
+#endif /* __CSD_PRINT_NOTIFICATIONS_MANAGER_H */

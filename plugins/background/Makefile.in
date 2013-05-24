@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-background$(EXEEXT)
+libexec_PROGRAMS = csd-test-background$(EXEEXT)
 subdir = plugins/background
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -100,8 +100,8 @@ libbackground_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__objects_1 =
 am_libbackground_la_OBJECTS =  \
-	libbackground_la-gsd-background-plugin.lo \
-	libbackground_la-gsd-background-manager.lo $(am__objects_1)
+	libbackground_la-csd-background-plugin.lo \
+	libbackground_la-csd-background-manager.lo $(am__objects_1)
 libbackground_la_OBJECTS = $(am_libbackground_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -112,18 +112,18 @@ libbackground_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libbackground_la_CFLAGS) $(CFLAGS) \
 	$(libbackground_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_test_background_OBJECTS =  \
-	gsd_test_background-test-background.$(OBJEXT) \
-	gsd_test_background-gsd-background-manager.$(OBJEXT) \
+am_csd_test_background_OBJECTS =  \
+	csd_test_background-test-background.$(OBJEXT) \
+	csd_test_background-csd-background-manager.$(OBJEXT) \
 	$(am__objects_1)
-gsd_test_background_OBJECTS = $(am_gsd_test_background_OBJECTS)
-gsd_test_background_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+csd_test_background_OBJECTS = $(am_csd_test_background_OBJECTS)
+csd_test_background_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gsd_test_background_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_background_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_background_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_background_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -159,9 +159,9 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libbackground_la_SOURCES) $(gsd_test_background_SOURCES)
+SOURCES = $(libbackground_la_SOURCES) $(csd_test_background_SOURCES)
 DIST_SOURCES = $(libbackground_la_SOURCES) \
-	$(gsd_test_background_SOURCES)
+	$(csd_test_background_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -230,9 +230,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -391,26 +391,26 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 NULL = 
 plugin_name = background
-gsd_test_background_SOURCES = \
+csd_test_background_SOURCES = \
 	test-background.c		\
-	gsd-background-manager.h	\
-	gsd-background-manager.c	\
+	csd-background-manager.h	\
+	csd-background-manager.c	\
 	$(NULL)
 
-gsd_test_background_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+csd_test_background_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-gsd_test_background_CFLAGS = \
+csd_test_background_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(BACKGROUND_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_test_background_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
+csd_test_background_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
 	$(SETTINGS_PLUGIN_LIBS)				\
 	$(BACKGROUND_LIBS)				\
 	$(NULL)
@@ -420,16 +420,16 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 libbackground_la_SOURCES = \
-	gsd-background-plugin.h		\
-	gsd-background-plugin.c		\
-	gsd-background-manager.h	\
-	gsd-background-manager.c	\
+	csd-background-plugin.h		\
+	csd-background-plugin.c		\
+	csd-background-manager.h	\
+	csd-background-manager.c	\
 	$(NULL)
 
 libbackground_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/background/libbackground   \
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libbackground_la_CFLAGS = \
@@ -438,7 +438,7 @@ libbackground_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libbackground_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)		\
+	$(CSD_PLUGIN_LDFLAGS)		\
 	$(NULL)
 
 libbackground_la_LIBADD = \
@@ -447,10 +447,10 @@ libbackground_la_LIBADD = \
 	$(NULL)
 
 plugin_in_files = \
-	background.gnome-settings-plugin.in	\
+	background.cinnamon-settings-plugin.in	\
 	$(NULL)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = \
 	$(plugin_in_files)	\
 	$(NULL)
@@ -579,9 +579,9 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-background$(EXEEXT): $(gsd_test_background_OBJECTS) $(gsd_test_background_DEPENDENCIES) $(EXTRA_gsd_test_background_DEPENDENCIES) 
-	@rm -f gsd-test-background$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_background_LINK) $(gsd_test_background_OBJECTS) $(gsd_test_background_LDADD) $(LIBS)
+csd-test-background$(EXEEXT): $(csd_test_background_OBJECTS) $(csd_test_background_DEPENDENCIES) $(EXTRA_csd_test_background_DEPENDENCIES) 
+	@rm -f csd-test-background$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_background_LINK) $(csd_test_background_OBJECTS) $(csd_test_background_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -589,10 +589,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_background-gsd-background-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_background-test-background.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libbackground_la-gsd-background-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libbackground_la-gsd-background-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_background-csd-background-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_background-test-background.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libbackground_la-csd-background-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libbackground_la-csd-background-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -615,47 +615,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libbackground_la-gsd-background-plugin.lo: gsd-background-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -MT libbackground_la-gsd-background-plugin.lo -MD -MP -MF $(DEPDIR)/libbackground_la-gsd-background-plugin.Tpo -c -o libbackground_la-gsd-background-plugin.lo `test -f 'gsd-background-plugin.c' || echo '$(srcdir)/'`gsd-background-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libbackground_la-gsd-background-plugin.Tpo $(DEPDIR)/libbackground_la-gsd-background-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-background-plugin.c' object='libbackground_la-gsd-background-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libbackground_la-csd-background-plugin.lo: csd-background-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -MT libbackground_la-csd-background-plugin.lo -MD -MP -MF $(DEPDIR)/libbackground_la-csd-background-plugin.Tpo -c -o libbackground_la-csd-background-plugin.lo `test -f 'csd-background-plugin.c' || echo '$(srcdir)/'`csd-background-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libbackground_la-csd-background-plugin.Tpo $(DEPDIR)/libbackground_la-csd-background-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-background-plugin.c' object='libbackground_la-csd-background-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -c -o libbackground_la-gsd-background-plugin.lo `test -f 'gsd-background-plugin.c' || echo '$(srcdir)/'`gsd-background-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -c -o libbackground_la-csd-background-plugin.lo `test -f 'csd-background-plugin.c' || echo '$(srcdir)/'`csd-background-plugin.c
 
-libbackground_la-gsd-background-manager.lo: gsd-background-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -MT libbackground_la-gsd-background-manager.lo -MD -MP -MF $(DEPDIR)/libbackground_la-gsd-background-manager.Tpo -c -o libbackground_la-gsd-background-manager.lo `test -f 'gsd-background-manager.c' || echo '$(srcdir)/'`gsd-background-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libbackground_la-gsd-background-manager.Tpo $(DEPDIR)/libbackground_la-gsd-background-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-background-manager.c' object='libbackground_la-gsd-background-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libbackground_la-csd-background-manager.lo: csd-background-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -MT libbackground_la-csd-background-manager.lo -MD -MP -MF $(DEPDIR)/libbackground_la-csd-background-manager.Tpo -c -o libbackground_la-csd-background-manager.lo `test -f 'csd-background-manager.c' || echo '$(srcdir)/'`csd-background-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libbackground_la-csd-background-manager.Tpo $(DEPDIR)/libbackground_la-csd-background-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-background-manager.c' object='libbackground_la-csd-background-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -c -o libbackground_la-gsd-background-manager.lo `test -f 'gsd-background-manager.c' || echo '$(srcdir)/'`gsd-background-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libbackground_la_CPPFLAGS) $(CPPFLAGS) $(libbackground_la_CFLAGS) $(CFLAGS) -c -o libbackground_la-csd-background-manager.lo `test -f 'csd-background-manager.c' || echo '$(srcdir)/'`csd-background-manager.c
 
-gsd_test_background-test-background.o: test-background.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -MT gsd_test_background-test-background.o -MD -MP -MF $(DEPDIR)/gsd_test_background-test-background.Tpo -c -o gsd_test_background-test-background.o `test -f 'test-background.c' || echo '$(srcdir)/'`test-background.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_background-test-background.Tpo $(DEPDIR)/gsd_test_background-test-background.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-background.c' object='gsd_test_background-test-background.o' libtool=no @AMDEPBACKSLASH@
+csd_test_background-test-background.o: test-background.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -MT csd_test_background-test-background.o -MD -MP -MF $(DEPDIR)/csd_test_background-test-background.Tpo -c -o csd_test_background-test-background.o `test -f 'test-background.c' || echo '$(srcdir)/'`test-background.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_background-test-background.Tpo $(DEPDIR)/csd_test_background-test-background.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-background.c' object='csd_test_background-test-background.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -c -o gsd_test_background-test-background.o `test -f 'test-background.c' || echo '$(srcdir)/'`test-background.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -c -o csd_test_background-test-background.o `test -f 'test-background.c' || echo '$(srcdir)/'`test-background.c
 
-gsd_test_background-test-background.obj: test-background.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -MT gsd_test_background-test-background.obj -MD -MP -MF $(DEPDIR)/gsd_test_background-test-background.Tpo -c -o gsd_test_background-test-background.obj `if test -f 'test-background.c'; then $(CYGPATH_W) 'test-background.c'; else $(CYGPATH_W) '$(srcdir)/test-background.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_background-test-background.Tpo $(DEPDIR)/gsd_test_background-test-background.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-background.c' object='gsd_test_background-test-background.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_background-test-background.obj: test-background.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -MT csd_test_background-test-background.obj -MD -MP -MF $(DEPDIR)/csd_test_background-test-background.Tpo -c -o csd_test_background-test-background.obj `if test -f 'test-background.c'; then $(CYGPATH_W) 'test-background.c'; else $(CYGPATH_W) '$(srcdir)/test-background.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_background-test-background.Tpo $(DEPDIR)/csd_test_background-test-background.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-background.c' object='csd_test_background-test-background.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -c -o gsd_test_background-test-background.obj `if test -f 'test-background.c'; then $(CYGPATH_W) 'test-background.c'; else $(CYGPATH_W) '$(srcdir)/test-background.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -c -o csd_test_background-test-background.obj `if test -f 'test-background.c'; then $(CYGPATH_W) 'test-background.c'; else $(CYGPATH_W) '$(srcdir)/test-background.c'; fi`
 
-gsd_test_background-gsd-background-manager.o: gsd-background-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -MT gsd_test_background-gsd-background-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_background-gsd-background-manager.Tpo -c -o gsd_test_background-gsd-background-manager.o `test -f 'gsd-background-manager.c' || echo '$(srcdir)/'`gsd-background-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_background-gsd-background-manager.Tpo $(DEPDIR)/gsd_test_background-gsd-background-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-background-manager.c' object='gsd_test_background-gsd-background-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_background-csd-background-manager.o: csd-background-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -MT csd_test_background-csd-background-manager.o -MD -MP -MF $(DEPDIR)/csd_test_background-csd-background-manager.Tpo -c -o csd_test_background-csd-background-manager.o `test -f 'csd-background-manager.c' || echo '$(srcdir)/'`csd-background-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_background-csd-background-manager.Tpo $(DEPDIR)/csd_test_background-csd-background-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-background-manager.c' object='csd_test_background-csd-background-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -c -o gsd_test_background-gsd-background-manager.o `test -f 'gsd-background-manager.c' || echo '$(srcdir)/'`gsd-background-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -c -o csd_test_background-csd-background-manager.o `test -f 'csd-background-manager.c' || echo '$(srcdir)/'`csd-background-manager.c
 
-gsd_test_background-gsd-background-manager.obj: gsd-background-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -MT gsd_test_background-gsd-background-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_background-gsd-background-manager.Tpo -c -o gsd_test_background-gsd-background-manager.obj `if test -f 'gsd-background-manager.c'; then $(CYGPATH_W) 'gsd-background-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-background-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_background-gsd-background-manager.Tpo $(DEPDIR)/gsd_test_background-gsd-background-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-background-manager.c' object='gsd_test_background-gsd-background-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_background-csd-background-manager.obj: csd-background-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -MT csd_test_background-csd-background-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_background-csd-background-manager.Tpo -c -o csd_test_background-csd-background-manager.obj `if test -f 'csd-background-manager.c'; then $(CYGPATH_W) 'csd-background-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-background-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_background-csd-background-manager.Tpo $(DEPDIR)/csd_test_background-csd-background-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-background-manager.c' object='csd_test_background-csd-background-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_background_CPPFLAGS) $(CPPFLAGS) $(gsd_test_background_CFLAGS) $(CFLAGS) -c -o gsd_test_background-gsd-background-manager.obj `if test -f 'gsd-background-manager.c'; then $(CYGPATH_W) 'gsd-background-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-background-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_background_CPPFLAGS) $(CPPFLAGS) $(csd_test_background_CFLAGS) $(CFLAGS) -c -o csd_test_background-csd-background-manager.obj `if test -f 'csd-background-manager.c'; then $(CYGPATH_W) 'csd-background-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-background-manager.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -911,7 +911,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

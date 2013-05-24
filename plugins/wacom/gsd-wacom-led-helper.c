@@ -31,7 +31,7 @@
 #include <gudev/gudev.h>
 
 static gboolean
-gsd_wacom_led_helper_write (const gchar *filename, gint value, GError **error)
+csd_wacom_led_helper_write (const gchar *filename, gint value, GError **error)
 {
 	gchar *text = NULL;
 	gint retval;
@@ -111,7 +111,7 @@ int main (int argc, char **argv)
 	g_type_init ();
 
 	context = g_option_context_new (NULL);
-	g_option_context_set_summary (context, "GNOME Settings Daemon Wacom LED Helper");
+	g_option_context_set_summary (context, "Cinnamon Settings Daemon Wacom LED Helper");
 	g_option_context_add_main_entries (context, options, NULL);
 	g_option_context_parse (context, &argc, &argv, NULL);
 
@@ -158,7 +158,7 @@ int main (int argc, char **argv)
 	device = parent;
 
 	filename = get_led_sysfs_path (device, group_num);
-	if (gsd_wacom_led_helper_write (filename, led_num, &error) == FALSE) {
+	if (csd_wacom_led_helper_write (filename, led_num, &error) == FALSE) {
 		g_debug ("Could not set LED status for '%s': %s", path, error->message);
 		g_error_free (error);
 		g_free (filename);

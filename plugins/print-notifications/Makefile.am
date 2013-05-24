@@ -4,14 +4,14 @@ plugin_LTLIBRARIES = \
 	libprint-notifications.la
 
 libprint_notifications_la_SOURCES = 		\
-	gsd-print-notifications-manager.c	\
-	gsd-print-notifications-manager.h	\
-	gsd-print-notifications-plugin.c	\
-	gsd-print-notifications-plugin.h
+	csd-print-notifications-manager.c	\
+	csd-print-notifications-manager.h	\
+	csd-print-notifications-plugin.c	\
+	csd-print-notifications-plugin.h
 
 libprint_notifications_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" \
 	$(AM_CPPFLAGS)
 
@@ -21,54 +21,54 @@ libprint_notifications_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libprint_notifications_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libprint_notifications_la_LIBADD  = 		\
 	$(CUPS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 		\
-	print-notifications.gnome-settings-plugin.in
+	print-notifications.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
-libexec_PROGRAMS = gsd-printer
+libexec_PROGRAMS = csd-printer
 
-gsd_printer_SOURCES = 	\
-	gsd-printer.c
+csd_printer_SOURCES = 	\
+	csd-printer.c
 
-gsd_printer_CFLAGS = \
+csd_printer_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(LIBNOTIFY_CFLAGS)					\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CFLAGS)
 
-gsd_printer_LDADD  = 		\
+csd_printer_LDADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(CUPS_LIBS)		\
 	$(LIBNOTIFY_LIBS)
 
-libexec_PROGRAMS += gsd-test-print-notifications
+libexec_PROGRAMS += csd-test-print-notifications
 
-gsd_test_print_notifications_SOURCES =		\
-	gsd-print-notifications-manager.c	\
-	gsd-print-notifications-manager.h	\
+csd_test_print_notifications_SOURCES =		\
+	csd-print-notifications-manager.c	\
+	csd-print-notifications-manager.h	\
 	test-print-notifications.c
 
-gsd_test_print_notifications_CPPFLAGS =				\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+csd_test_print_notifications_CPPFLAGS =				\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_print_notifications_CFLAGS =	\
+csd_test_print_notifications_CFLAGS =	\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-gsd_test_print_notifications_LDADD =				\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_print_notifications_LDADD =				\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(CUPS_LIBS)						\
@@ -83,4 +83,4 @@ CLEANFILES = 			\
 DISTCLEANFILES =		\
 	$(plugin_DATA)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

@@ -27,14 +27,14 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "gsd-a11y-preferences-dialog.h"
+#include "csd-a11y-preferences-dialog.h"
 
 static void
 test_window (void)
 {
         GtkWidget *window;
 
-        window = gsd_a11y_preferences_dialog_new ();
+        window = csd_a11y_preferences_dialog_new ();
         gtk_dialog_run (GTK_DIALOG (window));
 }
 
@@ -44,7 +44,7 @@ main (int    argc,
 {
         GError *error = NULL;
 
-        bindtextdomain (GETTEXT_PACKAGE, GNOME_SETTINGS_LOCALEDIR);
+        bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
 

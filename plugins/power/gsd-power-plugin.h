@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_POWER_PLUGIN_H__
-#define __GSD_POWER_PLUGIN_H__
+#ifndef __CSD_POWER_PLUGIN_H__
+#define __CSD_POWER_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_POWER_PLUGIN                (gsd_power_plugin_get_type ())
-#define GSD_POWER_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_POWER_PLUGIN, GsdPowerPlugin))
-#define GSD_POWER_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_POWER_PLUGIN, GsdPowerPluginClass))
-#define GSD_IS_POWER_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_POWER_PLUGIN))
-#define GSD_IS_POWER_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_POWER_PLUGIN))
-#define GSD_POWER_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_POWER_PLUGIN, GsdPowerPluginClass))
+#define CSD_TYPE_POWER_PLUGIN                (csd_power_plugin_get_type ())
+#define CSD_POWER_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_POWER_PLUGIN, CsdPowerPlugin))
+#define CSD_POWER_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_POWER_PLUGIN, CsdPowerPluginClass))
+#define CSD_IS_POWER_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_POWER_PLUGIN))
+#define CSD_IS_POWER_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_POWER_PLUGIN))
+#define CSD_POWER_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_POWER_PLUGIN, CsdPowerPluginClass))
 
-typedef struct GsdPowerPluginPrivate GsdPowerPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdPowerPluginPrivate *priv;
-} GsdPowerPlugin;
+typedef struct CsdPowerPluginPrivate CsdPowerPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdPowerPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdPowerPluginPrivate *priv;
+} CsdPowerPlugin;
 
-GType   gsd_power_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdPowerPluginClass;
+
+GType   csd_power_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_POWER_PLUGIN_H__ */
+#endif /* __CSD_POWER_PLUGIN_H__ */

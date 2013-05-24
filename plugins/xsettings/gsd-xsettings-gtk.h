@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef __GSD_XSETTINGS_GTK_H__
-#define __GSD_XSETTINGS_GTK_H__
+#ifndef __CSD_XSETTINGS_GTK_H__
+#define __CSD_XSETTINGS_GTK_H__
 
 #include <glib.h>
 #include <glib-object.h>
@@ -27,32 +27,32 @@
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_XSETTINGS_GTK                (gsd_xsettings_gtk_get_type ())
-#define GSD_XSETTINGS_GTK(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtk))
-#define GSD_XSETTINGS_GTK_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtkClass))
-#define GSD_IS_XSETTINGS_GTK(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_XSETTINGS_GTK))
-#define GSD_IS_XSETTINGS_GTK_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_XSETTINGS_GTK))
-#define GSD_XSETTINGS_GTK_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtkClass))
+#define CSD_TYPE_XSETTINGS_GTK                (csd_xsettings_gtk_get_type ())
+#define CSD_XSETTINGS_GTK(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_XSETTINGS_GTK, CsdXSettingsGtk))
+#define CSD_XSETTINGS_GTK_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_XSETTINGS_GTK, CsdXSettingsGtkClass))
+#define CSD_IS_XSETTINGS_GTK(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_XSETTINGS_GTK))
+#define CSD_IS_XSETTINGS_GTK_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_XSETTINGS_GTK))
+#define CSD_XSETTINGS_GTK_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_XSETTINGS_GTK, CsdXSettingsGtkClass))
 
-typedef struct GsdXSettingsGtkPrivate GsdXSettingsGtkPrivate;
+typedef struct CsdXSettingsGtkPrivate CsdXSettingsGtkPrivate;
 
 typedef struct
 {
         GObject                   parent;
-        GsdXSettingsGtkPrivate *priv;
-} GsdXSettingsGtk;
+        CsdXSettingsGtkPrivate *priv;
+} CsdXSettingsGtk;
 
 typedef struct
 {
         GObjectClass parent_class;
-} GsdXSettingsGtkClass;
+} CsdXSettingsGtkClass;
 
-GType   gsd_xsettings_gtk_get_type            (void) G_GNUC_CONST;
+GType   csd_xsettings_gtk_get_type            (void) G_GNUC_CONST;
 
-GsdXSettingsGtk *gsd_xsettings_gtk_new        (void);
+CsdXSettingsGtk *csd_xsettings_gtk_new        (void);
 
-const char * gsd_xsettings_gtk_get_modules (GsdXSettingsGtk *gtk);
+const char * csd_xsettings_gtk_get_modules (CsdXSettingsGtk *gtk);
 
 G_END_DECLS
 
-#endif /* __GSD_XSETTINGS_GTK_H__ */
+#endif /* __CSD_XSETTINGS_GTK_H__ */

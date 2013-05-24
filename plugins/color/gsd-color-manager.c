@@ -32,30 +32,30 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
-#include "gnome-settings-profile.h"
-#include "gnome-settings-session.h"
-#include "gsd-color-manager.h"
+#include "cinnamon-settings-profile.h"
+#include "cinnamon-settings-session.h"
+#include "csd-color-manager.h"
 #include "gcm-profile-store.h"
 #include "gcm-dmi.h"
 #include "gcm-edid.h"
 
-#define GSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerPrivate))
+#define CSD_COLOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_COLOR_MANAGER, CsdColorManagerPrivate))
 
 #define GCM_SESSION_NOTIFY_TIMEOUT                      30000 /* ms */
 #define GCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD      "recalibrate-printer-threshold"
 #define GCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD      "recalibrate-display-threshold"
 
-struct GsdColorManagerPrivate
+struct CsdColorManagerPrivate
 {
-        GnomeSettingsSession *session;
+        CinnamonSettingsSettingsSession *session;
         CdClient        *client;
         GSettings       *settings;
         GcmProfileStore *profile_store;
         GcmDmi          *dmi;
-        GnomeRRScreen   *x11_screen;
+        CinnamonSettingsRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
-        GnomeSettingsSessionState session_state;
+        CinnamonSettingsSettingsSessionState session_state;
         GHashTable      *device_assign_hash;
 };
 
@@ -63,11 +63,11 @@ enum {
         PROP_0,
 };
 
-static void     gsd_color_manager_class_init  (GsdColorManagerClass *klass);
-static void     gsd_color_manager_init        (GsdColorManager      *color_manager);
-static void     gsd_color_manager_finalize    (GObject             *object);
+static void     csd_color_manager_class_init  (CsdColorManagerClass *klass);
+static void     csd_color_manager_init        (CsdColorManager      *color_manager);
+static void     csd_color_manager_finalize    (GObject             *object);
 
-G_DEFINE_TYPE (GsdColorManager, gsd_color_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdColorManager, csd_color_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -79,19 +79,19 @@ typedef struct {
         guint32          red;
         guint32          green;
         guint32          blue;
-} GnomeRROutputClutItem;
+} CinnamonSettingsRROutputClutItem;
 
 GQuark
-gsd_color_manager_error_quark (void)
+csd_color_manager_error_quark (void)
 {
         static GQuark quark = 0;
         if (!quark)
-                quark = g_quark_from_static_string ("gsd_color_manager_error");
+                quark = g_quark_from_static_string ("csd_color_manager_error");
         return quark;
 }
 
 static GcmEdid *
-gcm_session_get_output_edid (GsdColorManager *manager, GnomeRROutput *output, GError **error)
+gcm_session_get_output_edid (CsdColorManager *manager, CinnamonSettingsRROutput *output, GError **error)
 {
         const guint8 *data;
         gsize size;
@@ -132,7 +132,7 @@ out:
 }
 
 static gboolean
-gcm_session_screen_set_icc_profile (GsdColorManager *manager,
+gcm_session_screen_set_icc_profile (CsdColorManager *manager,
                                     const gchar *filename,
                                     GError **error)
 {
@@ -140,7 +140,7 @@ gcm_session_screen_set_icc_profile (GsdColorManager *manager,
         gchar *data = NULL;
         gsize length;
         guint version_data;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         g_return_val_if_fail (filename != NULL, FALSE);
 
@@ -174,7 +174,7 @@ out:
 }
 
 static gchar *
-gcm_session_get_output_id (GsdColorManager *manager, GnomeRROutput *output)
+gcm_session_get_output_id (CsdColorManager *manager, CinnamonSettingsRROutput *output)
 {
         const gchar *name;
         const gchar *serial;
@@ -225,23 +225,23 @@ out:
         return g_string_free (device_id, FALSE);
 }
 
-static GnomeRROutput *
-gcm_session_get_output_by_edid_checksum (GnomeRRScreen *screen,
+static CinnamonSettingsRROutput *
+gcm_session_get_output_by_edid_checksum (CinnamonSettingsRRScreen *screen,
                                          const gchar *edid_md5,
                                          GError **error)
 {
         const guint8 *data;
         gchar *checksum;
-        GnomeRROutput *output = NULL;
-        GnomeRROutput **outputs;
+        CinnamonSettingsRROutput *output = NULL;
+        CinnamonSettingsRROutput **outputs;
         gsize size;
         guint i;
 
         outputs = gnome_rr_screen_list_outputs (screen);
         if (outputs == NULL) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "Failed to get outputs");
                 goto out;
         }
@@ -260,8 +260,8 @@ gcm_session_get_output_by_edid_checksum (GnomeRRScreen *screen,
         }
         if (output == NULL) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "no connected output with that edid hash");
         }
 out:
@@ -269,7 +269,7 @@ out:
 }
 
 typedef struct {
-        GsdColorManager         *manager;
+        CsdColorManager         *manager;
         CdProfile               *profile;
         CdDevice                *device;
         guint32                  output_id;
@@ -392,8 +392,8 @@ gcm_session_profile_assign_profile_connect_cb (GObject *object,
         GcmSessionAsyncHelper *helper;
         GError *error = NULL;
         GHashTable *metadata = NULL;
-        GnomeRROutput *output = NULL;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        CinnamonSettingsRROutput *output = NULL;
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
 
         /* get properties */
         ret = cd_profile_connect_finish (profile, res, &error);
@@ -411,7 +411,7 @@ gcm_session_profile_assign_profile_connect_cb (GObject *object,
         if (edid_md5 == NULL)
                 goto out;
 
-        /* get the GnomeRROutput for the edid */
+        /* get the CinnamonSettingsRROutput for the edid */
         output = gcm_session_get_output_by_edid_checksum (manager->priv->x11_screen,
                                                           edid_md5,
                                                           &error);
@@ -442,7 +442,7 @@ out:
 static void
 gcm_session_profile_added_assign_cb (CdClient *client,
                                      CdProfile *profile,
-                                     GsdColorManager *manager)
+                                     CsdColorManager *manager)
 {
         cd_profile_connect (profile,
                             NULL,
@@ -475,8 +475,8 @@ gcm_utils_mkdir_for_filename (const gchar *filename, GError **error)
         parent_dir = g_file_get_parent (file);
         if (parent_dir == NULL) {
                 g_set_error (error,
-                             GSD_COLOR_MANAGER_ERROR,
-                             GSD_COLOR_MANAGER_ERROR_FAILED,
+                             CSD_COLOR_MANAGER_ERROR,
+                             CSD_COLOR_MANAGER_ERROR_FAILED,
                              "could not get parent dir %s",
                              filename);
                 goto out;
@@ -543,7 +543,7 @@ out:
 #endif /* HAVE_NEW_LCMS */
 
 static gboolean
-gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
+gcm_apply_create_icc_profile_for_edid (CsdColorManager *manager,
                                        GcmEdid *edid,
                                        const gchar *filename,
                                        GError **error)
@@ -561,7 +561,7 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
 #ifdef HAVE_NEW_LCMS
         cmsHANDLE dict = NULL;
 #endif
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* ensure the per-user directory exists */
         ret = gcm_utils_mkdir_for_filename (filename, error);
@@ -591,8 +591,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         lcms_profile = cmsCreateRGBProfile (&white_point, &chroma, transfer_curve);
         if (lcms_profile == NULL) {
                 g_set_error (error,
-                             GSD_COLOR_MANAGER_ERROR,
-                             GSD_COLOR_MANAGER_ERROR_FAILED,
+                             CSD_COLOR_MANAGER_ERROR,
+                             CSD_COLOR_MANAGER_ERROR_FAILED,
                              "failed to create profile");
                 goto out;
         }
@@ -609,8 +609,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
                                      "This profile is free of known copyright restrictions.");
         if (!ret) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "failed to write copyright");
                 goto out;
         }
@@ -626,8 +626,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
                                      data);
         if (!ret) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "failed to write model");
                 goto out;
         }
@@ -637,7 +637,7 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
                                      cmsSigProfileDescriptionTag,
                                      data);
         if (!ret) {
-                g_set_error_literal (error, GSD_COLOR_MANAGER_ERROR, GSD_COLOR_MANAGER_ERROR_FAILED, "failed to write description");
+                g_set_error_literal (error, CSD_COLOR_MANAGER_ERROR, CSD_COLOR_MANAGER_ERROR_FAILED, "failed to write description");
                 goto out;
         }
 
@@ -652,8 +652,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
                                      data);
         if (!ret) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "failed to write manufacturer");
                 goto out;
         }
@@ -724,8 +724,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         ret = cmsWriteTag (lcms_profile, cmsSigMetaTag, dict);
         if (!ret) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "failed to write profile metadata");
                 goto out;
         }
@@ -735,8 +735,8 @@ gcm_apply_create_icc_profile_for_edid (GsdColorManager *manager,
         ret = cmsMD5computeID (lcms_profile);
         if (!ret) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "failed to write profile id");
                 goto out;
         }
@@ -757,7 +757,7 @@ out:
 static GPtrArray *
 gcm_session_generate_vcgt (CdProfile *profile, guint size)
 {
-        GnomeRROutputClutItem *tmp;
+        CinnamonSettingsRROutputClutItem *tmp;
         GPtrArray *array = NULL;
         const cmsToneCurve **vcgt;
         cmsFloat32Number in;
@@ -790,7 +790,7 @@ gcm_session_generate_vcgt (CdProfile *profile, guint size)
         array = g_ptr_array_new_with_free_func (g_free);
         for (i = 0; i < size; i++) {
                 in = (gdouble) i / (gdouble) (size - 1);
-                tmp = g_new0 (GnomeRROutputClutItem, 1);
+                tmp = g_new0 (CinnamonSettingsRROutputClutItem, 1);
                 tmp->red = cmsEvalToneCurveFloat(vcgt[0], in) * (gdouble) 0xffff;
                 tmp->green = cmsEvalToneCurveFloat(vcgt[1], in) * (gdouble) 0xffff;
                 tmp->blue = cmsEvalToneCurveFloat(vcgt[2], in) * (gdouble) 0xffff;
@@ -803,9 +803,9 @@ out:
 }
 
 static guint
-gnome_rr_output_get_gamma_size (GnomeRROutput *output)
+cinnamon_rr_output_get_gamma_size (CinnamonSettingsRROutput *output)
 {
-        GnomeRRCrtc *crtc;
+        CinnamonSettingsRRCrtc *crtc;
         gint len = 0;
 
         crtc = gnome_rr_output_get_crtc (output);
@@ -818,7 +818,7 @@ gnome_rr_output_get_gamma_size (GnomeRROutput *output)
 }
 
 static gboolean
-gcm_session_output_set_gamma (GnomeRROutput *output,
+gcm_session_output_set_gamma (CinnamonSettingsRROutput *output,
                               GPtrArray *array,
                               GError **error)
 {
@@ -827,15 +827,15 @@ gcm_session_output_set_gamma (GnomeRROutput *output,
         guint16 *green = NULL;
         guint16 *blue = NULL;
         guint i;
-        GnomeRROutputClutItem *data;
-        GnomeRRCrtc *crtc;
+        CinnamonSettingsRROutputClutItem *data;
+        CinnamonSettingsRRCrtc *crtc;
 
         /* no length? */
         if (array->len == 0) {
                 ret = FALSE;
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "no data in the CLUT array");
                 goto out;
         }
@@ -856,8 +856,8 @@ gcm_session_output_set_gamma (GnomeRROutput *output,
         if (crtc == NULL) {
                 ret = FALSE;
                 g_set_error (error,
-                             GSD_COLOR_MANAGER_ERROR,
-                             GSD_COLOR_MANAGER_ERROR_FAILED,
+                             CSD_COLOR_MANAGER_ERROR,
+                             CSD_COLOR_MANAGER_ERROR_FAILED,
                              "failed to get ctrc for %s",
                              gnome_rr_output_get_name (output));
                 goto out;
@@ -872,7 +872,7 @@ out:
 }
 
 static gboolean
-gcm_session_device_set_gamma (GnomeRROutput *output,
+gcm_session_device_set_gamma (CinnamonSettingsRROutput *output,
                               CdProfile *profile,
                               GError **error)
 {
@@ -884,16 +884,16 @@ gcm_session_device_set_gamma (GnomeRROutput *output,
         size = gnome_rr_output_get_gamma_size (output);
         if (size == 0) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "gamma size is zero");
                 goto out;
         }
         clut = gcm_session_generate_vcgt (profile, size);
         if (clut == NULL) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "failed to generate vcgt");
                 goto out;
         }
@@ -909,7 +909,7 @@ out:
 }
 
 static gboolean
-gcm_session_device_reset_gamma (GnomeRROutput *output,
+gcm_session_device_reset_gamma (CinnamonSettingsRROutput *output,
                                 GError **error)
 {
         gboolean ret;
@@ -917,7 +917,7 @@ gcm_session_device_reset_gamma (GnomeRROutput *output,
         guint size;
         guint32 value;
         GPtrArray *clut;
-        GnomeRROutputClutItem *data;
+        CinnamonSettingsRROutputClutItem *data;
 
         /* create a linear ramp */
         g_debug ("falling back to dummy ramp");
@@ -926,14 +926,14 @@ gcm_session_device_reset_gamma (GnomeRROutput *output,
         if (size == 0) {
                 ret = FALSE;
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "gamma size is zero");
                 goto out;
         }
         for (i = 0; i < size; i++) {
                 value = (i * 0xffff) / (size - 1);
-                data = g_new0 (GnomeRROutputClutItem, 1);
+                data = g_new0 (CinnamonSettingsRROutputClutItem, 1);
                 data->red = value;
                 data->green = value;
                 data->blue = value;
@@ -949,23 +949,23 @@ out:
         return ret;
 }
 
-static GnomeRROutput *
-gcm_session_get_x11_output_by_id (GsdColorManager *manager,
+static CinnamonSettingsRROutput *
+gcm_session_get_x11_output_by_id (CsdColorManager *manager,
                                   const gchar *device_id,
                                   GError **error)
 {
         gchar *output_id;
-        GnomeRROutput *output = NULL;
-        GnomeRROutput **outputs = NULL;
+        CinnamonSettingsRROutput *output = NULL;
+        CinnamonSettingsRROutput **outputs = NULL;
         guint i;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* search all X11 outputs for the device id */
         outputs = gnome_rr_screen_list_outputs (priv->x11_screen);
         if (outputs == NULL) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "Failed to get outputs");
                 goto out;
         }
@@ -979,8 +979,8 @@ gcm_session_get_x11_output_by_id (GsdColorManager *manager,
         }
         if (output == NULL) {
                 g_set_error (error,
-                             GSD_COLOR_MANAGER_ERROR,
-                             GSD_COLOR_MANAGER_ERROR_FAILED,
+                             CSD_COLOR_MANAGER_ERROR,
+                             CSD_COLOR_MANAGER_ERROR_FAILED,
                              "Failed to find output %s",
                              device_id);
         }
@@ -992,13 +992,13 @@ out:
  * fact that XOrg sometimes assigns no primary devices when using
  * "xrandr --auto" or when the version of RANDR is < 1.3 */
 static gboolean
-gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
-                                           GnomeRROutput *output)
+gcm_session_use_output_profile_for_screen (CsdColorManager *manager,
+                                           CinnamonSettingsRROutput *output)
 {
         gboolean has_laptop = FALSE;
         gboolean has_primary = FALSE;
-        GnomeRROutput **outputs;
-        GnomeRROutput *connected = NULL;
+        CinnamonSettingsRROutput **outputs;
+        CinnamonSettingsRROutput *connected = NULL;
         guint i;
 
         /* do we have any screens marked as primary */
@@ -1038,9 +1038,9 @@ gcm_session_use_output_profile_for_screen (GsdColorManager *manager,
 #define CD_PROFILE_METADATA_SCREEN_BRIGHTNESS		"SCREEN_brightness"
 #endif
 
-#define GSD_DBUS_SERVICE		"org.gnome.SettingsDaemon"
-#define GSD_DBUS_INTERFACE_POWER_SCREEN	"org.gnome.SettingsDaemon.Power.Screen"
-#define GSD_DBUS_PATH_POWER		"/org/gnome/SettingsDaemon/Power"
+#define CSD_DBUS_SERVICE		"org.gnome.SettingsDaemon"
+#define CSD_DBUS_INTERFACE_POWER_SCREEN	"org.gnome.SettingsDaemon.Power.Screen"
+#define CSD_DBUS_PATH_POWER		"/org/gnome/SettingsDaemon/Power"
 
 static void
 gcm_session_set_output_percentage_cb (GObject *source_object,
@@ -1072,9 +1072,9 @@ gcm_session_set_output_percentage (guint percentage)
         if (connection == NULL)
                 return;
         g_dbus_connection_call (connection,
-                                GSD_DBUS_SERVICE,
-                                GSD_DBUS_PATH_POWER,
-                                GSD_DBUS_INTERFACE_POWER_SCREEN,
+                                CSD_DBUS_SERVICE,
+                                CSD_DBUS_PATH_POWER,
+                                CSD_DBUS_INTERFACE_POWER_SCREEN,
                                 "SetPercentage",
                                 g_variant_new ("(u)", percentage),
                                 NULL,
@@ -1094,10 +1094,10 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         const gchar *filename;
         gboolean ret;
         GError *error = NULL;
-        GnomeRROutput *output;
+        CinnamonSettingsRROutput *output;
         guint brightness_percentage;
         GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (helper->manager);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (helper->manager);
 
         /* get properties */
         ret = cd_profile_connect_finish (profile, res, &error);
@@ -1112,7 +1112,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         filename = cd_profile_get_filename (profile);
         g_assert (filename != NULL);
 
-        /* get the output (can't save in helper as GnomeRROutput isn't
+        /* get the output (can't save in helper as CinnamonSettingsRROutput isn't
          * a GObject, just a pointer */
         output = gnome_rr_screen_get_output_by_id (manager->priv->x11_screen,
                                                    helper->output_id);
@@ -1183,13 +1183,13 @@ gcm_session_device_assign_connect_cb (GObject *object,
         gchar *autogen_filename = NULL;
         gchar *autogen_path = NULL;
         GcmEdid *edid = NULL;
-        GnomeRROutput *output = NULL;
+        CinnamonSettingsRROutput *output = NULL;
         GError *error = NULL;
         const gchar *xrandr_id;
         GcmSessionAsyncHelper *helper;
         CdDevice *device = CD_DEVICE (object);
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* remove from assign array */
         g_hash_table_remove (manager->priv->device_assign_hash,
@@ -1212,7 +1212,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         g_debug ("need to assign display device %s",
                  cd_device_get_id (device));
 
-        /* get the GnomeRROutput for the device id */
+        /* get the CinnamonSettingsRROutput for the device id */
         xrandr_id = cd_device_get_id (device);
         output = gcm_session_get_x11_output_by_id (manager,
                                                    xrandr_id,
@@ -1301,7 +1301,7 @@ out:
 }
 
 static void
-gcm_session_device_assign (GsdColorManager *manager, CdDevice *device)
+gcm_session_device_assign (CsdColorManager *manager, CdDevice *device)
 {
         const gchar *key;
         gpointer found;
@@ -1325,7 +1325,7 @@ gcm_session_device_assign (GsdColorManager *manager, CdDevice *device)
 static void
 gcm_session_device_added_assign_cb (CdClient *client,
                                     CdDevice *device,
-                                    GsdColorManager *manager)
+                                    CsdColorManager *manager)
 {
         gcm_session_device_assign (manager, device);
 }
@@ -1333,7 +1333,7 @@ gcm_session_device_added_assign_cb (CdClient *client,
 static void
 gcm_session_device_changed_assign_cb (CdClient *client,
                                       CdDevice *device,
-                                      GsdColorManager *manager)
+                                      CsdColorManager *manager)
 {
         g_debug ("%s changed", cd_device_get_object_path (device));
         gcm_session_device_assign (manager, device);
@@ -1363,7 +1363,7 @@ gcm_session_create_device_cb (GObject *object,
 }
 
 static void
-gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
+gcm_session_add_x11_output (CsdColorManager *manager, CinnamonSettingsRROutput *output)
 {
         const gchar *model = NULL;
         const gchar *serial = NULL;
@@ -1373,7 +1373,7 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
         GcmEdid *edid;
         GError *error = NULL;
         GHashTable *device_props = NULL;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* try to get edid */
         edid = gcm_session_get_output_edid (manager, output, &error);
@@ -1465,9 +1465,9 @@ gcm_session_add_x11_output (GsdColorManager *manager, GnomeRROutput *output)
 
 
 static void
-gnome_rr_screen_output_added_cb (GnomeRRScreen *screen,
-                                GnomeRROutput *output,
-                                GsdColorManager *manager)
+cinnamon_rr_screen_output_added_cb (CinnamonSettingsRRScreen *screen,
+                                CinnamonSettingsRROutput *output,
+                                CsdColorManager *manager)
 {
         gcm_session_add_x11_output (manager, output);
 }
@@ -1494,7 +1494,7 @@ gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, g
 {
         GError *error = NULL;
         CdDevice *device;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
 
         device = cd_client_find_device_finish (manager->priv->client,
                                                res,
@@ -1516,9 +1516,9 @@ gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, g
 }
 
 static void
-gnome_rr_screen_output_removed_cb (GnomeRRScreen *screen,
-                                   GnomeRROutput *output,
-                                   GsdColorManager *manager)
+cinnamon_rr_screen_output_removed_cb (CinnamonSettingsRRScreen *screen,
+                                   CinnamonSettingsRROutput *output,
+                                   CsdColorManager *manager)
 {
         g_debug ("output %s removed",
                  gnome_rr_output_get_name (output));
@@ -1539,7 +1539,7 @@ gcm_session_get_devices_cb (GObject *object, GAsyncResult *res, gpointer user_da
         GError *error = NULL;
         GPtrArray *array;
         guint i;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
 
         array = cd_client_get_devices_finish (CD_CLIENT (object), res, &error);
         if (array == NULL) {
@@ -1565,7 +1565,7 @@ gcm_session_profile_gamma_find_device_cb (GObject *object,
         CdClient *client = CD_CLIENT (object);
         CdDevice *device = NULL;
         GError *error = NULL;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
 
         device = cd_client_find_device_by_property_finish (client,
                                                            res,
@@ -1591,11 +1591,11 @@ out:
  * has changed then different crtcs are going to be used.
  * See https://bugzilla.gnome.org/show_bug.cgi?id=660164 for an example */
 static void
-gnome_rr_screen_output_changed_cb (GnomeRRScreen *screen,
-                                   GsdColorManager *manager)
+cinnamon_rr_screen_output_changed_cb (CinnamonSettingsRRScreen *screen,
+                                   CsdColorManager *manager)
 {
-        GnomeRROutput **outputs;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CinnamonSettingsRROutput **outputs;
+        CsdColorManagerPrivate *priv = manager->priv;
         guint i;
 
         /* get X11 outputs */
@@ -1626,10 +1626,10 @@ gcm_session_client_connect_cb (GObject *source_object,
 {
         gboolean ret;
         GError *error = NULL;
-        GnomeRROutput **outputs;
+        CinnamonSettingsRROutput **outputs;
         guint i;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* connected */
         g_debug ("connected to colord");
@@ -1701,14 +1701,14 @@ out:
 }
 
 gboolean
-gsd_color_manager_start (GsdColorManager *manager,
+csd_color_manager_start (CsdColorManager *manager,
                          GError          **error)
 {
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
         gboolean ret = FALSE;
 
         g_debug ("Starting color manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         /* coldplug the list of screens */
         priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
@@ -1723,12 +1723,12 @@ gsd_color_manager_start (GsdColorManager *manager,
         /* success */
         ret = TRUE;
 out:
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
         return ret;
 }
 
 void
-gsd_color_manager_stop (GsdColorManager *manager)
+csd_color_manager_stop (CsdColorManager *manager)
 {
         g_debug ("Stopping color manager");
 
@@ -1743,7 +1743,7 @@ gsd_color_manager_stop (GsdColorManager *manager)
 }
 
 static void
-gcm_session_exec_control_center (GsdColorManager *manager)
+gcm_session_exec_control_center (CsdColorManager *manager)
 {
         gboolean ret;
         GError *error = NULL;
@@ -1752,8 +1752,8 @@ gcm_session_exec_control_center (GsdColorManager *manager)
 
         /* setup the launch context so the startup notification is correct */
         launch_context = gdk_display_get_app_launch_context (gdk_display_get_default ());
-        app_info = g_app_info_create_from_commandline (BINDIR "/gnome-control-center color",
-                                                       "gnome-control-center",
+        app_info = g_app_info_create_from_commandline (BINDIR "/cinnamon-settings color",
+                                                       "cinnamon-settings",
                                                        G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION,
                                                        &error);
         if (app_info == NULL) {
@@ -1763,13 +1763,13 @@ gcm_session_exec_control_center (GsdColorManager *manager)
                 goto out;
         }
 
-        /* launch gnome-control-center */
+        /* launch cinnamon-settings */
         ret = g_app_info_launch (app_info,
                                  NULL,
                                  G_APP_LAUNCH_CONTEXT (launch_context),
                                  &error);
         if (!ret) {
-                g_warning ("failed to launch gnome-control-center: %s",
+                g_warning ("failed to launch cinnamon-settings: %s",
                            error->message);
                 g_error_free (error);
                 goto out;
@@ -1785,7 +1785,7 @@ gcm_session_notify_cb (NotifyNotification *notification,
                        gchar *action,
                        gpointer user_data)
 {
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
 
         if (g_strcmp0 (action, "recalibrate") == 0) {
                 notify_notification_close (notification, NULL);
@@ -1800,7 +1800,7 @@ closed_cb (NotifyNotification *notification, gpointer data)
 }
 
 static gboolean
-gcm_session_notify_recalibrate (GsdColorManager *manager,
+gcm_session_notify_recalibrate (CsdColorManager *manager,
                                 const gchar *title,
                                 const gchar *message,
                                 CdDeviceKind kind)
@@ -1808,7 +1808,7 @@ gcm_session_notify_recalibrate (GsdColorManager *manager,
         gboolean ret;
         GError *error = NULL;
         NotifyNotification *notification;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* show a bubble */
         notification = notify_notification_new (title, message, "preferences-color");
@@ -1851,7 +1851,7 @@ gcm_session_device_get_title (CdDevice *device)
 }
 
 static void
-gcm_session_notify_device (GsdColorManager *manager, CdDevice *device)
+gcm_session_notify_device (CsdColorManager *manager, CdDevice *device)
 {
         CdDeviceKind kind;
         const gchar *title;
@@ -1859,7 +1859,7 @@ gcm_session_notify_device (GsdColorManager *manager, CdDevice *device)
         gchar *message;
         guint threshold;
         glong since;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* TRANSLATORS: this is when the device has not been recalibrated in a while */
         title = _("Recalibration required");
@@ -1907,7 +1907,7 @@ gcm_session_profile_connect_cb (GObject *object,
         GError *error = NULL;
         CdProfile *profile = CD_PROFILE (object);
         GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
-        GsdColorManager *manager = GSD_COLOR_MANAGER (helper->manager);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (helper->manager);
 
         ret = cd_profile_connect_finish (profile,
                                          res,
@@ -1962,7 +1962,7 @@ gcm_session_device_connect_cb (GObject *object,
         CdDeviceKind kind;
         CdProfile *profile = NULL;
         CdDevice *device = CD_DEVICE (object);
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
         GcmSessionAsyncHelper *helper;
 
         ret = cd_device_connect_finish (device,
@@ -2004,7 +2004,7 @@ out:
 static void
 gcm_session_device_added_notify_cb (CdClient *client,
                                     CdDevice *device,
-                                    GsdColorManager *manager)
+                                    CsdColorManager *manager)
 {
         /* connect to the device to get properties */
         cd_device_connect (device,
@@ -2054,8 +2054,8 @@ gcm_session_get_md5_for_filename (const gchar *filename,
         lcms_profile = cmsOpenProfileFromFile (filename, "r");
         if (lcms_profile == NULL) {
                 g_set_error_literal (error,
-                                     GSD_COLOR_MANAGER_ERROR,
-                                     GSD_COLOR_MANAGER_ERROR_FAILED,
+                                     CSD_COLOR_MANAGER_ERROR,
+                                     CSD_COLOR_MANAGER_ERROR_FAILED,
                                      "failed to load: not an ICC profile");
                 goto out;
         }
@@ -2100,13 +2100,13 @@ gcm_session_create_profile_cb (GObject *object,
 static void
 gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
                                     const gchar *filename,
-                                    GsdColorManager *manager)
+                                    CsdColorManager *manager)
 {
         gchar *checksum = NULL;
         gchar *profile_id = NULL;
         GError *error = NULL;
         GHashTable *profile_props = NULL;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         g_debug ("profile %s added", filename);
 
@@ -2165,7 +2165,7 @@ gcm_session_find_profile_by_filename_cb (GObject *object,
         GError *error = NULL;
         CdProfile *profile;
         CdClient *client = CD_CLIENT (object);
-        GsdColorManager *manager = GSD_COLOR_MANAGER (user_data);
+        CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
 
         profile = cd_client_find_profile_by_filename_finish (client, res, &error);
         if (profile == NULL) {
@@ -2188,7 +2188,7 @@ out:
 static void
 gcm_session_profile_store_removed_cb (GcmProfileStore *profile_store,
                                       const gchar *filename,
-                                      GsdColorManager *manager)
+                                      CsdColorManager *manager)
 {
         /* find the ID for the filename */
         g_debug ("filename %s removed", filename);
@@ -2202,12 +2202,12 @@ gcm_session_profile_store_removed_cb (GcmProfileStore *profile_store,
 static void
 gcm_session_sensor_added_cb (CdClient *client,
                              CdSensor *sensor,
-                             GsdColorManager *manager)
+                             CsdColorManager *manager)
 {
         ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "device-added",
                          /* TRANSLATORS: this is the application name */
-                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
+                         CA_PROP_APPLICATION_NAME, _("Cinnamon Settings Daemon Color Plugin"),
                         /* TRANSLATORS: this is a sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device added"), NULL);
 
@@ -2218,23 +2218,23 @@ gcm_session_sensor_added_cb (CdClient *client,
 static void
 gcm_session_sensor_removed_cb (CdClient *client,
                                CdSensor *sensor,
-                               GsdColorManager *manager)
+                               CsdColorManager *manager)
 {
         ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "device-removed",
                          /* TRANSLATORS: this is the application name */
-                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
+                         CA_PROP_APPLICATION_NAME, _("Cinnamon Settings Daemon Color Plugin"),
                         /* TRANSLATORS: this is a sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device removed"), NULL);
 }
 
 static void
-gcm_session_active_changed_cb (GnomeSettingsSession *session,
+gcm_session_active_changed_cb (CinnamonSettingsSettingsSession *session,
                                GParamSpec *pspec,
-                               GsdColorManager *manager)
+                               CsdColorManager *manager)
 {
-        GnomeSettingsSessionState state_new;
-        GsdColorManagerPrivate *priv = manager->priv;
+        CinnamonSettingsSettingsSessionState state_new;
+        CsdColorManagerPrivate *priv = manager->priv;
 
         /* not yet connected to the daemon */
         if (!cd_client_get_connected (priv->client))
@@ -2243,13 +2243,13 @@ gcm_session_active_changed_cb (GnomeSettingsSession *session,
         /* When doing the fast-user-switch into a new account, load the
          * new users chosen profiles.
          *
-         * If this is the first time the GnomeSettingsSession has been
+         * If this is the first time the CinnamonSettingsSettingsSession has been
          * loaded, then we'll get a change from unknown to active
          * and we want to avoid reprobing the devices for that.
          */
-        state_new = gnome_settings_session_get_state (session);
-        if (priv->session_state != GNOME_SETTINGS_SESSION_STATE_UNKNOWN &&
-            state_new == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
+        state_new = cinnamon_settings_session_get_state (session);
+        if (priv->session_state != CINNAMON_SETTINGS_SESSION_STATE_UNKNOWN &&
+            state_new == CINNAMON_SETTINGS_SESSION_STATE_ACTIVE) {
                 g_debug ("Done switch to new account, reload devices");
                 cd_client_get_devices (manager->priv->client, NULL,
                                        gcm_session_get_devices_cb,
@@ -2259,24 +2259,24 @@ gcm_session_active_changed_cb (GnomeSettingsSession *session,
 }
 
 static void
-gsd_color_manager_class_init (GsdColorManagerClass *klass)
+csd_color_manager_class_init (CsdColorManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->finalize = gsd_color_manager_finalize;
+        object_class->finalize = csd_color_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdColorManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdColorManagerPrivate));
 }
 
 static void
-gsd_color_manager_init (GsdColorManager *manager)
+csd_color_manager_init (CsdColorManager *manager)
 {
-        GsdColorManagerPrivate *priv;
-        priv = manager->priv = GSD_COLOR_MANAGER_GET_PRIVATE (manager);
+        CsdColorManagerPrivate *priv;
+        priv = manager->priv = CSD_COLOR_MANAGER_GET_PRIVATE (manager);
 
         /* track the active session */
-        priv->session = gnome_settings_session_new ();
-        priv->session_state = gnome_settings_session_get_state (priv->session);
+        priv->session = cinnamon_settings_session_new ();
+        priv->session_state = cinnamon_settings_session_get_state (priv->session);
         g_signal_connect (priv->session, "notify::state",
                           G_CALLBACK (gcm_session_active_changed_cb),
                           manager);
@@ -2322,14 +2322,14 @@ gsd_color_manager_init (GsdColorManager *manager)
 }
 
 static void
-gsd_color_manager_finalize (GObject *object)
+csd_color_manager_finalize (GObject *object)
 {
-        GsdColorManager *manager;
+        CsdColorManager *manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_COLOR_MANAGER (object));
+        g_return_if_fail (CSD_IS_COLOR_MANAGER (object));
 
-        manager = GSD_COLOR_MANAGER (object);
+        manager = CSD_COLOR_MANAGER (object);
 
         g_clear_object (&manager->priv->settings);
         g_clear_object (&manager->priv->client);
@@ -2340,19 +2340,19 @@ gsd_color_manager_finalize (GObject *object)
         g_clear_pointer (&manager->priv->device_assign_hash, g_hash_table_destroy);
         g_clear_object (&manager->priv->x11_screen);
 
-        G_OBJECT_CLASS (gsd_color_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_color_manager_parent_class)->finalize (object);
 }
 
-GsdColorManager *
-gsd_color_manager_new (void)
+CsdColorManager *
+csd_color_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_COLOR_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_COLOR_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_COLOR_MANAGER (manager_object);
+        return CSD_COLOR_MANAGER (manager_object);
 }

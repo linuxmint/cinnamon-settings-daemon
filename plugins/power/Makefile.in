@@ -52,9 +52,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-power$(EXEEXT) $(am__EXEEXT_1)
+libexec_PROGRAMS = csd-test-power$(EXEEXT) $(am__EXEEXT_1)
 @HAVE_GUDEV_TRUE@am__append_1 = \
-@HAVE_GUDEV_TRUE@	gsd-backlight-helper
+@HAVE_GUDEV_TRUE@	csd-backlight-helper
 
 @HAVE_GUDEV_TRUE@am__append_2 = \
 @HAVE_GUDEV_TRUE@	org.gnome.settings-daemon.plugins.power.policy.in.in
@@ -104,12 +104,12 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libpower_la_DEPENDENCIES =  \
 	$(top_builddir)/plugins/common/libcommon.la \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_libpower_la_OBJECTS = libpower_la-gpm-common.lo \
 	libpower_la-gpm-phone.lo libpower_la-gpm-idletime.lo \
-	libpower_la-gsd-power-manager.lo \
-	libpower_la-gsd-power-plugin.lo
+	libpower_la-csd-power-manager.lo \
+	libpower_la-csd-power-plugin.lo
 libpower_la_OBJECTS = $(am_libpower_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -118,29 +118,29 @@ am__v_lt_1 =
 libpower_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libpower_la_CFLAGS) \
 	$(CFLAGS) $(libpower_la_LDFLAGS) $(LDFLAGS) -o $@
-@HAVE_GUDEV_TRUE@am__EXEEXT_1 = gsd-backlight-helper$(EXEEXT)
+@HAVE_GUDEV_TRUE@am__EXEEXT_1 = csd-backlight-helper$(EXEEXT)
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_backlight_helper_OBJECTS =  \
-	gsd_backlight_helper-gsd-backlight-helper.$(OBJEXT)
-gsd_backlight_helper_OBJECTS = $(am_gsd_backlight_helper_OBJECTS)
-gsd_backlight_helper_LDADD = $(LDADD)
-gsd_backlight_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+am_csd_backlight_helper_OBJECTS =  \
+	csd_backlight_helper-csd-backlight-helper.$(OBJEXT)
+csd_backlight_helper_OBJECTS = $(am_csd_backlight_helper_OBJECTS)
+csd_backlight_helper_LDADD = $(LDADD)
+csd_backlight_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_backlight_helper_CFLAGS) $(CFLAGS) \
-	$(gsd_backlight_helper_LDFLAGS) $(LDFLAGS) -o $@
-am_gsd_test_power_OBJECTS = gsd_test_power-gpm-common.$(OBJEXT) \
-	gsd_test_power-gpm-phone.$(OBJEXT) \
-	gsd_test_power-gpm-idletime.$(OBJEXT) \
-	gsd_test_power-gsd-power-manager.$(OBJEXT) \
-	gsd_test_power-test-power.$(OBJEXT)
-gsd_test_power_OBJECTS = $(am_gsd_test_power_OBJECTS)
-gsd_test_power_DEPENDENCIES =  \
+	$(csd_backlight_helper_CFLAGS) $(CFLAGS) \
+	$(csd_backlight_helper_LDFLAGS) $(LDFLAGS) -o $@
+am_csd_test_power_OBJECTS = csd_test_power-gpm-common.$(OBJEXT) \
+	csd_test_power-gpm-phone.$(OBJEXT) \
+	csd_test_power-gpm-idletime.$(OBJEXT) \
+	csd_test_power-csd-power-manager.$(OBJEXT) \
+	csd_test_power-test-power.$(OBJEXT)
+csd_test_power_OBJECTS = $(am_csd_test_power_OBJECTS)
+csd_test_power_DEPENDENCIES =  \
 	$(top_builddir)/plugins/common/libcommon.la \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_test_power_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_power_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_power_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
+	$(csd_test_power_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
 	$@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -176,10 +176,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libpower_la_SOURCES) $(gsd_backlight_helper_SOURCES) \
-	$(gsd_test_power_SOURCES)
-DIST_SOURCES = $(libpower_la_SOURCES) $(gsd_backlight_helper_SOURCES) \
-	$(gsd_test_power_SOURCES)
+SOURCES = $(libpower_la_SOURCES) $(csd_backlight_helper_SOURCES) \
+	$(csd_test_power_SOURCES)
+DIST_SOURCES = $(libpower_la_SOURCES) $(csd_backlight_helper_SOURCES) \
+	$(csd_test_power_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -248,9 +248,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -418,16 +418,16 @@ libpower_la_SOURCES = \
 	gpm-phone.h					\
 	gpm-idletime.c					\
 	gpm-idletime.h					\
-	gsd-power-manager.c				\
-	gsd-power-manager.h				\
-	gsd-power-plugin.c				\
-	gsd-power-plugin.h
+	csd-power-manager.c				\
+	csd-power-manager.h				\
+	csd-power-plugin.c				\
+	csd-power-plugin.h
 
 libpower_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/				\
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"		\
 	-DSBINDIR=\"$(sbindir)\"			\
 	-DLIBEXECDIR=\"$(libexecdir)\"			\
@@ -440,53 +440,53 @@ libpower_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libpower_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libpower_la_LIBADD = \
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(POWER_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = \
-	power.gnome-settings-plugin.in
+	power.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 polkit_policydir = $(datadir)/polkit-1/actions
 polkit_policy_in_files = org.gnome.settings-daemon.plugins.power.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
-gsd_backlight_helper_SOURCES = \
-	gsd-backlight-helper.c
+csd_backlight_helper_SOURCES = \
+	csd-backlight-helper.c
 
-gsd_test_power_SOURCES = \
+csd_test_power_SOURCES = \
 	gpm-common.c					\
 	gpm-common.h					\
 	gpm-phone.c					\
 	gpm-phone.h					\
 	gpm-idletime.c					\
 	gpm-idletime.h					\
-	gsd-power-manager.c				\
-	gsd-power-manager.h				\
+	csd-power-manager.c				\
+	csd-power-manager.h				\
 	test-power.c
 
-gsd_test_power_CFLAGS = $(libpower_la_CFLAGS)
-gsd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
-gsd_test_power_LDADD = \
+csd_test_power_CFLAGS = $(libpower_la_CFLAGS)
+csd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
+csd_test_power_LDADD = \
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(POWER_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
-EXTRA_DIST = $(plugin_in_files) $(gsd_backlight_helper_SOURCES) \
+EXTRA_DIST = $(plugin_in_files) $(csd_backlight_helper_SOURCES) \
 	$(am__append_2)
-@HAVE_GUDEV_TRUE@gsd_backlight_helper_LDFLAGS = \
+@HAVE_GUDEV_TRUE@csd_backlight_helper_LDFLAGS = \
 @HAVE_GUDEV_TRUE@	$(BACKLIGHT_HELPER_LIBS)			\
 @HAVE_GUDEV_TRUE@	-lm
 
-@HAVE_GUDEV_TRUE@gsd_backlight_helper_CFLAGS = \
+@HAVE_GUDEV_TRUE@csd_backlight_helper_CFLAGS = \
 @HAVE_GUDEV_TRUE@	$(BACKLIGHT_HELPER_CFLAGS)
 
 CLEANFILES = \
@@ -610,12 +610,12 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-backlight-helper$(EXEEXT): $(gsd_backlight_helper_OBJECTS) $(gsd_backlight_helper_DEPENDENCIES) $(EXTRA_gsd_backlight_helper_DEPENDENCIES) 
-	@rm -f gsd-backlight-helper$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_backlight_helper_LINK) $(gsd_backlight_helper_OBJECTS) $(gsd_backlight_helper_LDADD) $(LIBS)
-gsd-test-power$(EXEEXT): $(gsd_test_power_OBJECTS) $(gsd_test_power_DEPENDENCIES) $(EXTRA_gsd_test_power_DEPENDENCIES) 
-	@rm -f gsd-test-power$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_power_LINK) $(gsd_test_power_OBJECTS) $(gsd_test_power_LDADD) $(LIBS)
+csd-backlight-helper$(EXEEXT): $(csd_backlight_helper_OBJECTS) $(csd_backlight_helper_DEPENDENCIES) $(EXTRA_csd_backlight_helper_DEPENDENCIES) 
+	@rm -f csd-backlight-helper$(EXEEXT)
+	$(AM_V_CCLD)$(csd_backlight_helper_LINK) $(csd_backlight_helper_OBJECTS) $(csd_backlight_helper_LDADD) $(LIBS)
+csd-test-power$(EXEEXT): $(csd_test_power_OBJECTS) $(csd_test_power_DEPENDENCIES) $(EXTRA_csd_test_power_DEPENDENCIES) 
+	@rm -f csd-test-power$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_power_LINK) $(csd_test_power_OBJECTS) $(csd_test_power_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -623,17 +623,17 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_backlight_helper-gsd-backlight-helper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_power-gpm-common.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_power-gpm-idletime.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_power-gpm-phone.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_power-gsd-power-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_power-test-power.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_backlight_helper-csd-backlight-helper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_power-gpm-common.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_power-gpm-idletime.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_power-gpm-phone.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_power-csd-power-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_power-test-power.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpower_la-gpm-common.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpower_la-gpm-idletime.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpower_la-gpm-phone.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpower_la-gsd-power-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpower_la-gsd-power-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpower_la-csd-power-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpower_la-csd-power-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -677,103 +677,103 @@ libpower_la-gpm-idletime.lo: gpm-idletime.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -c -o libpower_la-gpm-idletime.lo `test -f 'gpm-idletime.c' || echo '$(srcdir)/'`gpm-idletime.c
 
-libpower_la-gsd-power-manager.lo: gsd-power-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -MT libpower_la-gsd-power-manager.lo -MD -MP -MF $(DEPDIR)/libpower_la-gsd-power-manager.Tpo -c -o libpower_la-gsd-power-manager.lo `test -f 'gsd-power-manager.c' || echo '$(srcdir)/'`gsd-power-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpower_la-gsd-power-manager.Tpo $(DEPDIR)/libpower_la-gsd-power-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-power-manager.c' object='libpower_la-gsd-power-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libpower_la-csd-power-manager.lo: csd-power-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -MT libpower_la-csd-power-manager.lo -MD -MP -MF $(DEPDIR)/libpower_la-csd-power-manager.Tpo -c -o libpower_la-csd-power-manager.lo `test -f 'csd-power-manager.c' || echo '$(srcdir)/'`csd-power-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpower_la-csd-power-manager.Tpo $(DEPDIR)/libpower_la-csd-power-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-power-manager.c' object='libpower_la-csd-power-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -c -o libpower_la-gsd-power-manager.lo `test -f 'gsd-power-manager.c' || echo '$(srcdir)/'`gsd-power-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -c -o libpower_la-csd-power-manager.lo `test -f 'csd-power-manager.c' || echo '$(srcdir)/'`csd-power-manager.c
 
-libpower_la-gsd-power-plugin.lo: gsd-power-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -MT libpower_la-gsd-power-plugin.lo -MD -MP -MF $(DEPDIR)/libpower_la-gsd-power-plugin.Tpo -c -o libpower_la-gsd-power-plugin.lo `test -f 'gsd-power-plugin.c' || echo '$(srcdir)/'`gsd-power-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpower_la-gsd-power-plugin.Tpo $(DEPDIR)/libpower_la-gsd-power-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-power-plugin.c' object='libpower_la-gsd-power-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libpower_la-csd-power-plugin.lo: csd-power-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -MT libpower_la-csd-power-plugin.lo -MD -MP -MF $(DEPDIR)/libpower_la-csd-power-plugin.Tpo -c -o libpower_la-csd-power-plugin.lo `test -f 'csd-power-plugin.c' || echo '$(srcdir)/'`csd-power-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpower_la-csd-power-plugin.Tpo $(DEPDIR)/libpower_la-csd-power-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-power-plugin.c' object='libpower_la-csd-power-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -c -o libpower_la-gsd-power-plugin.lo `test -f 'gsd-power-plugin.c' || echo '$(srcdir)/'`gsd-power-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libpower_la_CPPFLAGS) $(CPPFLAGS) $(libpower_la_CFLAGS) $(CFLAGS) -c -o libpower_la-csd-power-plugin.lo `test -f 'csd-power-plugin.c' || echo '$(srcdir)/'`csd-power-plugin.c
 
-gsd_backlight_helper-gsd-backlight-helper.o: gsd-backlight-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_backlight_helper_CFLAGS) $(CFLAGS) -MT gsd_backlight_helper-gsd-backlight-helper.o -MD -MP -MF $(DEPDIR)/gsd_backlight_helper-gsd-backlight-helper.Tpo -c -o gsd_backlight_helper-gsd-backlight-helper.o `test -f 'gsd-backlight-helper.c' || echo '$(srcdir)/'`gsd-backlight-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_backlight_helper-gsd-backlight-helper.Tpo $(DEPDIR)/gsd_backlight_helper-gsd-backlight-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-backlight-helper.c' object='gsd_backlight_helper-gsd-backlight-helper.o' libtool=no @AMDEPBACKSLASH@
+csd_backlight_helper-csd-backlight-helper.o: csd-backlight-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_backlight_helper_CFLAGS) $(CFLAGS) -MT csd_backlight_helper-csd-backlight-helper.o -MD -MP -MF $(DEPDIR)/csd_backlight_helper-csd-backlight-helper.Tpo -c -o csd_backlight_helper-csd-backlight-helper.o `test -f 'csd-backlight-helper.c' || echo '$(srcdir)/'`csd-backlight-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_backlight_helper-csd-backlight-helper.Tpo $(DEPDIR)/csd_backlight_helper-csd-backlight-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-backlight-helper.c' object='csd_backlight_helper-csd-backlight-helper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_backlight_helper_CFLAGS) $(CFLAGS) -c -o gsd_backlight_helper-gsd-backlight-helper.o `test -f 'gsd-backlight-helper.c' || echo '$(srcdir)/'`gsd-backlight-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_backlight_helper_CFLAGS) $(CFLAGS) -c -o csd_backlight_helper-csd-backlight-helper.o `test -f 'csd-backlight-helper.c' || echo '$(srcdir)/'`csd-backlight-helper.c
 
-gsd_backlight_helper-gsd-backlight-helper.obj: gsd-backlight-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_backlight_helper_CFLAGS) $(CFLAGS) -MT gsd_backlight_helper-gsd-backlight-helper.obj -MD -MP -MF $(DEPDIR)/gsd_backlight_helper-gsd-backlight-helper.Tpo -c -o gsd_backlight_helper-gsd-backlight-helper.obj `if test -f 'gsd-backlight-helper.c'; then $(CYGPATH_W) 'gsd-backlight-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-backlight-helper.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_backlight_helper-gsd-backlight-helper.Tpo $(DEPDIR)/gsd_backlight_helper-gsd-backlight-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-backlight-helper.c' object='gsd_backlight_helper-gsd-backlight-helper.obj' libtool=no @AMDEPBACKSLASH@
+csd_backlight_helper-csd-backlight-helper.obj: csd-backlight-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_backlight_helper_CFLAGS) $(CFLAGS) -MT csd_backlight_helper-csd-backlight-helper.obj -MD -MP -MF $(DEPDIR)/csd_backlight_helper-csd-backlight-helper.Tpo -c -o csd_backlight_helper-csd-backlight-helper.obj `if test -f 'csd-backlight-helper.c'; then $(CYGPATH_W) 'csd-backlight-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-backlight-helper.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_backlight_helper-csd-backlight-helper.Tpo $(DEPDIR)/csd_backlight_helper-csd-backlight-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-backlight-helper.c' object='csd_backlight_helper-csd-backlight-helper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_backlight_helper_CFLAGS) $(CFLAGS) -c -o gsd_backlight_helper-gsd-backlight-helper.obj `if test -f 'gsd-backlight-helper.c'; then $(CYGPATH_W) 'gsd-backlight-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-backlight-helper.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_backlight_helper_CFLAGS) $(CFLAGS) -c -o csd_backlight_helper-csd-backlight-helper.obj `if test -f 'csd-backlight-helper.c'; then $(CYGPATH_W) 'csd-backlight-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-backlight-helper.c'; fi`
 
-gsd_test_power-gpm-common.o: gpm-common.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gpm-common.o -MD -MP -MF $(DEPDIR)/gsd_test_power-gpm-common.Tpo -c -o gsd_test_power-gpm-common.o `test -f 'gpm-common.c' || echo '$(srcdir)/'`gpm-common.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gpm-common.Tpo $(DEPDIR)/gsd_test_power-gpm-common.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-common.c' object='gsd_test_power-gpm-common.o' libtool=no @AMDEPBACKSLASH@
+csd_test_power-gpm-common.o: gpm-common.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-gpm-common.o -MD -MP -MF $(DEPDIR)/csd_test_power-gpm-common.Tpo -c -o csd_test_power-gpm-common.o `test -f 'gpm-common.c' || echo '$(srcdir)/'`gpm-common.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-gpm-common.Tpo $(DEPDIR)/csd_test_power-gpm-common.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-common.c' object='csd_test_power-gpm-common.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gpm-common.o `test -f 'gpm-common.c' || echo '$(srcdir)/'`gpm-common.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-gpm-common.o `test -f 'gpm-common.c' || echo '$(srcdir)/'`gpm-common.c
 
-gsd_test_power-gpm-common.obj: gpm-common.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gpm-common.obj -MD -MP -MF $(DEPDIR)/gsd_test_power-gpm-common.Tpo -c -o gsd_test_power-gpm-common.obj `if test -f 'gpm-common.c'; then $(CYGPATH_W) 'gpm-common.c'; else $(CYGPATH_W) '$(srcdir)/gpm-common.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gpm-common.Tpo $(DEPDIR)/gsd_test_power-gpm-common.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-common.c' object='gsd_test_power-gpm-common.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_power-gpm-common.obj: gpm-common.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-gpm-common.obj -MD -MP -MF $(DEPDIR)/csd_test_power-gpm-common.Tpo -c -o csd_test_power-gpm-common.obj `if test -f 'gpm-common.c'; then $(CYGPATH_W) 'gpm-common.c'; else $(CYGPATH_W) '$(srcdir)/gpm-common.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-gpm-common.Tpo $(DEPDIR)/csd_test_power-gpm-common.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-common.c' object='csd_test_power-gpm-common.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gpm-common.obj `if test -f 'gpm-common.c'; then $(CYGPATH_W) 'gpm-common.c'; else $(CYGPATH_W) '$(srcdir)/gpm-common.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-gpm-common.obj `if test -f 'gpm-common.c'; then $(CYGPATH_W) 'gpm-common.c'; else $(CYGPATH_W) '$(srcdir)/gpm-common.c'; fi`
 
-gsd_test_power-gpm-phone.o: gpm-phone.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gpm-phone.o -MD -MP -MF $(DEPDIR)/gsd_test_power-gpm-phone.Tpo -c -o gsd_test_power-gpm-phone.o `test -f 'gpm-phone.c' || echo '$(srcdir)/'`gpm-phone.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gpm-phone.Tpo $(DEPDIR)/gsd_test_power-gpm-phone.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-phone.c' object='gsd_test_power-gpm-phone.o' libtool=no @AMDEPBACKSLASH@
+csd_test_power-gpm-phone.o: gpm-phone.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-gpm-phone.o -MD -MP -MF $(DEPDIR)/csd_test_power-gpm-phone.Tpo -c -o csd_test_power-gpm-phone.o `test -f 'gpm-phone.c' || echo '$(srcdir)/'`gpm-phone.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-gpm-phone.Tpo $(DEPDIR)/csd_test_power-gpm-phone.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-phone.c' object='csd_test_power-gpm-phone.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gpm-phone.o `test -f 'gpm-phone.c' || echo '$(srcdir)/'`gpm-phone.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-gpm-phone.o `test -f 'gpm-phone.c' || echo '$(srcdir)/'`gpm-phone.c
 
-gsd_test_power-gpm-phone.obj: gpm-phone.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gpm-phone.obj -MD -MP -MF $(DEPDIR)/gsd_test_power-gpm-phone.Tpo -c -o gsd_test_power-gpm-phone.obj `if test -f 'gpm-phone.c'; then $(CYGPATH_W) 'gpm-phone.c'; else $(CYGPATH_W) '$(srcdir)/gpm-phone.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gpm-phone.Tpo $(DEPDIR)/gsd_test_power-gpm-phone.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-phone.c' object='gsd_test_power-gpm-phone.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_power-gpm-phone.obj: gpm-phone.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-gpm-phone.obj -MD -MP -MF $(DEPDIR)/csd_test_power-gpm-phone.Tpo -c -o csd_test_power-gpm-phone.obj `if test -f 'gpm-phone.c'; then $(CYGPATH_W) 'gpm-phone.c'; else $(CYGPATH_W) '$(srcdir)/gpm-phone.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-gpm-phone.Tpo $(DEPDIR)/csd_test_power-gpm-phone.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-phone.c' object='csd_test_power-gpm-phone.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gpm-phone.obj `if test -f 'gpm-phone.c'; then $(CYGPATH_W) 'gpm-phone.c'; else $(CYGPATH_W) '$(srcdir)/gpm-phone.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-gpm-phone.obj `if test -f 'gpm-phone.c'; then $(CYGPATH_W) 'gpm-phone.c'; else $(CYGPATH_W) '$(srcdir)/gpm-phone.c'; fi`
 
-gsd_test_power-gpm-idletime.o: gpm-idletime.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gpm-idletime.o -MD -MP -MF $(DEPDIR)/gsd_test_power-gpm-idletime.Tpo -c -o gsd_test_power-gpm-idletime.o `test -f 'gpm-idletime.c' || echo '$(srcdir)/'`gpm-idletime.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gpm-idletime.Tpo $(DEPDIR)/gsd_test_power-gpm-idletime.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-idletime.c' object='gsd_test_power-gpm-idletime.o' libtool=no @AMDEPBACKSLASH@
+csd_test_power-gpm-idletime.o: gpm-idletime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-gpm-idletime.o -MD -MP -MF $(DEPDIR)/csd_test_power-gpm-idletime.Tpo -c -o csd_test_power-gpm-idletime.o `test -f 'gpm-idletime.c' || echo '$(srcdir)/'`gpm-idletime.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-gpm-idletime.Tpo $(DEPDIR)/csd_test_power-gpm-idletime.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-idletime.c' object='csd_test_power-gpm-idletime.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gpm-idletime.o `test -f 'gpm-idletime.c' || echo '$(srcdir)/'`gpm-idletime.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-gpm-idletime.o `test -f 'gpm-idletime.c' || echo '$(srcdir)/'`gpm-idletime.c
 
-gsd_test_power-gpm-idletime.obj: gpm-idletime.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gpm-idletime.obj -MD -MP -MF $(DEPDIR)/gsd_test_power-gpm-idletime.Tpo -c -o gsd_test_power-gpm-idletime.obj `if test -f 'gpm-idletime.c'; then $(CYGPATH_W) 'gpm-idletime.c'; else $(CYGPATH_W) '$(srcdir)/gpm-idletime.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gpm-idletime.Tpo $(DEPDIR)/gsd_test_power-gpm-idletime.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-idletime.c' object='gsd_test_power-gpm-idletime.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_power-gpm-idletime.obj: gpm-idletime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-gpm-idletime.obj -MD -MP -MF $(DEPDIR)/csd_test_power-gpm-idletime.Tpo -c -o csd_test_power-gpm-idletime.obj `if test -f 'gpm-idletime.c'; then $(CYGPATH_W) 'gpm-idletime.c'; else $(CYGPATH_W) '$(srcdir)/gpm-idletime.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-gpm-idletime.Tpo $(DEPDIR)/csd_test_power-gpm-idletime.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gpm-idletime.c' object='csd_test_power-gpm-idletime.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gpm-idletime.obj `if test -f 'gpm-idletime.c'; then $(CYGPATH_W) 'gpm-idletime.c'; else $(CYGPATH_W) '$(srcdir)/gpm-idletime.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-gpm-idletime.obj `if test -f 'gpm-idletime.c'; then $(CYGPATH_W) 'gpm-idletime.c'; else $(CYGPATH_W) '$(srcdir)/gpm-idletime.c'; fi`
 
-gsd_test_power-gsd-power-manager.o: gsd-power-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gsd-power-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_power-gsd-power-manager.Tpo -c -o gsd_test_power-gsd-power-manager.o `test -f 'gsd-power-manager.c' || echo '$(srcdir)/'`gsd-power-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gsd-power-manager.Tpo $(DEPDIR)/gsd_test_power-gsd-power-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-power-manager.c' object='gsd_test_power-gsd-power-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_power-csd-power-manager.o: csd-power-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-csd-power-manager.o -MD -MP -MF $(DEPDIR)/csd_test_power-csd-power-manager.Tpo -c -o csd_test_power-csd-power-manager.o `test -f 'csd-power-manager.c' || echo '$(srcdir)/'`csd-power-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-csd-power-manager.Tpo $(DEPDIR)/csd_test_power-csd-power-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-power-manager.c' object='csd_test_power-csd-power-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gsd-power-manager.o `test -f 'gsd-power-manager.c' || echo '$(srcdir)/'`gsd-power-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-csd-power-manager.o `test -f 'csd-power-manager.c' || echo '$(srcdir)/'`csd-power-manager.c
 
-gsd_test_power-gsd-power-manager.obj: gsd-power-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-gsd-power-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_power-gsd-power-manager.Tpo -c -o gsd_test_power-gsd-power-manager.obj `if test -f 'gsd-power-manager.c'; then $(CYGPATH_W) 'gsd-power-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-power-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-gsd-power-manager.Tpo $(DEPDIR)/gsd_test_power-gsd-power-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-power-manager.c' object='gsd_test_power-gsd-power-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_power-csd-power-manager.obj: csd-power-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-csd-power-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_power-csd-power-manager.Tpo -c -o csd_test_power-csd-power-manager.obj `if test -f 'csd-power-manager.c'; then $(CYGPATH_W) 'csd-power-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-power-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-csd-power-manager.Tpo $(DEPDIR)/csd_test_power-csd-power-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-power-manager.c' object='csd_test_power-csd-power-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-gsd-power-manager.obj `if test -f 'gsd-power-manager.c'; then $(CYGPATH_W) 'gsd-power-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-power-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-csd-power-manager.obj `if test -f 'csd-power-manager.c'; then $(CYGPATH_W) 'csd-power-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-power-manager.c'; fi`
 
-gsd_test_power-test-power.o: test-power.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-test-power.o -MD -MP -MF $(DEPDIR)/gsd_test_power-test-power.Tpo -c -o gsd_test_power-test-power.o `test -f 'test-power.c' || echo '$(srcdir)/'`test-power.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-test-power.Tpo $(DEPDIR)/gsd_test_power-test-power.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-power.c' object='gsd_test_power-test-power.o' libtool=no @AMDEPBACKSLASH@
+csd_test_power-test-power.o: test-power.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-test-power.o -MD -MP -MF $(DEPDIR)/csd_test_power-test-power.Tpo -c -o csd_test_power-test-power.o `test -f 'test-power.c' || echo '$(srcdir)/'`test-power.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-test-power.Tpo $(DEPDIR)/csd_test_power-test-power.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-power.c' object='csd_test_power-test-power.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-test-power.o `test -f 'test-power.c' || echo '$(srcdir)/'`test-power.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-test-power.o `test -f 'test-power.c' || echo '$(srcdir)/'`test-power.c
 
-gsd_test_power-test-power.obj: test-power.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -MT gsd_test_power-test-power.obj -MD -MP -MF $(DEPDIR)/gsd_test_power-test-power.Tpo -c -o gsd_test_power-test-power.obj `if test -f 'test-power.c'; then $(CYGPATH_W) 'test-power.c'; else $(CYGPATH_W) '$(srcdir)/test-power.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_power-test-power.Tpo $(DEPDIR)/gsd_test_power-test-power.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-power.c' object='gsd_test_power-test-power.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_power-test-power.obj: test-power.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -MT csd_test_power-test-power.obj -MD -MP -MF $(DEPDIR)/csd_test_power-test-power.Tpo -c -o csd_test_power-test-power.obj `if test -f 'test-power.c'; then $(CYGPATH_W) 'test-power.c'; else $(CYGPATH_W) '$(srcdir)/test-power.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_power-test-power.Tpo $(DEPDIR)/csd_test_power-test-power.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-power.c' object='csd_test_power-test-power.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_power_CPPFLAGS) $(CPPFLAGS) $(gsd_test_power_CFLAGS) $(CFLAGS) -c -o gsd_test_power-test-power.obj `if test -f 'test-power.c'; then $(CYGPATH_W) 'test-power.c'; else $(CYGPATH_W) '$(srcdir)/test-power.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_power_CPPFLAGS) $(CPPFLAGS) $(csd_test_power_CFLAGS) $(CFLAGS) -c -o csd_test_power-test-power.obj `if test -f 'test-power.c'; then $(CYGPATH_W) 'test-power.c'; else $(CYGPATH_W) '$(srcdir)/test-power.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1059,7 +1059,7 @@ org.gnome.settings-daemon.plugins.power.policy.in: org.gnome.settings-daemon.plu
 clean-local:
 	rm -f *~
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

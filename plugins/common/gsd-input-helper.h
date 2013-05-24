@@ -17,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GSD_INPUT_HELPER_H
-#define __GSD_INPUT_HELPER_H
+#ifndef __CSD_INPUT_HELPER_H
+#define __CSD_INPUT_HELPER_H
 
 G_BEGIN_DECLS
 
@@ -80,4 +80,4 @@ int       xdevice_get_last_tool_id (int                     deviceid);
 
 G_END_DECLS
 
-#endif /* __GSD_INPUT_HELPER_H */
+#endif /* __CSD_INPUT_HELPER_H */

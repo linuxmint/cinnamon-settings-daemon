@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-media-keys-plugin.h"
-#include "gsd-media-keys-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-media-keys-plugin.h"
+#include "csd-media-keys-manager.h"
 
-struct GsdMediaKeysPluginPrivate {
-        GsdMediaKeysManager *manager;
+struct CsdMediaKeysPluginPrivate {
+        CsdMediaKeysManager *manager;
 };
 
-#define GSD_MEDIA_KEYS_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_MEDIA_KEYS_PLUGIN, GsdMediaKeysPluginPrivate))
+#define CSD_MEDIA_KEYS_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_MEDIA_KEYS_PLUGIN, CsdMediaKeysPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdMediaKeysPlugin, gsd_media_keys_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdMediaKeysPlugin, csd_media_keys_plugin)
 
 static void
-gsd_media_keys_plugin_init (GsdMediaKeysPlugin *plugin)
+csd_media_keys_plugin_init (CsdMediaKeysPlugin *plugin)
 {
-        plugin->priv = GSD_MEDIA_KEYS_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_MEDIA_KEYS_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdMediaKeysPlugin initializing");
+        g_debug ("CsdMediaKeysPlugin initializing");
 
-        plugin->priv->manager = gsd_media_keys_manager_new ();
+        plugin->priv->manager = csd_media_keys_manager_new ();
 }
 
 static void
-gsd_media_keys_plugin_finalize (GObject *object)
+csd_media_keys_plugin_finalize (GObject *object)
 {
-        GsdMediaKeysPlugin *plugin;
+        CsdMediaKeysPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_MEDIA_KEYS_PLUGIN (object));
+        g_return_if_fail (CSD_IS_MEDIA_KEYS_PLUGIN (object));
 
-        g_debug ("GsdMediaKeysPlugin finalizing");
+        g_debug ("CsdMediaKeysPlugin finalizing");
 
-        plugin = GSD_MEDIA_KEYS_PLUGIN (object);
+        plugin = CSD_MEDIA_KEYS_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gsd_media_keys_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_media_keys_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_media_keys_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating media_keys plugin");
 
         error = NULL;
-        res = gsd_media_keys_manager_start (GSD_MEDIA_KEYS_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_media_keys_manager_start (CSD_MEDIA_KEYS_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start media_keys manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating media_keys plugin");
-        gsd_media_keys_manager_stop (GSD_MEDIA_KEYS_PLUGIN (plugin)->priv->manager);
+        csd_media_keys_manager_stop (CSD_MEDIA_KEYS_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_media_keys_plugin_class_init (GsdMediaKeysPluginClass *klass)
+csd_media_keys_plugin_class_init (CsdMediaKeysPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_media_keys_plugin_finalize;
+        object_class->finalize = csd_media_keys_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdMediaKeysPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdMediaKeysPluginPrivate));
 }

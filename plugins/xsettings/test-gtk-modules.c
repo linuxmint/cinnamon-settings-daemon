@@ -1,26 +1,26 @@
 
 
-#include "gsd-xsettings-gtk.h"
+#include "csd-xsettings-gtk.h"
 
 static void
-gtk_modules_callback (GsdXSettingsGtk       *gtk,
+gtk_modules_callback (CsdXSettingsGtk       *gtk,
 		      GParamSpec            *spec,
 		      gpointer               user_data)
 {
 	const char *modules;
 
-	modules = gsd_xsettings_gtk_get_modules (gtk);
+	modules = csd_xsettings_gtk_get_modules (gtk);
 	g_message ("GTK+ modules list changed to: %s", modules ? modules : "(empty)");
 }
 
 int main (int argc, char **argv)
 {
 	GMainLoop *loop;
-	GsdXSettingsGtk *gtk;
+	CsdXSettingsGtk *gtk;
 
 	g_type_init ();
 
-	gtk = gsd_xsettings_gtk_new ();
+	gtk = csd_xsettings_gtk_new ();
         g_signal_connect (G_OBJECT (gtk), "notify::gtk-modules",
 			  G_CALLBACK (gtk_modules_callback), NULL);
 

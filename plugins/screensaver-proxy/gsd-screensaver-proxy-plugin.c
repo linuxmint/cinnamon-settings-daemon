@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-screensaver-proxy-plugin.h"
-#include "gsd-screensaver-proxy-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-screensaver-proxy-plugin.h"
+#include "csd-screensaver-proxy-manager.h"
 
-struct GsdScreensaverProxyPluginPrivate {
-        GsdScreensaverProxyManager *manager;
+struct CsdScreensaverProxyPluginPrivate {
+        CsdScreensaverProxyManager *manager;
 };
 
-#define GSD_SCREENSAVER_PROXY_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_SCREENSAVER_PROXY_PLUGIN, GsdScreensaverProxyPluginPrivate))
+#define CSD_SCREENSAVER_PROXY_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_SCREENSAVER_PROXY_PLUGIN, CsdScreensaverProxyPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdScreensaverProxyPlugin, gsd_screensaver_proxy_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdScreensaverProxyPlugin, csd_screensaver_proxy_plugin)
 
 static void
-gsd_screensaver_proxy_plugin_init (GsdScreensaverProxyPlugin *plugin)
+csd_screensaver_proxy_plugin_init (CsdScreensaverProxyPlugin *plugin)
 {
-        plugin->priv = GSD_SCREENSAVER_PROXY_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_SCREENSAVER_PROXY_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdScreensaverProxyPlugin initializing");
+        g_debug ("CsdScreensaverProxyPlugin initializing");
 
-        plugin->priv->manager = gsd_screensaver_proxy_manager_new ();
+        plugin->priv->manager = csd_screensaver_proxy_manager_new ();
 }
 
 static void
-gsd_screensaver_proxy_plugin_finalize (GObject *object)
+csd_screensaver_proxy_plugin_finalize (GObject *object)
 {
-        GsdScreensaverProxyPlugin *plugin;
+        CsdScreensaverProxyPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SCREENSAVER_PROXY_PLUGIN (object));
+        g_return_if_fail (CSD_IS_SCREENSAVER_PROXY_PLUGIN (object));
 
-        g_debug ("GsdScreensaverProxyPlugin finalizing");
+        g_debug ("CsdScreensaverProxyPlugin finalizing");
 
-        plugin = GSD_SCREENSAVER_PROXY_PLUGIN (object);
+        plugin = CSD_SCREENSAVER_PROXY_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gsd_screensaver_proxy_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_screensaver_proxy_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_screensaver_proxy_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating screensaver-proxy plugin");
 
         error = NULL;
-        res = gsd_screensaver_proxy_manager_start (GSD_SCREENSAVER_PROXY_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_screensaver_proxy_manager_start (CSD_SCREENSAVER_PROXY_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start screensaver-proxy manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating screensaver-proxy plugin");
-        gsd_screensaver_proxy_manager_stop (GSD_SCREENSAVER_PROXY_PLUGIN (plugin)->priv->manager);
+        csd_screensaver_proxy_manager_stop (CSD_SCREENSAVER_PROXY_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_screensaver_proxy_plugin_class_init (GsdScreensaverProxyPluginClass *klass)
+csd_screensaver_proxy_plugin_class_init (CsdScreensaverProxyPluginClass *klass)
 {
         GObjectClass             *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_screensaver_proxy_plugin_finalize;
+        object_class->finalize = csd_screensaver_proxy_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdScreensaverProxyPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdScreensaverProxyPluginPrivate));
 }

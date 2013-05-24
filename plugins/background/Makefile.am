@@ -2,28 +2,28 @@ NULL =
 
 plugin_name = background
 
-libexec_PROGRAMS = gsd-test-background
+libexec_PROGRAMS = csd-test-background
 
-gsd_test_background_SOURCES =		\
+csd_test_background_SOURCES =		\
 	test-background.c		\
-	gsd-background-manager.h	\
-	gsd-background-manager.c	\
+	csd-background-manager.h	\
+	csd-background-manager.c	\
 	$(NULL)
 
-gsd_test_background_CPPFLAGS =				\
-	-I$(top_srcdir)/gnome-settings-daemon		\
+csd_test_background_CPPFLAGS =				\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-gsd_test_background_CFLAGS = \
+csd_test_background_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(BACKGROUND_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_test_background_LDADD =				\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
+csd_test_background_LDADD =				\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
 	$(SETTINGS_PLUGIN_LIBS)				\
 	$(BACKGROUND_LIBS)				\
 	$(NULL)
@@ -33,16 +33,16 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 libbackground_la_SOURCES =		\
-	gsd-background-plugin.h		\
-	gsd-background-plugin.c		\
-	gsd-background-manager.h	\
-	gsd-background-manager.c	\
+	csd-background-plugin.h		\
+	csd-background-plugin.c		\
+	csd-background-manager.h	\
+	csd-background-manager.c	\
 	$(NULL)
 
 libbackground_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/background/libbackground   \
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libbackground_la_CFLAGS = \
@@ -51,7 +51,7 @@ libbackground_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libbackground_la_LDFLAGS =		\
-	$(GSD_PLUGIN_LDFLAGS)		\
+	$(CSD_PLUGIN_LDFLAGS)		\
 	$(NULL)
 
 libbackground_la_LIBADD  =		\
@@ -60,10 +60,10 @@ libbackground_la_LIBADD  =		\
 	$(NULL)
 
 plugin_in_files =		\
-	background.gnome-settings-plugin.in	\
+	background.cinnamon-settings-plugin.in	\
 	$(NULL)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)	\
@@ -77,4 +77,4 @@ DISTCLEANFILES =		\
 	$(plugin_DATA)		\
 	$(NULL)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

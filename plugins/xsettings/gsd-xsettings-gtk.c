@@ -23,7 +23,7 @@
 #include <glib/gi18n-lib.h>
 #include <gio/gio.h>
 
-#include "gsd-xsettings-gtk.h"
+#include "csd-xsettings-gtk.h"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.gnome.settings-daemon.plugins.xsettings"
 
@@ -35,7 +35,7 @@ enum {
         PROP_GTK_MODULES
 };
 
-struct GsdXSettingsGtkPrivate {
+struct CsdXSettingsGtkPrivate {
         char              *modules;
         GHashTable        *dir_modules;
 
@@ -46,14 +46,14 @@ struct GsdXSettingsGtkPrivate {
         GList             *cond_settings;
 };
 
-#define GSD_XSETTINGS_GTK_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_XSETTINGS_GTK, GsdXSettingsGtkPrivate))
+#define CSD_XSETTINGS_GTK_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_XSETTINGS_GTK, CsdXSettingsGtkPrivate))
 
-G_DEFINE_TYPE(GsdXSettingsGtk, gsd_xsettings_gtk, G_TYPE_OBJECT)
+G_DEFINE_TYPE(CsdXSettingsGtk, csd_xsettings_gtk, G_TYPE_OBJECT)
 
-static void update_gtk_modules (GsdXSettingsGtk *gtk);
+static void update_gtk_modules (CsdXSettingsGtk *gtk);
 
 static void
-empty_cond_settings_list (GsdXSettingsGtk *gtk)
+empty_cond_settings_list (CsdXSettingsGtk *gtk)
 {
         if (gtk->priv->cond_settings == NULL)
                 return;
@@ -67,7 +67,7 @@ empty_cond_settings_list (GsdXSettingsGtk *gtk)
 static void
 cond_setting_changed (GSettings       *settings,
                       const char      *key,
-                      GsdXSettingsGtk *gtk)
+                      CsdXSettingsGtk *gtk)
 {
         gboolean enabled;
         const char *module_name;
@@ -88,7 +88,7 @@ cond_setting_changed (GSettings       *settings,
 
 static char *
 process_desktop_file (const char      *path,
-                      GsdXSettingsGtk *gtk)
+                      CsdXSettingsGtk *gtk)
 {
         GKeyFile *keyfile;
         char *retval;
@@ -148,7 +148,7 @@ bail:
 }
 
 static void
-get_gtk_modules_from_dir (GsdXSettingsGtk *gtk)
+get_gtk_modules_from_dir (CsdXSettingsGtk *gtk)
 {
         GFile *file;
         GFileInfo *info;
@@ -218,7 +218,7 @@ stringify_gtk_modules (gpointer key,
 }
 
 static void
-update_gtk_modules (GsdXSettingsGtk *gtk)
+update_gtk_modules (CsdXSettingsGtk *gtk)
 {
         char **enabled, **disabled;
         GHashTable *ht;
@@ -272,20 +272,20 @@ gtk_modules_dir_changed_cb (GFileMonitor     *monitor,
                             GFile            *file,
                             GFile            *other_file,
                             GFileMonitorEvent event_type,
-                            GsdXSettingsGtk  *gtk)
+                            CsdXSettingsGtk  *gtk)
 {
         get_gtk_modules_from_dir (gtk);
         update_gtk_modules (gtk);
 }
 
 static void
-gsd_xsettings_gtk_init (GsdXSettingsGtk *gtk)
+csd_xsettings_gtk_init (CsdXSettingsGtk *gtk)
 {
         GFile *file;
 
-        gtk->priv = GSD_XSETTINGS_GTK_GET_PRIVATE (gtk);
+        gtk->priv = CSD_XSETTINGS_GTK_GET_PRIVATE (gtk);
 
-        g_debug ("GsdXSettingsGtk initializing");
+        g_debug ("CsdXSettingsGtk initializing");
 
         gtk->priv->settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
 
@@ -304,16 +304,16 @@ gsd_xsettings_gtk_init (GsdXSettingsGtk *gtk)
 }
 
 static void
-gsd_xsettings_gtk_finalize (GObject *object)
+csd_xsettings_gtk_finalize (GObject *object)
 {
-        GsdXSettingsGtk *gtk;
+        CsdXSettingsGtk *gtk;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_XSETTINGS_GTK (object));
+        g_return_if_fail (CSD_IS_XSETTINGS_GTK (object));
 
-        g_debug ("GsdXSettingsGtk finalizing");
+        g_debug ("CsdXSettingsGtk finalizing");
 
-        gtk = GSD_XSETTINGS_GTK (object);
+        gtk = CSD_XSETTINGS_GTK (object);
 
         g_return_if_fail (gtk->priv != NULL);
 
@@ -332,18 +332,18 @@ gsd_xsettings_gtk_finalize (GObject *object)
 
         empty_cond_settings_list (gtk);
 
-        G_OBJECT_CLASS (gsd_xsettings_gtk_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_xsettings_gtk_parent_class)->finalize (object);
 }
 
 static void
-gsd_xsettings_gtk_get_property (GObject        *object,
+csd_xsettings_gtk_get_property (GObject        *object,
                                 guint           prop_id,
                                 GValue         *value,
                                 GParamSpec     *pspec)
 {
-        GsdXSettingsGtk *self;
+        CsdXSettingsGtk *self;
 
-        self = GSD_XSETTINGS_GTK (object);
+        self = CSD_XSETTINGS_GTK (object);
 
         switch (prop_id) {
         case PROP_GTK_MODULES:
@@ -356,28 +356,28 @@ gsd_xsettings_gtk_get_property (GObject        *object,
 }
 
 static void
-gsd_xsettings_gtk_class_init (GsdXSettingsGtkClass *klass)
+csd_xsettings_gtk_class_init (CsdXSettingsGtkClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->get_property = gsd_xsettings_gtk_get_property;
-        object_class->finalize = gsd_xsettings_gtk_finalize;
+        object_class->get_property = csd_xsettings_gtk_get_property;
+        object_class->finalize = csd_xsettings_gtk_finalize;
 
         g_object_class_install_property (object_class, PROP_GTK_MODULES,
                                          g_param_spec_string ("gtk-modules", NULL, NULL,
                                                               NULL, G_PARAM_READABLE));
 
-        g_type_class_add_private (klass, sizeof (GsdXSettingsGtkPrivate));
+        g_type_class_add_private (klass, sizeof (CsdXSettingsGtkPrivate));
 }
 
-GsdXSettingsGtk *
-gsd_xsettings_gtk_new (void)
+CsdXSettingsGtk *
+csd_xsettings_gtk_new (void)
 {
-        return GSD_XSETTINGS_GTK (g_object_new (GSD_TYPE_XSETTINGS_GTK, NULL));
+        return CSD_XSETTINGS_GTK (g_object_new (CSD_TYPE_XSETTINGS_GTK, NULL));
 }
 
 const char *
-gsd_xsettings_gtk_get_modules (GsdXSettingsGtk *gtk)
+csd_xsettings_gtk_get_modules (CsdXSettingsGtk *gtk)
 {
         return gtk->priv->modules;
 }

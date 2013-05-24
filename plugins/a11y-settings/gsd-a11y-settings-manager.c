@@ -36,12 +36,12 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-a11y-settings-manager.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-a11y-settings-manager.h"
 
-#define GSD_A11Y_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManagerPrivate))
+#define CSD_A11Y_SETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_A11Y_SETTINGS_MANAGER, CsdA11ySettingsManagerPrivate))
 
-struct GsdA11ySettingsManagerPrivate
+struct CsdA11ySettingsManagerPrivate
 {
         GSettings *interface_settings;
         GSettings *a11y_apps_settings;
@@ -51,18 +51,18 @@ enum {
         PROP_0,
 };
 
-static void     gsd_a11y_settings_manager_class_init  (GsdA11ySettingsManagerClass *klass);
-static void     gsd_a11y_settings_manager_init        (GsdA11ySettingsManager      *a11y_settings_manager);
-static void     gsd_a11y_settings_manager_finalize    (GObject                     *object);
+static void     csd_a11y_settings_manager_class_init  (CsdA11ySettingsManagerClass *klass);
+static void     csd_a11y_settings_manager_init        (CsdA11ySettingsManager      *a11y_settings_manager);
+static void     csd_a11y_settings_manager_finalize    (GObject                     *object);
 
-G_DEFINE_TYPE (GsdA11ySettingsManager, gsd_a11y_settings_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdA11ySettingsManager, csd_a11y_settings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 static void
 apps_settings_changed (GSettings              *settings,
 		       const char             *key,
-		       GsdA11ySettingsManager *manager)
+		       CsdA11ySettingsManager *manager)
 {
 	gboolean screen_reader, keyboard;
 
@@ -85,11 +85,11 @@ apps_settings_changed (GSettings              *settings,
 }
 
 gboolean
-gsd_a11y_settings_manager_start (GsdA11ySettingsManager *manager,
+csd_a11y_settings_manager_start (CsdA11ySettingsManager *manager,
                                  GError                **error)
 {
         g_debug ("Starting a11y_settings manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
 	manager->priv->interface_settings = g_settings_new ("org.gnome.desktop.interface");
 	manager->priv->a11y_apps_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
@@ -105,12 +105,12 @@ gsd_a11y_settings_manager_start (GsdA11ySettingsManager *manager,
 	    g_settings_get_boolean (manager->priv->a11y_apps_settings, "screen-reader-enabled"))
 		g_settings_set_boolean (manager->priv->interface_settings, "toolkit-accessibility", TRUE);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
         return TRUE;
 }
 
 void
-gsd_a11y_settings_manager_stop (GsdA11ySettingsManager *manager)
+csd_a11y_settings_manager_stop (CsdA11ySettingsManager *manager)
 {
 	if (manager->priv->interface_settings) {
 		g_object_unref (manager->priv->interface_settings);
@@ -124,13 +124,13 @@ gsd_a11y_settings_manager_stop (GsdA11ySettingsManager *manager)
 }
 
 static GObject *
-gsd_a11y_settings_manager_constructor (GType                  type,
+csd_a11y_settings_manager_constructor (GType                  type,
                                        guint                  n_construct_properties,
                                        GObjectConstructParam *construct_properties)
 {
-        GsdA11ySettingsManager      *a11y_settings_manager;
+        CsdA11ySettingsManager      *a11y_settings_manager;
 
-        a11y_settings_manager = GSD_A11Y_SETTINGS_MANAGER (G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->constructor (type,
+        a11y_settings_manager = CSD_A11Y_SETTINGS_MANAGER (G_OBJECT_CLASS (csd_a11y_settings_manager_parent_class)->constructor (type,
                                                                                                                                  n_construct_properties,
                                                                                                                                  construct_properties));
 
@@ -138,55 +138,55 @@ gsd_a11y_settings_manager_constructor (GType                  type,
 }
 
 static void
-gsd_a11y_settings_manager_dispose (GObject *object)
+csd_a11y_settings_manager_dispose (GObject *object)
 {
-        G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (csd_a11y_settings_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_a11y_settings_manager_class_init (GsdA11ySettingsManagerClass *klass)
+csd_a11y_settings_manager_class_init (CsdA11ySettingsManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_a11y_settings_manager_constructor;
-        object_class->dispose = gsd_a11y_settings_manager_dispose;
-        object_class->finalize = gsd_a11y_settings_manager_finalize;
+        object_class->constructor = csd_a11y_settings_manager_constructor;
+        object_class->dispose = csd_a11y_settings_manager_dispose;
+        object_class->finalize = csd_a11y_settings_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdA11ySettingsManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdA11ySettingsManagerPrivate));
 }
 
 static void
-gsd_a11y_settings_manager_init (GsdA11ySettingsManager *manager)
+csd_a11y_settings_manager_init (CsdA11ySettingsManager *manager)
 {
-        manager->priv = GSD_A11Y_SETTINGS_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_A11Y_SETTINGS_MANAGER_GET_PRIVATE (manager);
 
 }
 
 static void
-gsd_a11y_settings_manager_finalize (GObject *object)
+csd_a11y_settings_manager_finalize (GObject *object)
 {
-        GsdA11ySettingsManager *a11y_settings_manager;
+        CsdA11ySettingsManager *a11y_settings_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_A11Y_SETTINGS_MANAGER (object));
+        g_return_if_fail (CSD_IS_A11Y_SETTINGS_MANAGER (object));
 
-        a11y_settings_manager = GSD_A11Y_SETTINGS_MANAGER (object);
+        a11y_settings_manager = CSD_A11Y_SETTINGS_MANAGER (object);
 
         g_return_if_fail (a11y_settings_manager->priv != NULL);
 
-        G_OBJECT_CLASS (gsd_a11y_settings_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_a11y_settings_manager_parent_class)->finalize (object);
 }
 
-GsdA11ySettingsManager *
-gsd_a11y_settings_manager_new (void)
+CsdA11ySettingsManager *
+csd_a11y_settings_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_A11Y_SETTINGS_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_A11Y_SETTINGS_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_A11Y_SETTINGS_MANAGER (manager_object);
+        return CSD_A11Y_SETTINGS_MANAGER (manager_object);
 }

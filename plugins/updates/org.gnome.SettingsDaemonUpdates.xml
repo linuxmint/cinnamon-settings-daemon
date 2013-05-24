@@ -7,7 +7,7 @@
       <doc:description>
         <doc:para>
           The interface used for quering trivial information about the
-          update plugin in gnome-settings-daemon.
+          update plugin in cinnamon-settings-daemon.
         </doc:para>
       </doc:description>
     </doc:doc>

@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include "gsd-power-helper.h"
+#include "csd-power-helper.h"
 
 #define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
 #define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
@@ -173,7 +173,7 @@ upower_hibernate (GDBusProxy *upower_proxy)
 #endif /* HAVE_SYSTEMD */
 
 void
-gsd_power_suspend (GDBusProxy *upower_proxy)
+csd_power_suspend (GDBusProxy *upower_proxy)
 {
 #ifdef HAVE_SYSTEMD
 	systemd_suspend ();
@@ -183,7 +183,7 @@ gsd_power_suspend (GDBusProxy *upower_proxy)
 }
 
 void
-gsd_power_poweroff (void)
+csd_power_poweroff (void)
 {
 #ifdef HAVE_SYSTEMD
 	systemd_stop ();
@@ -193,7 +193,7 @@ gsd_power_poweroff (void)
 }
 
 void
-gsd_power_hibernate (GDBusProxy *upower_proxy)
+csd_power_hibernate (GDBusProxy *upower_proxy)
 {
 #ifdef HAVE_SYSTEMD
 	systemd_hibernate ();

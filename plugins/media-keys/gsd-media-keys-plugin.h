@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_MEDIA_KEYS_PLUGIN_H__
-#define __GSD_MEDIA_KEYS_PLUGIN_H__
+#ifndef __CSD_MEDIA_KEYS_PLUGIN_H__
+#define __CSD_MEDIA_KEYS_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_MEDIA_KEYS_PLUGIN                (gsd_media_keys_plugin_get_type ())
-#define GSD_MEDIA_KEYS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_MEDIA_KEYS_PLUGIN, GsdMediaKeysPlugin))
-#define GSD_MEDIA_KEYS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_MEDIA_KEYS_PLUGIN, GsdMediaKeysPluginClass))
-#define GSD_IS_MEDIA_KEYS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_MEDIA_KEYS_PLUGIN))
-#define GSD_IS_MEDIA_KEYS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_MEDIA_KEYS_PLUGIN))
-#define GSD_MEDIA_KEYS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_MEDIA_KEYS_PLUGIN, GsdMediaKeysPluginClass))
+#define CSD_TYPE_MEDIA_KEYS_PLUGIN                (csd_media_keys_plugin_get_type ())
+#define CSD_MEDIA_KEYS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_MEDIA_KEYS_PLUGIN, CsdMediaKeysPlugin))
+#define CSD_MEDIA_KEYS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_MEDIA_KEYS_PLUGIN, CsdMediaKeysPluginClass))
+#define CSD_IS_MEDIA_KEYS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_MEDIA_KEYS_PLUGIN))
+#define CSD_IS_MEDIA_KEYS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_MEDIA_KEYS_PLUGIN))
+#define CSD_MEDIA_KEYS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_MEDIA_KEYS_PLUGIN, CsdMediaKeysPluginClass))
 
-typedef struct GsdMediaKeysPluginPrivate GsdMediaKeysPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdMediaKeysPluginPrivate *priv;
-} GsdMediaKeysPlugin;
+typedef struct CsdMediaKeysPluginPrivate CsdMediaKeysPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdMediaKeysPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdMediaKeysPluginPrivate *priv;
+} CsdMediaKeysPlugin;
 
-GType   gsd_media_keys_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdMediaKeysPluginClass;
+
+GType   csd_media_keys_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_MEDIA_KEYS_PLUGIN_H__ */
+#endif /* __CSD_MEDIA_KEYS_PLUGIN_H__ */

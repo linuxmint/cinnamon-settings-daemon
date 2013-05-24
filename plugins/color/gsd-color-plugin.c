@@ -24,39 +24,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-color-plugin.h"
-#include "gsd-color-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-color-plugin.h"
+#include "csd-color-manager.h"
 
-struct GsdColorPluginPrivate {
-        GsdColorManager *manager;
+struct CsdColorPluginPrivate {
+        CsdColorManager *manager;
 };
 
-#define GSD_COLOR_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_COLOR_PLUGIN, GsdColorPluginPrivate))
+#define CSD_COLOR_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_COLOR_PLUGIN, CsdColorPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdColorPlugin, gsd_color_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdColorPlugin, csd_color_plugin)
 
 static void
-gsd_color_plugin_init (GsdColorPlugin *plugin)
+csd_color_plugin_init (CsdColorPlugin *plugin)
 {
-        plugin->priv = GSD_COLOR_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_COLOR_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdColorPlugin initializing");
+        g_debug ("CsdColorPlugin initializing");
 
-        plugin->priv->manager = gsd_color_manager_new ();
+        plugin->priv->manager = csd_color_manager_new ();
 }
 
 static void
-gsd_color_plugin_finalize (GObject *object)
+csd_color_plugin_finalize (GObject *object)
 {
-        GsdColorPlugin *plugin;
+        CsdColorPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_COLOR_PLUGIN (object));
+        g_return_if_fail (CSD_IS_COLOR_PLUGIN (object));
 
-        g_debug ("GsdColorPlugin finalizing");
+        g_debug ("CsdColorPlugin finalizing");
 
-        plugin = GSD_COLOR_PLUGIN (object);
+        plugin = CSD_COLOR_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -64,11 +64,11 @@ gsd_color_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_color_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_color_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -76,7 +76,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating color plugin");
 
         error = NULL;
-        res = gsd_color_manager_start (GSD_COLOR_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_color_manager_start (CSD_COLOR_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start color manager: %s", error->message);
                 g_error_free (error);
@@ -84,22 +84,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating color plugin");
-        gsd_color_manager_stop (GSD_COLOR_PLUGIN (plugin)->priv->manager);
+        csd_color_manager_stop (CSD_COLOR_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_color_plugin_class_init (GsdColorPluginClass *klass)
+csd_color_plugin_class_init (CsdColorPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_color_plugin_finalize;
+        object_class->finalize = csd_color_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdColorPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdColorPluginPrivate));
 }

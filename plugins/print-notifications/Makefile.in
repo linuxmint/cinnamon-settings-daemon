@@ -52,8 +52,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-printer$(EXEEXT) \
-	gsd-test-print-notifications$(EXEEXT)
+libexec_PROGRAMS = csd-printer$(EXEEXT) \
+	csd-test-print-notifications$(EXEEXT)
 subdir = plugins/print-notifications
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -100,8 +100,8 @@ am__DEPENDENCIES_1 =
 libprint_notifications_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 am_libprint_notifications_la_OBJECTS =  \
-	libprint_notifications_la-gsd-print-notifications-manager.lo \
-	libprint_notifications_la-gsd-print-notifications-plugin.lo
+	libprint_notifications_la-csd-print-notifications-manager.lo \
+	libprint_notifications_la-csd-print-notifications-plugin.lo
 libprint_notifications_la_OBJECTS =  \
 	$(am_libprint_notifications_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -113,24 +113,24 @@ libprint_notifications_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libprint_notifications_la_CFLAGS) $(CFLAGS) \
 	$(libprint_notifications_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_printer_OBJECTS = gsd_printer-gsd-printer.$(OBJEXT)
-gsd_printer_OBJECTS = $(am_gsd_printer_OBJECTS)
-gsd_printer_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+am_csd_printer_OBJECTS = csd_printer-csd-printer.$(OBJEXT)
+csd_printer_OBJECTS = $(am_csd_printer_OBJECTS)
+csd_printer_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gsd_printer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(gsd_printer_CFLAGS) \
+csd_printer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(csd_printer_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-am_gsd_test_print_notifications_OBJECTS = gsd_test_print_notifications-gsd-print-notifications-manager.$(OBJEXT) \
-	gsd_test_print_notifications-test-print-notifications.$(OBJEXT)
-gsd_test_print_notifications_OBJECTS =  \
-	$(am_gsd_test_print_notifications_OBJECTS)
-gsd_test_print_notifications_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_print_notifications_OBJECTS = csd_test_print_notifications-csd-print-notifications-manager.$(OBJEXT) \
+	csd_test_print_notifications-test-print-notifications.$(OBJEXT)
+csd_test_print_notifications_OBJECTS =  \
+	$(am_csd_test_print_notifications_OBJECTS)
+csd_test_print_notifications_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_test_print_notifications_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_print_notifications_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_print_notifications_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_print_notifications_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -166,10 +166,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libprint_notifications_la_SOURCES) $(gsd_printer_SOURCES) \
-	$(gsd_test_print_notifications_SOURCES)
+SOURCES = $(libprint_notifications_la_SOURCES) $(csd_printer_SOURCES) \
+	$(csd_test_print_notifications_SOURCES)
 DIST_SOURCES = $(libprint_notifications_la_SOURCES) \
-	$(gsd_printer_SOURCES) $(gsd_test_print_notifications_SOURCES)
+	$(csd_printer_SOURCES) $(csd_test_print_notifications_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -238,9 +238,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -402,14 +402,14 @@ plugin_LTLIBRARIES = \
 	libprint-notifications.la
 
 libprint_notifications_la_SOURCES = \
-	gsd-print-notifications-manager.c	\
-	gsd-print-notifications-manager.h	\
-	gsd-print-notifications-plugin.c	\
-	gsd-print-notifications-plugin.h
+	csd-print-notifications-manager.c	\
+	csd-print-notifications-manager.h	\
+	csd-print-notifications-plugin.c	\
+	csd-print-notifications-plugin.h
 
 libprint_notifications_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" \
 	$(AM_CPPFLAGS)
 
@@ -419,49 +419,49 @@ libprint_notifications_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libprint_notifications_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libprint_notifications_la_LIBADD = \
 	$(CUPS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = \
-	print-notifications.gnome-settings-plugin.in
+	print-notifications.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-gsd_printer_SOURCES = \
-	gsd-printer.c
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+csd_printer_SOURCES = \
+	csd-printer.c
 
-gsd_printer_CFLAGS = \
+csd_printer_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(LIBNOTIFY_CFLAGS)					\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CFLAGS)
 
-gsd_printer_LDADD = \
+csd_printer_LDADD = \
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(CUPS_LIBS)		\
 	$(LIBNOTIFY_LIBS)
 
-gsd_test_print_notifications_SOURCES = \
-	gsd-print-notifications-manager.c	\
-	gsd-print-notifications-manager.h	\
+csd_test_print_notifications_SOURCES = \
+	csd-print-notifications-manager.c	\
+	csd-print-notifications-manager.h	\
 	test-print-notifications.c
 
-gsd_test_print_notifications_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
+csd_test_print_notifications_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_print_notifications_CFLAGS = \
+csd_test_print_notifications_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-gsd_test_print_notifications_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_print_notifications_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(CUPS_LIBS)						\
@@ -592,12 +592,12 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-printer$(EXEEXT): $(gsd_printer_OBJECTS) $(gsd_printer_DEPENDENCIES) $(EXTRA_gsd_printer_DEPENDENCIES) 
-	@rm -f gsd-printer$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_printer_LINK) $(gsd_printer_OBJECTS) $(gsd_printer_LDADD) $(LIBS)
-gsd-test-print-notifications$(EXEEXT): $(gsd_test_print_notifications_OBJECTS) $(gsd_test_print_notifications_DEPENDENCIES) $(EXTRA_gsd_test_print_notifications_DEPENDENCIES) 
-	@rm -f gsd-test-print-notifications$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_print_notifications_LINK) $(gsd_test_print_notifications_OBJECTS) $(gsd_test_print_notifications_LDADD) $(LIBS)
+csd-printer$(EXEEXT): $(csd_printer_OBJECTS) $(csd_printer_DEPENDENCIES) $(EXTRA_csd_printer_DEPENDENCIES) 
+	@rm -f csd-printer$(EXEEXT)
+	$(AM_V_CCLD)$(csd_printer_LINK) $(csd_printer_OBJECTS) $(csd_printer_LDADD) $(LIBS)
+csd-test-print-notifications$(EXEEXT): $(csd_test_print_notifications_OBJECTS) $(csd_test_print_notifications_DEPENDENCIES) $(EXTRA_csd_test_print_notifications_DEPENDENCIES) 
+	@rm -f csd-test-print-notifications$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_print_notifications_LINK) $(csd_test_print_notifications_OBJECTS) $(csd_test_print_notifications_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -605,11 +605,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_printer-gsd-printer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_print_notifications-gsd-print-notifications-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_print_notifications-test-print-notifications.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libprint_notifications_la-gsd-print-notifications-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libprint_notifications_la-gsd-print-notifications-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_printer-csd-printer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_print_notifications-csd-print-notifications-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_print_notifications-test-print-notifications.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libprint_notifications_la-csd-print-notifications-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libprint_notifications_la-csd-print-notifications-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -632,61 +632,61 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libprint_notifications_la-gsd-print-notifications-manager.lo: gsd-print-notifications-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -MT libprint_notifications_la-gsd-print-notifications-manager.lo -MD -MP -MF $(DEPDIR)/libprint_notifications_la-gsd-print-notifications-manager.Tpo -c -o libprint_notifications_la-gsd-print-notifications-manager.lo `test -f 'gsd-print-notifications-manager.c' || echo '$(srcdir)/'`gsd-print-notifications-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libprint_notifications_la-gsd-print-notifications-manager.Tpo $(DEPDIR)/libprint_notifications_la-gsd-print-notifications-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-print-notifications-manager.c' object='libprint_notifications_la-gsd-print-notifications-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libprint_notifications_la-csd-print-notifications-manager.lo: csd-print-notifications-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -MT libprint_notifications_la-csd-print-notifications-manager.lo -MD -MP -MF $(DEPDIR)/libprint_notifications_la-csd-print-notifications-manager.Tpo -c -o libprint_notifications_la-csd-print-notifications-manager.lo `test -f 'csd-print-notifications-manager.c' || echo '$(srcdir)/'`csd-print-notifications-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libprint_notifications_la-csd-print-notifications-manager.Tpo $(DEPDIR)/libprint_notifications_la-csd-print-notifications-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-print-notifications-manager.c' object='libprint_notifications_la-csd-print-notifications-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -c -o libprint_notifications_la-gsd-print-notifications-manager.lo `test -f 'gsd-print-notifications-manager.c' || echo '$(srcdir)/'`gsd-print-notifications-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -c -o libprint_notifications_la-csd-print-notifications-manager.lo `test -f 'csd-print-notifications-manager.c' || echo '$(srcdir)/'`csd-print-notifications-manager.c
 
-libprint_notifications_la-gsd-print-notifications-plugin.lo: gsd-print-notifications-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -MT libprint_notifications_la-gsd-print-notifications-plugin.lo -MD -MP -MF $(DEPDIR)/libprint_notifications_la-gsd-print-notifications-plugin.Tpo -c -o libprint_notifications_la-gsd-print-notifications-plugin.lo `test -f 'gsd-print-notifications-plugin.c' || echo '$(srcdir)/'`gsd-print-notifications-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libprint_notifications_la-gsd-print-notifications-plugin.Tpo $(DEPDIR)/libprint_notifications_la-gsd-print-notifications-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-print-notifications-plugin.c' object='libprint_notifications_la-gsd-print-notifications-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libprint_notifications_la-csd-print-notifications-plugin.lo: csd-print-notifications-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -MT libprint_notifications_la-csd-print-notifications-plugin.lo -MD -MP -MF $(DEPDIR)/libprint_notifications_la-csd-print-notifications-plugin.Tpo -c -o libprint_notifications_la-csd-print-notifications-plugin.lo `test -f 'csd-print-notifications-plugin.c' || echo '$(srcdir)/'`csd-print-notifications-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libprint_notifications_la-csd-print-notifications-plugin.Tpo $(DEPDIR)/libprint_notifications_la-csd-print-notifications-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-print-notifications-plugin.c' object='libprint_notifications_la-csd-print-notifications-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -c -o libprint_notifications_la-gsd-print-notifications-plugin.lo `test -f 'gsd-print-notifications-plugin.c' || echo '$(srcdir)/'`gsd-print-notifications-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libprint_notifications_la_CPPFLAGS) $(CPPFLAGS) $(libprint_notifications_la_CFLAGS) $(CFLAGS) -c -o libprint_notifications_la-csd-print-notifications-plugin.lo `test -f 'csd-print-notifications-plugin.c' || echo '$(srcdir)/'`csd-print-notifications-plugin.c
 
-gsd_printer-gsd-printer.o: gsd-printer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_printer_CFLAGS) $(CFLAGS) -MT gsd_printer-gsd-printer.o -MD -MP -MF $(DEPDIR)/gsd_printer-gsd-printer.Tpo -c -o gsd_printer-gsd-printer.o `test -f 'gsd-printer.c' || echo '$(srcdir)/'`gsd-printer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_printer-gsd-printer.Tpo $(DEPDIR)/gsd_printer-gsd-printer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-printer.c' object='gsd_printer-gsd-printer.o' libtool=no @AMDEPBACKSLASH@
+csd_printer-csd-printer.o: csd-printer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_printer_CFLAGS) $(CFLAGS) -MT csd_printer-csd-printer.o -MD -MP -MF $(DEPDIR)/csd_printer-csd-printer.Tpo -c -o csd_printer-csd-printer.o `test -f 'csd-printer.c' || echo '$(srcdir)/'`csd-printer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_printer-csd-printer.Tpo $(DEPDIR)/csd_printer-csd-printer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-printer.c' object='csd_printer-csd-printer.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_printer_CFLAGS) $(CFLAGS) -c -o gsd_printer-gsd-printer.o `test -f 'gsd-printer.c' || echo '$(srcdir)/'`gsd-printer.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_printer_CFLAGS) $(CFLAGS) -c -o csd_printer-csd-printer.o `test -f 'csd-printer.c' || echo '$(srcdir)/'`csd-printer.c
 
-gsd_printer-gsd-printer.obj: gsd-printer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_printer_CFLAGS) $(CFLAGS) -MT gsd_printer-gsd-printer.obj -MD -MP -MF $(DEPDIR)/gsd_printer-gsd-printer.Tpo -c -o gsd_printer-gsd-printer.obj `if test -f 'gsd-printer.c'; then $(CYGPATH_W) 'gsd-printer.c'; else $(CYGPATH_W) '$(srcdir)/gsd-printer.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_printer-gsd-printer.Tpo $(DEPDIR)/gsd_printer-gsd-printer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-printer.c' object='gsd_printer-gsd-printer.obj' libtool=no @AMDEPBACKSLASH@
+csd_printer-csd-printer.obj: csd-printer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_printer_CFLAGS) $(CFLAGS) -MT csd_printer-csd-printer.obj -MD -MP -MF $(DEPDIR)/csd_printer-csd-printer.Tpo -c -o csd_printer-csd-printer.obj `if test -f 'csd-printer.c'; then $(CYGPATH_W) 'csd-printer.c'; else $(CYGPATH_W) '$(srcdir)/csd-printer.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_printer-csd-printer.Tpo $(DEPDIR)/csd_printer-csd-printer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-printer.c' object='csd_printer-csd-printer.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_printer_CFLAGS) $(CFLAGS) -c -o gsd_printer-gsd-printer.obj `if test -f 'gsd-printer.c'; then $(CYGPATH_W) 'gsd-printer.c'; else $(CYGPATH_W) '$(srcdir)/gsd-printer.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_printer_CFLAGS) $(CFLAGS) -c -o csd_printer-csd-printer.obj `if test -f 'csd-printer.c'; then $(CYGPATH_W) 'csd-printer.c'; else $(CYGPATH_W) '$(srcdir)/csd-printer.c'; fi`
 
-gsd_test_print_notifications-gsd-print-notifications-manager.o: gsd-print-notifications-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -MT gsd_test_print_notifications-gsd-print-notifications-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_print_notifications-gsd-print-notifications-manager.Tpo -c -o gsd_test_print_notifications-gsd-print-notifications-manager.o `test -f 'gsd-print-notifications-manager.c' || echo '$(srcdir)/'`gsd-print-notifications-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_print_notifications-gsd-print-notifications-manager.Tpo $(DEPDIR)/gsd_test_print_notifications-gsd-print-notifications-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-print-notifications-manager.c' object='gsd_test_print_notifications-gsd-print-notifications-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_print_notifications-csd-print-notifications-manager.o: csd-print-notifications-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -MT csd_test_print_notifications-csd-print-notifications-manager.o -MD -MP -MF $(DEPDIR)/csd_test_print_notifications-csd-print-notifications-manager.Tpo -c -o csd_test_print_notifications-csd-print-notifications-manager.o `test -f 'csd-print-notifications-manager.c' || echo '$(srcdir)/'`csd-print-notifications-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_print_notifications-csd-print-notifications-manager.Tpo $(DEPDIR)/csd_test_print_notifications-csd-print-notifications-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-print-notifications-manager.c' object='csd_test_print_notifications-csd-print-notifications-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o gsd_test_print_notifications-gsd-print-notifications-manager.o `test -f 'gsd-print-notifications-manager.c' || echo '$(srcdir)/'`gsd-print-notifications-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o csd_test_print_notifications-csd-print-notifications-manager.o `test -f 'csd-print-notifications-manager.c' || echo '$(srcdir)/'`csd-print-notifications-manager.c
 
-gsd_test_print_notifications-gsd-print-notifications-manager.obj: gsd-print-notifications-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -MT gsd_test_print_notifications-gsd-print-notifications-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_print_notifications-gsd-print-notifications-manager.Tpo -c -o gsd_test_print_notifications-gsd-print-notifications-manager.obj `if test -f 'gsd-print-notifications-manager.c'; then $(CYGPATH_W) 'gsd-print-notifications-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-print-notifications-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_print_notifications-gsd-print-notifications-manager.Tpo $(DEPDIR)/gsd_test_print_notifications-gsd-print-notifications-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-print-notifications-manager.c' object='gsd_test_print_notifications-gsd-print-notifications-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_print_notifications-csd-print-notifications-manager.obj: csd-print-notifications-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -MT csd_test_print_notifications-csd-print-notifications-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_print_notifications-csd-print-notifications-manager.Tpo -c -o csd_test_print_notifications-csd-print-notifications-manager.obj `if test -f 'csd-print-notifications-manager.c'; then $(CYGPATH_W) 'csd-print-notifications-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-print-notifications-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_print_notifications-csd-print-notifications-manager.Tpo $(DEPDIR)/csd_test_print_notifications-csd-print-notifications-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-print-notifications-manager.c' object='csd_test_print_notifications-csd-print-notifications-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o gsd_test_print_notifications-gsd-print-notifications-manager.obj `if test -f 'gsd-print-notifications-manager.c'; then $(CYGPATH_W) 'gsd-print-notifications-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-print-notifications-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o csd_test_print_notifications-csd-print-notifications-manager.obj `if test -f 'csd-print-notifications-manager.c'; then $(CYGPATH_W) 'csd-print-notifications-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-print-notifications-manager.c'; fi`
 
-gsd_test_print_notifications-test-print-notifications.o: test-print-notifications.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -MT gsd_test_print_notifications-test-print-notifications.o -MD -MP -MF $(DEPDIR)/gsd_test_print_notifications-test-print-notifications.Tpo -c -o gsd_test_print_notifications-test-print-notifications.o `test -f 'test-print-notifications.c' || echo '$(srcdir)/'`test-print-notifications.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_print_notifications-test-print-notifications.Tpo $(DEPDIR)/gsd_test_print_notifications-test-print-notifications.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-print-notifications.c' object='gsd_test_print_notifications-test-print-notifications.o' libtool=no @AMDEPBACKSLASH@
+csd_test_print_notifications-test-print-notifications.o: test-print-notifications.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -MT csd_test_print_notifications-test-print-notifications.o -MD -MP -MF $(DEPDIR)/csd_test_print_notifications-test-print-notifications.Tpo -c -o csd_test_print_notifications-test-print-notifications.o `test -f 'test-print-notifications.c' || echo '$(srcdir)/'`test-print-notifications.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_print_notifications-test-print-notifications.Tpo $(DEPDIR)/csd_test_print_notifications-test-print-notifications.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-print-notifications.c' object='csd_test_print_notifications-test-print-notifications.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o gsd_test_print_notifications-test-print-notifications.o `test -f 'test-print-notifications.c' || echo '$(srcdir)/'`test-print-notifications.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o csd_test_print_notifications-test-print-notifications.o `test -f 'test-print-notifications.c' || echo '$(srcdir)/'`test-print-notifications.c
 
-gsd_test_print_notifications-test-print-notifications.obj: test-print-notifications.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -MT gsd_test_print_notifications-test-print-notifications.obj -MD -MP -MF $(DEPDIR)/gsd_test_print_notifications-test-print-notifications.Tpo -c -o gsd_test_print_notifications-test-print-notifications.obj `if test -f 'test-print-notifications.c'; then $(CYGPATH_W) 'test-print-notifications.c'; else $(CYGPATH_W) '$(srcdir)/test-print-notifications.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_print_notifications-test-print-notifications.Tpo $(DEPDIR)/gsd_test_print_notifications-test-print-notifications.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-print-notifications.c' object='gsd_test_print_notifications-test-print-notifications.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_print_notifications-test-print-notifications.obj: test-print-notifications.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -MT csd_test_print_notifications-test-print-notifications.obj -MD -MP -MF $(DEPDIR)/csd_test_print_notifications-test-print-notifications.Tpo -c -o csd_test_print_notifications-test-print-notifications.obj `if test -f 'test-print-notifications.c'; then $(CYGPATH_W) 'test-print-notifications.c'; else $(CYGPATH_W) '$(srcdir)/test-print-notifications.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_print_notifications-test-print-notifications.Tpo $(DEPDIR)/csd_test_print_notifications-test-print-notifications.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-print-notifications.c' object='csd_test_print_notifications-test-print-notifications.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(gsd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o gsd_test_print_notifications-test-print-notifications.obj `if test -f 'test-print-notifications.c'; then $(CYGPATH_W) 'test-print-notifications.c'; else $(CYGPATH_W) '$(srcdir)/test-print-notifications.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_print_notifications_CPPFLAGS) $(CPPFLAGS) $(csd_test_print_notifications_CFLAGS) $(CFLAGS) -c -o csd_test_print_notifications-test-print-notifications.obj `if test -f 'test-print-notifications.c'; then $(CYGPATH_W) 'test-print-notifications.c'; else $(CYGPATH_W) '$(srcdir)/test-print-notifications.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -942,7 +942,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

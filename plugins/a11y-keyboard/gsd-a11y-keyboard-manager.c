@@ -45,16 +45,16 @@
 #include <libappindicator/app-indicator.h>
 #endif
 
-#include "gnome-settings-profile.h"
-#include "gsd-a11y-keyboard-manager.h"
-#include "gsd-a11y-preferences-dialog.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-a11y-keyboard-manager.h"
+#include "csd-a11y-preferences-dialog.h"
 
 #define KEYBOARD_A11Y_SCHEMA "org.gnome.desktop.a11y.keyboard"
 #define NOTIFICATION_TIMEOUT 30
 
-#define GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_KEYBOARD_MANAGER, GsdA11yKeyboardManagerPrivate))
+#define CSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_A11Y_KEYBOARD_MANAGER, CsdA11yKeyboardManagerPrivate))
 
-struct GsdA11yKeyboardManagerPrivate
+struct CsdA11yKeyboardManagerPrivate
 {
         guint             start_idle_id;
         int               xkbEventBase;
@@ -76,27 +76,27 @@ struct GsdA11yKeyboardManagerPrivate
         NotifyNotification *notification;
 };
 
-static void     gsd_a11y_keyboard_manager_class_init  (GsdA11yKeyboardManagerClass *klass);
-static void     gsd_a11y_keyboard_manager_init        (GsdA11yKeyboardManager      *a11y_keyboard_manager);
-static void     gsd_a11y_keyboard_manager_finalize    (GObject             *object);
-static void     gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager);
-static void     set_server_from_gsettings (GsdA11yKeyboardManager *manager);
+static void     csd_a11y_keyboard_manager_class_init  (CsdA11yKeyboardManagerClass *klass);
+static void     csd_a11y_keyboard_manager_init        (CsdA11yKeyboardManager      *a11y_keyboard_manager);
+static void     csd_a11y_keyboard_manager_finalize    (GObject             *object);
+static void     csd_a11y_keyboard_manager_ensure_status_icon (CsdA11yKeyboardManager *manager);
+static void     set_server_from_gsettings (CsdA11yKeyboardManager *manager);
 
-G_DEFINE_TYPE (GsdA11yKeyboardManager, gsd_a11y_keyboard_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdA11yKeyboardManager, csd_a11y_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 static void
 device_added_cb (GdkDeviceManager       *device_manager,
                  GdkDevice              *device,
-                 GsdA11yKeyboardManager *manager)
+                 CsdA11yKeyboardManager *manager)
 {
         if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD)
                 set_server_from_gsettings (manager);
 }
 
 static void
-set_devicepresence_handler (GsdA11yKeyboardManager *manager)
+set_devicepresence_handler (CsdA11yKeyboardManager *manager)
 {
         GdkDeviceManager *device_manager;
 
@@ -110,7 +110,7 @@ set_devicepresence_handler (GsdA11yKeyboardManager *manager)
 }
 
 static gboolean
-xkb_enabled (GsdA11yKeyboardManager *manager)
+xkb_enabled (CsdA11yKeyboardManager *manager)
 {
         int opcode, errorBase, major, minor;
 
@@ -129,7 +129,7 @@ xkb_enabled (GsdA11yKeyboardManager *manager)
 }
 
 static XkbDescRec *
-get_xkb_desc_rec (GsdA11yKeyboardManager *manager)
+get_xkb_desc_rec (CsdA11yKeyboardManager *manager)
 {
         XkbDescRec *desc;
         Status      status = Success;
@@ -216,13 +216,13 @@ set_ctrl_from_gsettings (XkbDescRec   *desc,
 }
 
 static void
-set_server_from_gsettings (GsdA11yKeyboardManager *manager)
+set_server_from_gsettings (CsdA11yKeyboardManager *manager)
 {
         XkbDescRec      *desc;
         gboolean         enable_accessX;
         GSettings       *settings;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         desc = get_xkb_desc_rec (manager);
         if (!desc) {
@@ -337,11 +337,11 @@ set_server_from_gsettings (GsdA11yKeyboardManager *manager)
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
         gdk_error_trap_pop_ignored ();
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static gboolean
-ax_response_callback (GsdA11yKeyboardManager *manager,
+ax_response_callback (CsdA11yKeyboardManager *manager,
                       GtkWindow              *parent,
                       gint                    response_id,
                       guint                   revert_controls_mask,
@@ -406,7 +406,7 @@ ax_response_callback (GsdA11yKeyboardManager *manager,
 static void
 ax_stickykeys_response (GtkDialog              *dialog,
                         gint                    response_id,
-                        GsdA11yKeyboardManager *manager)
+                        CsdA11yKeyboardManager *manager)
 {
         if (ax_response_callback (manager, GTK_WINDOW (dialog),
                                   response_id, XkbStickyKeysMask,
@@ -418,7 +418,7 @@ ax_stickykeys_response (GtkDialog              *dialog,
 static void
 ax_slowkeys_response (GtkDialog              *dialog,
                       gint                    response_id,
-                      GsdA11yKeyboardManager *manager)
+                      CsdA11yKeyboardManager *manager)
 {
         if (ax_response_callback (manager, GTK_WINDOW (dialog),
                                   response_id, XkbSlowKeysMask,
@@ -428,7 +428,7 @@ ax_slowkeys_response (GtkDialog              *dialog,
 }
 
 static void
-maybe_show_status_icon (GsdA11yKeyboardManager *manager)
+maybe_show_status_icon (CsdA11yKeyboardManager *manager)
 {
         gboolean     show;
 
@@ -439,7 +439,7 @@ maybe_show_status_icon (GsdA11yKeyboardManager *manager)
         if (!show && manager->priv->app_indicator == NULL)
                 return;
 	
-        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
+        csd_a11y_keyboard_manager_ensure_status_icon (manager);
 	if (show)
 		app_indicator_set_status (manager->priv->app_indicator,
 					  APP_INDICATOR_STATUS_ACTIVE);
@@ -450,14 +450,14 @@ maybe_show_status_icon (GsdA11yKeyboardManager *manager)
         if (!show && manager->priv->status_icon == NULL)
                 return;
 
-        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
+        csd_a11y_keyboard_manager_ensure_status_icon (manager);
         gtk_status_icon_set_visible (manager->priv->status_icon, show);
 #endif
 }
 
 static void
 on_notification_closed (NotifyNotification     *notification,
-                        GsdA11yKeyboardManager *manager)
+                        CsdA11yKeyboardManager *manager)
 {
         g_object_unref (manager->priv->notification);
         manager->priv->notification = NULL;
@@ -466,7 +466,7 @@ on_notification_closed (NotifyNotification     *notification,
 static void
 on_slow_keys_action (NotifyNotification     *notification,
                      const char             *action,
-                     GsdA11yKeyboardManager *manager)
+                     CsdA11yKeyboardManager *manager)
 {
         gboolean res;
         int      response_id;
@@ -492,7 +492,7 @@ on_slow_keys_action (NotifyNotification     *notification,
 static void
 on_sticky_keys_action (NotifyNotification     *notification,
                        const char             *action,
-                       GsdA11yKeyboardManager *manager)
+                       CsdA11yKeyboardManager *manager)
 {
         gboolean res;
         int      response_id;
@@ -516,7 +516,7 @@ on_sticky_keys_action (NotifyNotification     *notification,
 }
 
 static gboolean
-ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
+ax_slowkeys_warning_post_bubble (CsdA11yKeyboardManager *manager,
                                  gboolean                enabled)
 {
         gboolean    res;
@@ -544,7 +544,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                 notify_notification_close (manager->priv->notification, NULL);
         }
 
-        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
+        csd_a11y_keyboard_manager_ensure_status_icon (manager);
         manager->priv->notification = notify_notification_new (title,
                                                                message,
                                                                "preferences-desktop-accessibility-symbolic");
@@ -573,7 +573,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         error = NULL;
         res = notify_notification_show (manager->priv->notification, &error);
         if (! res) {
-                g_warning ("GsdA11yKeyboardManager: unable to show notification: %s", error->message);
+                g_warning ("CsdA11yKeyboardManager: unable to show notification: %s", error->message);
                 g_error_free (error);
                 notify_notification_close (manager->priv->notification, NULL);
         }
@@ -583,7 +583,7 @@ ax_slowkeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
 
 
 static void
-ax_slowkeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
+ax_slowkeys_warning_post_dialog (CsdA11yKeyboardManager *manager,
                                  gboolean                enabled)
 {
         const char *title;
@@ -636,7 +636,7 @@ ax_slowkeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
 }
 
 static void
-ax_slowkeys_warning_post (GsdA11yKeyboardManager *manager,
+ax_slowkeys_warning_post (CsdA11yKeyboardManager *manager,
                           gboolean                enabled)
 {
 
@@ -649,7 +649,7 @@ ax_slowkeys_warning_post (GsdA11yKeyboardManager *manager,
 }
 
 static gboolean
-ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
+ax_stickykeys_warning_post_bubble (CsdA11yKeyboardManager *manager,
                                    gboolean                enabled)
 {
 #if 1
@@ -681,7 +681,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
                 notify_notification_close (manager->priv->notification, NULL);
         }
 
-        gsd_a11y_keyboard_manager_ensure_status_icon (manager);
+        csd_a11y_keyboard_manager_ensure_status_icon (manager);
         manager->priv->notification = notify_notification_new (title,
                                                                message,
                                                                "preferences-desktop-accessibility-symbolic");
@@ -710,7 +710,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
         error = NULL;
         res = notify_notification_show (manager->priv->notification, &error);
         if (! res) {
-                g_warning ("GsdA11yKeyboardManager: unable to show notification: %s", error->message);
+                g_warning ("CsdA11yKeyboardManager: unable to show notification: %s", error->message);
                 g_error_free (error);
                 notify_notification_close (manager->priv->notification, NULL);
         }
@@ -720,7 +720,7 @@ ax_stickykeys_warning_post_bubble (GsdA11yKeyboardManager *manager,
 }
 
 static void
-ax_stickykeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
+ax_stickykeys_warning_post_dialog (CsdA11yKeyboardManager *manager,
                                    gboolean                enabled)
 {
         const char *title;
@@ -776,7 +776,7 @@ ax_stickykeys_warning_post_dialog (GsdA11yKeyboardManager *manager,
 }
 
 static void
-ax_stickykeys_warning_post (GsdA11yKeyboardManager *manager,
+ax_stickykeys_warning_post (CsdA11yKeyboardManager *manager,
                             gboolean                enabled)
 {
 
@@ -789,7 +789,7 @@ ax_stickykeys_warning_post (GsdA11yKeyboardManager *manager,
 }
 
 static void
-set_gsettings_from_server (GsdA11yKeyboardManager *manager)
+set_gsettings_from_server (CsdA11yKeyboardManager *manager)
 {
         XkbDescRec     *desc;
         gboolean        changed = FALSE;
@@ -911,7 +911,7 @@ set_gsettings_from_server (GsdA11yKeyboardManager *manager)
 static GdkFilterReturn
 cb_xkb_event_filter (GdkXEvent              *xevent,
                      GdkEvent               *ignored1,
-                     GsdA11yKeyboardManager *manager)
+                     CsdA11yKeyboardManager *manager)
 {
         XEvent   *xev   = (XEvent *) xevent;
         XkbEvent *xkbEv = (XkbEvent *) xevent;
@@ -947,19 +947,19 @@ cb_xkb_event_filter (GdkXEvent              *xevent,
 static void
 keyboard_callback (GSettings              *settings,
                    const char             *key,
-                   GsdA11yKeyboardManager *manager)
+                   CsdA11yKeyboardManager *manager)
 {
         set_server_from_gsettings (manager);
         maybe_show_status_icon (manager);
 }
 
 static gboolean
-start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
+start_a11y_keyboard_idle_cb (CsdA11yKeyboardManager *manager)
 {
         guint        event_mask;
 
         g_debug ("Starting a11y_keyboard manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         if (!xkb_enabled (manager))
                 goto out;
@@ -988,7 +988,7 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
         maybe_show_status_icon (manager);
 
  out:
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
 
@@ -996,22 +996,22 @@ start_a11y_keyboard_idle_cb (GsdA11yKeyboardManager *manager)
 }
 
 gboolean
-gsd_a11y_keyboard_manager_start (GsdA11yKeyboardManager *manager,
+csd_a11y_keyboard_manager_start (CsdA11yKeyboardManager *manager,
                                  GError                **error)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_a11y_keyboard_idle_cb, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
+csd_a11y_keyboard_manager_stop (CsdA11yKeyboardManager *manager)
 {
-        GsdA11yKeyboardManagerPrivate *p = manager->priv;
+        CsdA11yKeyboardManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping a11y_keyboard manager");
 
@@ -1061,13 +1061,13 @@ gsd_a11y_keyboard_manager_stop (GsdA11yKeyboardManager *manager)
 }
 
 static GObject *
-gsd_a11y_keyboard_manager_constructor (GType                  type,
+csd_a11y_keyboard_manager_constructor (GType                  type,
                                        guint                  n_construct_properties,
                                        GObjectConstructParam *construct_properties)
 {
-        GsdA11yKeyboardManager      *a11y_keyboard_manager;
+        CsdA11yKeyboardManager      *a11y_keyboard_manager;
 
-        a11y_keyboard_manager = GSD_A11Y_KEYBOARD_MANAGER (G_OBJECT_CLASS (gsd_a11y_keyboard_manager_parent_class)->constructor (type,
+        a11y_keyboard_manager = CSD_A11Y_KEYBOARD_MANAGER (G_OBJECT_CLASS (csd_a11y_keyboard_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
                                                                                                       construct_properties));
 
@@ -1075,20 +1075,20 @@ gsd_a11y_keyboard_manager_constructor (GType                  type,
 }
 
 static void
-gsd_a11y_keyboard_manager_class_init (GsdA11yKeyboardManagerClass *klass)
+csd_a11y_keyboard_manager_class_init (CsdA11yKeyboardManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_a11y_keyboard_manager_constructor;
-        object_class->finalize = gsd_a11y_keyboard_manager_finalize;
+        object_class->constructor = csd_a11y_keyboard_manager_constructor;
+        object_class->finalize = csd_a11y_keyboard_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdA11yKeyboardManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdA11yKeyboardManagerPrivate));
 }
 
 static void
 on_preferences_dialog_response (GtkDialog              *dialog,
                                 int                     response,
-                                GsdA11yKeyboardManager *manager)
+                                CsdA11yKeyboardManager *manager)
 {
         g_signal_handlers_disconnect_by_func (dialog,
                                               on_preferences_dialog_response,
@@ -1101,14 +1101,14 @@ on_preferences_dialog_response (GtkDialog              *dialog,
 static void
 #ifdef HAVE_APPINDICATOR
 on_status_icon_activate (GtkMenuItem            *item,
-                         GsdA11yKeyboardManager *manager)
+                         CsdA11yKeyboardManager *manager)
 #else
 on_status_icon_activate (GtkStatusIcon          *status_icon,
-                         GsdA11yKeyboardManager *manager)
+                         CsdA11yKeyboardManager *manager)
 #endif
 {
         if (manager->priv->preferences_dialog == NULL) {
-                manager->priv->preferences_dialog = gsd_a11y_preferences_dialog_new ();
+                manager->priv->preferences_dialog = csd_a11y_preferences_dialog_new ();
                 g_signal_connect (manager->priv->preferences_dialog,
                                   "response",
                                   G_CALLBACK (on_preferences_dialog_response),
@@ -1128,15 +1128,15 @@ static void
 on_status_icon_popup_menu (GtkStatusIcon *status_icon,
                            guint          button,
                            guint          activate_time,
-                           GsdA11yKeyboardManager *manager)
+                           CsdA11yKeyboardManager *manager)
 {
         on_status_icon_activate (status_icon, manager);
 }
 
 static void
-gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager)
+csd_a11y_keyboard_manager_ensure_status_icon (CsdA11yKeyboardManager *manager)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
 #ifdef HAVE_APPINDICATOR
 	if (!manager->priv->app_indicator) {
@@ -1173,43 +1173,43 @@ gsd_a11y_keyboard_manager_ensure_status_icon (GsdA11yKeyboardManager *manager)
         }
 #endif
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
-gsd_a11y_keyboard_manager_init (GsdA11yKeyboardManager *manager)
+csd_a11y_keyboard_manager_init (CsdA11yKeyboardManager *manager)
 {
-        manager->priv = GSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gsd_a11y_keyboard_manager_finalize (GObject *object)
+csd_a11y_keyboard_manager_finalize (GObject *object)
 {
-        GsdA11yKeyboardManager *a11y_keyboard_manager;
+        CsdA11yKeyboardManager *a11y_keyboard_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_A11Y_KEYBOARD_MANAGER (object));
+        g_return_if_fail (CSD_IS_A11Y_KEYBOARD_MANAGER (object));
 
-        a11y_keyboard_manager = GSD_A11Y_KEYBOARD_MANAGER (object);
+        a11y_keyboard_manager = CSD_A11Y_KEYBOARD_MANAGER (object);
 
         g_return_if_fail (a11y_keyboard_manager->priv != NULL);
 
         if (a11y_keyboard_manager->priv->start_idle_id != 0)
                 g_source_remove (a11y_keyboard_manager->priv->start_idle_id);
 
-        G_OBJECT_CLASS (gsd_a11y_keyboard_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_a11y_keyboard_manager_parent_class)->finalize (object);
 }
 
-GsdA11yKeyboardManager *
-gsd_a11y_keyboard_manager_new (void)
+CsdA11yKeyboardManager *
+csd_a11y_keyboard_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_A11Y_KEYBOARD_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_A11Y_KEYBOARD_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_A11Y_KEYBOARD_MANAGER (manager_object);
+        return CSD_A11Y_KEYBOARD_MANAGER (manager_object);
 }

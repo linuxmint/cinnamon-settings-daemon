@@ -47,12 +47,12 @@
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XIproto.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-mouse-manager.h"
-#include "gsd-input-helper.h"
-#include "gsd-enums.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-mouse-manager.h"
+#include "csd-input-helper.h"
+#include "csd-enums.h"
 
-#define GSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerPrivate))
+#define CSD_MOUSE_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_MOUSE_MANAGER, CsdMouseManagerPrivate))
 
 #define SETTINGS_MOUSE_DIR         "org.gnome.settings-daemon.peripherals.mouse"
 #define SETTINGS_TOUCHPAD_DIR      "org.gnome.settings-daemon.peripherals.touchpad"
@@ -76,7 +76,7 @@
 #define KEY_SECONDARY_CLICK_ENABLED      "secondary-click-enabled"
 #define KEY_MIDDLE_BUTTON_EMULATION      "middle-button-enabled"
 
-struct GsdMouseManagerPrivate
+struct CsdMouseManagerPrivate
 {
         guint start_idle_id;
         GSettings *touchpad_settings;
@@ -94,29 +94,29 @@ struct GsdMouseManagerPrivate
         GPid locate_pointer_pid;
 };
 
-static void     gsd_mouse_manager_class_init  (GsdMouseManagerClass *klass);
-static void     gsd_mouse_manager_init        (GsdMouseManager      *mouse_manager);
-static void     gsd_mouse_manager_finalize    (GObject             *object);
+static void     csd_mouse_manager_class_init  (CsdMouseManagerClass *klass);
+static void     csd_mouse_manager_init        (CsdMouseManager      *mouse_manager);
+static void     csd_mouse_manager_finalize    (GObject             *object);
 static void     set_tap_to_click              (GdkDevice           *device,
                                                gboolean             state,
                                                gboolean             left_handed);
-static void     set_natural_scroll            (GsdMouseManager *manager,
+static void     set_natural_scroll            (CsdMouseManager *manager,
                                                GdkDevice       *device,
                                                gboolean         natural_scroll);
 
-G_DEFINE_TYPE (GsdMouseManager, gsd_mouse_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdMouseManager, csd_mouse_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 
 static GObject *
-gsd_mouse_manager_constructor (GType                  type,
+csd_mouse_manager_constructor (GType                  type,
                               guint                  n_construct_properties,
                               GObjectConstructParam *construct_properties)
 {
-        GsdMouseManager      *mouse_manager;
+        CsdMouseManager      *mouse_manager;
 
-        mouse_manager = GSD_MOUSE_MANAGER (G_OBJECT_CLASS (gsd_mouse_manager_parent_class)->constructor (type,
+        mouse_manager = CSD_MOUSE_MANAGER (G_OBJECT_CLASS (csd_mouse_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
                                                                                                       construct_properties));
 
@@ -124,21 +124,21 @@ gsd_mouse_manager_constructor (GType                  type,
 }
 
 static void
-gsd_mouse_manager_dispose (GObject *object)
+csd_mouse_manager_dispose (GObject *object)
 {
-        G_OBJECT_CLASS (gsd_mouse_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (csd_mouse_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_mouse_manager_class_init (GsdMouseManagerClass *klass)
+csd_mouse_manager_class_init (CsdMouseManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_mouse_manager_constructor;
-        object_class->dispose = gsd_mouse_manager_dispose;
-        object_class->finalize = gsd_mouse_manager_finalize;
+        object_class->constructor = csd_mouse_manager_constructor;
+        object_class->dispose = csd_mouse_manager_dispose;
+        object_class->finalize = csd_mouse_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdMouseManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdMouseManagerPrivate));
 }
 
 static XDevice *
@@ -160,7 +160,7 @@ open_gdk_device (GdkDevice *device)
 }
 
 static gboolean
-device_is_blacklisted (GsdMouseManager *manager,
+device_is_blacklisted (CsdMouseManager *manager,
                        GdkDevice       *device)
 {
         int id;
@@ -173,7 +173,7 @@ device_is_blacklisted (GsdMouseManager *manager,
 }
 
 static gboolean
-device_is_ignored (GsdMouseManager *manager,
+device_is_ignored (CsdMouseManager *manager,
 		   GdkDevice       *device)
 {
 	GdkInputSource source;
@@ -332,7 +332,7 @@ touchpad_has_single_button (XDevice *device)
 }
 
 static void
-set_left_handed (GsdMouseManager *manager,
+set_left_handed (CsdMouseManager *manager,
                  GdkDevice       *device,
                  gboolean mouse_left_handed,
                  gboolean touchpad_left_handed)
@@ -397,7 +397,7 @@ out:
 }
 
 static void
-set_motion (GsdMouseManager *manager,
+set_motion (CsdMouseManager *manager,
             GdkDevice       *device)
 {
         XDevice *xdevice;
@@ -488,7 +488,7 @@ set_motion (GsdMouseManager *manager,
 }
 
 static void
-set_middle_button (GsdMouseManager *manager,
+set_middle_button (CsdMouseManager *manager,
                    GdkDevice       *device,
                    gboolean         middle_button)
 {
@@ -559,7 +559,7 @@ have_program_in_path (const char *name)
 static void
 syndaemon_died (GPid pid, gint status, gpointer user_data)
 {
-        GsdMouseManager *manager = GSD_MOUSE_MANAGER (user_data);
+        CsdMouseManager *manager = CSD_MOUSE_MANAGER (user_data);
 
         g_debug ("syndaemon stopped with status %i", status);
         g_spawn_close_pid (pid);
@@ -567,7 +567,7 @@ syndaemon_died (GPid pid, gint status, gpointer user_data)
 }
 
 static int
-set_disable_w_typing (GsdMouseManager *manager, gboolean state)
+set_disable_w_typing (CsdMouseManager *manager, gboolean state)
 {
         if (state && touchpad_is_present ()) {
                 GError *error = NULL;
@@ -738,7 +738,7 @@ set_horiz_scroll (GdkDevice *device,
 
 static void
 set_edge_scroll (GdkDevice               *device,
-                 GsdTouchpadScrollMethod  method)
+                 CsdTouchpadScrollMethod  method)
 {
         int rc;
         XDevice *xdevice;
@@ -771,7 +771,7 @@ set_edge_scroll (GdkDevice               *device,
                                  &bytes_after, &data);
         if (rc == Success && act_type == XA_INTEGER &&
             act_format == 8 && nitems >= 2) {
-                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING) ? 1 : 0;
+                data[0] = (method == CSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING) ? 1 : 0;
                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                        prop_edge, XA_INTEGER, 8,
                                        PropModeReplace, data, nitems);
@@ -785,7 +785,7 @@ set_edge_scroll (GdkDevice               *device,
                                  &bytes_after, &data);
         if (rc == Success && act_type == XA_INTEGER &&
             act_format == 8 && nitems >= 2) {
-                data[0] = (method == GSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) ? 1 : 0;
+                data[0] = (method == CSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) ? 1 : 0;
                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                        prop_twofinger, XA_INTEGER, 8,
                                        PropModeReplace, data, nitems);
@@ -853,7 +853,7 @@ set_touchpad_enabled (int id)
 }
 
 static void
-set_locate_pointer (GsdMouseManager *manager,
+set_locate_pointer (CsdMouseManager *manager,
                     gboolean         state)
 {
         if (state) {
@@ -863,7 +863,7 @@ set_locate_pointer (GsdMouseManager *manager,
                 if (manager->priv->locate_pointer_spawned)
                         return;
 
-                args[0] = LIBEXECDIR "/gsd-locate-pointer";
+                args[0] = LIBEXECDIR "/csd-locate-pointer";
                 args[1] = NULL;
 
                 g_spawn_async (NULL, args, NULL,
@@ -885,7 +885,7 @@ set_locate_pointer (GsdMouseManager *manager,
 }
 
 static void
-set_mousetweaks_daemon (GsdMouseManager *manager,
+set_mousetweaks_daemon (CsdMouseManager *manager,
                         gboolean         dwell_click_enabled,
                         gboolean         secondary_click_enabled)
 {
@@ -933,14 +933,14 @@ set_mousetweaks_daemon (GsdMouseManager *manager,
 }
 
 static gboolean
-get_touchpad_handedness (GsdMouseManager *manager, gboolean mouse_left_handed)
+get_touchpad_handedness (CsdMouseManager *manager, gboolean mouse_left_handed)
 {
         switch (g_settings_get_enum (manager->priv->touchpad_settings, KEY_LEFT_HANDED)) {
-        case GSD_TOUCHPAD_HANDEDNESS_RIGHT:
+        case CSD_TOUCHPAD_HANDEDNESS_RIGHT:
                 return FALSE;
-        case GSD_TOUCHPAD_HANDEDNESS_LEFT:
+        case CSD_TOUCHPAD_HANDEDNESS_LEFT:
                 return TRUE;
-        case GSD_TOUCHPAD_HANDEDNESS_MOUSE:
+        case CSD_TOUCHPAD_HANDEDNESS_MOUSE:
                 return mouse_left_handed;
         default:
                 g_assert_not_reached ();
@@ -948,7 +948,7 @@ get_touchpad_handedness (GsdMouseManager *manager, gboolean mouse_left_handed)
 }
 
 static void
-set_mouse_settings (GsdMouseManager *manager,
+set_mouse_settings (CsdMouseManager *manager,
                     GdkDevice       *device)
 {
         gboolean mouse_left_handed, touchpad_left_handed;
@@ -969,7 +969,7 @@ set_mouse_settings (GsdMouseManager *manager,
 }
 
 static void
-set_natural_scroll (GsdMouseManager *manager,
+set_natural_scroll (CsdMouseManager *manager,
                     GdkDevice       *device,
                     gboolean         natural_scroll)
 {
@@ -1032,7 +1032,7 @@ set_natural_scroll (GsdMouseManager *manager,
 static void
 mouse_callback (GSettings       *settings,
                 const gchar     *key,
-                GsdMouseManager *manager)
+                CsdMouseManager *manager)
 {
         GList *devices, *l;
 
@@ -1072,7 +1072,7 @@ mouse_callback (GSettings       *settings,
 static void
 touchpad_callback (GSettings       *settings,
                    const gchar     *key,
-                   GsdMouseManager *manager)
+                   CsdMouseManager *manager)
 {
         GList *devices, *l;
 
@@ -1131,7 +1131,7 @@ touchpad_callback (GSettings       *settings,
 static void
 device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *device,
-                 GsdMouseManager  *manager)
+                 CsdMouseManager  *manager)
 {
         if (device_is_ignored (manager, device) == FALSE) {
                 if (run_custom_command (device, COMMAND_DEVICE_ADDED) == FALSE) {
@@ -1151,7 +1151,7 @@ device_added_cb (GdkDeviceManager *device_manager,
 static void
 device_removed_cb (GdkDeviceManager *device_manager,
                    GdkDevice        *device,
-                   GsdMouseManager  *manager)
+                   CsdMouseManager  *manager)
 {
 	int id;
 
@@ -1170,7 +1170,7 @@ device_removed_cb (GdkDeviceManager *device_manager,
 }
 
 static void
-set_devicepresence_handler (GsdMouseManager *manager)
+set_devicepresence_handler (CsdMouseManager *manager)
 {
         GdkDeviceManager *device_manager;
 
@@ -1184,18 +1184,18 @@ set_devicepresence_handler (GsdMouseManager *manager)
 }
 
 static void
-gsd_mouse_manager_init (GsdMouseManager *manager)
+csd_mouse_manager_init (CsdMouseManager *manager)
 {
-        manager->priv = GSD_MOUSE_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_MOUSE_MANAGER_GET_PRIVATE (manager);
         manager->priv->blacklist = g_hash_table_new (g_direct_hash, g_direct_equal);
 }
 
 static gboolean
-gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
+csd_mouse_manager_idle_cb (CsdMouseManager *manager)
 {
         GList *devices, *l;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         set_devicepresence_handler (manager);
 
@@ -1248,7 +1248,7 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
                 g_list_free (devices);
         }
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
 
@@ -1256,27 +1256,27 @@ gsd_mouse_manager_idle_cb (GsdMouseManager *manager)
 }
 
 gboolean
-gsd_mouse_manager_start (GsdMouseManager *manager,
+csd_mouse_manager_start (CsdMouseManager *manager,
                          GError         **error)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         if (!supports_xinput_devices ()) {
                 g_debug ("XInput is not supported, not applying any settings");
                 return TRUE;
         }
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_mouse_manager_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) csd_mouse_manager_idle_cb, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_mouse_manager_stop (GsdMouseManager *manager)
+csd_mouse_manager_stop (CsdMouseManager *manager)
 {
-        GsdMouseManagerPrivate *p = manager->priv;
+        CsdMouseManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping mouse manager");
 
@@ -1305,14 +1305,14 @@ gsd_mouse_manager_stop (GsdMouseManager *manager)
 }
 
 static void
-gsd_mouse_manager_finalize (GObject *object)
+csd_mouse_manager_finalize (GObject *object)
 {
-        GsdMouseManager *mouse_manager;
+        CsdMouseManager *mouse_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_MOUSE_MANAGER (object));
+        g_return_if_fail (CSD_IS_MOUSE_MANAGER (object));
 
-        mouse_manager = GSD_MOUSE_MANAGER (object);
+        mouse_manager = CSD_MOUSE_MANAGER (object);
 
         g_return_if_fail (mouse_manager->priv != NULL);
 
@@ -1336,19 +1336,19 @@ gsd_mouse_manager_finalize (GObject *object)
         if (mouse_manager->priv->touchpad_settings != NULL)
                 g_object_unref (mouse_manager->priv->touchpad_settings);
 
-        G_OBJECT_CLASS (gsd_mouse_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_mouse_manager_parent_class)->finalize (object);
 }
 
-GsdMouseManager *
-gsd_mouse_manager_new (void)
+CsdMouseManager *
+csd_mouse_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_MOUSE_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_MOUSE_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_MOUSE_MANAGER (manager_object);
+        return CSD_MOUSE_MANAGER (manager_object);
 }

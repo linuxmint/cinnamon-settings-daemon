@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_A11Y_KEYBOARD_PLUGIN_H__
-#define __GSD_A11Y_KEYBOARD_PLUGIN_H__
+#ifndef __CSD_A11Y_KEYBOARD_PLUGIN_H__
+#define __CSD_A11Y_KEYBOARD_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_A11Y_KEYBOARD_PLUGIN                (gsd_a11y_keyboard_plugin_get_type ())
-#define GSD_A11Y_KEYBOARD_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_A11Y_KEYBOARD_PLUGIN, GsdA11yKeyboardPlugin))
-#define GSD_A11Y_KEYBOARD_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_A11Y_KEYBOARD_PLUGIN, GsdA11yKeyboardPluginClass))
-#define GSD_IS_A11Y_KEYBOARD_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_A11Y_KEYBOARD_PLUGIN))
-#define GSD_IS_A11Y_KEYBOARD_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_A11Y_KEYBOARD_PLUGIN))
-#define GSD_A11Y_KEYBOARD_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_A11Y_KEYBOARD_PLUGIN, GsdA11yKeyboardPluginClass))
+#define CSD_TYPE_A11Y_KEYBOARD_PLUGIN                (csd_a11y_keyboard_plugin_get_type ())
+#define CSD_A11Y_KEYBOARD_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_A11Y_KEYBOARD_PLUGIN, CsdA11yKeyboardPlugin))
+#define CSD_A11Y_KEYBOARD_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_A11Y_KEYBOARD_PLUGIN, CsdA11yKeyboardPluginClass))
+#define CSD_IS_A11Y_KEYBOARD_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_A11Y_KEYBOARD_PLUGIN))
+#define CSD_IS_A11Y_KEYBOARD_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_A11Y_KEYBOARD_PLUGIN))
+#define CSD_A11Y_KEYBOARD_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_A11Y_KEYBOARD_PLUGIN, CsdA11yKeyboardPluginClass))
 
-typedef struct GsdA11yKeyboardPluginPrivate GsdA11yKeyboardPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdA11yKeyboardPluginPrivate *priv;
-} GsdA11yKeyboardPlugin;
+typedef struct CsdA11yKeyboardPluginPrivate CsdA11yKeyboardPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdA11yKeyboardPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdA11yKeyboardPluginPrivate *priv;
+} CsdA11yKeyboardPlugin;
 
-GType   gsd_a11y_keyboard_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdA11yKeyboardPluginClass;
+
+GType   csd_a11y_keyboard_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_A11Y_KEYBOARD_PLUGIN_H__ */
+#endif /* __CSD_A11Y_KEYBOARD_PLUGIN_H__ */

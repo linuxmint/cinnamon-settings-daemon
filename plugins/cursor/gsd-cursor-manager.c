@@ -38,15 +38,15 @@
 #include <X11/Xatom.h>
 #include <X11/extensions/Xfixes.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-cursor-manager.h"
-#include "gsd-input-helper.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-cursor-manager.h"
+#include "csd-input-helper.h"
 
 #define XFIXES_CURSOR_HIDING_MAJOR 4
 
-#define GSD_CURSOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CURSOR_MANAGER, GsdCursorManagerPrivate))
+#define CSD_CURSOR_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_CURSOR_MANAGER, CsdCursorManagerPrivate))
 
-struct GsdCursorManagerPrivate
+struct CsdCursorManagerPrivate
 {
         guint start_idle_id;
         guint added_id;
@@ -58,11 +58,11 @@ enum {
         PROP_0,
 };
 
-static void     gsd_cursor_manager_class_init  (GsdCursorManagerClass *klass);
-static void     gsd_cursor_manager_init        (GsdCursorManager      *cursor_manager);
-static void     gsd_cursor_manager_finalize    (GObject               *object);
+static void     csd_cursor_manager_class_init  (CsdCursorManagerClass *klass);
+static void     csd_cursor_manager_init        (CsdCursorManager      *cursor_manager);
+static void     csd_cursor_manager_finalize    (GObject               *object);
 
-G_DEFINE_TYPE (GsdCursorManager, gsd_cursor_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdCursorManager, csd_cursor_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -92,7 +92,7 @@ device_is_xtest (XDevice *xdevice)
 }
 
 static void
-set_cursor_visibility (GsdCursorManager *manager,
+set_cursor_visibility (CsdCursorManager *manager,
                        gboolean          visible)
 {
         Display *xdisplay;
@@ -134,7 +134,7 @@ device_info_is_ps2_mouse (XDeviceInfo *info)
 }
 
 static void
-update_cursor_for_current (GsdCursorManager *manager)
+update_cursor_for_current (CsdCursorManager *manager)
 {
         XDeviceInfo *device_info;
         guint num_mice;
@@ -199,7 +199,7 @@ update_cursor_for_current (GsdCursorManager *manager)
 static void
 devices_added_cb (GdkDeviceManager *device_manager,
                   GdkDevice        *device,
-                  GsdCursorManager *manager)
+                  CsdCursorManager *manager)
 {
         update_cursor_for_current (manager);
 }
@@ -207,7 +207,7 @@ devices_added_cb (GdkDeviceManager *device_manager,
 static void
 devices_removed_cb (GdkDeviceManager *device_manager,
                     GdkDevice        *device,
-                    GsdCursorManager *manager)
+                    CsdCursorManager *manager)
 {
         /* If devices are removed, then it's unlikely
          * a mouse appeared */
@@ -255,11 +255,11 @@ supports_cursor_xfixes (void)
 }
 
 static gboolean
-gsd_cursor_manager_idle_cb (GsdCursorManager *manager)
+csd_cursor_manager_idle_cb (CsdCursorManager *manager)
 {
         GdkDeviceManager *device_manager;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         if (supports_cursor_xfixes () == FALSE) {
                 g_debug ("XFixes cursor extension not available, will not hide the cursor");
@@ -275,7 +275,7 @@ gsd_cursor_manager_idle_cb (GsdCursorManager *manager)
          * won't be appearing in the middle of the session... */
         if (touchscreen_is_present () == FALSE) {
                 g_debug ("Did not find a touchscreen, will not hide the cursor");
-                gnome_settings_profile_end (NULL);
+                cinnamon_settings_profile_end (NULL);
                 return FALSE;
         }
 
@@ -287,27 +287,27 @@ gsd_cursor_manager_idle_cb (GsdCursorManager *manager)
         manager->priv->removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
                                                       G_CALLBACK (devices_removed_cb), manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return FALSE;
 }
 
 gboolean
-gsd_cursor_manager_start (GsdCursorManager *manager,
+csd_cursor_manager_start (CsdCursorManager *manager,
                           GError               **error)
 {
         g_debug ("Starting cursor manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_cursor_manager_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) csd_cursor_manager_idle_cb, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_cursor_manager_stop (GsdCursorManager *manager)
+csd_cursor_manager_stop (CsdCursorManager *manager)
 {
         GdkDeviceManager *device_manager;
 
@@ -331,13 +331,13 @@ gsd_cursor_manager_stop (GsdCursorManager *manager)
 }
 
 static GObject *
-gsd_cursor_manager_constructor (GType                  type,
+csd_cursor_manager_constructor (GType                  type,
                                 guint                  n_construct_properties,
                                 GObjectConstructParam *construct_properties)
 {
-        GsdCursorManager      *cursor_manager;
+        CsdCursorManager      *cursor_manager;
 
-        cursor_manager = GSD_CURSOR_MANAGER (G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->constructor (type,
+        cursor_manager = CSD_CURSOR_MANAGER (G_OBJECT_CLASS (csd_cursor_manager_parent_class)->constructor (type,
                                                                                                             n_construct_properties,
                                                                                                             construct_properties));
 
@@ -345,49 +345,49 @@ gsd_cursor_manager_constructor (GType                  type,
 }
 
 static void
-gsd_cursor_manager_class_init (GsdCursorManagerClass *klass)
+csd_cursor_manager_class_init (CsdCursorManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_cursor_manager_constructor;
-        object_class->finalize = gsd_cursor_manager_finalize;
+        object_class->constructor = csd_cursor_manager_constructor;
+        object_class->finalize = csd_cursor_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdCursorManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdCursorManagerPrivate));
 }
 
 static void
-gsd_cursor_manager_init (GsdCursorManager *manager)
+csd_cursor_manager_init (CsdCursorManager *manager)
 {
-        manager->priv = GSD_CURSOR_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_CURSOR_MANAGER_GET_PRIVATE (manager);
         manager->priv->cursor_shown = TRUE;
 
 }
 
 static void
-gsd_cursor_manager_finalize (GObject *object)
+csd_cursor_manager_finalize (GObject *object)
 {
-        GsdCursorManager *cursor_manager;
+        CsdCursorManager *cursor_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_CURSOR_MANAGER (object));
+        g_return_if_fail (CSD_IS_CURSOR_MANAGER (object));
 
-        cursor_manager = GSD_CURSOR_MANAGER (object);
+        cursor_manager = CSD_CURSOR_MANAGER (object);
 
         g_return_if_fail (cursor_manager->priv != NULL);
 
-        G_OBJECT_CLASS (gsd_cursor_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_cursor_manager_parent_class)->finalize (object);
 }
 
-GsdCursorManager *
-gsd_cursor_manager_new (void)
+CsdCursorManager *
+csd_cursor_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_CURSOR_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_CURSOR_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_CURSOR_MANAGER (manager_object);
+        return CSD_CURSOR_MANAGER (manager_object);
 }

@@ -44,13 +44,13 @@
 #include "gkbd-configuration.h"
 #endif
 
-#include "gsd-keyboard-xkb.h"
+#include "csd-keyboard-xkb.h"
 #include "delayed-dialog.h"
-#include "gnome-settings-profile.h"
+#include "cinnamon-settings-profile.h"
 
 #define SETTINGS_KEYBOARD_DIR "org.gnome.settings-daemon.plugins.keyboard"
 
-static GsdKeyboardManager *manager = NULL;
+static CsdKeyboardManager *manager = NULL;
 
 static XklEngine *xkl_engine;
 static XklConfigRegistry *xkl_registry = NULL;
@@ -79,7 +79,7 @@ static size_t lang_menu_items = 0;
 static void state_callback (XklEngine * engine,
                             XklEngineStateChange changeType,
                             gint group, gboolean restore);
-static void gsd_keyboard_configuration_changed (GkbdConfiguration *configuration);
+static void csd_keyboard_configuration_changed (GkbdConfiguration *configuration);
 
 #else
 static GtkStatusIcon *icon = NULL;
@@ -119,7 +119,7 @@ activation_error (void)
 						     "gsettings get org.gnome.libgnomekbd.keyboard options");
 	g_signal_connect (dialog, "response",
 			  G_CALLBACK (gtk_widget_destroy), NULL);
-	gsd_delayed_show_dialog (dialog);
+	csd_delayed_show_dialog (dialog);
 }
 
 static gboolean
@@ -145,7 +145,7 @@ apply_desktop_settings (void)
 	if (!inited_ok)
 		return;
 
-	gsd_keyboard_manager_apply_settings (manager);
+	csd_keyboard_manager_apply_settings (manager);
 	gkbd_desktop_config_load (&current_config);
 	/* again, probably it would be nice to compare things
 	   before activating them */
@@ -161,7 +161,7 @@ popup_menu_launch_capplet ()
 
 	info =
 	    g_app_info_create_from_commandline
-	    ("gnome-control-center region", NULL, 0, &error);
+	    ("cinnamon-settings region", NULL, 0, &error);
 
 	if (info != NULL) {
 		ctx =
@@ -359,7 +359,7 @@ popup_menu_set_group (gint group_number, gboolean only_menu)
         }
 
         // Refresh popup menu
-        gsd_keyboard_configuration_changed (gkbd_configuration);
+        csd_keyboard_configuration_changed (gkbd_configuration);
 
 	g_object_unref (G_OBJECT (xklrec));
 	g_object_unref (G_OBJECT (registry));
@@ -424,7 +424,7 @@ create_status_menu (void)
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
 
 	/* translators note:
-	 * This is the name of the gnome-control-center "region" panel */
+	 * This is the name of the cinnamon-settings "region" panel */
 	item = gtk_menu_item_new_with_mnemonic (_("Region and Language Settings"));
 	gtk_widget_show (item);
 	g_signal_connect (item, "activate", popup_menu_launch_capplet, NULL);
@@ -688,7 +688,7 @@ apply_xkb_settings (void)
 }
 
 static void
-gsd_keyboard_xkb_analyze_sysconfig (void)
+csd_keyboard_xkb_analyze_sysconfig (void)
 {
 	if (!inited_ok)
 		return;
@@ -701,7 +701,7 @@ gsd_keyboard_xkb_analyze_sysconfig (void)
 #ifdef HAVE_APPINDICATOR
 /* When the configuration changed update the indicator */
 static void
-gsd_keyboard_configuration_changed (GkbdConfiguration *configuration)
+csd_keyboard_configuration_changed (GkbdConfiguration *configuration)
 {
 	GtkMenu *popup_menu;
 
@@ -715,7 +715,7 @@ gsd_keyboard_configuration_changed (GkbdConfiguration *configuration)
 #endif
 
 void
-gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
+csd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
 					       void *user_data)
 {
 	pa_callback = fun;
@@ -723,7 +723,7 @@ gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
 }
 
 static GdkFilterReturn
-gsd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event)
+csd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event)
 {
 	XEvent *xevent = (XEvent *) xev;
 	xkl_engine_filter_events (xkl_engine, xevent);
@@ -732,18 +732,18 @@ gsd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event)
 
 /* When new Keyboard is plugged in - reload the settings */
 static void
-gsd_keyboard_new_device (XklEngine * engine)
+csd_keyboard_new_device (XklEngine * engine)
 {
 	apply_desktop_settings ();
 	apply_xkb_settings ();
 }
 
 void
-gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
+csd_keyboard_xkb_init (CsdKeyboardManager * kbd_manager)
 {
 	Display *display =
 	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-	gnome_settings_profile_start (NULL);
+	cinnamon_settings_profile_start (NULL);
 
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
 					   DATADIR G_DIR_SEPARATOR_S
@@ -752,14 +752,14 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 #ifdef HAVE_APPINDICATOR
 	gkbd_configuration = gkbd_configuration_get ();
 	g_signal_connect (gkbd_configuration, "changed",
-			  G_CALLBACK (gsd_keyboard_configuration_changed), NULL);
+			  G_CALLBACK (csd_keyboard_configuration_changed), NULL);
 	g_signal_connect (gkbd_configuration, "group-changed",
-			  G_CALLBACK (gsd_keyboard_configuration_changed), NULL);
+			  G_CALLBACK (csd_keyboard_configuration_changed), NULL);
 #endif
 	manager = kbd_manager;
-	gnome_settings_profile_start ("xkl_engine_get_instance");
+	cinnamon_settings_profile_start ("xkl_engine_get_instance");
 	xkl_engine = xkl_engine_get_instance (display);
-	gnome_settings_profile_end ("xkl_engine_get_instance");
+	cinnamon_settings_profile_end ("xkl_engine_get_instance");
 	if (xkl_engine) {
 		inited_ok = TRUE;
 
@@ -767,7 +767,7 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 		gkbd_keyboard_config_init (&current_kbd_config,
 					   xkl_engine);
 		xkl_engine_backup_names_prop (xkl_engine);
-		gsd_keyboard_xkb_analyze_sysconfig ();
+		csd_keyboard_xkb_analyze_sysconfig ();
 
 		settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
 		settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
@@ -781,34 +781,34 @@ gsd_keyboard_xkb_init (GsdKeyboardManager * kbd_manager)
 		g_signal_connect (xkl_engine, "X-state-changed", G_CALLBACK (state_callback), NULL);
 #endif
 		gdk_window_add_filter (NULL, (GdkFilterFunc)
-				       gsd_keyboard_xkb_evt_filter, NULL);
+				       csd_keyboard_xkb_evt_filter, NULL);
 
 		if (xkl_engine_get_features (xkl_engine) &
 		    XKLF_DEVICE_DISCOVERY)
 			g_signal_connect (xkl_engine, "X-new-device",
 					  G_CALLBACK
-					  (gsd_keyboard_new_device), NULL);
+					  (csd_keyboard_new_device), NULL);
 
-		gnome_settings_profile_start ("xkl_engine_start_listen");
+		cinnamon_settings_profile_start ("xkl_engine_start_listen");
 		xkl_engine_start_listen (xkl_engine,
 					 XKLL_MANAGE_LAYOUTS |
 					 XKLL_MANAGE_WINDOW_STATES);
-		gnome_settings_profile_end ("xkl_engine_start_listen");
+		cinnamon_settings_profile_end ("xkl_engine_start_listen");
 
-		gnome_settings_profile_start ("apply_desktop_settings");
+		cinnamon_settings_profile_start ("apply_desktop_settings");
 		apply_desktop_settings ();
-		gnome_settings_profile_end ("apply_desktop_settings");
-		gnome_settings_profile_start ("apply_xkb_settings");
+		cinnamon_settings_profile_end ("apply_desktop_settings");
+		cinnamon_settings_profile_start ("apply_xkb_settings");
 		apply_xkb_settings ();
-		gnome_settings_profile_end ("apply_xkb_settings");
+		cinnamon_settings_profile_end ("apply_xkb_settings");
 	}
 	preview_dialogs = g_hash_table_new (g_direct_hash, g_direct_equal);
 
-	gnome_settings_profile_end (NULL);
+	cinnamon_settings_profile_end (NULL);
 }
 
 void
-gsd_keyboard_xkb_shutdown (void)
+csd_keyboard_xkb_shutdown (void)
 {
 	if (!inited_ok)
 		return;
@@ -828,7 +828,7 @@ gsd_keyboard_xkb_shutdown (void)
 				XKLL_MANAGE_WINDOW_STATES);
 
 	gdk_window_remove_filter (NULL, (GdkFilterFunc)
-				  gsd_keyboard_xkb_evt_filter, NULL);
+				  csd_keyboard_xkb_evt_filter, NULL);
 
 	g_object_unref (settings_desktop);
 	settings_desktop = NULL;

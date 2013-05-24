@@ -24,7 +24,7 @@
 #include "config.h"
 #include <gtk/gtk.h>
 #include <libnotify/notify.h>
-#include "gsd-disk-space.h"
+#include "csd-disk-space.h"
 
 int
 main (int    argc,
@@ -33,15 +33,15 @@ main (int    argc,
         GMainLoop *loop;
 
         gtk_init (&argc, &argv);
-        notify_init ("gsd-disk-space-test");
+        notify_init ("csd-disk-space-test");
 
         loop = g_main_loop_new (NULL, FALSE);
 
-        gsd_ldsm_setup (TRUE);
+        csd_ldsm_setup (TRUE);
 
         g_main_loop_run (loop);
 
-        gsd_ldsm_clean ();
+        csd_ldsm_clean ();
         g_main_loop_unref (loop);
 
         return 0;

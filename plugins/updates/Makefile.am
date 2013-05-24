@@ -7,19 +7,19 @@ plugin_LTLIBRARIES = \
 	libupdates.la
 
 libupdates_la_SOURCES = \
-	gsd-updates-common.h \
-	gsd-updates-plugin.h \
-	gsd-updates-plugin.c \
-	gsd-updates-refresh.h \
-	gsd-updates-refresh.c \
-	gsd-updates-firmware.h \
-	gsd-updates-firmware.c \
-	gsd-updates-manager.h \
-	gsd-updates-manager.c
+	csd-updates-common.h \
+	csd-updates-plugin.h \
+	csd-updates-plugin.c \
+	csd-updates-refresh.h \
+	csd-updates-refresh.c \
+	csd-updates-firmware.h \
+	csd-updates-firmware.c \
+	csd-updates-manager.h \
+	csd-updates-manager.c
 
 libupdates_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon \
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libupdates_la_CFLAGS = \
@@ -36,16 +36,16 @@ libupdates_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libupdates_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libupdates_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(PACKAGEKIT_LIBS)
 
 plugin_in_files = \
-	updates.gnome-settings-plugin.in
+	updates.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST = \
 	$(plugin_in_files)
@@ -56,4 +56,4 @@ CLEANFILES = \
 DISTCLEANFILES = \
 	$(plugin_DATA)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

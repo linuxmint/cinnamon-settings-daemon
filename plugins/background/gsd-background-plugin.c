@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-background-plugin.h"
-#include "gsd-background-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-background-plugin.h"
+#include "csd-background-manager.h"
 
-struct GsdBackgroundPluginPrivate {
-        GsdBackgroundManager *manager;
+struct CsdBackgroundPluginPrivate {
+        CsdBackgroundManager *manager;
 };
 
-#define GSD_BACKGROUND_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_BACKGROUND_PLUGIN, GsdBackgroundPluginPrivate))
+#define CSD_BACKGROUND_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_BACKGROUND_PLUGIN, CsdBackgroundPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdBackgroundPlugin, gsd_background_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdBackgroundPlugin, csd_background_plugin)
 
 static void
-gsd_background_plugin_init (GsdBackgroundPlugin *plugin)
+csd_background_plugin_init (CsdBackgroundPlugin *plugin)
 {
-        plugin->priv = GSD_BACKGROUND_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_BACKGROUND_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdBackgroundPlugin initializing");
+        g_debug ("CsdBackgroundPlugin initializing");
 
-        plugin->priv->manager = gsd_background_manager_new ();
+        plugin->priv->manager = csd_background_manager_new ();
 }
 
 static void
-gsd_background_plugin_finalize (GObject *object)
+csd_background_plugin_finalize (GObject *object)
 {
-        GsdBackgroundPlugin *plugin;
+        CsdBackgroundPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_BACKGROUND_PLUGIN (object));
+        g_return_if_fail (CSD_IS_BACKGROUND_PLUGIN (object));
 
-        g_debug ("GsdBackgroundPlugin finalizing");
+        g_debug ("CsdBackgroundPlugin finalizing");
 
-        plugin = GSD_BACKGROUND_PLUGIN (object);
+        plugin = CSD_BACKGROUND_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gsd_background_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_background_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_background_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating background plugin");
 
         error = NULL;
-        res = gsd_background_manager_start (GSD_BACKGROUND_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_background_manager_start (CSD_BACKGROUND_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start background manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating background plugin");
-        gsd_background_manager_stop (GSD_BACKGROUND_PLUGIN (plugin)->priv->manager);
+        csd_background_manager_stop (CSD_BACKGROUND_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_background_plugin_class_init (GsdBackgroundPluginClass *klass)
+csd_background_plugin_class_init (CsdBackgroundPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_background_plugin_finalize;
+        object_class->finalize = csd_background_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdBackgroundPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdBackgroundPluginPrivate));
 }

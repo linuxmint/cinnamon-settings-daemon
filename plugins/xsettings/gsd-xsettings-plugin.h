@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GNOME_XSETTINGS_PLUGIN_H__
-#define __GNOME_XSETTINGS_PLUGIN_H__
+#ifndef __CINNAMON_XSETTINGS_PLUGIN_H__
+#define __CINNAMON_XSETTINGS_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GNOME_TYPE_XSETTINGS_PLUGIN                (gnome_xsettings_plugin_get_type ())
-#define GNOME_XSETTINGS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_XSETTINGS_PLUGIN, GnomeXSettingsPlugin))
-#define GNOME_XSETTINGS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GNOME_TYPE_XSETTINGS_PLUGIN, GnomeXSettingsPluginClass))
-#define GNOME_IS_XSETTINGS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GNOME_TYPE_XSETTINGS_PLUGIN))
-#define GNOME_IS_XSETTINGS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GNOME_TYPE_XSETTINGS_PLUGIN))
-#define GNOME_XSETTINGS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GNOME_TYPE_XSETTINGS_PLUGIN, GnomeXSettingsPluginClass))
+#define CINNAMON_TYPE_XSETTINGS_PLUGIN                (cinnamon_xsettings_plugin_get_type ())
+#define CINNAMON_XSETTINGS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CINNAMON_TYPE_XSETTINGS_PLUGIN, CinnamonSettingsXSettingsPlugin))
+#define CINNAMON_XSETTINGS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CINNAMON_TYPE_XSETTINGS_PLUGIN, CinnamonSettingsXSettingsPluginClass))
+#define CINNAMON_IS_XSETTINGS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CINNAMON_TYPE_XSETTINGS_PLUGIN))
+#define CINNAMON_IS_XSETTINGS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CINNAMON_TYPE_XSETTINGS_PLUGIN))
+#define CINNAMON_XSETTINGS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CINNAMON_TYPE_XSETTINGS_PLUGIN, CinnamonSettingsXSettingsPluginClass))
 
-typedef struct GnomeXSettingsPluginPrivate GnomeXSettingsPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin          parent;
-        GnomeXSettingsPluginPrivate *priv;
-} GnomeXSettingsPlugin;
+typedef struct CinnamonSettingsXSettingsPluginPrivate CinnamonSettingsXSettingsPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GnomeXSettingsPluginClass;
+        CinnamonSettingsSettingsPlugin          parent;
+        CinnamonSettingsXSettingsPluginPrivate *priv;
+} CinnamonSettingsXSettingsPlugin;
 
-GType   gnome_xsettings_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CinnamonSettingsXSettingsPluginClass;
+
+GType   cinnamon_xsettings_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GNOME_XSETTINGS_PLUGIN_H__ */
+#endif /* __CINNAMON_XSETTINGS_PLUGIN_H__ */

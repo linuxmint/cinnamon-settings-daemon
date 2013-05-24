@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-a11y-settings$(EXEEXT)
+libexec_PROGRAMS = csd-test-a11y-settings$(EXEEXT)
 subdir = plugins/a11y-settings
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -98,8 +98,8 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 liba11y_settings_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_liba11y_settings_la_OBJECTS =  \
-	liba11y_settings_la-gsd-a11y-settings-manager.lo \
-	liba11y_settings_la-gsd-a11y-settings-plugin.lo
+	liba11y_settings_la-csd-a11y-settings-manager.lo \
+	liba11y_settings_la-csd-a11y-settings-plugin.lo
 liba11y_settings_la_OBJECTS = $(am_liba11y_settings_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -110,17 +110,17 @@ liba11y_settings_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(liba11y_settings_la_CFLAGS) $(CFLAGS) \
 	$(liba11y_settings_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_test_a11y_settings_OBJECTS =  \
-	gsd_test_a11y_settings-gsd-a11y-settings-manager.$(OBJEXT) \
-	gsd_test_a11y_settings-test-a11y-settings.$(OBJEXT)
-gsd_test_a11y_settings_OBJECTS = $(am_gsd_test_a11y_settings_OBJECTS)
-gsd_test_a11y_settings_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_a11y_settings_OBJECTS =  \
+	csd_test_a11y_settings-csd-a11y-settings-manager.$(OBJEXT) \
+	csd_test_a11y_settings-test-a11y-settings.$(OBJEXT)
+csd_test_a11y_settings_OBJECTS = $(am_csd_test_a11y_settings_OBJECTS)
+csd_test_a11y_settings_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1)
-gsd_test_a11y_settings_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_a11y_settings_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_a11y_settings_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -157,9 +157,9 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(liba11y_settings_la_SOURCES) \
-	$(gsd_test_a11y_settings_SOURCES)
+	$(csd_test_a11y_settings_SOURCES)
 DIST_SOURCES = $(liba11y_settings_la_SOURCES) \
-	$(gsd_test_a11y_settings_SOURCES)
+	$(csd_test_a11y_settings_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -225,12 +225,12 @@ GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
-GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
+CINNAMON_DESKTOP_CFLAGS = @CINNAMON_DESKTOP_CFLAGS@
+CINNAMON_DESKTOP_LIBS = @CINNAMON_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -388,21 +388,21 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 plugin_name = a11y-settings
-gsd_test_a11y_settings_SOURCES = \
-	gsd-a11y-settings-manager.h	\
-	gsd-a11y-settings-manager.c	\
+csd_test_a11y_settings_SOURCES = \
+	csd-a11y-settings-manager.h	\
+	csd-a11y-settings-manager.c	\
 	test-a11y-settings.c
 
-gsd_test_a11y_settings_CFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
+csd_test_a11y_settings_CFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(PLUGIN_CFLAGS)					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_test_a11y_settings_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_a11y_settings_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_PLUGIN_LIBS)
 
@@ -410,14 +410,14 @@ plugin_LTLIBRARIES = \
 	liba11y-settings.la
 
 liba11y_settings_la_SOURCES = \
-	gsd-a11y-settings-manager.c	\
-	gsd-a11y-settings-manager.h	\
-	gsd-a11y-settings-plugin.c	\
-	gsd-a11y-settings-plugin.h
+	csd-a11y-settings-manager.c	\
+	csd-a11y-settings-manager.h	\
+	csd-a11y-settings-plugin.c	\
+	csd-a11y-settings-plugin.h
 
 liba11y_settings_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 liba11y_settings_la_CFLAGS = \
@@ -426,15 +426,15 @@ liba11y_settings_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 liba11y_settings_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 liba11y_settings_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = \
-	a11y-settings.gnome-settings-plugin.in
+	a11y-settings.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = \
 	$(plugin_in_files)
 
@@ -560,9 +560,9 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-a11y-settings$(EXEEXT): $(gsd_test_a11y_settings_OBJECTS) $(gsd_test_a11y_settings_DEPENDENCIES) $(EXTRA_gsd_test_a11y_settings_DEPENDENCIES) 
-	@rm -f gsd-test-a11y-settings$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_a11y_settings_LINK) $(gsd_test_a11y_settings_OBJECTS) $(gsd_test_a11y_settings_LDADD) $(LIBS)
+csd-test-a11y-settings$(EXEEXT): $(csd_test_a11y_settings_OBJECTS) $(csd_test_a11y_settings_DEPENDENCIES) $(EXTRA_csd_test_a11y_settings_DEPENDENCIES) 
+	@rm -f csd-test-a11y-settings$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_a11y_settings_LINK) $(csd_test_a11y_settings_OBJECTS) $(csd_test_a11y_settings_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -570,10 +570,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_a11y_settings-gsd-a11y-settings-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_a11y_settings-test-a11y-settings.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_a11y_settings-csd-a11y-settings-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_a11y_settings-test-a11y-settings.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liba11y_settings_la-csd-a11y-settings-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liba11y_settings_la-csd-a11y-settings-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -596,47 +596,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-liba11y_settings_la-gsd-a11y-settings-manager.lo: gsd-a11y-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -MT liba11y_settings_la-gsd-a11y-settings-manager.lo -MD -MP -MF $(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-manager.Tpo -c -o liba11y_settings_la-gsd-a11y-settings-manager.lo `test -f 'gsd-a11y-settings-manager.c' || echo '$(srcdir)/'`gsd-a11y-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-manager.Tpo $(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-a11y-settings-manager.c' object='liba11y_settings_la-gsd-a11y-settings-manager.lo' libtool=yes @AMDEPBACKSLASH@
+liba11y_settings_la-csd-a11y-settings-manager.lo: csd-a11y-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -MT liba11y_settings_la-csd-a11y-settings-manager.lo -MD -MP -MF $(DEPDIR)/liba11y_settings_la-csd-a11y-settings-manager.Tpo -c -o liba11y_settings_la-csd-a11y-settings-manager.lo `test -f 'csd-a11y-settings-manager.c' || echo '$(srcdir)/'`csd-a11y-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liba11y_settings_la-csd-a11y-settings-manager.Tpo $(DEPDIR)/liba11y_settings_la-csd-a11y-settings-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-a11y-settings-manager.c' object='liba11y_settings_la-csd-a11y-settings-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -c -o liba11y_settings_la-gsd-a11y-settings-manager.lo `test -f 'gsd-a11y-settings-manager.c' || echo '$(srcdir)/'`gsd-a11y-settings-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -c -o liba11y_settings_la-csd-a11y-settings-manager.lo `test -f 'csd-a11y-settings-manager.c' || echo '$(srcdir)/'`csd-a11y-settings-manager.c
 
-liba11y_settings_la-gsd-a11y-settings-plugin.lo: gsd-a11y-settings-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -MT liba11y_settings_la-gsd-a11y-settings-plugin.lo -MD -MP -MF $(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-plugin.Tpo -c -o liba11y_settings_la-gsd-a11y-settings-plugin.lo `test -f 'gsd-a11y-settings-plugin.c' || echo '$(srcdir)/'`gsd-a11y-settings-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-plugin.Tpo $(DEPDIR)/liba11y_settings_la-gsd-a11y-settings-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-a11y-settings-plugin.c' object='liba11y_settings_la-gsd-a11y-settings-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+liba11y_settings_la-csd-a11y-settings-plugin.lo: csd-a11y-settings-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -MT liba11y_settings_la-csd-a11y-settings-plugin.lo -MD -MP -MF $(DEPDIR)/liba11y_settings_la-csd-a11y-settings-plugin.Tpo -c -o liba11y_settings_la-csd-a11y-settings-plugin.lo `test -f 'csd-a11y-settings-plugin.c' || echo '$(srcdir)/'`csd-a11y-settings-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liba11y_settings_la-csd-a11y-settings-plugin.Tpo $(DEPDIR)/liba11y_settings_la-csd-a11y-settings-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-a11y-settings-plugin.c' object='liba11y_settings_la-csd-a11y-settings-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -c -o liba11y_settings_la-gsd-a11y-settings-plugin.lo `test -f 'gsd-a11y-settings-plugin.c' || echo '$(srcdir)/'`gsd-a11y-settings-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liba11y_settings_la_CPPFLAGS) $(CPPFLAGS) $(liba11y_settings_la_CFLAGS) $(CFLAGS) -c -o liba11y_settings_la-csd-a11y-settings-plugin.lo `test -f 'csd-a11y-settings-plugin.c' || echo '$(srcdir)/'`csd-a11y-settings-plugin.c
 
-gsd_test_a11y_settings-gsd-a11y-settings-manager.o: gsd-a11y-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT gsd_test_a11y_settings-gsd-a11y-settings-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_a11y_settings-gsd-a11y-settings-manager.Tpo -c -o gsd_test_a11y_settings-gsd-a11y-settings-manager.o `test -f 'gsd-a11y-settings-manager.c' || echo '$(srcdir)/'`gsd-a11y-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_a11y_settings-gsd-a11y-settings-manager.Tpo $(DEPDIR)/gsd_test_a11y_settings-gsd-a11y-settings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-a11y-settings-manager.c' object='gsd_test_a11y_settings-gsd-a11y-settings-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_a11y_settings-csd-a11y-settings-manager.o: csd-a11y-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT csd_test_a11y_settings-csd-a11y-settings-manager.o -MD -MP -MF $(DEPDIR)/csd_test_a11y_settings-csd-a11y-settings-manager.Tpo -c -o csd_test_a11y_settings-csd-a11y-settings-manager.o `test -f 'csd-a11y-settings-manager.c' || echo '$(srcdir)/'`csd-a11y-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_a11y_settings-csd-a11y-settings-manager.Tpo $(DEPDIR)/csd_test_a11y_settings-csd-a11y-settings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-a11y-settings-manager.c' object='csd_test_a11y_settings-csd-a11y-settings-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o gsd_test_a11y_settings-gsd-a11y-settings-manager.o `test -f 'gsd-a11y-settings-manager.c' || echo '$(srcdir)/'`gsd-a11y-settings-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o csd_test_a11y_settings-csd-a11y-settings-manager.o `test -f 'csd-a11y-settings-manager.c' || echo '$(srcdir)/'`csd-a11y-settings-manager.c
 
-gsd_test_a11y_settings-gsd-a11y-settings-manager.obj: gsd-a11y-settings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT gsd_test_a11y_settings-gsd-a11y-settings-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_a11y_settings-gsd-a11y-settings-manager.Tpo -c -o gsd_test_a11y_settings-gsd-a11y-settings-manager.obj `if test -f 'gsd-a11y-settings-manager.c'; then $(CYGPATH_W) 'gsd-a11y-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-a11y-settings-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_a11y_settings-gsd-a11y-settings-manager.Tpo $(DEPDIR)/gsd_test_a11y_settings-gsd-a11y-settings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-a11y-settings-manager.c' object='gsd_test_a11y_settings-gsd-a11y-settings-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_a11y_settings-csd-a11y-settings-manager.obj: csd-a11y-settings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT csd_test_a11y_settings-csd-a11y-settings-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_a11y_settings-csd-a11y-settings-manager.Tpo -c -o csd_test_a11y_settings-csd-a11y-settings-manager.obj `if test -f 'csd-a11y-settings-manager.c'; then $(CYGPATH_W) 'csd-a11y-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-a11y-settings-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_a11y_settings-csd-a11y-settings-manager.Tpo $(DEPDIR)/csd_test_a11y_settings-csd-a11y-settings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-a11y-settings-manager.c' object='csd_test_a11y_settings-csd-a11y-settings-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o gsd_test_a11y_settings-gsd-a11y-settings-manager.obj `if test -f 'gsd-a11y-settings-manager.c'; then $(CYGPATH_W) 'gsd-a11y-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-a11y-settings-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o csd_test_a11y_settings-csd-a11y-settings-manager.obj `if test -f 'csd-a11y-settings-manager.c'; then $(CYGPATH_W) 'csd-a11y-settings-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-a11y-settings-manager.c'; fi`
 
-gsd_test_a11y_settings-test-a11y-settings.o: test-a11y-settings.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT gsd_test_a11y_settings-test-a11y-settings.o -MD -MP -MF $(DEPDIR)/gsd_test_a11y_settings-test-a11y-settings.Tpo -c -o gsd_test_a11y_settings-test-a11y-settings.o `test -f 'test-a11y-settings.c' || echo '$(srcdir)/'`test-a11y-settings.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_a11y_settings-test-a11y-settings.Tpo $(DEPDIR)/gsd_test_a11y_settings-test-a11y-settings.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-a11y-settings.c' object='gsd_test_a11y_settings-test-a11y-settings.o' libtool=no @AMDEPBACKSLASH@
+csd_test_a11y_settings-test-a11y-settings.o: test-a11y-settings.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT csd_test_a11y_settings-test-a11y-settings.o -MD -MP -MF $(DEPDIR)/csd_test_a11y_settings-test-a11y-settings.Tpo -c -o csd_test_a11y_settings-test-a11y-settings.o `test -f 'test-a11y-settings.c' || echo '$(srcdir)/'`test-a11y-settings.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_a11y_settings-test-a11y-settings.Tpo $(DEPDIR)/csd_test_a11y_settings-test-a11y-settings.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-a11y-settings.c' object='csd_test_a11y_settings-test-a11y-settings.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o gsd_test_a11y_settings-test-a11y-settings.o `test -f 'test-a11y-settings.c' || echo '$(srcdir)/'`test-a11y-settings.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o csd_test_a11y_settings-test-a11y-settings.o `test -f 'test-a11y-settings.c' || echo '$(srcdir)/'`test-a11y-settings.c
 
-gsd_test_a11y_settings-test-a11y-settings.obj: test-a11y-settings.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT gsd_test_a11y_settings-test-a11y-settings.obj -MD -MP -MF $(DEPDIR)/gsd_test_a11y_settings-test-a11y-settings.Tpo -c -o gsd_test_a11y_settings-test-a11y-settings.obj `if test -f 'test-a11y-settings.c'; then $(CYGPATH_W) 'test-a11y-settings.c'; else $(CYGPATH_W) '$(srcdir)/test-a11y-settings.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_a11y_settings-test-a11y-settings.Tpo $(DEPDIR)/gsd_test_a11y_settings-test-a11y-settings.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-a11y-settings.c' object='gsd_test_a11y_settings-test-a11y-settings.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_a11y_settings-test-a11y-settings.obj: test-a11y-settings.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -MT csd_test_a11y_settings-test-a11y-settings.obj -MD -MP -MF $(DEPDIR)/csd_test_a11y_settings-test-a11y-settings.Tpo -c -o csd_test_a11y_settings-test-a11y-settings.obj `if test -f 'test-a11y-settings.c'; then $(CYGPATH_W) 'test-a11y-settings.c'; else $(CYGPATH_W) '$(srcdir)/test-a11y-settings.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_a11y_settings-test-a11y-settings.Tpo $(DEPDIR)/csd_test_a11y_settings-test-a11y-settings.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-a11y-settings.c' object='csd_test_a11y_settings-test-a11y-settings.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o gsd_test_a11y_settings-test-a11y-settings.obj `if test -f 'test-a11y-settings.c'; then $(CYGPATH_W) 'test-a11y-settings.c'; else $(CYGPATH_W) '$(srcdir)/test-a11y-settings.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_a11y_settings_CFLAGS) $(CFLAGS) -c -o csd_test_a11y_settings-test-a11y-settings.obj `if test -f 'test-a11y-settings.c'; then $(CYGPATH_W) 'test-a11y-settings.c'; else $(CYGPATH_W) '$(srcdir)/test-a11y-settings.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -892,7 +892,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

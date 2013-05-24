@@ -19,47 +19,47 @@
  *
  */
 
-#ifndef __GSD_COLOR_MANAGER_H
-#define __GSD_COLOR_MANAGER_H
+#ifndef __CSD_COLOR_MANAGER_H
+#define __CSD_COLOR_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_COLOR_MANAGER         (gsd_color_manager_get_type ())
-#define GSD_COLOR_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManager))
-#define GSD_COLOR_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_COLOR_MANAGER, GsdColorManagerClass))
-#define GSD_IS_COLOR_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_MANAGER))
-#define GSD_IS_COLOR_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_COLOR_MANAGER))
-#define GSD_COLOR_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_COLOR_MANAGER, GsdColorManagerClass))
-#define GSD_COLOR_MANAGER_ERROR        (gsd_color_manager_error_quark ())
+#define CSD_TYPE_COLOR_MANAGER         (csd_color_manager_get_type ())
+#define CSD_COLOR_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_COLOR_MANAGER, CsdColorManager))
+#define CSD_COLOR_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_COLOR_MANAGER, CsdColorManagerClass))
+#define CSD_IS_COLOR_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_COLOR_MANAGER))
+#define CSD_IS_COLOR_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_COLOR_MANAGER))
+#define CSD_COLOR_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_COLOR_MANAGER, CsdColorManagerClass))
+#define CSD_COLOR_MANAGER_ERROR        (csd_color_manager_error_quark ())
 
-typedef struct GsdColorManagerPrivate GsdColorManagerPrivate;
+typedef struct CsdColorManagerPrivate CsdColorManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdColorManagerPrivate *priv;
-} GsdColorManager;
+        CsdColorManagerPrivate *priv;
+} CsdColorManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdColorManagerClass;
+} CsdColorManagerClass;
 
 enum
 {
-        GSD_COLOR_MANAGER_ERROR_FAILED
+        CSD_COLOR_MANAGER_ERROR_FAILED
 };
 
-GType                   gsd_color_manager_get_type            (void);
-GQuark                  gsd_color_manager_error_quark         (void);
+GType                   csd_color_manager_get_type            (void);
+GQuark                  csd_color_manager_error_quark         (void);
 
-GsdColorManager *       gsd_color_manager_new                 (void);
-gboolean                gsd_color_manager_start               (GsdColorManager *manager,
+CsdColorManager *       csd_color_manager_new                 (void);
+gboolean                csd_color_manager_start               (CsdColorManager *manager,
                                                                GError         **error);
-void                    gsd_color_manager_stop                (GsdColorManager *manager);
+void                    csd_color_manager_stop                (CsdColorManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_COLOR_MANAGER_H */
+#endif /* __CSD_COLOR_MANAGER_H */

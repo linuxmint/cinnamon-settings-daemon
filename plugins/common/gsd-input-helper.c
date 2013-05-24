@@ -27,7 +27,7 @@
 #include <X11/Xatom.h>
 #include <X11/extensions/XInput2.h>
 
-#include "gsd-input-helper.h"
+#include "csd-input-helper.h"
 
 #define INPUT_DEVICES_SCHEMA "org.gnome.settings-daemon.peripherals.input-devices"
 #define KEY_HOTPLUG_COMMAND  "hotplug-command"
@@ -441,7 +441,7 @@ custom_command_to_string (CustomCommand command)
  * command -t [added|removed|present] -i <device ID> <device name>
  * Type 'added' and 'removed' signal 'device added' and 'device removed',
  * respectively. Type 'present' signals 'device present at
- * gnome-settings-daemon init'.
+ * cinnamon-settings-daemon init'.
  *
  * The script is expected to run synchronously, and an exit value
  * of "1" means that no other settings will be applied to this

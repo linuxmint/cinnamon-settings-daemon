@@ -5,12 +5,12 @@
 <policyconfig>
 
   <!--
-    Policy definitions for gnome-settings-daemon system-wide actions.
+    Policy definitions for cinnamon-settings-daemon system-wide actions.
     Copyright (c) 2010-2011 Richard Hughes <richard@hughsie.com>
   -->
 
-  <vendor>GNOME Settings Daemon</vendor>
-  <vendor_url>http://git.gnome.org/browse/gnome-settings-daemon</vendor_url>
+  <vendor>Cinnamon Settings Daemon</vendor>
+  <vendor_url>http://git.gnome.org/browse/cinnamon-settings-daemon</vendor_url>
   <icon_name>battery</icon_name>
 
   <action id="org.gnome.settings-daemon.plugins.power.backlight-helper">
@@ -25,7 +25,7 @@
       <allow_inactive>no</allow_inactive>
       <allow_active>yes</allow_active>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/gsd-backlight-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/csd-backlight-helper</annotate>
   </action>
 
 </policyconfig>

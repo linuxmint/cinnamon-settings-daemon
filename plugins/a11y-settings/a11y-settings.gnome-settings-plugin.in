@@ -1,4 +1,4 @@
-[GNOME Settings Plugin]
+[CINNAMON Settings Plugin]
 Module=a11y-settings
 IAge=0
 _Name=Accessibility settings

@@ -51,7 +51,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gnome-fallback-mount-helper$(EXEEXT)
+libexec_PROGRAMS = cinnamon-fallback-mount-helper$(EXEEXT)
 subdir = plugins/automount
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -67,22 +67,22 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(libexecdir)" \
 	"$(DESTDIR)$(autostartdir)"
 PROGRAMS = $(libexec_PROGRAMS)
-am_gnome_fallback_mount_helper_OBJECTS = gnome_fallback_mount_helper-gnome-fallback-mount-helper.$(OBJEXT) \
-	gnome_fallback_mount_helper-gsd-automount-manager.$(OBJEXT) \
-	gnome_fallback_mount_helper-gsd-autorun.$(OBJEXT)
-gnome_fallback_mount_helper_OBJECTS =  \
-	$(am_gnome_fallback_mount_helper_OBJECTS)
+am_cinnamon_fallback_mount_helper_OBJECTS = cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.$(OBJEXT) \
+	cinnamon_fallback_mount_helper-csd-automount-manager.$(OBJEXT) \
+	cinnamon_fallback_mount_helper-csd-autorun.$(OBJEXT)
+cinnamon_fallback_mount_helper_OBJECTS =  \
+	$(am_cinnamon_fallback_mount_helper_OBJECTS)
 am__DEPENDENCIES_1 =
-gnome_fallback_mount_helper_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+cinnamon_fallback_mount_helper_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-gnome_fallback_mount_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+cinnamon_fallback_mount_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -118,8 +118,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(gnome_fallback_mount_helper_SOURCES)
-DIST_SOURCES = $(gnome_fallback_mount_helper_SOURCES)
+SOURCES = $(cinnamon_fallback_mount_helper_SOURCES)
+DIST_SOURCES = $(cinnamon_fallback_mount_helper_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -212,12 +212,12 @@ GLIB_COMPILE_SCHEMAS = @GLIB_COMPILE_SCHEMAS@
 GLIB_GENMARSHAL = @GLIB_GENMARSHAL@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
-GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
+CINNAMON_DESKTOP_CFLAGS = @CINNAMON_DESKTOP_CFLAGS@
+CINNAMON_DESKTOP_LIBS = @CINNAMON_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -374,32 +374,32 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-gnome_fallback_mount_helper_SOURCES = \
-	gnome-fallback-mount-helper.c \
-	gsd-automount-manager.c \
-	gsd-automount-manager.h \
-	gsd-autorun.c \
-	gsd-autorun.h
+cinnamon_fallback_mount_helper_SOURCES = \
+	cinnamon-fallback-mount-helper.c \
+	csd-automount-manager.c \
+	csd-automount-manager.h \
+	csd-autorun.c \
+	csd-autorun.h
 
-gnome_fallback_mount_helper_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+cinnamon_fallback_mount_helper_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-gnome_fallback_mount_helper_CFLAGS = \
+cinnamon_fallback_mount_helper_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(SYSTEMD_CFLAGS)		\
 	$(AUTOMOUNT_CFLAGS)
 
-gnome_fallback_mount_helper_LDADD = \
+cinnamon_fallback_mount_helper_LDADD = \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(SYSTEMD_LIBS)			\
 	$(AUTOMOUNT_LIBS)		\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
 
 autostartdir = $(sysconfdir)/xdg/autostart
-autostart_in_files = gnome-fallback-mount-helper.desktop.in
-autostart_in_in_files = gnome-fallback-mount-helper.desktop.in.in
+autostart_in_files = cinnamon-fallback-mount-helper.desktop.in
+autostart_in_in_files = cinnamon-fallback-mount-helper.desktop.in.in
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 EXTRA_DIST = $(autostart_in_in_files)
 CLEANFILES = $(autostart_DATA) $(autostart_in_files)
@@ -483,9 +483,9 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gnome-fallback-mount-helper$(EXEEXT): $(gnome_fallback_mount_helper_OBJECTS) $(gnome_fallback_mount_helper_DEPENDENCIES) $(EXTRA_gnome_fallback_mount_helper_DEPENDENCIES) 
-	@rm -f gnome-fallback-mount-helper$(EXEEXT)
-	$(AM_V_CCLD)$(gnome_fallback_mount_helper_LINK) $(gnome_fallback_mount_helper_OBJECTS) $(gnome_fallback_mount_helper_LDADD) $(LIBS)
+cinnamon-fallback-mount-helper$(EXEEXT): $(cinnamon_fallback_mount_helper_OBJECTS) $(cinnamon_fallback_mount_helper_DEPENDENCIES) $(EXTRA_cinnamon_fallback_mount_helper_DEPENDENCIES) 
+	@rm -f cinnamon-fallback-mount-helper$(EXEEXT)
+	$(AM_V_CCLD)$(cinnamon_fallback_mount_helper_LINK) $(cinnamon_fallback_mount_helper_OBJECTS) $(cinnamon_fallback_mount_helper_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -493,9 +493,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_fallback_mount_helper-gnome-fallback-mount-helper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_fallback_mount_helper-gsd-automount-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gnome_fallback_mount_helper-gsd-autorun.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_fallback_mount_helper-csd-automount-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cinnamon_fallback_mount_helper-csd-autorun.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -518,47 +518,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-gnome_fallback_mount_helper-gnome-fallback-mount-helper.o: gnome-fallback-mount-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT gnome_fallback_mount_helper-gnome-fallback-mount-helper.o -MD -MP -MF $(DEPDIR)/gnome_fallback_mount_helper-gnome-fallback-mount-helper.Tpo -c -o gnome_fallback_mount_helper-gnome-fallback-mount-helper.o `test -f 'gnome-fallback-mount-helper.c' || echo '$(srcdir)/'`gnome-fallback-mount-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_fallback_mount_helper-gnome-fallback-mount-helper.Tpo $(DEPDIR)/gnome_fallback_mount_helper-gnome-fallback-mount-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-fallback-mount-helper.c' object='gnome_fallback_mount_helper-gnome-fallback-mount-helper.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.o: cinnamon-fallback-mount-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.o -MD -MP -MF $(DEPDIR)/cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.Tpo -c -o cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.o `test -f 'cinnamon-fallback-mount-helper.c' || echo '$(srcdir)/'`cinnamon-fallback-mount-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.Tpo $(DEPDIR)/cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-fallback-mount-helper.c' object='cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o gnome_fallback_mount_helper-gnome-fallback-mount-helper.o `test -f 'gnome-fallback-mount-helper.c' || echo '$(srcdir)/'`gnome-fallback-mount-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.o `test -f 'cinnamon-fallback-mount-helper.c' || echo '$(srcdir)/'`cinnamon-fallback-mount-helper.c
 
-gnome_fallback_mount_helper-gnome-fallback-mount-helper.obj: gnome-fallback-mount-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT gnome_fallback_mount_helper-gnome-fallback-mount-helper.obj -MD -MP -MF $(DEPDIR)/gnome_fallback_mount_helper-gnome-fallback-mount-helper.Tpo -c -o gnome_fallback_mount_helper-gnome-fallback-mount-helper.obj `if test -f 'gnome-fallback-mount-helper.c'; then $(CYGPATH_W) 'gnome-fallback-mount-helper.c'; else $(CYGPATH_W) '$(srcdir)/gnome-fallback-mount-helper.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_fallback_mount_helper-gnome-fallback-mount-helper.Tpo $(DEPDIR)/gnome_fallback_mount_helper-gnome-fallback-mount-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gnome-fallback-mount-helper.c' object='gnome_fallback_mount_helper-gnome-fallback-mount-helper.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.obj: cinnamon-fallback-mount-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.obj -MD -MP -MF $(DEPDIR)/cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.Tpo -c -o cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.obj `if test -f 'cinnamon-fallback-mount-helper.c'; then $(CYGPATH_W) 'cinnamon-fallback-mount-helper.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-fallback-mount-helper.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.Tpo $(DEPDIR)/cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cinnamon-fallback-mount-helper.c' object='cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o gnome_fallback_mount_helper-gnome-fallback-mount-helper.obj `if test -f 'gnome-fallback-mount-helper.c'; then $(CYGPATH_W) 'gnome-fallback-mount-helper.c'; else $(CYGPATH_W) '$(srcdir)/gnome-fallback-mount-helper.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o cinnamon_fallback_mount_helper-cinnamon-fallback-mount-helper.obj `if test -f 'cinnamon-fallback-mount-helper.c'; then $(CYGPATH_W) 'cinnamon-fallback-mount-helper.c'; else $(CYGPATH_W) '$(srcdir)/cinnamon-fallback-mount-helper.c'; fi`
 
-gnome_fallback_mount_helper-gsd-automount-manager.o: gsd-automount-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT gnome_fallback_mount_helper-gsd-automount-manager.o -MD -MP -MF $(DEPDIR)/gnome_fallback_mount_helper-gsd-automount-manager.Tpo -c -o gnome_fallback_mount_helper-gsd-automount-manager.o `test -f 'gsd-automount-manager.c' || echo '$(srcdir)/'`gsd-automount-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_fallback_mount_helper-gsd-automount-manager.Tpo $(DEPDIR)/gnome_fallback_mount_helper-gsd-automount-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-automount-manager.c' object='gnome_fallback_mount_helper-gsd-automount-manager.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_fallback_mount_helper-csd-automount-manager.o: csd-automount-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT cinnamon_fallback_mount_helper-csd-automount-manager.o -MD -MP -MF $(DEPDIR)/cinnamon_fallback_mount_helper-csd-automount-manager.Tpo -c -o cinnamon_fallback_mount_helper-csd-automount-manager.o `test -f 'csd-automount-manager.c' || echo '$(srcdir)/'`csd-automount-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_fallback_mount_helper-csd-automount-manager.Tpo $(DEPDIR)/cinnamon_fallback_mount_helper-csd-automount-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-automount-manager.c' object='cinnamon_fallback_mount_helper-csd-automount-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o gnome_fallback_mount_helper-gsd-automount-manager.o `test -f 'gsd-automount-manager.c' || echo '$(srcdir)/'`gsd-automount-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o cinnamon_fallback_mount_helper-csd-automount-manager.o `test -f 'csd-automount-manager.c' || echo '$(srcdir)/'`csd-automount-manager.c
 
-gnome_fallback_mount_helper-gsd-automount-manager.obj: gsd-automount-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT gnome_fallback_mount_helper-gsd-automount-manager.obj -MD -MP -MF $(DEPDIR)/gnome_fallback_mount_helper-gsd-automount-manager.Tpo -c -o gnome_fallback_mount_helper-gsd-automount-manager.obj `if test -f 'gsd-automount-manager.c'; then $(CYGPATH_W) 'gsd-automount-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-automount-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_fallback_mount_helper-gsd-automount-manager.Tpo $(DEPDIR)/gnome_fallback_mount_helper-gsd-automount-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-automount-manager.c' object='gnome_fallback_mount_helper-gsd-automount-manager.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_fallback_mount_helper-csd-automount-manager.obj: csd-automount-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT cinnamon_fallback_mount_helper-csd-automount-manager.obj -MD -MP -MF $(DEPDIR)/cinnamon_fallback_mount_helper-csd-automount-manager.Tpo -c -o cinnamon_fallback_mount_helper-csd-automount-manager.obj `if test -f 'csd-automount-manager.c'; then $(CYGPATH_W) 'csd-automount-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-automount-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_fallback_mount_helper-csd-automount-manager.Tpo $(DEPDIR)/cinnamon_fallback_mount_helper-csd-automount-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-automount-manager.c' object='cinnamon_fallback_mount_helper-csd-automount-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o gnome_fallback_mount_helper-gsd-automount-manager.obj `if test -f 'gsd-automount-manager.c'; then $(CYGPATH_W) 'gsd-automount-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-automount-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o cinnamon_fallback_mount_helper-csd-automount-manager.obj `if test -f 'csd-automount-manager.c'; then $(CYGPATH_W) 'csd-automount-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-automount-manager.c'; fi`
 
-gnome_fallback_mount_helper-gsd-autorun.o: gsd-autorun.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT gnome_fallback_mount_helper-gsd-autorun.o -MD -MP -MF $(DEPDIR)/gnome_fallback_mount_helper-gsd-autorun.Tpo -c -o gnome_fallback_mount_helper-gsd-autorun.o `test -f 'gsd-autorun.c' || echo '$(srcdir)/'`gsd-autorun.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_fallback_mount_helper-gsd-autorun.Tpo $(DEPDIR)/gnome_fallback_mount_helper-gsd-autorun.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-autorun.c' object='gnome_fallback_mount_helper-gsd-autorun.o' libtool=no @AMDEPBACKSLASH@
+cinnamon_fallback_mount_helper-csd-autorun.o: csd-autorun.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT cinnamon_fallback_mount_helper-csd-autorun.o -MD -MP -MF $(DEPDIR)/cinnamon_fallback_mount_helper-csd-autorun.Tpo -c -o cinnamon_fallback_mount_helper-csd-autorun.o `test -f 'csd-autorun.c' || echo '$(srcdir)/'`csd-autorun.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_fallback_mount_helper-csd-autorun.Tpo $(DEPDIR)/cinnamon_fallback_mount_helper-csd-autorun.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-autorun.c' object='cinnamon_fallback_mount_helper-csd-autorun.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o gnome_fallback_mount_helper-gsd-autorun.o `test -f 'gsd-autorun.c' || echo '$(srcdir)/'`gsd-autorun.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o cinnamon_fallback_mount_helper-csd-autorun.o `test -f 'csd-autorun.c' || echo '$(srcdir)/'`csd-autorun.c
 
-gnome_fallback_mount_helper-gsd-autorun.obj: gsd-autorun.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT gnome_fallback_mount_helper-gsd-autorun.obj -MD -MP -MF $(DEPDIR)/gnome_fallback_mount_helper-gsd-autorun.Tpo -c -o gnome_fallback_mount_helper-gsd-autorun.obj `if test -f 'gsd-autorun.c'; then $(CYGPATH_W) 'gsd-autorun.c'; else $(CYGPATH_W) '$(srcdir)/gsd-autorun.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gnome_fallback_mount_helper-gsd-autorun.Tpo $(DEPDIR)/gnome_fallback_mount_helper-gsd-autorun.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-autorun.c' object='gnome_fallback_mount_helper-gsd-autorun.obj' libtool=no @AMDEPBACKSLASH@
+cinnamon_fallback_mount_helper-csd-autorun.obj: csd-autorun.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -MT cinnamon_fallback_mount_helper-csd-autorun.obj -MD -MP -MF $(DEPDIR)/cinnamon_fallback_mount_helper-csd-autorun.Tpo -c -o cinnamon_fallback_mount_helper-csd-autorun.obj `if test -f 'csd-autorun.c'; then $(CYGPATH_W) 'csd-autorun.c'; else $(CYGPATH_W) '$(srcdir)/csd-autorun.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/cinnamon_fallback_mount_helper-csd-autorun.Tpo $(DEPDIR)/cinnamon_fallback_mount_helper-csd-autorun.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-autorun.c' object='cinnamon_fallback_mount_helper-csd-autorun.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gnome_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(gnome_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o gnome_fallback_mount_helper-gsd-autorun.obj `if test -f 'gsd-autorun.c'; then $(CYGPATH_W) 'gsd-autorun.c'; else $(CYGPATH_W) '$(srcdir)/gsd-autorun.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(cinnamon_fallback_mount_helper_CPPFLAGS) $(CPPFLAGS) $(cinnamon_fallback_mount_helper_CFLAGS) $(CFLAGS) -c -o cinnamon_fallback_mount_helper-csd-autorun.obj `if test -f 'csd-autorun.c'; then $(CYGPATH_W) 'csd-autorun.c'; else $(CYGPATH_W) '$(srcdir)/csd-autorun.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

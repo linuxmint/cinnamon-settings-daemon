@@ -19,42 +19,42 @@
  *
  */
 
-#ifndef __GSD_ORIENTATION_PLUGIN_H__
-#define __GSD_ORIENTATION_PLUGIN_H__
+#ifndef __CSD_ORIENTATION_PLUGIN_H__
+#define __CSD_ORIENTATION_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_ORIENTATION_PLUGIN                (gsd_orientation_plugin_get_type ())
-#define GSD_ORIENTATION_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_ORIENTATION_PLUGIN, GsdOrientationPlugin))
-#define GSD_ORIENTATION_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_ORIENTATION_PLUGIN, GsdOrientationPluginClass))
-#define GSD_IS_ORIENTATION_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_ORIENTATION_PLUGIN))
-#define GSD_IS_ORIENTATION_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_ORIENTATION_PLUGIN))
-#define GSD_ORIENTATION_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_ORIENTATION_PLUGIN, GsdOrientationPluginClass))
+#define CSD_TYPE_ORIENTATION_PLUGIN                (csd_orientation_plugin_get_type ())
+#define CSD_ORIENTATION_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_ORIENTATION_PLUGIN, CsdOrientationPlugin))
+#define CSD_ORIENTATION_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_ORIENTATION_PLUGIN, CsdOrientationPluginClass))
+#define CSD_IS_ORIENTATION_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_ORIENTATION_PLUGIN))
+#define CSD_IS_ORIENTATION_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_ORIENTATION_PLUGIN))
+#define CSD_ORIENTATION_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_ORIENTATION_PLUGIN, CsdOrientationPluginClass))
 
-typedef struct GsdOrientationPluginPrivate GsdOrientationPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdOrientationPluginPrivate *priv;
-} GsdOrientationPlugin;
+typedef struct CsdOrientationPluginPrivate CsdOrientationPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdOrientationPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdOrientationPluginPrivate *priv;
+} CsdOrientationPlugin;
 
-GType   gsd_orientation_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdOrientationPluginClass;
+
+GType   csd_orientation_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_ORIENTATION_PLUGIN_H__ */
+#endif /* __CSD_ORIENTATION_PLUGIN_H__ */

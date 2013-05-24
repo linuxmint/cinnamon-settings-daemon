@@ -30,14 +30,14 @@
 #include <string.h>
 #include <gudev/gudev.h>
 
-#define GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS			0
-#define GSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED			1
-#define GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID	3
-#define GSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER		4
-#define GSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES		5
+#define CSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS			0
+#define CSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED			1
+#define CSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID	3
+#define CSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER		4
+#define CSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES		5
 
 static gchar *
-gsd_backlight_helper_get_type (GList *devices, const gchar *type)
+csd_backlight_helper_get_type (GList *devices, const gchar *type)
 {
 	const gchar *type_tmp;
 	GList *d;
@@ -51,7 +51,7 @@ gsd_backlight_helper_get_type (GList *devices, const gchar *type)
 }
 
 static gchar *
-gsd_backlight_helper_get_best_backlight ()
+csd_backlight_helper_get_best_backlight ()
 {
 	gchar *path = NULL;
 	GList *devices;
@@ -64,13 +64,13 @@ gsd_backlight_helper_get_best_backlight ()
 
 	/* search the backlight devices and prefer the types:
 	 * firmware -> platform -> raw */
-	path = gsd_backlight_helper_get_type (devices, "firmware");
+	path = csd_backlight_helper_get_type (devices, "firmware");
 	if (path != NULL)
 		goto out;
-	path = gsd_backlight_helper_get_type (devices, "platform");
+	path = csd_backlight_helper_get_type (devices, "platform");
 	if (path != NULL)
 		goto out;
-	path = gsd_backlight_helper_get_type (devices, "raw");
+	path = csd_backlight_helper_get_type (devices, "raw");
 	if (path != NULL)
 		goto out;
 out:
@@ -81,7 +81,7 @@ out:
 }
 
 static gboolean
-gsd_backlight_helper_write (const gchar *filename, gint value, GError **error)
+csd_backlight_helper_write (const gchar *filename, gint value, GError **error)
 {
 	gchar *text = NULL;
 	gint retval;
@@ -147,7 +147,7 @@ main (int argc, char *argv[])
 	g_type_init ();
 
 	context = g_option_context_new (NULL);
-	g_option_context_set_summary (context, "GNOME Settings Daemon Backlight Helper");
+	g_option_context_set_summary (context, "Cinnamon Settings Daemon Backlight Helper");
 	g_option_context_add_main_entries (context, options, NULL);
 	g_option_context_parse (context, &argc, &argv, NULL);
 	g_option_context_free (context);
@@ -161,14 +161,14 @@ main (int argc, char *argv[])
 	/* no input */
 	if (set_brightness == -1 && !get_brightness && !get_max_brightness) {
 		g_print ("%s\n", "No valid option was specified");
-		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
+		retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
 		goto out;
 	}
 
 	/* find device */
-	filename = gsd_backlight_helper_get_best_backlight ();
+	filename = csd_backlight_helper_get_best_backlight ();
 	if (filename == NULL) {
-		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES;
+		retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES;
 		g_print ("%s: %s\n",
 			 "Could not get or set the value of the backlight",
 			 "No backlight devices present");
@@ -184,13 +184,13 @@ main (int argc, char *argv[])
 				 "Could not get the value of the backlight",
 				 error->message);
 			g_error_free (error);
-			retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
+			retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
 			goto out;
 		}
 
 		/* just print the contents to stdout */
 		g_print ("%s", contents);
-		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
+		retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
 		goto out;
 	}
 
@@ -203,13 +203,13 @@ main (int argc, char *argv[])
 				 "Could not get the maximum value of the backlight",
 				 error->message);
 			g_error_free (error);
-			retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
+			retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
 			goto out;
 		}
 
 		/* just print the contents to stdout */
 		g_print ("%s", contents);
-		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
+		retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
 		goto out;
 	}
 
@@ -219,26 +219,26 @@ main (int argc, char *argv[])
 	if (uid != 0 || euid != 0) {
 		g_print ("%s\n",
 			 "This program can only be used by the root user");
-		retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
+		retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
 		goto out;
 	}
 
 	/* SetBrightness */
 	if (set_brightness != -1) {
 		filename_file = g_build_filename (filename, "brightness", NULL);
-		ret = gsd_backlight_helper_write (filename_file, set_brightness, &error);
+		ret = csd_backlight_helper_write (filename_file, set_brightness, &error);
 		if (!ret) {
 			g_print ("%s: %s\n",
 				 "Could not set the value of the backlight",
 				 error->message);
 			g_error_free (error);
-			retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
+			retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID;
 			goto out;
 		}
 	}
 
 	/* success */
-	retval = GSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
+	retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS;
 out:
 	g_free (filename);
 	g_free (filename_file);

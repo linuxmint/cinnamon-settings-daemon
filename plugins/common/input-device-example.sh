@@ -6,7 +6,7 @@
 # The script is called with the arguments:
 # -t [added|present|removed] <device name>
 #       added ... device was just plugged in
-#       present.. device was present at gnome-settings-daemon startup
+#       present.. device was present at cinnamon-settings-daemon startup
 #       removed.. device was just removed
 # -i <device ID>
 #       device ID being the XInput device ID

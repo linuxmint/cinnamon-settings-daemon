@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_A11Y_SETTINGS_PLUGIN_H__
-#define __GSD_A11Y_SETTINGS_PLUGIN_H__
+#ifndef __CSD_A11Y_SETTINGS_PLUGIN_H__
+#define __CSD_A11Y_SETTINGS_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_A11Y_SETTINGS_PLUGIN                (gsd_a11y_settings_plugin_get_type ())
-#define GSD_A11Y_SETTINGS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_A11Y_SETTINGS_PLUGIN, GsdA11ySettingsPlugin))
-#define GSD_A11Y_SETTINGS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_A11Y_SETTINGS_PLUGIN, GsdA11ySettingsPluginClass))
-#define GSD_IS_A11Y_SETTINGS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_A11Y_SETTINGS_PLUGIN))
-#define GSD_IS_A11Y_SETTINGS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_A11Y_SETTINGS_PLUGIN))
-#define GSD_A11Y_SETTINGS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_A11Y_SETTINGS_PLUGIN, GsdA11ySettingsPluginClass))
+#define CSD_TYPE_A11Y_SETTINGS_PLUGIN                (csd_a11y_settings_plugin_get_type ())
+#define CSD_A11Y_SETTINGS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_A11Y_SETTINGS_PLUGIN, CsdA11ySettingsPlugin))
+#define CSD_A11Y_SETTINGS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_A11Y_SETTINGS_PLUGIN, CsdA11ySettingsPluginClass))
+#define CSD_IS_A11Y_SETTINGS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_A11Y_SETTINGS_PLUGIN))
+#define CSD_IS_A11Y_SETTINGS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_A11Y_SETTINGS_PLUGIN))
+#define CSD_A11Y_SETTINGS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_A11Y_SETTINGS_PLUGIN, CsdA11ySettingsPluginClass))
 
-typedef struct GsdA11ySettingsPluginPrivate GsdA11ySettingsPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin           parent;
-        GsdA11ySettingsPluginPrivate *priv;
-} GsdA11ySettingsPlugin;
+typedef struct CsdA11ySettingsPluginPrivate CsdA11ySettingsPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdA11ySettingsPluginClass;
+        CinnamonSettingsSettingsPlugin           parent;
+        CsdA11ySettingsPluginPrivate *priv;
+} CsdA11ySettingsPlugin;
 
-GType   gsd_a11y_settings_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdA11ySettingsPluginClass;
+
+GType   csd_a11y_settings_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_A11Y_SETTINGS_PLUGIN_H__ */
+#endif /* __CSD_A11Y_SETTINGS_PLUGIN_H__ */

@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-smartcard$(EXEEXT)
+libexec_PROGRAMS = csd-test-smartcard$(EXEEXT)
 subdir = plugins/smartcard
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -98,9 +98,9 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libsmartcard_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-am_libsmartcard_la_OBJECTS = libsmartcard_la-gsd-smartcard-plugin.lo \
-	libsmartcard_la-gsd-smartcard.lo \
-	libsmartcard_la-gsd-smartcard-manager.lo
+am_libsmartcard_la_OBJECTS = libsmartcard_la-csd-smartcard-plugin.lo \
+	libsmartcard_la-csd-smartcard.lo \
+	libsmartcard_la-csd-smartcard-manager.lo
 libsmartcard_la_OBJECTS = $(am_libsmartcard_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -111,18 +111,18 @@ libsmartcard_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libsmartcard_la_CFLAGS) $(CFLAGS) $(libsmartcard_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_test_smartcard_OBJECTS =  \
-	gsd_test_smartcard-gsd-smartcard-manager.$(OBJEXT) \
-	gsd_test_smartcard-gsd-smartcard.$(OBJEXT) \
-	gsd_test_smartcard-test-smartcard.$(OBJEXT)
-gsd_test_smartcard_OBJECTS = $(am_gsd_test_smartcard_OBJECTS)
-gsd_test_smartcard_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_smartcard_OBJECTS =  \
+	csd_test_smartcard-csd-smartcard-manager.$(OBJEXT) \
+	csd_test_smartcard-csd-smartcard.$(OBJEXT) \
+	csd_test_smartcard-test-smartcard.$(OBJEXT)
+csd_test_smartcard_OBJECTS = $(am_csd_test_smartcard_OBJECTS)
+csd_test_smartcard_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_test_smartcard_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_smartcard_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_smartcard_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_smartcard_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -158,9 +158,9 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libsmartcard_la_SOURCES) $(gsd_test_smartcard_SOURCES)
+SOURCES = $(libsmartcard_la_SOURCES) $(csd_test_smartcard_SOURCES)
 DIST_SOURCES = $(libsmartcard_la_SOURCES) \
-	$(gsd_test_smartcard_SOURCES)
+	$(csd_test_smartcard_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -229,9 +229,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -389,26 +389,26 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 plugin_name = smartcard
-gsd_test_smartcard_SOURCES = \
-	gsd-smartcard-manager.h	\
-	gsd-smartcard-manager.c	\
-	gsd-smartcard.h         \
-	gsd-smartcard.c         \
+csd_test_smartcard_SOURCES = \
+	csd-smartcard-manager.h	\
+	csd-smartcard-manager.c	\
+	csd-smartcard.h         \
+	csd-smartcard.c         \
 	test-smartcard.c
 
-gsd_test_smartcard_CFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
+csd_test_smartcard_CFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DLIBDIR=\""$(libdir)"\" \
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(NSS_CFLAGS)						\
 	$(PLUGIN_CFLAGS)					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_test_smartcard_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_smartcard_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(NSS_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)
@@ -417,19 +417,19 @@ plugin_LTLIBRARIES = \
 	libsmartcard.la
 
 libsmartcard_la_SOURCES = \
-	gsd-smartcard-plugin.h  \
-	gsd-smartcard-plugin.c  \
-	gsd-smartcard.h         \
-	gsd-smartcard.c         \
-	gsd-smartcard-manager.h \
-	gsd-smartcard-manager.c
+	csd-smartcard-plugin.h  \
+	csd-smartcard-plugin.c  \
+	csd-smartcard.h         \
+	csd-smartcard.c         \
+	csd-smartcard-manager.h \
+	csd-smartcard-manager.c
 
 libsmartcard_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon \
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DLIBDIR=\""$(libdir)"\" \
-	-DGSD_SMARTCARD_MANAGER_NSS_DB=\""$(NSS_DATABASE)"\" \
+	-DCSD_SMARTCARD_MANAGER_NSS_DB=\""$(NSS_DATABASE)"\" \
 	$(AM_CPPFLAGS)
 
 libsmartcard_la_CFLAGS = \
@@ -439,16 +439,16 @@ libsmartcard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libsmartcard_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libsmartcard_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NSS_LIBS)
 
 plugin_in_files = \
-	smartcard.gnome-settings-plugin.in
+	smartcard.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = \
 	$(plugin_in_files)
 
@@ -574,9 +574,9 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-smartcard$(EXEEXT): $(gsd_test_smartcard_OBJECTS) $(gsd_test_smartcard_DEPENDENCIES) $(EXTRA_gsd_test_smartcard_DEPENDENCIES) 
-	@rm -f gsd-test-smartcard$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_smartcard_LINK) $(gsd_test_smartcard_OBJECTS) $(gsd_test_smartcard_LDADD) $(LIBS)
+csd-test-smartcard$(EXEEXT): $(csd_test_smartcard_OBJECTS) $(csd_test_smartcard_DEPENDENCIES) $(EXTRA_csd_test_smartcard_DEPENDENCIES) 
+	@rm -f csd-test-smartcard$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_smartcard_LINK) $(csd_test_smartcard_OBJECTS) $(csd_test_smartcard_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -584,12 +584,12 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_smartcard-gsd-smartcard-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_smartcard-gsd-smartcard.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_smartcard-test-smartcard.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsmartcard_la-gsd-smartcard-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsmartcard_la-gsd-smartcard-plugin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsmartcard_la-gsd-smartcard.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_smartcard-csd-smartcard-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_smartcard-csd-smartcard.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_smartcard-test-smartcard.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsmartcard_la-csd-smartcard-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsmartcard_la-csd-smartcard-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsmartcard_la-csd-smartcard.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -612,68 +612,68 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libsmartcard_la-gsd-smartcard-plugin.lo: gsd-smartcard-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -MT libsmartcard_la-gsd-smartcard-plugin.lo -MD -MP -MF $(DEPDIR)/libsmartcard_la-gsd-smartcard-plugin.Tpo -c -o libsmartcard_la-gsd-smartcard-plugin.lo `test -f 'gsd-smartcard-plugin.c' || echo '$(srcdir)/'`gsd-smartcard-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsmartcard_la-gsd-smartcard-plugin.Tpo $(DEPDIR)/libsmartcard_la-gsd-smartcard-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-smartcard-plugin.c' object='libsmartcard_la-gsd-smartcard-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libsmartcard_la-csd-smartcard-plugin.lo: csd-smartcard-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -MT libsmartcard_la-csd-smartcard-plugin.lo -MD -MP -MF $(DEPDIR)/libsmartcard_la-csd-smartcard-plugin.Tpo -c -o libsmartcard_la-csd-smartcard-plugin.lo `test -f 'csd-smartcard-plugin.c' || echo '$(srcdir)/'`csd-smartcard-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsmartcard_la-csd-smartcard-plugin.Tpo $(DEPDIR)/libsmartcard_la-csd-smartcard-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-smartcard-plugin.c' object='libsmartcard_la-csd-smartcard-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -c -o libsmartcard_la-gsd-smartcard-plugin.lo `test -f 'gsd-smartcard-plugin.c' || echo '$(srcdir)/'`gsd-smartcard-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -c -o libsmartcard_la-csd-smartcard-plugin.lo `test -f 'csd-smartcard-plugin.c' || echo '$(srcdir)/'`csd-smartcard-plugin.c
 
-libsmartcard_la-gsd-smartcard.lo: gsd-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -MT libsmartcard_la-gsd-smartcard.lo -MD -MP -MF $(DEPDIR)/libsmartcard_la-gsd-smartcard.Tpo -c -o libsmartcard_la-gsd-smartcard.lo `test -f 'gsd-smartcard.c' || echo '$(srcdir)/'`gsd-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsmartcard_la-gsd-smartcard.Tpo $(DEPDIR)/libsmartcard_la-gsd-smartcard.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-smartcard.c' object='libsmartcard_la-gsd-smartcard.lo' libtool=yes @AMDEPBACKSLASH@
+libsmartcard_la-csd-smartcard.lo: csd-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -MT libsmartcard_la-csd-smartcard.lo -MD -MP -MF $(DEPDIR)/libsmartcard_la-csd-smartcard.Tpo -c -o libsmartcard_la-csd-smartcard.lo `test -f 'csd-smartcard.c' || echo '$(srcdir)/'`csd-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsmartcard_la-csd-smartcard.Tpo $(DEPDIR)/libsmartcard_la-csd-smartcard.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-smartcard.c' object='libsmartcard_la-csd-smartcard.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -c -o libsmartcard_la-gsd-smartcard.lo `test -f 'gsd-smartcard.c' || echo '$(srcdir)/'`gsd-smartcard.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -c -o libsmartcard_la-csd-smartcard.lo `test -f 'csd-smartcard.c' || echo '$(srcdir)/'`csd-smartcard.c
 
-libsmartcard_la-gsd-smartcard-manager.lo: gsd-smartcard-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -MT libsmartcard_la-gsd-smartcard-manager.lo -MD -MP -MF $(DEPDIR)/libsmartcard_la-gsd-smartcard-manager.Tpo -c -o libsmartcard_la-gsd-smartcard-manager.lo `test -f 'gsd-smartcard-manager.c' || echo '$(srcdir)/'`gsd-smartcard-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsmartcard_la-gsd-smartcard-manager.Tpo $(DEPDIR)/libsmartcard_la-gsd-smartcard-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-smartcard-manager.c' object='libsmartcard_la-gsd-smartcard-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libsmartcard_la-csd-smartcard-manager.lo: csd-smartcard-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -MT libsmartcard_la-csd-smartcard-manager.lo -MD -MP -MF $(DEPDIR)/libsmartcard_la-csd-smartcard-manager.Tpo -c -o libsmartcard_la-csd-smartcard-manager.lo `test -f 'csd-smartcard-manager.c' || echo '$(srcdir)/'`csd-smartcard-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsmartcard_la-csd-smartcard-manager.Tpo $(DEPDIR)/libsmartcard_la-csd-smartcard-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-smartcard-manager.c' object='libsmartcard_la-csd-smartcard-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -c -o libsmartcard_la-gsd-smartcard-manager.lo `test -f 'gsd-smartcard-manager.c' || echo '$(srcdir)/'`gsd-smartcard-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsmartcard_la_CPPFLAGS) $(CPPFLAGS) $(libsmartcard_la_CFLAGS) $(CFLAGS) -c -o libsmartcard_la-csd-smartcard-manager.lo `test -f 'csd-smartcard-manager.c' || echo '$(srcdir)/'`csd-smartcard-manager.c
 
-gsd_test_smartcard-gsd-smartcard-manager.o: gsd-smartcard-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -MT gsd_test_smartcard-gsd-smartcard-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_smartcard-gsd-smartcard-manager.Tpo -c -o gsd_test_smartcard-gsd-smartcard-manager.o `test -f 'gsd-smartcard-manager.c' || echo '$(srcdir)/'`gsd-smartcard-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_smartcard-gsd-smartcard-manager.Tpo $(DEPDIR)/gsd_test_smartcard-gsd-smartcard-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-smartcard-manager.c' object='gsd_test_smartcard-gsd-smartcard-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_smartcard-csd-smartcard-manager.o: csd-smartcard-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -MT csd_test_smartcard-csd-smartcard-manager.o -MD -MP -MF $(DEPDIR)/csd_test_smartcard-csd-smartcard-manager.Tpo -c -o csd_test_smartcard-csd-smartcard-manager.o `test -f 'csd-smartcard-manager.c' || echo '$(srcdir)/'`csd-smartcard-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_smartcard-csd-smartcard-manager.Tpo $(DEPDIR)/csd_test_smartcard-csd-smartcard-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-smartcard-manager.c' object='csd_test_smartcard-csd-smartcard-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -c -o gsd_test_smartcard-gsd-smartcard-manager.o `test -f 'gsd-smartcard-manager.c' || echo '$(srcdir)/'`gsd-smartcard-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -c -o csd_test_smartcard-csd-smartcard-manager.o `test -f 'csd-smartcard-manager.c' || echo '$(srcdir)/'`csd-smartcard-manager.c
 
-gsd_test_smartcard-gsd-smartcard-manager.obj: gsd-smartcard-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -MT gsd_test_smartcard-gsd-smartcard-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_smartcard-gsd-smartcard-manager.Tpo -c -o gsd_test_smartcard-gsd-smartcard-manager.obj `if test -f 'gsd-smartcard-manager.c'; then $(CYGPATH_W) 'gsd-smartcard-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-smartcard-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_smartcard-gsd-smartcard-manager.Tpo $(DEPDIR)/gsd_test_smartcard-gsd-smartcard-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-smartcard-manager.c' object='gsd_test_smartcard-gsd-smartcard-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_smartcard-csd-smartcard-manager.obj: csd-smartcard-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -MT csd_test_smartcard-csd-smartcard-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_smartcard-csd-smartcard-manager.Tpo -c -o csd_test_smartcard-csd-smartcard-manager.obj `if test -f 'csd-smartcard-manager.c'; then $(CYGPATH_W) 'csd-smartcard-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-smartcard-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_smartcard-csd-smartcard-manager.Tpo $(DEPDIR)/csd_test_smartcard-csd-smartcard-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-smartcard-manager.c' object='csd_test_smartcard-csd-smartcard-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -c -o gsd_test_smartcard-gsd-smartcard-manager.obj `if test -f 'gsd-smartcard-manager.c'; then $(CYGPATH_W) 'gsd-smartcard-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-smartcard-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -c -o csd_test_smartcard-csd-smartcard-manager.obj `if test -f 'csd-smartcard-manager.c'; then $(CYGPATH_W) 'csd-smartcard-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-smartcard-manager.c'; fi`
 
-gsd_test_smartcard-gsd-smartcard.o: gsd-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -MT gsd_test_smartcard-gsd-smartcard.o -MD -MP -MF $(DEPDIR)/gsd_test_smartcard-gsd-smartcard.Tpo -c -o gsd_test_smartcard-gsd-smartcard.o `test -f 'gsd-smartcard.c' || echo '$(srcdir)/'`gsd-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_smartcard-gsd-smartcard.Tpo $(DEPDIR)/gsd_test_smartcard-gsd-smartcard.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-smartcard.c' object='gsd_test_smartcard-gsd-smartcard.o' libtool=no @AMDEPBACKSLASH@
+csd_test_smartcard-csd-smartcard.o: csd-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -MT csd_test_smartcard-csd-smartcard.o -MD -MP -MF $(DEPDIR)/csd_test_smartcard-csd-smartcard.Tpo -c -o csd_test_smartcard-csd-smartcard.o `test -f 'csd-smartcard.c' || echo '$(srcdir)/'`csd-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_smartcard-csd-smartcard.Tpo $(DEPDIR)/csd_test_smartcard-csd-smartcard.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-smartcard.c' object='csd_test_smartcard-csd-smartcard.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -c -o gsd_test_smartcard-gsd-smartcard.o `test -f 'gsd-smartcard.c' || echo '$(srcdir)/'`gsd-smartcard.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -c -o csd_test_smartcard-csd-smartcard.o `test -f 'csd-smartcard.c' || echo '$(srcdir)/'`csd-smartcard.c
 
-gsd_test_smartcard-gsd-smartcard.obj: gsd-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -MT gsd_test_smartcard-gsd-smartcard.obj -MD -MP -MF $(DEPDIR)/gsd_test_smartcard-gsd-smartcard.Tpo -c -o gsd_test_smartcard-gsd-smartcard.obj `if test -f 'gsd-smartcard.c'; then $(CYGPATH_W) 'gsd-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/gsd-smartcard.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_smartcard-gsd-smartcard.Tpo $(DEPDIR)/gsd_test_smartcard-gsd-smartcard.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-smartcard.c' object='gsd_test_smartcard-gsd-smartcard.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_smartcard-csd-smartcard.obj: csd-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -MT csd_test_smartcard-csd-smartcard.obj -MD -MP -MF $(DEPDIR)/csd_test_smartcard-csd-smartcard.Tpo -c -o csd_test_smartcard-csd-smartcard.obj `if test -f 'csd-smartcard.c'; then $(CYGPATH_W) 'csd-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/csd-smartcard.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_smartcard-csd-smartcard.Tpo $(DEPDIR)/csd_test_smartcard-csd-smartcard.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-smartcard.c' object='csd_test_smartcard-csd-smartcard.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -c -o gsd_test_smartcard-gsd-smartcard.obj `if test -f 'gsd-smartcard.c'; then $(CYGPATH_W) 'gsd-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/gsd-smartcard.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -c -o csd_test_smartcard-csd-smartcard.obj `if test -f 'csd-smartcard.c'; then $(CYGPATH_W) 'csd-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/csd-smartcard.c'; fi`
 
-gsd_test_smartcard-test-smartcard.o: test-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -MT gsd_test_smartcard-test-smartcard.o -MD -MP -MF $(DEPDIR)/gsd_test_smartcard-test-smartcard.Tpo -c -o gsd_test_smartcard-test-smartcard.o `test -f 'test-smartcard.c' || echo '$(srcdir)/'`test-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_smartcard-test-smartcard.Tpo $(DEPDIR)/gsd_test_smartcard-test-smartcard.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-smartcard.c' object='gsd_test_smartcard-test-smartcard.o' libtool=no @AMDEPBACKSLASH@
+csd_test_smartcard-test-smartcard.o: test-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -MT csd_test_smartcard-test-smartcard.o -MD -MP -MF $(DEPDIR)/csd_test_smartcard-test-smartcard.Tpo -c -o csd_test_smartcard-test-smartcard.o `test -f 'test-smartcard.c' || echo '$(srcdir)/'`test-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_smartcard-test-smartcard.Tpo $(DEPDIR)/csd_test_smartcard-test-smartcard.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-smartcard.c' object='csd_test_smartcard-test-smartcard.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -c -o gsd_test_smartcard-test-smartcard.o `test -f 'test-smartcard.c' || echo '$(srcdir)/'`test-smartcard.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -c -o csd_test_smartcard-test-smartcard.o `test -f 'test-smartcard.c' || echo '$(srcdir)/'`test-smartcard.c
 
-gsd_test_smartcard-test-smartcard.obj: test-smartcard.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -MT gsd_test_smartcard-test-smartcard.obj -MD -MP -MF $(DEPDIR)/gsd_test_smartcard-test-smartcard.Tpo -c -o gsd_test_smartcard-test-smartcard.obj `if test -f 'test-smartcard.c'; then $(CYGPATH_W) 'test-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/test-smartcard.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_smartcard-test-smartcard.Tpo $(DEPDIR)/gsd_test_smartcard-test-smartcard.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-smartcard.c' object='gsd_test_smartcard-test-smartcard.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_smartcard-test-smartcard.obj: test-smartcard.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -MT csd_test_smartcard-test-smartcard.obj -MD -MP -MF $(DEPDIR)/csd_test_smartcard-test-smartcard.Tpo -c -o csd_test_smartcard-test-smartcard.obj `if test -f 'test-smartcard.c'; then $(CYGPATH_W) 'test-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/test-smartcard.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_smartcard-test-smartcard.Tpo $(DEPDIR)/csd_test_smartcard-test-smartcard.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-smartcard.c' object='csd_test_smartcard-test-smartcard.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_smartcard_CFLAGS) $(CFLAGS) -c -o gsd_test_smartcard-test-smartcard.obj `if test -f 'test-smartcard.c'; then $(CYGPATH_W) 'test-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/test-smartcard.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_smartcard_CFLAGS) $(CFLAGS) -c -o csd_test_smartcard-test-smartcard.obj `if test -f 'test-smartcard.c'; then $(CYGPATH_W) 'test-smartcard.c'; else $(CYGPATH_W) '$(srcdir)/test-smartcard.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -929,7 +929,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

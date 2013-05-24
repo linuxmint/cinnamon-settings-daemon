@@ -1,4 +1,4 @@
-/* gsd-smartcard-manager.h - object for monitoring smartcard insertion and
+/* csd-smartcard-manager.h - object for monitoring smartcard insertion and
  *                           removal events
  *
  * Copyright (C) 2006, 2009 Red Hat, Inc.
@@ -20,69 +20,69 @@
  *
  * Written by: Ray Strode
  */
-#ifndef GSD_SMARTCARD_MANAGER_H
-#define GSD_SMARTCARD_MANAGER_H
+#ifndef CSD_SMARTCARD_MANAGER_H
+#define CSD_SMARTCARD_MANAGER_H
 
-#define GSD_SMARTCARD_ENABLE_INTERNAL_API
-#include "gsd-smartcard.h"
+#define CSD_SMARTCARD_ENABLE_INTERNAL_API
+#include "csd-smartcard.h"
 
 #include <glib.h>
 #include <glib-object.h>
 
 G_BEGIN_DECLS
-#define GSD_TYPE_SMARTCARD_MANAGER            (gsd_smartcard_manager_get_type ())
-#define GSD_SMARTCARD_MANAGER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GSD_TYPE_SMARTCARD_MANAGER, GsdSmartcardManager))
-#define GSD_SMARTCARD_MANAGER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GSD_TYPE_SMARTCARD_MANAGER, GsdSmartcardManagerClass))
-#define GSD_IS_SMARTCARD_MANAGER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SC_TYPE_SMARTCARD_MANAGER))
-#define GSD_IS_SMARTCARD_MANAGER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SC_TYPE_SMARTCARD_MANAGER))
-#define GSD_SMARTCARD_MANAGER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GSD_TYPE_SMARTCARD_MANAGER, GsdSmartcardManagerClass))
-#define GSD_SMARTCARD_MANAGER_ERROR           (gsd_smartcard_manager_error_quark ())
-typedef struct _GsdSmartcardManager GsdSmartcardManager;
-typedef struct _GsdSmartcardManagerClass GsdSmartcardManagerClass;
-typedef struct _GsdSmartcardManagerPrivate GsdSmartcardManagerPrivate;
-typedef enum _GsdSmartcardManagerError GsdSmartcardManagerError;
+#define CSD_TYPE_SMARTCARD_MANAGER            (csd_smartcard_manager_get_type ())
+#define CSD_SMARTCARD_MANAGER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CSD_TYPE_SMARTCARD_MANAGER, CsdSmartcardManager))
+#define CSD_SMARTCARD_MANAGER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CSD_TYPE_SMARTCARD_MANAGER, CsdSmartcardManagerClass))
+#define CSD_IS_SMARTCARD_MANAGER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SC_TYPE_SMARTCARD_MANAGER))
+#define CSD_IS_SMARTCARD_MANAGER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SC_TYPE_SMARTCARD_MANAGER))
+#define CSD_SMARTCARD_MANAGER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), CSD_TYPE_SMARTCARD_MANAGER, CsdSmartcardManagerClass))
+#define CSD_SMARTCARD_MANAGER_ERROR           (csd_smartcard_manager_error_quark ())
+typedef struct _CsdSmartcardManager CsdSmartcardManager;
+typedef struct _CsdSmartcardManagerClass CsdSmartcardManagerClass;
+typedef struct _CsdSmartcardManagerPrivate CsdSmartcardManagerPrivate;
+typedef enum _CsdSmartcardManagerError CsdSmartcardManagerError;
 
-struct _GsdSmartcardManager {
+struct _CsdSmartcardManager {
     GObject parent;
 
     /*< private > */
-    GsdSmartcardManagerPrivate *priv;
+    CsdSmartcardManagerPrivate *priv;
 };
 
-struct _GsdSmartcardManagerClass {
+struct _CsdSmartcardManagerClass {
         GObjectClass parent_class;
 
         /* Signals */
-        void (*smartcard_inserted) (GsdSmartcardManager *manager,
-                                    GsdSmartcard        *token);
-        void (*smartcard_removed) (GsdSmartcardManager *manager,
-                                   GsdSmartcard        *token);
-        void (*error) (GsdSmartcardManager *manager,
+        void (*smartcard_inserted) (CsdSmartcardManager *manager,
+                                    CsdSmartcard        *token);
+        void (*smartcard_removed) (CsdSmartcardManager *manager,
+                                   CsdSmartcard        *token);
+        void (*error) (CsdSmartcardManager *manager,
                        GError              *error);
 };
 
-enum _GsdSmartcardManagerError {
-    GSD_SMARTCARD_MANAGER_ERROR_GENERIC = 0,
-    GSD_SMARTCARD_MANAGER_ERROR_WITH_NSS,
-    GSD_SMARTCARD_MANAGER_ERROR_LOADING_DRIVER,
-    GSD_SMARTCARD_MANAGER_ERROR_WATCHING_FOR_EVENTS,
-    GSD_SMARTCARD_MANAGER_ERROR_REPORTING_EVENTS
+enum _CsdSmartcardManagerError {
+    CSD_SMARTCARD_MANAGER_ERROR_GENERIC = 0,
+    CSD_SMARTCARD_MANAGER_ERROR_WITH_NSS,
+    CSD_SMARTCARD_MANAGER_ERROR_LOADING_DRIVER,
+    CSD_SMARTCARD_MANAGER_ERROR_WATCHING_FOR_EVENTS,
+    CSD_SMARTCARD_MANAGER_ERROR_REPORTING_EVENTS
 };
 
-GType gsd_smartcard_manager_get_type (void) G_GNUC_CONST;
-GQuark gsd_smartcard_manager_error_quark (void) G_GNUC_CONST;
+GType csd_smartcard_manager_get_type (void) G_GNUC_CONST;
+GQuark csd_smartcard_manager_error_quark (void) G_GNUC_CONST;
 
-GsdSmartcardManager *gsd_smartcard_manager_new_default (void);
+CsdSmartcardManager *csd_smartcard_manager_new_default (void);
 
-GsdSmartcardManager *gsd_smartcard_manager_new (const char *module);
+CsdSmartcardManager *csd_smartcard_manager_new (const char *module);
 
-gboolean gsd_smartcard_manager_start (GsdSmartcardManager  *manager,
+gboolean csd_smartcard_manager_start (CsdSmartcardManager  *manager,
                                       GError              **error);
 
-void gsd_smartcard_manager_stop (GsdSmartcardManager *manager);
+void csd_smartcard_manager_stop (CsdSmartcardManager *manager);
 
-char *gsd_smartcard_manager_get_module_path (GsdSmartcardManager *manager);
-gboolean gsd_smartcard_manager_login_card_is_inserted (GsdSmartcardManager *manager);
+char *csd_smartcard_manager_get_module_path (CsdSmartcardManager *manager);
+gboolean csd_smartcard_manager_login_card_is_inserted (CsdSmartcardManager *manager);
 
 G_END_DECLS
-#endif                                /* GSD_SMARTCARD_MANAGER_H */
+#endif                                /* CSD_SMARTCARD_MANAGER_H */

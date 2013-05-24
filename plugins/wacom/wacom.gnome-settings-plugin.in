@@ -1,5 +1,5 @@
-[GNOME Settings Plugin]
-Module=gsdwacom
+[Cinnamon Settings Plugin]
+Module=csdwacom
 IAge=0
 _Name=Wacom
 _Description=Wacom plugin

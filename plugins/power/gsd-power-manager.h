@@ -18,47 +18,47 @@
  *
  */
 
-#ifndef __GSD_POWER_MANAGER_H
-#define __GSD_POWER_MANAGER_H
+#ifndef __CSD_POWER_MANAGER_H
+#define __CSD_POWER_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_POWER_MANAGER         (gsd_power_manager_get_type ())
-#define GSD_POWER_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_POWER_MANAGER, GsdPowerManager))
-#define GSD_POWER_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_POWER_MANAGER, GsdPowerManagerClass))
-#define GSD_IS_POWER_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_POWER_MANAGER))
-#define GSD_IS_POWER_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_POWER_MANAGER))
-#define GSD_POWER_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_POWER_MANAGER, GsdPowerManagerClass))
-#define GSD_POWER_MANAGER_ERROR        (gsd_power_manager_error_quark ())
+#define CSD_TYPE_POWER_MANAGER         (csd_power_manager_get_type ())
+#define CSD_POWER_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_POWER_MANAGER, CsdPowerManager))
+#define CSD_POWER_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_POWER_MANAGER, CsdPowerManagerClass))
+#define CSD_IS_POWER_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_POWER_MANAGER))
+#define CSD_IS_POWER_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_POWER_MANAGER))
+#define CSD_POWER_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_POWER_MANAGER, CsdPowerManagerClass))
+#define CSD_POWER_MANAGER_ERROR        (csd_power_manager_error_quark ())
 
-typedef struct GsdPowerManagerPrivate GsdPowerManagerPrivate;
+typedef struct CsdPowerManagerPrivate CsdPowerManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdPowerManagerPrivate *priv;
-} GsdPowerManager;
+        CsdPowerManagerPrivate *priv;
+} CsdPowerManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdPowerManagerClass;
+} CsdPowerManagerClass;
 
 enum
 {
-        GSD_POWER_MANAGER_ERROR_FAILED
+        CSD_POWER_MANAGER_ERROR_FAILED
 };
 
-GType                   gsd_power_manager_get_type            (void);
-GQuark                  gsd_power_manager_error_quark         (void);
+GType                   csd_power_manager_get_type            (void);
+GQuark                  csd_power_manager_error_quark         (void);
 
-GsdPowerManager *       gsd_power_manager_new                 (void);
-gboolean                gsd_power_manager_start               (GsdPowerManager *manager,
+CsdPowerManager *       csd_power_manager_new                 (void);
+gboolean                csd_power_manager_start               (CsdPowerManager *manager,
                                                                GError         **error);
-void                    gsd_power_manager_stop                (GsdPowerManager *manager);
+void                    csd_power_manager_stop                (CsdPowerManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_POWER_MANAGER_H */
+#endif /* __CSD_POWER_MANAGER_H */

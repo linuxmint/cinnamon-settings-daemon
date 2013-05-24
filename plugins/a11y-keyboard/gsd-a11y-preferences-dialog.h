@@ -18,38 +18,38 @@
  *
  */
 
-#ifndef __GSD_A11Y_PREFERENCES_DIALOG_H
-#define __GSD_A11Y_PREFERENCES_DIALOG_H
+#ifndef __CSD_A11Y_PREFERENCES_DIALOG_H
+#define __CSD_A11Y_PREFERENCES_DIALOG_H
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_A11Y_PREFERENCES_DIALOG         (gsd_a11y_preferences_dialog_get_type ())
-#define GSD_A11Y_PREFERENCES_DIALOG(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_A11Y_PREFERENCES_DIALOG, GsdA11yPreferencesDialog))
-#define GSD_A11Y_PREFERENCES_DIALOG_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_A11Y_PREFERENCES_DIALOG, GsdA11yPreferencesDialogClass))
-#define GSD_IS_A11Y_PREFERENCES_DIALOG(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_A11Y_PREFERENCES_DIALOG))
-#define GSD_IS_A11Y_PREFERENCES_DIALOG_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_A11Y_PREFERENCES_DIALOG))
-#define GSD_A11Y_PREFERENCES_DIALOG_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_A11Y_PREFERENCES_DIALOG, GsdA11yPreferencesDialogClass))
+#define CSD_TYPE_A11Y_PREFERENCES_DIALOG         (csd_a11y_preferences_dialog_get_type ())
+#define CSD_A11Y_PREFERENCES_DIALOG(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_A11Y_PREFERENCES_DIALOG, CsdA11yPreferencesDialog))
+#define CSD_A11Y_PREFERENCES_DIALOG_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_A11Y_PREFERENCES_DIALOG, CsdA11yPreferencesDialogClass))
+#define CSD_IS_A11Y_PREFERENCES_DIALOG(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_A11Y_PREFERENCES_DIALOG))
+#define CSD_IS_A11Y_PREFERENCES_DIALOG_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_A11Y_PREFERENCES_DIALOG))
+#define CSD_A11Y_PREFERENCES_DIALOG_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_A11Y_PREFERENCES_DIALOG, CsdA11yPreferencesDialogClass))
 
-typedef struct GsdA11yPreferencesDialogPrivate GsdA11yPreferencesDialogPrivate;
+typedef struct CsdA11yPreferencesDialogPrivate CsdA11yPreferencesDialogPrivate;
 
 typedef struct
 {
         GtkDialog                        parent;
-        GsdA11yPreferencesDialogPrivate *priv;
-} GsdA11yPreferencesDialog;
+        CsdA11yPreferencesDialogPrivate *priv;
+} CsdA11yPreferencesDialog;
 
 typedef struct
 {
         GtkDialogClass   parent_class;
-} GsdA11yPreferencesDialogClass;
+} CsdA11yPreferencesDialogClass;
 
-GType                  gsd_a11y_preferences_dialog_get_type                   (void);
+GType                  csd_a11y_preferences_dialog_get_type                   (void);
 
-GtkWidget            * gsd_a11y_preferences_dialog_new                        (void);
+GtkWidget            * csd_a11y_preferences_dialog_new                        (void);
 
 G_END_DECLS
 
-#endif /* __GSD_A11Y_PREFERENCES_DIALOG_H */
+#endif /* __CSD_A11Y_PREFERENCES_DIALOG_H */

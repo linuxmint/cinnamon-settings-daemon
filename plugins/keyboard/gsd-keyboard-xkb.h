@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
- * gnome-settings-keyboard-xkb.h
+ * cinnamon-settings-keyboard-xkb.h
  *
  * Copyright (C) 2001 Udaltsoft
  *
@@ -21,19 +21,19 @@
  * 02111-1307, USA.
  */
 
-#ifndef __GSD_KEYBOARD_XKB_H
-#define __GSD_KEYBOARD_XKB_H
+#ifndef __CSD_KEYBOARD_XKB_H
+#define __CSD_KEYBOARD_XKB_H
 
 #include <libxklavier/xklavier.h>
-#include "gsd-keyboard-manager.h"
+#include "csd-keyboard-manager.h"
 
-void gsd_keyboard_xkb_init (GsdKeyboardManager *manager);
-void gsd_keyboard_xkb_shutdown (void);
+void csd_keyboard_xkb_init (CsdKeyboardManager *manager);
+void csd_keyboard_xkb_shutdown (void);
 
 typedef void (*PostActivationCallback) (void *userData);
 
 void
-gsd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
+csd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
                                                void                  *userData);
 
 #endif

@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GNOME_XSETTINGS_MANAGER_H
-#define __GNOME_XSETTINGS_MANAGER_H
+#ifndef __CINNAMON_XSETTINGS_MANAGER_H
+#define __CINNAMON_XSETTINGS_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GNOME_TYPE_XSETTINGS_MANAGER         (gnome_xsettings_manager_get_type ())
-#define GNOME_XSETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManager))
-#define GNOME_XSETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerClass))
-#define GNOME_IS_XSETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GNOME_TYPE_XSETTINGS_MANAGER))
-#define GNOME_IS_XSETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GNOME_TYPE_XSETTINGS_MANAGER))
-#define GNOME_XSETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerClass))
+#define CINNAMON_TYPE_XSETTINGS_MANAGER         (cinnamon_xsettings_manager_get_type ())
+#define CINNAMON_XSETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManager))
+#define CINNAMON_XSETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerClass))
+#define CINNAMON_IS_XSETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER))
+#define CINNAMON_IS_XSETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CINNAMON_TYPE_XSETTINGS_MANAGER))
+#define CINNAMON_XSETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerClass))
 
-typedef struct GnomeXSettingsManagerPrivate GnomeXSettingsManagerPrivate;
+typedef struct CinnamonSettingsXSettingsManagerPrivate CinnamonSettingsXSettingsManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GnomeXSettingsManagerPrivate *priv;
-} GnomeXSettingsManager;
+        CinnamonSettingsXSettingsManagerPrivate *priv;
+} CinnamonSettingsXSettingsManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GnomeXSettingsManagerClass;
+} CinnamonSettingsXSettingsManagerClass;
 
-GType                   gnome_xsettings_manager_get_type            (void);
+GType                   cinnamon_xsettings_manager_get_type            (void);
 
-GnomeXSettingsManager * gnome_xsettings_manager_new                 (void);
-gboolean                gnome_xsettings_manager_start               (GnomeXSettingsManager *manager,
+CinnamonSettingsXSettingsManager * cinnamon_xsettings_manager_new                 (void);
+gboolean                cinnamon_xsettings_manager_start               (CinnamonSettingsXSettingsManager *manager,
                                                                      GError               **error);
-void                    gnome_xsettings_manager_stop                (GnomeXSettingsManager *manager);
+void                    cinnamon_xsettings_manager_stop                (CinnamonSettingsXSettingsManager *manager);
 
 G_END_DECLS
 
-#endif /* __GNOME_XSETTINGS_MANAGER_H */
+#endif /* __CINNAMON_XSETTINGS_MANAGER_H */

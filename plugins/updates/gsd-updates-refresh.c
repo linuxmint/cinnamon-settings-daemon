@@ -25,12 +25,12 @@
 #include <packagekit-glib2/packagekit.h>
 #include <libupower-glib/upower.h>
 
-#include "gsd-updates-common.h"
-#include "gsd-updates-refresh.h"
+#include "csd-updates-common.h"
+#include "csd-updates-refresh.h"
 
-static void     gsd_updates_refresh_finalize    (GObject            *object);
+static void     csd_updates_refresh_finalize    (GObject            *object);
 
-#define GSD_UPDATES_REFRESH_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_UPDATES_REFRESH, GsdUpdatesRefreshPrivate))
+#define CSD_UPDATES_REFRESH_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_UPDATES_REFRESH, CsdUpdatesRefreshPrivate))
 
 #define PERIODIC_CHECK_TIME     60*60   /* poke PackageKit every hour */
 #define LOGIN_TIMEOUT           3       /* seconds */
@@ -53,7 +53,7 @@ enum {
      getting the updates period then GetUpdates
 */
 
-struct GsdUpdatesRefreshPrivate
+struct CsdUpdatesRefreshPrivate
 {
         gboolean                 session_idle;
         gboolean                 on_battery;
@@ -75,14 +75,14 @@ enum {
 
 static guint signals [LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (GsdUpdatesRefresh, gsd_updates_refresh, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdUpdatesRefresh, csd_updates_refresh, G_TYPE_OBJECT)
 
 static void
-gsd_updates_refresh_class_init (GsdUpdatesRefreshClass *klass)
+csd_updates_refresh_class_init (CsdUpdatesRefreshClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        object_class->finalize = gsd_updates_refresh_finalize;
-        g_type_class_add_private (klass, sizeof (GsdUpdatesRefreshPrivate));
+        object_class->finalize = csd_updates_refresh_finalize;
+        g_type_class_add_private (klass, sizeof (CsdUpdatesRefreshPrivate));
         signals [REFRESH_CACHE] =
                 g_signal_new ("refresh-cache",
                               G_TYPE_FROM_CLASS (object_class), G_SIGNAL_RUN_LAST,
@@ -103,7 +103,7 @@ gsd_updates_refresh_class_init (GsdUpdatesRefreshClass *klass)
 static void
 get_time_refresh_cache_cb (GObject *object,
                            GAsyncResult *res,
-                           GsdUpdatesRefresh *refresh)
+                           CsdUpdatesRefresh *refresh)
 {
         PkControl *control = PK_CONTROL (object);
         GError *error = NULL;
@@ -120,7 +120,7 @@ get_time_refresh_cache_cb (GObject *object,
 
         /* have we passed the timout? */
         thresh = g_settings_get_int (refresh->priv->settings,
-                                     GSD_SETTINGS_FREQUENCY_GET_UPDATES);
+                                     CSD_SETTINGS_FREQUENCY_GET_UPDATES);
         if (seconds < thresh) {
                 g_debug ("not before timeout, thresh=%u, now=%u", thresh, seconds);
                 return;
@@ -132,15 +132,15 @@ get_time_refresh_cache_cb (GObject *object,
 }
 
 static void
-maybe_refresh_cache (GsdUpdatesRefresh *refresh)
+maybe_refresh_cache (CsdUpdatesRefresh *refresh)
 {
         guint thresh;
 
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (refresh));
 
         /* if we don't want to auto check for updates, don't do this either */
         thresh = g_settings_get_int (refresh->priv->settings,
-                                     GSD_SETTINGS_FREQUENCY_GET_UPDATES);
+                                     CSD_SETTINGS_FREQUENCY_GET_UPDATES);
         if (thresh == 0) {
                 g_debug ("not when policy is set to never");
                 return;
@@ -154,7 +154,7 @@ maybe_refresh_cache (GsdUpdatesRefresh *refresh)
 
         /* get this each time, as it may have changed behind out back */
         thresh = g_settings_get_int (refresh->priv->settings,
-                                     GSD_SETTINGS_FREQUENCY_REFRESH_CACHE);
+                                     CSD_SETTINGS_FREQUENCY_REFRESH_CACHE);
         if (thresh == 0) {
                 g_debug ("not when policy is set to never");
                 return;
@@ -169,7 +169,7 @@ maybe_refresh_cache (GsdUpdatesRefresh *refresh)
 }
 
 static void
-get_time_get_updates_cb (GObject *object, GAsyncResult *res, GsdUpdatesRefresh *refresh)
+get_time_get_updates_cb (GObject *object, GAsyncResult *res, CsdUpdatesRefresh *refresh)
 {
         PkControl *control = PK_CONTROL (object);
         GError *error = NULL;
@@ -186,7 +186,7 @@ get_time_get_updates_cb (GObject *object, GAsyncResult *res, GsdUpdatesRefresh *
 
         /* have we passed the timout? */
         thresh = g_settings_get_int (refresh->priv->settings,
-                                     GSD_SETTINGS_FREQUENCY_GET_UPDATES);
+                                     CSD_SETTINGS_FREQUENCY_GET_UPDATES);
         if (seconds < thresh) {
                 g_debug ("not before timeout, thresh=%u, now=%u", thresh, seconds);
                 return;
@@ -198,15 +198,15 @@ get_time_get_updates_cb (GObject *object, GAsyncResult *res, GsdUpdatesRefresh *
 }
 
 static void
-maybe_get_updates (GsdUpdatesRefresh *refresh)
+maybe_get_updates (CsdUpdatesRefresh *refresh)
 {
         guint thresh;
 
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (refresh));
 
         /* if we don't want to auto check for updates, don't do this either */
         thresh = g_settings_get_int (refresh->priv->settings,
-                                     GSD_SETTINGS_FREQUENCY_GET_UPDATES);
+                                     CSD_SETTINGS_FREQUENCY_GET_UPDATES);
         if (thresh == 0) {
                 g_debug ("not when policy is set to never");
                 return;
@@ -223,7 +223,7 @@ maybe_get_updates (GsdUpdatesRefresh *refresh)
 static void
 get_time_get_upgrades_cb (GObject *object,
                           GAsyncResult *res,
-                          GsdUpdatesRefresh *refresh)
+                          CsdUpdatesRefresh *refresh)
 {
         PkControl *control = PK_CONTROL (object);
         GError *error = NULL;
@@ -240,7 +240,7 @@ get_time_get_upgrades_cb (GObject *object,
 
         /* have we passed the timout? */
         thresh = g_settings_get_int (refresh->priv->settings,
-                                     GSD_SETTINGS_FREQUENCY_GET_UPDATES);
+                                     CSD_SETTINGS_FREQUENCY_GET_UPDATES);
         if (seconds < thresh) {
                 g_debug ("not before timeout, thresh=%u, now=%u",
                          thresh, seconds);
@@ -253,15 +253,15 @@ get_time_get_upgrades_cb (GObject *object,
 }
 
 static void
-maybe_get_upgrades (GsdUpdatesRefresh *refresh)
+maybe_get_upgrades (CsdUpdatesRefresh *refresh)
 {
         guint thresh;
 
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (refresh));
 
         /* get this each time, as it may have changed behind out back */
         thresh = g_settings_get_int (refresh->priv->settings,
-                                     GSD_SETTINGS_FREQUENCY_GET_UPGRADES);
+                                     CSD_SETTINGS_FREQUENCY_GET_UPGRADES);
         if (thresh == 0) {
                 g_debug ("not when policy is set to never");
                 return;
@@ -276,7 +276,7 @@ maybe_get_upgrades (GsdUpdatesRefresh *refresh)
 }
 
 static gboolean
-change_state_cb (GsdUpdatesRefresh *refresh)
+change_state_cb (CsdUpdatesRefresh *refresh)
 {
         /* check all actions */
         maybe_refresh_cache (refresh);
@@ -286,11 +286,11 @@ change_state_cb (GsdUpdatesRefresh *refresh)
 }
 
 static gboolean
-change_state (GsdUpdatesRefresh *refresh)
+change_state (CsdUpdatesRefresh *refresh)
 {
         gboolean ret;
 
-        g_return_val_if_fail (GSD_IS_UPDATES_REFRESH (refresh), FALSE);
+        g_return_val_if_fail (CSD_IS_UPDATES_REFRESH (refresh), FALSE);
 
         /* no point continuing if we have no network */
         if (!refresh->priv->network_active) {
@@ -300,7 +300,7 @@ change_state (GsdUpdatesRefresh *refresh)
 
         /* not on battery unless overridden */
         ret = g_settings_get_boolean (refresh->priv->settings,
-                                      GSD_SETTINGS_UPDATE_BATTERY);
+                                      CSD_SETTINGS_UPDATE_BATTERY);
         if (!ret && refresh->priv->on_battery) {
                 g_debug ("not when on battery");
                 return FALSE;
@@ -316,7 +316,7 @@ change_state (GsdUpdatesRefresh *refresh)
                                        (GSourceFunc) change_state_cb,
                                        refresh);
         g_source_set_name_by_id (refresh->priv->timeout_id,
-                                 "[GsdUpdatesRefresh] change-state");
+                                 "[CsdUpdatesRefresh] change-state");
 
         return TRUE;
 }
@@ -324,18 +324,18 @@ change_state (GsdUpdatesRefresh *refresh)
 static void
 settings_key_changed_cb (GSettings *client,
                          const gchar *key,
-                         GsdUpdatesRefresh *refresh)
+                         CsdUpdatesRefresh *refresh)
 {
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
-        if (g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPDATES) == 0 ||
-            g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_GET_UPGRADES) == 0 ||
-            g_strcmp0 (key, GSD_SETTINGS_FREQUENCY_REFRESH_CACHE) == 0 ||
-            g_strcmp0 (key, GSD_SETTINGS_UPDATE_BATTERY) == 0)
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (refresh));
+        if (g_strcmp0 (key, CSD_SETTINGS_FREQUENCY_GET_UPDATES) == 0 ||
+            g_strcmp0 (key, CSD_SETTINGS_FREQUENCY_GET_UPGRADES) == 0 ||
+            g_strcmp0 (key, CSD_SETTINGS_FREQUENCY_REFRESH_CACHE) == 0 ||
+            g_strcmp0 (key, CSD_SETTINGS_UPDATE_BATTERY) == 0)
                 change_state (refresh);
 }
 
 static gboolean
-convert_network_state (GsdUpdatesRefresh *refresh, PkNetworkEnum state)
+convert_network_state (CsdUpdatesRefresh *refresh, PkNetworkEnum state)
 {
         /* offline */
         if (state == PK_NETWORK_ENUM_OFFLINE)
@@ -350,7 +350,7 @@ convert_network_state (GsdUpdatesRefresh *refresh, PkNetworkEnum state)
         /* check policy */
         if (state == PK_NETWORK_ENUM_MOBILE)
                 return g_settings_get_boolean (refresh->priv->settings,
-                                               GSD_SETTINGS_CONNECTION_USE_MOBILE);
+                                               CSD_SETTINGS_CONNECTION_USE_MOBILE);
 
         /* not recognised */
         g_warning ("state unknown: %i", state);
@@ -360,11 +360,11 @@ convert_network_state (GsdUpdatesRefresh *refresh, PkNetworkEnum state)
 static void
 notify_network_state_cb (PkControl *control,
                          GParamSpec *pspec,
-                         GsdUpdatesRefresh *refresh)
+                         CsdUpdatesRefresh *refresh)
 {
         PkNetworkEnum state;
 
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (refresh));
 
         g_object_get (control, "network-state", &state, NULL);
         refresh->priv->network_active = convert_network_state (refresh, state);
@@ -376,9 +376,9 @@ notify_network_state_cb (PkControl *control,
 static gboolean
 periodic_timeout_cb (gpointer user_data)
 {
-        GsdUpdatesRefresh *refresh = GSD_UPDATES_REFRESH (user_data);
+        CsdUpdatesRefresh *refresh = CSD_UPDATES_REFRESH (user_data);
 
-        g_return_val_if_fail (GSD_IS_UPDATES_REFRESH (refresh), FALSE);
+        g_return_val_if_fail (CSD_IS_UPDATES_REFRESH (refresh), FALSE);
 
         /* debug so we can catch polling */
         g_debug ("polling check");
@@ -391,12 +391,12 @@ periodic_timeout_cb (gpointer user_data)
 }
 
 static void
-gsd_updates_refresh_client_changed_cb (UpClient *client,
-                                       GsdUpdatesRefresh *refresh)
+csd_updates_refresh_client_changed_cb (UpClient *client,
+                                       CsdUpdatesRefresh *refresh)
 {
         gboolean on_battery;
 
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (refresh));
 
         /* get the on-battery state */
         on_battery = up_client_get_on_battery (refresh->priv->client);
@@ -415,7 +415,7 @@ gsd_updates_refresh_client_changed_cb (UpClient *client,
 static void
 get_properties_cb (GObject *object,
                    GAsyncResult *res,
-                   GsdUpdatesRefresh *refresh)
+                   CsdUpdatesRefresh *refresh)
 {
         PkNetworkEnum state;
         GError *error = NULL;
@@ -445,11 +445,11 @@ session_presence_signal_cb (GDBusProxy *proxy,
                             gchar *sender_name,
                             gchar *signal_name,
                             GVariant *parameters,
-                            GsdUpdatesRefresh *refresh)
+                            CsdUpdatesRefresh *refresh)
 {
         guint status;
 
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (refresh));
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (refresh));
 
         if (g_strcmp0 (signal_name, "StatusChanged") != 0)
                 return;
@@ -465,20 +465,20 @@ session_presence_signal_cb (GDBusProxy *proxy,
 }
 
 static void
-gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
+csd_updates_refresh_init (CsdUpdatesRefresh *refresh)
 {
         GError *error = NULL;
         GVariant *status;
         guint status_code;
 
-        refresh->priv = GSD_UPDATES_REFRESH_GET_PRIVATE (refresh);
+        refresh->priv = CSD_UPDATES_REFRESH_GET_PRIVATE (refresh);
         refresh->priv->on_battery = FALSE;
         refresh->priv->network_active = FALSE;
         refresh->priv->timeout_id = 0;
         refresh->priv->periodic_id = 0;
 
         /* we need to know the updates frequency */
-        refresh->priv->settings = g_settings_new (GSD_SETTINGS_SCHEMA);
+        refresh->priv->settings = g_settings_new (CSD_SETTINGS_SCHEMA);
         g_signal_connect (refresh->priv->settings, "changed",
                           G_CALLBACK (settings_key_changed_cb), refresh);
 
@@ -497,7 +497,7 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
         /* use a UpClient */
         refresh->priv->client = up_client_new ();
         g_signal_connect (refresh->priv->client, "changed",
-                          G_CALLBACK (gsd_updates_refresh_client_changed_cb), refresh);
+                          G_CALLBACK (csd_updates_refresh_client_changed_cb), refresh);
 
         /* get the battery state */
         refresh->priv->on_battery = up_client_get_on_battery (refresh->priv->client);
@@ -539,20 +539,20 @@ gsd_updates_refresh_init (GsdUpdatesRefresh *refresh)
                 g_timeout_add_seconds (PERIODIC_CHECK_TIME,
                                        periodic_timeout_cb, refresh);
         g_source_set_name_by_id (refresh->priv->periodic_id,
-                                 "[GsdUpdatesRefresh] periodic check");
+                                 "[CsdUpdatesRefresh] periodic check");
 
         /* check system state */
         change_state (refresh);
 }
 
 static void
-gsd_updates_refresh_finalize (GObject *object)
+csd_updates_refresh_finalize (GObject *object)
 {
-        GsdUpdatesRefresh *refresh;
+        CsdUpdatesRefresh *refresh;
 
-        g_return_if_fail (GSD_IS_UPDATES_REFRESH (object));
+        g_return_if_fail (CSD_IS_UPDATES_REFRESH (object));
 
-        refresh = GSD_UPDATES_REFRESH (object);
+        refresh = CSD_UPDATES_REFRESH (object);
         g_return_if_fail (refresh->priv != NULL);
 
         if (refresh->priv->timeout_id != 0)
@@ -568,14 +568,14 @@ gsd_updates_refresh_finalize (GObject *object)
         if (refresh->priv->proxy_session != NULL)
                 g_object_unref (refresh->priv->proxy_session);
 
-        G_OBJECT_CLASS (gsd_updates_refresh_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_updates_refresh_parent_class)->finalize (object);
 }
 
-GsdUpdatesRefresh *
-gsd_updates_refresh_new (void)
+CsdUpdatesRefresh *
+csd_updates_refresh_new (void)
 {
-        GsdUpdatesRefresh *refresh;
-        refresh = g_object_new (GSD_TYPE_UPDATES_REFRESH, NULL);
-        return GSD_UPDATES_REFRESH (refresh);
+        CsdUpdatesRefresh *refresh;
+        refresh = g_object_new (CSD_TYPE_UPDATES_REFRESH, NULL);
+        return CSD_UPDATES_REFRESH (refresh);
 }
 

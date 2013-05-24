@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-locate-pointer$(EXEEXT) gsd-test-mouse$(EXEEXT)
+libexec_PROGRAMS = csd-locate-pointer$(EXEEXT) csd-test-mouse$(EXEEXT)
 subdir = plugins/mouse
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -99,8 +99,8 @@ am__DEPENDENCIES_1 =
 libmouse_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1)
-am_libmouse_la_OBJECTS = libmouse_la-gsd-mouse-plugin.lo \
-	libmouse_la-gsd-mouse-manager.lo
+am_libmouse_la_OBJECTS = libmouse_la-csd-mouse-plugin.lo \
+	libmouse_la-csd-mouse-manager.lo
 libmouse_la_OBJECTS = $(am_libmouse_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -110,27 +110,27 @@ libmouse_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libmouse_la_CFLAGS) \
 	$(CFLAGS) $(libmouse_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_locate_pointer_OBJECTS =  \
-	gsd_locate_pointer-gsd-locate-pointer.$(OBJEXT) \
-	gsd_locate_pointer-gsd-timeline.$(OBJEXT)
-gsd_locate_pointer_OBJECTS = $(am_gsd_locate_pointer_OBJECTS)
-gsd_locate_pointer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+am_csd_locate_pointer_OBJECTS =  \
+	csd_locate_pointer-csd-locate-pointer.$(OBJEXT) \
+	csd_locate_pointer-csd-timeline.$(OBJEXT)
+csd_locate_pointer_OBJECTS = $(am_csd_locate_pointer_OBJECTS)
+csd_locate_pointer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gsd_locate_pointer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_locate_pointer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_locate_pointer_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_locate_pointer_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am_gsd_test_mouse_OBJECTS = gsd_test_mouse-test-mouse.$(OBJEXT) \
-	gsd_test_mouse-gsd-mouse-manager.$(OBJEXT)
-gsd_test_mouse_OBJECTS = $(am_gsd_test_mouse_OBJECTS)
-gsd_test_mouse_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_mouse_OBJECTS = csd_test_mouse-test-mouse.$(OBJEXT) \
+	csd_test_mouse-csd-mouse-manager.$(OBJEXT)
+csd_test_mouse_OBJECTS = $(am_csd_test_mouse_OBJECTS)
+csd_test_mouse_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gsd_test_mouse_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_mouse_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_mouse_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
+	$(csd_test_mouse_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
 	$@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -166,10 +166,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libmouse_la_SOURCES) $(gsd_locate_pointer_SOURCES) \
-	$(gsd_test_mouse_SOURCES)
-DIST_SOURCES = $(libmouse_la_SOURCES) $(gsd_locate_pointer_SOURCES) \
-	$(gsd_test_mouse_SOURCES)
+SOURCES = $(libmouse_la_SOURCES) $(csd_locate_pointer_SOURCES) \
+	$(csd_test_mouse_SOURCES)
+DIST_SOURCES = $(libmouse_la_SOURCES) $(csd_locate_pointer_SOURCES) \
+	$(csd_test_mouse_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -238,9 +238,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -400,16 +400,16 @@ top_srcdir = @top_srcdir@
 plugin_name = mouse
 plugin_LTLIBRARIES = libmouse.la
 libmouse_la_SOURCES = \
-	gsd-mouse-plugin.h	\
-	gsd-mouse-plugin.c	\
-	gsd-mouse-manager.h	\
-	gsd-mouse-manager.c
+	csd-mouse-plugin.h	\
+	csd-mouse-plugin.c	\
+	csd-mouse-manager.h	\
+	csd-mouse-manager.c
 
 libmouse_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" \
 	$(AM_CPPFLAGS)
 
@@ -420,52 +420,52 @@ libmouse_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libmouse_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libmouse_la_LIBADD = \
 	$(MOUSE_LIBS)							\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_in_files = mouse.gnome-settings-plugin.in
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
-gsd_locate_pointer_SOURCES = \
-	gsd-locate-pointer.h	\
-	gsd-locate-pointer.c	\
-	gsd-timeline.h		\
-	gsd-timeline.c
+plugin_in_files = mouse.cinnamon-settings-plugin.in
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+csd_locate_pointer_SOURCES = \
+	csd-locate-pointer.h	\
+	csd-locate-pointer.c	\
+	csd-timeline.h		\
+	csd-timeline.c
 
-gsd_locate_pointer_CFLAGS = \
+csd_locate_pointer_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MOUSE_CFLAGS)			\
 	$(AM_CFLAGS)
 
-gsd_locate_pointer_LDADD = \
+csd_locate_pointer_LDADD = \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(MOUSE_LIBS)			\
 	-lm
 
-gsd_test_mouse_SOURCES = \
+csd_test_mouse_SOURCES = \
 	test-mouse.c			\
-	gsd-mouse-manager.c		\
-	gsd-mouse-manager.h
+	csd-mouse-manager.c		\
+	csd-mouse-manager.h
 
-gsd_test_mouse_CPPFLAGS = \
+csd_test_mouse_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_mouse_CFLAGS = \
+csd_test_mouse_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MOUSE_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_test_mouse_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_mouse_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
@@ -591,12 +591,12 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-locate-pointer$(EXEEXT): $(gsd_locate_pointer_OBJECTS) $(gsd_locate_pointer_DEPENDENCIES) $(EXTRA_gsd_locate_pointer_DEPENDENCIES) 
-	@rm -f gsd-locate-pointer$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_locate_pointer_LINK) $(gsd_locate_pointer_OBJECTS) $(gsd_locate_pointer_LDADD) $(LIBS)
-gsd-test-mouse$(EXEEXT): $(gsd_test_mouse_OBJECTS) $(gsd_test_mouse_DEPENDENCIES) $(EXTRA_gsd_test_mouse_DEPENDENCIES) 
-	@rm -f gsd-test-mouse$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_mouse_LINK) $(gsd_test_mouse_OBJECTS) $(gsd_test_mouse_LDADD) $(LIBS)
+csd-locate-pointer$(EXEEXT): $(csd_locate_pointer_OBJECTS) $(csd_locate_pointer_DEPENDENCIES) $(EXTRA_csd_locate_pointer_DEPENDENCIES) 
+	@rm -f csd-locate-pointer$(EXEEXT)
+	$(AM_V_CCLD)$(csd_locate_pointer_LINK) $(csd_locate_pointer_OBJECTS) $(csd_locate_pointer_LDADD) $(LIBS)
+csd-test-mouse$(EXEEXT): $(csd_test_mouse_OBJECTS) $(csd_test_mouse_DEPENDENCIES) $(EXTRA_csd_test_mouse_DEPENDENCIES) 
+	@rm -f csd-test-mouse$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_mouse_LINK) $(csd_test_mouse_OBJECTS) $(csd_test_mouse_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -604,12 +604,12 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_locate_pointer-gsd-locate-pointer.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_locate_pointer-gsd-timeline.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_mouse-gsd-mouse-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_mouse-test-mouse.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmouse_la-gsd-mouse-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmouse_la-gsd-mouse-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_locate_pointer-csd-locate-pointer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_locate_pointer-csd-timeline.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_mouse-csd-mouse-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_mouse-test-mouse.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmouse_la-csd-mouse-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmouse_la-csd-mouse-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -632,75 +632,75 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libmouse_la-gsd-mouse-plugin.lo: gsd-mouse-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -MT libmouse_la-gsd-mouse-plugin.lo -MD -MP -MF $(DEPDIR)/libmouse_la-gsd-mouse-plugin.Tpo -c -o libmouse_la-gsd-mouse-plugin.lo `test -f 'gsd-mouse-plugin.c' || echo '$(srcdir)/'`gsd-mouse-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmouse_la-gsd-mouse-plugin.Tpo $(DEPDIR)/libmouse_la-gsd-mouse-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-mouse-plugin.c' object='libmouse_la-gsd-mouse-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libmouse_la-csd-mouse-plugin.lo: csd-mouse-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -MT libmouse_la-csd-mouse-plugin.lo -MD -MP -MF $(DEPDIR)/libmouse_la-csd-mouse-plugin.Tpo -c -o libmouse_la-csd-mouse-plugin.lo `test -f 'csd-mouse-plugin.c' || echo '$(srcdir)/'`csd-mouse-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmouse_la-csd-mouse-plugin.Tpo $(DEPDIR)/libmouse_la-csd-mouse-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-mouse-plugin.c' object='libmouse_la-csd-mouse-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -c -o libmouse_la-gsd-mouse-plugin.lo `test -f 'gsd-mouse-plugin.c' || echo '$(srcdir)/'`gsd-mouse-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -c -o libmouse_la-csd-mouse-plugin.lo `test -f 'csd-mouse-plugin.c' || echo '$(srcdir)/'`csd-mouse-plugin.c
 
-libmouse_la-gsd-mouse-manager.lo: gsd-mouse-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -MT libmouse_la-gsd-mouse-manager.lo -MD -MP -MF $(DEPDIR)/libmouse_la-gsd-mouse-manager.Tpo -c -o libmouse_la-gsd-mouse-manager.lo `test -f 'gsd-mouse-manager.c' || echo '$(srcdir)/'`gsd-mouse-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmouse_la-gsd-mouse-manager.Tpo $(DEPDIR)/libmouse_la-gsd-mouse-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-mouse-manager.c' object='libmouse_la-gsd-mouse-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libmouse_la-csd-mouse-manager.lo: csd-mouse-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -MT libmouse_la-csd-mouse-manager.lo -MD -MP -MF $(DEPDIR)/libmouse_la-csd-mouse-manager.Tpo -c -o libmouse_la-csd-mouse-manager.lo `test -f 'csd-mouse-manager.c' || echo '$(srcdir)/'`csd-mouse-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmouse_la-csd-mouse-manager.Tpo $(DEPDIR)/libmouse_la-csd-mouse-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-mouse-manager.c' object='libmouse_la-csd-mouse-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -c -o libmouse_la-gsd-mouse-manager.lo `test -f 'gsd-mouse-manager.c' || echo '$(srcdir)/'`gsd-mouse-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmouse_la_CPPFLAGS) $(CPPFLAGS) $(libmouse_la_CFLAGS) $(CFLAGS) -c -o libmouse_la-csd-mouse-manager.lo `test -f 'csd-mouse-manager.c' || echo '$(srcdir)/'`csd-mouse-manager.c
 
-gsd_locate_pointer-gsd-locate-pointer.o: gsd-locate-pointer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -MT gsd_locate_pointer-gsd-locate-pointer.o -MD -MP -MF $(DEPDIR)/gsd_locate_pointer-gsd-locate-pointer.Tpo -c -o gsd_locate_pointer-gsd-locate-pointer.o `test -f 'gsd-locate-pointer.c' || echo '$(srcdir)/'`gsd-locate-pointer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_locate_pointer-gsd-locate-pointer.Tpo $(DEPDIR)/gsd_locate_pointer-gsd-locate-pointer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-locate-pointer.c' object='gsd_locate_pointer-gsd-locate-pointer.o' libtool=no @AMDEPBACKSLASH@
+csd_locate_pointer-csd-locate-pointer.o: csd-locate-pointer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -MT csd_locate_pointer-csd-locate-pointer.o -MD -MP -MF $(DEPDIR)/csd_locate_pointer-csd-locate-pointer.Tpo -c -o csd_locate_pointer-csd-locate-pointer.o `test -f 'csd-locate-pointer.c' || echo '$(srcdir)/'`csd-locate-pointer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_locate_pointer-csd-locate-pointer.Tpo $(DEPDIR)/csd_locate_pointer-csd-locate-pointer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-locate-pointer.c' object='csd_locate_pointer-csd-locate-pointer.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -c -o gsd_locate_pointer-gsd-locate-pointer.o `test -f 'gsd-locate-pointer.c' || echo '$(srcdir)/'`gsd-locate-pointer.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -c -o csd_locate_pointer-csd-locate-pointer.o `test -f 'csd-locate-pointer.c' || echo '$(srcdir)/'`csd-locate-pointer.c
 
-gsd_locate_pointer-gsd-locate-pointer.obj: gsd-locate-pointer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -MT gsd_locate_pointer-gsd-locate-pointer.obj -MD -MP -MF $(DEPDIR)/gsd_locate_pointer-gsd-locate-pointer.Tpo -c -o gsd_locate_pointer-gsd-locate-pointer.obj `if test -f 'gsd-locate-pointer.c'; then $(CYGPATH_W) 'gsd-locate-pointer.c'; else $(CYGPATH_W) '$(srcdir)/gsd-locate-pointer.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_locate_pointer-gsd-locate-pointer.Tpo $(DEPDIR)/gsd_locate_pointer-gsd-locate-pointer.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-locate-pointer.c' object='gsd_locate_pointer-gsd-locate-pointer.obj' libtool=no @AMDEPBACKSLASH@
+csd_locate_pointer-csd-locate-pointer.obj: csd-locate-pointer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -MT csd_locate_pointer-csd-locate-pointer.obj -MD -MP -MF $(DEPDIR)/csd_locate_pointer-csd-locate-pointer.Tpo -c -o csd_locate_pointer-csd-locate-pointer.obj `if test -f 'csd-locate-pointer.c'; then $(CYGPATH_W) 'csd-locate-pointer.c'; else $(CYGPATH_W) '$(srcdir)/csd-locate-pointer.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_locate_pointer-csd-locate-pointer.Tpo $(DEPDIR)/csd_locate_pointer-csd-locate-pointer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-locate-pointer.c' object='csd_locate_pointer-csd-locate-pointer.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -c -o gsd_locate_pointer-gsd-locate-pointer.obj `if test -f 'gsd-locate-pointer.c'; then $(CYGPATH_W) 'gsd-locate-pointer.c'; else $(CYGPATH_W) '$(srcdir)/gsd-locate-pointer.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -c -o csd_locate_pointer-csd-locate-pointer.obj `if test -f 'csd-locate-pointer.c'; then $(CYGPATH_W) 'csd-locate-pointer.c'; else $(CYGPATH_W) '$(srcdir)/csd-locate-pointer.c'; fi`
 
-gsd_locate_pointer-gsd-timeline.o: gsd-timeline.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -MT gsd_locate_pointer-gsd-timeline.o -MD -MP -MF $(DEPDIR)/gsd_locate_pointer-gsd-timeline.Tpo -c -o gsd_locate_pointer-gsd-timeline.o `test -f 'gsd-timeline.c' || echo '$(srcdir)/'`gsd-timeline.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_locate_pointer-gsd-timeline.Tpo $(DEPDIR)/gsd_locate_pointer-gsd-timeline.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-timeline.c' object='gsd_locate_pointer-gsd-timeline.o' libtool=no @AMDEPBACKSLASH@
+csd_locate_pointer-csd-timeline.o: csd-timeline.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -MT csd_locate_pointer-csd-timeline.o -MD -MP -MF $(DEPDIR)/csd_locate_pointer-csd-timeline.Tpo -c -o csd_locate_pointer-csd-timeline.o `test -f 'csd-timeline.c' || echo '$(srcdir)/'`csd-timeline.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_locate_pointer-csd-timeline.Tpo $(DEPDIR)/csd_locate_pointer-csd-timeline.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-timeline.c' object='csd_locate_pointer-csd-timeline.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -c -o gsd_locate_pointer-gsd-timeline.o `test -f 'gsd-timeline.c' || echo '$(srcdir)/'`gsd-timeline.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -c -o csd_locate_pointer-csd-timeline.o `test -f 'csd-timeline.c' || echo '$(srcdir)/'`csd-timeline.c
 
-gsd_locate_pointer-gsd-timeline.obj: gsd-timeline.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -MT gsd_locate_pointer-gsd-timeline.obj -MD -MP -MF $(DEPDIR)/gsd_locate_pointer-gsd-timeline.Tpo -c -o gsd_locate_pointer-gsd-timeline.obj `if test -f 'gsd-timeline.c'; then $(CYGPATH_W) 'gsd-timeline.c'; else $(CYGPATH_W) '$(srcdir)/gsd-timeline.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_locate_pointer-gsd-timeline.Tpo $(DEPDIR)/gsd_locate_pointer-gsd-timeline.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-timeline.c' object='gsd_locate_pointer-gsd-timeline.obj' libtool=no @AMDEPBACKSLASH@
+csd_locate_pointer-csd-timeline.obj: csd-timeline.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -MT csd_locate_pointer-csd-timeline.obj -MD -MP -MF $(DEPDIR)/csd_locate_pointer-csd-timeline.Tpo -c -o csd_locate_pointer-csd-timeline.obj `if test -f 'csd-timeline.c'; then $(CYGPATH_W) 'csd-timeline.c'; else $(CYGPATH_W) '$(srcdir)/csd-timeline.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_locate_pointer-csd-timeline.Tpo $(DEPDIR)/csd_locate_pointer-csd-timeline.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-timeline.c' object='csd_locate_pointer-csd-timeline.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_locate_pointer_CFLAGS) $(CFLAGS) -c -o gsd_locate_pointer-gsd-timeline.obj `if test -f 'gsd-timeline.c'; then $(CYGPATH_W) 'gsd-timeline.c'; else $(CYGPATH_W) '$(srcdir)/gsd-timeline.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_locate_pointer_CFLAGS) $(CFLAGS) -c -o csd_locate_pointer-csd-timeline.obj `if test -f 'csd-timeline.c'; then $(CYGPATH_W) 'csd-timeline.c'; else $(CYGPATH_W) '$(srcdir)/csd-timeline.c'; fi`
 
-gsd_test_mouse-test-mouse.o: test-mouse.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -MT gsd_test_mouse-test-mouse.o -MD -MP -MF $(DEPDIR)/gsd_test_mouse-test-mouse.Tpo -c -o gsd_test_mouse-test-mouse.o `test -f 'test-mouse.c' || echo '$(srcdir)/'`test-mouse.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_mouse-test-mouse.Tpo $(DEPDIR)/gsd_test_mouse-test-mouse.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-mouse.c' object='gsd_test_mouse-test-mouse.o' libtool=no @AMDEPBACKSLASH@
+csd_test_mouse-test-mouse.o: test-mouse.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -MT csd_test_mouse-test-mouse.o -MD -MP -MF $(DEPDIR)/csd_test_mouse-test-mouse.Tpo -c -o csd_test_mouse-test-mouse.o `test -f 'test-mouse.c' || echo '$(srcdir)/'`test-mouse.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_mouse-test-mouse.Tpo $(DEPDIR)/csd_test_mouse-test-mouse.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-mouse.c' object='csd_test_mouse-test-mouse.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -c -o gsd_test_mouse-test-mouse.o `test -f 'test-mouse.c' || echo '$(srcdir)/'`test-mouse.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -c -o csd_test_mouse-test-mouse.o `test -f 'test-mouse.c' || echo '$(srcdir)/'`test-mouse.c
 
-gsd_test_mouse-test-mouse.obj: test-mouse.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -MT gsd_test_mouse-test-mouse.obj -MD -MP -MF $(DEPDIR)/gsd_test_mouse-test-mouse.Tpo -c -o gsd_test_mouse-test-mouse.obj `if test -f 'test-mouse.c'; then $(CYGPATH_W) 'test-mouse.c'; else $(CYGPATH_W) '$(srcdir)/test-mouse.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_mouse-test-mouse.Tpo $(DEPDIR)/gsd_test_mouse-test-mouse.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-mouse.c' object='gsd_test_mouse-test-mouse.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_mouse-test-mouse.obj: test-mouse.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -MT csd_test_mouse-test-mouse.obj -MD -MP -MF $(DEPDIR)/csd_test_mouse-test-mouse.Tpo -c -o csd_test_mouse-test-mouse.obj `if test -f 'test-mouse.c'; then $(CYGPATH_W) 'test-mouse.c'; else $(CYGPATH_W) '$(srcdir)/test-mouse.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_mouse-test-mouse.Tpo $(DEPDIR)/csd_test_mouse-test-mouse.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-mouse.c' object='csd_test_mouse-test-mouse.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -c -o gsd_test_mouse-test-mouse.obj `if test -f 'test-mouse.c'; then $(CYGPATH_W) 'test-mouse.c'; else $(CYGPATH_W) '$(srcdir)/test-mouse.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -c -o csd_test_mouse-test-mouse.obj `if test -f 'test-mouse.c'; then $(CYGPATH_W) 'test-mouse.c'; else $(CYGPATH_W) '$(srcdir)/test-mouse.c'; fi`
 
-gsd_test_mouse-gsd-mouse-manager.o: gsd-mouse-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -MT gsd_test_mouse-gsd-mouse-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_mouse-gsd-mouse-manager.Tpo -c -o gsd_test_mouse-gsd-mouse-manager.o `test -f 'gsd-mouse-manager.c' || echo '$(srcdir)/'`gsd-mouse-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_mouse-gsd-mouse-manager.Tpo $(DEPDIR)/gsd_test_mouse-gsd-mouse-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-mouse-manager.c' object='gsd_test_mouse-gsd-mouse-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_mouse-csd-mouse-manager.o: csd-mouse-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -MT csd_test_mouse-csd-mouse-manager.o -MD -MP -MF $(DEPDIR)/csd_test_mouse-csd-mouse-manager.Tpo -c -o csd_test_mouse-csd-mouse-manager.o `test -f 'csd-mouse-manager.c' || echo '$(srcdir)/'`csd-mouse-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_mouse-csd-mouse-manager.Tpo $(DEPDIR)/csd_test_mouse-csd-mouse-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-mouse-manager.c' object='csd_test_mouse-csd-mouse-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -c -o gsd_test_mouse-gsd-mouse-manager.o `test -f 'gsd-mouse-manager.c' || echo '$(srcdir)/'`gsd-mouse-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -c -o csd_test_mouse-csd-mouse-manager.o `test -f 'csd-mouse-manager.c' || echo '$(srcdir)/'`csd-mouse-manager.c
 
-gsd_test_mouse-gsd-mouse-manager.obj: gsd-mouse-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -MT gsd_test_mouse-gsd-mouse-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_mouse-gsd-mouse-manager.Tpo -c -o gsd_test_mouse-gsd-mouse-manager.obj `if test -f 'gsd-mouse-manager.c'; then $(CYGPATH_W) 'gsd-mouse-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-mouse-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_mouse-gsd-mouse-manager.Tpo $(DEPDIR)/gsd_test_mouse-gsd-mouse-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-mouse-manager.c' object='gsd_test_mouse-gsd-mouse-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_mouse-csd-mouse-manager.obj: csd-mouse-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -MT csd_test_mouse-csd-mouse-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_mouse-csd-mouse-manager.Tpo -c -o csd_test_mouse-csd-mouse-manager.obj `if test -f 'csd-mouse-manager.c'; then $(CYGPATH_W) 'csd-mouse-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-mouse-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_mouse-csd-mouse-manager.Tpo $(DEPDIR)/csd_test_mouse-csd-mouse-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-mouse-manager.c' object='csd_test_mouse-csd-mouse-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(gsd_test_mouse_CFLAGS) $(CFLAGS) -c -o gsd_test_mouse-gsd-mouse-manager.obj `if test -f 'gsd-mouse-manager.c'; then $(CYGPATH_W) 'gsd-mouse-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-mouse-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_mouse_CPPFLAGS) $(CPPFLAGS) $(csd_test_mouse_CFLAGS) $(CFLAGS) -c -o csd_test_mouse-csd-mouse-manager.obj `if test -f 'csd-mouse-manager.c'; then $(CYGPATH_W) 'csd-mouse-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-mouse-manager.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -956,7 +956,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

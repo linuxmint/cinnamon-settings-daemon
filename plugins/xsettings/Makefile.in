@@ -53,7 +53,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = test-gtk-modules$(EXEEXT)
-libexec_PROGRAMS = gsd-test-xsettings$(EXEEXT)
+libexec_PROGRAMS = csd-test-xsettings$(EXEEXT)
 subdir = plugins/xsettings
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -98,13 +98,13 @@ am__installdirs = "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(libexecdir)" \
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libxsettings_la_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 am__objects_1 =
-am_libxsettings_la_OBJECTS = libxsettings_la-gsd-xsettings-plugin.lo \
-	libxsettings_la-gsd-xsettings-manager.lo \
-	libxsettings_la-gsd-xsettings-gtk.lo \
+am_libxsettings_la_OBJECTS = libxsettings_la-csd-xsettings-plugin.lo \
+	libxsettings_la-csd-xsettings-manager.lo \
+	libxsettings_la-csd-xsettings-gtk.lo \
 	libxsettings_la-xsettings-common.lo \
 	libxsettings_la-xsettings-manager.lo \
 	libxsettings_la-fontconfig-monitor.lo $(am__objects_1)
@@ -118,27 +118,27 @@ libxsettings_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libxsettings_la_CFLAGS) $(CFLAGS) $(libxsettings_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS) $(noinst_PROGRAMS)
-am_gsd_test_xsettings_OBJECTS =  \
-	gsd_test_xsettings-gsd-xsettings-gtk.$(OBJEXT) \
-	gsd_test_xsettings-gsd-xsettings-manager.$(OBJEXT) \
-	gsd_test_xsettings-xsettings-common.$(OBJEXT) \
-	gsd_test_xsettings-xsettings-manager.$(OBJEXT) \
-	gsd_test_xsettings-fontconfig-monitor.$(OBJEXT) \
-	gsd_test_xsettings-test-xsettings.$(OBJEXT)
-gsd_test_xsettings_OBJECTS = $(am_gsd_test_xsettings_OBJECTS)
-am__DEPENDENCIES_2 = $(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_xsettings_OBJECTS =  \
+	csd_test_xsettings-csd-xsettings-gtk.$(OBJEXT) \
+	csd_test_xsettings-csd-xsettings-manager.$(OBJEXT) \
+	csd_test_xsettings-xsettings-common.$(OBJEXT) \
+	csd_test_xsettings-xsettings-manager.$(OBJEXT) \
+	csd_test_xsettings-fontconfig-monitor.$(OBJEXT) \
+	csd_test_xsettings-test-xsettings.$(OBJEXT)
+csd_test_xsettings_OBJECTS = $(am_csd_test_xsettings_OBJECTS)
+am__DEPENDENCIES_2 = $(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_test_xsettings_DEPENDENCIES = $(am__DEPENDENCIES_2)
-gsd_test_xsettings_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_xsettings_DEPENDENCIES = $(am__DEPENDENCIES_2)
+csd_test_xsettings_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_xsettings_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_xsettings_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_test_gtk_modules_OBJECTS =  \
-	test_gtk_modules-gsd-xsettings-gtk.$(OBJEXT) \
+	test_gtk_modules-csd-xsettings-gtk.$(OBJEXT) \
 	test_gtk_modules-test-gtk-modules.$(OBJEXT)
 test_gtk_modules_OBJECTS = $(am_test_gtk_modules_OBJECTS)
 test_gtk_modules_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 test_gtk_modules_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
@@ -178,10 +178,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libxsettings_la_SOURCES) $(gsd_test_xsettings_SOURCES) \
+SOURCES = $(libxsettings_la_SOURCES) $(csd_test_xsettings_SOURCES) \
 	$(test_gtk_modules_SOURCES)
 DIST_SOURCES = $(libxsettings_la_SOURCES) \
-	$(gsd_test_xsettings_SOURCES) $(test_gtk_modules_SOURCES)
+	$(csd_test_xsettings_SOURCES) $(test_gtk_modules_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -250,9 +250,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -412,8 +412,8 @@ top_srcdir = @top_srcdir@
 NULL = 
 plugin_name = xsettings
 test_gtk_modules_SOURCES = \
-	gsd-xsettings-gtk.c	\
-	gsd-xsettings-gtk.h	\
+	csd-xsettings-gtk.c	\
+	csd-xsettings-gtk.h	\
 	test-gtk-modules.c
 
 test_gtk_modules_CFLAGS = \
@@ -422,22 +422,22 @@ test_gtk_modules_CFLAGS = \
 	$(AM_CFLAGS)
 
 test_gtk_modules_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(XSETTINGS_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 test_gtk_modules_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DGTK_MODULES_DIRECTORY=\""$(libdir)/cinnamon-settings-daemon-@CSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
-gsd_test_xsettings_SOURCES = \
-	gsd-xsettings-gtk.c	\
-	gsd-xsettings-gtk.h	\
-	gsd-xsettings-manager.c	\
-	gsd-xsettings-gtk.h	\
+csd_test_xsettings_SOURCES = \
+	csd-xsettings-gtk.c	\
+	csd-xsettings-gtk.h	\
+	csd-xsettings-manager.c	\
+	csd-xsettings-gtk.h	\
 	xsettings-common.c	\
 	xsettings-common.h	\
 	xsettings-manager.c	\
@@ -446,20 +446,20 @@ gsd_test_xsettings_SOURCES = \
 	fontconfig-monitor.h	\
 	test-xsettings.c
 
-gsd_test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
-gsd_test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
-gsd_test_xsettings_LDADD = $(test_gtk_modules_LDADD)
+csd_test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
+csd_test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
+csd_test_xsettings_LDADD = $(test_gtk_modules_LDADD)
 plugin_LTLIBRARIES = \
 	libxsettings.la		\
 	$(NULL)
 
 libxsettings_la_SOURCES = \
-	gsd-xsettings-plugin.h	\
-	gsd-xsettings-plugin.c	\
-	gsd-xsettings-manager.h	\
-	gsd-xsettings-manager.c	\
-	gsd-xsettings-gtk.c	\
-	gsd-xsettings-gtk.h	\
+	csd-xsettings-plugin.h	\
+	csd-xsettings-plugin.c	\
+	csd-xsettings-manager.h	\
+	csd-xsettings-manager.c	\
+	csd-xsettings-gtk.c	\
+	csd-xsettings-gtk.h	\
 	xsettings-common.h	\
 	xsettings-common.c	\
 	xsettings-manager.h	\
@@ -469,10 +469,10 @@ libxsettings_la_SOURCES = \
 	$(NULL)
 
 libxsettings_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/data/					\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DGTK_MODULES_DIRECTORY=\""$(libdir)/gnome-settings-daemon-@GSD_API_VERSION@/gtk-modules/"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DGTK_MODULES_DIRECTORY=\""$(libdir)/cinnamon-settings-daemon-@CSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
 libxsettings_la_CFLAGS = \
@@ -481,20 +481,20 @@ libxsettings_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libxsettings_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)	\
+	$(CSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libxsettings_la_LIBADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(XSETTINGS_LIBS)					\
 	$(NULL)
 
 plugin_in_files = \
-	xsettings.gnome-settings-plugin.in	\
+	xsettings.cinnamon-settings-plugin.in	\
 	$(NULL)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = \
 	README.xsettings	\
 	$(plugin_in_files)	\
@@ -633,9 +633,9 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-xsettings$(EXEEXT): $(gsd_test_xsettings_OBJECTS) $(gsd_test_xsettings_DEPENDENCIES) $(EXTRA_gsd_test_xsettings_DEPENDENCIES) 
-	@rm -f gsd-test-xsettings$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_xsettings_LINK) $(gsd_test_xsettings_OBJECTS) $(gsd_test_xsettings_LDADD) $(LIBS)
+csd-test-xsettings$(EXEEXT): $(csd_test_xsettings_OBJECTS) $(csd_test_xsettings_DEPENDENCIES) $(EXTRA_csd_test_xsettings_DEPENDENCIES) 
+	@rm -f csd-test-xsettings$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_xsettings_LINK) $(csd_test_xsettings_OBJECTS) $(csd_test_xsettings_LDADD) $(LIBS)
 test-gtk-modules$(EXEEXT): $(test_gtk_modules_OBJECTS) $(test_gtk_modules_DEPENDENCIES) $(EXTRA_test_gtk_modules_DEPENDENCIES) 
 	@rm -f test-gtk-modules$(EXEEXT)
 	$(AM_V_CCLD)$(test_gtk_modules_LINK) $(test_gtk_modules_OBJECTS) $(test_gtk_modules_LDADD) $(LIBS)
@@ -646,19 +646,19 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_xsettings-fontconfig-monitor.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_xsettings-gsd-xsettings-gtk.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_xsettings-gsd-xsettings-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_xsettings-test-xsettings.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_xsettings-xsettings-common.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_xsettings-xsettings-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_xsettings-fontconfig-monitor.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_xsettings-csd-xsettings-gtk.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_xsettings-csd-xsettings-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_xsettings-test-xsettings.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_xsettings-xsettings-common.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_xsettings-xsettings-manager.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-fontconfig-monitor.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-gsd-xsettings-gtk.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-gsd-xsettings-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-gsd-xsettings-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-csd-xsettings-gtk.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-csd-xsettings-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-csd-xsettings-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-xsettings-common.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxsettings_la-xsettings-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_gtk_modules-gsd-xsettings-gtk.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_gtk_modules-csd-xsettings-gtk.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_gtk_modules-test-gtk-modules.Po@am__quote@
 
 .c.o:
@@ -682,26 +682,26 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libxsettings_la-gsd-xsettings-plugin.lo: gsd-xsettings-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -MT libxsettings_la-gsd-xsettings-plugin.lo -MD -MP -MF $(DEPDIR)/libxsettings_la-gsd-xsettings-plugin.Tpo -c -o libxsettings_la-gsd-xsettings-plugin.lo `test -f 'gsd-xsettings-plugin.c' || echo '$(srcdir)/'`gsd-xsettings-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxsettings_la-gsd-xsettings-plugin.Tpo $(DEPDIR)/libxsettings_la-gsd-xsettings-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-plugin.c' object='libxsettings_la-gsd-xsettings-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libxsettings_la-csd-xsettings-plugin.lo: csd-xsettings-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -MT libxsettings_la-csd-xsettings-plugin.lo -MD -MP -MF $(DEPDIR)/libxsettings_la-csd-xsettings-plugin.Tpo -c -o libxsettings_la-csd-xsettings-plugin.lo `test -f 'csd-xsettings-plugin.c' || echo '$(srcdir)/'`csd-xsettings-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxsettings_la-csd-xsettings-plugin.Tpo $(DEPDIR)/libxsettings_la-csd-xsettings-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-plugin.c' object='libxsettings_la-csd-xsettings-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -c -o libxsettings_la-gsd-xsettings-plugin.lo `test -f 'gsd-xsettings-plugin.c' || echo '$(srcdir)/'`gsd-xsettings-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -c -o libxsettings_la-csd-xsettings-plugin.lo `test -f 'csd-xsettings-plugin.c' || echo '$(srcdir)/'`csd-xsettings-plugin.c
 
-libxsettings_la-gsd-xsettings-manager.lo: gsd-xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -MT libxsettings_la-gsd-xsettings-manager.lo -MD -MP -MF $(DEPDIR)/libxsettings_la-gsd-xsettings-manager.Tpo -c -o libxsettings_la-gsd-xsettings-manager.lo `test -f 'gsd-xsettings-manager.c' || echo '$(srcdir)/'`gsd-xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxsettings_la-gsd-xsettings-manager.Tpo $(DEPDIR)/libxsettings_la-gsd-xsettings-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-manager.c' object='libxsettings_la-gsd-xsettings-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libxsettings_la-csd-xsettings-manager.lo: csd-xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -MT libxsettings_la-csd-xsettings-manager.lo -MD -MP -MF $(DEPDIR)/libxsettings_la-csd-xsettings-manager.Tpo -c -o libxsettings_la-csd-xsettings-manager.lo `test -f 'csd-xsettings-manager.c' || echo '$(srcdir)/'`csd-xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxsettings_la-csd-xsettings-manager.Tpo $(DEPDIR)/libxsettings_la-csd-xsettings-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-manager.c' object='libxsettings_la-csd-xsettings-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -c -o libxsettings_la-gsd-xsettings-manager.lo `test -f 'gsd-xsettings-manager.c' || echo '$(srcdir)/'`gsd-xsettings-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -c -o libxsettings_la-csd-xsettings-manager.lo `test -f 'csd-xsettings-manager.c' || echo '$(srcdir)/'`csd-xsettings-manager.c
 
-libxsettings_la-gsd-xsettings-gtk.lo: gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -MT libxsettings_la-gsd-xsettings-gtk.lo -MD -MP -MF $(DEPDIR)/libxsettings_la-gsd-xsettings-gtk.Tpo -c -o libxsettings_la-gsd-xsettings-gtk.lo `test -f 'gsd-xsettings-gtk.c' || echo '$(srcdir)/'`gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxsettings_la-gsd-xsettings-gtk.Tpo $(DEPDIR)/libxsettings_la-gsd-xsettings-gtk.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-gtk.c' object='libxsettings_la-gsd-xsettings-gtk.lo' libtool=yes @AMDEPBACKSLASH@
+libxsettings_la-csd-xsettings-gtk.lo: csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -MT libxsettings_la-csd-xsettings-gtk.lo -MD -MP -MF $(DEPDIR)/libxsettings_la-csd-xsettings-gtk.Tpo -c -o libxsettings_la-csd-xsettings-gtk.lo `test -f 'csd-xsettings-gtk.c' || echo '$(srcdir)/'`csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxsettings_la-csd-xsettings-gtk.Tpo $(DEPDIR)/libxsettings_la-csd-xsettings-gtk.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-gtk.c' object='libxsettings_la-csd-xsettings-gtk.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -c -o libxsettings_la-gsd-xsettings-gtk.lo `test -f 'gsd-xsettings-gtk.c' || echo '$(srcdir)/'`gsd-xsettings-gtk.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -c -o libxsettings_la-csd-xsettings-gtk.lo `test -f 'csd-xsettings-gtk.c' || echo '$(srcdir)/'`csd-xsettings-gtk.c
 
 libxsettings_la-xsettings-common.lo: xsettings-common.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -MT libxsettings_la-xsettings-common.lo -MD -MP -MF $(DEPDIR)/libxsettings_la-xsettings-common.Tpo -c -o libxsettings_la-xsettings-common.lo `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
@@ -724,103 +724,103 @@ libxsettings_la-fontconfig-monitor.lo: fontconfig-monitor.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxsettings_la_CPPFLAGS) $(CPPFLAGS) $(libxsettings_la_CFLAGS) $(CFLAGS) -c -o libxsettings_la-fontconfig-monitor.lo `test -f 'fontconfig-monitor.c' || echo '$(srcdir)/'`fontconfig-monitor.c
 
-gsd_test_xsettings-gsd-xsettings-gtk.o: gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-gsd-xsettings-gtk.o -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-gtk.Tpo -c -o gsd_test_xsettings-gsd-xsettings-gtk.o `test -f 'gsd-xsettings-gtk.c' || echo '$(srcdir)/'`gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-gtk.Tpo $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-gtk.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-gtk.c' object='gsd_test_xsettings-gsd-xsettings-gtk.o' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-csd-xsettings-gtk.o: csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-csd-xsettings-gtk.o -MD -MP -MF $(DEPDIR)/csd_test_xsettings-csd-xsettings-gtk.Tpo -c -o csd_test_xsettings-csd-xsettings-gtk.o `test -f 'csd-xsettings-gtk.c' || echo '$(srcdir)/'`csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-csd-xsettings-gtk.Tpo $(DEPDIR)/csd_test_xsettings-csd-xsettings-gtk.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-gtk.c' object='csd_test_xsettings-csd-xsettings-gtk.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-gsd-xsettings-gtk.o `test -f 'gsd-xsettings-gtk.c' || echo '$(srcdir)/'`gsd-xsettings-gtk.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-csd-xsettings-gtk.o `test -f 'csd-xsettings-gtk.c' || echo '$(srcdir)/'`csd-xsettings-gtk.c
 
-gsd_test_xsettings-gsd-xsettings-gtk.obj: gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-gsd-xsettings-gtk.obj -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-gtk.Tpo -c -o gsd_test_xsettings-gsd-xsettings-gtk.obj `if test -f 'gsd-xsettings-gtk.c'; then $(CYGPATH_W) 'gsd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/gsd-xsettings-gtk.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-gtk.Tpo $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-gtk.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-gtk.c' object='gsd_test_xsettings-gsd-xsettings-gtk.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-csd-xsettings-gtk.obj: csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-csd-xsettings-gtk.obj -MD -MP -MF $(DEPDIR)/csd_test_xsettings-csd-xsettings-gtk.Tpo -c -o csd_test_xsettings-csd-xsettings-gtk.obj `if test -f 'csd-xsettings-gtk.c'; then $(CYGPATH_W) 'csd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/csd-xsettings-gtk.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-csd-xsettings-gtk.Tpo $(DEPDIR)/csd_test_xsettings-csd-xsettings-gtk.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-gtk.c' object='csd_test_xsettings-csd-xsettings-gtk.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-gsd-xsettings-gtk.obj `if test -f 'gsd-xsettings-gtk.c'; then $(CYGPATH_W) 'gsd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/gsd-xsettings-gtk.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-csd-xsettings-gtk.obj `if test -f 'csd-xsettings-gtk.c'; then $(CYGPATH_W) 'csd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/csd-xsettings-gtk.c'; fi`
 
-gsd_test_xsettings-gsd-xsettings-manager.o: gsd-xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-gsd-xsettings-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-manager.Tpo -c -o gsd_test_xsettings-gsd-xsettings-manager.o `test -f 'gsd-xsettings-manager.c' || echo '$(srcdir)/'`gsd-xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-manager.Tpo $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-manager.c' object='gsd_test_xsettings-gsd-xsettings-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-csd-xsettings-manager.o: csd-xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-csd-xsettings-manager.o -MD -MP -MF $(DEPDIR)/csd_test_xsettings-csd-xsettings-manager.Tpo -c -o csd_test_xsettings-csd-xsettings-manager.o `test -f 'csd-xsettings-manager.c' || echo '$(srcdir)/'`csd-xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-csd-xsettings-manager.Tpo $(DEPDIR)/csd_test_xsettings-csd-xsettings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-manager.c' object='csd_test_xsettings-csd-xsettings-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-gsd-xsettings-manager.o `test -f 'gsd-xsettings-manager.c' || echo '$(srcdir)/'`gsd-xsettings-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-csd-xsettings-manager.o `test -f 'csd-xsettings-manager.c' || echo '$(srcdir)/'`csd-xsettings-manager.c
 
-gsd_test_xsettings-gsd-xsettings-manager.obj: gsd-xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-gsd-xsettings-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-manager.Tpo -c -o gsd_test_xsettings-gsd-xsettings-manager.obj `if test -f 'gsd-xsettings-manager.c'; then $(CYGPATH_W) 'gsd-xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-xsettings-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-manager.Tpo $(DEPDIR)/gsd_test_xsettings-gsd-xsettings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-manager.c' object='gsd_test_xsettings-gsd-xsettings-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-csd-xsettings-manager.obj: csd-xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-csd-xsettings-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_xsettings-csd-xsettings-manager.Tpo -c -o csd_test_xsettings-csd-xsettings-manager.obj `if test -f 'csd-xsettings-manager.c'; then $(CYGPATH_W) 'csd-xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-xsettings-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-csd-xsettings-manager.Tpo $(DEPDIR)/csd_test_xsettings-csd-xsettings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-manager.c' object='csd_test_xsettings-csd-xsettings-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-gsd-xsettings-manager.obj `if test -f 'gsd-xsettings-manager.c'; then $(CYGPATH_W) 'gsd-xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-xsettings-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-csd-xsettings-manager.obj `if test -f 'csd-xsettings-manager.c'; then $(CYGPATH_W) 'csd-xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-xsettings-manager.c'; fi`
 
-gsd_test_xsettings-xsettings-common.o: xsettings-common.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-xsettings-common.o -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-xsettings-common.Tpo -c -o gsd_test_xsettings-xsettings-common.o `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-xsettings-common.Tpo $(DEPDIR)/gsd_test_xsettings-xsettings-common.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-common.c' object='gsd_test_xsettings-xsettings-common.o' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-xsettings-common.o: xsettings-common.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-xsettings-common.o -MD -MP -MF $(DEPDIR)/csd_test_xsettings-xsettings-common.Tpo -c -o csd_test_xsettings-xsettings-common.o `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-xsettings-common.Tpo $(DEPDIR)/csd_test_xsettings-xsettings-common.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-common.c' object='csd_test_xsettings-xsettings-common.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-xsettings-common.o `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-xsettings-common.o `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
 
-gsd_test_xsettings-xsettings-common.obj: xsettings-common.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-xsettings-common.obj -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-xsettings-common.Tpo -c -o gsd_test_xsettings-xsettings-common.obj `if test -f 'xsettings-common.c'; then $(CYGPATH_W) 'xsettings-common.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-common.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-xsettings-common.Tpo $(DEPDIR)/gsd_test_xsettings-xsettings-common.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-common.c' object='gsd_test_xsettings-xsettings-common.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-xsettings-common.obj: xsettings-common.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-xsettings-common.obj -MD -MP -MF $(DEPDIR)/csd_test_xsettings-xsettings-common.Tpo -c -o csd_test_xsettings-xsettings-common.obj `if test -f 'xsettings-common.c'; then $(CYGPATH_W) 'xsettings-common.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-common.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-xsettings-common.Tpo $(DEPDIR)/csd_test_xsettings-xsettings-common.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-common.c' object='csd_test_xsettings-xsettings-common.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-xsettings-common.obj `if test -f 'xsettings-common.c'; then $(CYGPATH_W) 'xsettings-common.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-common.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-xsettings-common.obj `if test -f 'xsettings-common.c'; then $(CYGPATH_W) 'xsettings-common.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-common.c'; fi`
 
-gsd_test_xsettings-xsettings-manager.o: xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-xsettings-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-xsettings-manager.Tpo -c -o gsd_test_xsettings-xsettings-manager.o `test -f 'xsettings-manager.c' || echo '$(srcdir)/'`xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-xsettings-manager.Tpo $(DEPDIR)/gsd_test_xsettings-xsettings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-manager.c' object='gsd_test_xsettings-xsettings-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-xsettings-manager.o: xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-xsettings-manager.o -MD -MP -MF $(DEPDIR)/csd_test_xsettings-xsettings-manager.Tpo -c -o csd_test_xsettings-xsettings-manager.o `test -f 'xsettings-manager.c' || echo '$(srcdir)/'`xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-xsettings-manager.Tpo $(DEPDIR)/csd_test_xsettings-xsettings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-manager.c' object='csd_test_xsettings-xsettings-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-xsettings-manager.o `test -f 'xsettings-manager.c' || echo '$(srcdir)/'`xsettings-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-xsettings-manager.o `test -f 'xsettings-manager.c' || echo '$(srcdir)/'`xsettings-manager.c
 
-gsd_test_xsettings-xsettings-manager.obj: xsettings-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-xsettings-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-xsettings-manager.Tpo -c -o gsd_test_xsettings-xsettings-manager.obj `if test -f 'xsettings-manager.c'; then $(CYGPATH_W) 'xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-xsettings-manager.Tpo $(DEPDIR)/gsd_test_xsettings-xsettings-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-manager.c' object='gsd_test_xsettings-xsettings-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-xsettings-manager.obj: xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-xsettings-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_xsettings-xsettings-manager.Tpo -c -o csd_test_xsettings-xsettings-manager.obj `if test -f 'xsettings-manager.c'; then $(CYGPATH_W) 'xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-xsettings-manager.Tpo $(DEPDIR)/csd_test_xsettings-xsettings-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xsettings-manager.c' object='csd_test_xsettings-xsettings-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-xsettings-manager.obj `if test -f 'xsettings-manager.c'; then $(CYGPATH_W) 'xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-xsettings-manager.obj `if test -f 'xsettings-manager.c'; then $(CYGPATH_W) 'xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-manager.c'; fi`
 
-gsd_test_xsettings-fontconfig-monitor.o: fontconfig-monitor.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-fontconfig-monitor.o -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-fontconfig-monitor.Tpo -c -o gsd_test_xsettings-fontconfig-monitor.o `test -f 'fontconfig-monitor.c' || echo '$(srcdir)/'`fontconfig-monitor.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-fontconfig-monitor.Tpo $(DEPDIR)/gsd_test_xsettings-fontconfig-monitor.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fontconfig-monitor.c' object='gsd_test_xsettings-fontconfig-monitor.o' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-fontconfig-monitor.o: fontconfig-monitor.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-fontconfig-monitor.o -MD -MP -MF $(DEPDIR)/csd_test_xsettings-fontconfig-monitor.Tpo -c -o csd_test_xsettings-fontconfig-monitor.o `test -f 'fontconfig-monitor.c' || echo '$(srcdir)/'`fontconfig-monitor.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-fontconfig-monitor.Tpo $(DEPDIR)/csd_test_xsettings-fontconfig-monitor.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fontconfig-monitor.c' object='csd_test_xsettings-fontconfig-monitor.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-fontconfig-monitor.o `test -f 'fontconfig-monitor.c' || echo '$(srcdir)/'`fontconfig-monitor.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-fontconfig-monitor.o `test -f 'fontconfig-monitor.c' || echo '$(srcdir)/'`fontconfig-monitor.c
 
-gsd_test_xsettings-fontconfig-monitor.obj: fontconfig-monitor.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-fontconfig-monitor.obj -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-fontconfig-monitor.Tpo -c -o gsd_test_xsettings-fontconfig-monitor.obj `if test -f 'fontconfig-monitor.c'; then $(CYGPATH_W) 'fontconfig-monitor.c'; else $(CYGPATH_W) '$(srcdir)/fontconfig-monitor.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-fontconfig-monitor.Tpo $(DEPDIR)/gsd_test_xsettings-fontconfig-monitor.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fontconfig-monitor.c' object='gsd_test_xsettings-fontconfig-monitor.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-fontconfig-monitor.obj: fontconfig-monitor.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-fontconfig-monitor.obj -MD -MP -MF $(DEPDIR)/csd_test_xsettings-fontconfig-monitor.Tpo -c -o csd_test_xsettings-fontconfig-monitor.obj `if test -f 'fontconfig-monitor.c'; then $(CYGPATH_W) 'fontconfig-monitor.c'; else $(CYGPATH_W) '$(srcdir)/fontconfig-monitor.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-fontconfig-monitor.Tpo $(DEPDIR)/csd_test_xsettings-fontconfig-monitor.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fontconfig-monitor.c' object='csd_test_xsettings-fontconfig-monitor.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-fontconfig-monitor.obj `if test -f 'fontconfig-monitor.c'; then $(CYGPATH_W) 'fontconfig-monitor.c'; else $(CYGPATH_W) '$(srcdir)/fontconfig-monitor.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-fontconfig-monitor.obj `if test -f 'fontconfig-monitor.c'; then $(CYGPATH_W) 'fontconfig-monitor.c'; else $(CYGPATH_W) '$(srcdir)/fontconfig-monitor.c'; fi`
 
-gsd_test_xsettings-test-xsettings.o: test-xsettings.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-test-xsettings.o -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-test-xsettings.Tpo -c -o gsd_test_xsettings-test-xsettings.o `test -f 'test-xsettings.c' || echo '$(srcdir)/'`test-xsettings.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-test-xsettings.Tpo $(DEPDIR)/gsd_test_xsettings-test-xsettings.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-xsettings.c' object='gsd_test_xsettings-test-xsettings.o' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-test-xsettings.o: test-xsettings.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-test-xsettings.o -MD -MP -MF $(DEPDIR)/csd_test_xsettings-test-xsettings.Tpo -c -o csd_test_xsettings-test-xsettings.o `test -f 'test-xsettings.c' || echo '$(srcdir)/'`test-xsettings.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-test-xsettings.Tpo $(DEPDIR)/csd_test_xsettings-test-xsettings.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-xsettings.c' object='csd_test_xsettings-test-xsettings.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-test-xsettings.o `test -f 'test-xsettings.c' || echo '$(srcdir)/'`test-xsettings.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-test-xsettings.o `test -f 'test-xsettings.c' || echo '$(srcdir)/'`test-xsettings.c
 
-gsd_test_xsettings-test-xsettings.obj: test-xsettings.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -MT gsd_test_xsettings-test-xsettings.obj -MD -MP -MF $(DEPDIR)/gsd_test_xsettings-test-xsettings.Tpo -c -o gsd_test_xsettings-test-xsettings.obj `if test -f 'test-xsettings.c'; then $(CYGPATH_W) 'test-xsettings.c'; else $(CYGPATH_W) '$(srcdir)/test-xsettings.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_xsettings-test-xsettings.Tpo $(DEPDIR)/gsd_test_xsettings-test-xsettings.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-xsettings.c' object='gsd_test_xsettings-test-xsettings.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_xsettings-test-xsettings.obj: test-xsettings.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -MT csd_test_xsettings-test-xsettings.obj -MD -MP -MF $(DEPDIR)/csd_test_xsettings-test-xsettings.Tpo -c -o csd_test_xsettings-test-xsettings.obj `if test -f 'test-xsettings.c'; then $(CYGPATH_W) 'test-xsettings.c'; else $(CYGPATH_W) '$(srcdir)/test-xsettings.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_xsettings-test-xsettings.Tpo $(DEPDIR)/csd_test_xsettings-test-xsettings.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-xsettings.c' object='csd_test_xsettings-test-xsettings.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(gsd_test_xsettings_CFLAGS) $(CFLAGS) -c -o gsd_test_xsettings-test-xsettings.obj `if test -f 'test-xsettings.c'; then $(CYGPATH_W) 'test-xsettings.c'; else $(CYGPATH_W) '$(srcdir)/test-xsettings.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_xsettings_CPPFLAGS) $(CPPFLAGS) $(csd_test_xsettings_CFLAGS) $(CFLAGS) -c -o csd_test_xsettings-test-xsettings.obj `if test -f 'test-xsettings.c'; then $(CYGPATH_W) 'test-xsettings.c'; else $(CYGPATH_W) '$(srcdir)/test-xsettings.c'; fi`
 
-test_gtk_modules-gsd-xsettings-gtk.o: gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -MT test_gtk_modules-gsd-xsettings-gtk.o -MD -MP -MF $(DEPDIR)/test_gtk_modules-gsd-xsettings-gtk.Tpo -c -o test_gtk_modules-gsd-xsettings-gtk.o `test -f 'gsd-xsettings-gtk.c' || echo '$(srcdir)/'`gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_gtk_modules-gsd-xsettings-gtk.Tpo $(DEPDIR)/test_gtk_modules-gsd-xsettings-gtk.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-gtk.c' object='test_gtk_modules-gsd-xsettings-gtk.o' libtool=no @AMDEPBACKSLASH@
+test_gtk_modules-csd-xsettings-gtk.o: csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -MT test_gtk_modules-csd-xsettings-gtk.o -MD -MP -MF $(DEPDIR)/test_gtk_modules-csd-xsettings-gtk.Tpo -c -o test_gtk_modules-csd-xsettings-gtk.o `test -f 'csd-xsettings-gtk.c' || echo '$(srcdir)/'`csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_gtk_modules-csd-xsettings-gtk.Tpo $(DEPDIR)/test_gtk_modules-csd-xsettings-gtk.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-gtk.c' object='test_gtk_modules-csd-xsettings-gtk.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -c -o test_gtk_modules-gsd-xsettings-gtk.o `test -f 'gsd-xsettings-gtk.c' || echo '$(srcdir)/'`gsd-xsettings-gtk.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -c -o test_gtk_modules-csd-xsettings-gtk.o `test -f 'csd-xsettings-gtk.c' || echo '$(srcdir)/'`csd-xsettings-gtk.c
 
-test_gtk_modules-gsd-xsettings-gtk.obj: gsd-xsettings-gtk.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -MT test_gtk_modules-gsd-xsettings-gtk.obj -MD -MP -MF $(DEPDIR)/test_gtk_modules-gsd-xsettings-gtk.Tpo -c -o test_gtk_modules-gsd-xsettings-gtk.obj `if test -f 'gsd-xsettings-gtk.c'; then $(CYGPATH_W) 'gsd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/gsd-xsettings-gtk.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_gtk_modules-gsd-xsettings-gtk.Tpo $(DEPDIR)/test_gtk_modules-gsd-xsettings-gtk.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-xsettings-gtk.c' object='test_gtk_modules-gsd-xsettings-gtk.obj' libtool=no @AMDEPBACKSLASH@
+test_gtk_modules-csd-xsettings-gtk.obj: csd-xsettings-gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -MT test_gtk_modules-csd-xsettings-gtk.obj -MD -MP -MF $(DEPDIR)/test_gtk_modules-csd-xsettings-gtk.Tpo -c -o test_gtk_modules-csd-xsettings-gtk.obj `if test -f 'csd-xsettings-gtk.c'; then $(CYGPATH_W) 'csd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/csd-xsettings-gtk.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_gtk_modules-csd-xsettings-gtk.Tpo $(DEPDIR)/test_gtk_modules-csd-xsettings-gtk.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-xsettings-gtk.c' object='test_gtk_modules-csd-xsettings-gtk.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -c -o test_gtk_modules-gsd-xsettings-gtk.obj `if test -f 'gsd-xsettings-gtk.c'; then $(CYGPATH_W) 'gsd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/gsd-xsettings-gtk.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -c -o test_gtk_modules-csd-xsettings-gtk.obj `if test -f 'csd-xsettings-gtk.c'; then $(CYGPATH_W) 'csd-xsettings-gtk.c'; else $(CYGPATH_W) '$(srcdir)/csd-xsettings-gtk.c'; fi`
 
 test_gtk_modules-test-gtk-modules.o: test-gtk-modules.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_gtk_modules_CPPFLAGS) $(CPPFLAGS) $(test_gtk_modules_CFLAGS) $(CFLAGS) -MT test_gtk_modules-test-gtk-modules.o -MD -MP -MF $(DEPDIR)/test_gtk_modules-test-gtk-modules.Tpo -c -o test_gtk_modules-test-gtk-modules.o `test -f 'test-gtk-modules.c' || echo '$(srcdir)/'`test-gtk-modules.c
@@ -1090,7 +1090,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

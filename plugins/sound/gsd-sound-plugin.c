@@ -23,78 +23,78 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-sound-plugin.h"
-#include "gsd-sound-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-sound-plugin.h"
+#include "csd-sound-manager.h"
 
-struct GsdSoundPluginPrivate {
-        GsdSoundManager *manager;
+struct CsdSoundPluginPrivate {
+        CsdSoundManager *manager;
 };
 
-#define GSD_SOUND_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_SOUND_PLUGIN, GsdSoundPluginPrivate))
+#define CSD_SOUND_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_SOUND_PLUGIN, CsdSoundPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdSoundPlugin, gsd_sound_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdSoundPlugin, csd_sound_plugin)
 
 static void
-gsd_sound_plugin_init (GsdSoundPlugin *plugin)
+csd_sound_plugin_init (CsdSoundPlugin *plugin)
 {
-        plugin->priv = GSD_SOUND_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_SOUND_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdSoundPlugin initializing");
+        g_debug ("CsdSoundPlugin initializing");
 
-        plugin->priv->manager = gsd_sound_manager_new ();
+        plugin->priv->manager = csd_sound_manager_new ();
 }
 
 static void
-gsd_sound_plugin_finalize (GObject *object)
+csd_sound_plugin_finalize (GObject *object)
 {
-        GsdSoundPlugin *plugin;
+        CsdSoundPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SOUND_PLUGIN (object));
+        g_return_if_fail (CSD_IS_SOUND_PLUGIN (object));
 
-        g_debug ("GsdSoundPlugin finalizing");
+        g_debug ("CsdSoundPlugin finalizing");
 
-        plugin = GSD_SOUND_PLUGIN (object);
+        plugin = CSD_SOUND_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
         if (plugin->priv->manager != NULL)
                 g_object_unref (plugin->priv->manager);
 
-        G_OBJECT_CLASS (gsd_sound_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_sound_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         GError *error = NULL;
 
         g_debug ("Activating sound plugin");
 
-        if (!gsd_sound_manager_start (GSD_SOUND_PLUGIN (plugin)->priv->manager, &error)) {
+        if (!csd_sound_manager_start (CSD_SOUND_PLUGIN (plugin)->priv->manager, &error)) {
                 g_warning ("Unable to start sound manager: %s", error->message);
                 g_error_free (error);
         }
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating sound plugin");
-        gsd_sound_manager_stop (GSD_SOUND_PLUGIN (plugin)->priv->manager);
+        csd_sound_manager_stop (CSD_SOUND_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_sound_plugin_class_init (GsdSoundPluginClass *klass)
+csd_sound_plugin_class_init (CsdSoundPluginClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_sound_plugin_finalize;
+        object_class->finalize = csd_sound_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdSoundPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdSoundPluginPrivate));
 }

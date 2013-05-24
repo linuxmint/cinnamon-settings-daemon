@@ -27,7 +27,7 @@
 #include <sys/types.h>
 #include <X11/Xatom.h>
 
-#include "gsd-input-helper.h"
+#include "csd-input-helper.h"
 
 static void
 print_disabled_devices (void)

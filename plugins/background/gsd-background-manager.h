@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GSD_BACKGROUND_MANAGER_H
-#define __GSD_BACKGROUND_MANAGER_H
+#ifndef __CSD_BACKGROUND_MANAGER_H
+#define __CSD_BACKGROUND_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_BACKGROUND_MANAGER         (gsd_background_manager_get_type ())
-#define GSD_BACKGROUND_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManager))
-#define GSD_BACKGROUND_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerClass))
-#define GSD_IS_BACKGROUND_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_BACKGROUND_MANAGER))
-#define GSD_IS_BACKGROUND_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_BACKGROUND_MANAGER))
-#define GSD_BACKGROUND_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerClass))
+#define CSD_TYPE_BACKGROUND_MANAGER         (csd_background_manager_get_type ())
+#define CSD_BACKGROUND_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_BACKGROUND_MANAGER, CsdBackgroundManager))
+#define CSD_BACKGROUND_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_BACKGROUND_MANAGER, CsdBackgroundManagerClass))
+#define CSD_IS_BACKGROUND_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_BACKGROUND_MANAGER))
+#define CSD_IS_BACKGROUND_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_BACKGROUND_MANAGER))
+#define CSD_BACKGROUND_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_BACKGROUND_MANAGER, CsdBackgroundManagerClass))
 
-typedef struct GsdBackgroundManagerPrivate GsdBackgroundManagerPrivate;
+typedef struct CsdBackgroundManagerPrivate CsdBackgroundManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdBackgroundManagerPrivate *priv;
-} GsdBackgroundManager;
+        CsdBackgroundManagerPrivate *priv;
+} CsdBackgroundManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdBackgroundManagerClass;
+} CsdBackgroundManagerClass;
 
-GType                   gsd_background_manager_get_type            (void);
+GType                   csd_background_manager_get_type            (void);
 
-GsdBackgroundManager *  gsd_background_manager_new                 (void);
-gboolean                gsd_background_manager_start               (GsdBackgroundManager *manager,
+CsdBackgroundManager *  csd_background_manager_new                 (void);
+gboolean                csd_background_manager_start               (CsdBackgroundManager *manager,
                                                                     GError              **error);
-void                    gsd_background_manager_stop                (GsdBackgroundManager *manager);
+void                    csd_background_manager_stop                (CsdBackgroundManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_BACKGROUND_MANAGER_H */
+#endif /* __CSD_BACKGROUND_MANAGER_H */

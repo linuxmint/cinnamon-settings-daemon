@@ -96,13 +96,13 @@ am__installdirs = "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(plugindir)"
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libcolor_la_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_libcolor_la_OBJECTS = libcolor_la-gcm-profile-store.lo \
 	libcolor_la-gcm-dmi.lo libcolor_la-gcm-edid.lo \
-	libcolor_la-gsd-color-manager.lo \
-	libcolor_la-gsd-color-plugin.lo
+	libcolor_la-csd-color-manager.lo \
+	libcolor_la-csd-color-plugin.lo
 libcolor_la_OBJECTS = $(am_libcolor_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -228,9 +228,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -398,14 +398,14 @@ libcolor_la_SOURCES = \
 	gcm-dmi.h			\
 	gcm-edid.c			\
 	gcm-edid.h			\
-	gsd-color-manager.c		\
-	gsd-color-manager.h		\
-	gsd-color-plugin.c		\
-	gsd-color-plugin.h
+	csd-color-manager.c		\
+	csd-color-manager.h		\
+	csd-color-plugin.c		\
+	csd-color-plugin.h
 
 libcolor_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DBINDIR=\"$(bindir)\"				\
 	$(AM_CPPFLAGS)
 
@@ -418,10 +418,10 @@ libcolor_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcolor_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libcolor_la_LIBADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
 	$(COLOR_LIBS)			\
 	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\
@@ -451,9 +451,9 @@ gcm_self_test_LDADD = \
 	-lm
 
 plugin_in_files = \
-	color.gnome-settings-plugin.in
+	color.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = \
 	$(plugin_in_files)			\
 	test-data/Lenovo-T61-Internal.bin	\
@@ -560,8 +560,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcolor_la-gcm-dmi.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcolor_la-gcm-edid.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcolor_la-gcm-profile-store.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcolor_la-gsd-color-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcolor_la-gsd-color-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcolor_la-csd-color-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcolor_la-csd-color-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -605,19 +605,19 @@ libcolor_la-gcm-edid.lo: gcm-edid.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -c -o libcolor_la-gcm-edid.lo `test -f 'gcm-edid.c' || echo '$(srcdir)/'`gcm-edid.c
 
-libcolor_la-gsd-color-manager.lo: gsd-color-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -MT libcolor_la-gsd-color-manager.lo -MD -MP -MF $(DEPDIR)/libcolor_la-gsd-color-manager.Tpo -c -o libcolor_la-gsd-color-manager.lo `test -f 'gsd-color-manager.c' || echo '$(srcdir)/'`gsd-color-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcolor_la-gsd-color-manager.Tpo $(DEPDIR)/libcolor_la-gsd-color-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-color-manager.c' object='libcolor_la-gsd-color-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libcolor_la-csd-color-manager.lo: csd-color-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -MT libcolor_la-csd-color-manager.lo -MD -MP -MF $(DEPDIR)/libcolor_la-csd-color-manager.Tpo -c -o libcolor_la-csd-color-manager.lo `test -f 'csd-color-manager.c' || echo '$(srcdir)/'`csd-color-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcolor_la-csd-color-manager.Tpo $(DEPDIR)/libcolor_la-csd-color-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-color-manager.c' object='libcolor_la-csd-color-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -c -o libcolor_la-gsd-color-manager.lo `test -f 'gsd-color-manager.c' || echo '$(srcdir)/'`gsd-color-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -c -o libcolor_la-csd-color-manager.lo `test -f 'csd-color-manager.c' || echo '$(srcdir)/'`csd-color-manager.c
 
-libcolor_la-gsd-color-plugin.lo: gsd-color-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -MT libcolor_la-gsd-color-plugin.lo -MD -MP -MF $(DEPDIR)/libcolor_la-gsd-color-plugin.Tpo -c -o libcolor_la-gsd-color-plugin.lo `test -f 'gsd-color-plugin.c' || echo '$(srcdir)/'`gsd-color-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcolor_la-gsd-color-plugin.Tpo $(DEPDIR)/libcolor_la-gsd-color-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-color-plugin.c' object='libcolor_la-gsd-color-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libcolor_la-csd-color-plugin.lo: csd-color-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -MT libcolor_la-csd-color-plugin.lo -MD -MP -MF $(DEPDIR)/libcolor_la-csd-color-plugin.Tpo -c -o libcolor_la-csd-color-plugin.lo `test -f 'csd-color-plugin.c' || echo '$(srcdir)/'`csd-color-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcolor_la-csd-color-plugin.Tpo $(DEPDIR)/libcolor_la-csd-color-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-color-plugin.c' object='libcolor_la-csd-color-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -c -o libcolor_la-gsd-color-plugin.lo `test -f 'gsd-color-plugin.c' || echo '$(srcdir)/'`gsd-color-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcolor_la_CPPFLAGS) $(CPPFLAGS) $(libcolor_la_CFLAGS) $(CFLAGS) -c -o libcolor_la-csd-color-plugin.lo `test -f 'csd-color-plugin.c' || echo '$(srcdir)/'`csd-color-plugin.c
 
 gcm_self_test-gcm-dmi.o: gcm-dmi.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gcm_self_test_CPPFLAGS) $(CPPFLAGS) $(gcm_self_test_CFLAGS) $(CFLAGS) -MT gcm_self_test-gcm-dmi.o -MD -MP -MF $(DEPDIR)/gcm_self_test-gcm-dmi.Tpo -c -o gcm_self_test-gcm-dmi.o `test -f 'gcm-dmi.c' || echo '$(srcdir)/'`gcm-dmi.c
@@ -1008,7 +1008,7 @@ uninstall-am: uninstall-pluginDATA uninstall-pluginLTLIBRARIES
 	uninstall-pluginDATA uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

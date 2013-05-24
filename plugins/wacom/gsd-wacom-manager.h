@@ -19,40 +19,40 @@
  *
  */
 
-#ifndef __GSD_WACOM_MANAGER_H
-#define __GSD_WACOM_MANAGER_H
+#ifndef __CSD_WACOM_MANAGER_H
+#define __CSD_WACOM_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_WACOM_MANAGER         (gsd_wacom_manager_get_type ())
-#define GSD_WACOM_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManager))
-#define GSD_WACOM_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerClass))
-#define GSD_IS_WACOM_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_WACOM_MANAGER))
-#define GSD_IS_WACOM_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_WACOM_MANAGER))
-#define GSD_WACOM_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_WACOM_MANAGER, GsdWacomManagerClass))
+#define CSD_TYPE_WACOM_MANAGER         (csd_wacom_manager_get_type ())
+#define CSD_WACOM_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_WACOM_MANAGER, CsdWacomManager))
+#define CSD_WACOM_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_WACOM_MANAGER, CsdWacomManagerClass))
+#define CSD_IS_WACOM_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_WACOM_MANAGER))
+#define CSD_IS_WACOM_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_WACOM_MANAGER))
+#define CSD_WACOM_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_WACOM_MANAGER, CsdWacomManagerClass))
 
-typedef struct GsdWacomManagerPrivate GsdWacomManagerPrivate;
+typedef struct CsdWacomManagerPrivate CsdWacomManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdWacomManagerPrivate *priv;
-} GsdWacomManager;
+        CsdWacomManagerPrivate *priv;
+} CsdWacomManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdWacomManagerClass;
+} CsdWacomManagerClass;
 
-GType                   gsd_wacom_manager_get_type            (void);
+GType                   csd_wacom_manager_get_type            (void);
 
-GsdWacomManager *       gsd_wacom_manager_new                 (void);
-gboolean                gsd_wacom_manager_start               (GsdWacomManager *manager,
+CsdWacomManager *       csd_wacom_manager_new                 (void);
+gboolean                csd_wacom_manager_start               (CsdWacomManager *manager,
                                                                GError         **error);
-void                    gsd_wacom_manager_stop                (GsdWacomManager *manager);
+void                    csd_wacom_manager_stop                (CsdWacomManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_WACOM_MANAGER_H */
+#endif /* __CSD_WACOM_MANAGER_H */

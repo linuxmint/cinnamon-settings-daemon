@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-orientation$(EXEEXT)
+libexec_PROGRAMS = csd-test-orientation$(EXEEXT)
 subdir = plugins/orientation
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -100,8 +100,8 @@ liborientation_la_DEPENDENCIES =  \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_liborientation_la_OBJECTS =  \
-	liborientation_la-gsd-orientation-plugin.lo \
-	liborientation_la-gsd-orientation-manager.lo
+	liborientation_la-csd-orientation-plugin.lo \
+	liborientation_la-csd-orientation-manager.lo
 liborientation_la_OBJECTS = $(am_liborientation_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -112,17 +112,17 @@ liborientation_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(liborientation_la_CFLAGS) $(CFLAGS) \
 	$(liborientation_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_test_orientation_OBJECTS =  \
-	gsd_test_orientation-gsd-orientation-manager.$(OBJEXT) \
-	gsd_test_orientation-test-orientation.$(OBJEXT)
-gsd_test_orientation_OBJECTS = $(am_gsd_test_orientation_OBJECTS)
-gsd_test_orientation_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_orientation_OBJECTS =  \
+	csd_test_orientation-csd-orientation-manager.$(OBJEXT) \
+	csd_test_orientation-test-orientation.$(OBJEXT)
+csd_test_orientation_OBJECTS = $(am_csd_test_orientation_OBJECTS)
+csd_test_orientation_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_test_orientation_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_orientation_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_orientation_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_orientation_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -158,9 +158,9 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(liborientation_la_SOURCES) $(gsd_test_orientation_SOURCES)
+SOURCES = $(liborientation_la_SOURCES) $(csd_test_orientation_SOURCES)
 DIST_SOURCES = $(liborientation_la_SOURCES) \
-	$(gsd_test_orientation_SOURCES)
+	$(csd_test_orientation_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -229,9 +229,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -389,38 +389,38 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 plugin_name = orientation
-gsd_test_orientation_SOURCES = \
-	gsd-orientation-manager.h	\
-	gsd-orientation-manager.c	\
+csd_test_orientation_SOURCES = \
+	csd-orientation-manager.h	\
+	csd-orientation-manager.c	\
 	test-orientation.c
 
-gsd_test_orientation_CFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
+csd_test_orientation_CFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(ORIENTATION_CFLAGS)					\
 	$(PLUGIN_CFLAGS)					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_test_orientation_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_orientation_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(ORIENTATION_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_LTLIBRARIES = liborientation.la
 liborientation_la_SOURCES = \
-	gsd-orientation-plugin.h	\
-	gsd-orientation-plugin.c	\
-	gsd-orientation-manager.h	\
-	gsd-orientation-manager.c
+	csd-orientation-plugin.h	\
+	csd-orientation-plugin.c	\
+	csd-orientation-manager.h	\
+	csd-orientation-manager.c
 
 liborientation_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
 	$(AM_CPPFLAGS)
 
@@ -431,15 +431,15 @@ liborientation_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 liborientation_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 liborientation_la_LIBADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(ORIENTATION_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_in_files = orientation.gnome-settings-plugin.in
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_in_files = orientation.cinnamon-settings-plugin.in
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)
@@ -559,9 +559,9 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-orientation$(EXEEXT): $(gsd_test_orientation_OBJECTS) $(gsd_test_orientation_DEPENDENCIES) $(EXTRA_gsd_test_orientation_DEPENDENCIES) 
-	@rm -f gsd-test-orientation$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_orientation_LINK) $(gsd_test_orientation_OBJECTS) $(gsd_test_orientation_LDADD) $(LIBS)
+csd-test-orientation$(EXEEXT): $(csd_test_orientation_OBJECTS) $(csd_test_orientation_DEPENDENCIES) $(EXTRA_csd_test_orientation_DEPENDENCIES) 
+	@rm -f csd-test-orientation$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_orientation_LINK) $(csd_test_orientation_OBJECTS) $(csd_test_orientation_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -569,10 +569,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_orientation-gsd-orientation-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_orientation-test-orientation.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liborientation_la-gsd-orientation-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liborientation_la-gsd-orientation-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_orientation-csd-orientation-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_orientation-test-orientation.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liborientation_la-csd-orientation-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liborientation_la-csd-orientation-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -595,47 +595,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-liborientation_la-gsd-orientation-plugin.lo: gsd-orientation-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -MT liborientation_la-gsd-orientation-plugin.lo -MD -MP -MF $(DEPDIR)/liborientation_la-gsd-orientation-plugin.Tpo -c -o liborientation_la-gsd-orientation-plugin.lo `test -f 'gsd-orientation-plugin.c' || echo '$(srcdir)/'`gsd-orientation-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liborientation_la-gsd-orientation-plugin.Tpo $(DEPDIR)/liborientation_la-gsd-orientation-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-orientation-plugin.c' object='liborientation_la-gsd-orientation-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+liborientation_la-csd-orientation-plugin.lo: csd-orientation-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -MT liborientation_la-csd-orientation-plugin.lo -MD -MP -MF $(DEPDIR)/liborientation_la-csd-orientation-plugin.Tpo -c -o liborientation_la-csd-orientation-plugin.lo `test -f 'csd-orientation-plugin.c' || echo '$(srcdir)/'`csd-orientation-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liborientation_la-csd-orientation-plugin.Tpo $(DEPDIR)/liborientation_la-csd-orientation-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-orientation-plugin.c' object='liborientation_la-csd-orientation-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -c -o liborientation_la-gsd-orientation-plugin.lo `test -f 'gsd-orientation-plugin.c' || echo '$(srcdir)/'`gsd-orientation-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -c -o liborientation_la-csd-orientation-plugin.lo `test -f 'csd-orientation-plugin.c' || echo '$(srcdir)/'`csd-orientation-plugin.c
 
-liborientation_la-gsd-orientation-manager.lo: gsd-orientation-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -MT liborientation_la-gsd-orientation-manager.lo -MD -MP -MF $(DEPDIR)/liborientation_la-gsd-orientation-manager.Tpo -c -o liborientation_la-gsd-orientation-manager.lo `test -f 'gsd-orientation-manager.c' || echo '$(srcdir)/'`gsd-orientation-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liborientation_la-gsd-orientation-manager.Tpo $(DEPDIR)/liborientation_la-gsd-orientation-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-orientation-manager.c' object='liborientation_la-gsd-orientation-manager.lo' libtool=yes @AMDEPBACKSLASH@
+liborientation_la-csd-orientation-manager.lo: csd-orientation-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -MT liborientation_la-csd-orientation-manager.lo -MD -MP -MF $(DEPDIR)/liborientation_la-csd-orientation-manager.Tpo -c -o liborientation_la-csd-orientation-manager.lo `test -f 'csd-orientation-manager.c' || echo '$(srcdir)/'`csd-orientation-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liborientation_la-csd-orientation-manager.Tpo $(DEPDIR)/liborientation_la-csd-orientation-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-orientation-manager.c' object='liborientation_la-csd-orientation-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -c -o liborientation_la-gsd-orientation-manager.lo `test -f 'gsd-orientation-manager.c' || echo '$(srcdir)/'`gsd-orientation-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liborientation_la_CPPFLAGS) $(CPPFLAGS) $(liborientation_la_CFLAGS) $(CFLAGS) -c -o liborientation_la-csd-orientation-manager.lo `test -f 'csd-orientation-manager.c' || echo '$(srcdir)/'`csd-orientation-manager.c
 
-gsd_test_orientation-gsd-orientation-manager.o: gsd-orientation-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -MT gsd_test_orientation-gsd-orientation-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_orientation-gsd-orientation-manager.Tpo -c -o gsd_test_orientation-gsd-orientation-manager.o `test -f 'gsd-orientation-manager.c' || echo '$(srcdir)/'`gsd-orientation-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_orientation-gsd-orientation-manager.Tpo $(DEPDIR)/gsd_test_orientation-gsd-orientation-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-orientation-manager.c' object='gsd_test_orientation-gsd-orientation-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_orientation-csd-orientation-manager.o: csd-orientation-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -MT csd_test_orientation-csd-orientation-manager.o -MD -MP -MF $(DEPDIR)/csd_test_orientation-csd-orientation-manager.Tpo -c -o csd_test_orientation-csd-orientation-manager.o `test -f 'csd-orientation-manager.c' || echo '$(srcdir)/'`csd-orientation-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_orientation-csd-orientation-manager.Tpo $(DEPDIR)/csd_test_orientation-csd-orientation-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-orientation-manager.c' object='csd_test_orientation-csd-orientation-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -c -o gsd_test_orientation-gsd-orientation-manager.o `test -f 'gsd-orientation-manager.c' || echo '$(srcdir)/'`gsd-orientation-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -c -o csd_test_orientation-csd-orientation-manager.o `test -f 'csd-orientation-manager.c' || echo '$(srcdir)/'`csd-orientation-manager.c
 
-gsd_test_orientation-gsd-orientation-manager.obj: gsd-orientation-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -MT gsd_test_orientation-gsd-orientation-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_orientation-gsd-orientation-manager.Tpo -c -o gsd_test_orientation-gsd-orientation-manager.obj `if test -f 'gsd-orientation-manager.c'; then $(CYGPATH_W) 'gsd-orientation-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-orientation-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_orientation-gsd-orientation-manager.Tpo $(DEPDIR)/gsd_test_orientation-gsd-orientation-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-orientation-manager.c' object='gsd_test_orientation-gsd-orientation-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_orientation-csd-orientation-manager.obj: csd-orientation-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -MT csd_test_orientation-csd-orientation-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_orientation-csd-orientation-manager.Tpo -c -o csd_test_orientation-csd-orientation-manager.obj `if test -f 'csd-orientation-manager.c'; then $(CYGPATH_W) 'csd-orientation-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-orientation-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_orientation-csd-orientation-manager.Tpo $(DEPDIR)/csd_test_orientation-csd-orientation-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-orientation-manager.c' object='csd_test_orientation-csd-orientation-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -c -o gsd_test_orientation-gsd-orientation-manager.obj `if test -f 'gsd-orientation-manager.c'; then $(CYGPATH_W) 'gsd-orientation-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-orientation-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -c -o csd_test_orientation-csd-orientation-manager.obj `if test -f 'csd-orientation-manager.c'; then $(CYGPATH_W) 'csd-orientation-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-orientation-manager.c'; fi`
 
-gsd_test_orientation-test-orientation.o: test-orientation.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -MT gsd_test_orientation-test-orientation.o -MD -MP -MF $(DEPDIR)/gsd_test_orientation-test-orientation.Tpo -c -o gsd_test_orientation-test-orientation.o `test -f 'test-orientation.c' || echo '$(srcdir)/'`test-orientation.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_orientation-test-orientation.Tpo $(DEPDIR)/gsd_test_orientation-test-orientation.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-orientation.c' object='gsd_test_orientation-test-orientation.o' libtool=no @AMDEPBACKSLASH@
+csd_test_orientation-test-orientation.o: test-orientation.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -MT csd_test_orientation-test-orientation.o -MD -MP -MF $(DEPDIR)/csd_test_orientation-test-orientation.Tpo -c -o csd_test_orientation-test-orientation.o `test -f 'test-orientation.c' || echo '$(srcdir)/'`test-orientation.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_orientation-test-orientation.Tpo $(DEPDIR)/csd_test_orientation-test-orientation.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-orientation.c' object='csd_test_orientation-test-orientation.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -c -o gsd_test_orientation-test-orientation.o `test -f 'test-orientation.c' || echo '$(srcdir)/'`test-orientation.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -c -o csd_test_orientation-test-orientation.o `test -f 'test-orientation.c' || echo '$(srcdir)/'`test-orientation.c
 
-gsd_test_orientation-test-orientation.obj: test-orientation.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -MT gsd_test_orientation-test-orientation.obj -MD -MP -MF $(DEPDIR)/gsd_test_orientation-test-orientation.Tpo -c -o gsd_test_orientation-test-orientation.obj `if test -f 'test-orientation.c'; then $(CYGPATH_W) 'test-orientation.c'; else $(CYGPATH_W) '$(srcdir)/test-orientation.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_orientation-test-orientation.Tpo $(DEPDIR)/gsd_test_orientation-test-orientation.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-orientation.c' object='gsd_test_orientation-test-orientation.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_orientation-test-orientation.obj: test-orientation.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -MT csd_test_orientation-test-orientation.obj -MD -MP -MF $(DEPDIR)/csd_test_orientation-test-orientation.Tpo -c -o csd_test_orientation-test-orientation.obj `if test -f 'test-orientation.c'; then $(CYGPATH_W) 'test-orientation.c'; else $(CYGPATH_W) '$(srcdir)/test-orientation.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_orientation-test-orientation.Tpo $(DEPDIR)/csd_test_orientation-test-orientation.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-orientation.c' object='csd_test_orientation-test-orientation.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_orientation_CFLAGS) $(CFLAGS) -c -o gsd_test_orientation-test-orientation.obj `if test -f 'test-orientation.c'; then $(CYGPATH_W) 'test-orientation.c'; else $(CYGPATH_W) '$(srcdir)/test-orientation.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_orientation_CFLAGS) $(CFLAGS) -c -o csd_test_orientation-test-orientation.obj `if test -f 'test-orientation.c'; then $(CYGPATH_W) 'test-orientation.c'; else $(CYGPATH_W) '$(srcdir)/test-orientation.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -891,7 +891,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

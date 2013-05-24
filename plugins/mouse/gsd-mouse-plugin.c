@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-mouse-plugin.h"
-#include "gsd-mouse-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-mouse-plugin.h"
+#include "csd-mouse-manager.h"
 
-struct GsdMousePluginPrivate {
-        GsdMouseManager *manager;
+struct CsdMousePluginPrivate {
+        CsdMouseManager *manager;
 };
 
-#define GSD_MOUSE_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_MOUSE_PLUGIN, GsdMousePluginPrivate))
+#define CSD_MOUSE_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_MOUSE_PLUGIN, CsdMousePluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdMousePlugin, gsd_mouse_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdMousePlugin, csd_mouse_plugin)
 
 static void
-gsd_mouse_plugin_init (GsdMousePlugin *plugin)
+csd_mouse_plugin_init (CsdMousePlugin *plugin)
 {
-        plugin->priv = GSD_MOUSE_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_MOUSE_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdMousePlugin initializing");
+        g_debug ("CsdMousePlugin initializing");
 
-        plugin->priv->manager = gsd_mouse_manager_new ();
+        plugin->priv->manager = csd_mouse_manager_new ();
 }
 
 static void
-gsd_mouse_plugin_finalize (GObject *object)
+csd_mouse_plugin_finalize (GObject *object)
 {
-        GsdMousePlugin *plugin;
+        CsdMousePlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_MOUSE_PLUGIN (object));
+        g_return_if_fail (CSD_IS_MOUSE_PLUGIN (object));
 
-        g_debug ("GsdMousePlugin finalizing");
+        g_debug ("CsdMousePlugin finalizing");
 
-        plugin = GSD_MOUSE_PLUGIN (object);
+        plugin = CSD_MOUSE_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gsd_mouse_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_mouse_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_mouse_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating mouse plugin");
 
         error = NULL;
-        res = gsd_mouse_manager_start (GSD_MOUSE_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_mouse_manager_start (CSD_MOUSE_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start mouse manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating mouse plugin");
-        gsd_mouse_manager_stop (GSD_MOUSE_PLUGIN (plugin)->priv->manager);
+        csd_mouse_manager_stop (CSD_MOUSE_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_mouse_plugin_class_init (GsdMousePluginClass *klass)
+csd_mouse_plugin_class_init (CsdMousePluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_mouse_plugin_finalize;
+        object_class->finalize = csd_mouse_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdMousePluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdMousePluginPrivate));
 }

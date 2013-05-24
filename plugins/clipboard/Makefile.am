@@ -7,10 +7,10 @@ plugin_LTLIBRARIES = \
 	$(NULL)
 
 libclipboard_la_SOURCES = 	\
-	gsd-clipboard-plugin.h	\
-	gsd-clipboard-plugin.c	\
-	gsd-clipboard-manager.h	\
-	gsd-clipboard-manager.c	\
+	csd-clipboard-plugin.h	\
+	csd-clipboard-plugin.c	\
+	csd-clipboard-manager.h	\
+	csd-clipboard-manager.c	\
 	xutils.h		\
 	xutils.c		\
 	list.h			\
@@ -19,8 +19,8 @@ libclipboard_la_SOURCES = 	\
 
 libclipboard_la_CPPFLAGS = \
 	$(PLUGIN_CFLAGS)		\
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libclipboard_la_CFLAGS = \
@@ -28,7 +28,7 @@ libclipboard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libclipboard_la_LDFLAGS = 	\
-	$(GSD_PLUGIN_LDFLAGS)	\
+	$(CSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libclipboard_la_LIBADD  = 	\
@@ -36,10 +36,10 @@ libclipboard_la_LIBADD  = 	\
 	$(NULL)
 
 plugin_in_files = 		\
-	clipboard.gnome-settings-plugin.in	\
+	clipboard.cinnamon-settings-plugin.in	\
 	$(NULL)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)	\
@@ -53,4 +53,4 @@ DISTCLEANFILES =		\
 	$(plugin_DATA)		\
 	$(NULL)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

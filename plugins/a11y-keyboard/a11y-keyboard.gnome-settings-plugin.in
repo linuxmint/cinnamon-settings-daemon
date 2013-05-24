@@ -1,4 +1,4 @@
-[GNOME Settings Plugin]
+[Cinnamon Settings Plugin]
 Module=a11y-keyboard
 IAge=0
 _Name=Accessibility Keyboard

@@ -53,7 +53,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = test-media-window$(EXEEXT)
-libexec_PROGRAMS = gsd-test-media-keys$(EXEEXT)
+libexec_PROGRAMS = csd-test-media-keys$(EXEEXT)
 subdir = plugins/media-keys
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -102,11 +102,11 @@ libmedia_keys_la_DEPENDENCIES =  \
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__objects_1 =
-am__objects_2 = libmedia_keys_la-gsd-marshal.lo $(am__objects_1)
+am__objects_2 = libmedia_keys_la-csd-marshal.lo $(am__objects_1)
 am_libmedia_keys_la_OBJECTS =  \
-	libmedia_keys_la-gsd-media-keys-plugin.lo \
-	libmedia_keys_la-gsd-media-keys-manager.lo \
-	libmedia_keys_la-gsd-osd-window.lo $(am__objects_2) \
+	libmedia_keys_la-csd-media-keys-plugin.lo \
+	libmedia_keys_la-csd-media-keys-manager.lo \
+	libmedia_keys_la-csd-osd-window.lo $(am__objects_2) \
 	$(am__objects_1)
 libmedia_keys_la_OBJECTS = $(am_libmedia_keys_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -118,26 +118,26 @@ libmedia_keys_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libmedia_keys_la_CFLAGS) $(CFLAGS) \
 	$(libmedia_keys_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS) $(noinst_PROGRAMS)
-am__objects_3 = gsd_test_media_keys-gsd-marshal.$(OBJEXT) \
+am__objects_3 = csd_test_media_keys-csd-marshal.$(OBJEXT) \
 	$(am__objects_1)
-am_gsd_test_media_keys_OBJECTS =  \
-	gsd_test_media_keys-gsd-media-keys-manager.$(OBJEXT) \
-	gsd_test_media_keys-gsd-osd-window.$(OBJEXT) \
-	gsd_test_media_keys-test-media-keys.$(OBJEXT) $(am__objects_3) \
+am_csd_test_media_keys_OBJECTS =  \
+	csd_test_media_keys-csd-media-keys-manager.$(OBJEXT) \
+	csd_test_media_keys-csd-osd-window.$(OBJEXT) \
+	csd_test_media_keys-test-media-keys.$(OBJEXT) $(am__objects_3) \
 	$(am__objects_1)
-gsd_test_media_keys_OBJECTS = $(am_gsd_test_media_keys_OBJECTS)
-gsd_test_media_keys_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+csd_test_media_keys_OBJECTS = $(am_csd_test_media_keys_OBJECTS)
+csd_test_media_keys_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-gsd_test_media_keys_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_media_keys_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_media_keys_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_media_keys_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_test_media_window_OBJECTS =  \
-	test_media_window-gsd-osd-window.$(OBJEXT) \
+	test_media_window-csd-osd-window.$(OBJEXT) \
 	test_media_window-test-media-window.$(OBJEXT) $(am__objects_1)
 test_media_window_OBJECTS = $(am_test_media_window_OBJECTS)
 test_media_window_DEPENDENCIES =  \
@@ -181,10 +181,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libmedia_keys_la_SOURCES) $(gsd_test_media_keys_SOURCES) \
+SOURCES = $(libmedia_keys_la_SOURCES) $(csd_test_media_keys_SOURCES) \
 	$(test_media_window_SOURCES)
 DIST_SOURCES = $(libmedia_keys_la_SOURCES) \
-	$(gsd_test_media_keys_SOURCES) $(test_media_window_SOURCES)
+	$(csd_test_media_keys_SOURCES) $(test_media_window_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -291,9 +291,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -457,31 +457,31 @@ NULL =
 SUBDIRS = cut-n-paste
 plugin_LTLIBRARIES = libmedia-keys.la
 BUILT_SOURCES = \
-	gsd-marshal.h			\
-	gsd-marshal.c			\
+	csd-marshal.h			\
+	csd-marshal.c			\
 	$(NULL)
 
 libmedia_keys_la_SOURCES = \
-	gsd-media-keys-plugin.h		\
-	gsd-media-keys-plugin.c		\
-	gsd-media-keys-manager.h	\
-	gsd-media-keys-manager.c	\
-	gsd-osd-window.c		\
-	gsd-osd-window.h		\
-	gsd-osd-window-private.h	\
+	csd-media-keys-plugin.h		\
+	csd-media-keys-plugin.c		\
+	csd-media-keys-manager.h	\
+	csd-media-keys-manager.c	\
+	csd-osd-window.c		\
+	csd-osd-window.h		\
+	csd-osd-window-private.h	\
 	shortcuts-list.h		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
 libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 libmedia_keys_la_CFLAGS = \
@@ -491,7 +491,7 @@ libmedia_keys_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libmedia_keys_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libmedia_keys_la_LIBADD = \
 	$(top_builddir)/plugins/common/libcommon.la			\
@@ -501,25 +501,25 @@ libmedia_keys_la_LIBADD = \
 	-lm
 
 plugin_in_files = \
-	media-keys.gnome-settings-plugin.in
+	media-keys.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 test_media_window_SOURCES = \
-	gsd-osd-window.c			\
-	gsd-osd-window.h			\
-	gsd-osd-window-private.h		\
+	csd-osd-window.c			\
+	csd-osd-window.h			\
+	csd-osd-window-private.h		\
 	test-media-window.c			\
 	$(NULL)
 
 test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 test_media_window_CFLAGS = \
@@ -532,35 +532,35 @@ test_media_window_LDADD = \
 	$(SETTINGS_PLUGIN_LIBS)			\
 	-lm
 
-gsd_test_media_keys_SOURCES = \
-	gsd-media-keys-manager.c		\
-	gsd-media-keys-manager.h		\
-	gsd-osd-window.c			\
-	gsd-osd-window.h			\
-	gsd-osd-window-private.h		\
+csd_test_media_keys_SOURCES = \
+	csd-media-keys-manager.c		\
+	csd-media-keys-manager.h		\
+	csd-osd-window.c			\
+	csd-osd-window.h			\
+	csd-osd-window-private.h		\
 	test-media-keys.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
 
-gsd_test_media_keys_CPPFLAGS = \
+csd_test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-gsd_test_media_keys_CFLAGS = \
+csd_test_media_keys_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MEDIA_KEYS_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_test_media_keys_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_media_keys_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
@@ -569,7 +569,7 @@ gsd_test_media_keys_LDADD = \
 	-lm
 
 EXTRA_DIST = \
-	gsd-marshal.list		\
+	csd-marshal.list		\
 	README.media-keys-API		\
 	test-media-window-clutter.c	\
 	$(plugin_in_files)
@@ -707,9 +707,9 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-media-keys$(EXEEXT): $(gsd_test_media_keys_OBJECTS) $(gsd_test_media_keys_DEPENDENCIES) $(EXTRA_gsd_test_media_keys_DEPENDENCIES) 
-	@rm -f gsd-test-media-keys$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_media_keys_LINK) $(gsd_test_media_keys_OBJECTS) $(gsd_test_media_keys_LDADD) $(LIBS)
+csd-test-media-keys$(EXEEXT): $(csd_test_media_keys_OBJECTS) $(csd_test_media_keys_DEPENDENCIES) $(EXTRA_csd_test_media_keys_DEPENDENCIES) 
+	@rm -f csd-test-media-keys$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_media_keys_LINK) $(csd_test_media_keys_OBJECTS) $(csd_test_media_keys_LDADD) $(LIBS)
 test-media-window$(EXEEXT): $(test_media_window_OBJECTS) $(test_media_window_DEPENDENCIES) $(EXTRA_test_media_window_DEPENDENCIES) 
 	@rm -f test-media-window$(EXEEXT)
 	$(AM_V_CCLD)$(test_media_window_LINK) $(test_media_window_OBJECTS) $(test_media_window_LDADD) $(LIBS)
@@ -720,15 +720,15 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_media_keys-gsd-marshal.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_media_keys-gsd-media-keys-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_media_keys-gsd-osd-window.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_media_keys-test-media-keys.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-gsd-marshal.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-gsd-media-keys-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-gsd-media-keys-plugin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-gsd-osd-window.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_media_window-gsd-osd-window.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_media_keys-csd-marshal.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_media_keys-csd-media-keys-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_media_keys-csd-osd-window.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_media_keys-test-media-keys.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-csd-marshal.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-csd-media-keys-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-csd-media-keys-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libmedia_keys_la-csd-osd-window.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_media_window-csd-osd-window.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_media_window-test-media-window.Po@am__quote@
 
 .c.o:
@@ -752,103 +752,103 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libmedia_keys_la-gsd-media-keys-plugin.lo: gsd-media-keys-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-gsd-media-keys-plugin.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-gsd-media-keys-plugin.Tpo -c -o libmedia_keys_la-gsd-media-keys-plugin.lo `test -f 'gsd-media-keys-plugin.c' || echo '$(srcdir)/'`gsd-media-keys-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-gsd-media-keys-plugin.Tpo $(DEPDIR)/libmedia_keys_la-gsd-media-keys-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-media-keys-plugin.c' object='libmedia_keys_la-gsd-media-keys-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libmedia_keys_la-csd-media-keys-plugin.lo: csd-media-keys-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-csd-media-keys-plugin.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-csd-media-keys-plugin.Tpo -c -o libmedia_keys_la-csd-media-keys-plugin.lo `test -f 'csd-media-keys-plugin.c' || echo '$(srcdir)/'`csd-media-keys-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-csd-media-keys-plugin.Tpo $(DEPDIR)/libmedia_keys_la-csd-media-keys-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-media-keys-plugin.c' object='libmedia_keys_la-csd-media-keys-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-gsd-media-keys-plugin.lo `test -f 'gsd-media-keys-plugin.c' || echo '$(srcdir)/'`gsd-media-keys-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-csd-media-keys-plugin.lo `test -f 'csd-media-keys-plugin.c' || echo '$(srcdir)/'`csd-media-keys-plugin.c
 
-libmedia_keys_la-gsd-media-keys-manager.lo: gsd-media-keys-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-gsd-media-keys-manager.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-gsd-media-keys-manager.Tpo -c -o libmedia_keys_la-gsd-media-keys-manager.lo `test -f 'gsd-media-keys-manager.c' || echo '$(srcdir)/'`gsd-media-keys-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-gsd-media-keys-manager.Tpo $(DEPDIR)/libmedia_keys_la-gsd-media-keys-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-media-keys-manager.c' object='libmedia_keys_la-gsd-media-keys-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libmedia_keys_la-csd-media-keys-manager.lo: csd-media-keys-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-csd-media-keys-manager.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-csd-media-keys-manager.Tpo -c -o libmedia_keys_la-csd-media-keys-manager.lo `test -f 'csd-media-keys-manager.c' || echo '$(srcdir)/'`csd-media-keys-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-csd-media-keys-manager.Tpo $(DEPDIR)/libmedia_keys_la-csd-media-keys-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-media-keys-manager.c' object='libmedia_keys_la-csd-media-keys-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-gsd-media-keys-manager.lo `test -f 'gsd-media-keys-manager.c' || echo '$(srcdir)/'`gsd-media-keys-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-csd-media-keys-manager.lo `test -f 'csd-media-keys-manager.c' || echo '$(srcdir)/'`csd-media-keys-manager.c
 
-libmedia_keys_la-gsd-osd-window.lo: gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-gsd-osd-window.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-gsd-osd-window.Tpo -c -o libmedia_keys_la-gsd-osd-window.lo `test -f 'gsd-osd-window.c' || echo '$(srcdir)/'`gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-gsd-osd-window.Tpo $(DEPDIR)/libmedia_keys_la-gsd-osd-window.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-osd-window.c' object='libmedia_keys_la-gsd-osd-window.lo' libtool=yes @AMDEPBACKSLASH@
+libmedia_keys_la-csd-osd-window.lo: csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-csd-osd-window.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-csd-osd-window.Tpo -c -o libmedia_keys_la-csd-osd-window.lo `test -f 'csd-osd-window.c' || echo '$(srcdir)/'`csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-csd-osd-window.Tpo $(DEPDIR)/libmedia_keys_la-csd-osd-window.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-osd-window.c' object='libmedia_keys_la-csd-osd-window.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-gsd-osd-window.lo `test -f 'gsd-osd-window.c' || echo '$(srcdir)/'`gsd-osd-window.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-csd-osd-window.lo `test -f 'csd-osd-window.c' || echo '$(srcdir)/'`csd-osd-window.c
 
-libmedia_keys_la-gsd-marshal.lo: gsd-marshal.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-gsd-marshal.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-gsd-marshal.Tpo -c -o libmedia_keys_la-gsd-marshal.lo `test -f 'gsd-marshal.c' || echo '$(srcdir)/'`gsd-marshal.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-gsd-marshal.Tpo $(DEPDIR)/libmedia_keys_la-gsd-marshal.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-marshal.c' object='libmedia_keys_la-gsd-marshal.lo' libtool=yes @AMDEPBACKSLASH@
+libmedia_keys_la-csd-marshal.lo: csd-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -MT libmedia_keys_la-csd-marshal.lo -MD -MP -MF $(DEPDIR)/libmedia_keys_la-csd-marshal.Tpo -c -o libmedia_keys_la-csd-marshal.lo `test -f 'csd-marshal.c' || echo '$(srcdir)/'`csd-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libmedia_keys_la-csd-marshal.Tpo $(DEPDIR)/libmedia_keys_la-csd-marshal.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-marshal.c' object='libmedia_keys_la-csd-marshal.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-gsd-marshal.lo `test -f 'gsd-marshal.c' || echo '$(srcdir)/'`gsd-marshal.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libmedia_keys_la_CPPFLAGS) $(CPPFLAGS) $(libmedia_keys_la_CFLAGS) $(CFLAGS) -c -o libmedia_keys_la-csd-marshal.lo `test -f 'csd-marshal.c' || echo '$(srcdir)/'`csd-marshal.c
 
-gsd_test_media_keys-gsd-media-keys-manager.o: gsd-media-keys-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-gsd-media-keys-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-gsd-media-keys-manager.Tpo -c -o gsd_test_media_keys-gsd-media-keys-manager.o `test -f 'gsd-media-keys-manager.c' || echo '$(srcdir)/'`gsd-media-keys-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-gsd-media-keys-manager.Tpo $(DEPDIR)/gsd_test_media_keys-gsd-media-keys-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-media-keys-manager.c' object='gsd_test_media_keys-gsd-media-keys-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-csd-media-keys-manager.o: csd-media-keys-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-csd-media-keys-manager.o -MD -MP -MF $(DEPDIR)/csd_test_media_keys-csd-media-keys-manager.Tpo -c -o csd_test_media_keys-csd-media-keys-manager.o `test -f 'csd-media-keys-manager.c' || echo '$(srcdir)/'`csd-media-keys-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-csd-media-keys-manager.Tpo $(DEPDIR)/csd_test_media_keys-csd-media-keys-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-media-keys-manager.c' object='csd_test_media_keys-csd-media-keys-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-gsd-media-keys-manager.o `test -f 'gsd-media-keys-manager.c' || echo '$(srcdir)/'`gsd-media-keys-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-csd-media-keys-manager.o `test -f 'csd-media-keys-manager.c' || echo '$(srcdir)/'`csd-media-keys-manager.c
 
-gsd_test_media_keys-gsd-media-keys-manager.obj: gsd-media-keys-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-gsd-media-keys-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-gsd-media-keys-manager.Tpo -c -o gsd_test_media_keys-gsd-media-keys-manager.obj `if test -f 'gsd-media-keys-manager.c'; then $(CYGPATH_W) 'gsd-media-keys-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-media-keys-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-gsd-media-keys-manager.Tpo $(DEPDIR)/gsd_test_media_keys-gsd-media-keys-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-media-keys-manager.c' object='gsd_test_media_keys-gsd-media-keys-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-csd-media-keys-manager.obj: csd-media-keys-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-csd-media-keys-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_media_keys-csd-media-keys-manager.Tpo -c -o csd_test_media_keys-csd-media-keys-manager.obj `if test -f 'csd-media-keys-manager.c'; then $(CYGPATH_W) 'csd-media-keys-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-media-keys-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-csd-media-keys-manager.Tpo $(DEPDIR)/csd_test_media_keys-csd-media-keys-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-media-keys-manager.c' object='csd_test_media_keys-csd-media-keys-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-gsd-media-keys-manager.obj `if test -f 'gsd-media-keys-manager.c'; then $(CYGPATH_W) 'gsd-media-keys-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-media-keys-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-csd-media-keys-manager.obj `if test -f 'csd-media-keys-manager.c'; then $(CYGPATH_W) 'csd-media-keys-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-media-keys-manager.c'; fi`
 
-gsd_test_media_keys-gsd-osd-window.o: gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-gsd-osd-window.o -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-gsd-osd-window.Tpo -c -o gsd_test_media_keys-gsd-osd-window.o `test -f 'gsd-osd-window.c' || echo '$(srcdir)/'`gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-gsd-osd-window.Tpo $(DEPDIR)/gsd_test_media_keys-gsd-osd-window.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-osd-window.c' object='gsd_test_media_keys-gsd-osd-window.o' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-csd-osd-window.o: csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-csd-osd-window.o -MD -MP -MF $(DEPDIR)/csd_test_media_keys-csd-osd-window.Tpo -c -o csd_test_media_keys-csd-osd-window.o `test -f 'csd-osd-window.c' || echo '$(srcdir)/'`csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-csd-osd-window.Tpo $(DEPDIR)/csd_test_media_keys-csd-osd-window.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-osd-window.c' object='csd_test_media_keys-csd-osd-window.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-gsd-osd-window.o `test -f 'gsd-osd-window.c' || echo '$(srcdir)/'`gsd-osd-window.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-csd-osd-window.o `test -f 'csd-osd-window.c' || echo '$(srcdir)/'`csd-osd-window.c
 
-gsd_test_media_keys-gsd-osd-window.obj: gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-gsd-osd-window.obj -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-gsd-osd-window.Tpo -c -o gsd_test_media_keys-gsd-osd-window.obj `if test -f 'gsd-osd-window.c'; then $(CYGPATH_W) 'gsd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/gsd-osd-window.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-gsd-osd-window.Tpo $(DEPDIR)/gsd_test_media_keys-gsd-osd-window.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-osd-window.c' object='gsd_test_media_keys-gsd-osd-window.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-csd-osd-window.obj: csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-csd-osd-window.obj -MD -MP -MF $(DEPDIR)/csd_test_media_keys-csd-osd-window.Tpo -c -o csd_test_media_keys-csd-osd-window.obj `if test -f 'csd-osd-window.c'; then $(CYGPATH_W) 'csd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/csd-osd-window.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-csd-osd-window.Tpo $(DEPDIR)/csd_test_media_keys-csd-osd-window.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-osd-window.c' object='csd_test_media_keys-csd-osd-window.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-gsd-osd-window.obj `if test -f 'gsd-osd-window.c'; then $(CYGPATH_W) 'gsd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/gsd-osd-window.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-csd-osd-window.obj `if test -f 'csd-osd-window.c'; then $(CYGPATH_W) 'csd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/csd-osd-window.c'; fi`
 
-gsd_test_media_keys-test-media-keys.o: test-media-keys.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-test-media-keys.o -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-test-media-keys.Tpo -c -o gsd_test_media_keys-test-media-keys.o `test -f 'test-media-keys.c' || echo '$(srcdir)/'`test-media-keys.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-test-media-keys.Tpo $(DEPDIR)/gsd_test_media_keys-test-media-keys.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-media-keys.c' object='gsd_test_media_keys-test-media-keys.o' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-test-media-keys.o: test-media-keys.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-test-media-keys.o -MD -MP -MF $(DEPDIR)/csd_test_media_keys-test-media-keys.Tpo -c -o csd_test_media_keys-test-media-keys.o `test -f 'test-media-keys.c' || echo '$(srcdir)/'`test-media-keys.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-test-media-keys.Tpo $(DEPDIR)/csd_test_media_keys-test-media-keys.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-media-keys.c' object='csd_test_media_keys-test-media-keys.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-test-media-keys.o `test -f 'test-media-keys.c' || echo '$(srcdir)/'`test-media-keys.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-test-media-keys.o `test -f 'test-media-keys.c' || echo '$(srcdir)/'`test-media-keys.c
 
-gsd_test_media_keys-test-media-keys.obj: test-media-keys.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-test-media-keys.obj -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-test-media-keys.Tpo -c -o gsd_test_media_keys-test-media-keys.obj `if test -f 'test-media-keys.c'; then $(CYGPATH_W) 'test-media-keys.c'; else $(CYGPATH_W) '$(srcdir)/test-media-keys.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-test-media-keys.Tpo $(DEPDIR)/gsd_test_media_keys-test-media-keys.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-media-keys.c' object='gsd_test_media_keys-test-media-keys.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-test-media-keys.obj: test-media-keys.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-test-media-keys.obj -MD -MP -MF $(DEPDIR)/csd_test_media_keys-test-media-keys.Tpo -c -o csd_test_media_keys-test-media-keys.obj `if test -f 'test-media-keys.c'; then $(CYGPATH_W) 'test-media-keys.c'; else $(CYGPATH_W) '$(srcdir)/test-media-keys.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-test-media-keys.Tpo $(DEPDIR)/csd_test_media_keys-test-media-keys.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-media-keys.c' object='csd_test_media_keys-test-media-keys.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-test-media-keys.obj `if test -f 'test-media-keys.c'; then $(CYGPATH_W) 'test-media-keys.c'; else $(CYGPATH_W) '$(srcdir)/test-media-keys.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-test-media-keys.obj `if test -f 'test-media-keys.c'; then $(CYGPATH_W) 'test-media-keys.c'; else $(CYGPATH_W) '$(srcdir)/test-media-keys.c'; fi`
 
-gsd_test_media_keys-gsd-marshal.o: gsd-marshal.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-gsd-marshal.o -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-gsd-marshal.Tpo -c -o gsd_test_media_keys-gsd-marshal.o `test -f 'gsd-marshal.c' || echo '$(srcdir)/'`gsd-marshal.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-gsd-marshal.Tpo $(DEPDIR)/gsd_test_media_keys-gsd-marshal.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-marshal.c' object='gsd_test_media_keys-gsd-marshal.o' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-csd-marshal.o: csd-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-csd-marshal.o -MD -MP -MF $(DEPDIR)/csd_test_media_keys-csd-marshal.Tpo -c -o csd_test_media_keys-csd-marshal.o `test -f 'csd-marshal.c' || echo '$(srcdir)/'`csd-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-csd-marshal.Tpo $(DEPDIR)/csd_test_media_keys-csd-marshal.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-marshal.c' object='csd_test_media_keys-csd-marshal.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-gsd-marshal.o `test -f 'gsd-marshal.c' || echo '$(srcdir)/'`gsd-marshal.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-csd-marshal.o `test -f 'csd-marshal.c' || echo '$(srcdir)/'`csd-marshal.c
 
-gsd_test_media_keys-gsd-marshal.obj: gsd-marshal.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -MT gsd_test_media_keys-gsd-marshal.obj -MD -MP -MF $(DEPDIR)/gsd_test_media_keys-gsd-marshal.Tpo -c -o gsd_test_media_keys-gsd-marshal.obj `if test -f 'gsd-marshal.c'; then $(CYGPATH_W) 'gsd-marshal.c'; else $(CYGPATH_W) '$(srcdir)/gsd-marshal.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_media_keys-gsd-marshal.Tpo $(DEPDIR)/gsd_test_media_keys-gsd-marshal.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-marshal.c' object='gsd_test_media_keys-gsd-marshal.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_media_keys-csd-marshal.obj: csd-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -MT csd_test_media_keys-csd-marshal.obj -MD -MP -MF $(DEPDIR)/csd_test_media_keys-csd-marshal.Tpo -c -o csd_test_media_keys-csd-marshal.obj `if test -f 'csd-marshal.c'; then $(CYGPATH_W) 'csd-marshal.c'; else $(CYGPATH_W) '$(srcdir)/csd-marshal.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_media_keys-csd-marshal.Tpo $(DEPDIR)/csd_test_media_keys-csd-marshal.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-marshal.c' object='csd_test_media_keys-csd-marshal.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(gsd_test_media_keys_CFLAGS) $(CFLAGS) -c -o gsd_test_media_keys-gsd-marshal.obj `if test -f 'gsd-marshal.c'; then $(CYGPATH_W) 'gsd-marshal.c'; else $(CYGPATH_W) '$(srcdir)/gsd-marshal.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_media_keys_CPPFLAGS) $(CPPFLAGS) $(csd_test_media_keys_CFLAGS) $(CFLAGS) -c -o csd_test_media_keys-csd-marshal.obj `if test -f 'csd-marshal.c'; then $(CYGPATH_W) 'csd-marshal.c'; else $(CYGPATH_W) '$(srcdir)/csd-marshal.c'; fi`
 
-test_media_window-gsd-osd-window.o: gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -MT test_media_window-gsd-osd-window.o -MD -MP -MF $(DEPDIR)/test_media_window-gsd-osd-window.Tpo -c -o test_media_window-gsd-osd-window.o `test -f 'gsd-osd-window.c' || echo '$(srcdir)/'`gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_media_window-gsd-osd-window.Tpo $(DEPDIR)/test_media_window-gsd-osd-window.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-osd-window.c' object='test_media_window-gsd-osd-window.o' libtool=no @AMDEPBACKSLASH@
+test_media_window-csd-osd-window.o: csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -MT test_media_window-csd-osd-window.o -MD -MP -MF $(DEPDIR)/test_media_window-csd-osd-window.Tpo -c -o test_media_window-csd-osd-window.o `test -f 'csd-osd-window.c' || echo '$(srcdir)/'`csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_media_window-csd-osd-window.Tpo $(DEPDIR)/test_media_window-csd-osd-window.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-osd-window.c' object='test_media_window-csd-osd-window.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -c -o test_media_window-gsd-osd-window.o `test -f 'gsd-osd-window.c' || echo '$(srcdir)/'`gsd-osd-window.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -c -o test_media_window-csd-osd-window.o `test -f 'csd-osd-window.c' || echo '$(srcdir)/'`csd-osd-window.c
 
-test_media_window-gsd-osd-window.obj: gsd-osd-window.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -MT test_media_window-gsd-osd-window.obj -MD -MP -MF $(DEPDIR)/test_media_window-gsd-osd-window.Tpo -c -o test_media_window-gsd-osd-window.obj `if test -f 'gsd-osd-window.c'; then $(CYGPATH_W) 'gsd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/gsd-osd-window.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_media_window-gsd-osd-window.Tpo $(DEPDIR)/test_media_window-gsd-osd-window.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-osd-window.c' object='test_media_window-gsd-osd-window.obj' libtool=no @AMDEPBACKSLASH@
+test_media_window-csd-osd-window.obj: csd-osd-window.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -MT test_media_window-csd-osd-window.obj -MD -MP -MF $(DEPDIR)/test_media_window-csd-osd-window.Tpo -c -o test_media_window-csd-osd-window.obj `if test -f 'csd-osd-window.c'; then $(CYGPATH_W) 'csd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/csd-osd-window.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_media_window-csd-osd-window.Tpo $(DEPDIR)/test_media_window-csd-osd-window.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-osd-window.c' object='test_media_window-csd-osd-window.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -c -o test_media_window-gsd-osd-window.obj `if test -f 'gsd-osd-window.c'; then $(CYGPATH_W) 'gsd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/gsd-osd-window.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -c -o test_media_window-csd-osd-window.obj `if test -f 'csd-osd-window.c'; then $(CYGPATH_W) 'csd-osd-window.c'; else $(CYGPATH_W) '$(srcdir)/csd-osd-window.c'; fi`
 
 test_media_window-test-media-window.o: test-media-window.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_media_window_CPPFLAGS) $(CPPFLAGS) $(test_media_window_CFLAGS) $(CFLAGS) -MT test_media_window-test-media-window.o -MD -MP -MF $(DEPDIR)/test_media_window-test-media-window.Tpo -c -o test_media_window-test-media-window.o `test -f 'test-media-window.c' || echo '$(srcdir)/'`test-media-window.c
@@ -1211,13 +1211,13 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginDATA uninstall-pluginLTLIBRARIES
 
 
-gsd-marshal.c: gsd-marshal.list
-	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --body --internal > $@
+csd-marshal.c: csd-marshal.list
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=csd_marshal $< --header --body --internal > $@
 
-gsd-marshal.h: gsd-marshal.list
-	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --internal > $@
+csd-marshal.h: csd-marshal.list
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=csd_marshal $< --header --internal > $@
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -1,4 +1,4 @@
-/* gsd-smartcard.c - smartcard object
+/* csd-smartcard.c - smartcard object
  *
  * Copyright (C) 2006 Ray Strode <rstrode@redhat.com>
  *
@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#define GSD_SMARTCARD_ENABLE_INTERNAL_API
-#include "gsd-smartcard.h"
+#define CSD_SMARTCARD_ENABLE_INTERNAL_API
+#include "csd-smartcard.h"
 
 #include <errno.h>
 #include <string.h>
@@ -37,9 +37,9 @@
 #include <secmod.h>
 #include <secerr.h>
 
-struct _GsdSmartcardPrivate {
+struct _CsdSmartcardPrivate {
         SECMODModule *module;
-        GsdSmartcardState state;
+        CsdSmartcardState state;
 
         CK_SLOT_ID slot_id;
         int slot_series;
@@ -51,37 +51,37 @@ struct _GsdSmartcardPrivate {
         CERTCertificate *encryption_certificate;
 };
 
-static void gsd_smartcard_finalize (GObject *object);
-static void gsd_smartcard_class_install_signals (GsdSmartcardClass *card_class);
-static void gsd_smartcard_class_install_properties (GsdSmartcardClass *card_class);
-static void gsd_smartcard_set_property (GObject       *object,
+static void csd_smartcard_finalize (GObject *object);
+static void csd_smartcard_class_install_signals (CsdSmartcardClass *card_class);
+static void csd_smartcard_class_install_properties (CsdSmartcardClass *card_class);
+static void csd_smartcard_set_property (GObject       *object,
                                        guint          prop_id,
                                        const GValue  *value,
                                        GParamSpec    *pspec);
-static void gsd_smartcard_get_property (GObject     *object,
+static void csd_smartcard_get_property (GObject     *object,
                                        guint        prop_id,
                                        GValue      *value,
                                        GParamSpec  *pspec);
-static void gsd_smartcard_set_name (GsdSmartcard *card, const char *name);
-static void gsd_smartcard_set_slot_id (GsdSmartcard *card,
+static void csd_smartcard_set_name (CsdSmartcard *card, const char *name);
+static void csd_smartcard_set_slot_id (CsdSmartcard *card,
                                       int                 slot_id);
-static void gsd_smartcard_set_slot_series (GsdSmartcard *card,
+static void csd_smartcard_set_slot_series (CsdSmartcard *card,
                                           int          slot_series);
-static void gsd_smartcard_set_module (GsdSmartcard *card,
+static void csd_smartcard_set_module (CsdSmartcard *card,
                                      SECMODModule *module);
 
-static PK11SlotInfo *gsd_smartcard_find_slot_from_id (GsdSmartcard *card,
+static PK11SlotInfo *csd_smartcard_find_slot_from_id (CsdSmartcard *card,
                                                      int slot_id);
 
-static PK11SlotInfo *gsd_smartcard_find_slot_from_card_name (GsdSmartcard *card,
+static PK11SlotInfo *csd_smartcard_find_slot_from_card_name (CsdSmartcard *card,
                                                             const char  *card_name);
 
-#ifndef GSD_SMARTCARD_DEFAULT_SLOT_ID
-#define GSD_SMARTCARD_DEFAULT_SLOT_ID ((gulong) -1)
+#ifndef CSD_SMARTCARD_DEFAULT_SLOT_ID
+#define CSD_SMARTCARD_DEFAULT_SLOT_ID ((gulong) -1)
 #endif
 
-#ifndef GSD_SMARTCARD_DEFAULT_SLOT_SERIES
-#define GSD_SMARTCARD_DEFAULT_SLOT_SERIES -1
+#ifndef CSD_SMARTCARD_DEFAULT_SLOT_SERIES
+#define CSD_SMARTCARD_DEFAULT_SLOT_SERIES -1
 #endif
 
 enum {
@@ -99,73 +99,73 @@ enum {
         NUMBER_OF_SIGNALS
 };
 
-static guint gsd_smartcard_signals[NUMBER_OF_SIGNALS];
+static guint csd_smartcard_signals[NUMBER_OF_SIGNALS];
 
-G_DEFINE_TYPE (GsdSmartcard, gsd_smartcard, G_TYPE_OBJECT);
+G_DEFINE_TYPE (CsdSmartcard, csd_smartcard, G_TYPE_OBJECT);
 
 static void
-gsd_smartcard_class_init (GsdSmartcardClass *card_class)
+csd_smartcard_class_init (CsdSmartcardClass *card_class)
 {
         GObjectClass *gobject_class;
 
         gobject_class = G_OBJECT_CLASS (card_class);
 
-        gobject_class->finalize = gsd_smartcard_finalize;
+        gobject_class->finalize = csd_smartcard_finalize;
 
-        gsd_smartcard_class_install_signals (card_class);
-        gsd_smartcard_class_install_properties (card_class);
+        csd_smartcard_class_install_signals (card_class);
+        csd_smartcard_class_install_properties (card_class);
 
         g_type_class_add_private (card_class,
-                                  sizeof (GsdSmartcardPrivate));
+                                  sizeof (CsdSmartcardPrivate));
 }
 
 static void
-gsd_smartcard_class_install_signals (GsdSmartcardClass *card_class)
+csd_smartcard_class_install_signals (CsdSmartcardClass *card_class)
 {
         GObjectClass *object_class;
 
         object_class = G_OBJECT_CLASS (card_class);
 
-        gsd_smartcard_signals[INSERTED] =
+        csd_smartcard_signals[INSERTED] =
                 g_signal_new ("inserted",
                           G_OBJECT_CLASS_TYPE (object_class),
                           G_SIGNAL_RUN_LAST,
-                          G_STRUCT_OFFSET (GsdSmartcardClass,
+                          G_STRUCT_OFFSET (CsdSmartcardClass,
                                            inserted),
                           NULL, NULL, g_cclosure_marshal_VOID__VOID,
                           G_TYPE_NONE, 0);
 
-        gsd_smartcard_signals[REMOVED] =
+        csd_smartcard_signals[REMOVED] =
                 g_signal_new ("removed",
                           G_OBJECT_CLASS_TYPE (object_class),
                           G_SIGNAL_RUN_LAST,
-                          G_STRUCT_OFFSET (GsdSmartcardClass,
+                          G_STRUCT_OFFSET (CsdSmartcardClass,
                                            removed),
                           NULL, NULL, g_cclosure_marshal_VOID__VOID,
                           G_TYPE_NONE, 0);
 }
 
 static void
-gsd_smartcard_class_install_properties (GsdSmartcardClass *card_class)
+csd_smartcard_class_install_properties (CsdSmartcardClass *card_class)
 {
         GObjectClass *object_class;
         GParamSpec *param_spec;
 
         object_class = G_OBJECT_CLASS (card_class);
-        object_class->set_property = gsd_smartcard_set_property;
-        object_class->get_property = gsd_smartcard_get_property;
+        object_class->set_property = csd_smartcard_set_property;
+        object_class->get_property = csd_smartcard_get_property;
 
         param_spec = g_param_spec_ulong ("slot-id", "Slot ID",
                                          "The slot the card is in",
                                          1, G_MAXULONG,
-                                         GSD_SMARTCARD_DEFAULT_SLOT_ID,
+                                         CSD_SMARTCARD_DEFAULT_SLOT_ID,
                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_SLOT_ID, param_spec);
 
         param_spec = g_param_spec_int ("slot-series", "Slot Series",
                                        "per-slot card identifier",
                                        -1, G_MAXINT,
-                                       GSD_SMARTCARD_DEFAULT_SLOT_SERIES,
+                                       CSD_SMARTCARD_DEFAULT_SLOT_SERIES,
                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
         g_object_class_install_property (object_class, PROP_SLOT_SERIES, param_spec);
 
@@ -181,30 +181,30 @@ gsd_smartcard_class_install_properties (GsdSmartcardClass *card_class)
 }
 
 static void
-gsd_smartcard_set_property (GObject       *object,
+csd_smartcard_set_property (GObject       *object,
                             guint          prop_id,
                             const GValue  *value,
                             GParamSpec    *pspec)
 {
-        GsdSmartcard *card = GSD_SMARTCARD (object);
+        CsdSmartcard *card = CSD_SMARTCARD (object);
 
         switch (prop_id) {
                 case PROP_NAME:
-                        gsd_smartcard_set_name (card, g_value_get_string (value));
+                        csd_smartcard_set_name (card, g_value_get_string (value));
                         break;
 
                 case PROP_SLOT_ID:
-                        gsd_smartcard_set_slot_id (card,
+                        csd_smartcard_set_slot_id (card,
                                                    g_value_get_ulong (value));
                         break;
 
                 case PROP_SLOT_SERIES:
-                        gsd_smartcard_set_slot_series (card,
+                        csd_smartcard_set_slot_series (card,
                                                        g_value_get_int (value));
                         break;
 
                 case PROP_MODULE:
-                        gsd_smartcard_set_module (card,
+                        csd_smartcard_set_module (card,
                                                   (SECMODModule *)
                                                   g_value_get_pointer (value));
                         break;
@@ -215,25 +215,25 @@ gsd_smartcard_set_property (GObject       *object,
 }
 
 CK_SLOT_ID
-gsd_smartcard_get_slot_id (GsdSmartcard *card)
+csd_smartcard_get_slot_id (CsdSmartcard *card)
 {
         return card->priv->slot_id;
 }
 
-GsdSmartcardState
-gsd_smartcard_get_state (GsdSmartcard *card)
+CsdSmartcardState
+csd_smartcard_get_state (CsdSmartcard *card)
 {
         return card->priv->state;
 }
 
 char *
-gsd_smartcard_get_name (GsdSmartcard *card)
+csd_smartcard_get_name (CsdSmartcard *card)
 {
         return g_strdup (card->priv->name);
 }
 
 gboolean
-gsd_smartcard_is_login_card (GsdSmartcard *card)
+csd_smartcard_is_login_card (CsdSmartcard *card)
 {
         const char *login_card_name;
         login_card_name = g_getenv ("PKCS11_LOGIN_TOKEN_NAME");
@@ -250,27 +250,27 @@ gsd_smartcard_is_login_card (GsdSmartcard *card)
 }
 
 static void
-gsd_smartcard_get_property (GObject    *object,
+csd_smartcard_get_property (GObject    *object,
                             guint        prop_id,
                             GValue      *value,
                             GParamSpec  *pspec)
 {
-        GsdSmartcard *card = GSD_SMARTCARD (object);
+        CsdSmartcard *card = CSD_SMARTCARD (object);
 
         switch (prop_id) {
                 case PROP_NAME:
                         g_value_take_string (value,
-                                             gsd_smartcard_get_name (card));
+                                             csd_smartcard_get_name (card));
                         break;
 
                 case PROP_SLOT_ID:
                         g_value_set_ulong (value,
-                                           (gulong) gsd_smartcard_get_slot_id (card));
+                                           (gulong) csd_smartcard_get_slot_id (card));
                         break;
 
                 case PROP_SLOT_SERIES:
                         g_value_set_int (value,
-                                         gsd_smartcard_get_slot_series (card));
+                                         csd_smartcard_get_slot_series (card));
                         break;
 
                 default:
@@ -279,7 +279,7 @@ gsd_smartcard_get_property (GObject    *object,
 }
 
 static void
-gsd_smartcard_set_name (GsdSmartcard *card,
+csd_smartcard_set_name (CsdSmartcard *card,
                         const char   *name)
 {
         if (name == NULL) {
@@ -292,7 +292,7 @@ gsd_smartcard_set_name (GsdSmartcard *card,
                 card->priv->name = g_strdup (name);
 
                 if (card->priv->slot == NULL) {
-                        card->priv->slot = gsd_smartcard_find_slot_from_card_name (card,
+                        card->priv->slot = csd_smartcard_find_slot_from_card_name (card,
                                                                                      card->priv->name);
 
                         if (card->priv->slot != NULL) {
@@ -300,17 +300,17 @@ gsd_smartcard_set_name (GsdSmartcard *card,
 
                                 slot_id = PK11_GetSlotID (card->priv->slot);
                                 if (slot_id != card->priv->slot_id) {
-                                        gsd_smartcard_set_slot_id (card, slot_id);
+                                        csd_smartcard_set_slot_id (card, slot_id);
                                 }
 
                                 slot_series = PK11_GetSlotSeries (card->priv->slot);
                                 if (slot_series != card->priv->slot_series) {
-                                        gsd_smartcard_set_slot_series (card, slot_series);
+                                        csd_smartcard_set_slot_series (card, slot_series);
                                 }
 
-                                _gsd_smartcard_set_state (card, GSD_SMARTCARD_STATE_INSERTED);
+                                _csd_smartcard_set_state (card, CSD_SMARTCARD_STATE_INSERTED);
                         } else {
-                                _gsd_smartcard_set_state (card, GSD_SMARTCARD_STATE_REMOVED);
+                                _csd_smartcard_set_state (card, CSD_SMARTCARD_STATE_REMOVED);
                         }
                 }
 
@@ -319,14 +319,14 @@ gsd_smartcard_set_name (GsdSmartcard *card,
 }
 
 static void
-gsd_smartcard_set_slot_id (GsdSmartcard *card,
+csd_smartcard_set_slot_id (CsdSmartcard *card,
                            int           slot_id)
 {
         if (card->priv->slot_id != slot_id) {
                 card->priv->slot_id = slot_id;
 
                 if (card->priv->slot == NULL) {
-                        card->priv->slot = gsd_smartcard_find_slot_from_id (card,
+                        card->priv->slot = csd_smartcard_find_slot_from_id (card,
                                                                              card->priv->slot_id);
 
                         if (card->priv->slot != NULL) {
@@ -336,12 +336,12 @@ gsd_smartcard_set_slot_id (GsdSmartcard *card,
                                 if ((card->priv->name == NULL) ||
                                     ((card_name != NULL) &&
                                     (strcmp (card_name, card->priv->name) != 0))) {
-                                        gsd_smartcard_set_name (card, card_name);
+                                        csd_smartcard_set_name (card, card_name);
                                 }
 
-                                _gsd_smartcard_set_state (card, GSD_SMARTCARD_STATE_INSERTED);
+                                _csd_smartcard_set_state (card, CSD_SMARTCARD_STATE_INSERTED);
                         } else {
-                                _gsd_smartcard_set_state (card, GSD_SMARTCARD_STATE_REMOVED);
+                                _csd_smartcard_set_state (card, CSD_SMARTCARD_STATE_REMOVED);
                         }
                 }
 
@@ -350,7 +350,7 @@ gsd_smartcard_set_slot_id (GsdSmartcard *card,
 }
 
 static void
-gsd_smartcard_set_slot_series (GsdSmartcard *card,
+csd_smartcard_set_slot_series (CsdSmartcard *card,
                                int           slot_series)
 {
         if (card->priv->slot_series != slot_series) {
@@ -360,7 +360,7 @@ gsd_smartcard_set_slot_series (GsdSmartcard *card,
 }
 
 static void
-gsd_smartcard_set_module (GsdSmartcard *card,
+csd_smartcard_set_module (CsdSmartcard *card,
                           SECMODModule *module)
 {
         gboolean should_notify;
@@ -386,62 +386,62 @@ gsd_smartcard_set_module (GsdSmartcard *card,
 }
 
 int
-gsd_smartcard_get_slot_series (GsdSmartcard *card)
+csd_smartcard_get_slot_series (CsdSmartcard *card)
 {
         return card->priv->slot_series;
 }
 
 static void
-gsd_smartcard_init (GsdSmartcard *card)
+csd_smartcard_init (CsdSmartcard *card)
 {
 
         g_debug ("initializing smartcard ");
 
         card->priv = G_TYPE_INSTANCE_GET_PRIVATE (card,
-                                                  GSD_TYPE_SMARTCARD,
-                                                  GsdSmartcardPrivate);
+                                                  CSD_TYPE_SMARTCARD,
+                                                  CsdSmartcardPrivate);
 }
 
-static void gsd_smartcard_finalize (GObject *object)
+static void csd_smartcard_finalize (GObject *object)
 {
-        GsdSmartcard *card;
+        CsdSmartcard *card;
         GObjectClass *gobject_class;
 
-        card = GSD_SMARTCARD (object);
+        card = CSD_SMARTCARD (object);
 
         g_free (card->priv->name);
 
-        gsd_smartcard_set_module (card, NULL);
+        csd_smartcard_set_module (card, NULL);
 
-        gobject_class = G_OBJECT_CLASS (gsd_smartcard_parent_class);
+        gobject_class = G_OBJECT_CLASS (csd_smartcard_parent_class);
 
         gobject_class->finalize (object);
 }
 
-GQuark gsd_smartcard_error_quark (void)
+GQuark csd_smartcard_error_quark (void)
 {
         static GQuark error_quark = 0;
 
         if (error_quark == 0) {
-                error_quark = g_quark_from_static_string ("gsd-smartcard-error-quark");
+                error_quark = g_quark_from_static_string ("csd-smartcard-error-quark");
         }
 
         return error_quark;
 }
 
-GsdSmartcard *
-_gsd_smartcard_new (SECMODModule *module,
+CsdSmartcard *
+_csd_smartcard_new (SECMODModule *module,
                     CK_SLOT_ID    slot_id,
                     int           slot_series)
 {
-        GsdSmartcard *card;
+        CsdSmartcard *card;
 
         g_return_val_if_fail (module != NULL, NULL);
         g_return_val_if_fail (slot_id >= 1, NULL);
         g_return_val_if_fail (slot_series > 0, NULL);
         g_return_val_if_fail (sizeof (gulong) == sizeof (slot_id), NULL);
 
-        card = GSD_SMARTCARD (g_object_new (GSD_TYPE_SMARTCARD,
+        card = CSD_SMARTCARD (g_object_new (CSD_TYPE_SMARTCARD,
                                              "module", module,
                                              "slot-id", (gulong) slot_id,
                                              "slot-series", slot_series,
@@ -449,16 +449,16 @@ _gsd_smartcard_new (SECMODModule *module,
         return card;
 }
 
-GsdSmartcard *
-_gsd_smartcard_new_from_name (SECMODModule *module,
+CsdSmartcard *
+_csd_smartcard_new_from_name (SECMODModule *module,
                               const char   *name)
 {
-        GsdSmartcard *card;
+        CsdSmartcard *card;
 
         g_return_val_if_fail (module != NULL, NULL);
         g_return_val_if_fail (name != NULL, NULL);
 
-        card = GSD_SMARTCARD (g_object_new (GSD_TYPE_SMARTCARD,
+        card = CSD_SMARTCARD (g_object_new (CSD_TYPE_SMARTCARD,
                                             "module", module,
                                             "name", name,
                                             NULL));
@@ -466,17 +466,17 @@ _gsd_smartcard_new_from_name (SECMODModule *module,
 }
 
 void
-_gsd_smartcard_set_state (GsdSmartcard      *card,
-                          GsdSmartcardState  state)
+_csd_smartcard_set_state (CsdSmartcard      *card,
+                          CsdSmartcardState  state)
 {
-        /* gsd_smartcard_fetch_certificates (card); */
+        /* csd_smartcard_fetch_certificates (card); */
         if (card->priv->state != state) {
                 card->priv->state = state;
 
-                if (state == GSD_SMARTCARD_STATE_INSERTED) {
-                        g_signal_emit (card, gsd_smartcard_signals[INSERTED], 0);
-                } else if (state == GSD_SMARTCARD_STATE_REMOVED) {
-                        g_signal_emit (card, gsd_smartcard_signals[REMOVED], 0);
+                if (state == CSD_SMARTCARD_STATE_INSERTED) {
+                        g_signal_emit (card, csd_smartcard_signals[INSERTED], 0);
+                } else if (state == CSD_SMARTCARD_STATE_REMOVED) {
+                        g_signal_emit (card, csd_smartcard_signals[REMOVED], 0);
                 } else {
                         g_assert_not_reached ();
                 }
@@ -490,7 +490,7 @@ _gsd_smartcard_set_state (GsdSmartcard      *card,
  * and strdup it using NSPR's memory allocation routines.
  */
 static char *
-gsd_smartcard_password_handler (PK11SlotInfo *slot,
+csd_smartcard_password_handler (PK11SlotInfo *slot,
                                 PRBool        is_retrying,
                                 const char   *password)
 {
@@ -502,12 +502,12 @@ gsd_smartcard_password_handler (PK11SlotInfo *slot,
 }
 
 gboolean
-gsd_smartcard_unlock (GsdSmartcard *card,
+csd_smartcard_unlock (CsdSmartcard *card,
                       const char   *password)
 {
         SECStatus status;
 
-        PK11_SetPasswordFunc ((PK11PasswordFunc) gsd_smartcard_password_handler);
+        PK11_SetPasswordFunc ((PK11PasswordFunc) csd_smartcard_password_handler);
 
         /* we pass PR_TRUE to load certificates
         */
@@ -521,7 +521,7 @@ gsd_smartcard_unlock (GsdSmartcard *card,
 }
 
 static PK11SlotInfo *
-gsd_smartcard_find_slot_from_card_name (GsdSmartcard *card,
+csd_smartcard_find_slot_from_card_name (CsdSmartcard *card,
                                         const char   *card_name)
 {
         int i;
@@ -541,7 +541,7 @@ gsd_smartcard_find_slot_from_card_name (GsdSmartcard *card,
 }
 
 static PK11SlotInfo *
-gsd_smartcard_find_slot_from_id (GsdSmartcard *card,
+csd_smartcard_find_slot_from_id (CsdSmartcard *card,
                                  int           slot_id)
 {
         int i;

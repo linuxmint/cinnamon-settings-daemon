@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-sound$(EXEEXT)
+libexec_PROGRAMS = csd-test-sound$(EXEEXT)
 subdir = plugins/sound
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -97,8 +97,8 @@ am__installdirs = "$(DESTDIR)$(plugindir)" "$(DESTDIR)$(libexecdir)" \
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libsound_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-am_libsound_la_OBJECTS = libsound_la-gsd-sound-plugin.lo \
-	libsound_la-gsd-sound-manager.lo
+am_libsound_la_OBJECTS = libsound_la-csd-sound-plugin.lo \
+	libsound_la-csd-sound-manager.lo
 libsound_la_OBJECTS = $(am_libsound_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -108,17 +108,17 @@ libsound_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libsound_la_CFLAGS) \
 	$(CFLAGS) $(libsound_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_test_sound_OBJECTS =  \
-	gsd_test_sound-gsd-sound-manager.$(OBJEXT) \
-	gsd_test_sound-test-sound.$(OBJEXT)
-gsd_test_sound_OBJECTS = $(am_gsd_test_sound_OBJECTS)
-gsd_test_sound_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_sound_OBJECTS =  \
+	csd_test_sound-csd-sound-manager.$(OBJEXT) \
+	csd_test_sound-test-sound.$(OBJEXT)
+csd_test_sound_OBJECTS = $(am_csd_test_sound_OBJECTS)
+csd_test_sound_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_test_sound_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_sound_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_sound_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
+	$(csd_test_sound_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
 	$@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -154,8 +154,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libsound_la_SOURCES) $(gsd_test_sound_SOURCES)
-DIST_SOURCES = $(libsound_la_SOURCES) $(gsd_test_sound_SOURCES)
+SOURCES = $(libsound_la_SOURCES) $(csd_test_sound_SOURCES)
+DIST_SOURCES = $(libsound_la_SOURCES) $(csd_test_sound_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -224,9 +224,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -384,22 +384,22 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 plugin_name = sound
-gsd_test_sound_SOURCES = \
-	gsd-sound-manager.h	\
-	gsd-sound-manager.c	\
+csd_test_sound_SOURCES = \
+	csd-sound-manager.h	\
+	csd-sound-manager.c	\
 	test-sound.c
 
-gsd_test_sound_CFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
+csd_test_sound_CFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(SOUND_CFLAGS)						\
 	$(PLUGIN_CFLAGS)					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-gsd_test_sound_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_sound_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SOUND_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)
@@ -408,14 +408,14 @@ plugin_LTLIBRARIES = \
 	libsound.la
 
 libsound_la_SOURCES = \
-	gsd-sound-plugin.h \
-	gsd-sound-plugin.c \
-	gsd-sound-manager.h \
-	gsd-sound-manager.c
+	csd-sound-plugin.h \
+	csd-sound-plugin.c \
+	csd-sound-manager.h \
+	csd-sound-manager.c
 
 libsound_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon \
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libsound_la_CFLAGS = \
@@ -425,16 +425,16 @@ libsound_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libsound_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libsound_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(SOUND_LIBS)
 
 plugin_in_files = \
-	sound.gnome-settings-plugin.in
+	sound.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = \
 	$(plugin_in_files)
 
@@ -560,9 +560,9 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-sound$(EXEEXT): $(gsd_test_sound_OBJECTS) $(gsd_test_sound_DEPENDENCIES) $(EXTRA_gsd_test_sound_DEPENDENCIES) 
-	@rm -f gsd-test-sound$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_sound_LINK) $(gsd_test_sound_OBJECTS) $(gsd_test_sound_LDADD) $(LIBS)
+csd-test-sound$(EXEEXT): $(csd_test_sound_OBJECTS) $(csd_test_sound_DEPENDENCIES) $(EXTRA_csd_test_sound_DEPENDENCIES) 
+	@rm -f csd-test-sound$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_sound_LINK) $(csd_test_sound_OBJECTS) $(csd_test_sound_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -570,10 +570,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_sound-gsd-sound-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_sound-test-sound.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsound_la-gsd-sound-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsound_la-gsd-sound-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_sound-csd-sound-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_sound-test-sound.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsound_la-csd-sound-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsound_la-csd-sound-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -596,47 +596,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libsound_la-gsd-sound-plugin.lo: gsd-sound-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -MT libsound_la-gsd-sound-plugin.lo -MD -MP -MF $(DEPDIR)/libsound_la-gsd-sound-plugin.Tpo -c -o libsound_la-gsd-sound-plugin.lo `test -f 'gsd-sound-plugin.c' || echo '$(srcdir)/'`gsd-sound-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsound_la-gsd-sound-plugin.Tpo $(DEPDIR)/libsound_la-gsd-sound-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-sound-plugin.c' object='libsound_la-gsd-sound-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libsound_la-csd-sound-plugin.lo: csd-sound-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -MT libsound_la-csd-sound-plugin.lo -MD -MP -MF $(DEPDIR)/libsound_la-csd-sound-plugin.Tpo -c -o libsound_la-csd-sound-plugin.lo `test -f 'csd-sound-plugin.c' || echo '$(srcdir)/'`csd-sound-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsound_la-csd-sound-plugin.Tpo $(DEPDIR)/libsound_la-csd-sound-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-sound-plugin.c' object='libsound_la-csd-sound-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -c -o libsound_la-gsd-sound-plugin.lo `test -f 'gsd-sound-plugin.c' || echo '$(srcdir)/'`gsd-sound-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -c -o libsound_la-csd-sound-plugin.lo `test -f 'csd-sound-plugin.c' || echo '$(srcdir)/'`csd-sound-plugin.c
 
-libsound_la-gsd-sound-manager.lo: gsd-sound-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -MT libsound_la-gsd-sound-manager.lo -MD -MP -MF $(DEPDIR)/libsound_la-gsd-sound-manager.Tpo -c -o libsound_la-gsd-sound-manager.lo `test -f 'gsd-sound-manager.c' || echo '$(srcdir)/'`gsd-sound-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsound_la-gsd-sound-manager.Tpo $(DEPDIR)/libsound_la-gsd-sound-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-sound-manager.c' object='libsound_la-gsd-sound-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libsound_la-csd-sound-manager.lo: csd-sound-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -MT libsound_la-csd-sound-manager.lo -MD -MP -MF $(DEPDIR)/libsound_la-csd-sound-manager.Tpo -c -o libsound_la-csd-sound-manager.lo `test -f 'csd-sound-manager.c' || echo '$(srcdir)/'`csd-sound-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsound_la-csd-sound-manager.Tpo $(DEPDIR)/libsound_la-csd-sound-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-sound-manager.c' object='libsound_la-csd-sound-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -c -o libsound_la-gsd-sound-manager.lo `test -f 'gsd-sound-manager.c' || echo '$(srcdir)/'`gsd-sound-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsound_la_CPPFLAGS) $(CPPFLAGS) $(libsound_la_CFLAGS) $(CFLAGS) -c -o libsound_la-csd-sound-manager.lo `test -f 'csd-sound-manager.c' || echo '$(srcdir)/'`csd-sound-manager.c
 
-gsd_test_sound-gsd-sound-manager.o: gsd-sound-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -MT gsd_test_sound-gsd-sound-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_sound-gsd-sound-manager.Tpo -c -o gsd_test_sound-gsd-sound-manager.o `test -f 'gsd-sound-manager.c' || echo '$(srcdir)/'`gsd-sound-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_sound-gsd-sound-manager.Tpo $(DEPDIR)/gsd_test_sound-gsd-sound-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-sound-manager.c' object='gsd_test_sound-gsd-sound-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_sound-csd-sound-manager.o: csd-sound-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -MT csd_test_sound-csd-sound-manager.o -MD -MP -MF $(DEPDIR)/csd_test_sound-csd-sound-manager.Tpo -c -o csd_test_sound-csd-sound-manager.o `test -f 'csd-sound-manager.c' || echo '$(srcdir)/'`csd-sound-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_sound-csd-sound-manager.Tpo $(DEPDIR)/csd_test_sound-csd-sound-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-sound-manager.c' object='csd_test_sound-csd-sound-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -c -o gsd_test_sound-gsd-sound-manager.o `test -f 'gsd-sound-manager.c' || echo '$(srcdir)/'`gsd-sound-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -c -o csd_test_sound-csd-sound-manager.o `test -f 'csd-sound-manager.c' || echo '$(srcdir)/'`csd-sound-manager.c
 
-gsd_test_sound-gsd-sound-manager.obj: gsd-sound-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -MT gsd_test_sound-gsd-sound-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_sound-gsd-sound-manager.Tpo -c -o gsd_test_sound-gsd-sound-manager.obj `if test -f 'gsd-sound-manager.c'; then $(CYGPATH_W) 'gsd-sound-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-sound-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_sound-gsd-sound-manager.Tpo $(DEPDIR)/gsd_test_sound-gsd-sound-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-sound-manager.c' object='gsd_test_sound-gsd-sound-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_sound-csd-sound-manager.obj: csd-sound-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -MT csd_test_sound-csd-sound-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_sound-csd-sound-manager.Tpo -c -o csd_test_sound-csd-sound-manager.obj `if test -f 'csd-sound-manager.c'; then $(CYGPATH_W) 'csd-sound-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-sound-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_sound-csd-sound-manager.Tpo $(DEPDIR)/csd_test_sound-csd-sound-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-sound-manager.c' object='csd_test_sound-csd-sound-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -c -o gsd_test_sound-gsd-sound-manager.obj `if test -f 'gsd-sound-manager.c'; then $(CYGPATH_W) 'gsd-sound-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-sound-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -c -o csd_test_sound-csd-sound-manager.obj `if test -f 'csd-sound-manager.c'; then $(CYGPATH_W) 'csd-sound-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-sound-manager.c'; fi`
 
-gsd_test_sound-test-sound.o: test-sound.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -MT gsd_test_sound-test-sound.o -MD -MP -MF $(DEPDIR)/gsd_test_sound-test-sound.Tpo -c -o gsd_test_sound-test-sound.o `test -f 'test-sound.c' || echo '$(srcdir)/'`test-sound.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_sound-test-sound.Tpo $(DEPDIR)/gsd_test_sound-test-sound.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-sound.c' object='gsd_test_sound-test-sound.o' libtool=no @AMDEPBACKSLASH@
+csd_test_sound-test-sound.o: test-sound.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -MT csd_test_sound-test-sound.o -MD -MP -MF $(DEPDIR)/csd_test_sound-test-sound.Tpo -c -o csd_test_sound-test-sound.o `test -f 'test-sound.c' || echo '$(srcdir)/'`test-sound.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_sound-test-sound.Tpo $(DEPDIR)/csd_test_sound-test-sound.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-sound.c' object='csd_test_sound-test-sound.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -c -o gsd_test_sound-test-sound.o `test -f 'test-sound.c' || echo '$(srcdir)/'`test-sound.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -c -o csd_test_sound-test-sound.o `test -f 'test-sound.c' || echo '$(srcdir)/'`test-sound.c
 
-gsd_test_sound-test-sound.obj: test-sound.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -MT gsd_test_sound-test-sound.obj -MD -MP -MF $(DEPDIR)/gsd_test_sound-test-sound.Tpo -c -o gsd_test_sound-test-sound.obj `if test -f 'test-sound.c'; then $(CYGPATH_W) 'test-sound.c'; else $(CYGPATH_W) '$(srcdir)/test-sound.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_sound-test-sound.Tpo $(DEPDIR)/gsd_test_sound-test-sound.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-sound.c' object='gsd_test_sound-test-sound.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_sound-test-sound.obj: test-sound.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -MT csd_test_sound-test-sound.obj -MD -MP -MF $(DEPDIR)/csd_test_sound-test-sound.Tpo -c -o csd_test_sound-test-sound.obj `if test -f 'test-sound.c'; then $(CYGPATH_W) 'test-sound.c'; else $(CYGPATH_W) '$(srcdir)/test-sound.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_sound-test-sound.Tpo $(DEPDIR)/csd_test_sound-test-sound.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-sound.c' object='csd_test_sound-test-sound.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_sound_CFLAGS) $(CFLAGS) -c -o gsd_test_sound-test-sound.obj `if test -f 'test-sound.c'; then $(CYGPATH_W) 'test-sound.c'; else $(CYGPATH_W) '$(srcdir)/test-sound.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_sound_CFLAGS) $(CFLAGS) -c -o csd_test_sound-test-sound.obj `if test -f 'test-sound.c'; then $(CYGPATH_W) 'test-sound.c'; else $(CYGPATH_W) '$(srcdir)/test-sound.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -892,7 +892,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

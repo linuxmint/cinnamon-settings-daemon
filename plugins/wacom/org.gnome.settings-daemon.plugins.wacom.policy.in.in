@@ -5,11 +5,11 @@
 <policyconfig>
 
   <!--
-    Policy definitions for gnome-settings-daemon system-wide actions.
+    Policy definitions for cinnamon-settings-daemon system-wide actions.
   -->
 
-  <vendor>GNOME Settings Daemon</vendor>
-  <vendor_url>http://git.gnome.org/browse/gnome-settings-daemon</vendor_url>
+  <vendor>Cinnamon Settings Daemon</vendor>
+  <vendor_url>http://git.gnome.org/browse/cinnamon-settings-daemon</vendor_url>
   <icon_name>input-tablet</icon_name>
 
   <action id="org.gnome.settings-daemon.plugins.wacom.wacom-led-helper">
@@ -24,7 +24,7 @@
       <allow_inactive>no</allow_inactive>
       <allow_active>yes</allow_active>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/gsd-wacom-led-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/csd-wacom-led-helper</annotate>
   </action>
 
 </policyconfig>

@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_SMARTCARD_PLUGIN_H__
-#define __GSD_SMARTCARD_PLUGIN_H__
+#ifndef __CSD_SMARTCARD_PLUGIN_H__
+#define __CSD_SMARTCARD_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_SMARTCARD_PLUGIN                (gsd_smartcard_plugin_get_type ())
-#define GSD_SMARTCARD_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_SMARTCARD_PLUGIN, GsdSmartcardPlugin))
-#define GSD_SMARTCARD_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST ((k), GSD_TYPE_SMARTCARD_PLUGIN, GsdSmartcardPluginClass))
-#define GSD_IS_SMARTCARD_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_SMARTCARD_PLUGIN))
-#define GSD_IS_SMARTCARD_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_SMARTCARD_PLUGIN))
-#define GSD_SMARTCARD_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_SMARTCARD_PLUGIN, GsdSmartcardPluginClass))
+#define CSD_TYPE_SMARTCARD_PLUGIN                (csd_smartcard_plugin_get_type ())
+#define CSD_SMARTCARD_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_SMARTCARD_PLUGIN, CsdSmartcardPlugin))
+#define CSD_SMARTCARD_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST ((k), CSD_TYPE_SMARTCARD_PLUGIN, CsdSmartcardPluginClass))
+#define CSD_IS_SMARTCARD_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_SMARTCARD_PLUGIN))
+#define CSD_IS_SMARTCARD_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_SMARTCARD_PLUGIN))
+#define CSD_SMARTCARD_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_SMARTCARD_PLUGIN, CsdSmartcardPluginClass))
 
-typedef struct GsdSmartcardPluginPrivate GsdSmartcardPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin parent;
-        GsdSmartcardPluginPrivate *priv;
-} GsdSmartcardPlugin;
+typedef struct CsdSmartcardPluginPrivate CsdSmartcardPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdSmartcardPluginClass;
+        CinnamonSettingsSettingsPlugin parent;
+        CsdSmartcardPluginPrivate *priv;
+} CsdSmartcardPlugin;
 
-GType gsd_smartcard_plugin_get_type (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdSmartcardPluginClass;
+
+GType csd_smartcard_plugin_get_type (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_SMARTCARD_PLUGIN_H__ */
+#endif /* __CSD_SMARTCARD_PLUGIN_H__ */

@@ -4,14 +4,14 @@ plugin_LTLIBRARIES = \
 	libdummy.la
 
 libdummy_la_SOURCES = 		\
-	gsd-dummy-manager.c	\
-	gsd-dummy-manager.h	\
-	gsd-dummy-plugin.c	\
-	gsd-dummy-plugin.h
+	csd-dummy-manager.c	\
+	csd-dummy-manager.h	\
+	csd-dummy-plugin.c	\
+	csd-dummy-plugin.h
 
 libdummy_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libdummy_la_CFLAGS = \
@@ -20,15 +20,15 @@ libdummy_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libdummy_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libdummy_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 		\
-	dummy.gnome-settings-plugin.in
+	dummy.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)
@@ -39,7 +39,7 @@ CLEANFILES = 			\
 DISTCLEANFILES =		\
 	$(plugin_DATA)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # override to _not_ install the test plugin
 # do not copy into your plugin

@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GSD_MOUSE_MANAGER_H
-#define __GSD_MOUSE_MANAGER_H
+#ifndef __CSD_MOUSE_MANAGER_H
+#define __CSD_MOUSE_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_MOUSE_MANAGER         (gsd_mouse_manager_get_type ())
-#define GSD_MOUSE_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManager))
-#define GSD_MOUSE_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerClass))
-#define GSD_IS_MOUSE_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_MOUSE_MANAGER))
-#define GSD_IS_MOUSE_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_MOUSE_MANAGER))
-#define GSD_MOUSE_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_MOUSE_MANAGER, GsdMouseManagerClass))
+#define CSD_TYPE_MOUSE_MANAGER         (csd_mouse_manager_get_type ())
+#define CSD_MOUSE_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_MOUSE_MANAGER, CsdMouseManager))
+#define CSD_MOUSE_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_MOUSE_MANAGER, CsdMouseManagerClass))
+#define CSD_IS_MOUSE_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_MOUSE_MANAGER))
+#define CSD_IS_MOUSE_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_MOUSE_MANAGER))
+#define CSD_MOUSE_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_MOUSE_MANAGER, CsdMouseManagerClass))
 
-typedef struct GsdMouseManagerPrivate GsdMouseManagerPrivate;
+typedef struct CsdMouseManagerPrivate CsdMouseManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdMouseManagerPrivate *priv;
-} GsdMouseManager;
+        CsdMouseManagerPrivate *priv;
+} CsdMouseManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdMouseManagerClass;
+} CsdMouseManagerClass;
 
-GType                   gsd_mouse_manager_get_type            (void);
+GType                   csd_mouse_manager_get_type            (void);
 
-GsdMouseManager *       gsd_mouse_manager_new                 (void);
-gboolean                gsd_mouse_manager_start               (GsdMouseManager *manager,
+CsdMouseManager *       csd_mouse_manager_new                 (void);
+gboolean                csd_mouse_manager_start               (CsdMouseManager *manager,
                                                                GError         **error);
-void                    gsd_mouse_manager_stop                (GsdMouseManager *manager);
+void                    csd_mouse_manager_stop                (CsdMouseManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_MOUSE_MANAGER_H */
+#endif /* __CSD_MOUSE_MANAGER_H */

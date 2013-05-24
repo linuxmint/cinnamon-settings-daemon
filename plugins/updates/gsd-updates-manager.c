@@ -29,27 +29,27 @@
 #include <libnotify/notify.h>
 #include <gdesktop-enums.h>
 
-#include "gsd-enums.h"
-#include "gsd-updates-manager.h"
-#include "gsd-updates-firmware.h"
-#include "gsd-updates-refresh.h"
-#include "gsd-updates-common.h"
-#include "gnome-settings-profile.h"
+#include "csd-enums.h"
+#include "csd-updates-manager.h"
+#include "csd-updates-firmware.h"
+#include "csd-updates-refresh.h"
+#include "csd-updates-common.h"
+#include "cinnamon-settings-profile.h"
 
-#define GSD_UPDATES_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_UPDATES_MANAGER, GsdUpdatesManagerPrivate))
+#define CSD_UPDATES_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_UPDATES_MANAGER, CsdUpdatesManagerPrivate))
 
 #define MAX_FAILED_GET_UPDATES              10 /* the maximum number of tries */
-#define GSD_UPDATES_ICON_NORMAL             "software-update-available-symbolic"
-#define GSD_UPDATES_ICON_URGENT             "software-update-urgent-symbolic"
+#define CSD_UPDATES_ICON_NORMAL             "software-update-available-symbolic"
+#define CSD_UPDATES_ICON_URGENT             "software-update-urgent-symbolic"
 
-struct GsdUpdatesManagerPrivate
+struct CsdUpdatesManagerPrivate
 {
         GCancellable            *cancellable;
-        GsdUpdatesRefresh       *refresh;
-        GsdUpdatesFirmware      *firmware;
+        CsdUpdatesRefresh       *refresh;
+        CsdUpdatesFirmware      *firmware;
         GSettings               *settings_proxy;
         GSettings               *settings_ftp;
-        GSettings               *settings_gsd;
+        GSettings               *settings_csd;
         GSettings               *settings_http;
         guint                    number_updates_critical_last_shown;
         guint                    offline_update_id;
@@ -69,12 +69,12 @@ struct GsdUpdatesManagerPrivate
         GPtrArray               *update_packages;
 };
 
-static void gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass);
-static void gsd_updates_manager_init (GsdUpdatesManager *updates_manager);
-static void gsd_updates_manager_finalize (GObject *object);
-static void emit_changed (GsdUpdatesManager *manager);
+static void csd_updates_manager_class_init (CsdUpdatesManagerClass *klass);
+static void csd_updates_manager_init (CsdUpdatesManager *updates_manager);
+static void csd_updates_manager_finalize (GObject *object);
+static void emit_changed (CsdUpdatesManager *manager);
 
-G_DEFINE_TYPE (GsdUpdatesManager, gsd_updates_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdUpdatesManager, csd_updates_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -113,7 +113,7 @@ clear_offline_updates_message (void)
 }
 
 static void
-show_offline_updates_error (GsdUpdatesManager *manager)
+show_offline_updates_error (CsdUpdatesManager *manager)
 {
         const gchar *title;
         gboolean show_geeky = FALSE;
@@ -218,7 +218,7 @@ libnotify_action_cb (NotifyNotification *notification,
 {
         gboolean ret;
         GError *error = NULL;
-        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER (user_data);
+        CsdUpdatesManager *manager = CSD_UPDATES_MANAGER (user_data);
 
         notify_notification_close (notification, NULL);
         if (g_strcmp0 (action, "distro-upgrade-info") == 0) {
@@ -268,7 +268,7 @@ on_notification_closed (NotifyNotification *notification, gpointer data)
 static void
 get_distro_upgrades_finished_cb (GObject *object,
                                  GAsyncResult *res,
-                                 GsdUpdatesManager *manager)
+                                 CsdUpdatesManager *manager)
 {
         const gchar *title;
         gboolean ret;
@@ -315,8 +315,8 @@ get_distro_upgrades_finished_cb (GObject *object,
         }
 
         /* do we do the notification? */
-        ret = g_settings_get_boolean (manager->priv->settings_gsd,
-                                      GSD_SETTINGS_NOTIFY_DISTRO_UPGRADES);
+        ret = g_settings_get_boolean (manager->priv->settings_csd,
+                                      CSD_SETTINGS_NOTIFY_DISTRO_UPGRADES);
         if (!ret) {
                 g_debug ("ignoring due to GSettings");
                 goto out;
@@ -342,7 +342,7 @@ get_distro_upgrades_finished_cb (GObject *object,
         title = _("Distribution upgrades available");
         notification = notify_notification_new (title,
                                                 string->str,
-                                                GSD_UPDATES_ICON_NORMAL);
+                                                CSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, NOTIFY_EXPIRES_NEVER);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -370,12 +370,12 @@ out:
 }
 
 static void
-due_get_upgrades_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
+due_get_upgrades_cb (CsdUpdatesRefresh *refresh, CsdUpdatesManager *manager)
 {
         /* optimize the amount of downloaded data by setting the cache age */
         pk_client_set_cache_age (PK_CLIENT(manager->priv->task),
-                                 g_settings_get_int (manager->priv->settings_gsd,
-                                                     GSD_SETTINGS_FREQUENCY_GET_UPGRADES));
+                                 g_settings_get_int (manager->priv->settings_csd,
+                                                     CSD_SETTINGS_FREQUENCY_GET_UPGRADES));
 
         /* get new distro upgrades list */
         pk_client_get_distro_upgrades_async (PK_CLIENT(manager->priv->task),
@@ -386,7 +386,7 @@ due_get_upgrades_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
 }
 
 static void
-refresh_cache_finished_cb (GObject *object, GAsyncResult *res, GsdUpdatesManager *manager)
+refresh_cache_finished_cb (GObject *object, GAsyncResult *res, CsdUpdatesManager *manager)
 {
         PkClient *client = PK_CLIENT(object);
         PkResults *results;
@@ -418,12 +418,12 @@ out:
 }
 
 static void
-due_refresh_cache_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
+due_refresh_cache_cb (CsdUpdatesRefresh *refresh, CsdUpdatesManager *manager)
 {
         /* optimize the amount of downloaded data by setting the cache age */
         pk_client_set_cache_age (PK_CLIENT(manager->priv->task),
-                                 g_settings_get_int (manager->priv->settings_gsd,
-                                                     GSD_SETTINGS_FREQUENCY_REFRESH_CACHE));
+                                 g_settings_get_int (manager->priv->settings_csd,
+                                                     CSD_SETTINGS_FREQUENCY_REFRESH_CACHE));
 
         pk_client_refresh_cache_async (PK_CLIENT(manager->priv->task),
                                        TRUE,
@@ -434,7 +434,7 @@ due_refresh_cache_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
 }
 
 static void
-notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
+notify_critical_updates (CsdUpdatesManager *manager, GPtrArray *array)
 {
         const gchar *message;
         const gchar *title;
@@ -469,7 +469,7 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
         g_debug ("title=%s, message=%s", title, message);
         notification = notify_notification_new (title,
                                                 message,
-                                                GSD_UPDATES_ICON_URGENT);
+                                                CSD_UPDATES_ICON_URGENT);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_CRITICAL);
@@ -488,7 +488,7 @@ notify_critical_updates (GsdUpdatesManager *manager, GPtrArray *array)
 }
 
 static void
-notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
+notify_normal_updates_maybe (CsdUpdatesManager *manager, GPtrArray *array)
 {
         const gchar *message;
         const gchar *title;
@@ -501,10 +501,10 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
 
         /* find out if enough time has passed since the last notification */
         time_now = g_get_real_time () / 1000000;
-        freq_updates_notify = g_settings_get_int (manager->priv->settings_gsd,
-                                                  GSD_SETTINGS_FREQUENCY_UPDATES_NOTIFICATION);
-        g_settings_get (manager->priv->settings_gsd,
-                        GSD_SETTINGS_LAST_UPDATES_NOTIFICATION,
+        freq_updates_notify = g_settings_get_int (manager->priv->settings_csd,
+                                                  CSD_SETTINGS_FREQUENCY_UPDATES_NOTIFICATION);
+        g_settings_get (manager->priv->settings_csd,
+                        CSD_SETTINGS_LAST_UPDATES_NOTIFICATION,
                         "t", &time_last_notify);
         if (time_last_notify > 0 &&
             (guint64) freq_updates_notify > time_now - time_last_notify) {
@@ -530,7 +530,7 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         g_debug ("title=%s, message=%s", title, message);
         notification = notify_notification_new (title,
                                                 message,
-                                                GSD_UPDATES_ICON_NORMAL);
+                                                CSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 15000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -546,8 +546,8 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
         }
 
         /* reset notification time */
-        g_settings_set (manager->priv->settings_gsd,
-                        GSD_SETTINGS_LAST_UPDATES_NOTIFICATION,
+        g_settings_set (manager->priv->settings_csd,
+                        CSD_SETTINGS_LAST_UPDATES_NOTIFICATION,
                         "t", time_now);
 
         /* track so we can prevent doubled notifications */
@@ -555,7 +555,7 @@ notify_normal_updates_maybe (GsdUpdatesManager *manager, GPtrArray *array)
 }
 
 static void
-notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
+notify_failed_get_updates_maybe (CsdUpdatesManager *manager)
 {
         const gchar *button;
         const gchar *message;
@@ -583,7 +583,7 @@ notify_failed_get_updates_maybe (GsdUpdatesManager *manager)
 
         notification = notify_notification_new (title,
                                                 message,
-                                                GSD_UPDATES_ICON_NORMAL);
+                                                CSD_UPDATES_ICON_NORMAL);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, 120*1000);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -605,7 +605,7 @@ out:
 }
 
 static void
-check_updates_for_importance (GsdUpdatesManager *manager)
+check_updates_for_importance (CsdUpdatesManager *manager)
 {
         guint i;
         PkPackage *pkg;
@@ -632,7 +632,7 @@ check_updates_for_importance (GsdUpdatesManager *manager)
 static void
 package_download_finished_cb (GObject *object,
                               GAsyncResult *res,
-                              GsdUpdatesManager *manager)
+                              CsdUpdatesManager *manager)
 {
         PkClient *client = PK_CLIENT(object);
         PkResults *results;
@@ -681,7 +681,7 @@ out:
 }
 
 static void
-auto_download_updates (GsdUpdatesManager *manager)
+auto_download_updates (CsdUpdatesManager *manager)
 {
         gchar **package_ids;
         guint i;
@@ -718,7 +718,7 @@ auto_download_updates (GsdUpdatesManager *manager)
 static void
 get_updates_finished_cb (GObject *object,
                          GAsyncResult *res,
-                         GsdUpdatesManager *manager)
+                         CsdUpdatesManager *manager)
 {
         PkClient *client = PK_CLIENT(object);
         PkResults *results;
@@ -769,8 +769,8 @@ get_updates_finished_cb (GObject *object,
         }
 
         /* should we auto-download the updates? */
-        ret = g_settings_get_boolean (manager->priv->settings_gsd,
-                                      GSD_SETTINGS_AUTO_DOWNLOAD_UPDATES);
+        ret = g_settings_get_boolean (manager->priv->settings_csd,
+                                      CSD_SETTINGS_AUTO_DOWNLOAD_UPDATES);
         if (ret) {
                 auto_download_updates (manager);
                 goto out;
@@ -786,12 +786,12 @@ out:
 }
 
 static void
-query_updates (GsdUpdatesManager *manager)
+query_updates (CsdUpdatesManager *manager)
 {
         /* optimize the amount of downloaded data by setting the cache age */
         pk_client_set_cache_age (PK_CLIENT(manager->priv->task),
-                                 g_settings_get_int (manager->priv->settings_gsd,
-                                                     GSD_SETTINGS_FREQUENCY_GET_UPDATES));
+                                 g_settings_get_int (manager->priv->settings_csd,
+                                                     CSD_SETTINGS_FREQUENCY_GET_UPDATES));
 
         /* get new update list */
         pk_client_get_updates_async (PK_CLIENT(manager->priv->task),
@@ -803,13 +803,13 @@ query_updates (GsdUpdatesManager *manager)
 }
 
 static void
-due_get_updates_cb (GsdUpdatesRefresh *refresh, GsdUpdatesManager *manager)
+due_get_updates_cb (CsdUpdatesRefresh *refresh, CsdUpdatesManager *manager)
 {
         query_updates (manager);
 }
 
 static gchar *
-get_proxy_http (GsdUpdatesManager *manager)
+get_proxy_http (CsdUpdatesManager *manager)
 {
         gboolean ret;
         gchar *host = NULL;
@@ -860,7 +860,7 @@ out:
 }
 
 static gchar *
-get_proxy_ftp (GsdUpdatesManager *manager)
+get_proxy_ftp (CsdUpdatesManager *manager)
 {
         gchar *host = NULL;
         gchar *proxy = NULL;
@@ -908,7 +908,7 @@ set_proxy_cb (GObject *object, GAsyncResult *res, gpointer user_data)
 }
 
 static void
-reload_proxy_settings (GsdUpdatesManager *manager)
+reload_proxy_settings (CsdUpdatesManager *manager)
 {
         gchar *proxy_http;
         gchar *proxy_ftp;
@@ -931,20 +931,20 @@ reload_proxy_settings (GsdUpdatesManager *manager)
 static void
 settings_changed_cb (GSettings         *settings,
                      const char        *key,
-                     GsdUpdatesManager *manager)
+                     CsdUpdatesManager *manager)
 {
         reload_proxy_settings (manager);
 }
 
 static void
-settings_gsd_changed_cb (GSettings         *settings,
+settings_csd_changed_cb (GSettings         *settings,
                          const char        *key,
-                         GsdUpdatesManager *manager)
+                         CsdUpdatesManager *manager)
 {
 }
 
 static void
-session_inhibit (GsdUpdatesManager *manager)
+session_inhibit (CsdUpdatesManager *manager)
 {
         const gchar *reason;
         GError *error = NULL;
@@ -961,7 +961,7 @@ session_inhibit (GsdUpdatesManager *manager)
         retval = g_dbus_proxy_call_sync (manager->priv->proxy_session,
                                          "Inhibit",
                                          g_variant_new ("(susu)",
-                                                        "gnome-settings-daemon", /* app-id */
+                                                        "cinnamon-settings-daemon", /* app-id */
                                                         0, /* xid */
                                                         reason, /* reason */
                                                         4 /* flags */),
@@ -985,7 +985,7 @@ out:
 }
 
 static void
-session_uninhibit (GsdUpdatesManager *manager)
+session_uninhibit (CsdUpdatesManager *manager)
 {
         GError *error = NULL;
         GVariant *retval = NULL;
@@ -1018,7 +1018,7 @@ out:
 static void
 notify_locked_cb (PkControl *control,
                   GParamSpec *pspec,
-                  GsdUpdatesManager *manager)
+                  CsdUpdatesManager *manager)
 {
         gboolean locked;
 
@@ -1040,7 +1040,7 @@ update_viewer_appeared_cb (GDBusConnection *connection,
                            const gchar *name_owner,
                            gpointer user_data)
 {
-        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER (user_data);
+        CsdUpdatesManager *manager = CSD_UPDATES_MANAGER (user_data);
 
         /* close any existing notification */
         if (manager->priv->notification_updates != NULL) {
@@ -1078,7 +1078,7 @@ out:
 static void
 mount_added_cb (GVolumeMonitor *volume_monitor,
                 GMount *mount,
-                GsdUpdatesManager *manager)
+                CsdUpdatesManager *manager)
 {
         gboolean ret = FALSE;
         gchar **filenames = NULL;
@@ -1092,8 +1092,8 @@ mount_added_cb (GVolumeMonitor *volume_monitor,
         root_path = g_file_get_path (root);
 
         /* use settings */
-        media_repo_filenames = g_settings_get_string (manager->priv->settings_gsd,
-                                                      GSD_SETTINGS_MEDIA_REPO_FILENAMES);
+        media_repo_filenames = g_settings_get_string (manager->priv->settings_csd,
+                                                      CSD_SETTINGS_MEDIA_REPO_FILENAMES);
         if (media_repo_filenames == NULL) {
                 g_warning ("failed to get media repo filenames");
                 goto out;
@@ -1124,7 +1124,7 @@ handle_get_property (GDBusConnection *connection_, const gchar *sender,
                      gpointer user_data)
 {
         GVariant *retval = NULL;
-        GsdUpdatesManager *manager = GSD_UPDATES_MANAGER(user_data);
+        CsdUpdatesManager *manager = CSD_UPDATES_MANAGER(user_data);
 
         if (g_strcmp0 (property_name, "PendingUpdates") == 0) {
                 retval = g_variant_new_boolean (manager->priv->pending_updates);
@@ -1134,7 +1134,7 @@ handle_get_property (GDBusConnection *connection_, const gchar *sender,
 }
 
 static void
-emit_changed (GsdUpdatesManager *manager)
+emit_changed (CsdUpdatesManager *manager)
 {
         gboolean ret;
         GError *error = NULL;
@@ -1167,7 +1167,7 @@ static const GDBusInterfaceVTable interface_vtable =
 static void
 on_bus_gotten (GObject *source_object,
                GAsyncResult *res,
-               GsdUpdatesManager *manager)
+               CsdUpdatesManager *manager)
 {
         GDBusConnection *connection;
         GError *error = NULL;
@@ -1205,7 +1205,7 @@ check_offline_update_cb (gpointer user_data)
         gchar *packages = NULL;
         GError *error = NULL;
         GKeyFile *key_file = NULL;
-        GsdUpdatesManager *manager = (GsdUpdatesManager *) user_data;
+        CsdUpdatesManager *manager = (CsdUpdatesManager *) user_data;
         guint i;
         guint num_packages = 1;
         NotifyNotification *notification;
@@ -1291,7 +1291,7 @@ check_offline_update_cb (gpointer user_data)
         g_debug ("title=%s, message=%s", title, message);
         notification = notify_notification_new (title,
                                                 message,
-                                                GSD_UPDATES_ICON_URGENT);
+                                                CSD_UPDATES_ICON_URGENT);
         notify_notification_set_app_name (notification, _("Software Updates"));
         notify_notification_set_timeout (notification, -1);
         notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
@@ -1327,7 +1327,7 @@ out:
 }
 
 gboolean
-gsd_updates_manager_start (GsdUpdatesManager *manager,
+csd_updates_manager_start (CsdUpdatesManager *manager,
                            GError **error)
 {
         gboolean ret = FALSE;
@@ -1351,11 +1351,11 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                       NULL);
 
         /* watch UDev for missing firmware */
-        manager->priv->firmware = gsd_updates_firmware_new ();
+        manager->priv->firmware = csd_updates_firmware_new ();
 
         /* get automatic callbacks about when we should check for
          * updates, refresh-caches and upgrades */
-        manager->priv->refresh = gsd_updates_refresh_new ();
+        manager->priv->refresh = csd_updates_refresh_new ();
         g_signal_connect (manager->priv->refresh, "get-upgrades",
                           G_CALLBACK (due_get_upgrades_cb), manager);
         g_signal_connect (manager->priv->refresh, "refresh-cache",
@@ -1379,9 +1379,9 @@ gsd_updates_manager_start (GsdUpdatesManager *manager,
                           G_CALLBACK (settings_changed_cb), manager);
 
         /* get ftp settings */
-        manager->priv->settings_gsd = g_settings_new ("org.gnome.settings-daemon.plugins.updates");
-        g_signal_connect (manager->priv->settings_gsd, "changed",
-                          G_CALLBACK (settings_gsd_changed_cb), manager);
+        manager->priv->settings_csd = g_settings_new ("org.gnome.settings-daemon.plugins.updates");
+        g_signal_connect (manager->priv->settings_csd, "changed",
+                          G_CALLBACK (settings_csd_changed_cb), manager);
 
         /* use gnome-session for the idle detection */
         manager->priv->proxy_session =
@@ -1446,14 +1446,14 @@ out:
 }
 
 void
-gsd_updates_manager_stop (GsdUpdatesManager *manager)
+csd_updates_manager_stop (CsdUpdatesManager *manager)
 {
         g_debug ("Stopping updates manager");
 
         g_clear_object (&manager->priv->settings_proxy);
         g_clear_object (&manager->priv->settings_http);
         g_clear_object (&manager->priv->settings_ftp);
-        g_clear_object (&manager->priv->settings_gsd);
+        g_clear_object (&manager->priv->settings_csd);
         g_clear_object (&manager->priv->control);
         g_clear_object (&manager->priv->task);
         g_clear_object (&manager->priv->refresh);
@@ -1482,14 +1482,14 @@ gsd_updates_manager_stop (GsdUpdatesManager *manager)
 }
 
 static GObject *
-gsd_updates_manager_constructor (
+csd_updates_manager_constructor (
                 GType type,
                 guint n_construct_properties,
                 GObjectConstructParam *construct_properties)
 {
-        GsdUpdatesManager *m;
+        CsdUpdatesManager *m;
 
-        m = GSD_UPDATES_MANAGER (G_OBJECT_CLASS (gsd_updates_manager_parent_class)->constructor (
+        m = CSD_UPDATES_MANAGER (G_OBJECT_CLASS (csd_updates_manager_parent_class)->constructor (
                                                            type,
                                                            n_construct_properties,
                                                            construct_properties));
@@ -1498,59 +1498,59 @@ gsd_updates_manager_constructor (
 }
 
 static void
-gsd_updates_manager_dispose (GObject *object)
+csd_updates_manager_dispose (GObject *object)
 {
-        GsdUpdatesManager *manager;
+        CsdUpdatesManager *manager;
 
-        manager = GSD_UPDATES_MANAGER (object);
+        manager = CSD_UPDATES_MANAGER (object);
 
-        gsd_updates_manager_stop (manager);
+        csd_updates_manager_stop (manager);
 
-        G_OBJECT_CLASS (gsd_updates_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (csd_updates_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_updates_manager_class_init (GsdUpdatesManagerClass *klass)
+csd_updates_manager_class_init (CsdUpdatesManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_updates_manager_constructor;
-        object_class->dispose = gsd_updates_manager_dispose;
-        object_class->finalize = gsd_updates_manager_finalize;
+        object_class->constructor = csd_updates_manager_constructor;
+        object_class->dispose = csd_updates_manager_dispose;
+        object_class->finalize = csd_updates_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdUpdatesManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdUpdatesManagerPrivate));
 }
 
 static void
-gsd_updates_manager_init (GsdUpdatesManager *manager)
+csd_updates_manager_init (CsdUpdatesManager *manager)
 {
-        manager->priv = GSD_UPDATES_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_UPDATES_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gsd_updates_manager_finalize (GObject *object)
+csd_updates_manager_finalize (GObject *object)
 {
-        GsdUpdatesManager *updates_manager;
+        CsdUpdatesManager *updates_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_UPDATES_MANAGER (object));
+        g_return_if_fail (CSD_IS_UPDATES_MANAGER (object));
 
-        updates_manager = GSD_UPDATES_MANAGER (object);
+        updates_manager = CSD_UPDATES_MANAGER (object);
 
         g_return_if_fail (updates_manager->priv);
 
-        G_OBJECT_CLASS (gsd_updates_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_updates_manager_parent_class)->finalize (object);
 }
 
-GsdUpdatesManager *
-gsd_updates_manager_new (void)
+CsdUpdatesManager *
+csd_updates_manager_new (void)
 {
         if (manager_object) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_UPDATES_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_UPDATES_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object, (gpointer *) &manager_object);
         }
 
-        return GSD_UPDATES_MANAGER (manager_object);
+        return CSD_UPDATES_MANAGER (manager_object);
 }

@@ -1,7 +1,7 @@
 [Desktop Entry]
 _Name=Mount Helper
 _Comment=Automount and autorun plugged devices
-Exec=@LIBEXECDIR@/gnome-fallback-mount-helper
+Exec=@LIBEXECDIR@/cinnamon-fallback-mount-helper
 Icon=drive-optical
 Terminal=false
 Type=Application

@@ -44,12 +44,12 @@
 #include "xutils.h"
 #include "list.h"
 
-#include "gnome-settings-profile.h"
-#include "gsd-clipboard-manager.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-clipboard-manager.h"
 
-#define GSD_CLIPBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_CLIPBOARD_MANAGER, GsdClipboardManagerPrivate))
+#define CSD_CLIPBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_CLIPBOARD_MANAGER, CsdClipboardManagerPrivate))
 
-struct GsdClipboardManagerPrivate
+struct CsdClipboardManagerPrivate
 {
         guint    start_idle_id;
         Display *display;
@@ -83,17 +83,17 @@ typedef struct
         int         offset;
 } IncrConversion;
 
-static void     gsd_clipboard_manager_class_init  (GsdClipboardManagerClass *klass);
-static void     gsd_clipboard_manager_init        (GsdClipboardManager      *clipboard_manager);
-static void     gsd_clipboard_manager_finalize    (GObject                  *object);
+static void     csd_clipboard_manager_class_init  (CsdClipboardManagerClass *klass);
+static void     csd_clipboard_manager_init        (CsdClipboardManager      *clipboard_manager);
+static void     csd_clipboard_manager_finalize    (GObject                  *object);
 
-static void     clipboard_manager_watch_cb        (GsdClipboardManager *manager,
+static void     clipboard_manager_watch_cb        (CsdClipboardManager *manager,
                                                    Window               window,
                                                    Bool                 is_start,
                                                    long                 mask,
                                                    void                *cb_data);
 
-G_DEFINE_TYPE (GsdClipboardManager, gsd_clipboard_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdClipboardManager, csd_clipboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -128,7 +128,7 @@ conversion_free (IncrConversion *rdata)
 }
 
 static void
-send_selection_notify (GsdClipboardManager *manager,
+send_selection_notify (CsdClipboardManager *manager,
                        Bool                 success)
 {
         XSelectionEvent notify;
@@ -156,7 +156,7 @@ send_selection_notify (GsdClipboardManager *manager,
 }
 
 static void
-finish_selection_request (GsdClipboardManager *manager,
+finish_selection_request (CsdClipboardManager *manager,
                           XEvent              *xev,
                           Bool                 success)
 {
@@ -196,7 +196,7 @@ clipboard_bytes_per_item (int format)
 }
 
 static void
-save_targets (GsdClipboardManager *manager,
+save_targets (CsdClipboardManager *manager,
               Atom                *save_targets,
               int                  nitems)
 {
@@ -264,7 +264,7 @@ find_conversion_requestor (IncrConversion *rdata,
 
 static void
 get_property (TargetData          *tdata,
-              GsdClipboardManager *manager)
+              CsdClipboardManager *manager)
 {
         Atom           type;
         int            format;
@@ -301,7 +301,7 @@ get_property (TargetData          *tdata,
 }
 
 static Bool
-receive_incrementally (GsdClipboardManager *manager,
+receive_incrementally (CsdClipboardManager *manager,
                        XEvent              *xev)
 {
         List          *list;
@@ -360,7 +360,7 @@ receive_incrementally (GsdClipboardManager *manager,
 }
 
 static Bool
-send_incrementally (GsdClipboardManager *manager,
+send_incrementally (CsdClipboardManager *manager,
                     XEvent              *xev)
 {
         List           *list;
@@ -404,7 +404,7 @@ send_incrementally (GsdClipboardManager *manager,
 }
 
 static void
-convert_clipboard_manager (GsdClipboardManager *manager,
+convert_clipboard_manager (CsdClipboardManager *manager,
                            XEvent              *xev)
 {
         Atom          type = None;
@@ -493,7 +493,7 @@ convert_clipboard_manager (GsdClipboardManager *manager,
 
 static void
 convert_clipboard_target (IncrConversion      *rdata,
-                          GsdClipboardManager *manager)
+                          CsdClipboardManager *manager)
 {
         TargetData       *tdata;
         Atom             *targets;
@@ -575,7 +575,7 @@ convert_clipboard_target (IncrConversion      *rdata,
 
 static void
 collect_incremental (IncrConversion      *rdata,
-                     GsdClipboardManager *manager)
+                     CsdClipboardManager *manager)
 {
         if (rdata->offset >= 0)
                 manager->priv->conversions = list_prepend (manager->priv->conversions, rdata);
@@ -589,7 +589,7 @@ collect_incremental (IncrConversion      *rdata,
 }
 
 static void
-convert_clipboard (GsdClipboardManager *manager,
+convert_clipboard (CsdClipboardManager *manager,
                    XEvent              *xev)
 {
         List           *list;
@@ -670,7 +670,7 @@ convert_clipboard (GsdClipboardManager *manager,
 }
 
 static Bool
-clipboard_manager_process_event (GsdClipboardManager *manager,
+clipboard_manager_process_event (CsdClipboardManager *manager,
                                  XEvent              *xev)
 {
         Atom          type;
@@ -819,7 +819,7 @@ clipboard_manager_process_event (GsdClipboardManager *manager,
 static GdkFilterReturn
 clipboard_manager_event_filter (GdkXEvent           *xevent,
                                 GdkEvent            *event,
-                                GsdClipboardManager *manager)
+                                CsdClipboardManager *manager)
 {
         if (clipboard_manager_process_event (manager, (XEvent *)xevent)) {
                 return GDK_FILTER_REMOVE;
@@ -829,7 +829,7 @@ clipboard_manager_event_filter (GdkXEvent           *xevent,
 }
 
 static void
-clipboard_manager_watch_cb (GsdClipboardManager *manager,
+clipboard_manager_watch_cb (CsdClipboardManager *manager,
                             Window               window,
                             Bool                 is_start,
                             long                 mask,
@@ -863,12 +863,12 @@ clipboard_manager_watch_cb (GsdClipboardManager *manager,
 }
 
 static gboolean
-start_clipboard_idle_cb (GsdClipboardManager *manager)
+start_clipboard_idle_cb (CsdClipboardManager *manager)
 {
         XClientMessageEvent xev;
 
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         init_atoms (manager->priv->display);
 
@@ -932,7 +932,7 @@ start_clipboard_idle_cb (GsdClipboardManager *manager)
                 /* FIXME: manager->priv->terminate (manager->priv->cb_data); */
         }
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
 
@@ -940,20 +940,20 @@ start_clipboard_idle_cb (GsdClipboardManager *manager)
 }
 
 gboolean
-gsd_clipboard_manager_start (GsdClipboardManager *manager,
+csd_clipboard_manager_start (CsdClipboardManager *manager,
                              GError             **error)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_clipboard_idle_cb, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_clipboard_manager_stop (GsdClipboardManager *manager)
+csd_clipboard_manager_stop (CsdClipboardManager *manager)
 {
         g_debug ("Stopping clipboard manager");
 
@@ -981,13 +981,13 @@ gsd_clipboard_manager_stop (GsdClipboardManager *manager)
 }
 
 static GObject *
-gsd_clipboard_manager_constructor (GType                  type,
+csd_clipboard_manager_constructor (GType                  type,
                                    guint                  n_construct_properties,
                                    GObjectConstructParam *construct_properties)
 {
-        GsdClipboardManager      *clipboard_manager;
+        CsdClipboardManager      *clipboard_manager;
 
-        clipboard_manager = GSD_CLIPBOARD_MANAGER (G_OBJECT_CLASS (gsd_clipboard_manager_parent_class)->constructor (type,
+        clipboard_manager = CSD_CLIPBOARD_MANAGER (G_OBJECT_CLASS (csd_clipboard_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
                                                                                                       construct_properties));
 
@@ -995,53 +995,53 @@ gsd_clipboard_manager_constructor (GType                  type,
 }
 
 static void
-gsd_clipboard_manager_class_init (GsdClipboardManagerClass *klass)
+csd_clipboard_manager_class_init (CsdClipboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_clipboard_manager_constructor;
-        object_class->finalize = gsd_clipboard_manager_finalize;
+        object_class->constructor = csd_clipboard_manager_constructor;
+        object_class->finalize = csd_clipboard_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdClipboardManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdClipboardManagerPrivate));
 }
 
 static void
-gsd_clipboard_manager_init (GsdClipboardManager *manager)
+csd_clipboard_manager_init (CsdClipboardManager *manager)
 {
-        manager->priv = GSD_CLIPBOARD_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_CLIPBOARD_MANAGER_GET_PRIVATE (manager);
 
         manager->priv->display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 
 }
 
 static void
-gsd_clipboard_manager_finalize (GObject *object)
+csd_clipboard_manager_finalize (GObject *object)
 {
-        GsdClipboardManager *clipboard_manager;
+        CsdClipboardManager *clipboard_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_CLIPBOARD_MANAGER (object));
+        g_return_if_fail (CSD_IS_CLIPBOARD_MANAGER (object));
 
-        clipboard_manager = GSD_CLIPBOARD_MANAGER (object);
+        clipboard_manager = CSD_CLIPBOARD_MANAGER (object);
 
         g_return_if_fail (clipboard_manager->priv != NULL);
 
         if (clipboard_manager->priv->start_idle_id !=0)
                 g_source_remove (clipboard_manager->priv->start_idle_id);
 
-        G_OBJECT_CLASS (gsd_clipboard_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_clipboard_manager_parent_class)->finalize (object);
 }
 
-GsdClipboardManager *
-gsd_clipboard_manager_new (void)
+CsdClipboardManager *
+csd_clipboard_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_CLIPBOARD_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_CLIPBOARD_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_CLIPBOARD_MANAGER (manager_object);
+        return CSD_CLIPBOARD_MANAGER (manager_object);
 }

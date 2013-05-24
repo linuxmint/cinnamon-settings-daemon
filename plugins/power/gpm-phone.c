@@ -255,9 +255,9 @@ gpm_phone_service_appeared_cb (GDBusConnection *connection,
                 phone->priv->proxy = g_dbus_proxy_new_sync (phone->priv->connection,
                                 G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                 NULL,
-                                GNOME_PHONE_MANAGER_DBUS_SERVICE,
-                                GNOME_PHONE_MANAGER_DBUS_PATH,
-                                GNOME_PHONE_MANAGER_DBUS_INTERFACE,
+                                CINNAMON_PHONE_MANAGER_DBUS_SERVICE,
+                                CINNAMON_PHONE_MANAGER_DBUS_PATH,
+                                CINNAMON_PHONE_MANAGER_DBUS_INTERFACE,
                                 NULL, &error);
                 if (phone->priv->proxy == NULL) {
                         g_warning ("Cannot connect, maybe the daemon is not running: %s", error->message);
@@ -295,7 +295,7 @@ gpm_phone_init (GpmPhone *phone)
 {
         phone->priv = GPM_PHONE_GET_PRIVATE (phone);
         phone->priv->watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                  GNOME_PHONE_MANAGER_DBUS_SERVICE,
+                                                  CINNAMON_PHONE_MANAGER_DBUS_SERVICE,
                                                   G_BUS_NAME_WATCHER_FLAGS_NONE,
                                                   (GBusNameAppearedCallback) gpm_phone_service_appeared_cb,
                                                   (GBusNameVanishedCallback) gpm_phone_service_vanished_cb,

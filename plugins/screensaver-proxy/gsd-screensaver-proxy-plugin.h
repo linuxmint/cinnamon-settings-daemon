@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_SCREENSAVER_PROXY_PLUGIN_H__
-#define __GSD_SCREENSAVER_PROXY_PLUGIN_H__
+#ifndef __CSD_SCREENSAVER_PROXY_PLUGIN_H__
+#define __CSD_SCREENSAVER_PROXY_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_SCREENSAVER_PROXY_PLUGIN                (gsd_screensaver_proxy_plugin_get_type ())
-#define GSD_SCREENSAVER_PROXY_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_SCREENSAVER_PROXY_PLUGIN, GsdScreensaverProxyPlugin))
-#define GSD_SCREENSAVER_PROXY_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_SCREENSAVER_PROXY_PLUGIN, GsdScreensaverProxyPluginClass))
-#define GSD_IS_SCREENSAVER_PROXY_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_SCREENSAVER_PROXY_PLUGIN))
-#define GSD_IS_SCREENSAVER_PROXY_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_SCREENSAVER_PROXY_PLUGIN))
-#define GSD_SCREENSAVER_PROXY_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_SCREENSAVER_PROXY_PLUGIN, GsdScreensaverProxyPluginClass))
+#define CSD_TYPE_SCREENSAVER_PROXY_PLUGIN                (csd_screensaver_proxy_plugin_get_type ())
+#define CSD_SCREENSAVER_PROXY_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_SCREENSAVER_PROXY_PLUGIN, CsdScreensaverProxyPlugin))
+#define CSD_SCREENSAVER_PROXY_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_SCREENSAVER_PROXY_PLUGIN, CsdScreensaverProxyPluginClass))
+#define CSD_IS_SCREENSAVER_PROXY_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_SCREENSAVER_PROXY_PLUGIN))
+#define CSD_IS_SCREENSAVER_PROXY_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_SCREENSAVER_PROXY_PLUGIN))
+#define CSD_SCREENSAVER_PROXY_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_SCREENSAVER_PROXY_PLUGIN, CsdScreensaverProxyPluginClass))
 
-typedef struct GsdScreensaverProxyPluginPrivate GsdScreensaverProxyPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdScreensaverProxyPluginPrivate *priv;
-} GsdScreensaverProxyPlugin;
+typedef struct CsdScreensaverProxyPluginPrivate CsdScreensaverProxyPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdScreensaverProxyPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdScreensaverProxyPluginPrivate *priv;
+} CsdScreensaverProxyPlugin;
 
-GType   gsd_screensaver_proxy_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdScreensaverProxyPluginClass;
+
+GType   csd_screensaver_proxy_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_SCREENSAVER_PROXY_PLUGIN_H__ */
+#endif /* __CSD_SCREENSAVER_PROXY_PLUGIN_H__ */

@@ -35,9 +35,9 @@
 #include <gtk/gtk.h>
 #include <libnotify/notify.h>
 
-#include "gsd-disk-space.h"
-#include "gsd-ldsm-dialog.h"
-#include "gsd-disk-space-helper.h"
+#include "csd-disk-space.h"
+#include "csd-ldsm-dialog.h"
+#include "csd-disk-space-helper.h"
 
 #define GIGABYTE                   1024 * 1024 * 1024
 
@@ -68,7 +68,7 @@ static unsigned int       free_size_gb_no_notify = 2;
 static unsigned int       min_notify_period = 10;
 static GSList            *ignore_paths = NULL;
 static GSettings         *settings = NULL;
-static GsdLdsmDialog     *dialog = NULL;
+static CsdLdsmDialog     *dialog = NULL;
 static NotifyNotification *notification = NULL;
 
 static guint64           *time_read;
@@ -264,7 +264,7 @@ nautilus_proxy_ready_cb (GObject *object,
 }
 
 void
-gsd_ldsm_show_empty_trash (void)
+csd_ldsm_show_empty_trash (void)
 {
         /* prepare the Nautilus proxy object */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
@@ -285,7 +285,7 @@ empty_trash_callback (NotifyNotification *n,
         g_assert (action != NULL);
         g_assert (strcmp (action, "empty-trash") == 0);
 
-        gsd_ldsm_show_empty_trash ();
+        csd_ldsm_show_empty_trash ();
 
         notify_notification_close (n, NULL);
 }
@@ -395,7 +395,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 }
 
         } else {
-                dialog = gsd_ldsm_dialog_new (other_usable_volumes,
+                dialog = csd_ldsm_dialog_new (other_usable_volumes,
                                               multiple_volumes,
                                               has_disk_analyzer,
                                               has_trash,
@@ -413,13 +413,13 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 case GTK_RESPONSE_CANCEL:
                         retval = FALSE;
                         break;
-                case GSD_LDSM_DIALOG_RESPONSE_ANALYZE:
+                case CSD_LDSM_DIALOG_RESPONSE_ANALYZE:
                         retval = FALSE;
                         ldsm_analyze_path (path);
                         break;
-                case GSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH:
+                case CSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH:
                         retval = TRUE;
-                        gsd_ldsm_show_empty_trash ();
+                        csd_ldsm_show_empty_trash ();
                         break;
                 case GTK_RESPONSE_NONE:
                 case GTK_RESPONSE_DELETE_EVENT:
@@ -605,7 +605,7 @@ ldsm_check_all_mounts (gpointer data)
                         continue;
                 }
 
-                if (gsd_should_ignore_unix_mount (mount)) {
+                if (csd_should_ignore_unix_mount (mount)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
@@ -704,7 +704,7 @@ ldsm_is_hash_item_in_ignore_paths (gpointer key,
 }
 
 static void
-gsd_ldsm_get_config (void)
+csd_ldsm_get_config (void)
 {
         gchar **settings_list;
 
@@ -749,15 +749,15 @@ gsd_ldsm_get_config (void)
 }
 
 static void
-gsd_ldsm_update_config (GSettings *settings,
+csd_ldsm_update_config (GSettings *settings,
                         const gchar *key,
                         gpointer user_data)
 {
-        gsd_ldsm_get_config ();
+        csd_ldsm_get_config ();
 }
 
 void
-gsd_ldsm_setup (gboolean check_now)
+csd_ldsm_setup (gboolean check_now)
 {
         if (ldsm_notified_hash || ldsm_timeout_id || ldsm_monitor) {
                 g_warning ("Low disk space monitor already initialized.");
@@ -769,9 +769,9 @@ gsd_ldsm_setup (gboolean check_now)
                                                     ldsm_free_mount_info);
 
         settings = g_settings_new (SETTINGS_HOUSEKEEPING_DIR);
-        gsd_ldsm_get_config ();
+        csd_ldsm_get_config ();
         g_signal_connect (G_OBJECT (settings), "changed",
-                          G_CALLBACK (gsd_ldsm_update_config), NULL);
+                          G_CALLBACK (csd_ldsm_update_config), NULL);
 
         ldsm_monitor = g_unix_mount_monitor_new ();
         g_unix_mount_monitor_set_rate_limit (ldsm_monitor, 1000);
@@ -786,7 +786,7 @@ gsd_ldsm_setup (gboolean check_now)
 }
 
 void
-gsd_ldsm_clean (void)
+csd_ldsm_clean (void)
 {
         if (ldsm_timeout_id)
                 g_source_remove (ldsm_timeout_id);

@@ -10,14 +10,14 @@ libcolor_la_SOURCES = 			\
 	gcm-dmi.h			\
 	gcm-edid.c			\
 	gcm-edid.h			\
-	gsd-color-manager.c		\
-	gsd-color-manager.h		\
-	gsd-color-plugin.c		\
-	gsd-color-plugin.h
+	csd-color-manager.c		\
+	csd-color-manager.h		\
+	csd-color-plugin.c		\
+	csd-color-plugin.h
 
 libcolor_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DBINDIR=\"$(bindir)\"				\
 	$(AM_CPPFLAGS)
 
@@ -30,10 +30,10 @@ libcolor_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcolor_la_LDFLAGS = 			\
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libcolor_la_LIBADD  = 			\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la	\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
 	$(COLOR_LIBS)			\
 	$(LCMS_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)		\
@@ -68,9 +68,9 @@ gcm_self_test_LDADD =			\
 TESTS = gcm-self-test
 
 plugin_in_files = 			\
-	color.gnome-settings-plugin.in
+	color.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST = 					\
 	$(plugin_in_files)			\
@@ -83,4 +83,4 @@ CLEANFILES = 				\
 DISTCLEANFILES =			\
 	$(plugin_DATA)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

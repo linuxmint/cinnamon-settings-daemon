@@ -23,78 +23,78 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-updates-plugin.h"
-#include "gsd-updates-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-updates-plugin.h"
+#include "csd-updates-manager.h"
 
-struct GsdUpdatesPluginPrivate {
-        GsdUpdatesManager *manager;
+struct CsdUpdatesPluginPrivate {
+        CsdUpdatesManager *manager;
 };
 
-#define GSD_UPDATES_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_UPDATES_PLUGIN, GsdUpdatesPluginPrivate))
+#define CSD_UPDATES_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_UPDATES_PLUGIN, CsdUpdatesPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdUpdatesPlugin, gsd_updates_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdUpdatesPlugin, csd_updates_plugin)
 
 static void
-gsd_updates_plugin_init (GsdUpdatesPlugin *plugin)
+csd_updates_plugin_init (CsdUpdatesPlugin *plugin)
 {
-        plugin->priv = GSD_UPDATES_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_UPDATES_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdUpdatesPlugin initializing");
+        g_debug ("CsdUpdatesPlugin initializing");
 
-        plugin->priv->manager = gsd_updates_manager_new ();
+        plugin->priv->manager = csd_updates_manager_new ();
 }
 
 static void
-gsd_updates_plugin_finalize (GObject *object)
+csd_updates_plugin_finalize (GObject *object)
 {
-        GsdUpdatesPlugin *plugin;
+        CsdUpdatesPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_UPDATES_PLUGIN (object));
+        g_return_if_fail (CSD_IS_UPDATES_PLUGIN (object));
 
-        g_debug ("GsdUpdatesPlugin finalizing");
+        g_debug ("CsdUpdatesPlugin finalizing");
 
-        plugin = GSD_UPDATES_PLUGIN (object);
+        plugin = CSD_UPDATES_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
         if (plugin->priv->manager != NULL)
                 g_object_unref (plugin->priv->manager);
 
-        G_OBJECT_CLASS (gsd_updates_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_updates_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         GError *error = NULL;
 
         g_debug ("Activating updates plugin");
 
-        if (!gsd_updates_manager_start (GSD_UPDATES_PLUGIN (plugin)->priv->manager, &error)) {
+        if (!csd_updates_manager_start (CSD_UPDATES_PLUGIN (plugin)->priv->manager, &error)) {
                 g_warning ("Unable to start updates manager: %s", error->message);
                 g_error_free (error);
         }
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating updates plugin");
-        gsd_updates_manager_stop (GSD_UPDATES_PLUGIN (plugin)->priv->manager);
+        csd_updates_manager_stop (CSD_UPDATES_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_updates_plugin_class_init (GsdUpdatesPluginClass *klass)
+csd_updates_plugin_class_init (CsdUpdatesPluginClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_updates_plugin_finalize;
+        object_class->finalize = csd_updates_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdUpdatesPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdUpdatesPluginPrivate));
 }

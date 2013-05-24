@@ -23,17 +23,17 @@
  *
  */
 
-#ifndef __GSD_DISK_SPACE_HELPER_H
-#define __GSD_DISK_SPACE_HELPER_H
+#ifndef __CSD_DISK_SPACE_HELPER_H
+#define __CSD_DISK_SPACE_HELPER_H
 
 #include <glib.h>
 #include <gio/gunixmounts.h>
 
 G_BEGIN_DECLS
 
-gboolean gsd_should_ignore_unix_mount (GUnixMountEntry *mount);
-gboolean gsd_is_removable_mount       (GUnixMountEntry *mount);
+gboolean csd_should_ignore_unix_mount (GUnixMountEntry *mount);
+gboolean csd_is_removable_mount       (GUnixMountEntry *mount);
 
 G_END_DECLS
 
-#endif /* __GSD_DISK_SPACE_HELPER_H */
+#endif /* __CSD_DISK_SPACE_HELPER_H */

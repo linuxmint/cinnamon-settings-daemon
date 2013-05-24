@@ -23,7 +23,7 @@
 
 #include <gtk/gtk.h>
 
-#include "gsd-wacom-device.h"
+#include "csd-wacom-device.h"
 
 static gboolean fake_devices = FALSE;
 static gboolean monitor_styli = FALSE;
@@ -48,7 +48,7 @@ get_loc (GSettings *settings)
 }
 
 static const char *
-stylus_type_to_string (GsdWacomStylusType type)
+stylus_type_to_string (CsdWacomStylusType type)
 {
 	switch (type) {
 	case WACOM_STYLUS_TYPE_UNKNOWN:
@@ -74,7 +74,7 @@ stylus_type_to_string (GsdWacomStylusType type)
 }
 
 static const char *
-button_type_to_string (GsdWacomTabletButtonType type)
+button_type_to_string (CsdWacomTabletButtonType type)
 {
 	switch (type) {
 	case WACOM_TABLET_BUTTON_TYPE_NORMAL:
@@ -91,33 +91,33 @@ button_type_to_string (GsdWacomTabletButtonType type)
 #define BOOL_AS_STR(x) (x ? "yes" : "no")
 
 static void
-print_stylus (GsdWacomStylus *stylus,
+print_stylus (CsdWacomStylus *stylus,
 	      gboolean        is_current)
 {
-	GsdWacomDevice *device;
+	CsdWacomDevice *device;
 	char *loc;
 
-	device = gsd_wacom_stylus_get_device (stylus);
+	device = csd_wacom_stylus_get_device (stylus);
 
 	g_print ("\t%sStylus: '%s' (Type: %s, ID: 0x%x)\n",
 		 is_current ? "*** " : "",
-		 gsd_wacom_stylus_get_name (stylus),
-		 stylus_type_to_string (gsd_wacom_stylus_get_stylus_type (stylus)),
-		 gsd_wacom_stylus_get_id (stylus));
+		 csd_wacom_stylus_get_name (stylus),
+		 stylus_type_to_string (csd_wacom_stylus_get_stylus_type (stylus)),
+		 csd_wacom_stylus_get_id (stylus));
 
-	loc = get_loc (gsd_wacom_stylus_get_settings (stylus));
+	loc = get_loc (csd_wacom_stylus_get_settings (stylus));
 	g_print ("\t\tSettings: %s\n", loc);
 	g_free (loc);
 
-	g_print ("\t\tIcon name: %s\n", gsd_wacom_stylus_get_icon_name (stylus));
+	g_print ("\t\tIcon name: %s\n", csd_wacom_stylus_get_icon_name (stylus));
 
-	if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
+	if (csd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS) {
 		int num_buttons;
 		char *buttons;
 
-		g_print ("\t\tHas Eraser: %s\n", BOOL_AS_STR(gsd_wacom_stylus_get_has_eraser (stylus)));
+		g_print ("\t\tHas Eraser: %s\n", BOOL_AS_STR(csd_wacom_stylus_get_has_eraser (stylus)));
 
-		num_buttons = gsd_wacom_stylus_get_num_buttons (stylus);
+		num_buttons = csd_wacom_stylus_get_num_buttons (stylus);
 		if (num_buttons < 0)
 			num_buttons = 2;
 		if (num_buttons > 0)
@@ -130,16 +130,16 @@ print_stylus (GsdWacomStylus *stylus,
 }
 
 static void
-print_buttons (GsdWacomDevice *device)
+print_buttons (CsdWacomDevice *device)
 {
 	GList *buttons, *l;
 
-	buttons = gsd_wacom_device_get_buttons (device);
+	buttons = csd_wacom_device_get_buttons (device);
 	if (buttons == NULL)
 		return;
 
 	for (l = buttons; l != NULL; l = l->next) {
-		GsdWacomTabletButton *button = l->data;
+		CsdWacomTabletButton *button = l->data;
 
 		g_print ("\tButton: %s (%s)\n", button->name, button->id);
 		g_print ("\t\tType: %s\n", button_type_to_string (button->type));
@@ -161,16 +161,16 @@ print_buttons (GsdWacomDevice *device)
 }
 
 static void
-last_stylus_changed (GsdWacomDevice  *device,
+last_stylus_changed (CsdWacomDevice  *device,
 		     GParamSpec      *pspec,
 		     gpointer         user_data)
 {
-	GsdWacomStylus *stylus;
+	CsdWacomStylus *stylus;
 
 	g_object_get (device, "last-stylus", &stylus, NULL);
 
 	g_print ("Stylus changed for device '%s'\n",
-		 gsd_wacom_device_get_tool_name (device));
+		 csd_wacom_device_get_tool_name (device));
 
 	print_stylus (stylus, TRUE);
 }
@@ -181,8 +181,8 @@ list_devices (GList *devices)
 	GList *l;
 
 	for (l = devices; l ; l = l->next) {
-		GsdWacomDevice *device;
-		GsdWacomDeviceType type;
+		CsdWacomDevice *device;
+		CsdWacomDeviceType type;
 		char *loc;
 
 		device = l->data;
@@ -191,27 +191,27 @@ list_devices (GList *devices)
 				  G_CALLBACK (last_stylus_changed), NULL);
 
 		g_print ("Device '%s' (type: %s)\n",
-			 gsd_wacom_device_get_name (device),
-			 gsd_wacom_device_type_to_string (gsd_wacom_device_get_device_type (device)));
-		g_print ("\tReversible: %s\n", BOOL_AS_STR (gsd_wacom_device_reversible (device)));
-		g_print ("\tScreen Tablet: %s\n", BOOL_AS_STR (gsd_wacom_device_is_screen_tablet (device)));
-		g_print ("\tUnknown (fallback) device: %s\n", BOOL_AS_STR(gsd_wacom_device_is_fallback (device)));
+			 csd_wacom_device_get_name (device),
+			 csd_wacom_device_type_to_string (csd_wacom_device_get_device_type (device)));
+		g_print ("\tReversible: %s\n", BOOL_AS_STR (csd_wacom_device_reversible (device)));
+		g_print ("\tScreen Tablet: %s\n", BOOL_AS_STR (csd_wacom_device_is_screen_tablet (device)));
+		g_print ("\tUnknown (fallback) device: %s\n", BOOL_AS_STR(csd_wacom_device_is_fallback (device)));
 
-		loc = get_loc (gsd_wacom_device_get_settings (device));
+		loc = get_loc (csd_wacom_device_get_settings (device));
 		g_print ("\tGeneric settings: %s\n", loc);
 		g_free (loc);
 
-		type = gsd_wacom_device_get_device_type (device);
+		type = csd_wacom_device_get_device_type (device);
 		if (type == WACOM_TYPE_STYLUS ||
 		    type == WACOM_TYPE_ERASER) {
 			GList *styli, *j;
-			GsdWacomStylus *current_stylus;
+			CsdWacomStylus *current_stylus;
 
 			g_object_get (device, "last-stylus", &current_stylus, NULL);
 
-			styli = gsd_wacom_device_list_styli (device);
+			styli = csd_wacom_device_list_styli (device);
 			for (j = styli; j; j = j->next) {
-				GsdWacomStylus *stylus;
+				CsdWacomStylus *stylus;
 
 				stylus = j->data;
 				print_stylus (stylus, current_stylus == stylus);
@@ -238,10 +238,10 @@ list_actual_devices (void)
 	list = gdk_device_manager_list_devices (mgr, GDK_DEVICE_TYPE_SLAVE);
 	devices = NULL;
 	for (l = list; l ; l = l->next) {
-		GsdWacomDevice *device;
+		CsdWacomDevice *device;
 
-		device = gsd_wacom_device_new (l->data);
-		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
+		device = csd_wacom_device_new (l->data);
+		if (csd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
 			g_object_unref (device);
 			continue;
 		}
@@ -258,16 +258,16 @@ list_fake_devices (void)
 {
 	GList *devices;
 
-	devices = gsd_wacom_device_create_fake_cintiq ();
+	devices = csd_wacom_device_create_fake_cintiq ();
 	list_devices (devices);
 
-	devices = gsd_wacom_device_create_fake_bt ();
+	devices = csd_wacom_device_create_fake_bt ();
 	list_devices (devices);
 
-	devices = gsd_wacom_device_create_fake_x201 ();
+	devices = csd_wacom_device_create_fake_x201 ();
 	list_devices (devices);
 
-	devices = gsd_wacom_device_create_fake_intuos4 ();
+	devices = csd_wacom_device_create_fake_intuos4 ();
 	list_devices (devices);
 }
 

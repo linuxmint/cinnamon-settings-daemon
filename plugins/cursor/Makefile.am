@@ -4,15 +4,15 @@ plugin_LTLIBRARIES = \
 	libcursor.la
 
 libcursor_la_SOURCES =		\
-	gsd-cursor-manager.c	\
-	gsd-cursor-manager.h	\
-	gsd-cursor-plugin.c	\
-	gsd-cursor-plugin.h
+	csd-cursor-manager.c	\
+	csd-cursor-manager.h	\
+	csd-cursor-plugin.c	\
+	csd-cursor-plugin.h
 
 libcursor_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 libcursor_la_CFLAGS = \
@@ -22,7 +22,7 @@ libcursor_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcursor_la_LDFLAGS =		\
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libcursor_la_LIBADD  =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
@@ -30,9 +30,9 @@ libcursor_la_LIBADD  =					\
 	$(SETTINGS_PLUGIN_LIBS)
 
 plugin_in_files = 		\
-	cursor.gnome-settings-plugin.in
+	cursor.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST = 			\
 	$(plugin_in_files)
@@ -43,5 +43,5 @@ CLEANFILES = 			\
 DISTCLEANFILES =		\
 	$(plugin_DATA)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 

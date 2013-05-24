@@ -1,4 +1,4 @@
-// gcc -o test-media-window-clutter `pkg-config --libs --cflags clutter-1.0 gtk+-3.0 cairo` -I../../ -lm test-media-window-clutter.c gsd-osd-window.c
+// gcc -o test-media-window-clutter `pkg-config --libs --cflags clutter-1.0 gtk+-3.0 cairo` -I../../ -lm test-media-window-clutter.c csd-osd-window.c
 
 #include <stdlib.h>
 #include <string.h>
@@ -6,15 +6,15 @@
 #include <gtk/gtk.h>
 #include <clutter/clutter.h>
 
-#include "gsd-osd-window.h"
-#include "gsd-osd-window-private.h"
+#include "csd-osd-window.h"
+#include "csd-osd-window-private.h"
 
 static gboolean
 draw_box (ClutterCanvas     *canvas,
           cairo_t           *cr,
           int                width,
           int                height,
-          GsdOsdDrawContext *ctx)
+          CsdOsdDrawContext *ctx)
 {
 	cairo_save (cr);
 	cairo_set_operator (cr, CAIRO_OPERATOR_CLEAR);
@@ -25,10 +25,10 @@ draw_box (ClutterCanvas     *canvas,
 
 	ctx->size = MIN(width, height);
 
-	ctx->action = GSD_OSD_WINDOW_ACTION_CUSTOM;
+	ctx->action = CSD_OSD_WINDOW_ACTION_CUSTOM;
 	ctx->icon_name = "touchpad-disabled-symbolic";
 
-	gsd_osd_window_draw (ctx, cr);
+	csd_osd_window_draw (ctx, cr);
 
 	return FALSE;
 }
@@ -36,7 +36,7 @@ draw_box (ClutterCanvas     *canvas,
 static void
 test_window (void)
 {
-  GsdOsdDrawContext ctx;
+  CsdOsdDrawContext ctx;
   ClutterActor *stage, *actor;
   ClutterContent *canvas;
   GtkWidgetPath *widget_path;

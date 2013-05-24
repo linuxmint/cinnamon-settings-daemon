@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-input-helper$(EXEEXT)
+libexec_PROGRAMS = csd-test-input-helper$(EXEEXT)
 noinst_PROGRAMS = test-egg-key-parsing$(EXEEXT)
 subdir = plugins/common
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
@@ -70,9 +70,9 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libcommon_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
-am_libcommon_la_OBJECTS = libcommon_la-gsd-keygrab.lo \
-	libcommon_la-gsd-input-helper.lo \
-	libcommon_la-gsd-power-helper.lo
+am_libcommon_la_OBJECTS = libcommon_la-csd-keygrab.lo \
+	libcommon_la-csd-input-helper.lo \
+	libcommon_la-csd-power-helper.lo
 libcommon_la_OBJECTS = $(am_libcommon_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -83,13 +83,13 @@ libcommon_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(CFLAGS) $(libcommon_la_LDFLAGS) $(LDFLAGS) -o $@
 am__installdirs = "$(DESTDIR)$(libexecdir)" "$(DESTDIR)$(scriptsdir)"
 PROGRAMS = $(libexec_PROGRAMS) $(noinst_PROGRAMS)
-am_gsd_test_input_helper_OBJECTS =  \
-	gsd_test_input_helper-test-input-helper.$(OBJEXT)
-gsd_test_input_helper_OBJECTS = $(am_gsd_test_input_helper_OBJECTS)
-gsd_test_input_helper_DEPENDENCIES = libcommon.la
-gsd_test_input_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+am_csd_test_input_helper_OBJECTS =  \
+	csd_test_input_helper-test-input-helper.$(OBJEXT)
+csd_test_input_helper_OBJECTS = $(am_csd_test_input_helper_OBJECTS)
+csd_test_input_helper_DEPENDENCIES = libcommon.la
+csd_test_input_helper_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_input_helper_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_input_helper_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_test_egg_key_parsing_OBJECTS =  \
 	test_egg_key_parsing-test-egg-key-parsing.$(OBJEXT)
@@ -133,10 +133,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcommon_la_SOURCES) $(gsd_test_input_helper_SOURCES) \
+SOURCES = $(libcommon_la_SOURCES) $(csd_test_input_helper_SOURCES) \
 	$(test_egg_key_parsing_SOURCES)
 DIST_SOURCES = $(libcommon_la_SOURCES) \
-	$(gsd_test_input_helper_SOURCES) \
+	$(csd_test_input_helper_SOURCES) \
 	$(test_egg_key_parsing_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -233,9 +233,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -395,12 +395,12 @@ top_srcdir = @top_srcdir@
 plugin_name = common
 noinst_LTLIBRARIES = libcommon.la
 libcommon_la_SOURCES = \
-	gsd-keygrab.c		\
-	gsd-keygrab.h		\
-	gsd-input-helper.c	\
-	gsd-input-helper.h	\
-	gsd-power-helper.c	\
-	gsd-power-helper.h
+	csd-keygrab.c		\
+	csd-keygrab.h		\
+	csd-input-helper.c	\
+	csd-input-helper.h	\
+	csd-power-helper.c	\
+	csd-power-helper.h
 
 libcommon_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
@@ -412,19 +412,19 @@ libcommon_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcommon_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libcommon_la_LIBADD = \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(COMMON_LIBS)
 
-gsd_test_input_helper_SOURCES = test-input-helper.c
-gsd_test_input_helper_LDADD = libcommon.la
-gsd_test_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
+csd_test_input_helper_SOURCES = test-input-helper.c
+csd_test_input_helper_LDADD = libcommon.la
+csd_test_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
 test_egg_key_parsing_SOURCES = test-egg-key-parsing.c
 test_egg_key_parsing_LDADD = libcommon.la $(COMMON_LIBS)
 test_egg_key_parsing_CFLAGS = $(libcommon_la_CFLAGS)
-scriptsdir = $(datadir)/gnome-settings-daemon-@GSD_API_VERSION@
+scriptsdir = $(datadir)/cinnamon-settings-daemon-@CSD_API_VERSION@
 scripts_DATA = input-device-example.sh
 EXTRA_DIST = $(scripts_DATA) test-plugin.h
 all: all-am
@@ -529,9 +529,9 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-input-helper$(EXEEXT): $(gsd_test_input_helper_OBJECTS) $(gsd_test_input_helper_DEPENDENCIES) $(EXTRA_gsd_test_input_helper_DEPENDENCIES) 
-	@rm -f gsd-test-input-helper$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_input_helper_LINK) $(gsd_test_input_helper_OBJECTS) $(gsd_test_input_helper_LDADD) $(LIBS)
+csd-test-input-helper$(EXEEXT): $(csd_test_input_helper_OBJECTS) $(csd_test_input_helper_DEPENDENCIES) $(EXTRA_csd_test_input_helper_DEPENDENCIES) 
+	@rm -f csd-test-input-helper$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_input_helper_LINK) $(csd_test_input_helper_OBJECTS) $(csd_test_input_helper_LDADD) $(LIBS)
 test-egg-key-parsing$(EXEEXT): $(test_egg_key_parsing_OBJECTS) $(test_egg_key_parsing_DEPENDENCIES) $(EXTRA_test_egg_key_parsing_DEPENDENCIES) 
 	@rm -f test-egg-key-parsing$(EXEEXT)
 	$(AM_V_CCLD)$(test_egg_key_parsing_LINK) $(test_egg_key_parsing_OBJECTS) $(test_egg_key_parsing_LDADD) $(LIBS)
@@ -542,10 +542,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_input_helper-test-input-helper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcommon_la-gsd-input-helper.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcommon_la-gsd-keygrab.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcommon_la-gsd-power-helper.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_input_helper-test-input-helper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcommon_la-csd-input-helper.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcommon_la-csd-keygrab.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcommon_la-csd-power-helper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_egg_key_parsing-test-egg-key-parsing.Po@am__quote@
 
 .c.o:
@@ -569,40 +569,40 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libcommon_la-gsd-keygrab.lo: gsd-keygrab.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -MT libcommon_la-gsd-keygrab.lo -MD -MP -MF $(DEPDIR)/libcommon_la-gsd-keygrab.Tpo -c -o libcommon_la-gsd-keygrab.lo `test -f 'gsd-keygrab.c' || echo '$(srcdir)/'`gsd-keygrab.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcommon_la-gsd-keygrab.Tpo $(DEPDIR)/libcommon_la-gsd-keygrab.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-keygrab.c' object='libcommon_la-gsd-keygrab.lo' libtool=yes @AMDEPBACKSLASH@
+libcommon_la-csd-keygrab.lo: csd-keygrab.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -MT libcommon_la-csd-keygrab.lo -MD -MP -MF $(DEPDIR)/libcommon_la-csd-keygrab.Tpo -c -o libcommon_la-csd-keygrab.lo `test -f 'csd-keygrab.c' || echo '$(srcdir)/'`csd-keygrab.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcommon_la-csd-keygrab.Tpo $(DEPDIR)/libcommon_la-csd-keygrab.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-keygrab.c' object='libcommon_la-csd-keygrab.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -c -o libcommon_la-gsd-keygrab.lo `test -f 'gsd-keygrab.c' || echo '$(srcdir)/'`gsd-keygrab.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -c -o libcommon_la-csd-keygrab.lo `test -f 'csd-keygrab.c' || echo '$(srcdir)/'`csd-keygrab.c
 
-libcommon_la-gsd-input-helper.lo: gsd-input-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -MT libcommon_la-gsd-input-helper.lo -MD -MP -MF $(DEPDIR)/libcommon_la-gsd-input-helper.Tpo -c -o libcommon_la-gsd-input-helper.lo `test -f 'gsd-input-helper.c' || echo '$(srcdir)/'`gsd-input-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcommon_la-gsd-input-helper.Tpo $(DEPDIR)/libcommon_la-gsd-input-helper.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-input-helper.c' object='libcommon_la-gsd-input-helper.lo' libtool=yes @AMDEPBACKSLASH@
+libcommon_la-csd-input-helper.lo: csd-input-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -MT libcommon_la-csd-input-helper.lo -MD -MP -MF $(DEPDIR)/libcommon_la-csd-input-helper.Tpo -c -o libcommon_la-csd-input-helper.lo `test -f 'csd-input-helper.c' || echo '$(srcdir)/'`csd-input-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcommon_la-csd-input-helper.Tpo $(DEPDIR)/libcommon_la-csd-input-helper.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-input-helper.c' object='libcommon_la-csd-input-helper.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -c -o libcommon_la-gsd-input-helper.lo `test -f 'gsd-input-helper.c' || echo '$(srcdir)/'`gsd-input-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -c -o libcommon_la-csd-input-helper.lo `test -f 'csd-input-helper.c' || echo '$(srcdir)/'`csd-input-helper.c
 
-libcommon_la-gsd-power-helper.lo: gsd-power-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -MT libcommon_la-gsd-power-helper.lo -MD -MP -MF $(DEPDIR)/libcommon_la-gsd-power-helper.Tpo -c -o libcommon_la-gsd-power-helper.lo `test -f 'gsd-power-helper.c' || echo '$(srcdir)/'`gsd-power-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcommon_la-gsd-power-helper.Tpo $(DEPDIR)/libcommon_la-gsd-power-helper.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-power-helper.c' object='libcommon_la-gsd-power-helper.lo' libtool=yes @AMDEPBACKSLASH@
+libcommon_la-csd-power-helper.lo: csd-power-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -MT libcommon_la-csd-power-helper.lo -MD -MP -MF $(DEPDIR)/libcommon_la-csd-power-helper.Tpo -c -o libcommon_la-csd-power-helper.lo `test -f 'csd-power-helper.c' || echo '$(srcdir)/'`csd-power-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcommon_la-csd-power-helper.Tpo $(DEPDIR)/libcommon_la-csd-power-helper.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-power-helper.c' object='libcommon_la-csd-power-helper.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -c -o libcommon_la-gsd-power-helper.lo `test -f 'gsd-power-helper.c' || echo '$(srcdir)/'`gsd-power-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcommon_la_CPPFLAGS) $(CPPFLAGS) $(libcommon_la_CFLAGS) $(CFLAGS) -c -o libcommon_la-csd-power-helper.lo `test -f 'csd-power-helper.c' || echo '$(srcdir)/'`csd-power-helper.c
 
-gsd_test_input_helper-test-input-helper.o: test-input-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_input_helper_CFLAGS) $(CFLAGS) -MT gsd_test_input_helper-test-input-helper.o -MD -MP -MF $(DEPDIR)/gsd_test_input_helper-test-input-helper.Tpo -c -o gsd_test_input_helper-test-input-helper.o `test -f 'test-input-helper.c' || echo '$(srcdir)/'`test-input-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_input_helper-test-input-helper.Tpo $(DEPDIR)/gsd_test_input_helper-test-input-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-input-helper.c' object='gsd_test_input_helper-test-input-helper.o' libtool=no @AMDEPBACKSLASH@
+csd_test_input_helper-test-input-helper.o: test-input-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_input_helper_CFLAGS) $(CFLAGS) -MT csd_test_input_helper-test-input-helper.o -MD -MP -MF $(DEPDIR)/csd_test_input_helper-test-input-helper.Tpo -c -o csd_test_input_helper-test-input-helper.o `test -f 'test-input-helper.c' || echo '$(srcdir)/'`test-input-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_input_helper-test-input-helper.Tpo $(DEPDIR)/csd_test_input_helper-test-input-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-input-helper.c' object='csd_test_input_helper-test-input-helper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_input_helper_CFLAGS) $(CFLAGS) -c -o gsd_test_input_helper-test-input-helper.o `test -f 'test-input-helper.c' || echo '$(srcdir)/'`test-input-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_input_helper_CFLAGS) $(CFLAGS) -c -o csd_test_input_helper-test-input-helper.o `test -f 'test-input-helper.c' || echo '$(srcdir)/'`test-input-helper.c
 
-gsd_test_input_helper-test-input-helper.obj: test-input-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_input_helper_CFLAGS) $(CFLAGS) -MT gsd_test_input_helper-test-input-helper.obj -MD -MP -MF $(DEPDIR)/gsd_test_input_helper-test-input-helper.Tpo -c -o gsd_test_input_helper-test-input-helper.obj `if test -f 'test-input-helper.c'; then $(CYGPATH_W) 'test-input-helper.c'; else $(CYGPATH_W) '$(srcdir)/test-input-helper.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_input_helper-test-input-helper.Tpo $(DEPDIR)/gsd_test_input_helper-test-input-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-input-helper.c' object='gsd_test_input_helper-test-input-helper.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_input_helper-test-input-helper.obj: test-input-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_input_helper_CFLAGS) $(CFLAGS) -MT csd_test_input_helper-test-input-helper.obj -MD -MP -MF $(DEPDIR)/csd_test_input_helper-test-input-helper.Tpo -c -o csd_test_input_helper-test-input-helper.obj `if test -f 'test-input-helper.c'; then $(CYGPATH_W) 'test-input-helper.c'; else $(CYGPATH_W) '$(srcdir)/test-input-helper.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_input_helper-test-input-helper.Tpo $(DEPDIR)/csd_test_input_helper-test-input-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-input-helper.c' object='csd_test_input_helper-test-input-helper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_test_input_helper_CFLAGS) $(CFLAGS) -c -o gsd_test_input_helper-test-input-helper.obj `if test -f 'test-input-helper.c'; then $(CYGPATH_W) 'test-input-helper.c'; else $(CYGPATH_W) '$(srcdir)/test-input-helper.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_test_input_helper_CFLAGS) $(CFLAGS) -c -o csd_test_input_helper-test-input-helper.obj `if test -f 'test-input-helper.c'; then $(CYGPATH_W) 'test-input-helper.c'; else $(CYGPATH_W) '$(srcdir)/test-input-helper.c'; fi`
 
 test_egg_key_parsing-test-egg-key-parsing.o: test-egg-key-parsing.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_egg_key_parsing_CFLAGS) $(CFLAGS) -MT test_egg_key_parsing-test-egg-key-parsing.o -MD -MP -MF $(DEPDIR)/test_egg_key_parsing-test-egg-key-parsing.Tpo -c -o test_egg_key_parsing-test-egg-key-parsing.o `test -f 'test-egg-key-parsing.c' || echo '$(srcdir)/'`test-egg-key-parsing.c

@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
 
 /*
- * gsd-automount.c: helpers for automounting hotplugged volumes
+ * csd-automount.c: helpers for automounting hotplugged volumes
  *
  * Copyright (C) 2008, 2010 Red Hat, Inc.
  *
@@ -32,13 +32,13 @@
 #include <X11/XKBlib.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "gsd-autorun.h"
+#include "csd-autorun.h"
 
 static gboolean should_autorun_mount (GMount *mount);
 
-#define CUSTOM_ITEM_ASK "gsd-item-ask"
-#define CUSTOM_ITEM_DO_NOTHING "gsd-item-do-nothing"
-#define CUSTOM_ITEM_OPEN_FOLDER "gsd-item-open-folder"
+#define CUSTOM_ITEM_ASK "csd-item-ask"
+#define CUSTOM_ITEM_DO_NOTHING "csd-item-do-nothing"
+#define CUSTOM_ITEM_OPEN_FOLDER "csd-item-open-folder"
 
 typedef struct
 {
@@ -55,12 +55,12 @@ typedef struct
 
 	char *x_content_type;
 
-	GsdAutorunOpenWindow open_window_func;
+	CsdAutorunOpenWindow open_window_func;
 	gpointer user_data;
 } AutorunDialogData;
 
 static int
-gsd_autorun_g_strv_find (char **strv, const char *find_me)
+csd_autorun_g_strv_find (char **strv, const char *find_me)
 {
 	guint index;
 
@@ -136,7 +136,7 @@ render_icon (GIcon *icon, gint icon_size)
 }
 
 static void
-gsd_autorun_get_preferences (const char *x_content_type,
+csd_autorun_get_preferences (const char *x_content_type,
                              gboolean *pref_start_app,
                              gboolean *pref_ignore,
                              gboolean *pref_open_folder)
@@ -159,13 +159,13 @@ gsd_autorun_get_preferences (const char *x_content_type,
 	x_content_ignore = g_settings_get_strv (settings, "autorun-x-content-ignore");
 	x_content_open_folder = g_settings_get_strv (settings, "autorun-x-content-open-folder");
 	if (x_content_start_app != NULL) {
-		*pref_start_app = gsd_autorun_g_strv_find (x_content_start_app, x_content_type) != -1;
+		*pref_start_app = csd_autorun_g_strv_find (x_content_start_app, x_content_type) != -1;
 	}
 	if (x_content_ignore != NULL) {
-		*pref_ignore = gsd_autorun_g_strv_find (x_content_ignore, x_content_type) != -1;
+		*pref_ignore = csd_autorun_g_strv_find (x_content_ignore, x_content_type) != -1;
 	}
 	if (x_content_open_folder != NULL) {
-		*pref_open_folder = gsd_autorun_g_strv_find (x_content_open_folder, x_content_type) != -1;
+		*pref_open_folder = csd_autorun_g_strv_find (x_content_open_folder, x_content_type) != -1;
 	}
 	g_strfreev (x_content_ignore);
 	g_strfreev (x_content_start_app);
@@ -219,7 +219,7 @@ add_elem_to_str_array (char **v,
 }
 
 static void
-gsd_autorun_set_preferences (const char *x_content_type,
+csd_autorun_set_preferences (const char *x_content_type,
                              gboolean pref_start_app,
                              gboolean pref_ignore,
                              gboolean pref_open_folder)
@@ -272,17 +272,17 @@ custom_item_activated_cb (GtkAppChooserButton *button,
         content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (button));
 
         if (g_strcmp0 (item, CUSTOM_ITEM_ASK) == 0) {
-                gsd_autorun_set_preferences (content_type,
+                csd_autorun_set_preferences (content_type,
                                              FALSE, FALSE, FALSE);
                 data->selected_open_folder = FALSE;
                 data->selected_ignore = FALSE;
         } else if (g_strcmp0 (item, CUSTOM_ITEM_OPEN_FOLDER) == 0) {
-                gsd_autorun_set_preferences (content_type,
+                csd_autorun_set_preferences (content_type,
                                              FALSE, FALSE, TRUE);
                 data->selected_open_folder = TRUE;
                 data->selected_ignore = FALSE;
         } else if (g_strcmp0 (item, CUSTOM_ITEM_DO_NOTHING) == 0) {
-                gsd_autorun_set_preferences (content_type,
+                csd_autorun_set_preferences (content_type,
                                              FALSE, TRUE, FALSE);
                 data->selected_open_folder = FALSE;
                 data->selected_ignore = TRUE;
@@ -323,7 +323,7 @@ prepare_combo_box (GtkWidget *combo_box,
         content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (app_chooser));
 
         /* fetch preferences for this content type */
-        gsd_autorun_get_preferences (content_type,
+        csd_autorun_get_preferences (content_type,
                                      &pref_start_app, &pref_ignore, &pref_open_folder);
         pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
 
@@ -397,7 +397,7 @@ enum {
 };
 
 static void
-gsd_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info)
+csd_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info)
 {
 	GFile *root;
 	GdkAppLaunchContext *launch_context;
@@ -561,7 +561,7 @@ autorun_dialog_response (GtkDialog *dialog, gint response, AutorunDialogData *da
 
 		if (data->remember) {
 			/* make sure we don't ask again */
-			gsd_autorun_set_preferences (data->x_content_type, TRUE, data->selected_ignore, data->selected_open_folder);
+			csd_autorun_set_preferences (data->x_content_type, TRUE, data->selected_ignore, data->selected_open_folder);
 			if (!data->selected_ignore && !data->selected_open_folder && data->selected_app != NULL) {
 				g_app_info_set_as_default_for_type (data->selected_app,
 								    data->x_content_type,
@@ -569,11 +569,11 @@ autorun_dialog_response (GtkDialog *dialog, gint response, AutorunDialogData *da
 			}
 		} else {
 			/* make sure we do ask again */
-			gsd_autorun_set_preferences (data->x_content_type, FALSE, FALSE, FALSE);
+			csd_autorun_set_preferences (data->x_content_type, FALSE, FALSE, FALSE);
 		}
 
 		if (!data->selected_ignore && !data->selected_open_folder && data->selected_app != NULL) {
-			gsd_autorun_launch_for_mount (data->mount, data->selected_app);
+			csd_autorun_launch_for_mount (data->mount, data->selected_app);
 		} else if (!data->selected_ignore && data->selected_open_folder) {
 			if (data->open_window_func != NULL)
 				data->open_window_func (data->mount, data->user_data);
@@ -604,7 +604,7 @@ combo_box_enter_ok (GtkWidget *togglebutton, GdkEventKey *event, GtkDialog *dial
 static gboolean
 do_autorun_for_content_type (GMount *mount,
                              const char *x_content_type,
-                             GsdAutorunOpenWindow open_window_func,
+                             CsdAutorunOpenWindow open_window_func,
                              gpointer user_data)
 {
 	AutorunDialogData *data;
@@ -642,7 +642,7 @@ do_autorun_for_content_type (GMount *mount,
 
 	user_forced_dialog = is_shift_pressed ();
 
-	gsd_autorun_get_preferences (x_content_type, &pref_start_app, &pref_ignore, &pref_open_folder);
+	csd_autorun_get_preferences (x_content_type, &pref_start_app, &pref_ignore, &pref_open_folder);
 	pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
 
 	if (user_forced_dialog) {
@@ -653,7 +653,7 @@ do_autorun_for_content_type (GMount *mount,
 		GAppInfo *app_info;
 		app_info = g_app_info_get_default_for_type (x_content_type, FALSE);
 		if (app_info != NULL) {
-			gsd_autorun_launch_for_mount (mount, app_info);
+			csd_autorun_launch_for_mount (mount, app_info);
 		}
 		goto out;
 	}
@@ -813,7 +813,7 @@ out:
 
 typedef struct {
 	GMount *mount;
-	GsdAutorunOpenWindow open_window_func;
+	CsdAutorunOpenWindow open_window_func;
 	gpointer user_data;
 	GSettings *settings;
 } AutorunData;
@@ -833,7 +833,7 @@ autorun_guessed_content_type_callback (GObject *source_object,
 	error = NULL;
 	guessed_content_type = g_mount_guess_content_type_finish (G_MOUNT (source_object), res, &error);
 	g_object_set_data_full (source_object,
-				"gsd-content-type-cache",
+				"csd-content-type-cache",
 				g_strdupv (guessed_content_type),
 				(GDestroyNotify)g_strfreev);
 	if (error != NULL) {
@@ -867,9 +867,9 @@ autorun_guessed_content_type_callback (GObject *source_object,
 }
 
 void
-gsd_autorun (GMount *mount,
+csd_autorun (GMount *mount,
              GSettings *settings,
-             GsdAutorunOpenWindow open_window_func,
+             CsdAutorunOpenWindow open_window_func,
              gpointer user_data)
 {
 	AutorunData *data;
@@ -897,22 +897,22 @@ remove_allow_volume (gpointer data)
 {
 	GVolume *volume = data;
 
-	g_object_set_data (G_OBJECT (volume), "gsd-allow-autorun", NULL);
+	g_object_set_data (G_OBJECT (volume), "csd-allow-autorun", NULL);
 	return FALSE;
 }
 
 void
-gsd_allow_autorun_for_volume (GVolume *volume)
+csd_allow_autorun_for_volume (GVolume *volume)
 {
-	g_object_set_data (G_OBJECT (volume), "gsd-allow-autorun", GINT_TO_POINTER (1));
+	g_object_set_data (G_OBJECT (volume), "csd-allow-autorun", GINT_TO_POINTER (1));
 }
 
 #define INHIBIT_AUTORUN_SECONDS 10
 
 void
-gsd_allow_autorun_for_volume_finish (GVolume *volume)
+csd_allow_autorun_for_volume_finish (GVolume *volume)
 {
-	if (g_object_get_data (G_OBJECT (volume), "gsd-allow-autorun") != NULL) {
+	if (g_object_get_data (G_OBJECT (volume), "csd-allow-autorun") != NULL) {
 		g_timeout_add_seconds_full (0,
 					    INHIBIT_AUTORUN_SECONDS,
 					    remove_allow_volume,
@@ -945,9 +945,9 @@ should_autorun_mount (GMount *mount)
 	ignore_autorun = TRUE;
 	enclosing_volume = g_mount_get_volume (mount);
 	if (enclosing_volume != NULL) {
-		if (g_object_get_data (G_OBJECT (enclosing_volume), "gsd-allow-autorun") != NULL) {
+		if (g_object_get_data (G_OBJECT (enclosing_volume), "csd-allow-autorun") != NULL) {
 			ignore_autorun = FALSE;
-			g_object_set_data (G_OBJECT (enclosing_volume), "gsd-allow-autorun", NULL);
+			g_object_set_data (G_OBJECT (enclosing_volume), "csd-allow-autorun", NULL);
 		}
 	}
 

@@ -1,4 +1,4 @@
-[GNOME Settings Plugin]
+[Cinnamon Settings Plugin]
 Module=smartcard
 IAge=0
 _Name=Smartcard

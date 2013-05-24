@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-a11y-keyboard-plugin.h"
-#include "gsd-a11y-keyboard-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-a11y-keyboard-plugin.h"
+#include "csd-a11y-keyboard-manager.h"
 
-struct GsdA11yKeyboardPluginPrivate {
-        GsdA11yKeyboardManager *manager;
+struct CsdA11yKeyboardPluginPrivate {
+        CsdA11yKeyboardManager *manager;
 };
 
-#define GSD_A11Y_KEYBOARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_A11Y_KEYBOARD_PLUGIN, GsdA11yKeyboardPluginPrivate))
+#define CSD_A11Y_KEYBOARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_A11Y_KEYBOARD_PLUGIN, CsdA11yKeyboardPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdA11yKeyboardPlugin, gsd_a11y_keyboard_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdA11yKeyboardPlugin, csd_a11y_keyboard_plugin)
 
 static void
-gsd_a11y_keyboard_plugin_init (GsdA11yKeyboardPlugin *plugin)
+csd_a11y_keyboard_plugin_init (CsdA11yKeyboardPlugin *plugin)
 {
-        plugin->priv = GSD_A11Y_KEYBOARD_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_A11Y_KEYBOARD_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdA11yKeyboardPlugin initializing");
+        g_debug ("CsdA11yKeyboardPlugin initializing");
 
-        plugin->priv->manager = gsd_a11y_keyboard_manager_new ();
+        plugin->priv->manager = csd_a11y_keyboard_manager_new ();
 }
 
 static void
-gsd_a11y_keyboard_plugin_finalize (GObject *object)
+csd_a11y_keyboard_plugin_finalize (GObject *object)
 {
-        GsdA11yKeyboardPlugin *plugin;
+        CsdA11yKeyboardPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_A11Y_KEYBOARD_PLUGIN (object));
+        g_return_if_fail (CSD_IS_A11Y_KEYBOARD_PLUGIN (object));
 
-        g_debug ("GsdA11yKeyboardPlugin finalizing");
+        g_debug ("CsdA11yKeyboardPlugin finalizing");
 
-        plugin = GSD_A11Y_KEYBOARD_PLUGIN (object);
+        plugin = CSD_A11Y_KEYBOARD_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gsd_a11y_keyboard_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_a11y_keyboard_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_a11y_keyboard_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating a11y_keyboard plugin");
 
         error = NULL;
-        res = gsd_a11y_keyboard_manager_start (GSD_A11Y_KEYBOARD_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_a11y_keyboard_manager_start (CSD_A11Y_KEYBOARD_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start a11y_keyboard manager: %s", error->message);
                 g_error_free (error);
@@ -83,23 +83,23 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating a11y_keyboard plugin");
-        gsd_a11y_keyboard_manager_stop (GSD_A11Y_KEYBOARD_PLUGIN (plugin)->priv->manager);
+        csd_a11y_keyboard_manager_stop (CSD_A11Y_KEYBOARD_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_a11y_keyboard_plugin_class_init (GsdA11yKeyboardPluginClass *klass)
+csd_a11y_keyboard_plugin_class_init (CsdA11yKeyboardPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_a11y_keyboard_plugin_finalize;
+        object_class->finalize = csd_a11y_keyboard_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdA11yKeyboardPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdA11yKeyboardPluginPrivate));
 }
 

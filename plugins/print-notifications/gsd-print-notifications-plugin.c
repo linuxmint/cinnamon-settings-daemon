@@ -23,46 +23,46 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-print-notifications-plugin.h"
-#include "gsd-print-notifications-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-print-notifications-plugin.h"
+#include "csd-print-notifications-manager.h"
 
-struct GsdPrintNotificationsPluginPrivate {
-        GsdPrintNotificationsManager *manager;
+struct CsdPrintNotificationsPluginPrivate {
+        CsdPrintNotificationsManager *manager;
 };
 
-#define GSD_PRINT_NOTIFICATIONS_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, GsdPrintNotificationsPluginPrivate))
+#define CSD_PRINT_NOTIFICATIONS_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, CsdPrintNotificationsPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdPrintNotificationsPlugin, gsd_print_notifications_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdPrintNotificationsPlugin, csd_print_notifications_plugin)
 
 static void
-gsd_print_notifications_plugin_init (GsdPrintNotificationsPlugin *plugin)
+csd_print_notifications_plugin_init (CsdPrintNotificationsPlugin *plugin)
 {
         if (g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0) {
             plugin->priv = NULL;
-            g_debug ("GsdPrintNotificationsPlugin: Disabling for Unity, using system-config-printer");
+            g_debug ("CsdPrintNotificationsPlugin: Disabling for Unity, using system-config-printer");
             return;
         }
 
-        plugin->priv = GSD_PRINT_NOTIFICATIONS_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_PRINT_NOTIFICATIONS_PLUGIN_GET_PRIVATE (plugin);
 
-        plugin->priv->manager = gsd_print_notifications_manager_new ();
+        plugin->priv->manager = csd_print_notifications_manager_new ();
 }
 
 static void
-gsd_print_notifications_plugin_finalize (GObject *object)
+csd_print_notifications_plugin_finalize (GObject *object)
 {
-        GsdPrintNotificationsPlugin *plugin;
+        CsdPrintNotificationsPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_PRINT_NOTIFICATIONS_PLUGIN (object));
+        g_return_if_fail (CSD_IS_PRINT_NOTIFICATIONS_PLUGIN (object));
 
-        g_debug ("GsdPrintNotificationsPlugin finalizing");
+        g_debug ("CsdPrintNotificationsPlugin finalizing");
 
-        plugin = GSD_PRINT_NOTIFICATIONS_PLUGIN (object);
+        plugin = CSD_PRINT_NOTIFICATIONS_PLUGIN (object);
 
         if (g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0) {
-            G_OBJECT_CLASS (gsd_print_notifications_plugin_parent_class)->finalize (object);
+            G_OBJECT_CLASS (csd_print_notifications_plugin_parent_class)->finalize (object);
             return;
         }
 
@@ -72,16 +72,16 @@ gsd_print_notifications_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_print_notifications_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_print_notifications_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
 
-        if (GSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv == NULL) {
+        if (CSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv == NULL) {
             g_debug ("Not activating disabled print-notifications plugin");
             return;
         }
@@ -89,7 +89,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating print-notifications plugin");
 
         error = NULL;
-        res = gsd_print_notifications_manager_start (GSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_print_notifications_manager_start (CSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start print-notifications manager: %s", error->message);
                 g_error_free (error);
@@ -97,27 +97,27 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
-        if (GSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv == NULL) {
+        if (CSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv == NULL) {
             g_debug ("Not deactivating disabled print-notifications plugin");
             return;
         }
 
         g_debug ("Deactivating print_notifications plugin");
-        gsd_print_notifications_manager_stop (GSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv->manager);
+        csd_print_notifications_manager_stop (CSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_print_notifications_plugin_class_init (GsdPrintNotificationsPluginClass *klass)
+csd_print_notifications_plugin_class_init (CsdPrintNotificationsPluginClass *klass)
 {
         GObjectClass             *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_print_notifications_plugin_finalize;
+        object_class->finalize = csd_print_notifications_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdPrintNotificationsPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdPrintNotificationsPluginPrivate));
 }

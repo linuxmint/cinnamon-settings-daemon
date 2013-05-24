@@ -19,55 +19,55 @@
  *
  */
 
-#ifndef __GSD_WACOM_DEVICE_MANAGER_H
-#define __GSD_WACOM_DEVICE_MANAGER_H
+#ifndef __CSD_WACOM_DEVICE_MANAGER_H
+#define __CSD_WACOM_DEVICE_MANAGER_H
 
 #include <glib-object.h>
-#include "gsd-enums.h"
+#include "csd-enums.h"
 
 G_BEGIN_DECLS
 
 #define NUM_ELEMS_MATRIX 9
 
-#define GSD_TYPE_WACOM_DEVICE         (gsd_wacom_device_get_type ())
-#define GSD_WACOM_DEVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDevice))
-#define GSD_WACOM_DEVICE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_DEVICE, GsdWacomDeviceClass))
-#define GSD_IS_WACOM_DEVICE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_WACOM_DEVICE))
-#define GSD_IS_WACOM_DEVICE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_WACOM_DEVICE))
-#define GSD_WACOM_DEVICE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_WACOM_DEVICE, GsdWacomDeviceClass))
+#define CSD_TYPE_WACOM_DEVICE         (csd_wacom_device_get_type ())
+#define CSD_WACOM_DEVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_WACOM_DEVICE, CsdWacomDevice))
+#define CSD_WACOM_DEVICE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_WACOM_DEVICE, CsdWacomDeviceClass))
+#define CSD_IS_WACOM_DEVICE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_WACOM_DEVICE))
+#define CSD_IS_WACOM_DEVICE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_WACOM_DEVICE))
+#define CSD_WACOM_DEVICE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_WACOM_DEVICE, CsdWacomDeviceClass))
 
-typedef struct GsdWacomDevicePrivate GsdWacomDevicePrivate;
-
-typedef struct
-{
-        GObject                parent;
-        GsdWacomDevicePrivate *priv;
-} GsdWacomDevice;
-
-typedef struct
-{
-        GObjectClass   parent_class;
-} GsdWacomDeviceClass;
-
-#define GSD_TYPE_WACOM_STYLUS         (gsd_wacom_stylus_get_type ())
-#define GSD_WACOM_STYLUS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylus))
-#define GSD_WACOM_STYLUS_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusClass))
-#define GSD_IS_WACOM_STYLUS(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_WACOM_STYLUS))
-#define GSD_IS_WACOM_STYLUS_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_WACOM_STYLUS))
-#define GSD_WACOM_STYLUS_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusClass))
-
-typedef struct GsdWacomStylusPrivate GsdWacomStylusPrivate;
+typedef struct CsdWacomDevicePrivate CsdWacomDevicePrivate;
 
 typedef struct
 {
         GObject                parent;
-        GsdWacomStylusPrivate *priv;
-} GsdWacomStylus;
+        CsdWacomDevicePrivate *priv;
+} CsdWacomDevice;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdWacomStylusClass;
+} CsdWacomDeviceClass;
+
+#define CSD_TYPE_WACOM_STYLUS         (csd_wacom_stylus_get_type ())
+#define CSD_WACOM_STYLUS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_WACOM_STYLUS, CsdWacomStylus))
+#define CSD_WACOM_STYLUS_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_WACOM_STYLUS, CsdWacomStylusClass))
+#define CSD_IS_WACOM_STYLUS(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_WACOM_STYLUS))
+#define CSD_IS_WACOM_STYLUS_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_WACOM_STYLUS))
+#define CSD_WACOM_STYLUS_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_WACOM_STYLUS, CsdWacomStylusClass))
+
+typedef struct CsdWacomStylusPrivate CsdWacomStylusPrivate;
+
+typedef struct
+{
+        GObject                parent;
+        CsdWacomStylusPrivate *priv;
+} CsdWacomStylus;
+
+typedef struct
+{
+        GObjectClass   parent_class;
+} CsdWacomStylusClass;
 
 typedef enum {
 	WACOM_STYLUS_TYPE_UNKNOWN,
@@ -78,24 +78,24 @@ typedef enum {
 	WACOM_STYLUS_TYPE_MARKER,
 	WACOM_STYLUS_TYPE_STROKE,
 	WACOM_STYLUS_TYPE_PUCK
-} GsdWacomStylusType;
+} CsdWacomStylusType;
 
-GType            gsd_wacom_stylus_get_type       (void);
-GSettings      * gsd_wacom_stylus_get_settings   (GsdWacomStylus *stylus);
-const char     * gsd_wacom_stylus_get_name       (GsdWacomStylus *stylus);
-const char     * gsd_wacom_stylus_get_icon_name  (GsdWacomStylus *stylus);
-GsdWacomDevice * gsd_wacom_stylus_get_device     (GsdWacomStylus *stylus);
-gboolean         gsd_wacom_stylus_get_has_eraser (GsdWacomStylus *stylus);
-guint            gsd_wacom_stylus_get_num_buttons(GsdWacomStylus *stylus);
-int              gsd_wacom_stylus_get_id         (GsdWacomStylus *stylus);
-GsdWacomStylusType gsd_wacom_stylus_get_stylus_type (GsdWacomStylus *stylus);
+GType            csd_wacom_stylus_get_type       (void);
+GSettings      * csd_wacom_stylus_get_settings   (CsdWacomStylus *stylus);
+const char     * csd_wacom_stylus_get_name       (CsdWacomStylus *stylus);
+const char     * csd_wacom_stylus_get_icon_name  (CsdWacomStylus *stylus);
+CsdWacomDevice * csd_wacom_stylus_get_device     (CsdWacomStylus *stylus);
+gboolean         csd_wacom_stylus_get_has_eraser (CsdWacomStylus *stylus);
+guint            csd_wacom_stylus_get_num_buttons(CsdWacomStylus *stylus);
+int              csd_wacom_stylus_get_id         (CsdWacomStylus *stylus);
+CsdWacomStylusType csd_wacom_stylus_get_stylus_type (CsdWacomStylus *stylus);
 
 /* Tablet Buttons */
 typedef enum {
 	WACOM_TABLET_BUTTON_TYPE_NORMAL,
 	WACOM_TABLET_BUTTON_TYPE_ELEVATOR,
 	WACOM_TABLET_BUTTON_TYPE_HARDCODED
-} GsdWacomTabletButtonType;
+} CsdWacomTabletButtonType;
 
 #define MAX_GROUP_ID 4
 
@@ -104,12 +104,12 @@ typedef struct
 	char                     *name;
 	char                     *id;
 	GSettings                *settings;
-	GsdWacomTabletButtonType  type;
+	CsdWacomTabletButtonType  type;
 	int                       group_id, idx;
-} GsdWacomTabletButton;
+} CsdWacomTabletButton;
 
-void                  gsd_wacom_tablet_button_free (GsdWacomTabletButton *button);
-GsdWacomTabletButton *gsd_wacom_tablet_button_copy (GsdWacomTabletButton *button);
+void                  csd_wacom_tablet_button_free (CsdWacomTabletButton *button);
+CsdWacomTabletButton *csd_wacom_tablet_button_copy (CsdWacomTabletButton *button);
 
 /* Device types to apply a setting to */
 typedef enum {
@@ -120,60 +120,60 @@ typedef enum {
         WACOM_TYPE_PAD     =     (1 << 4),
         WACOM_TYPE_TOUCH   =     (1 << 5),
         WACOM_TYPE_ALL     =     WACOM_TYPE_STYLUS | WACOM_TYPE_ERASER | WACOM_TYPE_CURSOR | WACOM_TYPE_PAD | WACOM_TYPE_TOUCH
-} GsdWacomDeviceType;
+} CsdWacomDeviceType;
 
 /* We use -1 for entire screen when setting/getting monitor value */
-#define GSD_WACOM_SET_ALL_MONITORS -1
+#define CSD_WACOM_SET_ALL_MONITORS -1
 
-GType gsd_wacom_device_get_type     (void);
+GType csd_wacom_device_get_type     (void);
 
-void     gsd_wacom_device_set_display         (GsdWacomDevice    *device,
+void     csd_wacom_device_set_display         (CsdWacomDevice    *device,
                                                int                monitor);
-gint     gsd_wacom_device_get_display_monitor (GsdWacomDevice *device);
-gboolean gsd_wacom_device_get_display_matrix  (GsdWacomDevice *device,
+gint     csd_wacom_device_get_display_monitor (CsdWacomDevice *device);
+gboolean csd_wacom_device_get_display_matrix  (CsdWacomDevice *device,
                                                float           matrix[NUM_ELEMS_MATRIX]);
-GsdWacomRotation gsd_wacom_device_get_display_rotation (GsdWacomDevice *device);
+CsdWacomRotation csd_wacom_device_get_display_rotation (CsdWacomDevice *device);
 
-GsdWacomDevice * gsd_wacom_device_new              (GdkDevice *device);
-GList          * gsd_wacom_device_list_styli       (GsdWacomDevice *device);
-const char     * gsd_wacom_device_get_name         (GsdWacomDevice *device);
-const char     * gsd_wacom_device_get_path         (GsdWacomDevice *device);
-const char     * gsd_wacom_device_get_icon_name    (GsdWacomDevice *device);
-const char     * gsd_wacom_device_get_tool_name    (GsdWacomDevice *device);
-gboolean         gsd_wacom_device_reversible       (GsdWacomDevice *device);
-gboolean         gsd_wacom_device_is_screen_tablet (GsdWacomDevice *device);
-gboolean         gsd_wacom_device_is_fallback      (GsdWacomDevice *device);
-gint             gsd_wacom_device_get_num_strips   (GsdWacomDevice *device);
-gint             gsd_wacom_device_get_num_rings    (GsdWacomDevice *device);
-GSettings      * gsd_wacom_device_get_settings     (GsdWacomDevice *device);
-void             gsd_wacom_device_set_current_stylus (GsdWacomDevice *device,
+CsdWacomDevice * csd_wacom_device_new              (GdkDevice *device);
+GList          * csd_wacom_device_list_styli       (CsdWacomDevice *device);
+const char     * csd_wacom_device_get_name         (CsdWacomDevice *device);
+const char     * csd_wacom_device_get_path         (CsdWacomDevice *device);
+const char     * csd_wacom_device_get_icon_name    (CsdWacomDevice *device);
+const char     * csd_wacom_device_get_tool_name    (CsdWacomDevice *device);
+gboolean         csd_wacom_device_reversible       (CsdWacomDevice *device);
+gboolean         csd_wacom_device_is_screen_tablet (CsdWacomDevice *device);
+gboolean         csd_wacom_device_is_fallback      (CsdWacomDevice *device);
+gint             csd_wacom_device_get_num_strips   (CsdWacomDevice *device);
+gint             csd_wacom_device_get_num_rings    (CsdWacomDevice *device);
+GSettings      * csd_wacom_device_get_settings     (CsdWacomDevice *device);
+void             csd_wacom_device_set_current_stylus (CsdWacomDevice *device,
 						      int             stylus_id);
-GsdWacomStylus * gsd_wacom_device_get_stylus_for_type (GsdWacomDevice     *device,
-						       GsdWacomStylusType  type);
+CsdWacomStylus * csd_wacom_device_get_stylus_for_type (CsdWacomDevice     *device,
+						       CsdWacomStylusType  type);
 
-GsdWacomDeviceType gsd_wacom_device_get_device_type (GsdWacomDevice *device);
-gint           * gsd_wacom_device_get_area          (GsdWacomDevice *device);
-const char     * gsd_wacom_device_type_to_string    (GsdWacomDeviceType type);
-GList          * gsd_wacom_device_get_buttons       (GsdWacomDevice *device);
-GsdWacomTabletButton *gsd_wacom_device_get_button   (GsdWacomDevice   *device,
+CsdWacomDeviceType csd_wacom_device_get_device_type (CsdWacomDevice *device);
+gint           * csd_wacom_device_get_area          (CsdWacomDevice *device);
+const char     * csd_wacom_device_type_to_string    (CsdWacomDeviceType type);
+GList          * csd_wacom_device_get_buttons       (CsdWacomDevice *device);
+CsdWacomTabletButton *csd_wacom_device_get_button   (CsdWacomDevice   *device,
 						     int               button,
 						     GtkDirectionType *dir);
-int gsd_wacom_device_set_next_mode                  (GsdWacomDevice *device,
+int csd_wacom_device_set_next_mode                  (CsdWacomDevice *device,
 						     int             group_id);
-GsdWacomRotation gsd_wacom_device_rotation_name_to_type (const char *rotation);
-const char     * gsd_wacom_device_rotation_type_to_name (GsdWacomRotation type);
+CsdWacomRotation csd_wacom_device_rotation_name_to_type (const char *rotation);
+const char     * csd_wacom_device_rotation_type_to_name (CsdWacomRotation type);
 
 
 /* Helper and debug functions */
-GsdWacomDevice * gsd_wacom_device_create_fake (GsdWacomDeviceType  type,
+CsdWacomDevice * csd_wacom_device_create_fake (CsdWacomDeviceType  type,
 					       const char         *name,
 					       const char         *tool_name);
 
-GList * gsd_wacom_device_create_fake_cintiq   (void);
-GList * gsd_wacom_device_create_fake_bt       (void);
-GList * gsd_wacom_device_create_fake_x201     (void);
-GList * gsd_wacom_device_create_fake_intuos4  (void);
+GList * csd_wacom_device_create_fake_cintiq   (void);
+GList * csd_wacom_device_create_fake_bt       (void);
+GList * csd_wacom_device_create_fake_x201     (void);
+GList * csd_wacom_device_create_fake_intuos4  (void);
 
 G_END_DECLS
 
-#endif /* __GSD_WACOM_DEVICE_MANAGER_H */
+#endif /* __CSD_WACOM_DEVICE_MANAGER_H */

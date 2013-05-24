@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_CLIPBOARD_PLUGIN_H__
-#define __GSD_CLIPBOARD_PLUGIN_H__
+#ifndef __CSD_CLIPBOARD_PLUGIN_H__
+#define __CSD_CLIPBOARD_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_CLIPBOARD_PLUGIN                (gsd_clipboard_plugin_get_type ())
-#define GSD_CLIPBOARD_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_CLIPBOARD_PLUGIN, GsdClipboardPlugin))
-#define GSD_CLIPBOARD_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_CLIPBOARD_PLUGIN, GsdClipboardPluginClass))
-#define GSD_IS_CLIPBOARD_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_CLIPBOARD_PLUGIN))
-#define GSD_IS_CLIPBOARD_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_CLIPBOARD_PLUGIN))
-#define GSD_CLIPBOARD_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_CLIPBOARD_PLUGIN, GsdClipboardPluginClass))
+#define CSD_TYPE_CLIPBOARD_PLUGIN                (csd_clipboard_plugin_get_type ())
+#define CSD_CLIPBOARD_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_CLIPBOARD_PLUGIN, CsdClipboardPlugin))
+#define CSD_CLIPBOARD_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_CLIPBOARD_PLUGIN, CsdClipboardPluginClass))
+#define CSD_IS_CLIPBOARD_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_CLIPBOARD_PLUGIN))
+#define CSD_IS_CLIPBOARD_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_CLIPBOARD_PLUGIN))
+#define CSD_CLIPBOARD_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_CLIPBOARD_PLUGIN, CsdClipboardPluginClass))
 
-typedef struct GsdClipboardPluginPrivate GsdClipboardPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdClipboardPluginPrivate *priv;
-} GsdClipboardPlugin;
+typedef struct CsdClipboardPluginPrivate CsdClipboardPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdClipboardPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdClipboardPluginPrivate *priv;
+} CsdClipboardPlugin;
 
-GType   gsd_clipboard_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdClipboardPluginClass;
+
+GType   csd_clipboard_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_CLIPBOARD_PLUGIN_H__ */
+#endif /* __CSD_CLIPBOARD_PLUGIN_H__ */

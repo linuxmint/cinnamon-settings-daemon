@@ -38,10 +38,10 @@
 #include <cups/ppd.h>
 #include <libnotify/notify.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-print-notifications-manager.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-print-notifications-manager.h"
 
-#define GSD_PRINT_NOTIFICATIONS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, GsdPrintNotificationsManagerPrivate))
+#define CSD_PRINT_NOTIFICATIONS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, CsdPrintNotificationsManagerPrivate))
 
 #define CUPS_DBUS_NAME      "org.cups.cupsd.Notifier"
 #define CUPS_DBUS_PATH      "/org/cups/cupsd/Notifier"
@@ -63,7 +63,7 @@
 #define ippGetString(attr, element, language) attr->values[element].string.text
 #endif
 
-struct GsdPrintNotificationsManagerPrivate
+struct CsdPrintNotificationsManagerPrivate
 {
         GDBusConnection              *cups_bus_connection;
         gint                          subscription_id;
@@ -81,12 +81,12 @@ enum {
         PROP_0,
 };
 
-static void     gsd_print_notifications_manager_class_init  (GsdPrintNotificationsManagerClass *klass);
-static void     gsd_print_notifications_manager_init        (GsdPrintNotificationsManager      *print_notifications_manager);
-static void     gsd_print_notifications_manager_finalize    (GObject                           *object);
+static void     csd_print_notifications_manager_class_init  (CsdPrintNotificationsManagerClass *klass);
+static void     csd_print_notifications_manager_init        (CsdPrintNotificationsManager      *print_notifications_manager);
+static void     csd_print_notifications_manager_finalize    (GObject                           *object);
 static gboolean cups_connection_test                        (gpointer                           user_data);
 
-G_DEFINE_TYPE (GsdPrintNotificationsManager, gsd_print_notifications_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdPrintNotificationsManager, csd_print_notifications_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -156,7 +156,7 @@ struct
         gchar *primary_text;
         gchar *secondary_text;
         guint  timeout_id;
-        GsdPrintNotificationsManager *manager;
+        CsdPrintNotificationsManager *manager;
 } typedef TimeoutData;
 
 struct
@@ -165,7 +165,7 @@ struct
         gchar *reason;
         NotifyNotification *notification;
         gulong notification_close_id;
-        GsdPrintNotificationsManager *manager;
+        CsdPrintNotificationsManager *manager;
 } typedef ReasonData;
 
 static void
@@ -285,7 +285,7 @@ on_cups_notification (GDBusConnection *connection,
                       GVariant        *parameters,
                       gpointer         user_data)
 {
-        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
+        CsdPrintNotificationsManager *manager = (CsdPrintNotificationsManager *) user_data;
         gboolean                     printer_is_accepting_jobs;
         gboolean                     my_job = FALSE;
         gboolean                     known_reason;
@@ -812,7 +812,7 @@ on_cups_notification (GDBusConnection *connection,
 }
 
 static void
-scp_handler (GsdPrintNotificationsManager *manager,
+scp_handler (CsdPrintNotificationsManager *manager,
              gboolean                      start)
 {
         if (start) {
@@ -822,7 +822,7 @@ scp_handler (GsdPrintNotificationsManager *manager,
                 if (manager->priv->scp_handler_spawned)
                         return;
 
-                args[0] = LIBEXECDIR "/gsd-printer";
+                args[0] = LIBEXECDIR "/csd-printer";
                 args[1] = NULL;
 
                 g_spawn_async (NULL, args, NULL,
@@ -867,7 +867,7 @@ cancel_subscription (gint id)
 static gboolean
 renew_subscription (gpointer data)
 {
-        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) data;
+        CsdPrintNotificationsManager *manager = (CsdPrintNotificationsManager *) data;
         ipp_attribute_t              *attr = NULL;
         http_t                       *http;
         ipp_t                        *request;
@@ -993,7 +993,7 @@ cups_connection_test_cb (GObject      *source_object,
                          GAsyncResult *res,
                          gpointer      user_data)
 {
-        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
+        CsdPrintNotificationsManager *manager = (CsdPrintNotificationsManager *) user_data;
         GSocketConnection            *connection;
         GError                       *error = NULL;
 
@@ -1008,7 +1008,7 @@ cups_connection_test_cb (GObject      *source_object,
                 g_object_unref (connection);
 
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
-                gnome_settings_profile_msg ("got dests");
+                cinnamon_settings_profile_msg ("got dests");
 
                 renew_subscription (user_data);
                 g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
@@ -1024,7 +1024,7 @@ cups_connection_test_cb (GObject      *source_object,
 static gboolean
 cups_connection_test (gpointer user_data)
 {
-        GsdPrintNotificationsManager *manager = (GsdPrintNotificationsManager *) user_data;
+        CsdPrintNotificationsManager *manager = (CsdPrintNotificationsManager *) user_data;
         GSocketClient                *client;
         gchar                        *address;
 
@@ -1047,7 +1047,7 @@ cups_connection_test (gpointer user_data)
                 }
                 else {
                         manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
-                        gnome_settings_profile_msg ("got dests");
+                        cinnamon_settings_profile_msg ("got dests");
 
                         renew_subscription (user_data);
                         g_timeout_add_seconds (RENEW_INTERVAL, renew_subscription_with_connection_test, manager);
@@ -1067,11 +1067,11 @@ cups_connection_test (gpointer user_data)
 }
 
 static gboolean
-gsd_print_notifications_manager_start_idle (gpointer data)
+csd_print_notifications_manager_start_idle (gpointer data)
 {
-        GsdPrintNotificationsManager *manager = data;
+        CsdPrintNotificationsManager *manager = data;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
@@ -1092,18 +1092,18 @@ gsd_print_notifications_manager_start_idle (gpointer data)
 
         scp_handler (manager, TRUE);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return G_SOURCE_REMOVE;
 }
 
 gboolean
-gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
+csd_print_notifications_manager_start (CsdPrintNotificationsManager *manager,
                                        GError                      **error)
 {
         g_debug ("Starting print-notifications manager");
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->subscription_id = -1;
         manager->priv->dests = NULL;
@@ -1115,15 +1115,15 @@ gsd_print_notifications_manager_start (GsdPrintNotificationsManager *manager,
         manager->priv->cups_bus_connection = NULL;
         manager->priv->cups_connection_timeout_id = 0;
 
-        g_idle_add (gsd_print_notifications_manager_start_idle, manager);
+        g_idle_add (csd_print_notifications_manager_start_idle, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
+csd_print_notifications_manager_stop (CsdPrintNotificationsManager *manager)
 {
         TimeoutData *data;
         ReasonData  *reason_data;
@@ -1170,13 +1170,13 @@ gsd_print_notifications_manager_stop (GsdPrintNotificationsManager *manager)
 }
 
 static GObject *
-gsd_print_notifications_manager_constructor (GType                  type,
+csd_print_notifications_manager_constructor (GType                  type,
                                              guint                  n_construct_properties,
                                              GObjectConstructParam *construct_properties)
 {
-        GsdPrintNotificationsManager      *print_notifications_manager;
+        CsdPrintNotificationsManager      *print_notifications_manager;
 
-        print_notifications_manager = GSD_PRINT_NOTIFICATIONS_MANAGER (G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->constructor (type,
+        print_notifications_manager = CSD_PRINT_NOTIFICATIONS_MANAGER (G_OBJECT_CLASS (csd_print_notifications_manager_parent_class)->constructor (type,
                                                                                                                                                    n_construct_properties,
                                                                                                                                                    construct_properties));
 
@@ -1184,48 +1184,48 @@ gsd_print_notifications_manager_constructor (GType                  type,
 }
 
 static void
-gsd_print_notifications_manager_class_init (GsdPrintNotificationsManagerClass *klass)
+csd_print_notifications_manager_class_init (CsdPrintNotificationsManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_print_notifications_manager_constructor;
-        object_class->finalize = gsd_print_notifications_manager_finalize;
+        object_class->constructor = csd_print_notifications_manager_constructor;
+        object_class->finalize = csd_print_notifications_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdPrintNotificationsManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdPrintNotificationsManagerPrivate));
 }
 
 static void
-gsd_print_notifications_manager_init (GsdPrintNotificationsManager *manager)
+csd_print_notifications_manager_init (CsdPrintNotificationsManager *manager)
 {
-        manager->priv = GSD_PRINT_NOTIFICATIONS_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_PRINT_NOTIFICATIONS_MANAGER_GET_PRIVATE (manager);
 
 }
 
 static void
-gsd_print_notifications_manager_finalize (GObject *object)
+csd_print_notifications_manager_finalize (GObject *object)
 {
-        GsdPrintNotificationsManager *manager;
+        CsdPrintNotificationsManager *manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_PRINT_NOTIFICATIONS_MANAGER (object));
+        g_return_if_fail (CSD_IS_PRINT_NOTIFICATIONS_MANAGER (object));
 
-        manager = GSD_PRINT_NOTIFICATIONS_MANAGER (object);
+        manager = CSD_PRINT_NOTIFICATIONS_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
 
-        G_OBJECT_CLASS (gsd_print_notifications_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_print_notifications_manager_parent_class)->finalize (object);
 }
 
-GsdPrintNotificationsManager *
-gsd_print_notifications_manager_new (void)
+CsdPrintNotificationsManager *
+csd_print_notifications_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_PRINT_NOTIFICATIONS_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_PRINT_NOTIFICATIONS_MANAGER (manager_object);
+        return CSD_PRINT_NOTIFICATIONS_MANAGER (manager_object);
 }

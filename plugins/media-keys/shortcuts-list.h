@@ -21,7 +21,7 @@
 #ifndef __ACME_H__
 #define __ACME_H__
 
-#include "gsd-keygrab.h"
+#include "csd-keygrab.h"
 
 #define SETTINGS_BINDING_DIR "org.gnome.settings-daemon.plugins.media-keys"
 

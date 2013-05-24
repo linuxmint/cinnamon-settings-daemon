@@ -38,14 +38,14 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-enums.h"
-#include "gsd-xsettings-manager.h"
-#include "gsd-xsettings-gtk.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-enums.h"
+#include "csd-xsettings-manager.h"
+#include "csd-xsettings-gtk.h"
 #include "xsettings-manager.h"
 #include "fontconfig-monitor.h"
 
-#define GNOME_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GNOME_TYPE_XSETTINGS_MANAGER, GnomeXSettingsManagerPrivate))
+#define CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerPrivate))
 
 #define MOUSE_SETTINGS_SCHEMA     "org.gnome.settings-daemon.peripherals.mouse"
 #define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
@@ -218,7 +218,7 @@
 #define DPI_FALLBACK 96
 
 typedef struct _TranslationEntry TranslationEntry;
-typedef void (* TranslationFunc) (GnomeXSettingsManager *manager,
+typedef void (* TranslationFunc) (CinnamonSettingsXSettingsManager *manager,
                                   TranslationEntry      *trans,
                                   GVariant              *value);
 
@@ -230,7 +230,7 @@ struct _TranslationEntry {
         TranslationFunc translate;
 };
 
-struct GnomeXSettingsManagerPrivate
+struct CinnamonSettingsXSettingsManagerPrivate
 {
         guint              start_idle_id;
         XSettingsManager **managers;
@@ -239,7 +239,7 @@ struct GnomeXSettingsManagerPrivate
         GSettings         *plugin_settings;
         fontconfig_monitor_handle_t *fontconfig_handle;
 
-        GsdXSettingsGtk   *gtk;
+        CsdXSettingsGtk   *gtk;
 
         guint              shell_name_watch_id;
         guint              unity_name_watch_id;
@@ -249,28 +249,28 @@ struct GnomeXSettingsManagerPrivate
         guint              notify_idle_id;
 };
 
-#define GSD_XSETTINGS_ERROR gsd_xsettings_error_quark ()
+#define CSD_XSETTINGS_ERROR csd_xsettings_error_quark ()
 
 enum {
-        GSD_XSETTINGS_ERROR_INIT
+        CSD_XSETTINGS_ERROR_INIT
 };
 
-static void     gnome_xsettings_manager_class_init  (GnomeXSettingsManagerClass *klass);
-static void     gnome_xsettings_manager_init        (GnomeXSettingsManager      *xsettings_manager);
-static void     gnome_xsettings_manager_finalize    (GObject                  *object);
+static void     cinnamon_xsettings_manager_class_init  (CinnamonSettingsXSettingsManagerClass *klass);
+static void     cinnamon_xsettings_manager_init        (CinnamonSettingsXSettingsManager      *xsettings_manager);
+static void     cinnamon_xsettings_manager_finalize    (GObject                  *object);
 
-G_DEFINE_TYPE (GnomeXSettingsManager, gnome_xsettings_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CinnamonSettingsXSettingsManager, cinnamon_xsettings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 static GQuark
-gsd_xsettings_error_quark (void)
+csd_xsettings_error_quark (void)
 {
-        return g_quark_from_static_string ("gsd-xsettings-error-quark");
+        return g_quark_from_static_string ("csd-xsettings-error-quark");
 }
 
 static void
-translate_bool_int (GnomeXSettingsManager *manager,
+translate_bool_int (CinnamonSettingsXSettingsManager *manager,
                     TranslationEntry      *trans,
                     GVariant              *value)
 {
@@ -283,7 +283,7 @@ translate_bool_int (GnomeXSettingsManager *manager,
 }
 
 static void
-translate_int_int (GnomeXSettingsManager *manager,
+translate_int_int (CinnamonSettingsXSettingsManager *manager,
                    TranslationEntry      *trans,
                    GVariant              *value)
 {
@@ -296,7 +296,7 @@ translate_int_int (GnomeXSettingsManager *manager,
 }
 
 static void
-translate_string_string (GnomeXSettingsManager *manager,
+translate_string_string (CinnamonSettingsXSettingsManager *manager,
                          TranslationEntry      *trans,
                          GVariant              *value)
 {
@@ -310,7 +310,7 @@ translate_string_string (GnomeXSettingsManager *manager,
 }
 
 static void
-translate_string_string_toolbar (GnomeXSettingsManager *manager,
+translate_string_string_toolbar (CinnamonSettingsXSettingsManager *manager,
                                  TranslationEntry      *trans,
                                  GVariant              *value)
 {
@@ -371,7 +371,7 @@ static TranslationEntry translations [] = {
 static gboolean
 notify_idle (gpointer data)
 {
-        GnomeXSettingsManager *manager = data;
+        CinnamonSettingsXSettingsManager *manager = data;
         gint i;
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_notify (manager->priv->managers[i]);
@@ -381,7 +381,7 @@ notify_idle (gpointer data)
 }
 
 static void
-queue_notify (GnomeXSettingsManager *manager)
+queue_notify (CinnamonSettingsXSettingsManager *manager)
 {
         if (manager->priv->notify_idle_id != 0)
                 return;
@@ -390,7 +390,7 @@ queue_notify (GnomeXSettingsManager *manager)
 }
 
 static double
-get_dpi_from_gsettings (GnomeXSettingsManager *manager)
+get_dpi_from_gsettings (CinnamonSettingsXSettingsManager *manager)
 {
 	GSettings  *interface_settings;
         double      dpi;
@@ -410,69 +410,69 @@ typedef struct {
         int         dpi;
         const char *rgba;
         const char *hintstyle;
-} GnomeXftSettings;
+} CinnamonSettingsXftSettings;
 
 /* Read GSettings and determine the appropriate Xft settings based on them. */
 static void
-xft_settings_get (GnomeXSettingsManager *manager,
-                  GnomeXftSettings      *settings)
+xft_settings_get (CinnamonSettingsXSettingsManager *manager,
+                  CinnamonSettingsXftSettings      *settings)
 {
-        GsdFontAntialiasingMode antialiasing;
-        GsdFontHinting hinting;
-        GsdFontRgbaOrder order;
+        CsdFontAntialiasingMode antialiasing;
+        CsdFontHinting hinting;
+        CsdFontRgbaOrder order;
         gboolean use_rgba = FALSE;
 
         antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
         order = g_settings_get_enum (manager->priv->plugin_settings, FONT_RGBA_ORDER_KEY);
 
-        settings->antialias = (antialiasing != GSD_FONT_ANTIALIASING_MODE_NONE);
-        settings->hinting = (hinting != GSD_FONT_HINTING_NONE);
+        settings->antialias = (antialiasing != CSD_FONT_ANTIALIASING_MODE_NONE);
+        settings->hinting = (hinting != CSD_FONT_HINTING_NONE);
         settings->dpi = get_dpi_from_gsettings (manager) * 1024; /* Xft wants 1/1024ths of an inch */
         settings->rgba = "rgb";
         settings->hintstyle = "hintfull";
 
         switch (hinting) {
-        case GSD_FONT_HINTING_NONE:
+        case CSD_FONT_HINTING_NONE:
                 settings->hintstyle = "hintnone";
                 break;
-        case GSD_FONT_HINTING_SLIGHT:
+        case CSD_FONT_HINTING_SLIGHT:
                 settings->hintstyle = "hintslight";
                 break;
-        case GSD_FONT_HINTING_MEDIUM:
+        case CSD_FONT_HINTING_MEDIUM:
                 settings->hintstyle = "hintmedium";
                 break;
-        case GSD_FONT_HINTING_FULL:
+        case CSD_FONT_HINTING_FULL:
                 settings->hintstyle = "hintfull";
                 break;
         }
 
         switch (order) {
-        case GSD_FONT_RGBA_ORDER_RGBA:
+        case CSD_FONT_RGBA_ORDER_RGBA:
                 settings->rgba = "rgba";
                 break;
-        case GSD_FONT_RGBA_ORDER_RGB:
+        case CSD_FONT_RGBA_ORDER_RGB:
                 settings->rgba = "rgb";
                 break;
-        case GSD_FONT_RGBA_ORDER_BGR:
+        case CSD_FONT_RGBA_ORDER_BGR:
                 settings->rgba = "bgr";
                 break;
-        case GSD_FONT_RGBA_ORDER_VRGB:
+        case CSD_FONT_RGBA_ORDER_VRGB:
                 settings->rgba = "vrgb";
                 break;
-        case GSD_FONT_RGBA_ORDER_VBGR:
+        case CSD_FONT_RGBA_ORDER_VBGR:
                 settings->rgba = "vbgr";
                 break;
         }
 
         switch (antialiasing) {
-        case GSD_FONT_ANTIALIASING_MODE_NONE:
+        case CSD_FONT_ANTIALIASING_MODE_NONE:
                 settings->antialias = 0;
                 break;
-        case GSD_FONT_ANTIALIASING_MODE_GRAYSCALE:
+        case CSD_FONT_ANTIALIASING_MODE_GRAYSCALE:
                 settings->antialias = 1;
                 break;
-        case GSD_FONT_ANTIALIASING_MODE_RGBA:
+        case CSD_FONT_ANTIALIASING_MODE_RGBA:
                 settings->antialias = 1;
                 use_rgba = TRUE;
         }
@@ -483,12 +483,12 @@ xft_settings_get (GnomeXSettingsManager *manager,
 }
 
 static void
-xft_settings_set_xsettings (GnomeXSettingsManager *manager,
-                            GnomeXftSettings      *settings)
+xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
+                            CinnamonSettingsXftSettings      *settings)
 {
         int i;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/Antialias", settings->antialias);
@@ -497,7 +497,7 @@ xft_settings_set_xsettings (GnomeXSettingsManager *manager,
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->dpi);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
         }
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
@@ -532,13 +532,13 @@ update_property (GString *props, const gchar* key, const gchar* value)
 }
 
 static void
-xft_settings_set_xresources (GnomeXftSettings *settings)
+xft_settings_set_xresources (CinnamonSettingsXftSettings *settings)
 {
         GString    *add_string;
         char        dpibuf[G_ASCII_DTOSTR_BUF_SIZE];
         Display    *dpy;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         /* get existing properties */
         dpy = XOpenDisplay (NULL);
@@ -567,30 +567,30 @@ xft_settings_set_xresources (GnomeXftSettings *settings)
 
         g_string_free (add_string, TRUE);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 /* We mirror the Xft properties both through XSETTINGS and through
  * X resources
  */
 static void
-update_xft_settings (GnomeXSettingsManager *manager)
+update_xft_settings (CinnamonSettingsXSettingsManager *manager)
 {
-        GnomeXftSettings settings;
+        CinnamonSettingsXftSettings settings;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         xft_settings_get (manager, &settings);
         xft_settings_set_xsettings (manager, &settings);
         xft_settings_set_xresources (&settings);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
 xft_callback (GSettings             *settings,
               const gchar           *key,
-              GnomeXSettingsManager *manager)
+              CinnamonSettingsXSettingsManager *manager)
 {
         update_xft_settings (manager);
         queue_notify (manager);
@@ -599,7 +599,7 @@ xft_callback (GSettings             *settings,
 static void
 override_callback (GSettings             *settings,
                    const gchar           *key,
-                   GnomeXSettingsManager *manager)
+                   CinnamonSettingsXSettingsManager *manager)
 {
         GVariant *value;
         int i;
@@ -617,11 +617,11 @@ override_callback (GSettings             *settings,
 static void
 plugin_callback (GSettings             *settings,
                  const char            *key,
-                 GnomeXSettingsManager *manager)
+                 CinnamonSettingsXSettingsManager *manager)
 {
         if (g_str_equal (key, GTK_MODULES_DISABLED_KEY) ||
             g_str_equal (key, GTK_MODULES_ENABLED_KEY)) {
-                /* Do nothing, as GsdXsettingsGtk will handle it */
+                /* Do nothing, as CsdXsettingsGtk will handle it */
         } else if (g_str_equal (key, XSETTINGS_OVERRIDE_KEY)) {
                 override_callback (settings, key, manager);
         } else {
@@ -630,11 +630,11 @@ plugin_callback (GSettings             *settings,
 }
 
 static void
-gtk_modules_callback (GsdXSettingsGtk       *gtk,
+gtk_modules_callback (CsdXSettingsGtk       *gtk,
                       GParamSpec            *spec,
-                      GnomeXSettingsManager *manager)
+                      CinnamonSettingsXSettingsManager *manager)
 {
-        const char *modules = gsd_xsettings_gtk_get_modules (manager->priv->gtk);
+        const char *modules = csd_xsettings_gtk_get_modules (manager->priv->gtk);
         int i;
 
         if (modules == NULL) {
@@ -655,28 +655,28 @@ gtk_modules_callback (GsdXSettingsGtk       *gtk,
 
 static void
 fontconfig_callback (fontconfig_monitor_handle_t *handle,
-                     GnomeXSettingsManager       *manager)
+                     CinnamonSettingsXSettingsManager       *manager)
 {
         int i;
         int timestamp = time (NULL);
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_int (manager->priv->managers [i], "Fontconfig/Timestamp", timestamp);
         }
         queue_notify (manager);
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static gboolean
-start_fontconfig_monitor_idle_cb (GnomeXSettingsManager *manager)
+start_fontconfig_monitor_idle_cb (CinnamonSettingsXSettingsManager *manager)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->fontconfig_handle = fontconfig_monitor_start ((GFunc) fontconfig_callback, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
 
@@ -684,19 +684,19 @@ start_fontconfig_monitor_idle_cb (GnomeXSettingsManager *manager)
 }
 
 static void
-start_fontconfig_monitor (GnomeXSettingsManager  *manager)
+start_fontconfig_monitor (CinnamonSettingsXSettingsManager  *manager)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         fontconfig_cache_init ();
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_fontconfig_monitor_idle_cb, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
-stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
+stop_fontconfig_monitor (CinnamonSettingsXSettingsManager  *manager)
 {
         if (manager->priv->fontconfig_handle) {
                 fontconfig_monitor_stop (manager->priv->fontconfig_handle);
@@ -705,11 +705,11 @@ stop_fontconfig_monitor (GnomeXSettingsManager  *manager)
 }
 
 static void
-notify_have_shell (GnomeXSettingsManager   *manager)
+notify_have_shell (CinnamonSettingsXSettingsManager   *manager)
 {
         int i;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
         for (i = 0; manager->priv->managers [i]; i++) {
                 /* Shell is showing appmenu if either GNOME Shell or Unity is running. */
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsAppMenu",
@@ -719,7 +719,7 @@ notify_have_shell (GnomeXSettingsManager   *manager)
                                            manager->priv->have_unity);
         }
         queue_notify (manager);
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
@@ -728,7 +728,7 @@ on_shell_appeared (GDBusConnection *connection,
                    const gchar     *name_owner,
                    gpointer         user_data)
 {
-        GnomeXSettingsManager *manager = user_data;
+        CinnamonSettingsXSettingsManager *manager = user_data;
 
         manager->priv->have_shell = TRUE;
         notify_have_shell (manager);
@@ -739,7 +739,7 @@ on_shell_disappeared (GDBusConnection *connection,
                       const gchar     *name,
                       gpointer         user_data)
 {
-        GnomeXSettingsManager *manager = user_data;
+        CinnamonSettingsXSettingsManager *manager = user_data;
 
         manager->priv->have_shell = FALSE;
         notify_have_shell (manager);
@@ -751,7 +751,7 @@ on_unity_appeared (GDBusConnection *connection,
                    const gchar     *name_owner,
                    gpointer         user_data)
 {
-        GnomeXSettingsManager *manager = user_data;
+        CinnamonSettingsXSettingsManager *manager = user_data;
 
         manager->priv->have_unity = TRUE;
         notify_have_shell (manager);
@@ -762,14 +762,14 @@ on_unity_disappeared (GDBusConnection *connection,
                       const gchar     *name,
                       gpointer         user_data)
 {
-        GnomeXSettingsManager *manager = user_data;
+        CinnamonSettingsXSettingsManager *manager = user_data;
 
         manager->priv->have_unity = FALSE;
         notify_have_shell (manager);
 }
 
 static void
-process_value (GnomeXSettingsManager *manager,
+process_value (CinnamonSettingsXSettingsManager *manager,
                TranslationEntry      *trans,
                GVariant              *value)
 {
@@ -800,7 +800,7 @@ find_translation_entry (GSettings *settings, const char *key)
 static void
 xsettings_callback (GSettings             *settings,
                     const char            *key,
-                    GnomeXSettingsManager *manager)
+                    CinnamonSettingsXSettingsManager *manager)
 {
         TranslationEntry *trans;
         guint             i;
@@ -845,7 +845,7 @@ terminate_cb (void *data)
 }
 
 static gboolean
-setup_xsettings_managers (GnomeXSettingsManager *manager)
+setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
 {
         GdkDisplay *display;
         int         i;
@@ -886,7 +886,7 @@ setup_xsettings_managers (GnomeXSettingsManager *manager)
 }
 
 static void
-start_shell_monitor (GnomeXSettingsManager *manager)
+start_shell_monitor (CinnamonSettingsXSettingsManager *manager)
 {
         notify_have_shell (manager);
         manager->priv->have_shell = TRUE;
@@ -900,7 +900,7 @@ start_shell_monitor (GnomeXSettingsManager *manager)
 }
 
 static void
-start_unity_monitor (GnomeXSettingsManager *manager)
+start_unity_monitor (CinnamonSettingsXSettingsManager *manager)
 {
         notify_have_shell (manager);
         manager->priv->have_unity = TRUE;
@@ -914,7 +914,7 @@ start_unity_monitor (GnomeXSettingsManager *manager)
 }
 
 gboolean
-gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
+cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                                GError               **error)
 {
         GVariant    *overrides;
@@ -922,11 +922,11 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         GList       *list, *l;
 
         g_debug ("Starting xsettings manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         if (!setup_xsettings_managers (manager)) {
-                g_set_error (error, GSD_XSETTINGS_ERROR,
-                             GSD_XSETTINGS_ERROR_INIT,
+                g_set_error (error, CSD_XSETTINGS_ERROR,
+                             CSD_XSETTINGS_ERROR_INIT,
                              "Could not initialize xsettings manager.");
                 return FALSE;
         }
@@ -968,7 +968,7 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         manager->priv->plugin_settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
         g_signal_connect_object (manager->priv->plugin_settings, "changed", G_CALLBACK (plugin_callback), manager, 0);
 
-        manager->priv->gtk = gsd_xsettings_gtk_new ();
+        manager->priv->gtk = csd_xsettings_gtk_new ();
         g_signal_connect (G_OBJECT (manager->priv->gtk), "notify::gtk-modules",
                           G_CALLBACK (gtk_modules_callback), manager);
         gtk_modules_callback (manager->priv->gtk, NULL, manager);
@@ -994,15 +994,15 @@ gnome_xsettings_manager_start (GnomeXSettingsManager *manager,
         g_variant_unref (overrides);
 
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
+cinnamon_xsettings_manager_stop (CinnamonSettingsXSettingsManager *manager)
 {
-        GnomeXSettingsManagerPrivate *p = manager->priv;
+        CinnamonSettingsXSettingsManagerPrivate *p = manager->priv;
         int i;
 
         g_debug ("Stopping xsettings manager");
@@ -1040,13 +1040,13 @@ gnome_xsettings_manager_stop (GnomeXSettingsManager *manager)
 }
 
 static GObject *
-gnome_xsettings_manager_constructor (GType                  type,
+cinnamon_xsettings_manager_constructor (GType                  type,
                                      guint                  n_construct_properties,
                                      GObjectConstructParam *construct_properties)
 {
-        GnomeXSettingsManager      *xsettings_manager;
+        CinnamonSettingsXSettingsManager      *xsettings_manager;
 
-        xsettings_manager = GNOME_XSETTINGS_MANAGER (G_OBJECT_CLASS (gnome_xsettings_manager_parent_class)->constructor (type,
+        xsettings_manager = CINNAMON_XSETTINGS_MANAGER (G_OBJECT_CLASS (cinnamon_xsettings_manager_parent_class)->constructor (type,
                                                                                                                   n_construct_properties,
                                                                                                                   construct_properties));
 
@@ -1054,50 +1054,50 @@ gnome_xsettings_manager_constructor (GType                  type,
 }
 
 static void
-gnome_xsettings_manager_class_init (GnomeXSettingsManagerClass *klass)
+cinnamon_xsettings_manager_class_init (CinnamonSettingsXSettingsManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gnome_xsettings_manager_constructor;
-        object_class->finalize = gnome_xsettings_manager_finalize;
+        object_class->constructor = cinnamon_xsettings_manager_constructor;
+        object_class->finalize = cinnamon_xsettings_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GnomeXSettingsManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CinnamonSettingsXSettingsManagerPrivate));
 }
 
 static void
-gnome_xsettings_manager_init (GnomeXSettingsManager *manager)
+cinnamon_xsettings_manager_init (CinnamonSettingsXSettingsManager *manager)
 {
-        manager->priv = GNOME_XSETTINGS_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gnome_xsettings_manager_finalize (GObject *object)
+cinnamon_xsettings_manager_finalize (GObject *object)
 {
-        GnomeXSettingsManager *xsettings_manager;
+        CinnamonSettingsXSettingsManager *xsettings_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GNOME_IS_XSETTINGS_MANAGER (object));
+        g_return_if_fail (CINNAMON_IS_XSETTINGS_MANAGER (object));
 
-        xsettings_manager = GNOME_XSETTINGS_MANAGER (object);
+        xsettings_manager = CINNAMON_XSETTINGS_MANAGER (object);
 
         g_return_if_fail (xsettings_manager->priv != NULL);
 
         if (xsettings_manager->priv->start_idle_id != 0)
                 g_source_remove (xsettings_manager->priv->start_idle_id);
 
-        G_OBJECT_CLASS (gnome_xsettings_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (cinnamon_xsettings_manager_parent_class)->finalize (object);
 }
 
-GnomeXSettingsManager *
-gnome_xsettings_manager_new (void)
+CinnamonSettingsXSettingsManager *
+cinnamon_xsettings_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GNOME_TYPE_XSETTINGS_MANAGER, NULL);
+                manager_object = g_object_new (CINNAMON_TYPE_XSETTINGS_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GNOME_XSETTINGS_MANAGER (manager_object);
+        return CINNAMON_XSETTINGS_MANAGER (manager_object);
 }

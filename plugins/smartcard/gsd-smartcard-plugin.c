@@ -27,12 +27,12 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-smartcard-plugin.h"
-#include "gsd-smartcard-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-smartcard-plugin.h"
+#include "csd-smartcard-manager.h"
 
-struct GsdSmartcardPluginPrivate {
-        GsdSmartcardManager *manager;
+struct CsdSmartcardPluginPrivate {
+        CsdSmartcardManager *manager;
         GDBusConnection     *bus_connection;
 
         guint32              is_active : 1;
@@ -40,10 +40,10 @@ struct GsdSmartcardPluginPrivate {
 
 typedef enum
 {
-    GSD_SMARTCARD_REMOVE_ACTION_NONE,
-    GSD_SMARTCARD_REMOVE_ACTION_LOCK_SCREEN,
-    GSD_SMARTCARD_REMOVE_ACTION_FORCE_LOGOUT,
-} GsdSmartcardRemoveAction;
+    CSD_SMARTCARD_REMOVE_ACTION_NONE,
+    CSD_SMARTCARD_REMOVE_ACTION_LOCK_SCREEN,
+    CSD_SMARTCARD_REMOVE_ACTION_FORCE_LOGOUT,
+} CsdSmartcardRemoveAction;
 
 #define SCREENSAVER_DBUS_NAME      "org.gnome.ScreenSaver"
 #define SCREENSAVER_DBUS_PATH      "/"
@@ -56,16 +56,16 @@ typedef enum
 
 #define KEY_REMOVE_ACTION "removal-action"
 
-#define GSD_SMARTCARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_SMARTCARD_PLUGIN, GsdSmartcardPluginPrivate))
+#define CSD_SMARTCARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_SMARTCARD_PLUGIN, CsdSmartcardPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdSmartcardPlugin, gsd_smartcard_plugin);
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdSmartcardPlugin, csd_smartcard_plugin);
 
 static void
-simulate_user_activity (GsdSmartcardPlugin *plugin)
+simulate_user_activity (CsdSmartcardPlugin *plugin)
 {
         GDBusProxy *screensaver_proxy;
 
-        g_debug ("GsdSmartcardPlugin telling screensaver about smart card insertion");
+        g_debug ("CsdSmartcardPlugin telling screensaver about smart card insertion");
         screensaver_proxy = g_dbus_proxy_new_sync (plugin->priv->bus_connection,
                                                    0, NULL,
                                                    SCREENSAVER_DBUS_NAME,
@@ -82,11 +82,11 @@ simulate_user_activity (GsdSmartcardPlugin *plugin)
 }
 
 static void
-lock_screen (GsdSmartcardPlugin *plugin)
+lock_screen (CsdSmartcardPlugin *plugin)
 {
         GDBusProxy *screensaver_proxy;
 
-        g_debug ("GsdSmartcardPlugin telling screensaver to lock screen");
+        g_debug ("CsdSmartcardPlugin telling screensaver to lock screen");
         screensaver_proxy = g_dbus_proxy_new_sync (plugin->priv->bus_connection,
                                                    0, NULL,
                                                    SCREENSAVER_DBUS_NAME,
@@ -103,13 +103,13 @@ lock_screen (GsdSmartcardPlugin *plugin)
 }
 
 static void
-force_logout (GsdSmartcardPlugin *plugin)
+force_logout (CsdSmartcardPlugin *plugin)
 {
         GDBusProxy *sm_proxy;
         GError     *error;
         GVariant   *res;
 
-        g_debug ("GsdSmartcardPlugin telling session manager to force logout");
+        g_debug ("CsdSmartcardPlugin telling session manager to force logout");
         sm_proxy = g_dbus_proxy_new_sync (plugin->priv->bus_connection,
                                           0, NULL,
                                           SM_DBUS_NAME,
@@ -125,7 +125,7 @@ force_logout (GsdSmartcardPlugin *plugin)
                                       -1, NULL, &error);
 
         if (! res) {
-                g_warning ("GsdSmartcardPlugin Unable to force logout: %s", error->message);
+                g_warning ("CsdSmartcardPlugin Unable to force logout: %s", error->message);
                 g_error_free (error);
         } else
                 g_variant_unref (res);
@@ -134,26 +134,26 @@ force_logout (GsdSmartcardPlugin *plugin)
 }
 
 static void
-gsd_smartcard_plugin_init (GsdSmartcardPlugin *plugin)
+csd_smartcard_plugin_init (CsdSmartcardPlugin *plugin)
 {
-        plugin->priv = GSD_SMARTCARD_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_SMARTCARD_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdSmartcardPlugin initializing");
+        g_debug ("CsdSmartcardPlugin initializing");
 
-        plugin->priv->manager = gsd_smartcard_manager_new (NULL);
+        plugin->priv->manager = csd_smartcard_manager_new (NULL);
 }
 
 static void
-gsd_smartcard_plugin_finalize (GObject *object)
+csd_smartcard_plugin_finalize (GObject *object)
 {
-        GsdSmartcardPlugin *plugin;
+        CsdSmartcardPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SMARTCARD_PLUGIN (object));
+        g_return_if_fail (CSD_IS_SMARTCARD_PLUGIN (object));
 
-        g_debug ("GsdSmartcardPlugin finalizing");
+        g_debug ("CsdSmartcardPlugin finalizing");
 
-        plugin = GSD_SMARTCARD_PLUGIN (object);
+        plugin = CSD_SMARTCARD_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -161,18 +161,18 @@ gsd_smartcard_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_smartcard_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_smartcard_plugin_parent_class)->finalize (object);
 }
 
 static void
-smartcard_inserted_cb (GsdSmartcardManager *card_monitor,
-                       GsdSmartcard        *card,
-                       GsdSmartcardPlugin  *plugin)
+smartcard_inserted_cb (CsdSmartcardManager *card_monitor,
+                       CsdSmartcard        *card,
+                       CsdSmartcardPlugin  *plugin)
 {
         char *name;
 
-        name = gsd_smartcard_get_name (card);
-        g_debug ("GsdSmartcardPlugin smart card '%s' inserted", name);
+        name = csd_smartcard_get_name (card);
+        g_debug ("CsdSmartcardPlugin smart card '%s' inserted", name);
         g_free (name);
 
         simulate_user_activity (plugin);
@@ -184,28 +184,28 @@ user_logged_in_with_smartcard (void)
     return g_getenv ("PKCS11_LOGIN_TOKEN_NAME") != NULL;
 }
 
-static GsdSmartcardRemoveAction
-get_configured_remove_action (GsdSmartcardPlugin *plugin)
+static CsdSmartcardRemoveAction
+get_configured_remove_action (CsdSmartcardPlugin *plugin)
 {
         GSettings *settings;
         char *remove_action_string;
-        GsdSmartcardRemoveAction remove_action;
+        CsdSmartcardRemoveAction remove_action;
 
         settings = g_settings_new ("org.gnome.settings-daemon.peripherals.smartcard");
         remove_action_string = g_settings_get_string (settings, KEY_REMOVE_ACTION);
 
         if (remove_action_string == NULL) {
-                g_warning ("GsdSmartcardPlugin unable to get smartcard remove action");
-                remove_action = GSD_SMARTCARD_REMOVE_ACTION_NONE;
+                g_warning ("CsdSmartcardPlugin unable to get smartcard remove action");
+                remove_action = CSD_SMARTCARD_REMOVE_ACTION_NONE;
         } else if (strcmp (remove_action_string, "none") == 0) {
-                remove_action = GSD_SMARTCARD_REMOVE_ACTION_NONE;
+                remove_action = CSD_SMARTCARD_REMOVE_ACTION_NONE;
         } else if (strcmp (remove_action_string, "lock_screen") == 0) {
-                remove_action = GSD_SMARTCARD_REMOVE_ACTION_LOCK_SCREEN;
+                remove_action = CSD_SMARTCARD_REMOVE_ACTION_LOCK_SCREEN;
         } else if (strcmp (remove_action_string, "force_logout") == 0) {
-                remove_action = GSD_SMARTCARD_REMOVE_ACTION_FORCE_LOGOUT;
+                remove_action = CSD_SMARTCARD_REMOVE_ACTION_FORCE_LOGOUT;
         } else {
-                g_warning ("GsdSmartcardPlugin unknown smartcard remove action");
-                remove_action = GSD_SMARTCARD_REMOVE_ACTION_NONE;
+                g_warning ("CsdSmartcardPlugin unknown smartcard remove action");
+                remove_action = CSD_SMARTCARD_REMOVE_ACTION_NONE;
         }
 
         g_object_unref (settings);
@@ -214,40 +214,40 @@ get_configured_remove_action (GsdSmartcardPlugin *plugin)
 }
 
 static void
-process_smartcard_removal (GsdSmartcardPlugin *plugin)
+process_smartcard_removal (CsdSmartcardPlugin *plugin)
 {
-        GsdSmartcardRemoveAction remove_action;
+        CsdSmartcardRemoveAction remove_action;
 
-        g_debug ("GsdSmartcardPlugin processing smartcard removal");
+        g_debug ("CsdSmartcardPlugin processing smartcard removal");
         remove_action = get_configured_remove_action (plugin);
 
         switch (remove_action)
         {
-            case GSD_SMARTCARD_REMOVE_ACTION_NONE:
+            case CSD_SMARTCARD_REMOVE_ACTION_NONE:
                 return;
-            case GSD_SMARTCARD_REMOVE_ACTION_LOCK_SCREEN:
+            case CSD_SMARTCARD_REMOVE_ACTION_LOCK_SCREEN:
                 lock_screen (plugin);
                 break;
-            case GSD_SMARTCARD_REMOVE_ACTION_FORCE_LOGOUT:
+            case CSD_SMARTCARD_REMOVE_ACTION_FORCE_LOGOUT:
                 force_logout (plugin);
                 break;
         }
 }
 
 static void
-smartcard_removed_cb (GsdSmartcardManager *card_monitor,
-                      GsdSmartcard        *card,
-                      GsdSmartcardPlugin  *plugin)
+smartcard_removed_cb (CsdSmartcardManager *card_monitor,
+                      CsdSmartcard        *card,
+                      CsdSmartcardPlugin  *plugin)
 {
 
         char *name;
 
-        name = gsd_smartcard_get_name (card);
-        g_debug ("GsdSmartcardPlugin smart card '%s' removed", name);
+        name = csd_smartcard_get_name (card);
+        g_debug ("CsdSmartcardPlugin smart card '%s' removed", name);
         g_free (name);
 
-        if (!gsd_smartcard_is_login_card (card)) {
-                g_debug ("GsdSmartcardPlugin removed smart card was not used to login");
+        if (!csd_smartcard_is_login_card (card)) {
+                g_debug ("CsdSmartcardPlugin removed smart card was not used to login");
                 return;
         }
 
@@ -255,36 +255,36 @@ smartcard_removed_cb (GsdSmartcardManager *card_monitor,
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         GError *error;
-        GsdSmartcardPlugin *smartcard_plugin = GSD_SMARTCARD_PLUGIN (plugin);
+        CsdSmartcardPlugin *smartcard_plugin = CSD_SMARTCARD_PLUGIN (plugin);
 
         if (smartcard_plugin->priv->is_active) {
-                g_debug ("GsdSmartcardPlugin Not activating smartcard plugin, because it's "
+                g_debug ("CsdSmartcardPlugin Not activating smartcard plugin, because it's "
                          "already active");
                 return;
         }
 
         if (!user_logged_in_with_smartcard ()) {
-                g_debug ("GsdSmartcardPlugin Not activating smartcard plugin, because user didn't use "
+                g_debug ("CsdSmartcardPlugin Not activating smartcard plugin, because user didn't use "
                          " smartcard to log in");
                 smartcard_plugin->priv->is_active = FALSE;
                 return;
         }
 
-        g_debug ("GsdSmartcardPlugin Activating smartcard plugin");
+        g_debug ("CsdSmartcardPlugin Activating smartcard plugin");
 
         error = NULL;
         smartcard_plugin->priv->bus_connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
 
         if (smartcard_plugin->priv->bus_connection == NULL) {
-                g_warning ("GsdSmartcardPlugin Unable to connect to session bus: %s", error->message);
+                g_warning ("CsdSmartcardPlugin Unable to connect to session bus: %s", error->message);
                 return;
         }
 
-        if (!gsd_smartcard_manager_start (smartcard_plugin->priv->manager, &error)) {
-                g_warning ("GsdSmartcardPlugin Unable to start smartcard manager: %s", error->message);
+        if (!csd_smartcard_manager_start (smartcard_plugin->priv->manager, &error)) {
+                g_warning ("CsdSmartcardPlugin Unable to start smartcard manager: %s", error->message);
                 g_error_free (error);
         }
 
@@ -296,8 +296,8 @@ impl_activate (GnomeSettingsPlugin *plugin)
                           "smartcard-inserted",
                           G_CALLBACK (smartcard_inserted_cb), smartcard_plugin);
 
-        if (!gsd_smartcard_manager_login_card_is_inserted (smartcard_plugin->priv->manager)) {
-                g_debug ("GsdSmartcardPlugin processing smartcard removal immediately user logged in with smartcard "
+        if (!csd_smartcard_manager_login_card_is_inserted (smartcard_plugin->priv->manager)) {
+                g_debug ("CsdSmartcardPlugin processing smartcard removal immediately user logged in with smartcard "
                          "and it's not inserted");
                 process_smartcard_removal (smartcard_plugin);
         }
@@ -306,19 +306,19 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
-        GsdSmartcardPlugin *smartcard_plugin = GSD_SMARTCARD_PLUGIN (plugin);
+        CsdSmartcardPlugin *smartcard_plugin = CSD_SMARTCARD_PLUGIN (plugin);
 
         if (!smartcard_plugin->priv->is_active) {
-                g_debug ("GsdSmartcardPlugin Not deactivating smartcard plugin, "
+                g_debug ("CsdSmartcardPlugin Not deactivating smartcard plugin, "
                          "because it's already inactive");
                 return;
         }
 
-        g_debug ("GsdSmartcardPlugin Deactivating smartcard plugin");
+        g_debug ("CsdSmartcardPlugin Deactivating smartcard plugin");
 
-        gsd_smartcard_manager_stop (smartcard_plugin->priv->manager);
+        csd_smartcard_manager_stop (smartcard_plugin->priv->manager);
 
         g_signal_handlers_disconnect_by_func (smartcard_plugin->priv->manager,
                                               smartcard_removed_cb, smartcard_plugin);
@@ -330,15 +330,15 @@ impl_deactivate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-gsd_smartcard_plugin_class_init (GsdSmartcardPluginClass *klass)
+csd_smartcard_plugin_class_init (CsdSmartcardPluginClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_smartcard_plugin_finalize;
+        object_class->finalize = csd_smartcard_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdSmartcardPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdSmartcardPluginPrivate));
 }

@@ -34,11 +34,11 @@
 #include <glib/gi18n.h>
 #include <gdk/gdk.h>
 
-#include "gnome-settings-session.h"
-#include "gnome-settings-profile.h"
-#include "gsd-screensaver-proxy-manager.h"
+#include "cinnamon-settings-session.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-screensaver-proxy-manager.h"
 
-#define GSD_SCREENSAVER_PROXY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SCREENSAVER_PROXY_MANAGER, GsdScreensaverProxyManagerPrivate))
+#define CSD_SCREENSAVER_PROXY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_SCREENSAVER_PROXY_MANAGER, CsdScreensaverProxyManagerPrivate))
 
 /* As available in:
  * https://projects.kde.org/projects/kde/kde-workspace/repository/revisions/master/entry/ksmserver/screenlocker/dbus/org.freedesktop.ScreenSaver.xml
@@ -85,13 +85,13 @@ static const gchar introspection_xml[] =
   "</interface>"
 "</node>";
 
-#define GSD_SCREENSAVER_PROXY_DBUS_SERVICE      "org.freedesktop.ScreenSaver"
-#define GSD_SCREENSAVER_PROXY_DBUS_PATH         "/org/freedesktop/ScreenSaver"
-#define GSD_SCREENSAVER_PROXY_DBUS_INTERFACE    "org.freedesktop.ScreenSaver"
+#define CSD_SCREENSAVER_PROXY_DBUS_SERVICE      "org.freedesktop.ScreenSaver"
+#define CSD_SCREENSAVER_PROXY_DBUS_PATH         "/org/freedesktop/ScreenSaver"
+#define CSD_SCREENSAVER_PROXY_DBUS_INTERFACE    "org.freedesktop.ScreenSaver"
 
 #define GSM_INHIBITOR_FLAG_IDLE 1 << 3
 
-struct GsdScreensaverProxyManagerPrivate
+struct CsdScreensaverProxyManagerPrivate
 {
         GDBusProxy              *session;
         GDBusConnection         *connection;
@@ -103,11 +103,11 @@ struct GsdScreensaverProxyManagerPrivate
         GHashTable              *cookie_ht; /* key = cookie, value = sender */
 };
 
-static void     gsd_screensaver_proxy_manager_class_init  (GsdScreensaverProxyManagerClass *klass);
-static void     gsd_screensaver_proxy_manager_init        (GsdScreensaverProxyManager      *screensaver_proxy_manager);
-static void     gsd_screensaver_proxy_manager_finalize    (GObject             *object);
+static void     csd_screensaver_proxy_manager_class_init  (CsdScreensaverProxyManagerClass *klass);
+static void     csd_screensaver_proxy_manager_init        (CsdScreensaverProxyManager      *screensaver_proxy_manager);
+static void     csd_screensaver_proxy_manager_finalize    (GObject             *object);
 
-G_DEFINE_TYPE (GsdScreensaverProxyManager, gsd_screensaver_proxy_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdScreensaverProxyManager, csd_screensaver_proxy_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -116,7 +116,7 @@ static gpointer manager_object = NULL;
 #define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
 static GDBusProxy *
-gnome_settings_session_get_session_proxy (void)
+cinnamon_settings_session_get_session_proxy (void)
 {
         static GDBusProxy *session_proxy;
         GError *error =  NULL;
@@ -146,7 +146,7 @@ gnome_settings_session_get_session_proxy (void)
 static void
 name_vanished_cb (GDBusConnection            *connection,
                   const gchar                *name,
-                  GsdScreensaverProxyManager *manager)
+                  CsdScreensaverProxyManager *manager)
 {
         GHashTableIter iter;
         gpointer cookie_ptr;
@@ -183,7 +183,7 @@ handle_method_call (GDBusConnection       *connection,
                     GDBusMethodInvocation *invocation,
                     gpointer               user_data)
 {
-        GsdScreensaverProxyManager *manager = GSD_SCREENSAVER_PROXY_MANAGER (user_data);
+        CsdScreensaverProxyManager *manager = CSD_SCREENSAVER_PROXY_MANAGER (user_data);
 
         /* Check session pointer as a proxy for whether the manager is in the
            start or stop state */
@@ -276,7 +276,7 @@ static const GDBusInterfaceVTable interface_vtable =
 static void
 on_bus_gotten (GObject                    *source_object,
                GAsyncResult               *res,
-               GsdScreensaverProxyManager *manager)
+               CsdScreensaverProxyManager *manager)
 {
         GDBusConnection *connection;
         GDBusInterfaceInfo **infos;
@@ -297,7 +297,7 @@ on_bus_gotten (GObject                    *source_object,
         manager->priv->connection = connection;
         infos = manager->priv->introspection_data->interfaces;
         g_dbus_connection_register_object (connection,
-                                           GSD_SCREENSAVER_PROXY_DBUS_PATH,
+                                           CSD_SCREENSAVER_PROXY_DBUS_PATH,
                                            infos[0],
                                            &interface_vtable,
                                            manager,
@@ -305,7 +305,7 @@ on_bus_gotten (GObject                    *source_object,
                                            NULL);
 
         manager->priv->name_id = g_bus_own_name_on_connection (manager->priv->connection,
-                                                               GSD_SCREENSAVER_PROXY_DBUS_SERVICE,
+                                                               CSD_SCREENSAVER_PROXY_DBUS_SERVICE,
                                                                G_BUS_NAME_OWNER_FLAGS_NONE,
                                                                NULL,
                                                                NULL,
@@ -314,7 +314,7 @@ on_bus_gotten (GObject                    *source_object,
 }
 
 static void
-register_manager_dbus (GsdScreensaverProxyManager *manager)
+register_manager_dbus (CsdScreensaverProxyManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         manager->priv->bus_cancellable = g_cancellable_new ();
@@ -327,13 +327,13 @@ register_manager_dbus (GsdScreensaverProxyManager *manager)
 }
 
 gboolean
-gsd_screensaver_proxy_manager_start (GsdScreensaverProxyManager *manager,
+csd_screensaver_proxy_manager_start (CsdScreensaverProxyManager *manager,
                                      GError               **error)
 {
         g_debug ("Starting screensaver-proxy manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
         manager->priv->session =
-                gnome_settings_session_get_session_proxy ();
+                cinnamon_settings_session_get_session_proxy ();
         manager->priv->watch_ht = g_hash_table_new_full (g_str_hash,
                                                          g_str_equal,
                                                          (GDestroyNotify) g_free,
@@ -342,12 +342,12 @@ gsd_screensaver_proxy_manager_start (GsdScreensaverProxyManager *manager,
                                                           g_direct_equal,
                                                           NULL,
                                                           (GDestroyNotify) g_free);
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
         return TRUE;
 }
 
 void
-gsd_screensaver_proxy_manager_stop (GsdScreensaverProxyManager *manager)
+csd_screensaver_proxy_manager_stop (CsdScreensaverProxyManager *manager)
 {
         g_debug ("Stopping screensaver_proxy manager");
         g_clear_object (&manager->priv->session);
@@ -356,30 +356,30 @@ gsd_screensaver_proxy_manager_stop (GsdScreensaverProxyManager *manager)
 }
 
 static void
-gsd_screensaver_proxy_manager_class_init (GsdScreensaverProxyManagerClass *klass)
+csd_screensaver_proxy_manager_class_init (CsdScreensaverProxyManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->finalize = gsd_screensaver_proxy_manager_finalize;
+        object_class->finalize = csd_screensaver_proxy_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdScreensaverProxyManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdScreensaverProxyManagerPrivate));
 }
 
 static void
-gsd_screensaver_proxy_manager_init (GsdScreensaverProxyManager *manager)
+csd_screensaver_proxy_manager_init (CsdScreensaverProxyManager *manager)
 {
-        manager->priv = GSD_SCREENSAVER_PROXY_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_SCREENSAVER_PROXY_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gsd_screensaver_proxy_manager_finalize (GObject *object)
+csd_screensaver_proxy_manager_finalize (GObject *object)
 {
-        GsdScreensaverProxyManager *manager;
+        CsdScreensaverProxyManager *manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SCREENSAVER_PROXY_MANAGER (object));
+        g_return_if_fail (CSD_IS_SCREENSAVER_PROXY_MANAGER (object));
 
-        manager = GSD_SCREENSAVER_PROXY_MANAGER (object);
+        manager = CSD_SCREENSAVER_PROXY_MANAGER (object);
 
         g_return_if_fail (manager->priv != NULL);
 
@@ -391,20 +391,20 @@ gsd_screensaver_proxy_manager_finalize (GObject *object)
         g_clear_object (&manager->priv->bus_cancellable);
         g_clear_pointer (&manager->priv->introspection_data, g_dbus_node_info_unref);
 
-        G_OBJECT_CLASS (gsd_screensaver_proxy_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_screensaver_proxy_manager_parent_class)->finalize (object);
 }
 
-GsdScreensaverProxyManager *
-gsd_screensaver_proxy_manager_new (void)
+CsdScreensaverProxyManager *
+csd_screensaver_proxy_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_SCREENSAVER_PROXY_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_SCREENSAVER_PROXY_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
                 register_manager_dbus (manager_object);
         }
 
-        return GSD_SCREENSAVER_PROXY_MANAGER (manager_object);
+        return CSD_SCREENSAVER_PROXY_MANAGER (manager_object);
 }

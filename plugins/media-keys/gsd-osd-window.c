@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * On-screen-display (OSD) window for gnome-settings-daemon's plugins
+ * On-screen-display (OSD) window for cinnamon-settings-daemon's plugins
  *
  * Copyright (C) 2006-2007 William Jon McCann <mccann@jhu.edu> 
  * Copyright (C) 2009 Novell, Inc
@@ -37,15 +37,15 @@
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "gsd-osd-window.h"
-#include "gsd-osd-window-private.h"
+#include "csd-osd-window.h"
+#include "csd-osd-window-private.h"
 
 #define ICON_SCALE 0.50           /* size of the icon compared to the whole OSD */
 #define FG_ALPHA 1.0              /* Alpha value to be used for foreground objects drawn in an OSD window */
 
-#define GSD_OSD_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_OSD_WINDOW, GsdOsdWindowPrivate))
+#define CSD_OSD_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_OSD_WINDOW, CsdOsdWindowPrivate))
 
-struct GsdOsdWindowPrivate
+struct CsdOsdWindowPrivate
 {
         guint                    hide_timeout_id;
         guint                    fade_timeout_id;
@@ -57,7 +57,7 @@ struct GsdOsdWindowPrivate
         guint                    monitors_changed_id;
         guint                    monitor_changed : 1;
 
-        GsdOsdWindowAction       action;
+        CsdOsdWindowAction       action;
         char                    *icon_name;
         gboolean                 show_level;
 
@@ -65,12 +65,12 @@ struct GsdOsdWindowPrivate
         guint                    volume_muted : 1;
 };
 
-G_DEFINE_TYPE (GsdOsdWindow, gsd_osd_window, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE (CsdOsdWindow, csd_osd_window, GTK_TYPE_WINDOW)
 
-static void gsd_osd_window_update_and_hide (GsdOsdWindow *window);
+static void csd_osd_window_update_and_hide (CsdOsdWindow *window);
 
 static void
-gsd_osd_window_draw_rounded_rectangle (cairo_t* cr,
+csd_osd_window_draw_rounded_rectangle (cairo_t* cr,
                                        gdouble  aspect,
                                        gdouble  x,
                                        gdouble  y,
@@ -122,7 +122,7 @@ gsd_osd_window_draw_rounded_rectangle (cairo_t* cr,
 }
 
 static gboolean
-fade_timeout (GsdOsdWindow *window)
+fade_timeout (CsdOsdWindow *window)
 {
         if (window->priv->fade_out_alpha <= 0.0) {
                 gtk_widget_hide (GTK_WIDGET (window));
@@ -153,7 +153,7 @@ fade_timeout (GsdOsdWindow *window)
 }
 
 static gboolean
-hide_timeout (GsdOsdWindow *window)
+hide_timeout (CsdOsdWindow *window)
 {
 	window->priv->hide_timeout_id = 0;
 	window->priv->fade_timeout_id = g_timeout_add (FADE_FRAME_TIMEOUT,
@@ -164,7 +164,7 @@ hide_timeout (GsdOsdWindow *window)
 }
 
 static void
-remove_hide_timeout (GsdOsdWindow *window)
+remove_hide_timeout (CsdOsdWindow *window)
 {
         if (window->priv->hide_timeout_id != 0) {
                 g_source_remove (window->priv->hide_timeout_id);
@@ -179,7 +179,7 @@ remove_hide_timeout (GsdOsdWindow *window)
 }
 
 static void
-add_hide_timeout (GsdOsdWindow *window)
+add_hide_timeout (CsdOsdWindow *window)
 {
         window->priv->hide_timeout_id = g_timeout_add (DIALOG_FADE_TIMEOUT,
                                                        (GSourceFunc) hide_timeout,
@@ -215,64 +215,64 @@ get_image_name_for_volume (gboolean muted,
 }
 
 static void
-action_changed (GsdOsdWindow *window)
+action_changed (CsdOsdWindow *window)
 {
-        gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
+        csd_osd_window_update_and_hide (CSD_OSD_WINDOW (window));
 }
 
 static void
-volume_level_changed (GsdOsdWindow *window)
+volume_level_changed (CsdOsdWindow *window)
 {
-        gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
+        csd_osd_window_update_and_hide (CSD_OSD_WINDOW (window));
 }
 
 static void
-volume_muted_changed (GsdOsdWindow *window)
+volume_muted_changed (CsdOsdWindow *window)
 {
-        gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
+        csd_osd_window_update_and_hide (CSD_OSD_WINDOW (window));
 }
 
 void
-gsd_osd_window_set_action (GsdOsdWindow      *window,
-                           GsdOsdWindowAction action)
+csd_osd_window_set_action (CsdOsdWindow      *window,
+                           CsdOsdWindowAction action)
 {
-        g_return_if_fail (GSD_IS_OSD_WINDOW (window));
-        g_return_if_fail (action == GSD_OSD_WINDOW_ACTION_VOLUME);
+        g_return_if_fail (CSD_IS_OSD_WINDOW (window));
+        g_return_if_fail (action == CSD_OSD_WINDOW_ACTION_VOLUME);
 
         if (window->priv->action != action) {
                 window->priv->action = action;
                 action_changed (window);
         } else {
-                gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
+                csd_osd_window_update_and_hide (CSD_OSD_WINDOW (window));
         }
 }
 
 void
-gsd_osd_window_set_action_custom (GsdOsdWindow      *window,
+csd_osd_window_set_action_custom (CsdOsdWindow      *window,
                                   const char        *icon_name,
                                   gboolean           show_level)
 {
-        g_return_if_fail (GSD_IS_OSD_WINDOW (window));
+        g_return_if_fail (CSD_IS_OSD_WINDOW (window));
         g_return_if_fail (icon_name != NULL);
 
-        if (window->priv->action != GSD_OSD_WINDOW_ACTION_CUSTOM ||
+        if (window->priv->action != CSD_OSD_WINDOW_ACTION_CUSTOM ||
             g_strcmp0 (window->priv->icon_name, icon_name) != 0 ||
             window->priv->show_level != show_level) {
-                window->priv->action = GSD_OSD_WINDOW_ACTION_CUSTOM;
+                window->priv->action = CSD_OSD_WINDOW_ACTION_CUSTOM;
                 g_free (window->priv->icon_name);
                 window->priv->icon_name = g_strdup (icon_name);
                 window->priv->show_level = show_level;
                 action_changed (window);
         } else {
-                gsd_osd_window_update_and_hide (GSD_OSD_WINDOW (window));
+                csd_osd_window_update_and_hide (CSD_OSD_WINDOW (window));
         }
 }
 
 void
-gsd_osd_window_set_volume_muted (GsdOsdWindow *window,
+csd_osd_window_set_volume_muted (CsdOsdWindow *window,
                                  gboolean      muted)
 {
-        g_return_if_fail (GSD_IS_OSD_WINDOW (window));
+        g_return_if_fail (CSD_IS_OSD_WINDOW (window));
 
         if (window->priv->volume_muted != muted) {
                 window->priv->volume_muted = muted;
@@ -281,10 +281,10 @@ gsd_osd_window_set_volume_muted (GsdOsdWindow *window,
 }
 
 void
-gsd_osd_window_set_volume_level (GsdOsdWindow *window,
+csd_osd_window_set_volume_level (CsdOsdWindow *window,
                                  int           level)
 {
-        g_return_if_fail (GSD_IS_OSD_WINDOW (window));
+        g_return_if_fail (CSD_IS_OSD_WINDOW (window));
 
         if (window->priv->volume_level != level) {
                 window->priv->volume_level = level;
@@ -293,7 +293,7 @@ gsd_osd_window_set_volume_level (GsdOsdWindow *window,
 }
 
 static GdkPixbuf *
-load_pixbuf (GsdOsdDrawContext *ctx,
+load_pixbuf (CsdOsdDrawContext *ctx,
              const char        *name,
              int                icon_size)
 {
@@ -451,7 +451,7 @@ draw_speaker (cairo_t *cr,
 }
 
 static gboolean
-render_speaker (GsdOsdDrawContext *ctx,
+render_speaker (CsdOsdDrawContext *ctx,
                 cairo_t           *cr,
                 double             _x0,
                 double             _y0,
@@ -482,7 +482,7 @@ render_speaker (GsdOsdDrawContext *ctx,
 }
 
 static void
-draw_volume_boxes (GsdOsdDrawContext *ctx,
+draw_volume_boxes (CsdOsdDrawContext *ctx,
                    cairo_t           *cr,
                    double             percentage,
                    double             _x0,
@@ -502,7 +502,7 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
         gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_TROUGH);
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
 
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, width, height);
+        csd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, width, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
@@ -515,7 +515,7 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
         gtk_style_context_add_class (ctx->style, GTK_STYLE_CLASS_PROGRESSBAR);
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
 
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, x1, height);
+        csd_osd_window_draw_rounded_rectangle (cr, 1.0, _x0, _y0, height / 6, x1, height);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
@@ -523,7 +523,7 @@ draw_volume_boxes (GsdOsdDrawContext *ctx,
 }
 
 static void
-draw_action_volume (GsdOsdDrawContext *ctx,
+draw_action_volume (CsdOsdDrawContext *ctx,
                     cairo_t           *cr)
 {
         int window_width;
@@ -625,7 +625,7 @@ draw_action_volume (GsdOsdDrawContext *ctx,
 }
 
 static gboolean
-render_custom (GsdOsdDrawContext  *ctx,
+render_custom (CsdOsdDrawContext  *ctx,
                cairo_t            *cr,
                double              _x0,
                double              _y0,
@@ -660,7 +660,7 @@ render_custom (GsdOsdDrawContext  *ctx,
 }
 
 static void
-draw_action_custom (GsdOsdDrawContext  *ctx,
+draw_action_custom (CsdOsdDrawContext  *ctx,
                     cairo_t            *cr)
 {
         int window_width;
@@ -724,7 +724,7 @@ draw_action_custom (GsdOsdDrawContext  *ctx,
 }
 
 void
-gsd_osd_window_draw (GsdOsdDrawContext *ctx,
+csd_osd_window_draw (CsdOsdDrawContext *ctx,
                      cairo_t           *cr)
 {
         gdouble          corner_radius;
@@ -732,17 +732,17 @@ gsd_osd_window_draw (GsdOsdDrawContext *ctx,
 
         /* draw a box */
         corner_radius = ctx->size / 10;
-        gsd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, ctx->size - 1, ctx->size - 1);
+        csd_osd_window_draw_rounded_rectangle (cr, 1.0, 0.0, 0.0, corner_radius, ctx->size - 1, ctx->size - 1);
 
         gtk_style_context_get_background_color (ctx->style, GTK_STATE_NORMAL, &acolor);
         gdk_cairo_set_source_rgba (cr, &acolor);
         cairo_fill (cr);
 
         switch (ctx->action) {
-        case GSD_OSD_WINDOW_ACTION_VOLUME:
+        case CSD_OSD_WINDOW_ACTION_VOLUME:
                 draw_action_volume (ctx, cr);
                 break;
-        case GSD_OSD_WINDOW_ACTION_CUSTOM:
+        case CSD_OSD_WINDOW_ACTION_CUSTOM:
                 draw_action_custom (ctx, cr);
                 break;
         default:
@@ -751,17 +751,17 @@ gsd_osd_window_draw (GsdOsdDrawContext *ctx,
 }
 
 static gboolean
-gsd_osd_window_obj_draw (GtkWidget *widget,
+csd_osd_window_obj_draw (GtkWidget *widget,
                          cairo_t   *orig_cr)
 {
-        GsdOsdWindow      *window;
+        CsdOsdWindow      *window;
         cairo_t           *cr;
         cairo_surface_t   *surface;
         GtkStyleContext   *context;
-        GsdOsdDrawContext  ctx;
+        CsdOsdDrawContext  ctx;
         int                width, height, size;
 
-        window = GSD_OSD_WINDOW (widget);
+        window = CSD_OSD_WINDOW (widget);
         gtk_window_get_size (GTK_WINDOW (widget), &width, &height);
         size = MIN (width, height);
 
@@ -801,7 +801,7 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
         } else {
                 ctx.theme = gtk_icon_theme_get_default ();
         }
-        gsd_osd_window_draw (&ctx, cr);
+        csd_osd_window_draw (&ctx, cr);
 
         cairo_destroy (cr);
         gtk_style_context_restore (context);
@@ -823,34 +823,34 @@ gsd_osd_window_obj_draw (GtkWidget *widget,
 }
 
 static void
-gsd_osd_window_real_show (GtkWidget *widget)
+csd_osd_window_real_show (GtkWidget *widget)
 {
-        GsdOsdWindow *window;
+        CsdOsdWindow *window;
 
-        if (GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->show) {
-                GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->show (widget);
+        if (GTK_WIDGET_CLASS (csd_osd_window_parent_class)->show) {
+                GTK_WIDGET_CLASS (csd_osd_window_parent_class)->show (widget);
         }
 
-        window = GSD_OSD_WINDOW (widget);
+        window = CSD_OSD_WINDOW (widget);
         remove_hide_timeout (window);
         add_hide_timeout (window);
 }
 
 static void
-gsd_osd_window_real_hide (GtkWidget *widget)
+csd_osd_window_real_hide (GtkWidget *widget)
 {
-        GsdOsdWindow *window;
+        CsdOsdWindow *window;
 
-        if (GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->hide) {
-                GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->hide (widget);
+        if (GTK_WIDGET_CLASS (csd_osd_window_parent_class)->hide) {
+                GTK_WIDGET_CLASS (csd_osd_window_parent_class)->hide (widget);
         }
 
-        window = GSD_OSD_WINDOW (widget);
+        window = CSD_OSD_WINDOW (widget);
         remove_hide_timeout (window);
 }
 
 static void
-gsd_osd_window_real_realize (GtkWidget *widget)
+csd_osd_window_real_realize (GtkWidget *widget)
 {
         cairo_region_t *region;
         GdkScreen *screen;
@@ -864,8 +864,8 @@ gsd_osd_window_real_realize (GtkWidget *widget)
 
         gtk_widget_set_visual (widget, visual);
 
-        if (GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->realize) {
-                GTK_WIDGET_CLASS (gsd_osd_window_parent_class)->realize (widget);
+        if (GTK_WIDGET_CLASS (csd_osd_window_parent_class)->realize) {
+                GTK_WIDGET_CLASS (csd_osd_window_parent_class)->realize (widget);
         }
 
         /* make the whole window ignore events */
@@ -875,13 +875,13 @@ gsd_osd_window_real_realize (GtkWidget *widget)
 }
 
 static GObject *
-gsd_osd_window_constructor (GType                  type,
+csd_osd_window_constructor (GType                  type,
                             guint                  n_construct_properties,
                             GObjectConstructParam *construct_params)
 {
         GObject *object;
 
-        object = G_OBJECT_CLASS (gsd_osd_window_parent_class)->constructor (type, n_construct_properties, construct_params);
+        object = G_OBJECT_CLASS (csd_osd_window_parent_class)->constructor (type, n_construct_properties, construct_params);
 
         g_object_set (object,
                       "type", GTK_WINDOW_POPUP,
@@ -895,11 +895,11 @@ gsd_osd_window_constructor (GType                  type,
 }
 
 static void
-gsd_osd_window_finalize (GObject *object)
+csd_osd_window_finalize (GObject *object)
 {
-	GsdOsdWindow *window;
+	CsdOsdWindow *window;
 
-	window = GSD_OSD_WINDOW (object);
+	window = CSD_OSD_WINDOW (object);
 	if (window->priv->icon_name) {
 		g_free (window->priv->icon_name);
 		window->priv->icon_name = NULL;
@@ -912,42 +912,42 @@ gsd_osd_window_finalize (GObject *object)
 		window->priv->monitors_changed_id = 0;
 	}
 
-	G_OBJECT_CLASS (gsd_osd_window_parent_class)->finalize (object);
+	G_OBJECT_CLASS (csd_osd_window_parent_class)->finalize (object);
 }
 
 static void
-gsd_osd_window_class_init (GsdOsdWindowClass *klass)
+csd_osd_window_class_init (CsdOsdWindowClass *klass)
 {
         GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-        gobject_class->constructor = gsd_osd_window_constructor;
-        gobject_class->finalize = gsd_osd_window_finalize;
+        gobject_class->constructor = csd_osd_window_constructor;
+        gobject_class->finalize = csd_osd_window_finalize;
 
-        widget_class->show = gsd_osd_window_real_show;
-        widget_class->hide = gsd_osd_window_real_hide;
-        widget_class->realize = gsd_osd_window_real_realize;
-        widget_class->draw = gsd_osd_window_obj_draw;
+        widget_class->show = csd_osd_window_real_show;
+        widget_class->hide = csd_osd_window_real_hide;
+        widget_class->realize = csd_osd_window_real_realize;
+        widget_class->draw = csd_osd_window_obj_draw;
 
-        g_type_class_add_private (klass, sizeof (GsdOsdWindowPrivate));
+        g_type_class_add_private (klass, sizeof (CsdOsdWindowPrivate));
 }
 
 /**
- * gsd_osd_window_is_valid:
- * @window: a #GsdOsdWindow
+ * csd_osd_window_is_valid:
+ * @window: a #CsdOsdWindow
  *
  * Return value: TRUE if the @window's idea of the screen geometry is the
  * same as the current screen's.
  */
 gboolean
-gsd_osd_window_is_valid (GsdOsdWindow *window)
+csd_osd_window_is_valid (CsdOsdWindow *window)
 {
 	return window->priv->monitor_changed;
 }
 
 static void
 monitors_changed_cb (GdkScreen    *screen,
-		     GsdOsdWindow *window)
+		     CsdOsdWindow *window)
 {
         gint primary_monitor;
         GdkRectangle mon_rect;
@@ -966,14 +966,14 @@ monitors_changed_cb (GdkScreen    *screen,
 }
 
 static void
-gsd_osd_window_init (GsdOsdWindow *window)
+csd_osd_window_init (CsdOsdWindow *window)
 {
         GdkScreen *screen;
         gdouble scalew, scaleh, scale;
         GdkRectangle monitor;
         int size;
 
-        window->priv = GSD_OSD_WINDOW_GET_PRIVATE (window);
+        window->priv = CSD_OSD_WINDOW_GET_PRIVATE (window);
 
         screen = gtk_widget_get_screen (GTK_WIDGET (window));
         window->priv->monitors_changed_id = g_signal_connect (G_OBJECT (screen), "monitors-changed",
@@ -998,19 +998,19 @@ gsd_osd_window_init (GsdOsdWindow *window)
 }
 
 GtkWidget *
-gsd_osd_window_new (void)
+csd_osd_window_new (void)
 {
-        return g_object_new (GSD_TYPE_OSD_WINDOW, NULL);
+        return g_object_new (CSD_TYPE_OSD_WINDOW, NULL);
 }
 
 /**
- * gsd_osd_window_update_and_hide:
- * @window: a #GsdOsdWindow
+ * csd_osd_window_update_and_hide:
+ * @window: a #CsdOsdWindow
  *
  * Queues the @window for immediate drawing, and queues a timer to hide the window.
  */
 static void
-gsd_osd_window_update_and_hide (GsdOsdWindow *window)
+csd_osd_window_update_and_hide (CsdOsdWindow *window)
 {
         remove_hide_timeout (window);
         add_hide_timeout (window);

@@ -52,8 +52,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = gsd-disk-space-test$(EXEEXT) \
-	gsd-empty-trash-test$(EXEEXT)
+noinst_PROGRAMS = csd-disk-space-test$(EXEEXT) \
+	csd-empty-trash-test$(EXEEXT)
 subdir = plugins/housekeeping
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -98,12 +98,12 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libhousekeeping_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-am__objects_1 = libhousekeeping_la-gsd-disk-space.lo \
-	libhousekeeping_la-gsd-ldsm-dialog.lo \
-	libhousekeeping_la-gsd-disk-space-helper.lo
+am__objects_1 = libhousekeeping_la-csd-disk-space.lo \
+	libhousekeeping_la-csd-ldsm-dialog.lo \
+	libhousekeeping_la-csd-disk-space-helper.lo
 am_libhousekeeping_la_OBJECTS = $(am__objects_1) \
-	libhousekeeping_la-gsd-housekeeping-manager.lo \
-	libhousekeeping_la-gsd-housekeeping-plugin.lo
+	libhousekeeping_la-csd-housekeeping-manager.lo \
+	libhousekeeping_la-csd-housekeeping-plugin.lo
 libhousekeeping_la_OBJECTS = $(am_libhousekeeping_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -114,31 +114,31 @@ libhousekeeping_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libhousekeeping_la_CFLAGS) $(CFLAGS) \
 	$(libhousekeeping_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(noinst_PROGRAMS)
-am__objects_2 = gsd_disk_space_test-gsd-disk-space.$(OBJEXT) \
-	gsd_disk_space_test-gsd-ldsm-dialog.$(OBJEXT) \
-	gsd_disk_space_test-gsd-disk-space-helper.$(OBJEXT)
-am_gsd_disk_space_test_OBJECTS =  \
-	gsd_disk_space_test-gsd-disk-space-test.$(OBJEXT) \
+am__objects_2 = csd_disk_space_test-csd-disk-space.$(OBJEXT) \
+	csd_disk_space_test-csd-ldsm-dialog.$(OBJEXT) \
+	csd_disk_space_test-csd-disk-space-helper.$(OBJEXT)
+am_csd_disk_space_test_OBJECTS =  \
+	csd_disk_space_test-csd-disk-space-test.$(OBJEXT) \
 	$(am__objects_2)
-gsd_disk_space_test_OBJECTS = $(am_gsd_disk_space_test_OBJECTS)
-gsd_disk_space_test_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+csd_disk_space_test_OBJECTS = $(am_csd_disk_space_test_OBJECTS)
+csd_disk_space_test_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_disk_space_test_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_disk_space_test_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_disk_space_test_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_disk_space_test_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am__objects_3 = gsd_empty_trash_test-gsd-disk-space.$(OBJEXT) \
-	gsd_empty_trash_test-gsd-ldsm-dialog.$(OBJEXT) \
-	gsd_empty_trash_test-gsd-disk-space-helper.$(OBJEXT)
-am_gsd_empty_trash_test_OBJECTS =  \
-	gsd_empty_trash_test-gsd-empty-trash-test.$(OBJEXT) \
+am__objects_3 = csd_empty_trash_test-csd-disk-space.$(OBJEXT) \
+	csd_empty_trash_test-csd-ldsm-dialog.$(OBJEXT) \
+	csd_empty_trash_test-csd-disk-space-helper.$(OBJEXT)
+am_csd_empty_trash_test_OBJECTS =  \
+	csd_empty_trash_test-csd-empty-trash-test.$(OBJEXT) \
 	$(am__objects_3)
-gsd_empty_trash_test_OBJECTS = $(am_gsd_empty_trash_test_OBJECTS)
-gsd_empty_trash_test_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+csd_empty_trash_test_OBJECTS = $(am_csd_empty_trash_test_OBJECTS)
+csd_empty_trash_test_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_empty_trash_test_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_empty_trash_test_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_empty_trash_test_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_empty_trash_test_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -174,10 +174,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libhousekeeping_la_SOURCES) $(gsd_disk_space_test_SOURCES) \
-	$(gsd_empty_trash_test_SOURCES)
+SOURCES = $(libhousekeeping_la_SOURCES) $(csd_disk_space_test_SOURCES) \
+	$(csd_empty_trash_test_SOURCES)
 DIST_SOURCES = $(libhousekeeping_la_SOURCES) \
-	$(gsd_disk_space_test_SOURCES) $(gsd_empty_trash_test_SOURCES)
+	$(csd_disk_space_test_SOURCES) $(csd_empty_trash_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -246,9 +246,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -407,30 +407,30 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 plugin_name = housekeeping
 COMMON_FILES = \
-	gsd-disk-space.c		\
-	gsd-disk-space.h		\
-	gsd-ldsm-dialog.c		\
-	gsd-ldsm-dialog.h		\
-	gsd-disk-space-helper.h		\
-	gsd-disk-space-helper.c
+	csd-disk-space.c		\
+	csd-disk-space.h		\
+	csd-ldsm-dialog.c		\
+	csd-ldsm-dialog.h		\
+	csd-disk-space-helper.h		\
+	csd-disk-space-helper.c
 
-gsd_disk_space_test_SOURCES = \
-	gsd-disk-space-test.c		\
+csd_disk_space_test_SOURCES = \
+	csd-disk-space-test.c		\
 	$(COMMON_FILES)
 
-gsd_disk_space_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
-gsd_disk_space_test_CFLAGS = \
+csd_disk_space_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
+csd_disk_space_test_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_empty_trash_test_SOURCES = \
-	gsd-empty-trash-test.c		\
+csd_empty_trash_test_SOURCES = \
+	csd-empty-trash-test.c		\
 	$(COMMON_FILES)
 
-gsd_empty_trash_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
-gsd_empty_trash_test_CFLAGS = \
+csd_empty_trash_test_LDADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
+csd_empty_trash_test_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\
@@ -439,14 +439,14 @@ gsd_empty_trash_test_CFLAGS = \
 plugin_LTLIBRARIES = libhousekeeping.la
 libhousekeeping_la_SOURCES = \
 	$(COMMON_FILES)			\
-	gsd-housekeeping-manager.c	\
-	gsd-housekeeping-manager.h	\
-	gsd-housekeeping-plugin.c	\
-	gsd-housekeeping-plugin.h
+	csd-housekeeping-manager.c	\
+	csd-housekeeping-manager.h	\
+	csd-housekeeping-plugin.c	\
+	csd-housekeeping-plugin.h
 
 libhousekeeping_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 libhousekeeping_la_CFLAGS = \
@@ -456,10 +456,10 @@ libhousekeeping_la_CFLAGS = \
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-libhousekeeping_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
+libhousekeeping_la_LDFLAGS = $(CSD_PLUGIN_LDFLAGS)
 libhousekeeping_la_LIBADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
-plugin_in_files = housekeeping.gnome-settings-plugin.in
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_in_files = housekeeping.cinnamon-settings-plugin.in
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = (plugin_DATA)
@@ -542,12 +542,12 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-disk-space-test$(EXEEXT): $(gsd_disk_space_test_OBJECTS) $(gsd_disk_space_test_DEPENDENCIES) $(EXTRA_gsd_disk_space_test_DEPENDENCIES) 
-	@rm -f gsd-disk-space-test$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_disk_space_test_LINK) $(gsd_disk_space_test_OBJECTS) $(gsd_disk_space_test_LDADD) $(LIBS)
-gsd-empty-trash-test$(EXEEXT): $(gsd_empty_trash_test_OBJECTS) $(gsd_empty_trash_test_DEPENDENCIES) $(EXTRA_gsd_empty_trash_test_DEPENDENCIES) 
-	@rm -f gsd-empty-trash-test$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_empty_trash_test_LINK) $(gsd_empty_trash_test_OBJECTS) $(gsd_empty_trash_test_LDADD) $(LIBS)
+csd-disk-space-test$(EXEEXT): $(csd_disk_space_test_OBJECTS) $(csd_disk_space_test_DEPENDENCIES) $(EXTRA_csd_disk_space_test_DEPENDENCIES) 
+	@rm -f csd-disk-space-test$(EXEEXT)
+	$(AM_V_CCLD)$(csd_disk_space_test_LINK) $(csd_disk_space_test_OBJECTS) $(csd_disk_space_test_LDADD) $(LIBS)
+csd-empty-trash-test$(EXEEXT): $(csd_empty_trash_test_OBJECTS) $(csd_empty_trash_test_DEPENDENCIES) $(EXTRA_csd_empty_trash_test_DEPENDENCIES) 
+	@rm -f csd-empty-trash-test$(EXEEXT)
+	$(AM_V_CCLD)$(csd_empty_trash_test_LINK) $(csd_empty_trash_test_OBJECTS) $(csd_empty_trash_test_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -555,19 +555,19 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_disk_space_test-gsd-disk-space-helper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_disk_space_test-gsd-disk-space-test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_disk_space_test-gsd-disk-space.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_disk_space_test-gsd-ldsm-dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_empty_trash_test-gsd-disk-space-helper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_empty_trash_test-gsd-disk-space.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_empty_trash_test-gsd-empty-trash-test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_empty_trash_test-gsd-ldsm-dialog.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-gsd-disk-space-helper.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-gsd-disk-space.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-gsd-housekeeping-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-gsd-housekeeping-plugin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-gsd-ldsm-dialog.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_disk_space_test-csd-disk-space-helper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_disk_space_test-csd-disk-space-test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_disk_space_test-csd-disk-space.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_disk_space_test-csd-ldsm-dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_empty_trash_test-csd-disk-space-helper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_empty_trash_test-csd-disk-space.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_empty_trash_test-csd-empty-trash-test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_empty_trash_test-csd-ldsm-dialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-csd-disk-space-helper.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-csd-disk-space.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-csd-housekeeping-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-csd-housekeeping-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libhousekeeping_la-csd-ldsm-dialog.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -590,152 +590,152 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libhousekeeping_la-gsd-disk-space.lo: gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-gsd-disk-space.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-gsd-disk-space.Tpo -c -o libhousekeeping_la-gsd-disk-space.lo `test -f 'gsd-disk-space.c' || echo '$(srcdir)/'`gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-gsd-disk-space.Tpo $(DEPDIR)/libhousekeeping_la-gsd-disk-space.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space.c' object='libhousekeeping_la-gsd-disk-space.lo' libtool=yes @AMDEPBACKSLASH@
+libhousekeeping_la-csd-disk-space.lo: csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-csd-disk-space.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-csd-disk-space.Tpo -c -o libhousekeeping_la-csd-disk-space.lo `test -f 'csd-disk-space.c' || echo '$(srcdir)/'`csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-csd-disk-space.Tpo $(DEPDIR)/libhousekeeping_la-csd-disk-space.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space.c' object='libhousekeeping_la-csd-disk-space.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-gsd-disk-space.lo `test -f 'gsd-disk-space.c' || echo '$(srcdir)/'`gsd-disk-space.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-csd-disk-space.lo `test -f 'csd-disk-space.c' || echo '$(srcdir)/'`csd-disk-space.c
 
-libhousekeeping_la-gsd-ldsm-dialog.lo: gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-gsd-ldsm-dialog.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-gsd-ldsm-dialog.Tpo -c -o libhousekeeping_la-gsd-ldsm-dialog.lo `test -f 'gsd-ldsm-dialog.c' || echo '$(srcdir)/'`gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-gsd-ldsm-dialog.Tpo $(DEPDIR)/libhousekeeping_la-gsd-ldsm-dialog.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-ldsm-dialog.c' object='libhousekeeping_la-gsd-ldsm-dialog.lo' libtool=yes @AMDEPBACKSLASH@
+libhousekeeping_la-csd-ldsm-dialog.lo: csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-csd-ldsm-dialog.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-csd-ldsm-dialog.Tpo -c -o libhousekeeping_la-csd-ldsm-dialog.lo `test -f 'csd-ldsm-dialog.c' || echo '$(srcdir)/'`csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-csd-ldsm-dialog.Tpo $(DEPDIR)/libhousekeeping_la-csd-ldsm-dialog.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-ldsm-dialog.c' object='libhousekeeping_la-csd-ldsm-dialog.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-gsd-ldsm-dialog.lo `test -f 'gsd-ldsm-dialog.c' || echo '$(srcdir)/'`gsd-ldsm-dialog.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-csd-ldsm-dialog.lo `test -f 'csd-ldsm-dialog.c' || echo '$(srcdir)/'`csd-ldsm-dialog.c
 
-libhousekeeping_la-gsd-disk-space-helper.lo: gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-gsd-disk-space-helper.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-gsd-disk-space-helper.Tpo -c -o libhousekeeping_la-gsd-disk-space-helper.lo `test -f 'gsd-disk-space-helper.c' || echo '$(srcdir)/'`gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-gsd-disk-space-helper.Tpo $(DEPDIR)/libhousekeeping_la-gsd-disk-space-helper.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space-helper.c' object='libhousekeeping_la-gsd-disk-space-helper.lo' libtool=yes @AMDEPBACKSLASH@
+libhousekeeping_la-csd-disk-space-helper.lo: csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-csd-disk-space-helper.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-csd-disk-space-helper.Tpo -c -o libhousekeeping_la-csd-disk-space-helper.lo `test -f 'csd-disk-space-helper.c' || echo '$(srcdir)/'`csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-csd-disk-space-helper.Tpo $(DEPDIR)/libhousekeeping_la-csd-disk-space-helper.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space-helper.c' object='libhousekeeping_la-csd-disk-space-helper.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-gsd-disk-space-helper.lo `test -f 'gsd-disk-space-helper.c' || echo '$(srcdir)/'`gsd-disk-space-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-csd-disk-space-helper.lo `test -f 'csd-disk-space-helper.c' || echo '$(srcdir)/'`csd-disk-space-helper.c
 
-libhousekeeping_la-gsd-housekeeping-manager.lo: gsd-housekeeping-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-gsd-housekeeping-manager.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-gsd-housekeeping-manager.Tpo -c -o libhousekeeping_la-gsd-housekeeping-manager.lo `test -f 'gsd-housekeeping-manager.c' || echo '$(srcdir)/'`gsd-housekeeping-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-gsd-housekeeping-manager.Tpo $(DEPDIR)/libhousekeeping_la-gsd-housekeeping-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-housekeeping-manager.c' object='libhousekeeping_la-gsd-housekeeping-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libhousekeeping_la-csd-housekeeping-manager.lo: csd-housekeeping-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-csd-housekeeping-manager.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-csd-housekeeping-manager.Tpo -c -o libhousekeeping_la-csd-housekeeping-manager.lo `test -f 'csd-housekeeping-manager.c' || echo '$(srcdir)/'`csd-housekeeping-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-csd-housekeeping-manager.Tpo $(DEPDIR)/libhousekeeping_la-csd-housekeeping-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-housekeeping-manager.c' object='libhousekeeping_la-csd-housekeeping-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-gsd-housekeeping-manager.lo `test -f 'gsd-housekeeping-manager.c' || echo '$(srcdir)/'`gsd-housekeeping-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-csd-housekeeping-manager.lo `test -f 'csd-housekeeping-manager.c' || echo '$(srcdir)/'`csd-housekeeping-manager.c
 
-libhousekeeping_la-gsd-housekeeping-plugin.lo: gsd-housekeeping-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-gsd-housekeeping-plugin.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-gsd-housekeeping-plugin.Tpo -c -o libhousekeeping_la-gsd-housekeeping-plugin.lo `test -f 'gsd-housekeeping-plugin.c' || echo '$(srcdir)/'`gsd-housekeeping-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-gsd-housekeeping-plugin.Tpo $(DEPDIR)/libhousekeeping_la-gsd-housekeeping-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-housekeeping-plugin.c' object='libhousekeeping_la-gsd-housekeeping-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libhousekeeping_la-csd-housekeeping-plugin.lo: csd-housekeeping-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -MT libhousekeeping_la-csd-housekeeping-plugin.lo -MD -MP -MF $(DEPDIR)/libhousekeeping_la-csd-housekeeping-plugin.Tpo -c -o libhousekeeping_la-csd-housekeeping-plugin.lo `test -f 'csd-housekeeping-plugin.c' || echo '$(srcdir)/'`csd-housekeeping-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libhousekeeping_la-csd-housekeeping-plugin.Tpo $(DEPDIR)/libhousekeeping_la-csd-housekeeping-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-housekeeping-plugin.c' object='libhousekeeping_la-csd-housekeeping-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-gsd-housekeeping-plugin.lo `test -f 'gsd-housekeeping-plugin.c' || echo '$(srcdir)/'`gsd-housekeeping-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhousekeeping_la_CPPFLAGS) $(CPPFLAGS) $(libhousekeeping_la_CFLAGS) $(CFLAGS) -c -o libhousekeeping_la-csd-housekeeping-plugin.lo `test -f 'csd-housekeeping-plugin.c' || echo '$(srcdir)/'`csd-housekeeping-plugin.c
 
-gsd_disk_space_test-gsd-disk-space-test.o: gsd-disk-space-test.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-disk-space-test.o -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-test.Tpo -c -o gsd_disk_space_test-gsd-disk-space-test.o `test -f 'gsd-disk-space-test.c' || echo '$(srcdir)/'`gsd-disk-space-test.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-test.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-test.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space-test.c' object='gsd_disk_space_test-gsd-disk-space-test.o' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-disk-space-test.o: csd-disk-space-test.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-disk-space-test.o -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-disk-space-test.Tpo -c -o csd_disk_space_test-csd-disk-space-test.o `test -f 'csd-disk-space-test.c' || echo '$(srcdir)/'`csd-disk-space-test.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-disk-space-test.Tpo $(DEPDIR)/csd_disk_space_test-csd-disk-space-test.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space-test.c' object='csd_disk_space_test-csd-disk-space-test.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-disk-space-test.o `test -f 'gsd-disk-space-test.c' || echo '$(srcdir)/'`gsd-disk-space-test.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-disk-space-test.o `test -f 'csd-disk-space-test.c' || echo '$(srcdir)/'`csd-disk-space-test.c
 
-gsd_disk_space_test-gsd-disk-space-test.obj: gsd-disk-space-test.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-disk-space-test.obj -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-test.Tpo -c -o gsd_disk_space_test-gsd-disk-space-test.obj `if test -f 'gsd-disk-space-test.c'; then $(CYGPATH_W) 'gsd-disk-space-test.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space-test.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-test.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-test.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space-test.c' object='gsd_disk_space_test-gsd-disk-space-test.obj' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-disk-space-test.obj: csd-disk-space-test.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-disk-space-test.obj -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-disk-space-test.Tpo -c -o csd_disk_space_test-csd-disk-space-test.obj `if test -f 'csd-disk-space-test.c'; then $(CYGPATH_W) 'csd-disk-space-test.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space-test.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-disk-space-test.Tpo $(DEPDIR)/csd_disk_space_test-csd-disk-space-test.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space-test.c' object='csd_disk_space_test-csd-disk-space-test.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-disk-space-test.obj `if test -f 'gsd-disk-space-test.c'; then $(CYGPATH_W) 'gsd-disk-space-test.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space-test.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-disk-space-test.obj `if test -f 'csd-disk-space-test.c'; then $(CYGPATH_W) 'csd-disk-space-test.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space-test.c'; fi`
 
-gsd_disk_space_test-gsd-disk-space.o: gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-disk-space.o -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-disk-space.Tpo -c -o gsd_disk_space_test-gsd-disk-space.o `test -f 'gsd-disk-space.c' || echo '$(srcdir)/'`gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-disk-space.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-disk-space.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space.c' object='gsd_disk_space_test-gsd-disk-space.o' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-disk-space.o: csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-disk-space.o -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-disk-space.Tpo -c -o csd_disk_space_test-csd-disk-space.o `test -f 'csd-disk-space.c' || echo '$(srcdir)/'`csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-disk-space.Tpo $(DEPDIR)/csd_disk_space_test-csd-disk-space.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space.c' object='csd_disk_space_test-csd-disk-space.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-disk-space.o `test -f 'gsd-disk-space.c' || echo '$(srcdir)/'`gsd-disk-space.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-disk-space.o `test -f 'csd-disk-space.c' || echo '$(srcdir)/'`csd-disk-space.c
 
-gsd_disk_space_test-gsd-disk-space.obj: gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-disk-space.obj -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-disk-space.Tpo -c -o gsd_disk_space_test-gsd-disk-space.obj `if test -f 'gsd-disk-space.c'; then $(CYGPATH_W) 'gsd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-disk-space.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-disk-space.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space.c' object='gsd_disk_space_test-gsd-disk-space.obj' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-disk-space.obj: csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-disk-space.obj -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-disk-space.Tpo -c -o csd_disk_space_test-csd-disk-space.obj `if test -f 'csd-disk-space.c'; then $(CYGPATH_W) 'csd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-disk-space.Tpo $(DEPDIR)/csd_disk_space_test-csd-disk-space.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space.c' object='csd_disk_space_test-csd-disk-space.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-disk-space.obj `if test -f 'gsd-disk-space.c'; then $(CYGPATH_W) 'gsd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-disk-space.obj `if test -f 'csd-disk-space.c'; then $(CYGPATH_W) 'csd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space.c'; fi`
 
-gsd_disk_space_test-gsd-ldsm-dialog.o: gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-ldsm-dialog.o -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-ldsm-dialog.Tpo -c -o gsd_disk_space_test-gsd-ldsm-dialog.o `test -f 'gsd-ldsm-dialog.c' || echo '$(srcdir)/'`gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-ldsm-dialog.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-ldsm-dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-ldsm-dialog.c' object='gsd_disk_space_test-gsd-ldsm-dialog.o' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-ldsm-dialog.o: csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-ldsm-dialog.o -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-ldsm-dialog.Tpo -c -o csd_disk_space_test-csd-ldsm-dialog.o `test -f 'csd-ldsm-dialog.c' || echo '$(srcdir)/'`csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-ldsm-dialog.Tpo $(DEPDIR)/csd_disk_space_test-csd-ldsm-dialog.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-ldsm-dialog.c' object='csd_disk_space_test-csd-ldsm-dialog.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-ldsm-dialog.o `test -f 'gsd-ldsm-dialog.c' || echo '$(srcdir)/'`gsd-ldsm-dialog.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-ldsm-dialog.o `test -f 'csd-ldsm-dialog.c' || echo '$(srcdir)/'`csd-ldsm-dialog.c
 
-gsd_disk_space_test-gsd-ldsm-dialog.obj: gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-ldsm-dialog.obj -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-ldsm-dialog.Tpo -c -o gsd_disk_space_test-gsd-ldsm-dialog.obj `if test -f 'gsd-ldsm-dialog.c'; then $(CYGPATH_W) 'gsd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/gsd-ldsm-dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-ldsm-dialog.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-ldsm-dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-ldsm-dialog.c' object='gsd_disk_space_test-gsd-ldsm-dialog.obj' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-ldsm-dialog.obj: csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-ldsm-dialog.obj -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-ldsm-dialog.Tpo -c -o csd_disk_space_test-csd-ldsm-dialog.obj `if test -f 'csd-ldsm-dialog.c'; then $(CYGPATH_W) 'csd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/csd-ldsm-dialog.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-ldsm-dialog.Tpo $(DEPDIR)/csd_disk_space_test-csd-ldsm-dialog.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-ldsm-dialog.c' object='csd_disk_space_test-csd-ldsm-dialog.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-ldsm-dialog.obj `if test -f 'gsd-ldsm-dialog.c'; then $(CYGPATH_W) 'gsd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/gsd-ldsm-dialog.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-ldsm-dialog.obj `if test -f 'csd-ldsm-dialog.c'; then $(CYGPATH_W) 'csd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/csd-ldsm-dialog.c'; fi`
 
-gsd_disk_space_test-gsd-disk-space-helper.o: gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-disk-space-helper.o -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-helper.Tpo -c -o gsd_disk_space_test-gsd-disk-space-helper.o `test -f 'gsd-disk-space-helper.c' || echo '$(srcdir)/'`gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-helper.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space-helper.c' object='gsd_disk_space_test-gsd-disk-space-helper.o' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-disk-space-helper.o: csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-disk-space-helper.o -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-disk-space-helper.Tpo -c -o csd_disk_space_test-csd-disk-space-helper.o `test -f 'csd-disk-space-helper.c' || echo '$(srcdir)/'`csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-disk-space-helper.Tpo $(DEPDIR)/csd_disk_space_test-csd-disk-space-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space-helper.c' object='csd_disk_space_test-csd-disk-space-helper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-disk-space-helper.o `test -f 'gsd-disk-space-helper.c' || echo '$(srcdir)/'`gsd-disk-space-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-disk-space-helper.o `test -f 'csd-disk-space-helper.c' || echo '$(srcdir)/'`csd-disk-space-helper.c
 
-gsd_disk_space_test-gsd-disk-space-helper.obj: gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -MT gsd_disk_space_test-gsd-disk-space-helper.obj -MD -MP -MF $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-helper.Tpo -c -o gsd_disk_space_test-gsd-disk-space-helper.obj `if test -f 'gsd-disk-space-helper.c'; then $(CYGPATH_W) 'gsd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space-helper.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-helper.Tpo $(DEPDIR)/gsd_disk_space_test-gsd-disk-space-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space-helper.c' object='gsd_disk_space_test-gsd-disk-space-helper.obj' libtool=no @AMDEPBACKSLASH@
+csd_disk_space_test-csd-disk-space-helper.obj: csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -MT csd_disk_space_test-csd-disk-space-helper.obj -MD -MP -MF $(DEPDIR)/csd_disk_space_test-csd-disk-space-helper.Tpo -c -o csd_disk_space_test-csd-disk-space-helper.obj `if test -f 'csd-disk-space-helper.c'; then $(CYGPATH_W) 'csd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space-helper.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_disk_space_test-csd-disk-space-helper.Tpo $(DEPDIR)/csd_disk_space_test-csd-disk-space-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space-helper.c' object='csd_disk_space_test-csd-disk-space-helper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_disk_space_test_CFLAGS) $(CFLAGS) -c -o gsd_disk_space_test-gsd-disk-space-helper.obj `if test -f 'gsd-disk-space-helper.c'; then $(CYGPATH_W) 'gsd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space-helper.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_disk_space_test_CFLAGS) $(CFLAGS) -c -o csd_disk_space_test-csd-disk-space-helper.obj `if test -f 'csd-disk-space-helper.c'; then $(CYGPATH_W) 'csd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space-helper.c'; fi`
 
-gsd_empty_trash_test-gsd-empty-trash-test.o: gsd-empty-trash-test.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-empty-trash-test.o -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-empty-trash-test.Tpo -c -o gsd_empty_trash_test-gsd-empty-trash-test.o `test -f 'gsd-empty-trash-test.c' || echo '$(srcdir)/'`gsd-empty-trash-test.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-empty-trash-test.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-empty-trash-test.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-empty-trash-test.c' object='gsd_empty_trash_test-gsd-empty-trash-test.o' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-empty-trash-test.o: csd-empty-trash-test.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-empty-trash-test.o -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-empty-trash-test.Tpo -c -o csd_empty_trash_test-csd-empty-trash-test.o `test -f 'csd-empty-trash-test.c' || echo '$(srcdir)/'`csd-empty-trash-test.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-empty-trash-test.Tpo $(DEPDIR)/csd_empty_trash_test-csd-empty-trash-test.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-empty-trash-test.c' object='csd_empty_trash_test-csd-empty-trash-test.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-empty-trash-test.o `test -f 'gsd-empty-trash-test.c' || echo '$(srcdir)/'`gsd-empty-trash-test.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-empty-trash-test.o `test -f 'csd-empty-trash-test.c' || echo '$(srcdir)/'`csd-empty-trash-test.c
 
-gsd_empty_trash_test-gsd-empty-trash-test.obj: gsd-empty-trash-test.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-empty-trash-test.obj -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-empty-trash-test.Tpo -c -o gsd_empty_trash_test-gsd-empty-trash-test.obj `if test -f 'gsd-empty-trash-test.c'; then $(CYGPATH_W) 'gsd-empty-trash-test.c'; else $(CYGPATH_W) '$(srcdir)/gsd-empty-trash-test.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-empty-trash-test.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-empty-trash-test.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-empty-trash-test.c' object='gsd_empty_trash_test-gsd-empty-trash-test.obj' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-empty-trash-test.obj: csd-empty-trash-test.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-empty-trash-test.obj -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-empty-trash-test.Tpo -c -o csd_empty_trash_test-csd-empty-trash-test.obj `if test -f 'csd-empty-trash-test.c'; then $(CYGPATH_W) 'csd-empty-trash-test.c'; else $(CYGPATH_W) '$(srcdir)/csd-empty-trash-test.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-empty-trash-test.Tpo $(DEPDIR)/csd_empty_trash_test-csd-empty-trash-test.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-empty-trash-test.c' object='csd_empty_trash_test-csd-empty-trash-test.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-empty-trash-test.obj `if test -f 'gsd-empty-trash-test.c'; then $(CYGPATH_W) 'gsd-empty-trash-test.c'; else $(CYGPATH_W) '$(srcdir)/gsd-empty-trash-test.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-empty-trash-test.obj `if test -f 'csd-empty-trash-test.c'; then $(CYGPATH_W) 'csd-empty-trash-test.c'; else $(CYGPATH_W) '$(srcdir)/csd-empty-trash-test.c'; fi`
 
-gsd_empty_trash_test-gsd-disk-space.o: gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-disk-space.o -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space.Tpo -c -o gsd_empty_trash_test-gsd-disk-space.o `test -f 'gsd-disk-space.c' || echo '$(srcdir)/'`gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space.c' object='gsd_empty_trash_test-gsd-disk-space.o' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-disk-space.o: csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-disk-space.o -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-disk-space.Tpo -c -o csd_empty_trash_test-csd-disk-space.o `test -f 'csd-disk-space.c' || echo '$(srcdir)/'`csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-disk-space.Tpo $(DEPDIR)/csd_empty_trash_test-csd-disk-space.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space.c' object='csd_empty_trash_test-csd-disk-space.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-disk-space.o `test -f 'gsd-disk-space.c' || echo '$(srcdir)/'`gsd-disk-space.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-disk-space.o `test -f 'csd-disk-space.c' || echo '$(srcdir)/'`csd-disk-space.c
 
-gsd_empty_trash_test-gsd-disk-space.obj: gsd-disk-space.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-disk-space.obj -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space.Tpo -c -o gsd_empty_trash_test-gsd-disk-space.obj `if test -f 'gsd-disk-space.c'; then $(CYGPATH_W) 'gsd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space.c' object='gsd_empty_trash_test-gsd-disk-space.obj' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-disk-space.obj: csd-disk-space.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-disk-space.obj -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-disk-space.Tpo -c -o csd_empty_trash_test-csd-disk-space.obj `if test -f 'csd-disk-space.c'; then $(CYGPATH_W) 'csd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-disk-space.Tpo $(DEPDIR)/csd_empty_trash_test-csd-disk-space.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space.c' object='csd_empty_trash_test-csd-disk-space.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-disk-space.obj `if test -f 'gsd-disk-space.c'; then $(CYGPATH_W) 'gsd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-disk-space.obj `if test -f 'csd-disk-space.c'; then $(CYGPATH_W) 'csd-disk-space.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space.c'; fi`
 
-gsd_empty_trash_test-gsd-ldsm-dialog.o: gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-ldsm-dialog.o -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-ldsm-dialog.Tpo -c -o gsd_empty_trash_test-gsd-ldsm-dialog.o `test -f 'gsd-ldsm-dialog.c' || echo '$(srcdir)/'`gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-ldsm-dialog.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-ldsm-dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-ldsm-dialog.c' object='gsd_empty_trash_test-gsd-ldsm-dialog.o' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-ldsm-dialog.o: csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-ldsm-dialog.o -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-ldsm-dialog.Tpo -c -o csd_empty_trash_test-csd-ldsm-dialog.o `test -f 'csd-ldsm-dialog.c' || echo '$(srcdir)/'`csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-ldsm-dialog.Tpo $(DEPDIR)/csd_empty_trash_test-csd-ldsm-dialog.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-ldsm-dialog.c' object='csd_empty_trash_test-csd-ldsm-dialog.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-ldsm-dialog.o `test -f 'gsd-ldsm-dialog.c' || echo '$(srcdir)/'`gsd-ldsm-dialog.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-ldsm-dialog.o `test -f 'csd-ldsm-dialog.c' || echo '$(srcdir)/'`csd-ldsm-dialog.c
 
-gsd_empty_trash_test-gsd-ldsm-dialog.obj: gsd-ldsm-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-ldsm-dialog.obj -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-ldsm-dialog.Tpo -c -o gsd_empty_trash_test-gsd-ldsm-dialog.obj `if test -f 'gsd-ldsm-dialog.c'; then $(CYGPATH_W) 'gsd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/gsd-ldsm-dialog.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-ldsm-dialog.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-ldsm-dialog.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-ldsm-dialog.c' object='gsd_empty_trash_test-gsd-ldsm-dialog.obj' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-ldsm-dialog.obj: csd-ldsm-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-ldsm-dialog.obj -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-ldsm-dialog.Tpo -c -o csd_empty_trash_test-csd-ldsm-dialog.obj `if test -f 'csd-ldsm-dialog.c'; then $(CYGPATH_W) 'csd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/csd-ldsm-dialog.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-ldsm-dialog.Tpo $(DEPDIR)/csd_empty_trash_test-csd-ldsm-dialog.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-ldsm-dialog.c' object='csd_empty_trash_test-csd-ldsm-dialog.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-ldsm-dialog.obj `if test -f 'gsd-ldsm-dialog.c'; then $(CYGPATH_W) 'gsd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/gsd-ldsm-dialog.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-ldsm-dialog.obj `if test -f 'csd-ldsm-dialog.c'; then $(CYGPATH_W) 'csd-ldsm-dialog.c'; else $(CYGPATH_W) '$(srcdir)/csd-ldsm-dialog.c'; fi`
 
-gsd_empty_trash_test-gsd-disk-space-helper.o: gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-disk-space-helper.o -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space-helper.Tpo -c -o gsd_empty_trash_test-gsd-disk-space-helper.o `test -f 'gsd-disk-space-helper.c' || echo '$(srcdir)/'`gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space-helper.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space-helper.c' object='gsd_empty_trash_test-gsd-disk-space-helper.o' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-disk-space-helper.o: csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-disk-space-helper.o -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-disk-space-helper.Tpo -c -o csd_empty_trash_test-csd-disk-space-helper.o `test -f 'csd-disk-space-helper.c' || echo '$(srcdir)/'`csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-disk-space-helper.Tpo $(DEPDIR)/csd_empty_trash_test-csd-disk-space-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space-helper.c' object='csd_empty_trash_test-csd-disk-space-helper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-disk-space-helper.o `test -f 'gsd-disk-space-helper.c' || echo '$(srcdir)/'`gsd-disk-space-helper.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-disk-space-helper.o `test -f 'csd-disk-space-helper.c' || echo '$(srcdir)/'`csd-disk-space-helper.c
 
-gsd_empty_trash_test-gsd-disk-space-helper.obj: gsd-disk-space-helper.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -MT gsd_empty_trash_test-gsd-disk-space-helper.obj -MD -MP -MF $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space-helper.Tpo -c -o gsd_empty_trash_test-gsd-disk-space-helper.obj `if test -f 'gsd-disk-space-helper.c'; then $(CYGPATH_W) 'gsd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space-helper.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space-helper.Tpo $(DEPDIR)/gsd_empty_trash_test-gsd-disk-space-helper.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-disk-space-helper.c' object='gsd_empty_trash_test-gsd-disk-space-helper.obj' libtool=no @AMDEPBACKSLASH@
+csd_empty_trash_test-csd-disk-space-helper.obj: csd-disk-space-helper.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -MT csd_empty_trash_test-csd-disk-space-helper.obj -MD -MP -MF $(DEPDIR)/csd_empty_trash_test-csd-disk-space-helper.Tpo -c -o csd_empty_trash_test-csd-disk-space-helper.obj `if test -f 'csd-disk-space-helper.c'; then $(CYGPATH_W) 'csd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space-helper.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_empty_trash_test-csd-disk-space-helper.Tpo $(DEPDIR)/csd_empty_trash_test-csd-disk-space-helper.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-disk-space-helper.c' object='csd_empty_trash_test-csd-disk-space-helper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gsd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o gsd_empty_trash_test-gsd-disk-space-helper.obj `if test -f 'gsd-disk-space-helper.c'; then $(CYGPATH_W) 'gsd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/gsd-disk-space-helper.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(csd_empty_trash_test_CFLAGS) $(CFLAGS) -c -o csd_empty_trash_test-csd-disk-space-helper.obj `if test -f 'csd-disk-space-helper.c'; then $(CYGPATH_W) 'csd-disk-space-helper.c'; else $(CYGPATH_W) '$(srcdir)/csd-disk-space-helper.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -988,7 +988,7 @@ uninstall-am: uninstall-pluginDATA uninstall-pluginLTLIBRARIES
 	uninstall-am uninstall-pluginDATA uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

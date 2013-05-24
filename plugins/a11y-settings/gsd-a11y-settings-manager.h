@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GSD_A11Y_SETTINGS_MANAGER_H
-#define __GSD_A11Y_SETTINGS_MANAGER_H
+#ifndef __CSD_A11Y_SETTINGS_MANAGER_H
+#define __CSD_A11Y_SETTINGS_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_A11Y_SETTINGS_MANAGER         (gsd_a11y_settings_manager_get_type ())
-#define GSD_A11Y_SETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManager))
-#define GSD_A11Y_SETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManagerClass))
-#define GSD_IS_A11Y_SETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER))
-#define GSD_IS_A11Y_SETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_A11Y_SETTINGS_MANAGER))
-#define GSD_A11Y_SETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_A11Y_SETTINGS_MANAGER, GsdA11ySettingsManagerClass))
+#define CSD_TYPE_A11Y_SETTINGS_MANAGER         (csd_a11y_settings_manager_get_type ())
+#define CSD_A11Y_SETTINGS_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_A11Y_SETTINGS_MANAGER, CsdA11ySettingsManager))
+#define CSD_A11Y_SETTINGS_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_A11Y_SETTINGS_MANAGER, CsdA11ySettingsManagerClass))
+#define CSD_IS_A11Y_SETTINGS_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_A11Y_SETTINGS_MANAGER))
+#define CSD_IS_A11Y_SETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_A11Y_SETTINGS_MANAGER))
+#define CSD_A11Y_SETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_A11Y_SETTINGS_MANAGER, CsdA11ySettingsManagerClass))
 
-typedef struct GsdA11ySettingsManagerPrivate GsdA11ySettingsManagerPrivate;
+typedef struct CsdA11ySettingsManagerPrivate CsdA11ySettingsManagerPrivate;
 
 typedef struct
 {
         GObject                        parent;
-        GsdA11ySettingsManagerPrivate *priv;
-} GsdA11ySettingsManager;
+        CsdA11ySettingsManagerPrivate *priv;
+} CsdA11ySettingsManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdA11ySettingsManagerClass;
+} CsdA11ySettingsManagerClass;
 
-GType                   gsd_a11y_settings_manager_get_type            (void);
+GType                   csd_a11y_settings_manager_get_type            (void);
 
-GsdA11ySettingsManager *gsd_a11y_settings_manager_new                 (void);
-gboolean                gsd_a11y_settings_manager_start               (GsdA11ySettingsManager *manager,
+CsdA11ySettingsManager *csd_a11y_settings_manager_new                 (void);
+gboolean                csd_a11y_settings_manager_start               (CsdA11ySettingsManager *manager,
                                                                        GError         **error);
-void                    gsd_a11y_settings_manager_stop                (GsdA11ySettingsManager *manager);
+void                    csd_a11y_settings_manager_stop                (CsdA11ySettingsManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_A11Y_SETTINGS_MANAGER_H */
+#endif /* __CSD_A11Y_SETTINGS_MANAGER_H */

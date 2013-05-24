@@ -42,42 +42,42 @@
 #include <libgnome-desktop/gnome-bg.h>
 #include <X11/Xatom.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-background-manager.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-background-manager.h"
 
-#define GSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_BACKGROUND_MANAGER, GsdBackgroundManagerPrivate))
+#define CSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_BACKGROUND_MANAGER, CsdBackgroundManagerPrivate))
 
-struct GsdBackgroundManagerPrivate
+struct CsdBackgroundManagerPrivate
 {
         GSettings   *settings;
-        GnomeBG     *bg;
+        CinnamonSettingsBG     *bg;
 
-        GnomeBGCrossfade *fade;
+        CinnamonSettingsBGCrossfade *fade;
 
         GDBusProxy  *proxy;
         guint        proxy_signal_id;
 };
 
-static void     gsd_background_manager_class_init  (GsdBackgroundManagerClass *klass);
-static void     gsd_background_manager_init        (GsdBackgroundManager      *background_manager);
-static void     gsd_background_manager_finalize    (GObject             *object);
+static void     csd_background_manager_class_init  (CsdBackgroundManagerClass *klass);
+static void     csd_background_manager_init        (CsdBackgroundManager      *background_manager);
+static void     csd_background_manager_finalize    (GObject             *object);
 
-static void setup_bg (GsdBackgroundManager *manager);
-static void connect_screen_signals (GsdBackgroundManager *manager);
+static void setup_bg (CsdBackgroundManager *manager);
+static void connect_screen_signals (CsdBackgroundManager *manager);
 
-G_DEFINE_TYPE (GsdBackgroundManager, gsd_background_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdBackgroundManager, csd_background_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 static gboolean
-dont_draw_background (GsdBackgroundManager *manager)
+dont_draw_background (CsdBackgroundManager *manager)
 {
         return !g_settings_get_boolean (manager->priv->settings,
                                         "draw-background");
 }
 
 static gboolean
-nautilus_is_drawing_background (GsdBackgroundManager *manager)
+nautilus_is_drawing_background (CsdBackgroundManager *manager)
 {
        Atom           window_id_atom;
        Window         nautilus_xid;
@@ -174,14 +174,14 @@ nautilus_is_drawing_background (GsdBackgroundManager *manager)
 }
 
 static void
-on_crossfade_finished (GsdBackgroundManager *manager)
+on_crossfade_finished (CsdBackgroundManager *manager)
 {
         g_object_unref (manager->priv->fade);
         manager->priv->fade = NULL;
 }
 
 static void
-draw_background (GsdBackgroundManager *manager,
+draw_background (CsdBackgroundManager *manager,
                  gboolean              use_crossfade)
 {
         GdkDisplay *display;
@@ -194,7 +194,7 @@ draw_background (GsdBackgroundManager *manager,
                 return;
         }
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         display = gdk_display_get_default ();
         n_screens = gdk_display_get_n_screens (display);
@@ -231,12 +231,12 @@ draw_background (GsdBackgroundManager *manager,
                 cairo_surface_destroy (surface);
         }
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 }
 
 static void
-on_bg_transitioned (GnomeBG              *bg,
-                    GsdBackgroundManager *manager)
+on_bg_transitioned (CinnamonSettingsBG              *bg,
+                    CsdBackgroundManager *manager)
 {
         draw_background (manager, FALSE);
 }
@@ -245,7 +245,7 @@ static gboolean
 settings_change_event_cb (GSettings            *settings,
                           gpointer              keys,
                           gint                  n_keys,
-                          GsdBackgroundManager *manager)
+                          CsdBackgroundManager *manager)
 {
         gnome_bg_load_from_preferences (manager->priv->bg,
                                         manager->priv->settings);
@@ -254,13 +254,13 @@ settings_change_event_cb (GSettings            *settings,
 
 static void
 on_screen_size_changed (GdkScreen            *screen,
-                        GsdBackgroundManager *manager)
+                        CsdBackgroundManager *manager)
 {
         draw_background (manager, FALSE);
 }
 
 static void
-watch_bg_preferences (GsdBackgroundManager *manager)
+watch_bg_preferences (CsdBackgroundManager *manager)
 {
         g_signal_connect (manager->priv->settings,
                           "change-event",
@@ -269,14 +269,14 @@ watch_bg_preferences (GsdBackgroundManager *manager)
 }
 
 static void
-on_bg_changed (GnomeBG              *bg,
-               GsdBackgroundManager *manager)
+on_bg_changed (CinnamonSettingsBG              *bg,
+               CsdBackgroundManager *manager)
 {
         draw_background (manager, TRUE);
 }
 
 static void
-setup_bg (GsdBackgroundManager *manager)
+setup_bg (CsdBackgroundManager *manager)
 {
         g_return_if_fail (manager->priv->bg == NULL);
 
@@ -299,14 +299,14 @@ setup_bg (GsdBackgroundManager *manager)
 }
 
 static void
-setup_bg_and_draw_background (GsdBackgroundManager *manager)
+setup_bg_and_draw_background (CsdBackgroundManager *manager)
 {
         setup_bg (manager);
         draw_background (manager, FALSE);
 }
 
 static void
-disconnect_session_manager_listener (GsdBackgroundManager *manager)
+disconnect_session_manager_listener (CsdBackgroundManager *manager)
 {
         if (manager->priv->proxy && manager->priv->proxy_signal_id) {
                 g_signal_handler_disconnect (manager->priv->proxy,
@@ -322,7 +322,7 @@ on_session_manager_signal (GDBusProxy   *proxy,
                            GVariant     *parameters,
                            gpointer      user_data)
 {
-        GsdBackgroundManager *manager = GSD_BACKGROUND_MANAGER (user_data);
+        CsdBackgroundManager *manager = CSD_BACKGROUND_MANAGER (user_data);
 
         if (g_strcmp0 (signal_name, "SessionRunning") == 0) {
                 setup_bg_and_draw_background (manager);
@@ -331,7 +331,7 @@ on_session_manager_signal (GDBusProxy   *proxy,
 }
 
 static void
-draw_background_after_session_loads (GsdBackgroundManager *manager)
+draw_background_after_session_loads (CsdBackgroundManager *manager)
 {
         GError *error = NULL;
         GDBusProxyFlags flags;
@@ -361,7 +361,7 @@ draw_background_after_session_loads (GsdBackgroundManager *manager)
 
 
 static void
-disconnect_screen_signals (GsdBackgroundManager *manager)
+disconnect_screen_signals (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
         int         i;
@@ -380,7 +380,7 @@ disconnect_screen_signals (GsdBackgroundManager *manager)
 }
 
 static void
-connect_screen_signals (GsdBackgroundManager *manager)
+connect_screen_signals (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
         int         i;
@@ -406,7 +406,7 @@ connect_screen_signals (GsdBackgroundManager *manager)
 static void
 draw_background_changed (GSettings            *settings,
                          const char           *key,
-                         GsdBackgroundManager *manager)
+                         CsdBackgroundManager *manager)
 {
         if (dont_draw_background (manager) == FALSE)
                 setup_bg_and_draw_background (manager);
@@ -494,7 +494,7 @@ bail:
 static void
 picture_uri_changed (GSettings            *settings,
                      const char           *key,
-                     GsdBackgroundManager *manager)
+                     CsdBackgroundManager *manager)
 {
         const char *picture_uri = g_settings_get_string (settings, key);
         GFile *picture_file = g_file_new_for_uri (picture_uri);
@@ -505,13 +505,13 @@ picture_uri_changed (GSettings            *settings,
 }
 
 gboolean
-gsd_background_manager_start (GsdBackgroundManager *manager,
+csd_background_manager_start (CsdBackgroundManager *manager,
                               GError              **error)
 {
         gboolean show_desktop_icons;
 
         g_debug ("Starting background manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.gnome.desktop.background");
         g_signal_connect (manager->priv->settings, "changed::draw-background",
@@ -535,15 +535,15 @@ gsd_background_manager_start (GsdBackgroundManager *manager,
                 draw_background_after_session_loads (manager);
         }
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_background_manager_stop (GsdBackgroundManager *manager)
+csd_background_manager_stop (CsdBackgroundManager *manager)
 {
-        GsdBackgroundManagerPrivate *p = manager->priv;
+        CsdBackgroundManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping background manager");
 
@@ -570,13 +570,13 @@ gsd_background_manager_stop (GsdBackgroundManager *manager)
 }
 
 static GObject *
-gsd_background_manager_constructor (GType                  type,
+csd_background_manager_constructor (GType                  type,
                                     guint                  n_construct_properties,
                                     GObjectConstructParam *construct_properties)
 {
-        GsdBackgroundManager      *background_manager;
+        CsdBackgroundManager      *background_manager;
 
-        background_manager = GSD_BACKGROUND_MANAGER (G_OBJECT_CLASS (gsd_background_manager_parent_class)->constructor (type,
+        background_manager = CSD_BACKGROUND_MANAGER (G_OBJECT_CLASS (csd_background_manager_parent_class)->constructor (type,
                                                                                                                         n_construct_properties,
                                                                                                                         construct_properties));
 
@@ -584,47 +584,47 @@ gsd_background_manager_constructor (GType                  type,
 }
 
 static void
-gsd_background_manager_class_init (GsdBackgroundManagerClass *klass)
+csd_background_manager_class_init (CsdBackgroundManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_background_manager_constructor;
-        object_class->finalize = gsd_background_manager_finalize;
+        object_class->constructor = csd_background_manager_constructor;
+        object_class->finalize = csd_background_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdBackgroundManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdBackgroundManagerPrivate));
 }
 
 static void
-gsd_background_manager_init (GsdBackgroundManager *manager)
+csd_background_manager_init (CsdBackgroundManager *manager)
 {
-        manager->priv = GSD_BACKGROUND_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_BACKGROUND_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gsd_background_manager_finalize (GObject *object)
+csd_background_manager_finalize (GObject *object)
 {
-        GsdBackgroundManager *background_manager;
+        CsdBackgroundManager *background_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_BACKGROUND_MANAGER (object));
+        g_return_if_fail (CSD_IS_BACKGROUND_MANAGER (object));
 
-        background_manager = GSD_BACKGROUND_MANAGER (object);
+        background_manager = CSD_BACKGROUND_MANAGER (object);
 
         g_return_if_fail (background_manager->priv != NULL);
 
-        G_OBJECT_CLASS (gsd_background_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_background_manager_parent_class)->finalize (object);
 }
 
-GsdBackgroundManager *
-gsd_background_manager_new (void)
+CsdBackgroundManager *
+csd_background_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_BACKGROUND_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_BACKGROUND_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_BACKGROUND_MANAGER (manager_object);
+        return CSD_BACKGROUND_MANAGER (manager_object);
 }

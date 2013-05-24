@@ -28,21 +28,21 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 
-#include "gnome-settings-profile.h"
-#include "gnome-settings-session.h"
-#include "gsd-automount-manager.h"
-#include "gsd-autorun.h"
+#include "cinnamon-settings-profile.h"
+#include "cinnamon-settings-session.h"
+#include "csd-automount-manager.h"
+#include "csd-autorun.h"
 
-#define GSD_AUTOMOUNT_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_AUTOMOUNT_MANAGER, GsdAutomountManagerPrivate))
+#define CSD_AUTOMOUNT_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_AUTOMOUNT_MANAGER, CsdAutomountManagerPrivate))
 
-struct GsdAutomountManagerPrivate
+struct CsdAutomountManagerPrivate
 {
         GSettings   *settings;
 
 	GVolumeMonitor *volume_monitor;
 	unsigned int automount_idle_id;
 
-        GnomeSettingsSession *session;
+        CinnamonSettingsSettingsSession *session;
         gboolean session_is_active;
         gboolean screensaver_active;
         guint ss_watch_id;
@@ -51,10 +51,10 @@ struct GsdAutomountManagerPrivate
         GList *volume_queue;
 };
 
-static void     gsd_automount_manager_class_init  (GsdAutomountManagerClass *klass);
-static void     gsd_automount_manager_init        (GsdAutomountManager      *gsd_automount_manager);
+static void     csd_automount_manager_class_init  (CsdAutomountManagerClass *klass);
+static void     csd_automount_manager_init        (CsdAutomountManager      *csd_automount_manager);
 
-G_DEFINE_TYPE (GsdAutomountManager, gsd_automount_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdAutomountManager, csd_automount_manager, G_TYPE_OBJECT)
 
 static GtkDialog *
 show_error_dialog (const char *primary_text,
@@ -92,7 +92,7 @@ startup_volume_mount_cb (GObject *source_object,
 }
 
 static void
-automount_all_volumes (GsdAutomountManager *manager)
+automount_all_volumes (CsdAutomountManager *manager)
 {
 	GList *volumes, *l;
 	GMount *mount;
@@ -125,7 +125,7 @@ automount_all_volumes (GsdAutomountManager *manager)
 static gboolean
 automount_all_volumes_idle_cb (gpointer data)
 {
-	GsdAutomountManager *manager = GSD_AUTOMOUNT_MANAGER (data);
+	CsdAutomountManager *manager = CSD_AUTOMOUNT_MANAGER (data);
 
 	automount_all_volumes (manager);
 
@@ -144,7 +144,7 @@ volume_mount_cb (GObject *source_object,
 	char *name;
 
 	error = NULL;
-	gsd_allow_autorun_for_volume_finish (G_VOLUME (source_object));
+	csd_allow_autorun_for_volume_finish (G_VOLUME (source_object));
 	if (!g_volume_mount_finish (G_VOLUME (source_object), res, &error)) {
 		if (error->code != G_IO_ERROR_FAILED_HANDLED) {
 			name = g_volume_get_name (G_VOLUME (source_object));
@@ -168,12 +168,12 @@ do_mount_volume (GVolume *volume)
 	mount_op = gtk_mount_operation_new (NULL);
 	g_mount_operation_set_password_save (mount_op, G_PASSWORD_SAVE_FOR_SESSION);
 
-	gsd_allow_autorun_for_volume (volume);
+	csd_allow_autorun_for_volume (volume);
 	g_volume_mount (volume, 0, mount_op, NULL, volume_mount_cb, mount_op);
 }
 
 static void
-check_volume_queue (GsdAutomountManager *manager)
+check_volume_queue (CsdAutomountManager *manager)
 {
         GList *l;
         GVolume *volume;
@@ -198,7 +198,7 @@ check_volume_queue (GsdAutomountManager *manager)
 }
 
 static void
-check_screen_lock_and_mount (GsdAutomountManager *manager,
+check_screen_lock_and_mount (CsdAutomountManager *manager,
                              GVolume *volume)
 {
         if (!manager->priv->session_is_active)
@@ -218,7 +218,7 @@ check_screen_lock_and_mount (GsdAutomountManager *manager,
 static void
 volume_removed_callback (GVolumeMonitor *monitor,
                          GVolume *volume,
-                         GsdAutomountManager *manager)
+                         CsdAutomountManager *manager)
 {
         g_debug ("Volume %p removed, removing from the queue", volume);
 
@@ -230,18 +230,18 @@ volume_removed_callback (GVolumeMonitor *monitor,
 static void
 volume_added_callback (GVolumeMonitor *monitor,
 		       GVolume *volume,
-		       GsdAutomountManager *manager)
+		       CsdAutomountManager *manager)
 {
 	if (g_settings_get_boolean (manager->priv->settings, "automount") &&
 	    g_volume_should_automount (volume) &&
 	    g_volume_can_mount (volume)) {
                 check_screen_lock_and_mount (manager, volume);
 	} else {
-		/* Allow gsd_autorun() to run. When the mount is later
+		/* Allow csd_autorun() to run. When the mount is later
 		 * added programmatically (i.e. for a blank CD),
-		 * gsd_autorun() will be called by mount_added_callback(). */
-		gsd_allow_autorun_for_volume (volume);
-		gsd_allow_autorun_for_volume_finish (volume);
+		 * csd_autorun() will be called by mount_added_callback(). */
+		csd_allow_autorun_for_volume (volume);
+		csd_allow_autorun_for_volume_finish (volume);
 	}
 }
 
@@ -276,24 +276,24 @@ autorun_show_window (GMount *mount, gpointer user_data)
 static void
 mount_added_callback (GVolumeMonitor *monitor,
 		      GMount *mount,
-		      GsdAutomountManager *manager)
+		      CsdAutomountManager *manager)
 {
         /* don't autorun if the session is not active */
         if (!manager->priv->session_is_active) {
                 return;
         }
 
-	gsd_autorun (mount, manager->priv->settings, autorun_show_window, manager);
+	csd_autorun (mount, manager->priv->settings, autorun_show_window, manager);
 }
 
 
 static void
-session_state_changed (GnomeSettingsSession *session, GParamSpec *pspec, gpointer user_data)
+session_state_changed (CinnamonSettingsSettingsSession *session, GParamSpec *pspec, gpointer user_data)
 {
-        GsdAutomountManager *manager = user_data;
-        GsdAutomountManagerPrivate *p = manager->priv;
+        CsdAutomountManager *manager = user_data;
+        CsdAutomountManagerPrivate *p = manager->priv;
 
-        if (gnome_settings_session_get_state (session) == GNOME_SETTINGS_SESSION_STATE_ACTIVE) {
+        if (cinnamon_settings_session_get_state (session) == CINNAMON_SETTINGS_SESSION_STATE_ACTIVE) {
                 p->session_is_active = TRUE;
         }
         else {
@@ -309,9 +309,9 @@ session_state_changed (GnomeSettingsSession *session, GParamSpec *pspec, gpointe
 }
 
 static void
-do_initialize_session (GsdAutomountManager *manager)
+do_initialize_session (CsdAutomountManager *manager)
 {
-        manager->priv->session = gnome_settings_session_new ();
+        manager->priv->session = cinnamon_settings_session_new ();
         g_signal_connect (manager->priv->session, "notify::state",
                           G_CALLBACK (session_state_changed), manager);
         session_state_changed (manager->priv->session, NULL, manager);
@@ -328,7 +328,7 @@ screensaver_signal_callback (GDBusProxy *proxy,
                              GVariant *parameters,
                              gpointer user_data)
 {
-        GsdAutomountManager *manager = user_data;
+        CsdAutomountManager *manager = user_data;
 
         if (g_strcmp0 (signal_name, "ActiveChanged") == 0) {
                 g_variant_get (parameters, "(b)", &manager->priv->screensaver_active);
@@ -343,7 +343,7 @@ screensaver_get_active_ready_cb (GObject *source,
                                  GAsyncResult *res,
                                  gpointer user_data)
 {
-        GsdAutomountManager *manager = user_data;
+        CsdAutomountManager *manager = user_data;
         GDBusProxy *proxy = manager->priv->ss_proxy;
         GVariant *result;
         GError *error = NULL;
@@ -371,7 +371,7 @@ screensaver_proxy_ready_cb (GObject *source,
                             GAsyncResult *res,
                             gpointer user_data)
 {
-        GsdAutomountManager *manager = user_data;
+        CsdAutomountManager *manager = user_data;
         GError *error = NULL;
         GDBusProxy *ss_proxy;
         
@@ -408,7 +408,7 @@ screensaver_appeared_callback (GDBusConnection *connection,
                                const gchar *name_owner,
                                gpointer user_data)
 {
-        GsdAutomountManager *manager = user_data;
+        CsdAutomountManager *manager = user_data;
 
         g_debug ("ScreenSaver name appeared");
 
@@ -430,7 +430,7 @@ screensaver_vanished_callback (GDBusConnection *connection,
                                const gchar *name,
                                gpointer user_data)
 {
-        GsdAutomountManager *manager = user_data;
+        CsdAutomountManager *manager = user_data;
 
         g_debug ("ScreenSaver name vanished");
 
@@ -447,9 +447,9 @@ screensaver_vanished_callback (GDBusConnection *connection,
 }
 
 static void
-do_initialize_screensaver (GsdAutomountManager *manager)
+do_initialize_screensaver (CsdAutomountManager *manager)
 {
-        GsdAutomountManagerPrivate *p = manager->priv;
+        CsdAutomountManagerPrivate *p = manager->priv;
 
         p->ss_watch_id =
                 g_bus_watch_name (G_BUS_TYPE_SESSION,
@@ -462,7 +462,7 @@ do_initialize_screensaver (GsdAutomountManager *manager)
 }
 
 static void
-setup_automounter (GsdAutomountManager *manager)
+setup_automounter (CsdAutomountManager *manager)
 {
         do_initialize_session (manager);
         do_initialize_screensaver (manager);
@@ -482,24 +482,24 @@ setup_automounter (GsdAutomountManager *manager)
 }
 
 gboolean
-gsd_automount_manager_start (GsdAutomountManager *manager,
+csd_automount_manager_start (CsdAutomountManager *manager,
                                        GError              **error)
 {
         g_debug ("Starting automounting manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.gnome.desktop.media-handling");
         setup_automounter (manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_automount_manager_stop (GsdAutomountManager *manager)
+csd_automount_manager_stop (CsdAutomountManager *manager)
 {
-        GsdAutomountManagerPrivate *p = manager->priv;
+        CsdAutomountManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping automounting manager");
 
@@ -522,19 +522,19 @@ gsd_automount_manager_stop (GsdAutomountManager *manager)
 }
 
 static void
-gsd_automount_manager_class_init (GsdAutomountManagerClass *klass)
+csd_automount_manager_class_init (CsdAutomountManagerClass *klass)
 {
-        g_type_class_add_private (klass, sizeof (GsdAutomountManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdAutomountManagerPrivate));
 }
 
 static void
-gsd_automount_manager_init (GsdAutomountManager *manager)
+csd_automount_manager_init (CsdAutomountManager *manager)
 {
-        manager->priv = GSD_AUTOMOUNT_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_AUTOMOUNT_MANAGER_GET_PRIVATE (manager);
 }
 
-GsdAutomountManager *
-gsd_automount_manager_new (void)
+CsdAutomountManager *
+csd_automount_manager_new (void)
 {
-        return GSD_AUTOMOUNT_MANAGER (g_object_new (GSD_TYPE_AUTOMOUNT_MANAGER, NULL));
+        return CSD_AUTOMOUNT_MANAGER (g_object_new (CSD_TYPE_AUTOMOUNT_MANAGER, NULL));
 }

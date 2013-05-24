@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_CURSOR_PLUGIN_H__
-#define __GSD_CURSOR_PLUGIN_H__
+#ifndef __CSD_CURSOR_PLUGIN_H__
+#define __CSD_CURSOR_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_CURSOR_PLUGIN                (gsd_cursor_plugin_get_type ())
-#define GSD_CURSOR_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_CURSOR_PLUGIN, GsdCursorPlugin))
-#define GSD_CURSOR_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_CURSOR_PLUGIN, GsdCursorPluginClass))
-#define GSD_IS_CURSOR_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_CURSOR_PLUGIN))
-#define GSD_IS_CURSOR_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_CURSOR_PLUGIN))
-#define GSD_CURSOR_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_CURSOR_PLUGIN, GsdCursorPluginClass))
+#define CSD_TYPE_CURSOR_PLUGIN                (csd_cursor_plugin_get_type ())
+#define CSD_CURSOR_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_CURSOR_PLUGIN, CsdCursorPlugin))
+#define CSD_CURSOR_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_CURSOR_PLUGIN, CsdCursorPluginClass))
+#define CSD_IS_CURSOR_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_CURSOR_PLUGIN))
+#define CSD_IS_CURSOR_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_CURSOR_PLUGIN))
+#define CSD_CURSOR_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_CURSOR_PLUGIN, CsdCursorPluginClass))
 
-typedef struct GsdCursorPluginPrivate GsdCursorPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdCursorPluginPrivate *priv;
-} GsdCursorPlugin;
+typedef struct CsdCursorPluginPrivate CsdCursorPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdCursorPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdCursorPluginPrivate *priv;
+} CsdCursorPlugin;
 
-GType   gsd_cursor_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdCursorPluginClass;
+
+GType   csd_cursor_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_CURSOR_PLUGIN_H__ */
+#endif /* __CSD_CURSOR_PLUGIN_H__ */

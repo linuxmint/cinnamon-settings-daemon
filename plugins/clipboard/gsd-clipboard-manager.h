@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GSD_CLIPBOARD_MANAGER_H
-#define __GSD_CLIPBOARD_MANAGER_H
+#ifndef __CSD_CLIPBOARD_MANAGER_H
+#define __CSD_CLIPBOARD_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_CLIPBOARD_MANAGER         (gsd_clipboard_manager_get_type ())
-#define GSD_CLIPBOARD_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_CLIPBOARD_MANAGER, GsdClipboardManager))
-#define GSD_CLIPBOARD_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_CLIPBOARD_MANAGER, GsdClipboardManagerClass))
-#define GSD_IS_CLIPBOARD_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_CLIPBOARD_MANAGER))
-#define GSD_IS_CLIPBOARD_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_CLIPBOARD_MANAGER))
-#define GSD_CLIPBOARD_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_CLIPBOARD_MANAGER, GsdClipboardManagerClass))
+#define CSD_TYPE_CLIPBOARD_MANAGER         (csd_clipboard_manager_get_type ())
+#define CSD_CLIPBOARD_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_CLIPBOARD_MANAGER, CsdClipboardManager))
+#define CSD_CLIPBOARD_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_CLIPBOARD_MANAGER, CsdClipboardManagerClass))
+#define CSD_IS_CLIPBOARD_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_CLIPBOARD_MANAGER))
+#define CSD_IS_CLIPBOARD_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_CLIPBOARD_MANAGER))
+#define CSD_CLIPBOARD_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_CLIPBOARD_MANAGER, CsdClipboardManagerClass))
 
-typedef struct GsdClipboardManagerPrivate GsdClipboardManagerPrivate;
+typedef struct CsdClipboardManagerPrivate CsdClipboardManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdClipboardManagerPrivate *priv;
-} GsdClipboardManager;
+        CsdClipboardManagerPrivate *priv;
+} CsdClipboardManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdClipboardManagerClass;
+} CsdClipboardManagerClass;
 
-GType                   gsd_clipboard_manager_get_type            (void);
+GType                   csd_clipboard_manager_get_type            (void);
 
-GsdClipboardManager *       gsd_clipboard_manager_new                 (void);
-gboolean                gsd_clipboard_manager_start               (GsdClipboardManager *manager,
+CsdClipboardManager *       csd_clipboard_manager_new                 (void);
+gboolean                csd_clipboard_manager_start               (CsdClipboardManager *manager,
                                                                GError         **error);
-void                    gsd_clipboard_manager_stop                (GsdClipboardManager *manager);
+void                    csd_clipboard_manager_stop                (CsdClipboardManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_CLIPBOARD_MANAGER_H */
+#endif /* __CSD_CLIPBOARD_MANAGER_H */

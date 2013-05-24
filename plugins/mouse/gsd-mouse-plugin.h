@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_MOUSE_PLUGIN_H__
-#define __GSD_MOUSE_PLUGIN_H__
+#ifndef __CSD_MOUSE_PLUGIN_H__
+#define __CSD_MOUSE_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_MOUSE_PLUGIN                (gsd_mouse_plugin_get_type ())
-#define GSD_MOUSE_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_MOUSE_PLUGIN, GsdMousePlugin))
-#define GSD_MOUSE_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_MOUSE_PLUGIN, GsdMousePluginClass))
-#define GSD_IS_MOUSE_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_MOUSE_PLUGIN))
-#define GSD_IS_MOUSE_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_MOUSE_PLUGIN))
-#define GSD_MOUSE_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_MOUSE_PLUGIN, GsdMousePluginClass))
+#define CSD_TYPE_MOUSE_PLUGIN                (csd_mouse_plugin_get_type ())
+#define CSD_MOUSE_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_MOUSE_PLUGIN, CsdMousePlugin))
+#define CSD_MOUSE_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_MOUSE_PLUGIN, CsdMousePluginClass))
+#define CSD_IS_MOUSE_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_MOUSE_PLUGIN))
+#define CSD_IS_MOUSE_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_MOUSE_PLUGIN))
+#define CSD_MOUSE_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_MOUSE_PLUGIN, CsdMousePluginClass))
 
-typedef struct GsdMousePluginPrivate GsdMousePluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdMousePluginPrivate *priv;
-} GsdMousePlugin;
+typedef struct CsdMousePluginPrivate CsdMousePluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdMousePluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdMousePluginPrivate *priv;
+} CsdMousePlugin;
 
-GType   gsd_mouse_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdMousePluginClass;
+
+GType   csd_mouse_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_MOUSE_PLUGIN_H__ */
+#endif /* __CSD_MOUSE_PLUGIN_H__ */

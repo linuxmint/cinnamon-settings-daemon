@@ -36,23 +36,23 @@
 #include <gtk/gtk.h>
 #include <pulse/pulseaudio.h>
 
-#include "gsd-sound-manager.h"
-#include "gnome-settings-profile.h"
+#include "csd-sound-manager.h"
+#include "cinnamon-settings-profile.h"
 
-#define GSD_SOUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_SOUND_MANAGER, GsdSoundManagerPrivate))
+#define CSD_SOUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_SOUND_MANAGER, CsdSoundManagerPrivate))
 
-struct GsdSoundManagerPrivate
+struct CsdSoundManagerPrivate
 {
         GSettings *settings;
         GList     *monitors;
         guint      timeout;
 };
 
-static void gsd_sound_manager_class_init (GsdSoundManagerClass *klass);
-static void gsd_sound_manager_init (GsdSoundManager *sound_manager);
-static void gsd_sound_manager_finalize (GObject *object);
+static void csd_sound_manager_class_init (CsdSoundManagerClass *klass);
+static void csd_sound_manager_init (CsdSoundManager *sound_manager);
+static void csd_sound_manager_finalize (GObject *object);
 
-G_DEFINE_TYPE (GsdSoundManager, gsd_sound_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdSoundManager, csd_sound_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -177,7 +177,7 @@ fail:
 }
 
 static gboolean
-flush_cb (GsdSoundManager *manager)
+flush_cb (CsdSoundManager *manager)
 {
         flush_cache ();
         manager->priv->timeout = 0;
@@ -185,7 +185,7 @@ flush_cb (GsdSoundManager *manager)
 }
 
 static void
-trigger_flush (GsdSoundManager *manager)
+trigger_flush (CsdSoundManager *manager)
 {
 
         if (manager->priv->timeout)
@@ -199,13 +199,13 @@ trigger_flush (GsdSoundManager *manager)
 static void
 settings_changed_cb (GSettings       *settings,
 		     const char      *key,
-		     GsdSoundManager *manager)
+		     CsdSoundManager *manager)
 {
         trigger_flush (manager);
 }
 
 static void
-register_config_callback (GsdSoundManager *manager)
+register_config_callback (CsdSoundManager *manager)
 {
 	manager->priv->settings = g_settings_new ("org.gnome.desktop.sound");
 	g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
@@ -217,14 +217,14 @@ file_monitor_changed_cb (GFileMonitor *monitor,
                          GFile *file,
                          GFile *other_file,
                          GFileMonitorEvent event,
-                         GsdSoundManager *manager)
+                         CsdSoundManager *manager)
 {
         g_debug ("Theme dir changed");
         trigger_flush (manager);
 }
 
 static gboolean
-register_directory_callback (GsdSoundManager *manager,
+register_directory_callback (CsdSoundManager *manager,
                              const char *path,
                              GError **error)
 {
@@ -252,14 +252,14 @@ register_directory_callback (GsdSoundManager *manager,
 }
 
 gboolean
-gsd_sound_manager_start (GsdSoundManager *manager,
+csd_sound_manager_start (CsdSoundManager *manager,
                          GError **error)
 {
         char *p, **ps, **k;
         const char *env, *dd;
 
         g_debug ("Starting sound manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         /* We listen for change of the selected theme ... */
         register_config_callback (manager);
@@ -290,13 +290,13 @@ gsd_sound_manager_start (GsdSoundManager *manager,
 
         g_strfreev (ps);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_sound_manager_stop (GsdSoundManager *manager)
+csd_sound_manager_stop (CsdSoundManager *manager)
 {
         g_debug ("Stopping sound manager");
 
@@ -318,14 +318,14 @@ gsd_sound_manager_stop (GsdSoundManager *manager)
 }
 
 static GObject *
-gsd_sound_manager_constructor (
+csd_sound_manager_constructor (
                 GType type,
                 guint n_construct_properties,
                 GObjectConstructParam *construct_properties)
 {
-        GsdSoundManager *m;
+        CsdSoundManager *m;
 
-        m = GSD_SOUND_MANAGER (G_OBJECT_CLASS (gsd_sound_manager_parent_class)->constructor (
+        m = CSD_SOUND_MANAGER (G_OBJECT_CLASS (csd_sound_manager_parent_class)->constructor (
                                                            type,
                                                            n_construct_properties,
                                                            construct_properties));
@@ -334,59 +334,59 @@ gsd_sound_manager_constructor (
 }
 
 static void
-gsd_sound_manager_dispose (GObject *object)
+csd_sound_manager_dispose (GObject *object)
 {
-        GsdSoundManager *manager;
+        CsdSoundManager *manager;
 
-        manager = GSD_SOUND_MANAGER (object);
+        manager = CSD_SOUND_MANAGER (object);
 
-        gsd_sound_manager_stop (manager);
+        csd_sound_manager_stop (manager);
 
-        G_OBJECT_CLASS (gsd_sound_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (csd_sound_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_sound_manager_class_init (GsdSoundManagerClass *klass)
+csd_sound_manager_class_init (CsdSoundManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_sound_manager_constructor;
-        object_class->dispose = gsd_sound_manager_dispose;
-        object_class->finalize = gsd_sound_manager_finalize;
+        object_class->constructor = csd_sound_manager_constructor;
+        object_class->dispose = csd_sound_manager_dispose;
+        object_class->finalize = csd_sound_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdSoundManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdSoundManagerPrivate));
 }
 
 static void
-gsd_sound_manager_init (GsdSoundManager *manager)
+csd_sound_manager_init (CsdSoundManager *manager)
 {
-        manager->priv = GSD_SOUND_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_SOUND_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gsd_sound_manager_finalize (GObject *object)
+csd_sound_manager_finalize (GObject *object)
 {
-        GsdSoundManager *sound_manager;
+        CsdSoundManager *sound_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_SOUND_MANAGER (object));
+        g_return_if_fail (CSD_IS_SOUND_MANAGER (object));
 
-        sound_manager = GSD_SOUND_MANAGER (object);
+        sound_manager = CSD_SOUND_MANAGER (object);
 
         g_return_if_fail (sound_manager->priv);
 
-        G_OBJECT_CLASS (gsd_sound_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_sound_manager_parent_class)->finalize (object);
 }
 
-GsdSoundManager *
-gsd_sound_manager_new (void)
+CsdSoundManager *
+csd_sound_manager_new (void)
 {
         if (manager_object) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_SOUND_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_SOUND_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object, (gpointer *) &manager_object);
         }
 
-        return GSD_SOUND_MANAGER (manager_object);
+        return CSD_SOUND_MANAGER (manager_object);
 }

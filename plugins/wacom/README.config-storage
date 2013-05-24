@@ -43,6 +43,6 @@ Testing
 -------
 
 You can see all the metadata held about tablets, styli and buttons using
-list-wacom, as available in the gnome-settings-daemon sources.
+list-wacom, as available in the cinnamon-settings-daemon sources.
 
 An example output is available at: https://gist.github.com/1688632

@@ -33,9 +33,9 @@ G_BEGIN_DECLS
 #define GPM_IS_PHONE_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), GPM_TYPE_PHONE))
 #define GPM_PHONE_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), GPM_TYPE_PHONE, GpmPhoneClass))
 
-#define GNOME_PHONE_MANAGER_DBUS_SERVICE        "org.gnome.phone"
-#define GNOME_PHONE_MANAGER_DBUS_PATH           "/org/gnome/phone/Manager"
-#define GNOME_PHONE_MANAGER_DBUS_INTERFACE      "org.gnome.phone.Manager"
+#define CINNAMON_PHONE_MANAGER_DBUS_SERVICE        "org.cinnamon.phone"
+#define CINNAMON_PHONE_MANAGER_DBUS_PATH           "/org/cinnamon/phone/Manager"
+#define CINNAMON_PHONE_MANAGER_DBUS_INTERFACE      "org.cinnamon.phone.Manager"
 
 typedef struct GpmPhonePrivate GpmPhonePrivate;
 

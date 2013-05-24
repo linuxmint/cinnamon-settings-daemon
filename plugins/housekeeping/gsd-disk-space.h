@@ -21,19 +21,19 @@
  *
  */
 
-#ifndef __GSD_DISK_SPACE_H
-#define __GSD_DISK_SPACE_H
+#ifndef __CSD_DISK_SPACE_H
+#define __CSD_DISK_SPACE_H
 
 #include <glib.h>
 
 G_BEGIN_DECLS
 
-void gsd_ldsm_setup (gboolean check_now);
-void gsd_ldsm_clean (void);
+void csd_ldsm_setup (gboolean check_now);
+void csd_ldsm_clean (void);
 
 /* for the test */
-void gsd_ldsm_show_empty_trash (void);
+void csd_ldsm_show_empty_trash (void);
 
 G_END_DECLS
 
-#endif /* __GSD_DISK_SPACE_H */
+#endif /* __CSD_DISK_SPACE_H */

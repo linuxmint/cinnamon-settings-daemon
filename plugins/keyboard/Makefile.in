@@ -80,9 +80,9 @@ am__DEPENDENCIES_1 =
 libkeyboard_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__objects_1 =
-am_libkeyboard_la_OBJECTS = libkeyboard_la-gsd-keyboard-plugin.lo \
-	libkeyboard_la-gsd-keyboard-manager.lo \
-	libkeyboard_la-gsd-keyboard-xkb.lo \
+am_libkeyboard_la_OBJECTS = libkeyboard_la-csd-keyboard-plugin.lo \
+	libkeyboard_la-csd-keyboard-manager.lo \
+	libkeyboard_la-csd-keyboard-xkb.lo \
 	libkeyboard_la-delayed-dialog.lo $(am__objects_1)
 libkeyboard_la_OBJECTS = $(am_libkeyboard_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -185,9 +185,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -350,21 +350,21 @@ icons_DATA = \
 	  kbd-capslock-on.png kbd-numlock-on.png kbd-scrolllock-on.png
 
 libkeyboard_la_SOURCES = \
-	gsd-keyboard-plugin.h	\
-	gsd-keyboard-plugin.c	\
-	gsd-keyboard-manager.h	\
-	gsd-keyboard-manager.c	\
-	gsd-keyboard-xkb.h	\
-	gsd-keyboard-xkb.c	\
+	csd-keyboard-plugin.h	\
+	csd-keyboard-plugin.c	\
+	csd-keyboard-manager.h	\
+	csd-keyboard-manager.c	\
+	csd-keyboard-xkb.h	\
+	csd-keyboard-xkb.c	\
 	delayed-dialog.h	\
 	delayed-dialog.c	\
 	$(NULL)
 
 libkeyboard_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/data				\
 	-DDATADIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libkeyboard_la_CFLAGS = \
@@ -374,7 +374,7 @@ libkeyboard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libkeyboard_la_LDFLAGS = \
-	$(GSD_PLUGIN_LDFLAGS)	\
+	$(CSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libkeyboard_la_LIBADD = \
@@ -384,10 +384,10 @@ libkeyboard_la_LIBADD = \
 	$(NULL)
 
 plugin_in_files = \
-	keyboard.gnome-settings-plugin.in	\
+	keyboard.cinnamon-settings-plugin.in	\
 	$(NULL)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = \
 	$(icons_DATA)		\
 	$(plugin_in_files)	\
@@ -477,9 +477,9 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkeyboard_la-delayed-dialog.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkeyboard_la-gsd-keyboard-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkeyboard_la-gsd-keyboard-plugin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkeyboard_la-gsd-keyboard-xkb.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkeyboard_la-csd-keyboard-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkeyboard_la-csd-keyboard-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libkeyboard_la-csd-keyboard-xkb.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -502,26 +502,26 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libkeyboard_la-gsd-keyboard-plugin.lo: gsd-keyboard-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -MT libkeyboard_la-gsd-keyboard-plugin.lo -MD -MP -MF $(DEPDIR)/libkeyboard_la-gsd-keyboard-plugin.Tpo -c -o libkeyboard_la-gsd-keyboard-plugin.lo `test -f 'gsd-keyboard-plugin.c' || echo '$(srcdir)/'`gsd-keyboard-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkeyboard_la-gsd-keyboard-plugin.Tpo $(DEPDIR)/libkeyboard_la-gsd-keyboard-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-keyboard-plugin.c' object='libkeyboard_la-gsd-keyboard-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libkeyboard_la-csd-keyboard-plugin.lo: csd-keyboard-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -MT libkeyboard_la-csd-keyboard-plugin.lo -MD -MP -MF $(DEPDIR)/libkeyboard_la-csd-keyboard-plugin.Tpo -c -o libkeyboard_la-csd-keyboard-plugin.lo `test -f 'csd-keyboard-plugin.c' || echo '$(srcdir)/'`csd-keyboard-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkeyboard_la-csd-keyboard-plugin.Tpo $(DEPDIR)/libkeyboard_la-csd-keyboard-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-keyboard-plugin.c' object='libkeyboard_la-csd-keyboard-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -c -o libkeyboard_la-gsd-keyboard-plugin.lo `test -f 'gsd-keyboard-plugin.c' || echo '$(srcdir)/'`gsd-keyboard-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -c -o libkeyboard_la-csd-keyboard-plugin.lo `test -f 'csd-keyboard-plugin.c' || echo '$(srcdir)/'`csd-keyboard-plugin.c
 
-libkeyboard_la-gsd-keyboard-manager.lo: gsd-keyboard-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -MT libkeyboard_la-gsd-keyboard-manager.lo -MD -MP -MF $(DEPDIR)/libkeyboard_la-gsd-keyboard-manager.Tpo -c -o libkeyboard_la-gsd-keyboard-manager.lo `test -f 'gsd-keyboard-manager.c' || echo '$(srcdir)/'`gsd-keyboard-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkeyboard_la-gsd-keyboard-manager.Tpo $(DEPDIR)/libkeyboard_la-gsd-keyboard-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-keyboard-manager.c' object='libkeyboard_la-gsd-keyboard-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libkeyboard_la-csd-keyboard-manager.lo: csd-keyboard-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -MT libkeyboard_la-csd-keyboard-manager.lo -MD -MP -MF $(DEPDIR)/libkeyboard_la-csd-keyboard-manager.Tpo -c -o libkeyboard_la-csd-keyboard-manager.lo `test -f 'csd-keyboard-manager.c' || echo '$(srcdir)/'`csd-keyboard-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkeyboard_la-csd-keyboard-manager.Tpo $(DEPDIR)/libkeyboard_la-csd-keyboard-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-keyboard-manager.c' object='libkeyboard_la-csd-keyboard-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -c -o libkeyboard_la-gsd-keyboard-manager.lo `test -f 'gsd-keyboard-manager.c' || echo '$(srcdir)/'`gsd-keyboard-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -c -o libkeyboard_la-csd-keyboard-manager.lo `test -f 'csd-keyboard-manager.c' || echo '$(srcdir)/'`csd-keyboard-manager.c
 
-libkeyboard_la-gsd-keyboard-xkb.lo: gsd-keyboard-xkb.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -MT libkeyboard_la-gsd-keyboard-xkb.lo -MD -MP -MF $(DEPDIR)/libkeyboard_la-gsd-keyboard-xkb.Tpo -c -o libkeyboard_la-gsd-keyboard-xkb.lo `test -f 'gsd-keyboard-xkb.c' || echo '$(srcdir)/'`gsd-keyboard-xkb.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkeyboard_la-gsd-keyboard-xkb.Tpo $(DEPDIR)/libkeyboard_la-gsd-keyboard-xkb.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-keyboard-xkb.c' object='libkeyboard_la-gsd-keyboard-xkb.lo' libtool=yes @AMDEPBACKSLASH@
+libkeyboard_la-csd-keyboard-xkb.lo: csd-keyboard-xkb.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -MT libkeyboard_la-csd-keyboard-xkb.lo -MD -MP -MF $(DEPDIR)/libkeyboard_la-csd-keyboard-xkb.Tpo -c -o libkeyboard_la-csd-keyboard-xkb.lo `test -f 'csd-keyboard-xkb.c' || echo '$(srcdir)/'`csd-keyboard-xkb.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libkeyboard_la-csd-keyboard-xkb.Tpo $(DEPDIR)/libkeyboard_la-csd-keyboard-xkb.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-keyboard-xkb.c' object='libkeyboard_la-csd-keyboard-xkb.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -c -o libkeyboard_la-gsd-keyboard-xkb.lo `test -f 'gsd-keyboard-xkb.c' || echo '$(srcdir)/'`gsd-keyboard-xkb.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -c -o libkeyboard_la-csd-keyboard-xkb.lo `test -f 'csd-keyboard-xkb.c' || echo '$(srcdir)/'`csd-keyboard-xkb.c
 
 libkeyboard_la-delayed-dialog.lo: delayed-dialog.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libkeyboard_la_CPPFLAGS) $(CPPFLAGS) $(libkeyboard_la_CFLAGS) $(CFLAGS) -MT libkeyboard_la-delayed-dialog.lo -MD -MP -MF $(DEPDIR)/libkeyboard_la-delayed-dialog.Tpo -c -o libkeyboard_la-delayed-dialog.lo `test -f 'delayed-dialog.c' || echo '$(srcdir)/'`delayed-dialog.c
@@ -785,7 +785,7 @@ uninstall-am: uninstall-iconsDATA uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

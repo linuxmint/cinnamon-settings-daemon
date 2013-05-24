@@ -36,12 +36,12 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-dummy-manager.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-dummy-manager.h"
 
-#define GSD_DUMMY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerPrivate))
+#define CSD_DUMMY_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_DUMMY_MANAGER, CsdDummyManagerPrivate))
 
-struct GsdDummyManagerPrivate
+struct CsdDummyManagerPrivate
 {
         gboolean padding;
 };
@@ -50,32 +50,32 @@ enum {
         PROP_0,
 };
 
-static void     gsd_dummy_manager_class_init  (GsdDummyManagerClass *klass);
-static void     gsd_dummy_manager_init        (GsdDummyManager      *dummy_manager);
-static void     gsd_dummy_manager_finalize    (GObject             *object);
+static void     csd_dummy_manager_class_init  (CsdDummyManagerClass *klass);
+static void     csd_dummy_manager_init        (CsdDummyManager      *dummy_manager);
+static void     csd_dummy_manager_finalize    (GObject             *object);
 
-G_DEFINE_TYPE (GsdDummyManager, gsd_dummy_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdDummyManager, csd_dummy_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
 gboolean
-gsd_dummy_manager_start (GsdDummyManager *manager,
+csd_dummy_manager_start (CsdDummyManager *manager,
                                GError               **error)
 {
         g_debug ("Starting dummy manager");
-        gnome_settings_profile_start (NULL);
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_start (NULL);
+        cinnamon_settings_profile_end (NULL);
         return TRUE;
 }
 
 void
-gsd_dummy_manager_stop (GsdDummyManager *manager)
+csd_dummy_manager_stop (CsdDummyManager *manager)
 {
         g_debug ("Stopping dummy manager");
 }
 
 static void
-gsd_dummy_manager_set_property (GObject        *object,
+csd_dummy_manager_set_property (GObject        *object,
                                guint           prop_id,
                                const GValue   *value,
                                GParamSpec     *pspec)
@@ -88,7 +88,7 @@ gsd_dummy_manager_set_property (GObject        *object,
 }
 
 static void
-gsd_dummy_manager_get_property (GObject        *object,
+csd_dummy_manager_get_property (GObject        *object,
                                guint           prop_id,
                                GValue         *value,
                                GParamSpec     *pspec)
@@ -101,13 +101,13 @@ gsd_dummy_manager_get_property (GObject        *object,
 }
 
 static GObject *
-gsd_dummy_manager_constructor (GType                  type,
+csd_dummy_manager_constructor (GType                  type,
                               guint                  n_construct_properties,
                               GObjectConstructParam *construct_properties)
 {
-        GsdDummyManager      *dummy_manager;
+        CsdDummyManager      *dummy_manager;
 
-        dummy_manager = GSD_DUMMY_MANAGER (G_OBJECT_CLASS (gsd_dummy_manager_parent_class)->constructor (type,
+        dummy_manager = CSD_DUMMY_MANAGER (G_OBJECT_CLASS (csd_dummy_manager_parent_class)->constructor (type,
                                                                                                       n_construct_properties,
                                                                                                       construct_properties));
 
@@ -115,57 +115,57 @@ gsd_dummy_manager_constructor (GType                  type,
 }
 
 static void
-gsd_dummy_manager_dispose (GObject *object)
+csd_dummy_manager_dispose (GObject *object)
 {
-        G_OBJECT_CLASS (gsd_dummy_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (csd_dummy_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_dummy_manager_class_init (GsdDummyManagerClass *klass)
+csd_dummy_manager_class_init (CsdDummyManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->get_property = gsd_dummy_manager_get_property;
-        object_class->set_property = gsd_dummy_manager_set_property;
-        object_class->constructor = gsd_dummy_manager_constructor;
-        object_class->dispose = gsd_dummy_manager_dispose;
-        object_class->finalize = gsd_dummy_manager_finalize;
+        object_class->get_property = csd_dummy_manager_get_property;
+        object_class->set_property = csd_dummy_manager_set_property;
+        object_class->constructor = csd_dummy_manager_constructor;
+        object_class->dispose = csd_dummy_manager_dispose;
+        object_class->finalize = csd_dummy_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdDummyManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdDummyManagerPrivate));
 }
 
 static void
-gsd_dummy_manager_init (GsdDummyManager *manager)
+csd_dummy_manager_init (CsdDummyManager *manager)
 {
-        manager->priv = GSD_DUMMY_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_DUMMY_MANAGER_GET_PRIVATE (manager);
 
 }
 
 static void
-gsd_dummy_manager_finalize (GObject *object)
+csd_dummy_manager_finalize (GObject *object)
 {
-        GsdDummyManager *dummy_manager;
+        CsdDummyManager *dummy_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_DUMMY_MANAGER (object));
+        g_return_if_fail (CSD_IS_DUMMY_MANAGER (object));
 
-        dummy_manager = GSD_DUMMY_MANAGER (object);
+        dummy_manager = CSD_DUMMY_MANAGER (object);
 
         g_return_if_fail (dummy_manager->priv != NULL);
 
-        G_OBJECT_CLASS (gsd_dummy_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_dummy_manager_parent_class)->finalize (object);
 }
 
-GsdDummyManager *
-gsd_dummy_manager_new (void)
+CsdDummyManager *
+csd_dummy_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_DUMMY_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_DUMMY_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_DUMMY_MANAGER (manager_object);
+        return CSD_DUMMY_MANAGER (manager_object);
 }

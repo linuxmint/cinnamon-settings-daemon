@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8; tab-width: 8 -*-
  *
- * On-screen-display (OSD) window for gnome-settings-daemon's plugins
+ * On-screen-display (OSD) window for cinnamon-settings-daemon's plugins
  *
  * Copyright (C) 2006 William Jon McCann <mccann@jhu.edu> 
  * Copyright (C) 2009 Novell, Inc
@@ -27,18 +27,18 @@
  *
  */
 
-/* GsdOsdWindow is an "on-screen-display" window (OSD).  It is the cute,
+/* CsdOsdWindow is an "on-screen-display" window (OSD).  It is the cute,
  * semi-transparent, curved popup that appears when you press a hotkey global to
  * the desktop, such as to change the volume, switch your monitor's parameters,
  * etc.
  *
- * You can create a GsdOsdWindow and use it as a normal GtkWindow.  It will
+ * You can create a CsdOsdWindow and use it as a normal GtkWindow.  It will
  * automatically center itself, figure out if it needs to be composited, etc.
  * Just pack your widgets in it, sit back, and enjoy the ride.
  */
 
-#ifndef GSD_OSD_WINDOW_PRIVATE_H
-#define GSD_OSD_WINDOW_PRIVATE_H
+#ifndef CSD_OSD_WINDOW_PRIVATE_H
+#define CSD_OSD_WINDOW_PRIVATE_H
 
 #include <glib-object.h>
 #include <cairo.h>
@@ -54,16 +54,16 @@ typedef struct {
         GtkStyleContext    *style;
         GtkTextDirection    direction;
 
-        GsdOsdWindowAction  action;
+        CsdOsdWindowAction  action;
         GtkIconTheme       *theme;
         const char         *icon_name;
 
         gboolean            show_level;
         int                 volume_level;
         guint               volume_muted : 1;
-} GsdOsdDrawContext;
+} CsdOsdDrawContext;
 
-void gsd_osd_window_draw (GsdOsdDrawContext *ctx, cairo_t *cr);
+void csd_osd_window_draw (CsdOsdDrawContext *ctx, cairo_t *cr);
 
 G_END_DECLS
 

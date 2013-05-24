@@ -18,42 +18,42 @@
  *
  */
 
-#ifndef __GSD_PRINT_NOTIFICATIONS_PLUGIN_H__
-#define __GSD_PRINT_NOTIFICATIONS_PLUGIN_H__
+#ifndef __CSD_PRINT_NOTIFICATIONS_PLUGIN_H__
+#define __CSD_PRINT_NOTIFICATIONS_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN                (gsd_print_notifications_plugin_get_type ())
-#define GSD_PRINT_NOTIFICATIONS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, GsdPrintNotificationsPlugin))
-#define GSD_PRINT_NOTIFICATIONS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, GsdPrintNotificationsPluginClass))
-#define GSD_IS_PRINT_NOTIFICATIONS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN))
-#define GSD_IS_PRINT_NOTIFICATIONS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN))
-#define GSD_PRINT_NOTIFICATIONS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, GsdPrintNotificationsPluginClass))
+#define CSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN                (csd_print_notifications_plugin_get_type ())
+#define CSD_PRINT_NOTIFICATIONS_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, CsdPrintNotificationsPlugin))
+#define CSD_PRINT_NOTIFICATIONS_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, CsdPrintNotificationsPluginClass))
+#define CSD_IS_PRINT_NOTIFICATIONS_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN))
+#define CSD_IS_PRINT_NOTIFICATIONS_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN))
+#define CSD_PRINT_NOTIFICATIONS_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_PRINT_NOTIFICATIONS_PLUGIN, CsdPrintNotificationsPluginClass))
 
-typedef struct GsdPrintNotificationsPluginPrivate GsdPrintNotificationsPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin                 parent;
-        GsdPrintNotificationsPluginPrivate *priv;
-} GsdPrintNotificationsPlugin;
+typedef struct CsdPrintNotificationsPluginPrivate CsdPrintNotificationsPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdPrintNotificationsPluginClass;
+        CinnamonSettingsSettingsPlugin                 parent;
+        CsdPrintNotificationsPluginPrivate *priv;
+} CsdPrintNotificationsPlugin;
 
-GType   gsd_print_notifications_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdPrintNotificationsPluginClass;
+
+GType   csd_print_notifications_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_PRINT_NOTIFICATIONS_PLUGIN_H__ */
+#endif /* __CSD_PRINT_NOTIFICATIONS_PLUGIN_H__ */

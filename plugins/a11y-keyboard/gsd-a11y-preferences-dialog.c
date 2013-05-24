@@ -31,16 +31,16 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
-#include "gsd-a11y-preferences-dialog.h"
+#include "csd-a11y-preferences-dialog.h"
 
 #define SM_DBUS_NAME      "org.gnome.SessionManager"
 #define SM_DBUS_PATH      "/org/gnome/SessionManager"
 #define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 
 
-#define GSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_A11Y_PREFERENCES_DIALOG, GsdA11yPreferencesDialogPrivate))
+#define CSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_A11Y_PREFERENCES_DIALOG, CsdA11yPreferencesDialogPrivate))
 
-#define GTKBUILDER_UI_FILE "gsd-a11y-preferences-dialog.ui"
+#define GTKBUILDER_UI_FILE "csd-a11y-preferences-dialog.ui"
 
 #define INTERFACE_SCHEMA          "org.gnome.desktop.interface"
 #define KEY_TEXT_SCALING_FACTOR   "text-scaling-factor"
@@ -65,7 +65,7 @@
 
 #define HIGH_CONTRAST_THEME    "HighContrast"
 
-struct GsdA11yPreferencesDialogPrivate
+struct CsdA11yPreferencesDialogPrivate
 {
         GtkWidget *large_print_checkbutton;
         GtkWidget *high_contrast_checkbutton;
@@ -79,20 +79,20 @@ enum {
         PROP_0,
 };
 
-static void     gsd_a11y_preferences_dialog_class_init  (GsdA11yPreferencesDialogClass *klass);
-static void     gsd_a11y_preferences_dialog_init        (GsdA11yPreferencesDialog      *a11y_preferences_dialog);
-static void     gsd_a11y_preferences_dialog_finalize    (GObject                       *object);
+static void     csd_a11y_preferences_dialog_class_init  (CsdA11yPreferencesDialogClass *klass);
+static void     csd_a11y_preferences_dialog_init        (CsdA11yPreferencesDialog      *a11y_preferences_dialog);
+static void     csd_a11y_preferences_dialog_finalize    (GObject                       *object);
 
-G_DEFINE_TYPE (GsdA11yPreferencesDialog, gsd_a11y_preferences_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE (CsdA11yPreferencesDialog, csd_a11y_preferences_dialog, GTK_TYPE_DIALOG)
 
 static GObject *
-gsd_a11y_preferences_dialog_constructor (GType                  type,
+csd_a11y_preferences_dialog_constructor (GType                  type,
                                          guint                  n_construct_properties,
                                          GObjectConstructParam *construct_properties)
 {
-        GsdA11yPreferencesDialog      *a11y_preferences_dialog;
+        CsdA11yPreferencesDialog      *a11y_preferences_dialog;
 
-        a11y_preferences_dialog = GSD_A11Y_PREFERENCES_DIALOG (G_OBJECT_CLASS (gsd_a11y_preferences_dialog_parent_class)->constructor (type,
+        a11y_preferences_dialog = CSD_A11Y_PREFERENCES_DIALOG (G_OBJECT_CLASS (csd_a11y_preferences_dialog_parent_class)->constructor (type,
                                                                                                                                        n_construct_properties,
                                                                                                                                        construct_properties));
 
@@ -100,18 +100,18 @@ gsd_a11y_preferences_dialog_constructor (GType                  type,
 }
 
 static void
-gsd_a11y_preferences_dialog_class_init (GsdA11yPreferencesDialogClass *klass)
+csd_a11y_preferences_dialog_class_init (CsdA11yPreferencesDialogClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_a11y_preferences_dialog_constructor;
-        object_class->finalize = gsd_a11y_preferences_dialog_finalize;
+        object_class->constructor = csd_a11y_preferences_dialog_constructor;
+        object_class->finalize = csd_a11y_preferences_dialog_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdA11yPreferencesDialogPrivate));
+        g_type_class_add_private (klass, sizeof (CsdA11yPreferencesDialogPrivate));
 }
 
 static void
-on_response (GsdA11yPreferencesDialog *dialog,
+on_response (CsdA11yPreferencesDialog *dialog,
              gint                      response_id)
 {
         switch (response_id) {
@@ -121,7 +121,7 @@ on_response (GsdA11yPreferencesDialog *dialog,
 }
 
 static gboolean
-config_get_large_print (GsdA11yPreferencesDialog *dialog,
+config_get_large_print (CsdA11yPreferencesDialog *dialog,
 			gboolean                 *is_writable)
 {
         gboolean     ret;
@@ -137,7 +137,7 @@ config_get_large_print (GsdA11yPreferencesDialog *dialog,
 }
 
 static void
-config_set_large_print (GsdA11yPreferencesDialog *dialog,
+config_set_large_print (CsdA11yPreferencesDialog *dialog,
 			gboolean                  enabled)
 {
         if (enabled)
@@ -147,7 +147,7 @@ config_set_large_print (GsdA11yPreferencesDialog *dialog,
 }
 
 static gboolean
-config_get_high_contrast (GsdA11yPreferencesDialog *dialog)
+config_get_high_contrast (CsdA11yPreferencesDialog *dialog)
 {
         gboolean ret;
         char    *gtk_theme;
@@ -240,20 +240,20 @@ config_have_at_gsettings_condition (const char *condition)
 
 static void
 on_high_contrast_checkbutton_toggled (GtkToggleButton          *button,
-                                      GsdA11yPreferencesDialog *dialog)
+                                      CsdA11yPreferencesDialog *dialog)
 {
         config_set_high_contrast (gtk_toggle_button_get_active (button));
 }
 
 static void
 on_large_print_checkbutton_toggled (GtkToggleButton          *button,
-                                    GsdA11yPreferencesDialog *dialog)
+                                    CsdA11yPreferencesDialog *dialog)
 {
         config_set_large_print (dialog, gtk_toggle_button_get_active (button));
 }
 
 static void
-ui_set_high_contrast (GsdA11yPreferencesDialog *dialog,
+ui_set_high_contrast (CsdA11yPreferencesDialog *dialog,
                       gboolean                  enabled)
 {
         gboolean active;
@@ -265,7 +265,7 @@ ui_set_high_contrast (GsdA11yPreferencesDialog *dialog,
 }
 
 static void
-ui_set_large_print (GsdA11yPreferencesDialog *dialog,
+ui_set_large_print (CsdA11yPreferencesDialog *dialog,
                     gboolean                  enabled)
 {
         gboolean active;
@@ -277,7 +277,7 @@ ui_set_large_print (GsdA11yPreferencesDialog *dialog,
 }
 
 static void
-setup_dialog (GsdA11yPreferencesDialog *dialog,
+setup_dialog (CsdA11yPreferencesDialog *dialog,
               GtkBuilder               *builder)
 {
         GtkWidget   *widget;
@@ -380,14 +380,14 @@ setup_dialog (GsdA11yPreferencesDialog *dialog,
 }
 
 static void
-gsd_a11y_preferences_dialog_init (GsdA11yPreferencesDialog *dialog)
+csd_a11y_preferences_dialog_init (CsdA11yPreferencesDialog *dialog)
 {
         static const gchar *ui_file_path = GTKBUILDERDIR "/" GTKBUILDER_UI_FILE;
         gchar *objects[] = {"main_box", NULL};
         GError *error = NULL;
         GtkBuilder  *builder;
 
-        dialog->priv = GSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE (dialog);
+        dialog->priv = CSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE (dialog);
 
         builder = gtk_builder_new ();
         gtk_builder_set_translation_domain (builder, PACKAGE);
@@ -429,14 +429,14 @@ gsd_a11y_preferences_dialog_init (GsdA11yPreferencesDialog *dialog)
 }
 
 static void
-gsd_a11y_preferences_dialog_finalize (GObject *object)
+csd_a11y_preferences_dialog_finalize (GObject *object)
 {
-        GsdA11yPreferencesDialog *dialog;
+        CsdA11yPreferencesDialog *dialog;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_A11Y_PREFERENCES_DIALOG (object));
+        g_return_if_fail (CSD_IS_A11Y_PREFERENCES_DIALOG (object));
 
-        dialog = GSD_A11Y_PREFERENCES_DIALOG (object);
+        dialog = CSD_A11Y_PREFERENCES_DIALOG (object);
 
         g_return_if_fail (dialog->priv != NULL);
 
@@ -444,15 +444,15 @@ gsd_a11y_preferences_dialog_finalize (GObject *object)
         g_object_unref (dialog->priv->interface_settings);
         g_object_unref (dialog->priv->apps_settings);
 
-        G_OBJECT_CLASS (gsd_a11y_preferences_dialog_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_a11y_preferences_dialog_parent_class)->finalize (object);
 }
 
 GtkWidget *
-gsd_a11y_preferences_dialog_new (void)
+csd_a11y_preferences_dialog_new (void)
 {
         GObject *object;
 
-        object = g_object_new (GSD_TYPE_A11Y_PREFERENCES_DIALOG,
+        object = g_object_new (CSD_TYPE_A11Y_PREFERENCES_DIALOG,
                                NULL);
 
         return GTK_WIDGET (object);

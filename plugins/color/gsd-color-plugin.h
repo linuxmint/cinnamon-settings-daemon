@@ -19,42 +19,42 @@
  *
  */
 
-#ifndef __GSD_COLOR_PLUGIN_H__
-#define __GSD_COLOR_PLUGIN_H__
+#ifndef __CSD_COLOR_PLUGIN_H__
+#define __CSD_COLOR_PLUGIN_H__
 
 #include <glib.h>
 #include <glib-object.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_COLOR_PLUGIN                (gsd_color_plugin_get_type ())
-#define GSD_COLOR_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_COLOR_PLUGIN, GsdColorPlugin))
-#define GSD_COLOR_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_COLOR_PLUGIN, GsdColorPluginClass))
-#define GSD_IS_COLOR_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_COLOR_PLUGIN))
-#define GSD_IS_COLOR_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_COLOR_PLUGIN))
-#define GSD_COLOR_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_COLOR_PLUGIN, GsdColorPluginClass))
+#define CSD_TYPE_COLOR_PLUGIN                (csd_color_plugin_get_type ())
+#define CSD_COLOR_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_COLOR_PLUGIN, CsdColorPlugin))
+#define CSD_COLOR_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_COLOR_PLUGIN, CsdColorPluginClass))
+#define CSD_IS_COLOR_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_COLOR_PLUGIN))
+#define CSD_IS_COLOR_PLUGIN_CLASS(k)         (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_COLOR_PLUGIN))
+#define CSD_COLOR_PLUGIN_GET_CLASS(o)        (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_COLOR_PLUGIN, CsdColorPluginClass))
 
-typedef struct GsdColorPluginPrivate GsdColorPluginPrivate;
-
-typedef struct
-{
-        GnomeSettingsPlugin    parent;
-        GsdColorPluginPrivate *priv;
-} GsdColorPlugin;
+typedef struct CsdColorPluginPrivate CsdColorPluginPrivate;
 
 typedef struct
 {
-        GnomeSettingsPluginClass parent_class;
-} GsdColorPluginClass;
+        CinnamonSettingsSettingsPlugin    parent;
+        CsdColorPluginPrivate *priv;
+} CsdColorPlugin;
 
-GType   gsd_color_plugin_get_type            (void) G_GNUC_CONST;
+typedef struct
+{
+        CinnamonSettingsSettingsPluginClass parent_class;
+} CsdColorPluginClass;
+
+GType   csd_color_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);
 
 G_END_DECLS
 
-#endif /* __GSD_COLOR_PLUGIN_H__ */
+#endif /* __CSD_COLOR_PLUGIN_H__ */

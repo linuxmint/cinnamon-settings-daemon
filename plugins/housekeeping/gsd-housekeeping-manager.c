@@ -23,9 +23,9 @@
 #include <glib/gstdio.h>
 #include <string.h>
 
-#include "gnome-settings-profile.h"
-#include "gsd-housekeeping-manager.h"
-#include "gsd-disk-space.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-housekeeping-manager.h"
+#include "csd-disk-space.h"
 
 
 /* General */
@@ -38,19 +38,19 @@
 #define THUMB_AGE_KEY "maximum-age"
 #define THUMB_SIZE_KEY "maximum-size"
 
-struct GsdHousekeepingManagerPrivate {
+struct CsdHousekeepingManagerPrivate {
         GSettings *settings;
         guint long_term_cb;
         guint short_term_cb;
 };
 
 
-#define GSD_HOUSEKEEPING_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_HOUSEKEEPING_MANAGER, GsdHousekeepingManagerPrivate))
+#define CSD_HOUSEKEEPING_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_HOUSEKEEPING_MANAGER, CsdHousekeepingManagerPrivate))
 
-static void     gsd_housekeeping_manager_class_init  (GsdHousekeepingManagerClass *klass);
-static void     gsd_housekeeping_manager_init        (GsdHousekeepingManager      *housekeeping_manager);
+static void     csd_housekeeping_manager_class_init  (CsdHousekeepingManagerClass *klass);
+static void     csd_housekeeping_manager_init        (CsdHousekeepingManager      *housekeeping_manager);
 
-G_DEFINE_TYPE (GsdHousekeepingManager, gsd_housekeeping_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdHousekeepingManager, csd_housekeeping_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -201,7 +201,7 @@ get_thumbnail_dirs (void)
 }
 
 static void
-purge_thumbnail_cache (GsdHousekeepingManager *manager)
+purge_thumbnail_cache (CsdHousekeepingManager *manager)
 {
 
         char     **paths;
@@ -243,14 +243,14 @@ purge_thumbnail_cache (GsdHousekeepingManager *manager)
 }
 
 static gboolean
-do_cleanup (GsdHousekeepingManager *manager)
+do_cleanup (CsdHousekeepingManager *manager)
 {
         purge_thumbnail_cache (manager);
         return TRUE;
 }
 
 static gboolean
-do_cleanup_once (GsdHousekeepingManager *manager)
+do_cleanup_once (CsdHousekeepingManager *manager)
 {
         do_cleanup (manager);
         manager->priv->short_term_cb = 0;
@@ -258,7 +258,7 @@ do_cleanup_once (GsdHousekeepingManager *manager)
 }
 
 static void
-do_cleanup_soon (GsdHousekeepingManager *manager)
+do_cleanup_soon (CsdHousekeepingManager *manager)
 {
         if (manager->priv->short_term_cb == 0) {
                 g_debug ("housekeeping: will tidy up in 2 minutes");
@@ -271,19 +271,19 @@ do_cleanup_soon (GsdHousekeepingManager *manager)
 static void
 settings_changed_callback (GSettings              *settings,
                            const char             *key,
-                           GsdHousekeepingManager *manager)
+                           CsdHousekeepingManager *manager)
 {
         do_cleanup_soon (manager);
 }
 
 gboolean
-gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
+csd_housekeeping_manager_start (CsdHousekeepingManager *manager,
                                 GError                **error)
 {
         g_debug ("Starting housekeeping manager");
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
-        gsd_ldsm_setup (FALSE);
+        csd_ldsm_setup (FALSE);
 
         manager->priv->settings = g_settings_new (THUMB_PREFIX);
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
@@ -297,15 +297,15 @@ gsd_housekeeping_manager_start (GsdHousekeepingManager *manager,
                                       (GSourceFunc) do_cleanup,
                                       manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
+csd_housekeeping_manager_stop (CsdHousekeepingManager *manager)
 {
-        GsdHousekeepingManagerPrivate *p = manager->priv;
+        CsdHousekeepingManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping housekeeping manager");
 
@@ -329,31 +329,31 @@ gsd_housekeeping_manager_stop (GsdHousekeepingManager *manager)
                 p->settings = NULL;
         }
 
-        gsd_ldsm_clean ();
+        csd_ldsm_clean ();
 }
 
 static void
-gsd_housekeeping_manager_class_init (GsdHousekeepingManagerClass *klass)
+csd_housekeeping_manager_class_init (CsdHousekeepingManagerClass *klass)
 {
-        g_type_class_add_private (klass, sizeof (GsdHousekeepingManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdHousekeepingManagerPrivate));
 }
 
 static void
-gsd_housekeeping_manager_init (GsdHousekeepingManager *manager)
+csd_housekeeping_manager_init (CsdHousekeepingManager *manager)
 {
-        manager->priv = GSD_HOUSEKEEPING_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_HOUSEKEEPING_MANAGER_GET_PRIVATE (manager);
 }
 
-GsdHousekeepingManager *
-gsd_housekeeping_manager_new (void)
+CsdHousekeepingManager *
+csd_housekeeping_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_HOUSEKEEPING_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_HOUSEKEEPING_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_HOUSEKEEPING_MANAGER (manager_object);
+        return CSD_HOUSEKEEPING_MANAGER (manager_object);
 }

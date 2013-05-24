@@ -23,7 +23,7 @@
 
 #include "config.h"
 #include <gtk/gtk.h>
-#include "gsd-disk-space.h"
+#include "csd-disk-space.h"
 
 int
 main (int    argc,
@@ -35,7 +35,7 @@ main (int    argc,
 
         loop = g_main_loop_new (NULL, FALSE);
 
-        gsd_ldsm_show_empty_trash ();
+        csd_ldsm_show_empty_trash ();
         g_main_loop_run (loop);
 
         g_main_loop_unref (loop);

@@ -33,9 +33,9 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
 
-#include "gsd-input-helper.h"
-#include "gnome-settings-profile.h"
-#include "gsd-orientation-manager.h"
+#include "csd-input-helper.h"
+#include "cinnamon-settings-profile.h"
+#include "csd-orientation-manager.h"
 
 typedef enum {
         ORIENTATION_UNDEFINED,
@@ -45,9 +45,9 @@ typedef enum {
         ORIENTATION_RIGHT_UP
 } OrientationUp;
 
-#define GSD_ORIENTATION_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_ORIENTATION_MANAGER, GsdOrientationManagerPrivate))
+#define CSD_ORIENTATION_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_ORIENTATION_MANAGER, CsdOrientationManagerPrivate))
 
-struct GsdOrientationManagerPrivate
+struct CsdOrientationManagerPrivate
 {
         guint start_idle_id;
 
@@ -70,21 +70,21 @@ struct GsdOrientationManagerPrivate
 #define CONF_SCHEMA "org.gnome.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
 
-#define GSD_DBUS_PATH "/org/gnome/SettingsDaemon"
-#define GSD_ORIENTATION_DBUS_PATH GSD_DBUS_PATH "/Orientation"
+#define CSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define CSD_ORIENTATION_DBUS_PATH CSD_DBUS_PATH "/Orientation"
 
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.Orientation'>"
-"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='gsd_orientation_manager'/>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_orientation_manager'/>"
 "  </interface>"
 "</node>";
 
-static void     gsd_orientation_manager_class_init  (GsdOrientationManagerClass *klass);
-static void     gsd_orientation_manager_init        (GsdOrientationManager      *orientation_manager);
-static void     gsd_orientation_manager_finalize    (GObject                    *object);
+static void     csd_orientation_manager_class_init  (CsdOrientationManagerClass *klass);
+static void     csd_orientation_manager_init        (CsdOrientationManager      *orientation_manager);
+static void     csd_orientation_manager_finalize    (GObject                    *object);
 
-G_DEFINE_TYPE (GsdOrientationManager, gsd_orientation_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdOrientationManager, csd_orientation_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -94,16 +94,16 @@ static gpointer manager_object = NULL;
 static gboolean is_mpu6050 = FALSE;
 static char *mpu6050_accel_x = NULL;
 static char *mpu6050_accel_y = NULL;
-static gboolean mpu_timer(GsdOrientationManager *manager);
+static gboolean mpu_timer(CsdOrientationManager *manager);
 
 static GObject *
-gsd_orientation_manager_constructor (GType                     type,
+csd_orientation_manager_constructor (GType                     type,
                                guint                      n_construct_properties,
                                GObjectConstructParam     *construct_properties)
 {
-        GsdOrientationManager      *orientation_manager;
+        CsdOrientationManager      *orientation_manager;
 
-        orientation_manager = GSD_ORIENTATION_MANAGER (G_OBJECT_CLASS (gsd_orientation_manager_parent_class)->constructor (type,
+        orientation_manager = CSD_ORIENTATION_MANAGER (G_OBJECT_CLASS (csd_orientation_manager_parent_class)->constructor (type,
                                                                                                          n_construct_properties,
                                                                                                          construct_properties));
 
@@ -111,31 +111,31 @@ gsd_orientation_manager_constructor (GType                     type,
 }
 
 static void
-gsd_orientation_manager_dispose (GObject *object)
+csd_orientation_manager_dispose (GObject *object)
 {
-        G_OBJECT_CLASS (gsd_orientation_manager_parent_class)->dispose (object);
+        G_OBJECT_CLASS (csd_orientation_manager_parent_class)->dispose (object);
 }
 
 static void
-gsd_orientation_manager_class_init (GsdOrientationManagerClass *klass)
+csd_orientation_manager_class_init (CsdOrientationManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = gsd_orientation_manager_constructor;
-        object_class->dispose = gsd_orientation_manager_dispose;
-        object_class->finalize = gsd_orientation_manager_finalize;
+        object_class->constructor = csd_orientation_manager_constructor;
+        object_class->dispose = csd_orientation_manager_dispose;
+        object_class->finalize = csd_orientation_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdOrientationManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdOrientationManagerPrivate));
 }
 
 static void
-gsd_orientation_manager_init (GsdOrientationManager *manager)
+csd_orientation_manager_init (CsdOrientationManager *manager)
 {
-        manager->priv = GSD_ORIENTATION_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_ORIENTATION_MANAGER_GET_PRIVATE (manager);
         manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
 }
 
-static GnomeRRRotation
+static CinnamonSettingsRRRotation
 orientation_to_rotation (OrientationUp    orientation)
 {
         switch (orientation) {
@@ -206,7 +206,7 @@ get_orientation_from_device (GUdevDevice *dev)
 static void
 on_xrandr_action_call_finished (GObject               *source_object,
                                 GAsyncResult          *res,
-                                GsdOrientationManager *manager)
+                                CsdOrientationManager *manager)
 {
         GError *error = NULL;
         GVariant *variant;
@@ -225,10 +225,10 @@ on_xrandr_action_call_finished (GObject               *source_object,
 }
 
 static void
-do_xrandr_action (GsdOrientationManager *manager,
-                  GnomeRRRotation        rotation)
+do_xrandr_action (CsdOrientationManager *manager,
+                  CinnamonSettingsRRRotation        rotation)
 {
-        GsdOrientationManagerPrivate *priv = manager->priv;
+        CsdOrientationManagerPrivate *priv = manager->priv;
         GTimeVal tv;
         gint64 timestamp;
 
@@ -258,9 +258,9 @@ do_xrandr_action (GsdOrientationManager *manager,
 }
 
 static void
-do_rotation (GsdOrientationManager *manager)
+do_rotation (CsdOrientationManager *manager)
 {
-        GnomeRRRotation rotation;
+        CinnamonSettingsRRRotation rotation;
 
         if (manager->priv->orientation_lock) {
                 g_debug ("Orientation changed, but we are locked");
@@ -280,7 +280,7 @@ static void
 client_uevent_cb (GUdevClient           *client,
                   gchar                 *action,
                   GUdevDevice           *device,
-                  GsdOrientationManager *manager)
+                  CsdOrientationManager *manager)
 {
         const char *sysfs_path;
         OrientationUp orientation;
@@ -312,7 +312,7 @@ client_uevent_cb (GUdevClient           *client,
 static void
 orientation_lock_changed_cb (GSettings             *settings,
                              gchar                 *key,
-                             GsdOrientationManager *manager)
+                             CsdOrientationManager *manager)
 {
         gboolean new;
 
@@ -335,7 +335,7 @@ orientation_lock_changed_cb (GSettings             *settings,
 static void
 xrandr_ready_cb (GObject               *source_object,
                  GAsyncResult          *res,
-                 GsdOrientationManager *manager)
+                 CsdOrientationManager *manager)
 {
         GError *error = NULL;
 
@@ -349,7 +349,7 @@ xrandr_ready_cb (GObject               *source_object,
 static void
 on_bus_gotten (GObject               *source_object,
                GAsyncResult          *res,
-               GsdOrientationManager *manager)
+               CsdOrientationManager *manager)
 {
         GDBusConnection *connection;
         GError *error = NULL;
@@ -363,7 +363,7 @@ on_bus_gotten (GObject               *source_object,
         manager->priv->connection = connection;
 
         g_dbus_connection_register_object (connection,
-                                           GSD_ORIENTATION_DBUS_PATH,
+                                           CSD_ORIENTATION_DBUS_PATH,
                                            manager->priv->introspection_data->interfaces[0],
                                            NULL,
                                            NULL,
@@ -437,7 +437,7 @@ static int read_sysfs_attr_as_int(const char *filename) {
 	return i;
 }
 
-static gboolean mpu_timer(GsdOrientationManager *manager) {
+static gboolean mpu_timer(CsdOrientationManager *manager) {
 	int x, y;
 	static gboolean first = TRUE;
 	OrientationUp orientation = manager->priv->prev_orientation;
@@ -470,12 +470,12 @@ static gboolean mpu_timer(GsdOrientationManager *manager) {
 }
 
 static gboolean
-gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
+csd_orientation_manager_idle_cb (CsdOrientationManager *manager)
 {
         const char * const subsystems[] = { "input", NULL };
         GUdevDevice *dev;
 
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new (CONF_SCHEMA);
         manager->priv->orientation_lock = g_settings_get_boolean (manager->priv->settings, ORIENTATION_LOCK_KEY);
@@ -486,7 +486,7 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         dev = get_accelerometer (manager->priv->client);
         if (dev == NULL) {
                 g_debug ("Did not find an accelerometer");
-                gnome_settings_profile_end (NULL);
+                cinnamon_settings_profile_end (NULL);
                 return FALSE;
         }
         manager->priv->sysfs_path = g_strdup (g_udev_device_get_sysfs_path (dev));
@@ -514,31 +514,31 @@ gsd_orientation_manager_idle_cb (GsdOrientationManager *manager)
         g_signal_connect (G_OBJECT (manager->priv->client), "uevent",
                           G_CALLBACK (client_uevent_cb), manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return FALSE;
 }
 
 gboolean
-gsd_orientation_manager_start (GsdOrientationManager *manager,
+csd_orientation_manager_start (CsdOrientationManager *manager,
                          GError         **error)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_orientation_manager_idle_cb, manager);
+        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) csd_orientation_manager_idle_cb, manager);
 
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         g_assert (manager->priv->introspection_data != NULL);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
 
 void
-gsd_orientation_manager_stop (GsdOrientationManager *manager)
+csd_orientation_manager_stop (CsdOrientationManager *manager)
 {
-        GsdOrientationManagerPrivate *p = manager->priv;
+        CsdOrientationManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping orientation manager");
 
@@ -564,33 +564,33 @@ gsd_orientation_manager_stop (GsdOrientationManager *manager)
 }
 
 static void
-gsd_orientation_manager_finalize (GObject *object)
+csd_orientation_manager_finalize (GObject *object)
 {
-        GsdOrientationManager *orientation_manager;
+        CsdOrientationManager *orientation_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_ORIENTATION_MANAGER (object));
+        g_return_if_fail (CSD_IS_ORIENTATION_MANAGER (object));
 
-        orientation_manager = GSD_ORIENTATION_MANAGER (object);
+        orientation_manager = CSD_ORIENTATION_MANAGER (object);
 
         g_return_if_fail (orientation_manager->priv != NULL);
 
         if (orientation_manager->priv->start_idle_id != 0)
                 g_source_remove (orientation_manager->priv->start_idle_id);
 
-        G_OBJECT_CLASS (gsd_orientation_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_orientation_manager_parent_class)->finalize (object);
 }
 
-GsdOrientationManager *
-gsd_orientation_manager_new (void)
+CsdOrientationManager *
+csd_orientation_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_ORIENTATION_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_ORIENTATION_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_ORIENTATION_MANAGER (manager_object);
+        return CSD_ORIENTATION_MANAGER (manager_object);
 }

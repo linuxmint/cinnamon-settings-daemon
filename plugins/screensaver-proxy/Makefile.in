@@ -52,7 +52,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-libexec_PROGRAMS = gsd-test-screensaver-proxy$(EXEEXT)
+libexec_PROGRAMS = csd-test-screensaver-proxy$(EXEEXT)
 subdir = plugins/screensaver-proxy
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp $(top_srcdir)/mkinstalldirs
@@ -98,8 +98,8 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libscreensaver_proxy_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_libscreensaver_proxy_la_OBJECTS =  \
-	libscreensaver_proxy_la-gsd-screensaver-proxy-manager.lo \
-	libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.lo
+	libscreensaver_proxy_la-csd-screensaver-proxy-manager.lo \
+	libscreensaver_proxy_la-csd-screensaver-proxy-plugin.lo
 libscreensaver_proxy_la_OBJECTS =  \
 	$(am_libscreensaver_proxy_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -111,18 +111,18 @@ libscreensaver_proxy_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) \
 	$(libscreensaver_proxy_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(libexec_PROGRAMS)
-am_gsd_test_screensaver_proxy_OBJECTS =  \
-	gsd_test_screensaver_proxy-test-screensaver-proxy.$(OBJEXT) \
-	gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.$(OBJEXT)
-gsd_test_screensaver_proxy_OBJECTS =  \
-	$(am_gsd_test_screensaver_proxy_OBJECTS)
-gsd_test_screensaver_proxy_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+am_csd_test_screensaver_proxy_OBJECTS =  \
+	csd_test_screensaver_proxy-test-screensaver-proxy.$(OBJEXT) \
+	csd_test_screensaver_proxy-csd-screensaver-proxy-manager.$(OBJEXT)
+csd_test_screensaver_proxy_OBJECTS =  \
+	$(am_csd_test_screensaver_proxy_OBJECTS)
+csd_test_screensaver_proxy_DEPENDENCIES =  \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-gsd_test_screensaver_proxy_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+csd_test_screensaver_proxy_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -159,9 +159,9 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(libscreensaver_proxy_la_SOURCES) \
-	$(gsd_test_screensaver_proxy_SOURCES)
+	$(csd_test_screensaver_proxy_SOURCES)
 DIST_SOURCES = $(libscreensaver_proxy_la_SOURCES) \
-	$(gsd_test_screensaver_proxy_SOURCES)
+	$(csd_test_screensaver_proxy_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -230,9 +230,9 @@ GMSGFMT = @GMSGFMT@
 GNOME_DESKTOP_CFLAGS = @GNOME_DESKTOP_CFLAGS@
 GNOME_DESKTOP_LIBS = @GNOME_DESKTOP_LIBS@
 GREP = @GREP@
-GSD_API_VERSION = @GSD_API_VERSION@
-GSD_INTLTOOL_PLUGIN_RULE = @GSD_INTLTOOL_PLUGIN_RULE@
-GSD_PLUGIN_LDFLAGS = @GSD_PLUGIN_LDFLAGS@
+CSD_API_VERSION = @CSD_API_VERSION@
+CSD_INTLTOOL_PLUGIN_RULE = @CSD_INTLTOOL_PLUGIN_RULE@
+CSD_PLUGIN_LDFLAGS = @CSD_PLUGIN_LDFLAGS@
 GSETTINGS_DISABLE_SCHEMAS_COMPILE = @GSETTINGS_DISABLE_SCHEMAS_COMPILE@
 GUDEV_CFLAGS = @GUDEV_CFLAGS@
 GUDEV_LIBS = @GUDEV_LIBS@
@@ -392,14 +392,14 @@ top_srcdir = @top_srcdir@
 plugin_name = screensaver-proxy
 plugin_LTLIBRARIES = libscreensaver-proxy.la
 libscreensaver_proxy_la_SOURCES = \
-	gsd-screensaver-proxy-manager.c	\
-	gsd-screensaver-proxy-manager.h	\
-	gsd-screensaver-proxy-plugin.c	\
-	gsd-screensaver-proxy-plugin.h
+	csd-screensaver-proxy-manager.c	\
+	csd-screensaver-proxy-manager.h	\
+	csd-screensaver-proxy-plugin.c	\
+	csd-screensaver-proxy-plugin.h
 
 libscreensaver_proxy_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 libscreensaver_proxy_la_CFLAGS = \
@@ -407,34 +407,34 @@ libscreensaver_proxy_la_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-libscreensaver_proxy_la_LDFLAGS = $(GSD_PLUGIN_LDFLAGS)
+libscreensaver_proxy_la_LDFLAGS = $(CSD_PLUGIN_LDFLAGS)
 libscreensaver_proxy_la_LIBADD = $(SETTINGS_PLUGIN_LIBS)
-gsd_test_screensaver_proxy_SOURCES = \
+csd_test_screensaver_proxy_SOURCES = \
 	test-screensaver-proxy.c			\
-	gsd-screensaver-proxy-manager.c		\
-	gsd-screensaver-proxy-manager.h
+	csd-screensaver-proxy-manager.c		\
+	csd-screensaver-proxy-manager.h
 
-gsd_test_screensaver_proxy_CPPFLAGS = \
+csd_test_screensaver_proxy_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-gsd_test_screensaver_proxy_CFLAGS = \
+csd_test_screensaver_proxy_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-gsd_test_screensaver_proxy_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_screensaver_proxy_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_in_files = screensaver-proxy.gnome-settings-plugin.in
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_in_files = screensaver-proxy.cinnamon-settings-plugin.in
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 EXTRA_DIST = $(plugin_in_files)
 CLEANFILES = $(plugin_DATA)
 DISTCLEANFILES = $(plugin_DATA)
@@ -554,9 +554,9 @@ clean-libexecPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-gsd-test-screensaver-proxy$(EXEEXT): $(gsd_test_screensaver_proxy_OBJECTS) $(gsd_test_screensaver_proxy_DEPENDENCIES) $(EXTRA_gsd_test_screensaver_proxy_DEPENDENCIES) 
-	@rm -f gsd-test-screensaver-proxy$(EXEEXT)
-	$(AM_V_CCLD)$(gsd_test_screensaver_proxy_LINK) $(gsd_test_screensaver_proxy_OBJECTS) $(gsd_test_screensaver_proxy_LDADD) $(LIBS)
+csd-test-screensaver-proxy$(EXEEXT): $(csd_test_screensaver_proxy_OBJECTS) $(csd_test_screensaver_proxy_DEPENDENCIES) $(EXTRA_csd_test_screensaver_proxy_DEPENDENCIES) 
+	@rm -f csd-test-screensaver-proxy$(EXEEXT)
+	$(AM_V_CCLD)$(csd_test_screensaver_proxy_LINK) $(csd_test_screensaver_proxy_OBJECTS) $(csd_test_screensaver_proxy_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -564,10 +564,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gsd_test_screensaver_proxy-test-screensaver-proxy.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-manager.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_screensaver_proxy-csd-screensaver-proxy-manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/csd_test_screensaver_proxy-test-screensaver-proxy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -590,47 +590,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-libscreensaver_proxy_la-gsd-screensaver-proxy-manager.lo: gsd-screensaver-proxy-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -MT libscreensaver_proxy_la-gsd-screensaver-proxy-manager.lo -MD -MP -MF $(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-manager.Tpo -c -o libscreensaver_proxy_la-gsd-screensaver-proxy-manager.lo `test -f 'gsd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`gsd-screensaver-proxy-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-manager.Tpo $(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-manager.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-screensaver-proxy-manager.c' object='libscreensaver_proxy_la-gsd-screensaver-proxy-manager.lo' libtool=yes @AMDEPBACKSLASH@
+libscreensaver_proxy_la-csd-screensaver-proxy-manager.lo: csd-screensaver-proxy-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -MT libscreensaver_proxy_la-csd-screensaver-proxy-manager.lo -MD -MP -MF $(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-manager.Tpo -c -o libscreensaver_proxy_la-csd-screensaver-proxy-manager.lo `test -f 'csd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`csd-screensaver-proxy-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-manager.Tpo $(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-screensaver-proxy-manager.c' object='libscreensaver_proxy_la-csd-screensaver-proxy-manager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -c -o libscreensaver_proxy_la-gsd-screensaver-proxy-manager.lo `test -f 'gsd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`gsd-screensaver-proxy-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -c -o libscreensaver_proxy_la-csd-screensaver-proxy-manager.lo `test -f 'csd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`csd-screensaver-proxy-manager.c
 
-libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.lo: gsd-screensaver-proxy-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -MT libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.lo -MD -MP -MF $(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.Tpo -c -o libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.lo `test -f 'gsd-screensaver-proxy-plugin.c' || echo '$(srcdir)/'`gsd-screensaver-proxy-plugin.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.Tpo $(DEPDIR)/libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-screensaver-proxy-plugin.c' object='libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+libscreensaver_proxy_la-csd-screensaver-proxy-plugin.lo: csd-screensaver-proxy-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -MT libscreensaver_proxy_la-csd-screensaver-proxy-plugin.lo -MD -MP -MF $(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-plugin.Tpo -c -o libscreensaver_proxy_la-csd-screensaver-proxy-plugin.lo `test -f 'csd-screensaver-proxy-plugin.c' || echo '$(srcdir)/'`csd-screensaver-proxy-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-plugin.Tpo $(DEPDIR)/libscreensaver_proxy_la-csd-screensaver-proxy-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-screensaver-proxy-plugin.c' object='libscreensaver_proxy_la-csd-screensaver-proxy-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -c -o libscreensaver_proxy_la-gsd-screensaver-proxy-plugin.lo `test -f 'gsd-screensaver-proxy-plugin.c' || echo '$(srcdir)/'`gsd-screensaver-proxy-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscreensaver_proxy_la_CPPFLAGS) $(CPPFLAGS) $(libscreensaver_proxy_la_CFLAGS) $(CFLAGS) -c -o libscreensaver_proxy_la-csd-screensaver-proxy-plugin.lo `test -f 'csd-screensaver-proxy-plugin.c' || echo '$(srcdir)/'`csd-screensaver-proxy-plugin.c
 
-gsd_test_screensaver_proxy-test-screensaver-proxy.o: test-screensaver-proxy.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT gsd_test_screensaver_proxy-test-screensaver-proxy.o -MD -MP -MF $(DEPDIR)/gsd_test_screensaver_proxy-test-screensaver-proxy.Tpo -c -o gsd_test_screensaver_proxy-test-screensaver-proxy.o `test -f 'test-screensaver-proxy.c' || echo '$(srcdir)/'`test-screensaver-proxy.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_screensaver_proxy-test-screensaver-proxy.Tpo $(DEPDIR)/gsd_test_screensaver_proxy-test-screensaver-proxy.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-screensaver-proxy.c' object='gsd_test_screensaver_proxy-test-screensaver-proxy.o' libtool=no @AMDEPBACKSLASH@
+csd_test_screensaver_proxy-test-screensaver-proxy.o: test-screensaver-proxy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT csd_test_screensaver_proxy-test-screensaver-proxy.o -MD -MP -MF $(DEPDIR)/csd_test_screensaver_proxy-test-screensaver-proxy.Tpo -c -o csd_test_screensaver_proxy-test-screensaver-proxy.o `test -f 'test-screensaver-proxy.c' || echo '$(srcdir)/'`test-screensaver-proxy.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_screensaver_proxy-test-screensaver-proxy.Tpo $(DEPDIR)/csd_test_screensaver_proxy-test-screensaver-proxy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-screensaver-proxy.c' object='csd_test_screensaver_proxy-test-screensaver-proxy.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o gsd_test_screensaver_proxy-test-screensaver-proxy.o `test -f 'test-screensaver-proxy.c' || echo '$(srcdir)/'`test-screensaver-proxy.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o csd_test_screensaver_proxy-test-screensaver-proxy.o `test -f 'test-screensaver-proxy.c' || echo '$(srcdir)/'`test-screensaver-proxy.c
 
-gsd_test_screensaver_proxy-test-screensaver-proxy.obj: test-screensaver-proxy.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT gsd_test_screensaver_proxy-test-screensaver-proxy.obj -MD -MP -MF $(DEPDIR)/gsd_test_screensaver_proxy-test-screensaver-proxy.Tpo -c -o gsd_test_screensaver_proxy-test-screensaver-proxy.obj `if test -f 'test-screensaver-proxy.c'; then $(CYGPATH_W) 'test-screensaver-proxy.c'; else $(CYGPATH_W) '$(srcdir)/test-screensaver-proxy.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_screensaver_proxy-test-screensaver-proxy.Tpo $(DEPDIR)/gsd_test_screensaver_proxy-test-screensaver-proxy.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-screensaver-proxy.c' object='gsd_test_screensaver_proxy-test-screensaver-proxy.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_screensaver_proxy-test-screensaver-proxy.obj: test-screensaver-proxy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT csd_test_screensaver_proxy-test-screensaver-proxy.obj -MD -MP -MF $(DEPDIR)/csd_test_screensaver_proxy-test-screensaver-proxy.Tpo -c -o csd_test_screensaver_proxy-test-screensaver-proxy.obj `if test -f 'test-screensaver-proxy.c'; then $(CYGPATH_W) 'test-screensaver-proxy.c'; else $(CYGPATH_W) '$(srcdir)/test-screensaver-proxy.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_screensaver_proxy-test-screensaver-proxy.Tpo $(DEPDIR)/csd_test_screensaver_proxy-test-screensaver-proxy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test-screensaver-proxy.c' object='csd_test_screensaver_proxy-test-screensaver-proxy.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o gsd_test_screensaver_proxy-test-screensaver-proxy.obj `if test -f 'test-screensaver-proxy.c'; then $(CYGPATH_W) 'test-screensaver-proxy.c'; else $(CYGPATH_W) '$(srcdir)/test-screensaver-proxy.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o csd_test_screensaver_proxy-test-screensaver-proxy.obj `if test -f 'test-screensaver-proxy.c'; then $(CYGPATH_W) 'test-screensaver-proxy.c'; else $(CYGPATH_W) '$(srcdir)/test-screensaver-proxy.c'; fi`
 
-gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.o: gsd-screensaver-proxy-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.o -MD -MP -MF $(DEPDIR)/gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.Tpo -c -o gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.o `test -f 'gsd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`gsd-screensaver-proxy-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.Tpo $(DEPDIR)/gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-screensaver-proxy-manager.c' object='gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.o' libtool=no @AMDEPBACKSLASH@
+csd_test_screensaver_proxy-csd-screensaver-proxy-manager.o: csd-screensaver-proxy-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT csd_test_screensaver_proxy-csd-screensaver-proxy-manager.o -MD -MP -MF $(DEPDIR)/csd_test_screensaver_proxy-csd-screensaver-proxy-manager.Tpo -c -o csd_test_screensaver_proxy-csd-screensaver-proxy-manager.o `test -f 'csd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`csd-screensaver-proxy-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_screensaver_proxy-csd-screensaver-proxy-manager.Tpo $(DEPDIR)/csd_test_screensaver_proxy-csd-screensaver-proxy-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-screensaver-proxy-manager.c' object='csd_test_screensaver_proxy-csd-screensaver-proxy-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.o `test -f 'gsd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`gsd-screensaver-proxy-manager.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o csd_test_screensaver_proxy-csd-screensaver-proxy-manager.o `test -f 'csd-screensaver-proxy-manager.c' || echo '$(srcdir)/'`csd-screensaver-proxy-manager.c
 
-gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.obj: gsd-screensaver-proxy-manager.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.obj -MD -MP -MF $(DEPDIR)/gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.Tpo -c -o gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.obj `if test -f 'gsd-screensaver-proxy-manager.c'; then $(CYGPATH_W) 'gsd-screensaver-proxy-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-screensaver-proxy-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.Tpo $(DEPDIR)/gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gsd-screensaver-proxy-manager.c' object='gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.obj' libtool=no @AMDEPBACKSLASH@
+csd_test_screensaver_proxy-csd-screensaver-proxy-manager.obj: csd-screensaver-proxy-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -MT csd_test_screensaver_proxy-csd-screensaver-proxy-manager.obj -MD -MP -MF $(DEPDIR)/csd_test_screensaver_proxy-csd-screensaver-proxy-manager.Tpo -c -o csd_test_screensaver_proxy-csd-screensaver-proxy-manager.obj `if test -f 'csd-screensaver-proxy-manager.c'; then $(CYGPATH_W) 'csd-screensaver-proxy-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-screensaver-proxy-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/csd_test_screensaver_proxy-csd-screensaver-proxy-manager.Tpo $(DEPDIR)/csd_test_screensaver_proxy-csd-screensaver-proxy-manager.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='csd-screensaver-proxy-manager.c' object='csd_test_screensaver_proxy-csd-screensaver-proxy-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gsd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(gsd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o gsd_test_screensaver_proxy-gsd-screensaver-proxy-manager.obj `if test -f 'gsd-screensaver-proxy-manager.c'; then $(CYGPATH_W) 'gsd-screensaver-proxy-manager.c'; else $(CYGPATH_W) '$(srcdir)/gsd-screensaver-proxy-manager.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(csd_test_screensaver_proxy_CPPFLAGS) $(CPPFLAGS) $(csd_test_screensaver_proxy_CFLAGS) $(CFLAGS) -c -o csd_test_screensaver_proxy-csd-screensaver-proxy-manager.obj `if test -f 'csd-screensaver-proxy-manager.c'; then $(CYGPATH_W) 'csd-screensaver-proxy-manager.c'; else $(CYGPATH_W) '$(srcdir)/csd-screensaver-proxy-manager.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -886,7 +886,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES
 
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

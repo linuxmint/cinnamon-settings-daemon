@@ -9,37 +9,37 @@ SUBDIRS = cut-n-paste
 plugin_LTLIBRARIES = libmedia-keys.la
 
 BUILT_SOURCES = 			\
-	gsd-marshal.h			\
-	gsd-marshal.c			\
+	csd-marshal.h			\
+	csd-marshal.c			\
 	$(NULL)
 
-gsd-marshal.c: gsd-marshal.list
-	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --body --internal > $@
+csd-marshal.c: csd-marshal.list
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=csd_marshal $< --header --body --internal > $@
 
-gsd-marshal.h: gsd-marshal.list
-	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=gsd_marshal $< --header --internal > $@
+csd-marshal.h: csd-marshal.list
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=csd_marshal $< --header --internal > $@
 
 libmedia_keys_la_SOURCES = 		\
-	gsd-media-keys-plugin.h		\
-	gsd-media-keys-plugin.c		\
-	gsd-media-keys-manager.h	\
-	gsd-media-keys-manager.c	\
-	gsd-osd-window.c		\
-	gsd-osd-window.h		\
-	gsd-osd-window-private.h	\
+	csd-media-keys-plugin.h		\
+	csd-media-keys-plugin.c		\
+	csd-media-keys-manager.h	\
+	csd-media-keys-manager.c	\
+	csd-osd-window.c		\
+	csd-osd-window.h		\
+	csd-osd-window-private.h	\
 	shortcuts-list.h		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
 libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 libmedia_keys_la_CFLAGS = \
@@ -49,7 +49,7 @@ libmedia_keys_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libmedia_keys_la_LDFLAGS = 		\
-	$(GSD_PLUGIN_LDFLAGS)
+	$(CSD_PLUGIN_LDFLAGS)
 
 libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/common/libcommon.la			\
@@ -59,28 +59,28 @@ libmedia_keys_la_LIBADD  = 		\
 	-lm
 
 plugin_in_files = 		\
-	media-keys.gnome-settings-plugin.in
+	media-keys.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 noinst_PROGRAMS = test-media-window
 
 test_media_window_SOURCES =			\
-	gsd-osd-window.c			\
-	gsd-osd-window.h			\
-	gsd-osd-window-private.h		\
+	csd-osd-window.c			\
+	csd-osd-window.h			\
+	csd-osd-window-private.h		\
 	test-media-window.c			\
 	$(NULL)
 
 test_media_window_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 test_media_window_CFLAGS = \
@@ -93,37 +93,37 @@ test_media_window_LDADD = \
 	$(SETTINGS_PLUGIN_LIBS)			\
 	-lm
 
-libexec_PROGRAMS = gsd-test-media-keys
+libexec_PROGRAMS = csd-test-media-keys
 
-gsd_test_media_keys_SOURCES =			\
-	gsd-media-keys-manager.c		\
-	gsd-media-keys-manager.h		\
-	gsd-osd-window.c			\
-	gsd-osd-window.h			\
-	gsd-osd-window-private.h		\
+csd_test_media_keys_SOURCES =			\
+	csd-media-keys-manager.c		\
+	csd-media-keys-manager.h		\
+	csd-osd-window.c			\
+	csd-osd-window.h			\
+	csd-osd-window-private.h		\
 	test-media-keys.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
 
-gsd_test_media_keys_CPPFLAGS = \
+csd_test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-gsd_test_media_keys_CFLAGS = \
+csd_test_media_keys_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MEDIA_KEYS_CFLAGS)		\
 	$(AM_CFLAGS)
 
-gsd_test_media_keys_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_media_keys_LDADD = \
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
@@ -132,7 +132,7 @@ gsd_test_media_keys_LDADD = \
 	-lm
 
 EXTRA_DIST = 				\
-	gsd-marshal.list		\
+	csd-marshal.list		\
 	README.media-keys-API		\
 	test-media-window-clutter.c	\
 	$(plugin_in_files)
@@ -144,4 +144,4 @@ CLEANFILES = 			\
 DISTCLEANFILES =		\
 	$(plugin_DATA)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

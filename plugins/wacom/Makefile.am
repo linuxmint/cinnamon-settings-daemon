@@ -1,33 +1,33 @@
 plugin_name = wacom
 
-plugin_LTLIBRARIES = libgsdwacom.la
+plugin_LTLIBRARIES = libcsdwacom.la
 
-libgsdwacom_la_SOURCES =	\
-	gsd-wacom-plugin.h	\
-	gsd-wacom-plugin.c	\
-	gsd-wacom-manager.h	\
-	gsd-wacom-manager.c	\
-	gsd-wacom-device.c	\
-	gsd-wacom-device.h
+libcsdwacom_la_SOURCES =	\
+	csd-wacom-plugin.h	\
+	csd-wacom-plugin.c	\
+	csd-wacom-manager.h	\
+	csd-wacom-manager.c	\
+	csd-wacom-device.c	\
+	csd-wacom-device.h
 
-libgsdwacom_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+libcsdwacom_la_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
 	$(AM_CPPFLAGS)
 
-libgsdwacom_la_CFLAGS = \
+libcsdwacom_la_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-libgsdwacom_la_LDFLAGS =		\
-	$(GSD_PLUGIN_LDFLAGS)
+libcsdwacom_la_LDFLAGS =		\
+	$(CSD_PLUGIN_LDFLAGS)
 
-libgsdwacom_la_LIBADD  =						\
+libcsdwacom_la_LIBADD  =						\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(WACOM_LIBS)
@@ -41,18 +41,18 @@ polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
-gsd_wacom_led_helper_SOURCES =	gsd-wacom-led-helper.c
+csd_wacom_led_helper_SOURCES =	csd-wacom-led-helper.c
 
-EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES)
+EXTRA_DIST = $(csd_wacom_led_helper_SOURCES)
 
 if HAVE_GUDEV
-libexec_PROGRAMS = gsd-wacom-led-helper
+libexec_PROGRAMS = csd-wacom-led-helper
 
-gsd_wacom_led_helper_LDFLAGS =				\
+csd_wacom_led_helper_LDFLAGS =				\
 	$(BACKLIGHT_HELPER_LIBS)			\
 	-lm
 
-gsd_wacom_led_helper_CFLAGS =				\
+csd_wacom_led_helper_CFLAGS =				\
 	$(BACKLIGHT_HELPER_CFLAGS)
 else
 libexec_PROGRAMS =
@@ -60,72 +60,72 @@ endif
 
 EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
 
-libexec_PROGRAMS += gsd-test-wacom gsd-list-wacom
+libexec_PROGRAMS += csd-test-wacom csd-list-wacom
 
-gsd_test_wacom_SOURCES =	\
+csd_test_wacom_SOURCES =	\
 	test-wacom.c		\
-	gsd-wacom-manager.c	\
-	gsd-wacom-manager.h	\
-	gsd-wacom-device.c	\
-	gsd-wacom-device.h
+	csd-wacom-manager.c	\
+	csd-wacom-manager.h	\
+	csd-wacom-device.c	\
+	csd-wacom-device.h
 
-gsd_test_wacom_CPPFLAGS = \
+csd_test_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	-DSCHEMA_NAME=\""gsdwacom"\"				\
+	-DSCHEMA_NAME=\""csdwacom"\"				\
 	$(AM_CPPFLAGS)
 
-gsd_test_wacom_CFLAGS =			\
+csd_test_wacom_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-gsd_test_wacom_LDADD =						\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_test_wacom_LDADD =						\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
-gsd_list_wacom_SOURCES =	\
+csd_list_wacom_SOURCES =	\
 	list-wacom.c		\
-	gsd-wacom-device.c	\
-	gsd-wacom-device.h
+	csd-wacom-device.c	\
+	csd-wacom-device.h
 
-gsd_list_wacom_CPPFLAGS =					\
+csd_list_wacom_CPPFLAGS =					\
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-gsd_list_wacom_CFLAGS =			\
+csd_list_wacom_CFLAGS =			\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-gsd_list_wacom_LDADD =						\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+csd_list_wacom_LDADD =						\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
-plugin_in_files = wacom.gnome-settings-plugin.in
+plugin_in_files = wacom.cinnamon-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 EXTRA_DIST += $(plugin_in_files) README.config-storage
 CLEANFILES =						\
@@ -133,4 +133,4 @@ CLEANFILES =						\
 	org.gnome.settings-daemon.plugins.wacom.policy	\
 	org.gnome.settings-daemon.plugins.wacom.policy.in
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

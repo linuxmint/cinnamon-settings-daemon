@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-clipboard-plugin.h"
-#include "gsd-clipboard-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-clipboard-plugin.h"
+#include "csd-clipboard-manager.h"
 
-struct GsdClipboardPluginPrivate {
-        GsdClipboardManager *manager;
+struct CsdClipboardPluginPrivate {
+        CsdClipboardManager *manager;
 };
 
-#define GSD_CLIPBOARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_CLIPBOARD_PLUGIN, GsdClipboardPluginPrivate))
+#define CSD_CLIPBOARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_CLIPBOARD_PLUGIN, CsdClipboardPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdClipboardPlugin, gsd_clipboard_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdClipboardPlugin, csd_clipboard_plugin)
 
 static void
-gsd_clipboard_plugin_init (GsdClipboardPlugin *plugin)
+csd_clipboard_plugin_init (CsdClipboardPlugin *plugin)
 {
-        plugin->priv = GSD_CLIPBOARD_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_CLIPBOARD_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdClipboardPlugin initializing");
+        g_debug ("CsdClipboardPlugin initializing");
 
-        plugin->priv->manager = gsd_clipboard_manager_new ();
+        plugin->priv->manager = csd_clipboard_manager_new ();
 }
 
 static void
-gsd_clipboard_plugin_finalize (GObject *object)
+csd_clipboard_plugin_finalize (GObject *object)
 {
-        GsdClipboardPlugin *plugin;
+        CsdClipboardPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_CLIPBOARD_PLUGIN (object));
+        g_return_if_fail (CSD_IS_CLIPBOARD_PLUGIN (object));
 
-        g_debug ("GsdClipboardPlugin finalizing");
+        g_debug ("CsdClipboardPlugin finalizing");
 
-        plugin = GSD_CLIPBOARD_PLUGIN (object);
+        plugin = CSD_CLIPBOARD_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gsd_clipboard_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_clipboard_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_clipboard_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating clipboard plugin");
 
         error = NULL;
-        res = gsd_clipboard_manager_start (GSD_CLIPBOARD_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_clipboard_manager_start (CSD_CLIPBOARD_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start clipboard manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating clipboard plugin");
-        gsd_clipboard_manager_stop (GSD_CLIPBOARD_PLUGIN (plugin)->priv->manager);
+        csd_clipboard_manager_stop (CSD_CLIPBOARD_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_clipboard_plugin_class_init (GsdClipboardPluginClass *klass)
+csd_clipboard_plugin_class_init (CsdClipboardPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_clipboard_plugin_finalize;
+        object_class->finalize = csd_clipboard_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdClipboardPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdClipboardPluginPrivate));
 }

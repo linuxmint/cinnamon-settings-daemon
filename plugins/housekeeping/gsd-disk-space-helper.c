@@ -28,10 +28,10 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#include "gsd-disk-space-helper.h"
+#include "csd-disk-space-helper.h"
 
 gboolean
-gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
+csd_should_ignore_unix_mount (GUnixMountEntry *mount)
 {
         const char *fs, *device;
         guint i;
@@ -105,7 +105,7 @@ gsd_should_ignore_unix_mount (GUnixMountEntry *mount)
 }
 
 gboolean
-gsd_is_removable_mount (GUnixMountEntry *mount)
+csd_is_removable_mount (GUnixMountEntry *mount)
 {
         const char *mount_path;
         char *path;

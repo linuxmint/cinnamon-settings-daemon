@@ -17,8 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __GSD_POWER_HELPER_H
-#define __GSD_POWER_HELPER_H
+#ifndef __CSD_POWER_HELPER_H
+#define __CSD_POWER_HELPER_H
 
 #include <glib.h>
 
@@ -26,10 +26,10 @@ G_BEGIN_DECLS
 
 #include <gio/gio.h>
 
-void gsd_power_suspend   (GDBusProxy *upower_proxy);
-void gsd_power_hibernate (GDBusProxy *upower_proxy);
-void gsd_power_poweroff  (void);
+void csd_power_suspend   (GDBusProxy *upower_proxy);
+void csd_power_hibernate (GDBusProxy *upower_proxy);
+void csd_power_poweroff  (void);
 
 G_END_DECLS
 
-#endif /* __GSD_POWER_HELPER_H */
+#endif /* __CSD_POWER_HELPER_H */

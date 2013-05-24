@@ -19,40 +19,40 @@
  *
  */
 
-#ifndef __GSD_ORIENTATION_MANAGER_H
-#define __GSD_ORIENTATION_MANAGER_H
+#ifndef __CSD_ORIENTATION_MANAGER_H
+#define __CSD_ORIENTATION_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_ORIENTATION_MANAGER         (gsd_orientation_manager_get_type ())
-#define GSD_ORIENTATION_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_ORIENTATION_MANAGER, GsdOrientationManager))
-#define GSD_ORIENTATION_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_ORIENTATION_MANAGER, GsdOrientationManagerClass))
-#define GSD_IS_ORIENTATION_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_ORIENTATION_MANAGER))
-#define GSD_IS_ORIENTATION_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_ORIENTATION_MANAGER))
-#define GSD_ORIENTATION_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_ORIENTATION_MANAGER, GsdOrientationManagerClass))
+#define CSD_TYPE_ORIENTATION_MANAGER         (csd_orientation_manager_get_type ())
+#define CSD_ORIENTATION_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_ORIENTATION_MANAGER, CsdOrientationManager))
+#define CSD_ORIENTATION_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_ORIENTATION_MANAGER, CsdOrientationManagerClass))
+#define CSD_IS_ORIENTATION_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_ORIENTATION_MANAGER))
+#define CSD_IS_ORIENTATION_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_ORIENTATION_MANAGER))
+#define CSD_ORIENTATION_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_ORIENTATION_MANAGER, CsdOrientationManagerClass))
 
-typedef struct GsdOrientationManagerPrivate GsdOrientationManagerPrivate;
+typedef struct CsdOrientationManagerPrivate CsdOrientationManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdOrientationManagerPrivate *priv;
-} GsdOrientationManager;
+        CsdOrientationManagerPrivate *priv;
+} CsdOrientationManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdOrientationManagerClass;
+} CsdOrientationManagerClass;
 
-GType                   gsd_orientation_manager_get_type            (void);
+GType                   csd_orientation_manager_get_type            (void);
 
-GsdOrientationManager *       gsd_orientation_manager_new                 (void);
-gboolean                gsd_orientation_manager_start               (GsdOrientationManager *manager,
+CsdOrientationManager *       csd_orientation_manager_new                 (void);
+gboolean                csd_orientation_manager_start               (CsdOrientationManager *manager,
                                                                GError         **error);
-void                    gsd_orientation_manager_stop                (GsdOrientationManager *manager);
+void                    csd_orientation_manager_stop                (CsdOrientationManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_ORIENTATION_MANAGER_H */
+#endif /* __CSD_ORIENTATION_MANAGER_H */

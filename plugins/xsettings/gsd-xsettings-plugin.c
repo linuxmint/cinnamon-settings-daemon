@@ -23,39 +23,39 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
-#include "gsd-xsettings-plugin.h"
-#include "gsd-xsettings-manager.h"
+#include "cinnamon-settings-plugin.h"
+#include "csd-xsettings-plugin.h"
+#include "csd-xsettings-manager.h"
 
-struct GnomeXSettingsPluginPrivate {
-        GnomeXSettingsManager *manager;
+struct CinnamonSettingsXSettingsPluginPrivate {
+        CinnamonSettingsXSettingsManager *manager;
 };
 
-#define GNOME_XSETTINGS_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GNOME_TYPE_XSETTINGS_PLUGIN, GnomeXSettingsPluginPrivate))
+#define CINNAMON_XSETTINGS_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CINNAMON_TYPE_XSETTINGS_PLUGIN, CinnamonSettingsXSettingsPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GnomeXSettingsPlugin, gnome_xsettings_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CinnamonSettingsXSettingsPlugin, cinnamon_xsettings_plugin)
 
 static void
-gnome_xsettings_plugin_init (GnomeXSettingsPlugin *plugin)
+cinnamon_xsettings_plugin_init (CinnamonSettingsXSettingsPlugin *plugin)
 {
-        plugin->priv = GNOME_XSETTINGS_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CINNAMON_XSETTINGS_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GnomeXSettingsPlugin initializing");
+        g_debug ("CinnamonSettingsXSettingsPlugin initializing");
 
-        plugin->priv->manager = gnome_xsettings_manager_new ();
+        plugin->priv->manager = cinnamon_xsettings_manager_new ();
 }
 
 static void
-gnome_xsettings_plugin_finalize (GObject *object)
+cinnamon_xsettings_plugin_finalize (GObject *object)
 {
-        GnomeXSettingsPlugin *plugin;
+        CinnamonSettingsXSettingsPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GNOME_IS_XSETTINGS_PLUGIN (object));
+        g_return_if_fail (CINNAMON_IS_XSETTINGS_PLUGIN (object));
 
-        g_debug ("GnomeXSettingsPlugin finalizing");
+        g_debug ("CinnamonSettingsXSettingsPlugin finalizing");
 
-        plugin = GNOME_XSETTINGS_PLUGIN (object);
+        plugin = CINNAMON_XSETTINGS_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -63,11 +63,11 @@ gnome_xsettings_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gnome_xsettings_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (cinnamon_xsettings_plugin_parent_class)->finalize (object);
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating xsettings plugin");
 
         error = NULL;
-        res = gnome_xsettings_manager_start (GNOME_XSETTINGS_PLUGIN (plugin)->priv->manager, &error);
+        res = cinnamon_xsettings_manager_start (CINNAMON_XSETTINGS_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start xsettings manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
 {
         g_debug ("Deactivating xsettings plugin");
-        gnome_xsettings_manager_stop (GNOME_XSETTINGS_PLUGIN (plugin)->priv->manager);
+        cinnamon_xsettings_manager_stop (CINNAMON_XSETTINGS_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gnome_xsettings_plugin_class_init (GnomeXSettingsPluginClass *klass)
+cinnamon_xsettings_plugin_class_init (CinnamonSettingsXSettingsPluginClass *klass)
 {
         GObjectClass             *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gnome_xsettings_plugin_finalize;
+        object_class->finalize = cinnamon_xsettings_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GnomeXSettingsPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CinnamonSettingsXSettingsPluginPrivate));
 }

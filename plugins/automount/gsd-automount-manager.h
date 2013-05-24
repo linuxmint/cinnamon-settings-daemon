@@ -19,40 +19,40 @@
  * Author: Tomas Bzatek <tbzatek@redhat.com>
  */
 
-#ifndef __GSD_AUTOMOUNT_MANAGER_H
-#define __GSD_AUTOMOUNT_MANAGER_H
+#ifndef __CSD_AUTOMOUNT_MANAGER_H
+#define __CSD_AUTOMOUNT_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_AUTOMOUNT_MANAGER         (gsd_automount_manager_get_type ())
-#define GSD_AUTOMOUNT_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_AUTOMOUNT_MANAGER, GsdAutomountManager))
-#define GSD_AUTOMOUNT_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_AUTOMOUNT_MANAGER, GsdAutomountManagerClass))
-#define GSD_IS_AUTOMOUNT_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_AUTOMOUNT_MANAGER))
-#define GSD_IS_AUTOMOUNT_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_AUTOMOUNT_MANAGER))
-#define GSD_AUTOMOUNT_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_AUTOMOUNT_MANAGER, GsdAutomountManagerClass))
+#define CSD_TYPE_AUTOMOUNT_MANAGER         (csd_automount_manager_get_type ())
+#define CSD_AUTOMOUNT_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_AUTOMOUNT_MANAGER, CsdAutomountManager))
+#define CSD_AUTOMOUNT_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_AUTOMOUNT_MANAGER, CsdAutomountManagerClass))
+#define CSD_IS_AUTOMOUNT_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_AUTOMOUNT_MANAGER))
+#define CSD_IS_AUTOMOUNT_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_AUTOMOUNT_MANAGER))
+#define CSD_AUTOMOUNT_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_AUTOMOUNT_MANAGER, CsdAutomountManagerClass))
 
-typedef struct GsdAutomountManagerPrivate GsdAutomountManagerPrivate;
+typedef struct CsdAutomountManagerPrivate CsdAutomountManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdAutomountManagerPrivate *priv;
-} GsdAutomountManager;
+        CsdAutomountManagerPrivate *priv;
+} CsdAutomountManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdAutomountManagerClass;
+} CsdAutomountManagerClass;
 
-GType                   gsd_automount_manager_get_type            (void);
+GType                   csd_automount_manager_get_type            (void);
 
-GsdAutomountManager *   gsd_automount_manager_new                 (void);
-gboolean                gsd_automount_manager_start               (GsdAutomountManager *manager,
+CsdAutomountManager *   csd_automount_manager_new                 (void);
+gboolean                csd_automount_manager_start               (CsdAutomountManager *manager,
                                                                    GError              **error);
-void                    gsd_automount_manager_stop                (GsdAutomountManager *manager);
+void                    csd_automount_manager_stop                (CsdAutomountManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_AUTOMOUNT_MANAGER_H */
+#endif /* __CSD_AUTOMOUNT_MANAGER_H */

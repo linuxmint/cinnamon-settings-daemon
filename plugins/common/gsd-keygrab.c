@@ -31,14 +31,14 @@
 #include <X11/extensions/XKB.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "gsd-keygrab.h"
+#include "csd-keygrab.h"
 
 /* these are the mods whose combinations are ignored by the keygrabbing code */
-static GdkModifierType gsd_ignored_mods = 0;
+static GdkModifierType csd_ignored_mods = 0;
 
 /* these are the ones we actually use for global keys, we always only check
  * for these set */
-static GdkModifierType gsd_used_mods = 0;
+static GdkModifierType csd_used_mods = 0;
 
 /* Taken from a comment in XF86keysym.h */
 #define XF86KEYS_RANGE_MIN 0x10080001
@@ -52,13 +52,13 @@ static GdkModifierType gsd_used_mods = 0;
 static void
 setup_modifiers (void)
 {
-        if (gsd_used_mods == 0 || gsd_ignored_mods == 0) {
+        if (csd_used_mods == 0 || csd_ignored_mods == 0) {
                 GdkModifierType dynmods;
 
                 /* default modifiers */
-                gsd_ignored_mods = \
+                csd_ignored_mods = \
                         0x2000 /*Xkb modifier*/ | GDK_LOCK_MASK | GDK_HYPER_MASK;
-		gsd_used_mods = \
+		csd_used_mods = \
                         GDK_SHIFT_MASK | GDK_CONTROL_MASK |\
                         GDK_MOD1_MASK | GDK_MOD2_MASK | GDK_MOD3_MASK | GDK_MOD4_MASK |\
                         GDK_MOD5_MASK | GDK_SUPER_MASK | GDK_META_MASK;
@@ -67,8 +67,8 @@ setup_modifiers (void)
                  * resolve and ignore it specially */
                 dynmods = XkbKeysymToModifiers (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_KEY_Num_Lock);
 
-                gsd_ignored_mods |= dynmods;
-                gsd_used_mods &= ~dynmods;
+                csd_ignored_mods |= dynmods;
+                csd_used_mods &= ~dynmods;
 	}
 }
 
@@ -112,7 +112,7 @@ grab_key_real (guint      keycode,
         }
 }
 
-/* Grab the key. In order to ignore GSD_IGNORED_MODS we need to grab
+/* Grab the key. In order to ignore CSD_IGNORED_MODS we need to grab
  * all combinations of the ignored modifiers and those actually used
  * for the binding (if any).
  *
@@ -136,7 +136,7 @@ grab_key_real (guint      keycode,
 static void
 grab_key_internal (Key             *key,
                    gboolean         grab,
-                   GsdKeygrabFlags  flags,
+                   CsdKeygrabFlags  flags,
                    GSList          *screens)
 {
         int     indexes[N_BITS]; /* indexes of bits we need to flip */
@@ -150,7 +150,7 @@ grab_key_internal (Key             *key,
 
         setup_modifiers ();
 
-        mask = gsd_ignored_mods & ~key->state & GDK_MODIFIER_MASK;
+        mask = csd_ignored_mods & ~key->state & GDK_MODIFIER_MASK;
 
         /* XGrabKey requires real modifiers, not virtual ones */
         modifiers = key->state;
@@ -163,8 +163,8 @@ grab_key_internal (Key             *key,
          * The exception is the XFree86 keys and the Function keys
          * (which are useful to grab without a modifier).
          */
-        if (!(flags & GSD_KEYGRAB_ALLOW_UNMODIFIED) &&
-            (modifiers & gsd_used_mods) == 0 &&
+        if (!(flags & CSD_KEYGRAB_ALLOW_UNMODIFIED) &&
+            (modifiers & csd_used_mods) == 0 &&
             !IN_RANGE(key->keysym, XF86KEYS_RANGE_MIN, XF86KEYS_RANGE_MAX) &&
             !IN_RANGE(key->keysym, FKEYS_RANGE_MIN, FKEYS_RANGE_MAX) &&
              key->keysym != GDK_KEY_Pause &&
@@ -182,7 +182,7 @@ grab_key_internal (Key             *key,
                 }
                 g_warning ("Key 0x%x (keycodes: %s)  with state 0x%x (resolved to 0x%x) "
                            " has no usable modifiers (usable modifiers are 0x%x)",
-                           key->keysym, keycodes->str, key->state, modifiers, gsd_used_mods);
+                           key->keysym, keycodes->str, key->state, modifiers, csd_used_mods);
                 g_string_free (keycodes, TRUE);
 
                 return;
@@ -228,7 +228,7 @@ grab_key_internal (Key             *key,
                         grab_key_real (*code,
                                        gdk_screen_get_root_window (screen),
                                        grab,
-                                       flags & GSD_KEYGRAB_SYNCHRONOUS,
+                                       flags & CSD_KEYGRAB_SYNCHRONOUS,
                                        (XIGrabModifiers *) all_mods->data,
                                        all_mods->len);
                 }
@@ -238,7 +238,7 @@ grab_key_internal (Key             *key,
 
 void
 grab_key_unsafe (Key             *key,
-                 GsdKeygrabFlags  flags,
+                 CsdKeygrabFlags  flags,
                  GSList          *screens)
 {
         grab_key_internal (key, TRUE, flags, screens);
@@ -356,12 +356,12 @@ match_xi2_key (Key *key, XIDeviceEvent *event)
 			consumed &= ~GDK_SHIFT_MASK;
 
 		return ((lower == key->keysym || upper == key->keysym)
-			&& (state & ~consumed & gsd_used_mods) == mask);
+			&& (state & ~consumed & csd_used_mods) == mask);
 	}
 
 	/* The key we passed doesn't have a keysym, so try with just the keycode */
         return (key != NULL
-                && key->state == (state & gsd_used_mods)
+                && key->state == (state & csd_used_mods)
                 && key_uses_keycode (key, keycode));
 }
 

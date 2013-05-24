@@ -18,40 +18,40 @@
  *
  */
 
-#ifndef __GSD_DUMMY_MANAGER_H
-#define __GSD_DUMMY_MANAGER_H
+#ifndef __CSD_DUMMY_MANAGER_H
+#define __CSD_DUMMY_MANAGER_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GSD_TYPE_DUMMY_MANAGER         (gsd_dummy_manager_get_type ())
-#define GSD_DUMMY_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManager))
-#define GSD_DUMMY_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerClass))
-#define GSD_IS_DUMMY_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSD_TYPE_DUMMY_MANAGER))
-#define GSD_IS_DUMMY_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSD_TYPE_DUMMY_MANAGER))
-#define GSD_DUMMY_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSD_TYPE_DUMMY_MANAGER, GsdDummyManagerClass))
+#define CSD_TYPE_DUMMY_MANAGER         (csd_dummy_manager_get_type ())
+#define CSD_DUMMY_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_DUMMY_MANAGER, CsdDummyManager))
+#define CSD_DUMMY_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_DUMMY_MANAGER, CsdDummyManagerClass))
+#define CSD_IS_DUMMY_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_DUMMY_MANAGER))
+#define CSD_IS_DUMMY_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_DUMMY_MANAGER))
+#define CSD_DUMMY_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_DUMMY_MANAGER, CsdDummyManagerClass))
 
-typedef struct GsdDummyManagerPrivate GsdDummyManagerPrivate;
+typedef struct CsdDummyManagerPrivate CsdDummyManagerPrivate;
 
 typedef struct
 {
         GObject                     parent;
-        GsdDummyManagerPrivate *priv;
-} GsdDummyManager;
+        CsdDummyManagerPrivate *priv;
+} CsdDummyManager;
 
 typedef struct
 {
         GObjectClass   parent_class;
-} GsdDummyManagerClass;
+} CsdDummyManagerClass;
 
-GType                   gsd_dummy_manager_get_type            (void);
+GType                   csd_dummy_manager_get_type            (void);
 
-GsdDummyManager *       gsd_dummy_manager_new                 (void);
-gboolean                gsd_dummy_manager_start               (GsdDummyManager *manager,
+CsdDummyManager *       csd_dummy_manager_new                 (void);
+gboolean                csd_dummy_manager_start               (CsdDummyManager *manager,
                                                                GError         **error);
-void                    gsd_dummy_manager_stop                (GsdDummyManager *manager);
+void                    csd_dummy_manager_stop                (CsdDummyManager *manager);
 
 G_END_DECLS
 
-#endif /* __GSD_DUMMY_MANAGER_H */
+#endif /* __CSD_DUMMY_MANAGER_H */
