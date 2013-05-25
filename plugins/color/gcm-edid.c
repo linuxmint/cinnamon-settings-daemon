@@ -50,7 +50,7 @@ struct _GcmEdidPrivate
         CdColorYxy                      *green;
         CdColorYxy                      *blue;
         CdColorYxy                      *white;
-        CinnamonSettingsPnpIds                     *pnp_ids;
+        GnomeSettingsPnpIds                     *pnp_ids;
 };
 
 G_DEFINE_TYPE (GcmEdid, gcm_edid, G_TYPE_OBJECT)
@@ -92,7 +92,7 @@ gcm_edid_get_vendor_name (GcmEdid *edid)
         g_return_val_if_fail (GCM_IS_EDID (edid), NULL);
 
         if (priv->vendor_name == NULL)
-                priv->vendor_name = cinnamon_pnp_ids_get_pnp_id (priv->pnp_ids, priv->pnp_id);
+                priv->vendor_name = gnome_pnp_ids_get_pnp_id (priv->pnp_ids, priv->pnp_id);
         return priv->vendor_name;
 }
 
@@ -418,7 +418,7 @@ static void
 gcm_edid_init (GcmEdid *edid)
 {
         edid->priv = GCM_EDID_GET_PRIVATE (edid);
-        edid->priv->pnp_ids = cinnamon_pnp_ids_new ();
+        edid->priv->pnp_ids = gnome_pnp_ids_new ();
         edid->priv->pnp_id = g_new0 (gchar, 4);
         edid->priv->red = cd_color_yxy_new ();
         edid->priv->green = cd_color_yxy_new ();
