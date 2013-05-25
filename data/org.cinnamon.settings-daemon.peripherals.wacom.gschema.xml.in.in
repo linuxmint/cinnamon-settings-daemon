@@ -1,5 +1,5 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.csdwacom" path="/org.cinnamon.settings-daemon/plugins/csdwacom/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.csdwacom" path="/org/cinnamon/settings-daemon/plugins/csdwacom/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>

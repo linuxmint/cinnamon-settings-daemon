@@ -1,5 +1,5 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.power" path="/org.cinnamon.settings-daemon/plugins/power/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.power" path="/org/cinnamon/settings-daemon/plugins/power/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>

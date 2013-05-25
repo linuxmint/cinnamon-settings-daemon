@@ -1,5 +1,5 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.color" path="/org.cinnamon.settings-daemon/plugins/color/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.color" path="/org/cinnamon/settings-daemon/plugins/color/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>

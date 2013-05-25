@@ -1,5 +1,5 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals" path="/org.cinnamon.settings-daemon/peripherals/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals" path="/org/cinnamon/settings-daemon/peripherals/">
     <child name="smartcard" schema="org.cinnamon.settings-daemon.peripherals.smartcard"/>
     <child name="touchpad" schema="org.cinnamon.settings-daemon.peripherals.touchpad"/>
     <child name="keyboard" schema="org.cinnamon.settings-daemon.peripherals.keyboard"/>
@@ -7,14 +7,14 @@
     <child name="touchscreen" schema="org.cinnamon.settings-daemon.peripherals.touchscreen"/>
     <child name="input-devices" schema="org.cinnamon.settings-daemon.peripherals.input-devices"/>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.smartcard" path="/org.cinnamon.settings-daemon/peripherals/smartcard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.smartcard" path="/org/cinnamon/settings-daemon/peripherals/smartcard/">
     <key name="removal-action" enum="org.cinnamon.settings-daemon.CsdSmartcardRemovalAction">
       <default>'none'</default>
       <_summary>Smartcard removal action</_summary>
       <_description>Set this to one of "none", "lock-screen", or "force-logout". The action will get performed when the smartcard used for log in is removed.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchpad" path="/org.cinnamon.settings-daemon/peripherals/touchpad/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchpad" path="/org/cinnamon/settings-daemon/peripherals/touchpad/">
     <key name="disable-while-typing" type="b">
       <default>false</default>
       <_summary>Disable touchpad while typing</_summary>
@@ -61,7 +61,7 @@
       <description>Set this to TRUE to enable natural (reverse) scrolling for touchpads.</description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.keyboard" path="/org.cinnamon.settings-daemon/peripherals/keyboard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.keyboard" path="/org/cinnamon/settings-daemon/peripherals/keyboard/">
     <key name="repeat" type="b">
       <default>true</default>
     </key>
@@ -111,7 +111,7 @@
       <summary>Modifiers-only input sources switcher shortcut</summary>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.mouse" path="/org.cinnamon.settings-daemon/peripherals/mouse/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.mouse" path="/org/cinnamon/settings-daemon/peripherals/mouse/">
     <key name="locate-pointer" type="b">
       <default>false</default>
       <_summary>Highlights the current location of the pointer when the Control key is pressed and released.</_summary>
@@ -147,13 +147,13 @@
       <_description>Enables middle mouse button emulation through simultaneous left and right button click.</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org.cinnamon.settings-daemon/peripherals/touchscreen/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org/cinnamon/settings-daemon/peripherals/touchscreen/">
     <key name="orientation-lock" type="b">
       <default>false</default>
       <_summary>Whether the tablet's orientation is locked, or rotated automatically.</_summary>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.input-devices" path="/org.cinnamon.settings-daemon/peripherals/input-devices/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.input-devices" path="/org/cinnamon/settings-daemon/peripherals/input-devices/">
     <key name="hotplug-command" type="s">
       <default>''</default>
       <_summary>Device hotplug custom command</_summary>

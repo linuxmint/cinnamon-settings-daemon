@@ -1,5 +1,5 @@
 <schemalist>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins" path="/org.cinnamon.settings-daemon/plugins/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins" path="/org/cinnamon/settings-daemon/plugins/">
     <child name="a11y-keyboard" schema="org.cinnamon.settings-daemon.plugins.a11y-keyboard"/>
     <child name="a11y-settings" schema="org.cinnamon.settings-daemon.plugins.a11y-settings"/>
     <child name="background" schema="org.cinnamon.settings-daemon.plugins.background"/>
@@ -22,7 +22,7 @@
     <child name="xrandr" schema="org.cinnamon.settings-daemon.plugins.xrandr"/>
     <child name="xsettings" schema="org.cinnamon.settings-daemon.plugins.xsettings"/>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.a11y-keyboard" path="/org.cinnamon.settings-daemon/plugins/a11y-keyboard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.a11y-keyboard" path="/org/cinnamon/settings-daemon/plugins/a11y-keyboard/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -34,7 +34,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.a11y-settings" path="/org.cinnamon.settings-daemon/plugins/a11y-settings/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.a11y-settings" path="/org/cinnamon/settings-daemon/plugins/a11y-settings/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -46,7 +46,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.background" path="/org.cinnamon.settings-daemon/plugins/background/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.background" path="/org/cinnamon/settings-daemon/plugins/background/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -58,7 +58,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.clipboard" path="/org.cinnamon.settings-daemon/plugins/clipboard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.clipboard" path="/org/cinnamon/settings-daemon/plugins/clipboard/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -70,7 +70,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.cursor" path="/org.cinnamon.settings-daemon/plugins/cursor/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.cursor" path="/org/cinnamon/settings-daemon/plugins/cursor/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -82,7 +82,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.font" path="/org.cinnamon.settings-daemon/plugins/font/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.font" path="/org/cinnamon/settings-daemon/plugins/font/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -94,7 +94,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.mouse" path="/org.cinnamon.settings-daemon/plugins/mouse/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.mouse" path="/org/cinnamon/settings-daemon/plugins/mouse/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -106,7 +106,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.screensaver-proxy" path="/org.cinnamon.settings-daemon/plugins/screensaver-proxy/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.screensaver-proxy" path="/org/cinnamon/settings-daemon/plugins/screensaver-proxy/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -118,7 +118,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.smartcard" path="/org.cinnamon.settings-daemon/plugins/smartcard/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.smartcard" path="/org/cinnamon/settings-daemon/plugins/smartcard/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
@@ -130,7 +130,7 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.sound" path="/org.cinnamon.settings-daemon/plugins/sound/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.sound" path="/org/cinnamon/settings-daemon/plugins/sound/">
     <key name="active" type="b">
       <default>true</default>
       <_summary>Activation of this plugin</_summary>
