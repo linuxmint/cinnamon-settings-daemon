@@ -6,12 +6,12 @@
       <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
     </key>
     <key name="antialiasing" enum="org.cinnamon.settings-daemon.CsdFontAntialiasingMode">
-      <default>'grayscale'</default>
+      <default>'rgba'</default>
       <_summary>Antialiasing</_summary>
       <_description>The type of antialiasing to use when rendering fonts. Possible values are: "none" for no antialiasing, "grayscale" for standard grayscale antialiasing, and "rgba" for subpixel antialiasing (LCD screens only).</_description>
     </key>
     <key name="hinting" enum="org.cinnamon.settings-daemon.CsdFontHinting">
-      <default>'medium'</default>
+      <default>'slight'</default>
       <_summary>Hinting</_summary>
       <_description>The type of hinting to use when rendering fonts. Possible values are: "none" for no hinting, "slight" for basic, "medium" for moderate, and "full" for maximum hinting (may cause distortion of letter forms).</_description>
     </key>
