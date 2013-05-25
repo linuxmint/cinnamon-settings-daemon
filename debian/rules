@@ -9,6 +9,9 @@ include /usr/share/gnome-pkg-tools/1/rules/gnome-get-source.mk
 
 LDFLAGS += -Wl,-O1 -Wl,-z,defs -Wl,--warn-unresolved-symbols -Wl,--as-needed
 
+# To avoid running configure twice (because gnome-autogen.sh)
+export NOCONFIGURE=yes
+
 DEB_DH_MAKESHLIBS_ARGS_ALL += --no-act
 DEB_CONFIGURE_EXTRA_FLAGS = --disable-systemd --disable-packagekit
 
@@ -23,6 +26,9 @@ install/cinnamon-settings-daemon::
 binary-install/cinnamon-settings-daemon::
 	find debian -name '*.a' -delete
 	find debian -name '*.la' -delete
+
+override_dh_autoreconf:
+    dh_autoreconf --as-needed ./autogen.sh
 
 common-binary-post-install-arch:: list-missing
 
