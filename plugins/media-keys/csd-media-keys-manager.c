@@ -230,85 +230,6 @@ calculate_icon_name (gint value, const char **icon_names)
         return icon_names[s];
 }
 
-static gboolean
-ubuntu_osd_notification_is_supported (void)
-{
-        GList *caps;
-        gboolean has_cap;
-
-        caps = notify_get_server_caps ();
-        has_cap = (g_list_find_custom (caps, NOTIFY_CAP_PRIVATE_SYNCHRONOUS, (GCompareFunc) g_strcmp0) != NULL);
-        g_list_foreach (caps, (GFunc) g_free, NULL);
-        g_list_free (caps);
-
-        return has_cap;
-}
-
-static gboolean
-ubuntu_osd_notification_show_icon (const char *icon,
-                                   const char *hint)
-{
-        if (!ubuntu_osd_notification_is_supported ())
-                return FALSE;
-
-        NotifyNotification *notification = notify_notification_new (" ", "", icon);
-        notify_notification_set_hint_string (notification, NOTIFY_CAP_PRIVATE_SYNCHRONOUS, hint);
-        notify_notification_set_hint_string (notification, NOTIFY_CAP_PRIVATE_ICON_ONLY, NOTIFY_HINT_TRUE);
-
-        gboolean res = notify_notification_show (notification, NULL);
-        g_object_unref (notification);
-
-        return res;
-}
-
-static gboolean
-ubuntu_osd_do_notification (NotifyNotification **notification,
-                            const char *hint,
-                            gint value,
-                            gboolean muted,
-                            const char **icon_names)
-{
-        if (!ubuntu_osd_notification_is_supported ())
-                return FALSE;
-
-        if (!*notification) {
-                *notification = notify_notification_new (" ", "", NULL);
-                notify_notification_set_hint_string (*notification, NOTIFY_CAP_PRIVATE_SYNCHRONOUS, hint);
-        }
-
-        value = CLAMP (value, -1, 101);
-        const char *icon = muted ? icon_names[0] : calculate_icon_name (value, icon_names);
-        notify_notification_set_hint_int32 (*notification, "value", value);
-        notify_notification_update (*notification, " ", "", icon);
-
-        return notify_notification_show (*notification, NULL);
-}
-
-static gboolean
-ubuntu_osd_notification_show_volume (CsdMediaKeysManager *manager,
-                                     gint value,
-                                     gboolean muted)
-{
-        return ubuntu_osd_do_notification (&manager->priv->volume_notification,
-                                           "volume", value, muted, volume_icons);
-}
-
-static gboolean
-ubuntu_osd_notification_show_brightness (CsdMediaKeysManager *manager,
-                                         gint value)
-{
-        return ubuntu_osd_do_notification (&manager->priv->brightness_notification,
-                                           "brightness", value, value <= 0, brightness_icons);
-}
-
-static gboolean
-ubuntu_osd_notification_show_kb_backlight (CsdMediaKeysManager *manager,
-                                           gint value)
-{
-        return ubuntu_osd_do_notification (&manager->priv->kb_backlight_notification,
-                                           "keyboard", value, value <= 0, kb_backlight_icons);
-}
-
 static void
 init_screens (CsdMediaKeysManager *manager)
 {
@@ -469,6 +390,7 @@ execute (CsdMediaKeysManager *manager,
 static void
 dialog_init (CsdMediaKeysManager *manager)
 {
+    g_printerr ("dialog init\n");
         if (manager->priv->dialog != NULL
             && !csd_osd_window_is_valid (CSD_OSD_WINDOW (manager->priv->dialog))) {
                 gtk_widget_destroy (manager->priv->dialog);
@@ -986,13 +908,11 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        if (!ubuntu_osd_notification_show_icon ("notification-device-eject", "Eject")) {
-                dialog_init (manager);
-                csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                         "media-eject-symbolic",
-                                                         FALSE);
-                dialog_show (manager);
-        }
+        dialog_init (manager);
+        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+                                                 "media-eject-symbolic",
+                                                 FALSE);
+        dialog_show (manager);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -1050,13 +970,11 @@ do_execute_desktop (CsdMediaKeysManager *manager,
 static void
 do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
 {
-        if (!ubuntu_osd_notification_show_icon ((!state) ? "touchpad-disabled-symbolic" : "input-touchpad-symbolic", "Touchpad")) {
-                dialog_init (manager);
-                csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                        state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-                                                        FALSE);
-                dialog_show (manager);
-        }
+    dialog_init (manager);
+    csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+                                            state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
+                                            FALSE);
+    dialog_show (manager);
 }
 
 static void
@@ -1087,9 +1005,6 @@ update_dialog (CsdMediaKeysManager *manager,
                gboolean             sound_changed,
                gboolean             quiet)
 {
-        if (ubuntu_osd_notification_show_volume (manager, vol, muted))
-                goto done;
-
         vol = CLAMP (vol, 0, 100);
 
         dialog_init (manager);
@@ -1275,14 +1190,14 @@ do_sound_action (CsdMediaKeysManager *manager,
         }
 
         if (type == VOLUME_DOWN_KEY && old_vol == 0 && old_muted)
-                osd_vol = -1;
+                osd_vol = 0;
         else if (type == VOLUME_UP_KEY && old_vol == PA_VOLUME_NORM && !old_muted)
                 osd_vol = 101;
         else if (!new_muted)
                 osd_vol = (int) (100 * (double) new_vol / PA_VOLUME_NORM);
         else
                 osd_vol = 0;
-
+        g_printerr ("volume is %d\n", osd_vol);
         update_dialog (manager, stream, osd_vol, new_muted, sound_changed, quiet);
 }
 
@@ -1592,8 +1507,6 @@ do_multimedia_player_action (CsdMediaKeysManager *manager,
                              const char          *icon,
                              const char          *key)
 {
-        if (icon != NULL)
-                ubuntu_osd_notification_show_icon (icon, key);
         return csd_media_player_key_pressed (manager, key);
 }
 
@@ -1842,15 +1755,14 @@ update_screen_cb (GObject             *source_object,
         else
                 osd_percentage = CLAMP (percentage, 0, 100);
 
-        if (!ubuntu_osd_notification_show_brightness (manager, osd_percentage)) {
-                dialog_init (manager);
-                csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                         "display-brightness-symbolic",
-                                                         TRUE);
-                csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                        percentage);
-                dialog_show (manager);
-        }
+        dialog_init (manager);
+        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+                                                 "display-brightness-symbolic",
+                                                 TRUE);
+        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
+                                                percentage);
+        dialog_show (manager);
+
         g_free (data);
         g_variant_unref (new_percentage);
 }
@@ -1936,15 +1848,14 @@ update_keyboard_cb (GObject             *source_object,
 
         /* FIXME: No overshoot effect for keyboard, as the power plugin has no interface
          *        to get the old brightness */
-        if (!ubuntu_osd_notification_show_kb_backlight (manager, CLAMP (percentage, 0, 100))) {
-                dialog_init (manager);
-                csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                         "keyboard-brightness-symbolic",
-                                                         TRUE);
-                csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                        percentage);
-                dialog_show (manager);
-        }
+        dialog_init (manager);
+        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+                                                 "keyboard-brightness-symbolic",
+                                                 TRUE);
+        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
+                                                percentage);
+        dialog_show (manager);
+
         g_variant_unref (new_percentage);
 }
 
