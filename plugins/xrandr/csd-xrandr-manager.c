@@ -45,7 +45,6 @@
 
 #include <libgnome-desktop/gnome-rr-config.h>
 #include <libgnome-desktop/gnome-rr.h>
-#include <libgnome-desktop/gnome-rr-labeler.h>
 
 #ifdef HAVE_WACOM
 #include <libwacom/libwacom.h>
@@ -76,7 +75,7 @@
 
 static const gchar introspection_xml[] =
 "<node>"
-"  <interface name='org.gnome.SettingsDaemon.XRANDR_2'>"
+"  <interface name='org.cinnamon.SettingsDaemon.XRANDR_2'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_xrandr_manager_2'/>"
 "    <method name='ApplyConfiguration'>"
 "      <!-- transient-parent window for the confirmation dialog; use 0"
