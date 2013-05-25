@@ -34,7 +34,7 @@
 
 #define CINNAMON_SETTINGS_PLUGIN_INFO_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_SETTINGS_PLUGIN_INFO, CinnamonSettingsPluginInfoPrivate))
 
-#define PLUGIN_GROUP "GNOME Settings Plugin"
+#define PLUGIN_GROUP "Cinnamon Settings Plugin"
 
 #define PLUGIN_PRIORITY_MAX 1
 #define PLUGIN_PRIORITY_DEFAULT 100
