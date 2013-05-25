@@ -1000,7 +1000,7 @@ do_touchpad_action (CsdMediaKeysManager *manager)
 static void
 update_dialog (CsdMediaKeysManager *manager,
                GvcMixerStream      *stream,
-               guint                vol,
+               gint                 vol,
                gboolean             muted,
                gboolean             sound_changed,
                gboolean             quiet)
@@ -1190,7 +1190,7 @@ do_sound_action (CsdMediaKeysManager *manager,
         }
 
         if (type == VOLUME_DOWN_KEY && old_vol == 0 && old_muted)
-                osd_vol = 0;
+                osd_vol = -1;
         else if (type == VOLUME_UP_KEY && old_vol == PA_VOLUME_NORM && !old_muted)
                 osd_vol = 101;
         else if (!new_muted)
