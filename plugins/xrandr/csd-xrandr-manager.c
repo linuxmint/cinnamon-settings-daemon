@@ -105,7 +105,7 @@ static const gchar introspection_xml[] =
 
 struct CsdXrandrManagerPrivate
 {
-        CinnamonSettingsRRScreen *rw_screen;
+        GnomeRRScreen *rw_screen;
         gboolean running;
 
         UpClient *upower_client;
@@ -118,7 +118,7 @@ struct CsdXrandrManagerPrivate
 
         /* fn-F7 status */
         int             current_fn_f7_config;             /* -1 if no configs */
-        CinnamonSettingsRRConfig **fn_f7_configs;  /* NULL terminated, NULL if there are no configs */
+        GnomeRRConfig **fn_f7_configs;  /* NULL terminated, NULL if there are no configs */
 
         /* Last time at which we got a "screen got reconfigured" event; see on_randr_event() */
         guint32 last_config_timestamp;
@@ -128,7 +128,7 @@ struct CsdXrandrManagerPrivate
 #endif /* HAVE_WACOM */
 };
 
-static const CinnamonSettingsRRRotation possible_rotations[] = {
+static const GnomeRRRotation possible_rotations[] = {
         GNOME_RR_ROTATION_0,
         GNOME_RR_ROTATION_90,
         GNOME_RR_ROTATION_180,
@@ -142,13 +142,13 @@ static void     csd_xrandr_manager_finalize    (GObject             *object);
 
 static void error_message (CsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text);
 
-static void get_allowed_rotations_for_output (CinnamonSettingsRRConfig *config,
-                                              CinnamonSettingsRRScreen *rr_screen,
-                                              CinnamonSettingsRROutputInfo *output,
+static void get_allowed_rotations_for_output (GnomeRRConfig *config,
+                                              GnomeRRScreen *rr_screen,
+                                              GnomeRROutputInfo *output,
                                               int *out_num_rotations,
-                                              CinnamonSettingsRRRotation *out_rotations);
+                                              GnomeRRRotation *out_rotations);
 static void handle_fn_f7 (CsdXrandrManager *mgr, guint32 timestamp);
-static void handle_rotate_windows (CsdXrandrManager *mgr, CinnamonSettingsRRRotation rotation, guint32 timestamp);
+static void handle_rotate_windows (CsdXrandrManager *mgr, GnomeRRRotation rotation, guint32 timestamp);
 
 G_DEFINE_TYPE (CsdXrandrManager, csd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -204,7 +204,7 @@ log_msg (const char *format, ...)
 }
 
 static void
-log_output (CinnamonSettingsRROutputInfo *output)
+log_output (GnomeRROutputInfo *output)
 {
         gchar *name = gnome_rr_output_info_get_name (output);
         gchar *display_name = gnome_rr_output_info_get_display_name (output);
@@ -236,10 +236,10 @@ log_output (CinnamonSettingsRROutputInfo *output)
 }
 
 static void
-log_configuration (CinnamonSettingsRRConfig *config)
+log_configuration (GnomeRRConfig *config)
 {
         int i;
-        CinnamonSettingsRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
 
         log_msg ("        cloned: %s\n", gnome_rr_config_get_clone (config) ? "yes" : "no");
 
@@ -262,9 +262,9 @@ timestamp_relationship (guint32 a, guint32 b)
 }
 
 static void
-log_screen (CinnamonSettingsRRScreen *screen)
+log_screen (GnomeRRScreen *screen)
 {
-        CinnamonSettingsRRConfig *config;
+        GnomeRRConfig *config;
         int min_w, min_h, max_w, max_h;
         guint32 change_timestamp, config_timestamp;
 
@@ -288,7 +288,7 @@ log_screen (CinnamonSettingsRRScreen *screen)
 }
 
 static void
-log_configurations (CinnamonSettingsRRConfig **configs)
+log_configurations (GnomeRRConfig **configs)
 {
         int i;
 
@@ -332,7 +332,7 @@ show_timestamps_dialog (CsdXrandrManager *manager, const char *msg)
 }
 
 static void
-print_output (CinnamonSettingsRROutputInfo *info)
+print_output (GnomeRROutputInfo *info)
 {
         int x, y, width, height;
 
@@ -348,10 +348,10 @@ print_output (CinnamonSettingsRROutputInfo *info)
 }
 
 static void
-print_configuration (CinnamonSettingsRRConfig *config, const char *header)
+print_configuration (GnomeRRConfig *config, const char *header)
 {
         int i;
-        CinnamonSettingsRROutputInfo **outputs;
+        GnomeRROutputInfo **outputs;
 
         g_print ("=== %s Configuration ===\n", header);
         if (!config) {
@@ -367,20 +367,20 @@ print_configuration (CinnamonSettingsRRConfig *config, const char *header)
 }
 
 static gboolean
-is_laptop (CinnamonSettingsRRScreen *screen, CinnamonSettingsRROutputInfo *output)
+is_laptop (GnomeRRScreen *screen, GnomeRROutputInfo *output)
 {
-        CinnamonSettingsRROutput *rr_output;
+        GnomeRROutput *rr_output;
 
         rr_output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (output));
 
         return gnome_rr_output_is_laptop (rr_output);
 }
 
-static CinnamonSettingsRROutputInfo *
-get_laptop_output_info (CinnamonSettingsRRScreen *screen, CinnamonSettingsRRConfig *config)
+static GnomeRROutputInfo *
+get_laptop_output_info (GnomeRRScreen *screen, GnomeRRConfig *config)
 {
         int i;
-        CinnamonSettingsRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
 
         for (i = 0; outputs[i] != NULL; i++) {
                 if (is_laptop (screen, outputs[i]))
@@ -391,9 +391,9 @@ get_laptop_output_info (CinnamonSettingsRRScreen *screen, CinnamonSettingsRRConf
 }
 
 static gboolean
-non_laptop_outputs_are_active (CinnamonSettingsRRConfig *config, CinnamonSettingsRROutputInfo *laptop_info)
+non_laptop_outputs_are_active (GnomeRRConfig *config, GnomeRROutputInfo *laptop_info)
 {
-        CinnamonSettingsRROutputInfo **outputs;
+        GnomeRROutputInfo **outputs;
         int i;
 
         outputs = gnome_rr_config_get_outputs (config);
@@ -409,9 +409,9 @@ non_laptop_outputs_are_active (CinnamonSettingsRRConfig *config, CinnamonSetting
 }
 
 static void
-turn_off_laptop_display_in_configuration (CinnamonSettingsRRScreen *screen, CinnamonSettingsRRConfig *config)
+turn_off_laptop_display_in_configuration (GnomeRRScreen *screen, GnomeRRConfig *config)
 {
-        CinnamonSettingsRROutputInfo *laptop_info;
+        GnomeRROutputInfo *laptop_info;
 
         laptop_info = get_laptop_output_info (screen, config);
         if (laptop_info) {
@@ -437,7 +437,7 @@ apply_configuration_from_filename (CsdXrandrManager *manager,
                                    GError          **error)
 {
         struct CsdXrandrManagerPrivate *priv = manager->priv;
-        CinnamonSettingsRRConfig *config;
+        GnomeRRConfig *config;
         GError *my_error;
         gboolean success;
         char *str;
@@ -486,7 +486,7 @@ apply_configuration_from_filename (CsdXrandrManager *manager,
  * We just return whether setting the configuration succeeded.
  */
 static gboolean
-apply_configuration (CsdXrandrManager *manager, CinnamonSettingsRRConfig *config, guint32 timestamp, gboolean show_error, gboolean save_configuration)
+apply_configuration (CsdXrandrManager *manager, GnomeRRConfig *config, guint32 timestamp, gboolean show_error, gboolean save_configuration)
 {
         CsdXrandrManagerPrivate *priv = manager->priv;
         GError *error;
@@ -779,7 +779,7 @@ csd_xrandr_manager_2_rotate (CsdXrandrManager *manager,
 /* DBus method for org.gnome.SettingsDaemon.XRANDR_2 RotateTo; see csd-xrandr-manager.xml for the interface definition */
 static gboolean
 csd_xrandr_manager_2_rotate_to (CsdXrandrManager *manager,
-                                CinnamonSettingsRRRotation   rotation,
+                                GnomeRRRotation   rotation,
                                 guint32           timestamp,
                                 GError          **error)
 {
@@ -804,9 +804,9 @@ csd_xrandr_manager_2_rotate_to (CsdXrandrManager *manager,
 }
 
 static gboolean
-get_clone_size (CinnamonSettingsRRScreen *screen, int *width, int *height)
+get_clone_size (GnomeRRScreen *screen, int *width, int *height)
 {
-        CinnamonSettingsRRMode **modes = gnome_rr_screen_list_clone_modes (screen);
+        GnomeRRMode **modes = gnome_rr_screen_list_clone_modes (screen);
         int best_w, best_h;
         int i;
 
@@ -814,7 +814,7 @@ get_clone_size (CinnamonSettingsRRScreen *screen, int *width, int *height)
         best_h = 0;
 
         for (i = 0; modes[i] != NULL; ++i) {
-                CinnamonSettingsRRMode *mode = modes[i];
+                GnomeRRMode *mode = modes[i];
                 int w, h;
 
                 w = gnome_rr_mode_get_width (mode);
@@ -839,10 +839,10 @@ get_clone_size (CinnamonSettingsRRScreen *screen, int *width, int *height)
 }
 
 static gboolean
-config_is_all_off (CinnamonSettingsRRConfig *config)
+config_is_all_off (GnomeRRConfig *config)
 {
         int j;
-        CinnamonSettingsRROutputInfo **outputs;
+        GnomeRROutputInfo **outputs;
 
         outputs = gnome_rr_config_get_outputs (config);
 
@@ -862,16 +862,16 @@ laptop_lid_is_closed (CsdXrandrManager *manager)
 }
 
 static gboolean
-is_laptop_with_closed_lid (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen, CinnamonSettingsRROutputInfo *info)
+is_laptop_with_closed_lid (CsdXrandrManager *manager, GnomeRRScreen *screen, GnomeRROutputInfo *info)
 {
         return is_laptop (screen, info) && laptop_lid_is_closed (manager);
 }
 
-static CinnamonSettingsRRConfig *
-make_clone_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen)
+static GnomeRRConfig *
+make_clone_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
 {
-        CinnamonSettingsRRConfig *result;
-        CinnamonSettingsRROutputInfo **outputs;
+        GnomeRRConfig *result;
+        GnomeRROutputInfo **outputs;
         int width, height;
         int i;
 
@@ -882,18 +882,18 @@ make_clone_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen)
         outputs = gnome_rr_config_get_outputs (result);
 
         for (i = 0; outputs[i] != NULL; ++i) {
-                CinnamonSettingsRROutputInfo *info = outputs[i];
+                GnomeRROutputInfo *info = outputs[i];
 
                 gnome_rr_output_info_set_active (info, FALSE);
                 if (!is_laptop_with_closed_lid (manager, screen, info) && gnome_rr_output_info_is_connected (info)) {
-                        CinnamonSettingsRROutput *output =
+                        GnomeRROutput *output =
                                 gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (info));
-                        CinnamonSettingsRRMode **modes = gnome_rr_output_list_modes (output);
+                        GnomeRRMode **modes = gnome_rr_output_list_modes (output);
                         int j;
                         int best_rate = 0;
 
                         for (j = 0; modes[j] != NULL; ++j) {
-                                CinnamonSettingsRRMode *mode = modes[j];
+                                GnomeRRMode *mode = modes[j];
                                 int w, h;
 
                                 w = gnome_rr_mode_get_width (mode);
@@ -927,15 +927,15 @@ make_clone_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen)
         return result;
 }
 
-static CinnamonSettingsRRMode *
-find_best_mode (CinnamonSettingsRROutput *output)
+static GnomeRRMode *
+find_best_mode (GnomeRROutput *output)
 {
-        CinnamonSettingsRRMode *preferred;
-        CinnamonSettingsRRMode **modes;
+        GnomeRRMode *preferred;
+        GnomeRRMode **modes;
         int best_size;
         int best_width, best_height, best_rate;
         int i;
-        CinnamonSettingsRRMode *best_mode;
+        GnomeRRMode *best_mode;
 
         preferred = gnome_rr_output_get_preferred_mode (output);
         if (preferred)
@@ -976,12 +976,12 @@ find_best_mode (CinnamonSettingsRROutput *output)
 }
 
 static gboolean
-turn_on (CinnamonSettingsRRScreen *screen,
-         CinnamonSettingsRROutputInfo *info,
+turn_on (GnomeRRScreen *screen,
+         GnomeRROutputInfo *info,
          int x, int y)
 {
-        CinnamonSettingsRROutput *output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (info));
-        CinnamonSettingsRRMode *mode = find_best_mode (output);
+        GnomeRROutput *output = gnome_rr_screen_get_output_by_name (screen, gnome_rr_output_info_get_name (info));
+        GnomeRRMode *mode = find_best_mode (output);
 
         if (mode) {
                 gnome_rr_output_info_set_active (info, TRUE);
@@ -995,16 +995,16 @@ turn_on (CinnamonSettingsRRScreen *screen,
         return FALSE;
 }
 
-static CinnamonSettingsRRConfig *
-make_laptop_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen)
+static GnomeRRConfig *
+make_laptop_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
 {
         /* Turn on the laptop, disable everything else */
-        CinnamonSettingsRRConfig *result = gnome_rr_config_new_current (screen, NULL);
-        CinnamonSettingsRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
 
         for (i = 0; outputs[i] != NULL; ++i) {
-                CinnamonSettingsRROutputInfo *info = outputs[i];
+                GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info) && !laptop_lid_is_closed (manager)) {
                         if (!turn_on (screen, info, 0, 0)) {
@@ -1035,7 +1035,7 @@ make_laptop_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen)
 }
 
 static int
-turn_on_and_get_rightmost_offset (CinnamonSettingsRRScreen *screen, CinnamonSettingsRROutputInfo *info, int x)
+turn_on_and_get_rightmost_offset (GnomeRRScreen *screen, GnomeRROutputInfo *info, int x)
 {
         if (turn_on (screen, info, x, 0)) {
                 int width;
@@ -1050,8 +1050,8 @@ turn_on_and_get_rightmost_offset (CinnamonSettingsRRScreen *screen, CinnamonSett
 static int
 compare_output_positions (const void *a, const void *b)
 {
-        CinnamonSettingsRROutputInfo *oa = (CinnamonSettingsRROutputInfo *) a;
-        CinnamonSettingsRROutputInfo *ob = (CinnamonSettingsRROutputInfo *) b;
+        GnomeRROutputInfo *oa = (GnomeRROutputInfo *) a;
+        GnomeRROutputInfo *ob = (GnomeRROutputInfo *) b;
         int xa, xb;
 
         gnome_rr_output_info_get_geometry (oa, &xa, NULL, NULL, NULL);
@@ -1066,10 +1066,10 @@ compare_output_positions (const void *a, const void *b)
  * (i.e. something that fits and that does not consist of only-off outputs).
  */
 static gboolean
-trim_rightmost_outputs_that_dont_fit_in_framebuffer (CinnamonSettingsRRScreen *rr_screen, CinnamonSettingsRRConfig *config)
+trim_rightmost_outputs_that_dont_fit_in_framebuffer (GnomeRRScreen *rr_screen, GnomeRRConfig *config)
 {
-        CinnamonSettingsRROutputInfo **outputs;
-        CinnamonSettingsRROutputInfo **sorted_outputs;
+        GnomeRROutputInfo **outputs;
+        GnomeRROutputInfo **sorted_outputs;
         int num_on_outputs;
         int i, j;
         gboolean applicable;
@@ -1086,7 +1086,7 @@ trim_rightmost_outputs_that_dont_fit_in_framebuffer (CinnamonSettingsRRScreen *r
 
         /* Lay them out from left to right */
 
-        sorted_outputs = g_new (CinnamonSettingsRROutputInfo *, num_on_outputs);
+        sorted_outputs = g_new (GnomeRROutputInfo *, num_on_outputs);
         j = 0;
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_info_is_active (outputs[i])) {
@@ -1126,20 +1126,20 @@ trim_rightmost_outputs_that_dont_fit_in_framebuffer (CinnamonSettingsRRScreen *r
         return applicable;
 }
 
-static CinnamonSettingsRRConfig *
-make_xinerama_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen)
+static GnomeRRConfig *
+make_xinerama_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
 {
         /* Turn on everything that has a preferred mode, and
          * position it from left to right
          */
-        CinnamonSettingsRRConfig *result = gnome_rr_config_new_current (screen, NULL);
-        CinnamonSettingsRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
         int x;
 
         x = 0;
         for (i = 0; outputs[i] != NULL; ++i) {
-                CinnamonSettingsRROutputInfo *info = outputs[i];
+                GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info)) {
                         if (laptop_lid_is_closed (manager))
@@ -1152,7 +1152,7 @@ make_xinerama_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen
         }
 
         for (i = 0; outputs[i] != NULL; ++i) {
-                CinnamonSettingsRROutputInfo *info = outputs[i];
+                GnomeRROutputInfo *info = outputs[i];
 
                 if (gnome_rr_output_info_is_connected (info) && !is_laptop (screen, info)) {
                         gnome_rr_output_info_set_primary (info, FALSE);
@@ -1172,19 +1172,19 @@ make_xinerama_setup (CsdXrandrManager *manager, CinnamonSettingsRRScreen *screen
         return result;
 }
 
-static CinnamonSettingsRRConfig *
-make_other_setup (CinnamonSettingsRRScreen *screen)
+static GnomeRRConfig *
+make_other_setup (GnomeRRScreen *screen)
 {
         /* Turn off all laptops, and make all external monitors clone
          * from (0, 0)
          */
 
-        CinnamonSettingsRRConfig *result = gnome_rr_config_new_current (screen, NULL);
-        CinnamonSettingsRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
+        GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
+        GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
 
         for (i = 0; outputs[i] != NULL; ++i) {
-                CinnamonSettingsRROutputInfo *info = outputs[i];
+                GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info)) {
                         gnome_rr_output_info_set_active (info, FALSE);
@@ -1229,8 +1229,8 @@ sanitize (CsdXrandrManager *manager, GPtrArray *array)
                 int j;
 
                 for (j = i + 1; j < array->len; j++) {
-                        CinnamonSettingsRRConfig *this = array->pdata[j];
-                        CinnamonSettingsRRConfig *other = array->pdata[i];
+                        GnomeRRConfig *this = array->pdata[j];
+                        GnomeRRConfig *other = array->pdata[i];
 
                         if (this && other && gnome_rr_config_equal (this, other)) {
                                 g_debug ("removing duplicate configuration");
@@ -1242,7 +1242,7 @@ sanitize (CsdXrandrManager *manager, GPtrArray *array)
         }
 
         for (i = 0; i < array->len; ++i) {
-                CinnamonSettingsRRConfig *config = array->pdata[i];
+                GnomeRRConfig *config = array->pdata[i];
 
                 if (config && config_is_all_off (config)) {
                         g_debug ("removing configuration as all outputs are off");
@@ -1256,7 +1256,7 @@ sanitize (CsdXrandrManager *manager, GPtrArray *array)
          */
 
         for (i = 0; i < array->len; i++) {
-                CinnamonSettingsRRConfig *config = array->pdata[i];
+                GnomeRRConfig *config = array->pdata[i];
 
                 if (config) {
                         GError *error;
@@ -1298,7 +1298,7 @@ static void
 generate_fn_f7_configs (CsdXrandrManager *mgr)
 {
         GPtrArray *array = g_ptr_array_new ();
-        CinnamonSettingsRRScreen *screen = mgr->priv->rw_screen;
+        GnomeRRScreen *screen = mgr->priv->rw_screen;
 
         g_debug ("Generating configurations");
 
@@ -1323,7 +1323,7 @@ generate_fn_f7_configs (CsdXrandrManager *mgr)
         array = sanitize (mgr, array);
 
         if (array) {
-                mgr->priv->fn_f7_configs = (CinnamonSettingsRRConfig **)g_ptr_array_free (array, FALSE);
+                mgr->priv->fn_f7_configs = (GnomeRRConfig **)g_ptr_array_free (array, FALSE);
                 mgr->priv->current_fn_f7_config = 0;
         }
 }
@@ -1346,17 +1346,17 @@ static void
 handle_fn_f7 (CsdXrandrManager *mgr, guint32 timestamp)
 {
         CsdXrandrManagerPrivate *priv = mgr->priv;
-        CinnamonSettingsRRScreen *screen = priv->rw_screen;
-        CinnamonSettingsRRConfig *current;
+        GnomeRRScreen *screen = priv->rw_screen;
+        GnomeRRConfig *current;
         GError *error;
 
         /* Theory of fn-F7 operation
          *
          * We maintain a datastructure "fn_f7_status", that contains
-         * a list of CinnamonSettingsRRConfig's. Each of the CinnamonSettingsRRConfigs has a
+         * a list of GnomeRRConfig's. Each of the GnomeRRConfigs has a
          * mode (or "off") for each connected output.
          *
-         * When the user hits fn-F7, we cycle to the next CinnamonSettingsRRConfig
+         * When the user hits fn-F7, we cycle to the next GnomeRRConfig
          * in the data structure. If the data structure does not exist, it
          * is generated. If the configs in the data structure do not match
          * the current hardware reality, it is regenerated.
@@ -1447,8 +1447,8 @@ handle_fn_f7 (CsdXrandrManager *mgr, guint32 timestamp)
         g_debug ("done handling fn-f7");
 }
 
-static CinnamonSettingsRRRotation
-get_next_rotation (CinnamonSettingsRRRotation allowed_rotations, CinnamonSettingsRRRotation current_rotation)
+static GnomeRRRotation
+get_next_rotation (GnomeRRRotation allowed_rotations, GnomeRRRotation current_rotation)
 {
         int i;
         int current_index;
@@ -1458,7 +1458,7 @@ get_next_rotation (CinnamonSettingsRRRotation allowed_rotations, CinnamonSetting
         current_index = -1;
 
         for (i = 0; i < G_N_ELEMENTS (possible_rotations); i++) {
-                CinnamonSettingsRRRotation r;
+                GnomeRRRotation r;
 
                 r = possible_rotations[i];
                 if (r == current_rotation) {
@@ -1477,7 +1477,7 @@ get_next_rotation (CinnamonSettingsRRRotation allowed_rotations, CinnamonSetting
         i = (current_index + 1) % G_N_ELEMENTS (possible_rotations);
 
         while (1) {
-                CinnamonSettingsRRRotation r;
+                GnomeRRRotation r;
 
                 r = possible_rotations[i];
                 if (r == current_rotation) {
@@ -1491,7 +1491,7 @@ get_next_rotation (CinnamonSettingsRRRotation allowed_rotations, CinnamonSetting
 }
 
 struct {
-        CinnamonSettingsRRRotation rotation;
+        GnomeRRRotation rotation;
         gfloat matrix[9];
 } evdev_rotations[] = {
         { GNOME_RR_ROTATION_0,
@@ -1505,7 +1505,7 @@ struct {
 };
 
 static guint
-get_rotation_index (CinnamonSettingsRRRotation rotation)
+get_rotation_index (GnomeRRRotation rotation)
 {
         guint i;
 
@@ -1552,7 +1552,7 @@ is_wacom_tablet_device (CsdXrandrManager *mgr,
 
 static void
 rotate_touchscreens (CsdXrandrManager *mgr,
-                     CinnamonSettingsRRRotation   rotation)
+                     GnomeRRRotation   rotation)
 {
         XDeviceInfo *device_info;
         gint n_devices;
@@ -1621,16 +1621,16 @@ rotate_touchscreens (CsdXrandrManager *mgr,
  */
 static void
 handle_rotate_windows (CsdXrandrManager *mgr,
-                       CinnamonSettingsRRRotation rotation,
+                       GnomeRRRotation rotation,
                        guint32 timestamp)
 {
         CsdXrandrManagerPrivate *priv = mgr->priv;
-        CinnamonSettingsRRScreen *screen = priv->rw_screen;
-        CinnamonSettingsRRConfig *current;
-        CinnamonSettingsRROutputInfo *rotatable_output_info;
+        GnomeRRScreen *screen = priv->rw_screen;
+        GnomeRRConfig *current;
+        GnomeRROutputInfo *rotatable_output_info;
         int num_allowed_rotations;
-        CinnamonSettingsRRRotation allowed_rotations;
-        CinnamonSettingsRRRotation next_rotation;
+        GnomeRRRotation allowed_rotations;
+        GnomeRRRotation next_rotation;
         gboolean success, show_error;
 
         g_debug ("Handling XF86RotateWindows");
@@ -1677,7 +1677,7 @@ static void
 auto_configure_outputs (CsdXrandrManager *manager, guint32 timestamp)
 {
         CsdXrandrManagerPrivate *priv = manager->priv;
-        CinnamonSettingsRRConfig *config;
+        GnomeRRConfig *config;
 
         config = make_xinerama_setup (manager, priv->rw_screen);
         if (config) {
@@ -1733,7 +1733,7 @@ use_stored_configuration_or_auto_configure_outputs (CsdXrandrManager *manager, g
 }
 
 static void
-on_randr_event (CinnamonSettingsRRScreen *screen, gpointer data)
+on_randr_event (GnomeRRScreen *screen, gpointer data)
 {
         CsdXrandrManager *manager = CSD_XRANDR_MANAGER (data);
         CsdXrandrManagerPrivate *priv = manager->priv;
@@ -1751,7 +1751,7 @@ on_randr_event (CinnamonSettingsRRScreen *screen, gpointer data)
                  config_timestamp);
 
         if (change_timestamp >= config_timestamp) {
-                CinnamonSettingsRRConfig *rr_config;
+                GnomeRRConfig *rr_config;
 
                 /* The event is due to an explicit configuration change.
                  *
@@ -1789,13 +1789,13 @@ on_randr_event (CinnamonSettingsRRScreen *screen, gpointer data)
 }
 
 static void
-get_allowed_rotations_for_output (CinnamonSettingsRRConfig *config,
-                                  CinnamonSettingsRRScreen *rr_screen,
-                                  CinnamonSettingsRROutputInfo *output,
+get_allowed_rotations_for_output (GnomeRRConfig *config,
+                                  GnomeRRScreen *rr_screen,
+                                  GnomeRROutputInfo *output,
                                   int *out_num_rotations,
-                                  CinnamonSettingsRRRotation *out_rotations)
+                                  GnomeRRRotation *out_rotations)
 {
-        CinnamonSettingsRRRotation current_rotation;
+        GnomeRRRotation current_rotation;
         int i;
 
         *out_num_rotations = 0;
@@ -1806,7 +1806,7 @@ get_allowed_rotations_for_output (CinnamonSettingsRRConfig *config,
         /* Yay for brute force */
 
         for (i = 0; i < G_N_ELEMENTS (possible_rotations); i++) {
-                CinnamonSettingsRRRotation rotation_to_test;
+                GnomeRRRotation rotation_to_test;
 
                 rotation_to_test = possible_rotations[i];
 
@@ -1852,8 +1852,8 @@ static void
 apply_default_boot_configuration (CsdXrandrManager *mgr, guint32 timestamp)
 {
         CsdXrandrManagerPrivate *priv = mgr->priv;
-        CinnamonSettingsRRScreen *screen = priv->rw_screen;
-        CinnamonSettingsRRConfig *config;
+        GnomeRRScreen *screen = priv->rw_screen;
+        GnomeRRConfig *config;
         CsdXrandrBootBehaviour boot;
 
         boot = g_settings_get_enum (priv->settings, CONF_KEY_DEFAULT_MONITORS_SETUP);
@@ -1958,7 +1958,7 @@ static void
 turn_off_laptop_display (CsdXrandrManager *manager, guint32 timestamp)
 {
         CsdXrandrManagerPrivate *priv = manager->priv;
-        CinnamonSettingsRRConfig *config;
+        GnomeRRConfig *config;
         
         config = gnome_rr_config_new_current (priv->rw_screen, NULL);
 
@@ -2181,7 +2181,7 @@ handle_method_call_xrandr_2 (CsdXrandrManager *manager,
                 csd_xrandr_manager_2_rotate (manager, timestamp, NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "RotateTo") == 0) {
-                CinnamonSettingsRRRotation rotation;
+                GnomeRRRotation rotation;
                 g_variant_get (parameters, "(ix)", &rotation, &timestamp);
                 csd_xrandr_manager_2_rotate_to (manager, rotation, timestamp, NULL);
                 g_dbus_method_invocation_return_value (invocation, NULL);

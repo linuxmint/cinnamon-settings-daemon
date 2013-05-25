@@ -48,7 +48,7 @@
 #define WACOM_BUTTON_SCHEMA "org.cinnamon.settings-daemon.peripherals.wacom.tablet-button"
 
 static struct {
-	CinnamonSettingsRRRotation  rotation;
+	GnomeRRRotation  rotation;
 	CsdWacomRotation rotation_wacom;
 	const gchar     *rotation_string;
 } rotation_table[] = {
@@ -505,11 +505,11 @@ get_device_type (XDeviceInfo *dev)
 
 /* Finds an output which matches the given EDID information. Any NULL
  * parameter will be interpreted to match any value. */
-static CinnamonSettingsRROutput *
-find_output_by_edid (CinnamonSettingsRRScreen *rr_screen, const gchar *vendor, const gchar *product, const gchar *serial)
+static GnomeRROutput *
+find_output_by_edid (GnomeRRScreen *rr_screen, const gchar *vendor, const gchar *product, const gchar *serial)
 {
-	CinnamonSettingsRROutput **rr_outputs;
-	CinnamonSettingsRROutput *retval = NULL;
+	GnomeRROutput **rr_outputs;
+	GnomeRROutput *retval = NULL;
 	guint i;
 
 	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
@@ -558,11 +558,11 @@ find_output_by_edid (CinnamonSettingsRRScreen *rr_screen, const gchar *vendor, c
 	return retval;
 }
 
-static CinnamonSettingsRROutput*
-find_builtin_output (CinnamonSettingsRRScreen *rr_screen)
+static GnomeRROutput*
+find_builtin_output (GnomeRRScreen *rr_screen)
 {
-	CinnamonSettingsRROutput **rr_outputs;
-	CinnamonSettingsRROutput *retval = NULL;
+	GnomeRROutput **rr_outputs;
+	GnomeRROutput *retval = NULL;
 	guint i;
 
 	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
@@ -582,10 +582,10 @@ find_builtin_output (CinnamonSettingsRRScreen *rr_screen)
 	return retval;
 }
 
-static CinnamonSettingsRROutput *
-find_output_by_heuristic (CinnamonSettingsRRScreen *rr_screen, CsdWacomDevice *device)
+static GnomeRROutput *
+find_output_by_heuristic (GnomeRRScreen *rr_screen, CsdWacomDevice *device)
 {
-	CinnamonSettingsRROutput *rr_output;
+	GnomeRROutput *rr_output;
 
 	/* TODO: This heuristic will fail for non-Wacom display
 	 * tablets and may give the wrong result if multiple Wacom
@@ -599,14 +599,14 @@ find_output_by_heuristic (CinnamonSettingsRRScreen *rr_screen, CsdWacomDevice *d
 	return rr_output;
 }
 
-static CinnamonSettingsRROutput *
-find_output_by_display (CinnamonSettingsRRScreen *rr_screen, CsdWacomDevice *device)
+static GnomeRROutput *
+find_output_by_display (GnomeRRScreen *rr_screen, CsdWacomDevice *device)
 {
 	gsize n;
 	GSettings *tablet;
 	GVariant *display;
 	const gchar **edid;
-	CinnamonSettingsRROutput *ret;
+	GnomeRROutput *ret;
 
 	if (device == NULL)
 		return NULL;
@@ -634,9 +634,9 @@ out:
 }
 
 static gboolean
-is_on (CinnamonSettingsRROutput *output)
+is_on (GnomeRROutput *output)
 {
-	CinnamonSettingsRRCrtc *crtc;
+	GnomeRRCrtc *crtc;
 
 	crtc = gnome_rr_output_get_crtc (output);
 	if (!crtc)
@@ -644,13 +644,13 @@ is_on (CinnamonSettingsRROutput *output)
 	return gnome_rr_crtc_get_current_mode (crtc) != NULL;
 }
 
-static CinnamonSettingsRROutput *
-find_output_by_monitor (CinnamonSettingsRRScreen *rr_screen,
+static GnomeRROutput *
+find_output_by_monitor (GnomeRRScreen *rr_screen,
 			GdkScreen     *screen,
 			int            monitor)
 {
-	CinnamonSettingsRROutput **rr_outputs;
-	CinnamonSettingsRROutput *ret;
+	GnomeRROutput **rr_outputs;
+	GnomeRROutput *ret;
 	guint i;
 
 	ret = NULL;
@@ -658,8 +658,8 @@ find_output_by_monitor (CinnamonSettingsRRScreen *rr_screen,
 	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
 
 	for (i = 0; rr_outputs[i] != NULL; i++) {
-		CinnamonSettingsRROutput *rr_output;
-		CinnamonSettingsRRCrtc *crtc;
+		GnomeRROutput *rr_output;
+		GnomeRRCrtc *crtc;
 		int x, y;
 
 		rr_output = rr_outputs[i];
@@ -687,7 +687,7 @@ find_output_by_monitor (CinnamonSettingsRRScreen *rr_screen,
 
 static void
 set_display_by_output (CsdWacomDevice  *device,
-                       CinnamonSettingsRROutput   *rr_output)
+                       GnomeRROutput   *rr_output)
 {
 	GSettings   *tablet;
 	GVariant    *c_array;
@@ -730,7 +730,7 @@ set_display_by_output (CsdWacomDevice  *device,
 }
 
 static CsdWacomRotation
-get_rotation_wacom (CinnamonSettingsRRRotation rotation)
+get_rotation_wacom (GnomeRRRotation rotation)
 {
         guint i;
 
@@ -746,14 +746,14 @@ csd_wacom_device_set_display (CsdWacomDevice *device,
                               int             monitor)
 {
 	GError *error = NULL;
-	CinnamonSettingsRRScreen *rr_screen;
-	CinnamonSettingsRROutput *output = NULL;
+	GnomeRRScreen *rr_screen;
+	GnomeRROutput *output = NULL;
 
         g_return_if_fail (CSD_IS_WACOM_DEVICE (device));
 
 	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
 	if (rr_screen == NULL) {
-		g_warning ("Failed to create CinnamonSettingsRRScreen: %s", error->message);
+		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
 		g_error_free (error);
 		return;
 	}
@@ -765,11 +765,11 @@ csd_wacom_device_set_display (CsdWacomDevice *device,
 	g_object_unref (rr_screen);
 }
 
-static CinnamonSettingsRROutput *
-find_output (CinnamonSettingsRRScreen  *rr_screen,
+static GnomeRROutput *
+find_output (GnomeRRScreen  *rr_screen,
 	     CsdWacomDevice *device)
 {
-	CinnamonSettingsRROutput *rr_output;
+	GnomeRROutput *rr_output;
 	rr_output = find_output_by_display (rr_screen, device);
 
 	if (rr_output == NULL) {
@@ -817,17 +817,17 @@ int
 csd_wacom_device_get_display_monitor (CsdWacomDevice *device)
 {
 	GError *error = NULL;
-	CinnamonSettingsRRScreen *rr_screen;
-	CinnamonSettingsRROutput *rr_output;
-	CinnamonSettingsRRMode *mode;
-	CinnamonSettingsRRCrtc *crtc;
+	GnomeRRScreen *rr_screen;
+	GnomeRROutput *rr_output;
+	GnomeRRMode *mode;
+	GnomeRRCrtc *crtc;
 	gint area[4];
 
         g_return_val_if_fail (CSD_IS_WACOM_DEVICE (device), CSD_WACOM_SET_ALL_MONITORS);
 
 	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
 	if (rr_screen == NULL) {
-		g_warning ("Failed to create CinnamonSettingsRRScreen: %s", error->message);
+		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
 		g_error_free (error);
 		return CSD_WACOM_SET_ALL_MONITORS;
 	}
@@ -898,20 +898,20 @@ CsdWacomRotation
 csd_wacom_device_get_display_rotation (CsdWacomDevice *device)
 {
 	GError *error = NULL;
-	CinnamonSettingsRRScreen *rr_screen;
-	CinnamonSettingsRROutput *rr_output;
-	CinnamonSettingsRRRotation rotation = GNOME_RR_ROTATION_0;
+	GnomeRRScreen *rr_screen;
+	GnomeRROutput *rr_output;
+	GnomeRRRotation rotation = GNOME_RR_ROTATION_0;
 
 	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
 	if (rr_screen == NULL) {
-		g_warning ("Failed to create CinnamonSettingsRRScreen: %s", error->message);
+		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
 		g_error_free (error);
 		return CSD_WACOM_ROTATION_NONE;
 	}
 
 	rr_output = find_output (rr_screen, device);
 	if (rr_output) {
-		CinnamonSettingsRRCrtc *crtc = gnome_rr_output_get_crtc (rr_output);
+		GnomeRRCrtc *crtc = gnome_rr_output_get_crtc (rr_output);
 		if (crtc)
 			rotation = gnome_rr_crtc_get_current_rotation (crtc);
 	}

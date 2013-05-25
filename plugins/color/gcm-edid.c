@@ -50,7 +50,7 @@ struct _GcmEdidPrivate
         CdColorYxy                      *green;
         CdColorYxy                      *blue;
         CdColorYxy                      *white;
-        GnomeSettingsPnpIds                     *pnp_ids;
+        GnomePnpIds                     *pnp_ids;
 };
 
 G_DEFINE_TYPE (GcmEdid, gcm_edid, G_TYPE_OBJECT)

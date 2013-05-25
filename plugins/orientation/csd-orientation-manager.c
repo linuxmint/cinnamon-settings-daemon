@@ -135,7 +135,7 @@ csd_orientation_manager_init (CsdOrientationManager *manager)
         manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
 }
 
-static CinnamonSettingsRRRotation
+static GnomeRRRotation
 orientation_to_rotation (OrientationUp    orientation)
 {
         switch (orientation) {
@@ -226,7 +226,7 @@ on_xrandr_action_call_finished (GObject               *source_object,
 
 static void
 do_xrandr_action (CsdOrientationManager *manager,
-                  CinnamonSettingsRRRotation        rotation)
+                  GnomeRRRotation        rotation)
 {
         CsdOrientationManagerPrivate *priv = manager->priv;
         GTimeVal tv;
@@ -260,7 +260,7 @@ do_xrandr_action (CsdOrientationManager *manager,
 static void
 do_rotation (CsdOrientationManager *manager)
 {
-        CinnamonSettingsRRRotation rotation;
+        GnomeRRRotation rotation;
 
         if (manager->priv->orientation_lock) {
                 g_debug ("Orientation changed, but we are locked");

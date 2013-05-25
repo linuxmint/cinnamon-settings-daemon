@@ -174,7 +174,7 @@ struct CsdPowerManagerPrivate
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
         gint                     kbd_brightness_pre_dim;
-        CinnamonSettingsRRScreen           *x11_screen;
+        GnomeRRScreen           *x11_screen;
         gboolean                 use_time_primary;
         gchar                   *previous_summary;
         GIcon                   *previous_icon;
@@ -2216,9 +2216,9 @@ do_lid_open_action (CsdPowerManager *manager)
 }
 
 static gboolean
-is_on (CinnamonSettingsRROutput *output)
+is_on (GnomeRROutput *output)
 {
-	CinnamonSettingsRRCrtc *crtc;
+	GnomeRRCrtc *crtc;
 
 	crtc = gnome_rr_output_get_crtc (output);
 	if (!crtc)
@@ -2227,9 +2227,9 @@ is_on (CinnamonSettingsRROutput *output)
 }
 
 static gboolean
-non_laptop_outputs_are_all_off (CinnamonSettingsRRScreen *screen)
+non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
 {
-        CinnamonSettingsRROutput **outputs;
+        GnomeRROutput **outputs;
         int i;
 
         outputs = gnome_rr_screen_list_outputs (screen);
@@ -2418,11 +2418,11 @@ idle_mode_to_string (CsdPowerIdleMode mode)
         return "unknown";
 }
 
-static CinnamonSettingsRROutput *
+static GnomeRROutput *
 get_primary_output (CsdPowerManager *manager)
 {
-        CinnamonSettingsRROutput *output = NULL;
-        CinnamonSettingsRROutput **outputs;
+        GnomeRROutput *output = NULL;
+        GnomeRROutput **outputs;
         guint i;
 
         /* search all X11 outputs for the device id */
@@ -2580,7 +2580,7 @@ out:
 static gint
 backlight_get_abs (CsdPowerManager *manager, GError **error)
 {
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
@@ -2596,7 +2596,7 @@ backlight_get_abs (CsdPowerManager *manager, GError **error)
 static gint
 backlight_get_percentage (CsdPowerManager *manager, GError **error)
 {
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
         gint now;
         gint value = -1;
         gint min = 0;
@@ -2630,7 +2630,7 @@ out:
 static gint
 backlight_get_min (CsdPowerManager *manager)
 {
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
 
         /* if we have no xbacklight device, then hardcode zero as sysfs
          * offsets everything to 0 as min */
@@ -2646,7 +2646,7 @@ static gint
 backlight_get_max (CsdPowerManager *manager, GError **error)
 {
         gint value;
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
@@ -2693,7 +2693,7 @@ backlight_set_percentage (CsdPowerManager *manager,
                           gboolean emit_changed,
                           GError **error)
 {
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
         gboolean ret = FALSE;
         gint min = 0;
         gint max;
@@ -2732,7 +2732,7 @@ out:
 static gint
 backlight_step_up (CsdPowerManager *manager, GError **error)
 {
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
         gboolean ret = FALSE;
         gint percentage_value = -1;
         gint min = 0;
@@ -2740,7 +2740,7 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
         gint now;
         gint step;
         guint discrete;
-        CinnamonSettingsRRCrtc *crtc;
+        GnomeRRCrtc *crtc;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
@@ -2793,7 +2793,7 @@ out:
 static gint
 backlight_step_down (CsdPowerManager *manager, GError **error)
 {
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
         gboolean ret = FALSE;
         gint percentage_value = -1;
         gint min = 0;
@@ -2801,7 +2801,7 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
         gint now;
         gint step;
         guint discrete;
-        CinnamonSettingsRRCrtc *crtc;
+        GnomeRRCrtc *crtc;
 
         /* prefer xbacklight */
         output = get_primary_output (manager);
@@ -2857,7 +2857,7 @@ backlight_set_abs (CsdPowerManager *manager,
                    gboolean emit_changed,
                    GError **error)
 {
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
         gboolean ret = FALSE;
 
         /* prefer xbacklight */

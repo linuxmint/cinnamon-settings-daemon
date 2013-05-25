@@ -1272,7 +1272,7 @@ csd_wacom_manager_idle_cb (CsdWacomManager *manager)
  * position of the monitors attached to the screen change.
  */
 static void
-on_screen_changed_cb (CinnamonSettingsRRScreen *rr_screen,
+on_screen_changed_cb (GnomeRRScreen *rr_screen,
 		      CsdWacomManager *manager)
 {
 	GList *devices, *l;
@@ -1318,7 +1318,7 @@ init_screens (CsdWacomManager *manager)
         for (i = 0; i < gdk_display_get_n_screens (display); i++) {
                 GError *error = NULL;
                 GdkScreen *screen;
-                CinnamonSettingsRRScreen *rr_screen;
+                GnomeRRScreen *rr_screen;
 
                 screen = gdk_display_get_screen (display, i);
                 if (screen == NULL) {
@@ -1327,12 +1327,12 @@ init_screens (CsdWacomManager *manager)
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
 
 		/*
-		 * We also keep a list of CinnamonSettingsRRScreen to monitor changes such as rotation
+		 * We also keep a list of GnomeRRScreen to monitor changes such as rotation
 		 * which are not reported by Gdk's "monitors-changed" callback
 		 */
 		rr_screen = gnome_rr_screen_new (screen, &error);
 		if (rr_screen == NULL) {
-			g_warning ("Failed to create CinnamonSettingsRRScreen: %s", error->message);
+			g_warning ("Failed to create GnomeRRScreen: %s", error->message);
 			g_error_free (error);
 			continue;
 		}

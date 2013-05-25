@@ -52,7 +52,7 @@ struct CsdColorManagerPrivate
         GSettings       *settings;
         GcmProfileStore *profile_store;
         GcmDmi          *dmi;
-        CinnamonSettingsRRScreen   *x11_screen;
+        GnomeRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
         CinnamonSettingsSessionState session_state;
@@ -79,7 +79,7 @@ typedef struct {
         guint32          red;
         guint32          green;
         guint32          blue;
-} CinnamonSettingsRROutputClutItem;
+} GnomeRROutputClutItem;
 
 GQuark
 csd_color_manager_error_quark (void)
@@ -91,7 +91,7 @@ csd_color_manager_error_quark (void)
 }
 
 static GcmEdid *
-gcm_session_get_output_edid (CsdColorManager *manager, CinnamonSettingsRROutput *output, GError **error)
+gcm_session_get_output_edid (CsdColorManager *manager, GnomeRROutput *output, GError **error)
 {
         const guint8 *data;
         gsize size;
@@ -174,7 +174,7 @@ out:
 }
 
 static gchar *
-gcm_session_get_output_id (CsdColorManager *manager, CinnamonSettingsRROutput *output)
+gcm_session_get_output_id (CsdColorManager *manager, GnomeRROutput *output)
 {
         const gchar *name;
         const gchar *serial;
@@ -225,15 +225,15 @@ out:
         return g_string_free (device_id, FALSE);
 }
 
-static CinnamonSettingsRROutput *
-gcm_session_get_output_by_edid_checksum (CinnamonSettingsRRScreen *screen,
+static GnomeRROutput *
+gcm_session_get_output_by_edid_checksum (GnomeRRScreen *screen,
                                          const gchar *edid_md5,
                                          GError **error)
 {
         const guint8 *data;
         gchar *checksum;
-        CinnamonSettingsRROutput *output = NULL;
-        CinnamonSettingsRROutput **outputs;
+        GnomeRROutput *output = NULL;
+        GnomeRROutput **outputs;
         gsize size;
         guint i;
 
@@ -392,7 +392,7 @@ gcm_session_profile_assign_profile_connect_cb (GObject *object,
         GcmSessionAsyncHelper *helper;
         GError *error = NULL;
         GHashTable *metadata = NULL;
-        CinnamonSettingsRROutput *output = NULL;
+        GnomeRROutput *output = NULL;
         CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
 
         /* get properties */
@@ -411,7 +411,7 @@ gcm_session_profile_assign_profile_connect_cb (GObject *object,
         if (edid_md5 == NULL)
                 goto out;
 
-        /* get the CinnamonSettingsRROutput for the edid */
+        /* get the GnomeRROutput for the edid */
         output = gcm_session_get_output_by_edid_checksum (manager->priv->x11_screen,
                                                           edid_md5,
                                                           &error);
@@ -757,7 +757,7 @@ out:
 static GPtrArray *
 gcm_session_generate_vcgt (CdProfile *profile, guint size)
 {
-        CinnamonSettingsRROutputClutItem *tmp;
+        GnomeRROutputClutItem *tmp;
         GPtrArray *array = NULL;
         const cmsToneCurve **vcgt;
         cmsFloat32Number in;
@@ -790,7 +790,7 @@ gcm_session_generate_vcgt (CdProfile *profile, guint size)
         array = g_ptr_array_new_with_free_func (g_free);
         for (i = 0; i < size; i++) {
                 in = (gdouble) i / (gdouble) (size - 1);
-                tmp = g_new0 (CinnamonSettingsRROutputClutItem, 1);
+                tmp = g_new0 (GnomeRROutputClutItem, 1);
                 tmp->red = cmsEvalToneCurveFloat(vcgt[0], in) * (gdouble) 0xffff;
                 tmp->green = cmsEvalToneCurveFloat(vcgt[1], in) * (gdouble) 0xffff;
                 tmp->blue = cmsEvalToneCurveFloat(vcgt[2], in) * (gdouble) 0xffff;
@@ -803,9 +803,9 @@ out:
 }
 
 static guint
-cinnamon_rr_output_get_gamma_size (CinnamonSettingsRROutput *output)
+cinnamon_rr_output_get_gamma_size (GnomeRROutput *output)
 {
-        CinnamonSettingsRRCrtc *crtc;
+        GnomeRRCrtc *crtc;
         gint len = 0;
 
         crtc = gnome_rr_output_get_crtc (output);
@@ -818,7 +818,7 @@ cinnamon_rr_output_get_gamma_size (CinnamonSettingsRROutput *output)
 }
 
 static gboolean
-gcm_session_output_set_gamma (CinnamonSettingsRROutput *output,
+gcm_session_output_set_gamma (GnomeRROutput *output,
                               GPtrArray *array,
                               GError **error)
 {
@@ -827,8 +827,8 @@ gcm_session_output_set_gamma (CinnamonSettingsRROutput *output,
         guint16 *green = NULL;
         guint16 *blue = NULL;
         guint i;
-        CinnamonSettingsRROutputClutItem *data;
-        CinnamonSettingsRRCrtc *crtc;
+        GnomeRROutputClutItem *data;
+        GnomeRRCrtc *crtc;
 
         /* no length? */
         if (array->len == 0) {
@@ -872,7 +872,7 @@ out:
 }
 
 static gboolean
-gcm_session_device_set_gamma (CinnamonSettingsRROutput *output,
+gcm_session_device_set_gamma (GnomeRROutput *output,
                               CdProfile *profile,
                               GError **error)
 {
@@ -881,7 +881,7 @@ gcm_session_device_set_gamma (CinnamonSettingsRROutput *output,
         GPtrArray *clut = NULL;
 
         /* create a lookup table */
-        size = gnome_rr_output_get_gamma_size (output);
+        size = cinnamon_rr_output_get_gamma_size (output);
         if (size == 0) {
                 g_set_error_literal (error,
                                      CSD_COLOR_MANAGER_ERROR,
@@ -909,7 +909,7 @@ out:
 }
 
 static gboolean
-gcm_session_device_reset_gamma (CinnamonSettingsRROutput *output,
+gcm_session_device_reset_gamma (GnomeRROutput *output,
                                 GError **error)
 {
         gboolean ret;
@@ -917,12 +917,12 @@ gcm_session_device_reset_gamma (CinnamonSettingsRROutput *output,
         guint size;
         guint32 value;
         GPtrArray *clut;
-        CinnamonSettingsRROutputClutItem *data;
+        GnomeRROutputClutItem *data;
 
         /* create a linear ramp */
         g_debug ("falling back to dummy ramp");
         clut = g_ptr_array_new_with_free_func (g_free);
-        size = gnome_rr_output_get_gamma_size (output);
+        size = cinnamon_rr_output_get_gamma_size (output);
         if (size == 0) {
                 ret = FALSE;
                 g_set_error_literal (error,
@@ -933,7 +933,7 @@ gcm_session_device_reset_gamma (CinnamonSettingsRROutput *output,
         }
         for (i = 0; i < size; i++) {
                 value = (i * 0xffff) / (size - 1);
-                data = g_new0 (CinnamonSettingsRROutputClutItem, 1);
+                data = g_new0 (GnomeRROutputClutItem, 1);
                 data->red = value;
                 data->green = value;
                 data->blue = value;
@@ -949,14 +949,14 @@ out:
         return ret;
 }
 
-static CinnamonSettingsRROutput *
+static GnomeRROutput *
 gcm_session_get_x11_output_by_id (CsdColorManager *manager,
                                   const gchar *device_id,
                                   GError **error)
 {
         gchar *output_id;
-        CinnamonSettingsRROutput *output = NULL;
-        CinnamonSettingsRROutput **outputs = NULL;
+        GnomeRROutput *output = NULL;
+        GnomeRROutput **outputs = NULL;
         guint i;
         CsdColorManagerPrivate *priv = manager->priv;
 
@@ -993,12 +993,12 @@ out:
  * "xrandr --auto" or when the version of RANDR is < 1.3 */
 static gboolean
 gcm_session_use_output_profile_for_screen (CsdColorManager *manager,
-                                           CinnamonSettingsRROutput *output)
+                                           GnomeRROutput *output)
 {
         gboolean has_laptop = FALSE;
         gboolean has_primary = FALSE;
-        CinnamonSettingsRROutput **outputs;
-        CinnamonSettingsRROutput *connected = NULL;
+        GnomeRROutput **outputs;
+        GnomeRROutput *connected = NULL;
         guint i;
 
         /* do we have any screens marked as primary */
@@ -1094,7 +1094,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         const gchar *filename;
         gboolean ret;
         GError *error = NULL;
-        CinnamonSettingsRROutput *output;
+        GnomeRROutput *output;
         guint brightness_percentage;
         GcmSessionAsyncHelper *helper = (GcmSessionAsyncHelper *) user_data;
         CsdColorManager *manager = CSD_COLOR_MANAGER (helper->manager);
@@ -1112,7 +1112,7 @@ gcm_session_device_assign_profile_connect_cb (GObject *object,
         filename = cd_profile_get_filename (profile);
         g_assert (filename != NULL);
 
-        /* get the output (can't save in helper as CinnamonSettingsRROutput isn't
+        /* get the output (can't save in helper as GnomeRROutput isn't
          * a GObject, just a pointer */
         output = gnome_rr_screen_get_output_by_id (manager->priv->x11_screen,
                                                    helper->output_id);
@@ -1183,7 +1183,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         gchar *autogen_filename = NULL;
         gchar *autogen_path = NULL;
         GcmEdid *edid = NULL;
-        CinnamonSettingsRROutput *output = NULL;
+        GnomeRROutput *output = NULL;
         GError *error = NULL;
         const gchar *xrandr_id;
         GcmSessionAsyncHelper *helper;
@@ -1212,7 +1212,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         g_debug ("need to assign display device %s",
                  cd_device_get_id (device));
 
-        /* get the CinnamonSettingsRROutput for the device id */
+        /* get the GnomeRROutput for the device id */
         xrandr_id = cd_device_get_id (device);
         output = gcm_session_get_x11_output_by_id (manager,
                                                    xrandr_id,
@@ -1363,7 +1363,7 @@ gcm_session_create_device_cb (GObject *object,
 }
 
 static void
-gcm_session_add_x11_output (CsdColorManager *manager, CinnamonSettingsRROutput *output)
+gcm_session_add_x11_output (CsdColorManager *manager, GnomeRROutput *output)
 {
         const gchar *model = NULL;
         const gchar *serial = NULL;
@@ -1465,8 +1465,8 @@ gcm_session_add_x11_output (CsdColorManager *manager, CinnamonSettingsRROutput *
 
 
 static void
-cinnamon_rr_screen_output_added_cb (CinnamonSettingsRRScreen *screen,
-                                CinnamonSettingsRROutput *output,
+cinnamon_rr_screen_output_added_cb (GnomeRRScreen *screen,
+                                GnomeRROutput *output,
                                 CsdColorManager *manager)
 {
         gcm_session_add_x11_output (manager, output);
@@ -1516,8 +1516,8 @@ gcm_session_screen_removed_find_device_cb (GObject *object, GAsyncResult *res, g
 }
 
 static void
-cinnamon_rr_screen_output_removed_cb (CinnamonSettingsRRScreen *screen,
-                                   CinnamonSettingsRROutput *output,
+cinnamon_rr_screen_output_removed_cb (GnomeRRScreen *screen,
+                                   GnomeRROutput *output,
                                    CsdColorManager *manager)
 {
         g_debug ("output %s removed",
@@ -1591,10 +1591,10 @@ out:
  * has changed then different crtcs are going to be used.
  * See https://bugzilla.gnome.org/show_bug.cgi?id=660164 for an example */
 static void
-cinnamon_rr_screen_output_changed_cb (CinnamonSettingsRRScreen *screen,
+cinnamon_rr_screen_output_changed_cb (GnomeRRScreen *screen,
                                    CsdColorManager *manager)
 {
-        CinnamonSettingsRROutput **outputs;
+        GnomeRROutput **outputs;
         CsdColorManagerPrivate *priv = manager->priv;
         guint i;
 
@@ -1626,7 +1626,7 @@ gcm_session_client_connect_cb (GObject *source_object,
 {
         gboolean ret;
         GError *error = NULL;
-        CinnamonSettingsRROutput **outputs;
+        GnomeRROutput **outputs;
         guint i;
         CsdColorManager *manager = CSD_COLOR_MANAGER (user_data);
         CsdColorManagerPrivate *priv = manager->priv;
@@ -1673,13 +1673,13 @@ gcm_session_client_connect_cb (GObject *source_object,
 
         /* only connect when colord is awake */
         g_signal_connect (priv->x11_screen, "output-connected",
-                          G_CALLBACK (gnome_rr_screen_output_added_cb),
+                          G_CALLBACK (cinnamon_rr_screen_output_added_cb),
                           manager);
         g_signal_connect (priv->x11_screen, "output-disconnected",
-                          G_CALLBACK (gnome_rr_screen_output_removed_cb),
+                          G_CALLBACK (cinnamon_rr_screen_output_removed_cb),
                           manager);
         g_signal_connect (priv->x11_screen, "changed",
-                          G_CALLBACK (gnome_rr_screen_output_changed_cb),
+                          G_CALLBACK (cinnamon_rr_screen_output_changed_cb),
                           manager);
 
         g_signal_connect (priv->client, "profile-added",
