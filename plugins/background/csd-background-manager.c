@@ -50,9 +50,9 @@
 struct CsdBackgroundManagerPrivate
 {
         GSettings   *settings;
-        CinnamonSettingsBG     *bg;
+        GnomeBG     *bg;
 
-        CinnamonSettingsBGCrossfade *fade;
+        GnomeBGCrossfade *fade;
 
         GDBusProxy  *proxy;
         guint        proxy_signal_id;
@@ -235,7 +235,7 @@ draw_background (CsdBackgroundManager *manager,
 }
 
 static void
-on_bg_transitioned (CinnamonSettingsBG              *bg,
+on_bg_transitioned (GnomeBG              *bg,
                     CsdBackgroundManager *manager)
 {
         draw_background (manager, FALSE);
@@ -269,7 +269,7 @@ watch_bg_preferences (CsdBackgroundManager *manager)
 }
 
 static void
-on_bg_changed (CinnamonSettingsBG              *bg,
+on_bg_changed (GnomeBG              *bg,
                CsdBackgroundManager *manager)
 {
         draw_background (manager, TRUE);
