@@ -40,13 +40,13 @@ typedef struct CsdCursorPluginPrivate CsdCursorPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdCursorPluginPrivate *priv;
 } CsdCursorPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdCursorPluginClass;
 
 GType   csd_cursor_plugin_get_type            (void) G_GNUC_CONST;

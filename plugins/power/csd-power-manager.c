@@ -160,7 +160,7 @@ typedef enum {
 
 struct CsdPowerManagerPrivate
 {
-        CinnamonSettingsSettingsSession    *session;
+        CinnamonSettingsSession    *session;
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
@@ -2963,7 +2963,7 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
         GError *error = NULL;
         gint idle_percentage;
         CsdPowerActionType action_type;
-        CinnamonSettingsSettingsSessionState state;
+        CinnamonSettingsSessionState state;
 
         if (mode == manager->priv->current_idle_mode)
                 return;
@@ -3687,7 +3687,7 @@ engine_settings_key_changed_cb (GSettings *settings,
 }
 
 static void
-engine_session_active_changed_cb (CinnamonSettingsSettingsSession *session,
+engine_session_active_changed_cb (CinnamonSettingsSession *session,
                                   GParamSpec *pspec,
                                   CsdPowerManager *manager)
 {

@@ -40,13 +40,13 @@ typedef struct CsdBackgroundPluginPrivate CsdBackgroundPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdBackgroundPluginPrivate *priv;
 } CsdBackgroundPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdBackgroundPluginClass;
 
 GType   csd_background_plugin_get_type            (void) G_GNUC_CONST;

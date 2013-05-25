@@ -76,7 +76,7 @@ csd_print_notifications_plugin_finalize (GObject *object)
 }
 
 static void
-impl_activate (CinnamonSettingsSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -97,7 +97,7 @@ impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsPlugin *plugin)
 {
         if (CSD_PRINT_NOTIFICATIONS_PLUGIN (plugin)->priv == NULL) {
             g_debug ("Not deactivating disabled print-notifications plugin");
@@ -112,7 +112,7 @@ static void
 csd_print_notifications_plugin_class_init (CsdPrintNotificationsPluginClass *klass)
 {
         GObjectClass             *object_class = G_OBJECT_CLASS (klass);
-        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
         object_class->finalize = csd_print_notifications_plugin_finalize;
 

@@ -41,13 +41,13 @@ typedef struct CsdColorPluginPrivate CsdColorPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdColorPluginPrivate *priv;
 } CsdColorPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdColorPluginClass;
 
 GType   csd_color_plugin_get_type            (void) G_GNUC_CONST;

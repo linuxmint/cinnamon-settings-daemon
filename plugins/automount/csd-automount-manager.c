@@ -42,7 +42,7 @@ struct CsdAutomountManagerPrivate
 	GVolumeMonitor *volume_monitor;
 	unsigned int automount_idle_id;
 
-        CinnamonSettingsSettingsSession *session;
+        CinnamonSettingsSession *session;
         gboolean session_is_active;
         gboolean screensaver_active;
         guint ss_watch_id;
@@ -288,7 +288,7 @@ mount_added_callback (GVolumeMonitor *monitor,
 
 
 static void
-session_state_changed (CinnamonSettingsSettingsSession *session, GParamSpec *pspec, gpointer user_data)
+session_state_changed (CinnamonSettingsSession *session, GParamSpec *pspec, gpointer user_data)
 {
         CsdAutomountManager *manager = user_data;
         CsdAutomountManagerPrivate *p = manager->priv;

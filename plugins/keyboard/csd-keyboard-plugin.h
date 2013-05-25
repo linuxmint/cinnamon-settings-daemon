@@ -40,13 +40,13 @@ typedef struct CsdKeyboardPluginPrivate CsdKeyboardPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdKeyboardPluginPrivate *priv;
 } CsdKeyboardPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdKeyboardPluginClass;
 
 GType   csd_keyboard_plugin_get_type            (void) G_GNUC_CONST;

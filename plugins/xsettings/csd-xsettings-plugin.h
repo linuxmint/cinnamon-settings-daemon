@@ -40,13 +40,13 @@ typedef struct CinnamonSettingsXSettingsPluginPrivate CinnamonSettingsXSettingsP
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin          parent;
+        CinnamonSettingsPlugin          parent;
         CinnamonSettingsXSettingsPluginPrivate *priv;
 } CinnamonSettingsXSettingsPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CinnamonSettingsXSettingsPluginClass;
 
 GType   cinnamon_xsettings_plugin_get_type            (void) G_GNUC_CONST;

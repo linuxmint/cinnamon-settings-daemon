@@ -41,13 +41,13 @@ typedef struct CsdOrientationPluginPrivate CsdOrientationPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdOrientationPluginPrivate *priv;
 } CsdOrientationPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdOrientationPluginClass;
 
 GType   csd_orientation_plugin_get_type            (void) G_GNUC_CONST;

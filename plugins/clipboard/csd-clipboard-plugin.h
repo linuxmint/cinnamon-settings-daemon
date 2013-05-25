@@ -40,13 +40,13 @@ typedef struct CsdClipboardPluginPrivate CsdClipboardPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdClipboardPluginPrivate *priv;
 } CsdClipboardPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdClipboardPluginClass;
 
 GType   csd_clipboard_plugin_get_type            (void) G_GNUC_CONST;

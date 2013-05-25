@@ -40,13 +40,13 @@ typedef struct CsdSoundPluginPrivate CsdSoundPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin parent;
+        CinnamonSettingsPlugin parent;
         CsdSoundPluginPrivate *priv;
 } CsdSoundPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdSoundPluginClass;
 
 GType csd_sound_plugin_get_type (void) G_GNUC_CONST;

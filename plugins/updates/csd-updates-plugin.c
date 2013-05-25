@@ -66,7 +66,7 @@ csd_updates_plugin_finalize (GObject *object)
 }
 
 static void
-impl_activate (CinnamonSettingsSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsPlugin *plugin)
 {
         GError *error = NULL;
 
@@ -79,7 +79,7 @@ impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsPlugin *plugin)
 {
         g_debug ("Deactivating updates plugin");
         csd_updates_manager_stop (CSD_UPDATES_PLUGIN (plugin)->priv->manager);
@@ -89,7 +89,7 @@ static void
 csd_updates_plugin_class_init (CsdUpdatesPluginClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
         object_class->finalize = csd_updates_plugin_finalize;
 

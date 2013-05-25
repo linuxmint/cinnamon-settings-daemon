@@ -40,13 +40,13 @@ typedef struct CsdScreensaverProxyPluginPrivate CsdScreensaverProxyPluginPrivate
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdScreensaverProxyPluginPrivate *priv;
 } CsdScreensaverProxyPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdScreensaverProxyPluginClass;
 
 GType   csd_screensaver_proxy_plugin_get_type            (void) G_GNUC_CONST;

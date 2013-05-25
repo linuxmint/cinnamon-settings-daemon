@@ -40,13 +40,13 @@ typedef struct CsdSmartcardPluginPrivate CsdSmartcardPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin parent;
+        CinnamonSettingsPlugin parent;
         CsdSmartcardPluginPrivate *priv;
 } CsdSmartcardPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdSmartcardPluginClass;
 
 GType csd_smartcard_plugin_get_type (void) G_GNUC_CONST;

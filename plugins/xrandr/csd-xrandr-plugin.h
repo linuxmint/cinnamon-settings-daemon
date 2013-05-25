@@ -40,13 +40,13 @@ typedef struct CsdXrandrPluginPrivate CsdXrandrPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdXrandrPluginPrivate *priv;
 } CsdXrandrPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdXrandrPluginClass;
 
 GType   csd_xrandr_plugin_get_type            (void) G_GNUC_CONST;

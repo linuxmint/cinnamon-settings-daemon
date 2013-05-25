@@ -40,13 +40,13 @@ typedef struct CsdPrintNotificationsPluginPrivate CsdPrintNotificationsPluginPri
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin                 parent;
+        CinnamonSettingsPlugin                 parent;
         CsdPrintNotificationsPluginPrivate *priv;
 } CsdPrintNotificationsPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdPrintNotificationsPluginClass;
 
 GType   csd_print_notifications_plugin_get_type            (void) G_GNUC_CONST;

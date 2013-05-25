@@ -67,7 +67,7 @@ csd_xrandr_plugin_finalize (GObject *object)
 }
 
 static void
-impl_activate (CinnamonSettingsSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -83,7 +83,7 @@ impl_activate (CinnamonSettingsSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (CinnamonSettingsSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsPlugin *plugin)
 {
         g_debug ("Deactivating xrandr plugin");
         csd_xrandr_manager_stop (CSD_XRANDR_PLUGIN (plugin)->priv->manager);
@@ -93,7 +93,7 @@ static void
 csd_xrandr_plugin_class_init (CsdXrandrPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        CinnamonSettingsSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
         object_class->finalize = csd_xrandr_plugin_finalize;
 

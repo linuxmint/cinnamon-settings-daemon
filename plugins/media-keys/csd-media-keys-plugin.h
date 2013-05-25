@@ -40,13 +40,13 @@ typedef struct CsdMediaKeysPluginPrivate CsdMediaKeysPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdMediaKeysPluginPrivate *priv;
 } CsdMediaKeysPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdMediaKeysPluginClass;
 
 GType   csd_media_keys_plugin_get_type            (void) G_GNUC_CONST;

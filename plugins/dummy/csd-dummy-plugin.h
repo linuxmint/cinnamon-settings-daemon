@@ -40,13 +40,13 @@ typedef struct CsdDummyPluginPrivate CsdDummyPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdDummyPluginPrivate *priv;
 } CsdDummyPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdDummyPluginClass;
 
 GType   csd_dummy_plugin_get_type            (void) G_GNUC_CONST;

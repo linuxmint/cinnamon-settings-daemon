@@ -47,7 +47,7 @@
 
 struct CsdColorManagerPrivate
 {
-        CinnamonSettingsSettingsSession *session;
+        CinnamonSettingsSession *session;
         CdClient        *client;
         GSettings       *settings;
         GcmProfileStore *profile_store;
@@ -55,7 +55,7 @@ struct CsdColorManagerPrivate
         CinnamonSettingsRRScreen   *x11_screen;
         GHashTable      *edid_cache;
         GdkWindow       *gdk_window;
-        CinnamonSettingsSettingsSessionState session_state;
+        CinnamonSettingsSessionState session_state;
         GHashTable      *device_assign_hash;
 };
 
@@ -2229,11 +2229,11 @@ gcm_session_sensor_removed_cb (CdClient *client,
 }
 
 static void
-gcm_session_active_changed_cb (CinnamonSettingsSettingsSession *session,
+gcm_session_active_changed_cb (CinnamonSettingsSession *session,
                                GParamSpec *pspec,
                                CsdColorManager *manager)
 {
-        CinnamonSettingsSettingsSessionState state_new;
+        CinnamonSettingsSessionState state_new;
         CsdColorManagerPrivate *priv = manager->priv;
 
         /* not yet connected to the daemon */
@@ -2243,7 +2243,7 @@ gcm_session_active_changed_cb (CinnamonSettingsSettingsSession *session,
         /* When doing the fast-user-switch into a new account, load the
          * new users chosen profiles.
          *
-         * If this is the first time the CinnamonSettingsSettingsSession has been
+         * If this is the first time the CinnamonSettingsSession has been
          * loaded, then we'll get a change from unknown to active
          * and we want to avoid reprobing the devices for that.
          */

@@ -40,13 +40,13 @@ typedef struct CsdMousePluginPrivate CsdMousePluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdMousePluginPrivate *priv;
 } CsdMousePlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdMousePluginClass;
 
 GType   csd_mouse_plugin_get_type            (void) G_GNUC_CONST;

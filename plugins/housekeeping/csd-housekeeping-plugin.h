@@ -39,12 +39,12 @@ G_BEGIN_DECLS
 typedef struct CsdHousekeepingPluginPrivate CsdHousekeepingPluginPrivate;
 
 typedef struct {
-        CinnamonSettingsSettingsPlugin		 parent;
+        CinnamonSettingsPlugin		 parent;
         CsdHousekeepingPluginPrivate	*priv;
 } CsdHousekeepingPlugin;
 
 typedef struct {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdHousekeepingPluginClass;
 
 GType   csd_housekeeping_plugin_get_type		(void) G_GNUC_CONST;

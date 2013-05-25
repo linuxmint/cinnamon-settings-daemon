@@ -41,13 +41,13 @@ typedef struct CsdWacomPluginPrivate CsdWacomPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin    parent;
+        CinnamonSettingsPlugin    parent;
         CsdWacomPluginPrivate *priv;
 } CsdWacomPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdWacomPluginClass;
 
 GType   csd_wacom_plugin_get_type            (void) G_GNUC_CONST;

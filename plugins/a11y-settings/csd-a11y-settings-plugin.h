@@ -40,13 +40,13 @@ typedef struct CsdA11ySettingsPluginPrivate CsdA11ySettingsPluginPrivate;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPlugin           parent;
+        CinnamonSettingsPlugin           parent;
         CsdA11ySettingsPluginPrivate *priv;
 } CsdA11ySettingsPlugin;
 
 typedef struct
 {
-        CinnamonSettingsSettingsPluginClass parent_class;
+        CinnamonSettingsPluginClass parent_class;
 } CsdA11ySettingsPluginClass;
 
 GType   csd_a11y_settings_plugin_get_type            (void) G_GNUC_CONST;
