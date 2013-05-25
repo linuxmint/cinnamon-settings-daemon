@@ -2,7 +2,7 @@
 '-//freedesktop//DTD D-BUS Object Introspection 1.0//EN'
 'http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd'>
 <node>
-  <interface name='org.gnome.SettingsDaemon.Updates'>
+  <interface name='org.cinnamon.SettingsDaemon.Updates'>
     <doc:doc>
       <doc:description>
         <doc:para>
