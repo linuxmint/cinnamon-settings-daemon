@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-_Name=GNOME Settings Daemon
+_Name=Cinnamon Settings Daemon
 Exec=@libexecdir@/cinnamon-settings-daemon
 OnlyShowIn=GNOME;Unity;
 NoDisplay=true
