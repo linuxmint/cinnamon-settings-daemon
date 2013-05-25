@@ -1797,7 +1797,7 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
         case CSD_POWER_ACTION_SHUTDOWN:
-                gnome_session_shutdown (manager);
+                cinnamon_session_shutdown (manager);
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
                 csd_power_hibernate (manager->priv->upower_proxy);
