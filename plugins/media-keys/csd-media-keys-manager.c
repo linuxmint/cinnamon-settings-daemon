@@ -390,7 +390,6 @@ execute (CsdMediaKeysManager *manager,
 static void
 dialog_init (CsdMediaKeysManager *manager)
 {
-    g_printerr ("dialog init\n");
         if (manager->priv->dialog != NULL
             && !csd_osd_window_is_valid (CSD_OSD_WINDOW (manager->priv->dialog))) {
                 gtk_widget_destroy (manager->priv->dialog);
@@ -1197,7 +1196,6 @@ do_sound_action (CsdMediaKeysManager *manager,
                 osd_vol = (int) (100 * (double) new_vol / PA_VOLUME_NORM);
         else
                 osd_vol = 0;
-        g_printerr ("volume is %d\n", osd_vol);
         update_dialog (manager, stream, osd_vol, new_muted, sound_changed, quiet);
 }
 
