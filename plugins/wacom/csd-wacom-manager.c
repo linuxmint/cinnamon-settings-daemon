@@ -38,8 +38,6 @@
 #include <X11/extensions/XTest.h>
 #include <X11/keysym.h>
 #include <Xwacom.h>
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
 
 #include "csd-enums.h"
 #include "csd-input-helper.h"
@@ -56,7 +54,6 @@
 #define KEY_IS_ABSOLUTE         "is-absolute"
 #define KEY_AREA                "area"
 #define KEY_DISPLAY             "display"
-#define KEY_KEEP_ASPECT         "keep-aspect"
 
 /* Stylus and Eraser settings */
 #define KEY_BUTTON_MAPPING      "buttonmapping"
@@ -78,7 +75,6 @@ struct CsdWacomManagerPrivate
         guint device_added_id;
         guint device_removed_id;
         GHashTable *devices; /* key = GdkDevice, value = CsdWacomDevice */
-        GList *rr_screens;
 
         /* button capture */
         GSList *screens;
@@ -128,49 +124,49 @@ csd_wacom_manager_class_init (CsdWacomManagerClass *klass)
 static int
 get_device_id (CsdWacomDevice *device)
 {
-	GdkDevice *gdk_device;
-	int id;
+    GdkDevice *gdk_device;
+    int id;
 
-	g_object_get (device, "gdk-device", &gdk_device, NULL);
-	if (gdk_device == NULL)
-		return -1;
-	g_object_get (gdk_device, "device-id", &id, NULL);
-	return id;
+    g_object_get (device, "gdk-device", &gdk_device, NULL);
+    if (gdk_device == NULL)
+        return -1;
+    g_object_get (gdk_device, "device-id", &id, NULL);
+    return id;
 }
 
 static XDevice *
 open_device (CsdWacomDevice *device)
 {
-	XDevice *xdev;
-	int id;
+    XDevice *xdev;
+    int id;
 
-	id = get_device_id (device);
-	if (id < 0)
-		return NULL;
+    id = get_device_id (device);
+    if (id < 0)
+        return NULL;
 
-	gdk_error_trap_push ();
-	xdev = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
-	if (gdk_error_trap_pop () || (xdev == NULL))
-		return NULL;
+    gdk_error_trap_push ();
+    xdev = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
+    if (gdk_error_trap_pop () || (xdev == NULL))
+        return NULL;
 
-	return xdev;
+    return xdev;
 }
 
 
 static void
 wacom_set_property (CsdWacomDevice *device,
-		    PropertyHelper *property)
+            PropertyHelper *property)
 {
-	XDevice *xdev;
+    XDevice *xdev;
 
-	xdev = open_device (device);
-	device_set_property (xdev, csd_wacom_device_get_tool_name (device), property);
-	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
+    xdev = open_device (device);
+    device_set_property (xdev, csd_wacom_device_get_tool_name (device), property);
+    XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 }
 
 static void
 set_rotation (CsdWacomDevice *device,
-	      CsdWacomRotation rotation)
+          CsdWacomRotation rotation)
 {
         gchar rot = rotation;
         PropertyHelper property = {
@@ -233,48 +229,10 @@ set_area (CsdWacomDevice  *device,
         g_variant_unref (value);
 }
 
-/* Returns the rotation to apply a device relative to the current rotation of the output */
-static CsdWacomRotation
-get_relative_rotation (CsdWacomRotation device_rotation,
-                       CsdWacomRotation output_rotation)
-{
-	CsdWacomRotation rotations[] = { CSD_WACOM_ROTATION_HALF,
-	                                 CSD_WACOM_ROTATION_CW,
-	                                 CSD_WACOM_ROTATION_NONE,
-	                                 CSD_WACOM_ROTATION_CCW };
-	guint i;
-
-	if (device_rotation == output_rotation)
-		return CSD_WACOM_ROTATION_NONE;
-
-	if (output_rotation == CSD_WACOM_ROTATION_NONE)
-		return device_rotation;
-
-	for (i = 0; i < G_N_ELEMENTS (rotations); i++){
-		if (device_rotation == rotations[i])
-			break;
-	}
-
-	if (output_rotation == CSD_WACOM_ROTATION_HALF)
-		return rotations[(i + G_N_ELEMENTS (rotations) - 2) % G_N_ELEMENTS (rotations)];
-
-	if (output_rotation == CSD_WACOM_ROTATION_CW)
-		return rotations[(i + G_N_ELEMENTS (rotations) - 1) % G_N_ELEMENTS (rotations)];
-
-	if (output_rotation == CSD_WACOM_ROTATION_CCW)
-		return rotations[(i + 1) % G_N_ELEMENTS (rotations)];
-
-	/* fallback */
-	return CSD_WACOM_ROTATION_NONE;
-}
-
 static void
 set_display (CsdWacomDevice  *device,
              GVariant        *value)
 {
-        CsdWacomRotation  device_rotation;
-	CsdWacomRotation  output_rotation;
-	GSettings        *settings;
         float matrix[NUM_ELEMS_MATRIX];
         PropertyHelper property = {
                 .name   = "Coordinate Transformation Matrix",
@@ -289,14 +247,6 @@ set_display (CsdWacomDevice  *device,
         g_debug ("Applying matrix to device...");
         wacom_set_property (device, &property);
 
-        /* Compute rotation to apply relative to the output */
-	settings = csd_wacom_device_get_settings (device);
-	device_rotation = g_settings_get_enum (settings, KEY_ROTATION);
-	output_rotation = csd_wacom_device_get_display_rotation (device);
-
-        /* Apply display rotation to device */
-        set_rotation (device, get_relative_rotation (device_rotation, output_rotation));
-
         g_variant_unref (value);
 }
 
@@ -304,167 +254,58 @@ static void
 set_absolute (CsdWacomDevice  *device,
               gint             is_absolute)
 {
-	XDevice *xdev;
+    XDevice *xdev;
 
-	xdev = open_device (device);
-	gdk_error_trap_push ();
-	XSetDeviceMode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, is_absolute ? Absolute : Relative);
-	if (gdk_error_trap_pop ())
-		g_error ("Failed to set mode \"%s\" for \"%s\".",
-			 is_absolute ? "Absolute" : "Relative", csd_wacom_device_get_tool_name (device));
-	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
+    xdev = open_device (device);
+    gdk_error_trap_push ();
+    XSetDeviceMode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, is_absolute ? Absolute : Relative);
+    if (gdk_error_trap_pop ())
+        g_error ("Failed to set mode \"%s\" for \"%s\".",
+             is_absolute ? "Absolute" : "Relative", csd_wacom_device_get_tool_name (device));
+    XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 }
-
-static void
-compute_aspect_area (gint monitor,
-                     gint *area,
-                     CsdWacomRotation rotation)
-{
-	gint width  = area[2] - area[0];
-	gint height = area[3] - area[1];
-	GdkScreen *screen;
-	GdkRectangle monitor_geometry;
-	float aspect;
-
-	screen = gdk_screen_get_default ();
-	if (monitor < 0) {
-		monitor_geometry.width = gdk_screen_get_width (screen);
-		monitor_geometry.height = gdk_screen_get_height (screen);
-	} else {
-		gdk_screen_get_monitor_geometry (screen, monitor, &monitor_geometry);
-	}
-
-	if (rotation == CSD_WACOM_ROTATION_CW || rotation == CSD_WACOM_ROTATION_CCW)
-		aspect = (float) monitor_geometry.height / (float) monitor_geometry.width;
-	else
-		aspect = (float) monitor_geometry.width / (float) monitor_geometry.height;
-
-	if ((float) width / (float) height > aspect)
-		width = height * aspect;
-	else
-		height = width / aspect;
-
-	switch (rotation)
-	{
-		case CSD_WACOM_ROTATION_NONE:
-			area[2] = area[0] + width;
-			area[3] = area[1] + height;
-			break;
-		case CSD_WACOM_ROTATION_CW:
-			area[0] = area[2] - width;
-			area[3] = area[1] + height;
-			break;
-		case CSD_WACOM_ROTATION_HALF:
-			area[0] = area[2] - width;
-			area[1] = area[3] - height;
-			break;
-		case CSD_WACOM_ROTATION_CCW:
-			area[2] = area[0] + width;
-			area[1] = area[3] - height;
-			break;
-		default:
-			break;
-	}
-}
-
-static void
-set_keep_aspect (CsdWacomDevice *device,
-                 gboolean        keep_aspect)
-{
-        GVariant *values[4], *variant;
-	guint i;
-
-	gint *area;
-	gint monitor = CSD_WACOM_SET_ALL_MONITORS;
-	CsdWacomRotation rotation;
-	GSettings *settings;
-
-        settings = csd_wacom_device_get_settings (device);
-
-        /* Set area to default values for the device */
-	for (i = 0; i < G_N_ELEMENTS (values); i++)
-		values[i] = g_variant_new_int32 (-1);
-	variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
-
-        /* If keep_aspect is not set, just reset the area to default and let
-         * gsettings notification call set_area() for us...
-         */
-	if (!keep_aspect) {
-		g_settings_set_value (settings, KEY_AREA, variant);
-		return;
-        }
-
-        /* Reset the device area to get the default area */
-	set_area (device, variant);
-
-	/* Get current rotation */
-	rotation = g_settings_get_enum (settings, KEY_ROTATION);
-
-	/* Get current area */
-	area = csd_wacom_device_get_area (device);
-	if (!area) {
-		g_warning("Device area not available.\n");
-		return;
-	}
-
-	/* Get corresponding monitor size */
-	monitor = csd_wacom_device_get_display_monitor (device);
-
-	/* Adjust area to match the monitor aspect ratio */
-	g_debug ("Initial device area: (%d,%d) (%d,%d)", area[0], area[1], area[2], area[3]);
-	compute_aspect_area (monitor, area, rotation);
-	g_debug ("Adjusted device area: (%d,%d) (%d,%d)", area[0], area[1], area[2], area[3]);
-
-	for (i = 0; i < G_N_ELEMENTS (values); i++)
-		values[i] = g_variant_new_int32 (area[i]);
-	variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
-	g_settings_set_value (settings, KEY_AREA, variant);
-
-	g_free (area);
-}
-
 
 static void
 set_device_buttonmap (CsdWacomDevice *device,
                       GVariant       *value)
 {
-	XDevice *xdev;
-	gsize nmap;
-	const gint *intmap;
-	unsigned char *map;
-	int i, j, rc;
+    XDevice *xdev;
+    gsize nmap;
+    const gint *intmap;
+    unsigned char *map;
+    int i, j, rc;
 
-	xdev = open_device (device);
+    xdev = open_device (device);
 
-	intmap = g_variant_get_fixed_array (value, &nmap, sizeof (gint32));
-	map = g_new0 (unsigned char, nmap);
-	for (i = 0; i < nmap; i++)
-		map[i] = intmap[i];
+    intmap = g_variant_get_fixed_array (value, &nmap, sizeof (gint32));
+    map = g_new0 (unsigned char, nmap);
+    for (i = 0; i < nmap; i++)
+        map[i] = intmap[i];
         g_variant_unref (value);
 
-	gdk_error_trap_push ();
+    gdk_error_trap_push ();
 
-	/* X refuses to change the mapping while buttons are engaged,
-	 * so if this is the case we'll retry a few times
-	 */
-	for (j = 0;
-	     j < 20 && (rc = XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, map, nmap)) == MappingBusy;
-	     ++j) {
-		g_usleep (300);
-	}
+    /* X refuses to change the mapping while buttons are engaged,
+     * so if this is the case we'll retry a few times
+     */
+    for (j = 0;
+         j < 20 && (rc = XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, map, nmap)) == MappingBusy;
+         ++j) {
+        g_usleep (300);
+    }
 
-	if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
-	    rc != MappingSuccess)
-		g_warning ("Error in setting button mapping for \"%s\"", csd_wacom_device_get_tool_name (device));
+    if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
+        rc != MappingSuccess)
+        g_warning ("Error in setting button mapping for \"%s\"", csd_wacom_device_get_tool_name (device));
 
-	g_free (map);
+    g_free (map);
 
-	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
+    XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 }
 
 static void
 set_touch (CsdWacomDevice *device,
-	   gboolean        touch)
+       gboolean        touch)
 {
         gchar data = touch;
         PropertyHelper property = {
@@ -480,7 +321,7 @@ set_touch (CsdWacomDevice *device,
 
 static void
 set_tpcbutton (CsdWacomDevice *device,
-	       gboolean        tpcbutton)
+           gboolean        tpcbutton)
 {
         /* Wacom's TPCButton option which this setting emulates is to enable
          * Tablet PC stylus behaviour when on. The property "Hover Click"
@@ -516,377 +357,310 @@ set_pressurethreshold (CsdWacomDevice *device,
 static void
 apply_stylus_settings (CsdWacomDevice *device)
 {
-	GSettings *stylus_settings;
-	CsdWacomStylus *stylus;
-	int threshold;
+    GSettings *stylus_settings;
+    CsdWacomStylus *stylus;
+    int threshold;
 
-	g_object_get (device, "last-stylus", &stylus, NULL);
-	if (stylus == NULL) {
-		g_warning ("Last stylus is not set");
-		return;
-	}
+    g_object_get (device, "last-stylus", &stylus, NULL);
+    if (stylus == NULL) {
+        g_warning ("Last stylus is not set");
+        return;
+    }
 
-	g_debug ("Applying setting for stylus '%s' on device '%s'",
-		 csd_wacom_stylus_get_name (stylus),
-		 csd_wacom_device_get_name (device));
+    g_debug ("Applying setting for stylus '%s' on device '%s'",
+         csd_wacom_stylus_get_name (stylus),
+         csd_wacom_device_get_name (device));
 
-	stylus_settings = csd_wacom_stylus_get_settings (stylus);
-	set_pressurecurve (device, g_settings_get_value (stylus_settings, KEY_PRESSURECURVE));
-	set_device_buttonmap (device, g_settings_get_value (stylus_settings, KEY_BUTTON_MAPPING));
+    stylus_settings = csd_wacom_stylus_get_settings (stylus);
+    set_pressurecurve (device, g_settings_get_value (stylus_settings, KEY_PRESSURECURVE));
+    set_device_buttonmap (device, g_settings_get_value (stylus_settings, KEY_BUTTON_MAPPING));
 
-	threshold = g_settings_get_int (stylus_settings, KEY_PRESSURETHRESHOLD);
-	if (threshold == -1)
-		threshold = DEFAULT_PRESSURE_THRESHOLD;
-	set_pressurethreshold (device, threshold);
-}
-
-/*
- * The rule to determine the status LED to use is as follow:
- *
- * "[...] if a device has only one ring/strip, use status_led0_select;
- *  otherwise the left ring/strip is controlled by status_led1_select and
- *  the right ring/strip by status_led0_select."
- *
- * http://sourceforge.net/mailarchive/message.php?msg_id=29898591
- */
-static int
-get_led_group_id(CsdWacomDevice *device,
-		 int             group_id)
-{
-	gint num_rings;
-	gint num_strips;
-
-	num_rings = csd_wacom_device_get_num_rings (device);
-	num_strips = csd_wacom_device_get_num_strips (device);
-
-	/* Given group_id is in {1..4} as follow
-	 * WACOM_BUTTON_RING_MODESWITCH        => group_id == 1
-	 * WACOM_BUTTON_RING2_MODESWITCH       => group_id == 2
-	 * WACOM_BUTTON_TOUCHSTRIP_MODESWITCH  => group_id == 3
-	 * WACOM_BUTTON_TOUCHSTRIP2_MODESWITCH => group_id == 4
-	 *
-	 * see function flags_to_group() in csd-wacom-device.c
-	 */
-
-	if ((num_rings == 1) && (group_id == 1))
-		return 0;
-
-	if ((num_strips == 1) && (group_id == 3))
-		return 0;
-
-	if ((num_rings == 2) && (group_id == 1 ||  group_id == 2))
-		return (group_id & 1);
-
-	if ((num_strips == 2) && (group_id == 3 ||  group_id == 4))
-		return (group_id & 1);
-
-	g_debug ("Unhandled number of rings/strips setup (%d ring(s), %d strip(s), mode=%d",
-		 num_rings, num_strips, group_id);
-
-	return -1;
+    threshold = g_settings_get_int (stylus_settings, KEY_PRESSURETHRESHOLD);
+    if (threshold == -1)
+        threshold = DEFAULT_PRESSURE_THRESHOLD;
+    set_pressurethreshold (device, threshold);
 }
 
 static void
 set_led (CsdWacomDevice *device,
-	 int             group_id,
-	 int             index)
+     int             group_id,
+     int             index)
 {
-	GError *error = NULL;
-	const char *path;
-	char *command;
-	gint status_led;
-	gboolean ret;
+    GError *error = NULL;
+    const char *path;
+    char *command;
+    gboolean ret;
 
 #ifndef HAVE_GUDEV
-	/* Not implemented on non-Linux systems */
-	return;
+    /* Not implemented on non-Linux systems */
+    return;
 #endif
-	g_return_if_fail (index >= 1);
+    g_return_if_fail (index >= 1);
 
-	path = csd_wacom_device_get_path (device);
-	status_led = get_led_group_id (device, group_id);
+    path = csd_wacom_device_get_path (device);
 
-	if (status_led < 0) {
-		g_debug ("Ignoring unhandled group ID %d for device %s",
-		         group_id, csd_wacom_device_get_name (device));
-		return;
-	}
-	g_debug ("Switching group ID %d to index %d for device %s", group_id, index, path);
+    g_debug ("Switching group ID %d to index %d for device %s", group_id, index, path);
 
-	command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-wacom-led-helper --path %s --group %d --led %d",
-				   path, status_led, index - 1);
-	ret = g_spawn_command_line_sync (command,
-					 NULL,
-					 NULL,
-					 NULL,
-					 &error);
+    command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-wacom-led-helper --path %s --group %d --led %d",
+                   path, group_id - 1, index - 1);
+    ret = g_spawn_command_line_sync (command,
+                     NULL,
+                     NULL,
+                     NULL,
+                     &error);
 
-	if (ret == FALSE) {
-		g_debug ("Failed to launch '%s': %s", command, error->message);
-		g_error_free (error);
-	}
+    if (ret == FALSE) {
+        g_debug ("Failed to launch '%s': %s", command, error->message);
+        g_error_free (error);
+    }
 
-	g_free (command);
+    g_free (command);
 }
 
 struct DefaultButtons {
-	const char *button;
-	int         num;
+    const char *button;
+    int         num;
 };
 
 struct DefaultButtons def_touchrings_buttons[] = {
-	/* Touchrings */
-	{ "AbsWheelUp", 90 },
-	{ "AbsWheelDown", 91 },
-	{ "RelWheelUp", 90 },
-	{ "RelWheelDown", 91 },
-	{ "AbsWheel2Up", 92 },
-	{ "AbsWheel2Down", 93 },
-	{ NULL, 0 }
+    /* Touchrings */
+    { "AbsWheelUp", 90 },
+    { "AbsWheelDown", 91 },
+    { "RelWheelUp", 90 },
+    { "RelWheelDown", 91 },
+    { "AbsWheel2Up", 92 },
+    { "AbsWheel2Down", 93 },
+    { NULL, 0 }
 };
 
 struct DefaultButtons def_touchstrip_buttons[] = {
-	/* Touchstrips */
-	{ "StripLeftUp", 94 },
-	{ "StripLeftDown", 95 },
-	{ "StripRightUp", 96 },
-	{ "StripRightDown", 97 },
-	{ NULL, 0 }
+    /* Touchstrips */
+    { "StripLeftUp", 94 },
+    { "StripLeftDown", 95 },
+    { "StripRightUp", 96 },
+    { "StripRightDown", 97 },
+    { NULL, 0 }
 };
 
 static void
 reset_touch_buttons (XDevice               *xdev,
-		     struct DefaultButtons *buttons,
-		     const char            *device_property)
+             struct DefaultButtons *buttons,
+             const char            *device_property)
 {
-	Atom actions[6];
-	Atom action_prop;
-	guint i;
+    Atom actions[6];
+    Atom action_prop;
+    guint i;
 
-	/* Create a device property with the action for button i */
-	for (i = 0; buttons[i].button != NULL; i++)
-	{
-		char *propname;
-		glong action[2]; /* press + release */
-		Atom prop;
-		int mapped_button = buttons[i].num;
+    /* Create a device property with the action for button i */
+    for (i = 0; buttons[i].button != NULL; i++)
+    {
+        char *propname;
+        int action[2]; /* press + release */
+        Atom prop;
+        int mapped_button = buttons[i].num;
 
-		action[0] = AC_BUTTON | AC_KEYBTNPRESS | mapped_button;
-		action[1] = AC_BUTTON | mapped_button;
+        action[0] = AC_BUTTON | AC_KEYBTNPRESS | mapped_button;
+        action[1] = AC_BUTTON | mapped_button;
 
-		propname = g_strdup_printf ("Button %s action", buttons[i].button);
-		prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), propname, False);
-		g_free (propname);
-		XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
-				       prop, XA_INTEGER, 32, PropModeReplace,
-				       (const guchar *) &action, 2);
+        propname = g_strdup_printf ("Button %s action", buttons[i].button);
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), propname, False);
+        g_free (propname);
+        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
+                       prop, XA_INTEGER, 32, PropModeReplace,
+                       (const guchar *) &action, 2);
 
-		/* prop now contains press + release for the mapped button */
-		actions[i] = prop;
-	}
+        /* prop now contains press + release for the mapped button */
+        actions[i] = prop;
+    }
 
-	/* Now set the actual action property to contain references to the various
-	 * actions */
-	action_prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_property, True);
-	XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
-			       action_prop, XA_ATOM, 32, PropModeReplace,
-			       (const guchar *) actions, i);
+    /* Now set the actual action property to contain references to the various
+     * actions */
+    action_prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_property, True);
+    XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev,
+                   action_prop, XA_ATOM, 32, PropModeReplace,
+                   (const guchar *) actions, i);
 }
 
 static void
 reset_pad_buttons (CsdWacomDevice *device)
 {
-	XDevice *xdev;
-	int nmap;
-	unsigned char *map;
-	int i, j, rc;
+    XDevice *xdev;
+    int nmap;
+    unsigned char *map;
+    int i, j, rc;
 
-	/* Normal buttons */
-	xdev = open_device (device);
+    /* Normal buttons */
+    xdev = open_device (device);
 
-	gdk_error_trap_push ();
+    gdk_error_trap_push ();
 
-	nmap = 256;
-	map = g_new0 (unsigned char, nmap);
-	for (i = 0; i < nmap && i < sizeof (map); i++)
-		map[i] = i + 1;
+    nmap = 256;
+    map = g_new0 (unsigned char, nmap);
+    for (i = 0; i < nmap && i < sizeof (map); i++)
+        map[i] = i + 1;
 
-	/* X refuses to change the mapping while buttons are engaged,
-	 * so if this is the case we'll retry a few times */
-	for (j = 0;
-	     j < 20 && (rc = XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, map, nmap)) == MappingBusy;
-	     ++j) {
-		g_usleep (300);
-	}
+    /* X refuses to change the mapping while buttons are engaged,
+     * so if this is the case we'll retry a few times */
+    for (j = 0;
+         j < 20 && (rc = XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, map, nmap)) == MappingBusy;
+         ++j) {
+        g_usleep (300);
+    }
 
-	if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
-	    rc != MappingSuccess)
-		g_warning ("Error in resetting button mapping for \"%s\" (rc=%d)", csd_wacom_device_get_tool_name (device), rc);
+    if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
+        rc != MappingSuccess)
+        g_warning ("Error in resetting button mapping for \"%s\" (rc=%d)", csd_wacom_device_get_tool_name (device), rc);
 
-	g_free (map);
+    g_free (map);
 
-	gdk_error_trap_push ();
-	reset_touch_buttons (xdev, def_touchrings_buttons, "Wacom Wheel Buttons");
-	reset_touch_buttons (xdev, def_touchstrip_buttons, "Wacom Strip Buttons");
-	gdk_error_trap_pop_ignored ();
+    gdk_error_trap_push ();
+    reset_touch_buttons (xdev, def_touchrings_buttons, "Wacom Wheel Buttons");
+    reset_touch_buttons (xdev, def_touchstrip_buttons, "Wacom Strip Buttons");
+    gdk_error_trap_pop_ignored ();
 
-	XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
+    XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev);
 
-	/* Reset all the LEDs */
-	/* FIXME, get the number of modes somewhere else */
-	for (i = 1; i <= 4; i++)
-		set_led (device, i, 1);
+    /* Reset all the LEDs */
+    /* FIXME, get the number of modes somewhere else */
+    for (i = 1; i <= 4; i++)
+        set_led (device, i, 1);
 }
 
 static void
 set_wacom_settings (CsdWacomManager *manager,
-		    CsdWacomDevice  *device)
+            CsdWacomDevice  *device)
 {
-	CsdWacomDeviceType type;
-	GSettings *settings;
+    CsdWacomDeviceType type;
+    GSettings *settings;
 
-	g_debug ("Applying settings for device '%s' (type: %s)",
-		 csd_wacom_device_get_tool_name (device),
-		 csd_wacom_device_type_to_string (csd_wacom_device_get_device_type (device)));
+    g_debug ("Applying settings for device '%s' (type: %s)",
+         csd_wacom_device_get_tool_name (device),
+         csd_wacom_device_type_to_string (csd_wacom_device_get_device_type (device)));
 
-	settings = csd_wacom_device_get_settings (device);
+    settings = csd_wacom_device_get_settings (device);
         set_rotation (device, g_settings_get_enum (settings, KEY_ROTATION));
         set_touch (device, g_settings_get_boolean (settings, KEY_TOUCH));
 
         type = csd_wacom_device_get_device_type (device);
 
-	if (type == WACOM_TYPE_TOUCH &&
-	    csd_wacom_device_is_screen_tablet (device) == FALSE) {
-		set_absolute (device, FALSE);
-		return;
-	}
+    if (type == WACOM_TYPE_TOUCH &&
+        csd_wacom_device_is_screen_tablet (device) == FALSE) {
+        set_absolute (device, FALSE);
+        return;
+    }
 
-	if (type == WACOM_TYPE_CURSOR) {
-		GVariant *values[4], *variant;
-		guint i;
+    if (type == WACOM_TYPE_CURSOR) {
+        GVariant *values[4], *variant;
+        guint i;
 
-		set_absolute (device, FALSE);
+        set_absolute (device, FALSE);
 
-		for (i = 0; i < G_N_ELEMENTS (values); i++)
-			values[i] = g_variant_new_int32 (-1);
+        for (i = 0; i < G_N_ELEMENTS (values); i++)
+            values[i] = g_variant_new_int32 (-1);
 
-		variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
-		set_area (device, variant);
-		return;
-	}
+        variant = g_variant_new_array (G_VARIANT_TYPE_INT32, values, G_N_ELEMENTS (values));
+        set_area (device, variant);
+        return;
+    }
 
-	if (type == WACOM_TYPE_PAD) {
-		int id;
+    if (type == WACOM_TYPE_PAD) {
+        int id;
 
-		id = get_device_id (device);
-		reset_pad_buttons (device);
-		grab_button (id, TRUE, manager->priv->screens);
-		return;
-	}
+        id = get_device_id (device);
+        reset_pad_buttons (device);
+        grab_button (id, TRUE, manager->priv->screens);
+        return;
+    }
 
-	if (type == WACOM_TYPE_STYLUS)
-		set_tpcbutton (device, g_settings_get_boolean (settings, KEY_TPCBUTTON));
+    if (type == WACOM_TYPE_STYLUS)
+        set_tpcbutton (device, g_settings_get_boolean (settings, KEY_TPCBUTTON));
 
-	set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
-
-	/* Ignore touch devices as they do not share the same range of values for area */
-	if (type != WACOM_TYPE_TOUCH) {
-		if (csd_wacom_device_is_screen_tablet (device) == FALSE)
-			set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
-		set_area (device, g_settings_get_value (settings, KEY_AREA));
-	}
-	set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
+    set_absolute (device, g_settings_get_boolean (settings, KEY_IS_ABSOLUTE));
+    set_area (device, g_settings_get_value (settings, KEY_AREA));
+    set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
 
         /* only pen and eraser have pressure threshold and curve settings */
         if (type == WACOM_TYPE_STYLUS ||
-	    type == WACOM_TYPE_ERASER) {
-		apply_stylus_settings (device);
-	}
+        type == WACOM_TYPE_ERASER) {
+        apply_stylus_settings (device);
+    }
 }
 
 static void
 wacom_settings_changed (GSettings      *settings,
-			gchar          *key,
-			CsdWacomDevice *device)
+            gchar          *key,
+            CsdWacomDevice *device)
 {
-	CsdWacomDeviceType type;
+    CsdWacomDeviceType type;
 
-	type = csd_wacom_device_get_device_type (device);
+    type = csd_wacom_device_get_device_type (device);
 
-	if (g_str_equal (key, KEY_ROTATION)) {
-	        if (type != WACOM_TYPE_PAD)
-		        set_rotation (device, g_settings_get_enum (settings, key));
-	} else if (g_str_equal (key, KEY_TOUCH)) {
-		set_touch (device, g_settings_get_boolean (settings, key));
-	} else if (g_str_equal (key, KEY_TPCBUTTON)) {
-		set_tpcbutton (device, g_settings_get_boolean (settings, key));
-	} else if (g_str_equal (key, KEY_IS_ABSOLUTE)) {
-		if (type != WACOM_TYPE_CURSOR &&
-		    type != WACOM_TYPE_PAD &&
-		    type != WACOM_TYPE_TOUCH)
-			set_absolute (device, g_settings_get_boolean (settings, key));
-	} else if (g_str_equal (key, KEY_AREA)) {
-		if (type != WACOM_TYPE_CURSOR &&
-		    type != WACOM_TYPE_PAD &&
-		    type != WACOM_TYPE_TOUCH)
-			set_area (device, g_settings_get_value (settings, key));
-	} else if (g_str_equal (key, KEY_DISPLAY)) {
-		if (type != WACOM_TYPE_CURSOR &&
-		    type != WACOM_TYPE_PAD)
-			set_display (device, g_settings_get_value (settings, key));
-	} else if (g_str_equal (key, KEY_KEEP_ASPECT)) {
-		if (type != WACOM_TYPE_CURSOR &&
-		    type != WACOM_TYPE_PAD &&
-		    type != WACOM_TYPE_TOUCH &&
-		    !csd_wacom_device_is_screen_tablet (device))
-			set_keep_aspect (device, g_settings_get_boolean (settings, key));
-	} else {
-		g_warning ("Unhandled tablet-wide setting '%s' changed", key);
-	}
+    if (g_str_equal (key, KEY_ROTATION)) {
+        set_rotation (device, g_settings_get_enum (settings, key));
+    } else if (g_str_equal (key, KEY_TOUCH)) {
+        set_touch (device, g_settings_get_boolean (settings, key));
+    } else if (g_str_equal (key, KEY_TPCBUTTON)) {
+        set_tpcbutton (device, g_settings_get_boolean (settings, key));
+    } else if (g_str_equal (key, KEY_IS_ABSOLUTE)) {
+        if (type != WACOM_TYPE_CURSOR &&
+            type != WACOM_TYPE_PAD &&
+            type != WACOM_TYPE_TOUCH)
+            set_absolute (device, g_settings_get_boolean (settings, key));
+    } else if (g_str_equal (key, KEY_AREA)) {
+        if (type != WACOM_TYPE_CURSOR &&
+            type != WACOM_TYPE_PAD)
+            set_area (device, g_settings_get_value (settings, key));
+    } else if (g_str_equal (key, KEY_DISPLAY)) {
+        if (type != WACOM_TYPE_CURSOR &&
+            type != WACOM_TYPE_PAD)
+            set_display (device, g_settings_get_value (settings, key));
+    } else {
+        g_warning ("Unhandled tablet-wide setting '%s' changed", key);
+    }
 }
 
 static void
 stylus_settings_changed (GSettings      *settings,
-			 gchar          *key,
-			 CsdWacomStylus *stylus)
+             gchar          *key,
+             CsdWacomStylus *stylus)
 {
-	CsdWacomDevice *device;
-	CsdWacomStylus *last_stylus;
+    CsdWacomDevice *device;
+    CsdWacomStylus *last_stylus;
 
-	device = csd_wacom_stylus_get_device (stylus);
+    device = csd_wacom_stylus_get_device (stylus);
 
-	g_object_get (device, "last-stylus", &last_stylus, NULL);
-	if (last_stylus != stylus) {
-		g_debug ("Not applying changed settings because '%s' is the current stylus, not '%s'",
-			 last_stylus ? csd_wacom_stylus_get_name (last_stylus) : "NONE",
-			 csd_wacom_stylus_get_name (stylus));
-		return;
-	}
+    g_object_get (device, "last-stylus", &last_stylus, NULL);
+    if (last_stylus != stylus) {
+        g_debug ("Not applying changed settings because '%s' is the current stylus, not '%s'",
+             last_stylus ? csd_wacom_stylus_get_name (last_stylus) : "NONE",
+             csd_wacom_stylus_get_name (stylus));
+        return;
+    }
 
-	if (g_str_equal (key, KEY_PRESSURECURVE)) {
-		set_pressurecurve (device, g_settings_get_value (settings, key));
-	} else if (g_str_equal (key, KEY_PRESSURETHRESHOLD)) {
-		int threshold;
+    if (g_str_equal (key, KEY_PRESSURECURVE)) {
+        set_pressurecurve (device, g_settings_get_value (settings, key));
+    } else if (g_str_equal (key, KEY_PRESSURETHRESHOLD)) {
+        int threshold;
 
-		threshold = g_settings_get_int (settings, KEY_PRESSURETHRESHOLD);
-		if (threshold == -1)
-			threshold = DEFAULT_PRESSURE_THRESHOLD;
-		set_pressurethreshold (device, threshold);
-	} else if (g_str_equal (key, KEY_BUTTON_MAPPING)) {
-		set_device_buttonmap (device, g_settings_get_value (settings, key));
-	}  else {
-		g_warning ("Unhandled stylus setting '%s' changed", key);
-	}
+        threshold = g_settings_get_int (settings, KEY_PRESSURETHRESHOLD);
+        if (threshold == -1)
+            threshold = DEFAULT_PRESSURE_THRESHOLD;
+        set_pressurethreshold (device, threshold);
+    } else if (g_str_equal (key, KEY_BUTTON_MAPPING)) {
+        set_device_buttonmap (device, g_settings_get_value (settings, key));
+    }  else {
+        g_warning ("Unhandled stylus setting '%s' changed", key);
+    }
 }
 
 static void
 last_stylus_changed (CsdWacomDevice  *device,
-		     GParamSpec      *pspec,
-		     CsdWacomManager *manager)
+             GParamSpec      *pspec,
+             CsdWacomManager *manager)
 {
-	g_debug ("Stylus for device '%s' changed, applying settings",
-		 csd_wacom_device_get_name (device));
-	apply_stylus_settings (device);
+    g_debug ("Stylus for device '%s' changed, applying settings",
+         csd_wacom_device_get_name (device));
+    apply_stylus_settings (device);
 }
 
 static void
@@ -894,40 +668,40 @@ device_added_cb (GdkDeviceManager *device_manager,
                  GdkDevice        *gdk_device,
                  CsdWacomManager  *manager)
 {
-	CsdWacomDevice *device;
-	GSettings *settings;
+    CsdWacomDevice *device;
+    GSettings *settings;
 
-	device = csd_wacom_device_new (gdk_device);
-	if (csd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
-		g_object_unref (device);
-		return;
-	}
-	g_debug ("Adding device '%s' (type: '%s') to known devices list",
-		 csd_wacom_device_get_tool_name (device),
-		 csd_wacom_device_type_to_string (csd_wacom_device_get_device_type (device)));
-	g_hash_table_insert (manager->priv->devices, (gpointer) gdk_device, device);
+    device = csd_wacom_device_new (gdk_device);
+    if (csd_wacom_device_get_device_type (device) == WACOM_TYPE_INVALID) {
+        g_object_unref (device);
+        return;
+    }
+    g_debug ("Adding device '%s' (type: '%s') to known devices list",
+         csd_wacom_device_get_tool_name (device),
+         csd_wacom_device_type_to_string (csd_wacom_device_get_device_type (device)));
+    g_hash_table_insert (manager->priv->devices, (gpointer) gdk_device, device);
 
-	settings = csd_wacom_device_get_settings (device);
-	g_signal_connect (G_OBJECT (settings), "changed",
-			  G_CALLBACK (wacom_settings_changed), device);
+    settings = csd_wacom_device_get_settings (device);
+    g_signal_connect (G_OBJECT (settings), "changed",
+              G_CALLBACK (wacom_settings_changed), device);
 
-	if (csd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS ||
-	    csd_wacom_device_get_device_type (device) == WACOM_TYPE_ERASER) {
-		GList *styli, *l;
+    if (csd_wacom_device_get_device_type (device) == WACOM_TYPE_STYLUS ||
+        csd_wacom_device_get_device_type (device) == WACOM_TYPE_ERASER) {
+        GList *styli, *l;
 
-		styli = csd_wacom_device_list_styli (device);
+        styli = csd_wacom_device_list_styli (device);
 
-		for (l = styli ; l ; l = l->next) {
-			settings = csd_wacom_stylus_get_settings (l->data);
-			g_signal_connect (G_OBJECT (settings), "changed",
-					  G_CALLBACK (stylus_settings_changed), l->data);
-		}
+        for (l = styli ; l ; l = l->next) {
+            settings = csd_wacom_stylus_get_settings (l->data);
+            g_signal_connect (G_OBJECT (settings), "changed",
+                      G_CALLBACK (stylus_settings_changed), l->data);
+        }
 
-		g_list_free (styli);
+        g_list_free (styli);
 
-		g_signal_connect (G_OBJECT (device), "notify::last-stylus",
-				  G_CALLBACK (last_stylus_changed), manager);
-	}
+        g_signal_connect (G_OBJECT (device), "notify::last-stylus",
+                  G_CALLBACK (last_stylus_changed), manager);
+    }
 
         set_wacom_settings (manager, device);
 }
@@ -937,200 +711,156 @@ device_removed_cb (GdkDeviceManager *device_manager,
                    GdkDevice        *gdk_device,
                    CsdWacomManager  *manager)
 {
-	g_debug ("Removing device '%s' from known devices list",
-		 gdk_device_get_name (gdk_device));
-	g_hash_table_remove (manager->priv->devices, gdk_device);
-
-	/* Enable this chunk of code if you want to valgrind
-	 * test-wacom. It will exit when there are no Wacom devices left */
-#if 0
-	if (g_hash_table_size (manager->priv->devices) == 0)
-		gtk_main_quit ();
-#endif
+    g_debug ("Removing device '%s' from known devices list",
+         gdk_device_get_name (gdk_device));
+    g_hash_table_remove (manager->priv->devices, gdk_device);
 }
 
 static CsdWacomDevice *
 device_id_to_device (CsdWacomManager *manager,
-		     int              deviceid)
+             int              deviceid)
 {
-	GList *devices, *l;
-	CsdWacomDevice *ret;
+    GList *devices, *l;
+    CsdWacomDevice *ret;
 
-	ret = NULL;
-	devices = g_hash_table_get_keys (manager->priv->devices);
+    ret = NULL;
+    devices = g_hash_table_get_keys (manager->priv->devices);
 
-	for (l = devices; l != NULL; l = l->next) {
-		GdkDevice *device = l->data;
-		int id;
+    for (l = devices; l != NULL; l = l->next) {
+        GdkDevice *device = l->data;
+        int id;
 
-		g_object_get (device, "device-id", &id, NULL);
-		if (id == deviceid) {
-			ret = g_hash_table_lookup (manager->priv->devices, device);
-			break;
-		}
-	}
+        g_object_get (device, "device-id", &id, NULL);
+        if (id == deviceid) {
+            ret = g_hash_table_lookup (manager->priv->devices, device);
+            break;
+        }
+    }
 
-	g_list_free (devices);
-	return ret;
+    g_list_free (devices);
+    return ret;
 }
 
 struct {
-	guint mask;
-	KeySym keysym;
+    guint mask;
+    KeySym keysym;
 } mods_keysyms[] = {
-	{ GDK_MOD1_MASK, XK_Alt_L },
-	{ GDK_SHIFT_MASK, XK_Shift_L },
-	{ GDK_CONTROL_MASK, XK_Control_L },
+    { GDK_MOD1_MASK, XK_Alt_L },
+    { GDK_SHIFT_MASK, XK_Shift_L },
+    { GDK_CONTROL_MASK, XK_Control_L },
 };
 
 static void
 send_modifiers (Display *display,
-		guint mask,
-		gboolean is_press)
+        guint mask,
+        gboolean is_press)
 {
-	guint i;
+    guint i;
 
-	if (mask == 0)
-		return;
+    if (mask == 0)
+        return;
 
-	for (i = 0; i < G_N_ELEMENTS(mods_keysyms); i++) {
-		if (mask & mods_keysyms[i].mask) {
-			guint keycode;
+    for (i = 0; i < G_N_ELEMENTS(mods_keysyms); i++) {
+        if (mask & mods_keysyms[i].mask) {
+            guint keycode;
 
-			keycode = XKeysymToKeycode (display, mods_keysyms[i].keysym);
-			XTestFakeKeyEvent (display, keycode,
-					   is_press ? True : False, 0);
-		}
-	}
+            keycode = XKeysymToKeycode (display, mods_keysyms[i].keysym);
+            XTestFakeKeyEvent (display, keycode,
+                       is_press ? True : False, 0);
+        }
+    }
 }
 
 static char *
 get_elevator_shortcut_string (GSettings        *settings,
-			      GtkDirectionType  dir)
+                  GtkDirectionType  dir)
 {
-	char **strv, *str;
+    char **strv, *str;
 
-	strv = g_settings_get_strv (settings, KEY_CUSTOM_ELEVATOR_ACTION);
-	if (strv == NULL)
-		return NULL;
+    strv = g_settings_get_strv (settings, KEY_CUSTOM_ELEVATOR_ACTION);
+    if (strv == NULL)
+        return NULL;
 
-	if (g_strv_length (strv) >= 1 && dir == GTK_DIR_UP)
-		str = g_strdup (strv[0]);
-	else if (g_strv_length (strv) >= 2 && dir == GTK_DIR_DOWN)
-		str = g_strdup (strv[1]);
-	else
-		str = NULL;
+    if (g_strv_length (strv) >= 1 && dir == GTK_DIR_UP)
+        str = g_strdup (strv[0]);
+    else if (g_strv_length (strv) >= 2 && dir == GTK_DIR_DOWN)
+        str = g_strdup (strv[1]);
+    else
+        str = NULL;
 
-	g_strfreev (strv);
+    g_strfreev (strv);
 
-	return str;
+    return str;
 }
 
 static void
 generate_key (CsdWacomTabletButton *wbutton,
-	      int                   group,
-	      Display              *display,
-	      GtkDirectionType      dir,
-	      gboolean              is_press)
+          int                   group,
+          Display              *display,
+          GtkDirectionType      dir,
+          gboolean              is_press)
 {
-	char                 *str;
-	guint                 keyval;
-	guint                *keycodes;
-	guint                 keycode;
-	guint                 mods;
-	GdkKeymapKey         *keys;
-	int                   n_keys;
-	guint                 i;
+    char                 *str;
+    guint                 keyval;
+    guint                *keycodes;
+    guint                 keycode;
+    guint                 mods;
+    GdkKeymapKey         *keys;
+    int                   n_keys;
+    guint                 i;
 
-	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
-		str = get_elevator_shortcut_string (wbutton->settings, dir);
-	else
-		str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
+    if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR)
+        str = get_elevator_shortcut_string (wbutton->settings, dir);
+    else
+        str = g_settings_get_string (wbutton->settings, KEY_CUSTOM_ACTION);
 
-	if (str == NULL)
-		return;
+    if (str == NULL)
+        return;
 
-	gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
-	if (keycodes == NULL) {
-		g_warning ("Failed to find a keycode for shortcut '%s'", str);
-		g_free (str);
-		return;
-	}
-	g_free (keycodes);
+    gtk_accelerator_parse_with_keycode (str, &keyval, &keycodes, &mods);
+    if (keycodes == NULL) {
+        g_warning ("Failed to find a keycode for shortcut '%s'", str);
+        g_free (str);
+        return;
+    }
+    g_free (keycodes);
 
-	/* Now look for our own keycode, in the group as us */
-	if (!gdk_keymap_get_entries_for_keyval (gdk_keymap_get_default (), keyval, &keys, &n_keys)) {
-		g_warning ("Failed to find a keycode for keyval '%s' (0x%x)", gdk_keyval_name (keyval), keyval);
-		g_free (str);
-		return;
-	}
+    /* Now look for our own keycode, in the group as us */
+    if (!gdk_keymap_get_entries_for_keyval (gdk_keymap_get_default (), keyval, &keys, &n_keys)) {
+        g_warning ("Failed to find a keycode for keyval '%s' (0x%x)", gdk_keyval_name (keyval), keyval);
+        g_free (str);
+        return;
+    }
 
-	keycode = 0;
-	for (i = 0; i < n_keys; i++) {
-		if (keys[i].group != group)
-			continue;
-		if (keys[i].level > 0)
-			continue;
-		keycode = keys[i].keycode;
-	}
-	/* Couldn't find it in the current group? Look in group 0 */
-	if (keycode == 0) {
-		for (i = 0; i < n_keys; i++) {
-			if (keys[i].group > 0)
-				continue;
-			keycode = keys[i].keycode;
-		}
-	}
-	g_free (keys);
+    keycode = 0;
+    for (i = 0; i < n_keys; i++) {
+        if (keys[i].group != group)
+            continue;
+        if (keys[i].level > 0)
+            continue;
+        keycode = keys[i].keycode;
+    }
+    /* Couldn't find it in the current group? Look in group 0 */
+    if (keycode == 0) {
+        for (i = 0; i < n_keys; i++) {
+            if (keys[i].level > 0)
+                continue;
+            keycode = keys[i].keycode;
+        }
+    }
+    g_free (keys);
 
-	if (keycode == 0) {
-		g_warning ("Not emitting '%s' (keyval: %d, keycode: %d mods: 0x%x), invalid keycode",
-			   str, keyval, keycode, mods);
-		g_free (str);
-		return;
-	} else {
-		g_debug ("Emitting '%s' (keyval: %d, keycode: %d mods: 0x%x)",
-			 str, keyval, keycode, mods);
-	}
+    g_debug ("Emitting '%s' (keyval: %d, keycode: %d mods: 0x%x)",
+         str, keyval, keycode, mods);
+    g_free (str);
 
-	/* And send out the keys! */
-	gdk_error_trap_push ();
-	if (is_press)
-		send_modifiers (display, mods, TRUE);
-	XTestFakeKeyEvent (display, keycode,
-			   is_press ? True : False, 0);
-	if (is_press == FALSE)
-		send_modifiers (display, mods, FALSE);
-	if (gdk_error_trap_pop ())
-		g_warning ("Failed to generate fake key event '%s'", str);
-
-	g_free (str);
-}
-
-static void
-switch_monitor (CsdWacomDevice *device)
-{
-	gint current_monitor, n_monitors;
-
-	/* We dont; do that for screen tablets, sorry... */
-	if (csd_wacom_device_is_screen_tablet (device))
-		return;
-
-	n_monitors = gdk_screen_get_n_monitors (gdk_screen_get_default ());
-
-	/* There's no point in switching if there just one monitor */
-	if (n_monitors < 2)
-		return;
-
-	current_monitor = csd_wacom_device_get_display_monitor (device);
-
-	/* Select next monitor */
-	current_monitor++;
-
-	if (current_monitor >= n_monitors)
-		current_monitor = CSD_WACOM_SET_ALL_MONITORS;
-
-	csd_wacom_device_set_display (device, current_monitor);
+    /* And send out the keys! */
+    if (is_press)
+        send_modifiers (display, mods, TRUE);
+    XTestFakeKeyEvent (display, keycode,
+               is_press ? True : False, 0);
+    if (is_press == FALSE)
+        send_modifiers (display, mods, FALSE);
 }
 
 static GdkFilterReturn
@@ -1138,80 +868,73 @@ filter_button_events (XEvent          *xevent,
                       GdkEvent        *event,
                       CsdWacomManager *manager)
 {
-	XIEvent             *xiev;
-	XIDeviceEvent       *xev;
-	XGenericEventCookie *cookie;
-	guint                deviceid;
-	CsdWacomDevice      *device;
-	int                  button;
-	CsdWacomTabletButton *wbutton;
-	GtkDirectionType      dir;
+    XIEvent             *xiev;
+    XIDeviceEvent       *xev;
+    XGenericEventCookie *cookie;
+    guint                deviceid;
+    CsdWacomDevice      *device;
+    int                  button;
+    CsdWacomTabletButton *wbutton;
+    GtkDirectionType      dir;
 
         /* verify we have a key event */
-	if (xevent->type != GenericEvent)
-		return GDK_FILTER_CONTINUE;
-	cookie = &xevent->xcookie;
-	if (cookie->extension != manager->priv->opcode)
-		return GDK_FILTER_CONTINUE;
+    if (xevent->type != GenericEvent)
+        return GDK_FILTER_CONTINUE;
+    cookie = &xevent->xcookie;
+    if (cookie->extension != manager->priv->opcode)
+        return GDK_FILTER_CONTINUE;
 
-	xiev = (XIEvent *) xevent->xcookie.data;
+    xiev = (XIEvent *) xevent->xcookie.data;
 
-	if (xiev->evtype != XI_ButtonRelease &&
-	    xiev->evtype != XI_ButtonPress)
-		return GDK_FILTER_CONTINUE;
+    if (xiev->evtype != XI_ButtonRelease &&
+        xiev->evtype != XI_ButtonPress)
+        return GDK_FILTER_CONTINUE;
 
-	xev = (XIDeviceEvent *) xiev;
+    xev = (XIDeviceEvent *) xiev;
 
-	deviceid = xev->sourceid;
-	device = device_id_to_device (manager, deviceid);
-	if (csd_wacom_device_get_device_type (device) != WACOM_TYPE_PAD)
-		return GDK_FILTER_CONTINUE;
+    deviceid = xev->sourceid;
+    device = device_id_to_device (manager, deviceid);
+    if (csd_wacom_device_get_device_type (device) != WACOM_TYPE_PAD)
+        return GDK_FILTER_CONTINUE;
 
-	button = xev->detail;
+    button = xev->detail;
 
-	wbutton = csd_wacom_device_get_button (device, button, &dir);
-	if (wbutton == NULL) {
-		g_warning ("Could not find matching button for '%d' on '%s'",
-			   button, csd_wacom_device_get_name (device));
-		return GDK_FILTER_CONTINUE;
-	}
+    wbutton = csd_wacom_device_get_button (device, button, &dir);
+    if (wbutton == NULL) {
+        g_warning ("Could not find matching button for '%d' on '%s'",
+               button, csd_wacom_device_get_name (device));
+        return GDK_FILTER_CONTINUE;
+    }
 
-	g_debug ("Received event button %s '%s'%s ('%d') on device '%s' ('%d')",
-		 xiev->evtype == XI_ButtonPress ? "press" : "release",
-		 wbutton->id,
-		 wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR ?
-		 (dir == GTK_DIR_UP ? " 'up'" : " 'down'") : "",
-		 button,
-		 csd_wacom_device_get_name (device),
-		 deviceid);
+    g_debug ("Received event button %s '%s'%s ('%d') on device '%s' ('%d')",
+         xiev->evtype == XI_ButtonPress ? "press" : "release",
+         wbutton->id,
+         wbutton->type == WACOM_TABLET_BUTTON_TYPE_ELEVATOR ?
+         (dir == GTK_DIR_UP ? " 'up'" : " 'down'") : "",
+         button,
+         csd_wacom_device_get_name (device),
+         deviceid);
 
-	if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
-		int new_mode;
+    if (wbutton->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED) {
+        int new_mode;
 
-		/* We switch modes on key release */
-		if (xiev->evtype == XI_ButtonRelease)
-			return GDK_FILTER_REMOVE;
+        /* We switch modes on key release */
+        if (xiev->evtype == XI_ButtonRelease)
+            return GDK_FILTER_REMOVE;
 
-		new_mode = csd_wacom_device_set_next_mode (device, wbutton->group_id);
-		set_led (device, wbutton->group_id, new_mode);
-		return GDK_FILTER_REMOVE;
-	}
+        new_mode = csd_wacom_device_set_next_mode (device, wbutton->group_id);
+        set_led (device, wbutton->group_id, new_mode);
+        return GDK_FILTER_REMOVE;
+    }
 
-	/* Nothing to do */
-	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == CSD_WACOM_ACTION_TYPE_NONE)
-		return GDK_FILTER_REMOVE;
+    /* Nothing to do */
+    if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == CSD_WACOM_ACTION_TYPE_NONE)
+        return GDK_FILTER_REMOVE;
 
-	/* Switch monitor */
-	if (g_settings_get_enum (wbutton->settings, KEY_ACTION_TYPE) == CSD_WACOM_ACTION_TYPE_SWITCH_MONITOR) {
-		if (xiev->evtype == XI_ButtonRelease)
-			switch_monitor (device);
-		return GDK_FILTER_REMOVE;
-	}
+    /* Send a key combination out */
+    generate_key (wbutton, xev->group.effective, xev->display, dir, xiev->evtype == XI_ButtonPress ? True : False);
 
-	/* Send a key combination out */
-	generate_key (wbutton, xev->group.effective, xev->display, dir, xiev->evtype == XI_ButtonPress ? True : False);
-
-	return GDK_FILTER_REMOVE;
+    return GDK_FILTER_REMOVE;
 }
 
 static void
@@ -1239,8 +962,8 @@ csd_wacom_manager_init (CsdWacomManager *manager)
 static gboolean
 csd_wacom_manager_idle_cb (CsdWacomManager *manager)
 {
-	GList *devices, *l;
-	GSList *ls;
+    GList *devices, *l;
+    GSList *ls;
 
         cinnamon_settings_profile_start (NULL);
 
@@ -1250,7 +973,7 @@ csd_wacom_manager_idle_cb (CsdWacomManager *manager)
 
         devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
         for (l = devices; l ; l = l->next)
-		device_added_cb (manager->priv->device_manager, l->data, manager);
+        device_added_cb (manager->priv->device_manager, l->data, manager);
         g_list_free (devices);
 
         /* Start filtering the button events */
@@ -1267,47 +990,6 @@ csd_wacom_manager_idle_cb (CsdWacomManager *manager)
         return FALSE;
 }
 
-/*
- * The monitors-changed signal is emitted when the number, size or
- * position of the monitors attached to the screen change.
- */
-static void
-on_screen_changed_cb (GnomeRRScreen *rr_screen,
-		      CsdWacomManager *manager)
-{
-	GList *devices, *l;
-
-        /*
-         * A ::changed signal may be received at startup before
-         * the devices get added, in this case simply ignore the
-         * notification
-         */
-        if (manager->priv->devices == NULL)
-                return;
-
-        g_debug ("Screen configuration changed");
-	devices = g_hash_table_get_values (manager->priv->devices);
-	for (l = devices; l != NULL; l = l->next) {
-		CsdWacomDevice *device = l->data;
-		CsdWacomDeviceType type;
-		GSettings *settings;
-
-		type = csd_wacom_device_get_device_type (device);
-		if (type == WACOM_TYPE_CURSOR || type == WACOM_TYPE_PAD)
-			continue;
-
-		settings = csd_wacom_device_get_settings (device);
-		/* Ignore touch devices as they do not share the same range of values for area */
-		if (type != WACOM_TYPE_TOUCH) {
-			if (csd_wacom_device_is_screen_tablet (device) == FALSE)
-				set_keep_aspect (device, g_settings_get_boolean (settings, KEY_KEEP_ASPECT));
-			set_area (device, g_settings_get_value (settings, KEY_AREA));
-		}
-		set_display (device, g_settings_get_value (settings, KEY_DISPLAY));
-	}
-	g_list_free (devices);
-}
-
 static void
 init_screens (CsdWacomManager *manager)
 {
@@ -1316,31 +998,13 @@ init_screens (CsdWacomManager *manager)
 
         display = gdk_display_get_default ();
         for (i = 0; i < gdk_display_get_n_screens (display); i++) {
-                GError *error = NULL;
                 GdkScreen *screen;
-                GnomeRRScreen *rr_screen;
 
                 screen = gdk_display_get_screen (display, i);
                 if (screen == NULL) {
                         continue;
                 }
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
-
-		/*
-		 * We also keep a list of GnomeRRScreen to monitor changes such as rotation
-		 * which are not reported by Gdk's "monitors-changed" callback
-		 */
-		rr_screen = gnome_rr_screen_new (screen, &error);
-		if (rr_screen == NULL) {
-			g_warning ("Failed to create GnomeRRScreen: %s", error->message);
-			g_error_free (error);
-			continue;
-		}
-		manager->priv->rr_screens = g_list_prepend (manager->priv->rr_screens, rr_screen);
-		g_signal_connect (rr_screen,
-				  "changed",
-				  G_CALLBACK (on_screen_changed_cb),
-			          manager);
         }
 }
 
@@ -1348,7 +1012,7 @@ gboolean
 csd_wacom_manager_start (CsdWacomManager *manager,
                          GError         **error)
 {
-	int a, b, c, d;
+    int a, b, c, d;
 
         cinnamon_settings_profile_start (NULL);
 
@@ -1376,30 +1040,12 @@ csd_wacom_manager_stop (CsdWacomManager *manager)
 {
         CsdWacomManagerPrivate *p = manager->priv;
         GSList *ls;
-        GList *l;
 
         g_debug ("Stopping wacom manager");
 
         if (p->device_manager != NULL) {
-                GList *devices;
-
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
                 g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
-
-                devices = gdk_device_manager_list_devices (p->device_manager, GDK_DEVICE_TYPE_SLAVE);
-                for (l = devices; l != NULL; l = l->next) {
-                        CsdWacomDeviceType type;
-
-                        type = csd_wacom_device_get_device_type (l->data);
-                        if (type == WACOM_TYPE_PAD) {
-                                int id;
-
-                                id = get_device_id (l->data);
-                                grab_button (id, FALSE, manager->priv->screens);
-                        }
-                }
-                g_list_free (devices);
-
                 p->device_manager = NULL;
         }
 
@@ -1408,9 +1054,6 @@ csd_wacom_manager_stop (CsdWacomManager *manager)
                                           (GdkFilterFunc) filter_button_events,
                                           manager);
         }
-
-	for (l = p->rr_screens; l != NULL; l = l->next)
-		g_signal_handlers_disconnect_by_func (l->data, on_screen_changed_cb, manager);
 }
 
 static void
@@ -1434,11 +1077,6 @@ csd_wacom_manager_finalize (GObject *object)
                 g_slist_free (wacom_manager->priv->screens);
                 wacom_manager->priv->screens = NULL;
         }
-
-	if (wacom_manager->priv->rr_screens != NULL) {
-		g_list_free_full (wacom_manager->priv->rr_screens, g_object_unref);
-		wacom_manager->priv->rr_screens = NULL;
-	}
 
         if (wacom_manager->priv->start_idle_id != 0)
                 g_source_remove (wacom_manager->priv->start_idle_id);
