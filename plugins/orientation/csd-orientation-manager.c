@@ -70,12 +70,12 @@ struct CsdOrientationManagerPrivate
 #define CONF_SCHEMA "org.cinnamon.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
 
-#define CSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
 #define CSD_ORIENTATION_DBUS_PATH CSD_DBUS_PATH "/Orientation"
 
 static const gchar introspection_xml[] =
 "<node>"
-"  <interface name='org.gnome.SettingsDaemon.Orientation'>"
+"  <interface name='org.cinnamon.SettingsDaemon.Orientation'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_orientation_manager'/>"
 "  </interface>"
 "</node>";
@@ -373,9 +373,9 @@ on_bus_gotten (GObject               *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/XRANDR",
-                          "org.gnome.SettingsDaemon.XRANDR_2",
+                          "org.cinnamon.SettingsDaemon",
+                          "/org/cinnamon/SettingsDaemon/XRANDR",
+                          "org.cinnamon.SettingsDaemon.XRANDR_2",
                           NULL,
                           (GAsyncReadyCallback) xrandr_ready_cb,
                           manager);

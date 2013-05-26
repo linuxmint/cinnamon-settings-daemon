@@ -106,7 +106,7 @@ flush_cache (void)
 
         pa_proplist_sets (pl, PA_PROP_APPLICATION_NAME, PACKAGE_NAME);
         pa_proplist_sets (pl, PA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
-        pa_proplist_sets (pl, PA_PROP_APPLICATION_ID, "org.gnome.SettingsDaemon");
+        pa_proplist_sets (pl, PA_PROP_APPLICATION_ID, "org.cinnamon.SettingsDaemon");
 
         if (!(c = pa_context_new_with_proplist (pa_mainloop_get_api (ml), PACKAGE_NAME, pl))) {
                 g_debug ("Failed to allocate pa_context");

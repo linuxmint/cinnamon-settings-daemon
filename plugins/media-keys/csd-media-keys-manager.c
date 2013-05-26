@@ -60,8 +60,8 @@
 
 #include <libnotify/notify.h>
 
-#define CSD_DBUS_PATH "/org/gnome/SettingsDaemon"
-#define CSD_DBUS_NAME "org.gnome.SettingsDaemon"
+#define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
+#define CSD_DBUS_NAME "org.cinnamon.SettingsDaemon"
 #define CSD_MEDIA_KEYS_DBUS_PATH CSD_DBUS_PATH "/MediaKeys"
 #define CSD_MEDIA_KEYS_DBUS_NAME CSD_DBUS_NAME ".MediaKeys"
 
@@ -77,7 +77,7 @@
 
 static const gchar introspection_xml[] =
 "<node>"
-"  <interface name='org.gnome.SettingsDaemon.MediaKeys'>"
+"  <interface name='org.cinnamon.SettingsDaemon.MediaKeys'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_media_keys_manager'/>"
 "    <method name='GrabMediaPlayerKeys'>"
 "      <arg name='application' direction='in' type='s'/>"
@@ -2598,9 +2598,9 @@ on_bus_gotten (GObject             *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/XRANDR",
-                          "org.gnome.SettingsDaemon.XRANDR_2",
+                          "org.cinnamon.SettingsDaemon",
+                          "/org/cinnamon/SettingsDaemon/XRANDR",
+                          "org.cinnamon.SettingsDaemon.XRANDR_2",
                           NULL,
                           (GAsyncReadyCallback) xrandr_ready_cb,
                           manager);
@@ -2608,9 +2608,9 @@ on_bus_gotten (GObject             *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/Power",
-                          "org.gnome.SettingsDaemon.Power.Screen",
+                          "org.cinnamon.SettingsDaemon",
+                          "/org/cinnamon/SettingsDaemon/Power",
+                          "org.cinnamon.SettingsDaemon.Power.Screen",
                           NULL,
                           (GAsyncReadyCallback) power_screen_ready_cb,
                           manager);
@@ -2618,9 +2618,9 @@ on_bus_gotten (GObject             *source_object,
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
-                          "org.gnome.SettingsDaemon",
-                          "/org/gnome/SettingsDaemon/Power",
-                          "org.gnome.SettingsDaemon.Power.Keyboard",
+                          "org.cinnamon.SettingsDaemon",
+                          "/org/cinnamon/SettingsDaemon/Power",
+                          "org.cinnamon.SettingsDaemon.Power.Keyboard",
                           NULL,
                           (GAsyncReadyCallback) power_keyboard_ready_cb,
                           manager);

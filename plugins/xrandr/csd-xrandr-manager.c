@@ -70,7 +70,7 @@
 /* name of the icon files (csd-xrandr.svg, etc.) */
 #define CSD_XRANDR_ICON_NAME "csd-xrandr"
 
-#define CSD_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
 #define CSD_XRANDR_DBUS_PATH CSD_DBUS_PATH "/XRANDR"
 
 static const gchar introspection_xml[] =
@@ -732,7 +732,7 @@ out:
         return result;
 }
 
-/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 ApplyConfiguration; see csd-xrandr-manager.xml for the interface definition */
+/* DBus method for org.cinnamon.SettingsDaemon.XRANDR_2 ApplyConfiguration; see csd-xrandr-manager.xml for the interface definition */
 static gboolean
 csd_xrandr_manager_2_apply_configuration (CsdXrandrManager *manager,
                                           gint64            parent_window_id,
@@ -755,7 +755,7 @@ csd_xrandr_manager_2_apply_configuration (CsdXrandrManager *manager,
         return result;
 }
 
-/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 VideoModeSwitch; see csd-xrandr-manager.xml for the interface definition */
+/* DBus method for org.cinnamon.SettingsDaemon.XRANDR_2 VideoModeSwitch; see csd-xrandr-manager.xml for the interface definition */
 static gboolean
 csd_xrandr_manager_2_video_mode_switch (CsdXrandrManager *manager,
                                         guint32           timestamp,
@@ -765,7 +765,7 @@ csd_xrandr_manager_2_video_mode_switch (CsdXrandrManager *manager,
         return TRUE;
 }
 
-/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 Rotate; see csd-xrandr-manager.xml for the interface definition */
+/* DBus method for org.cinnamon.SettingsDaemon.XRANDR_2 Rotate; see csd-xrandr-manager.xml for the interface definition */
 static gboolean
 csd_xrandr_manager_2_rotate (CsdXrandrManager *manager,
                              guint32           timestamp,
@@ -775,7 +775,7 @@ csd_xrandr_manager_2_rotate (CsdXrandrManager *manager,
         return TRUE;
 }
 
-/* DBus method for org.gnome.SettingsDaemon.XRANDR_2 RotateTo; see csd-xrandr-manager.xml for the interface definition */
+/* DBus method for org.cinnamon.SettingsDaemon.XRANDR_2 RotateTo; see csd-xrandr-manager.xml for the interface definition */
 static gboolean
 csd_xrandr_manager_2_rotate_to (CsdXrandrManager *manager,
                                 GnomeRRRotation   rotation,
@@ -2159,7 +2159,7 @@ handle_method_call_xrandr_2 (CsdXrandrManager *manager,
         gint64 timestamp;
         GError *error = NULL;
 
-        g_debug ("Calling method '%s' for org.gnome.SettingsDaemon.XRANDR_2", method_name);
+        g_debug ("Calling method '%s' for org.cinnamon.SettingsDaemon.XRANDR_2", method_name);
 
         if (g_strcmp0 (method_name, "ApplyConfiguration") == 0) {
                 gint64 parent_window_id;
@@ -2201,7 +2201,7 @@ handle_method_call (GDBusConnection       *connection,
 
         g_debug ("Handling method call %s.%s", interface_name, method_name);
 
-        if (g_strcmp0 (interface_name, "org.gnome.SettingsDaemon.XRANDR_2") == 0)
+        if (g_strcmp0 (interface_name, "org.cinnamon.SettingsDaemon.XRANDR_2") == 0)
                 handle_method_call_xrandr_2 (manager, method_name, parameters, invocation);
         else
                 g_warning ("unknown interface: %s", interface_name);

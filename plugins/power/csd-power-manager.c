@@ -59,12 +59,12 @@
 
 #define CSD_POWER_SETTINGS_SCHEMA               "org.cinnamon.settings-daemon.plugins.power"
 
-#define CSD_DBUS_SERVICE                        "org.gnome.SettingsDaemon"
-#define CSD_DBUS_PATH                           "/org/gnome/SettingsDaemon"
+#define CSD_DBUS_SERVICE                        "org.cinnamon.SettingsDaemon"
+#define CSD_DBUS_PATH                           "/org/cinnamon/SettingsDaemon"
 #define CSD_POWER_DBUS_PATH                     CSD_DBUS_PATH "/Power"
-#define CSD_POWER_DBUS_INTERFACE                "org.gnome.SettingsDaemon.Power"
-#define CSD_POWER_DBUS_INTERFACE_SCREEN         "org.gnome.SettingsDaemon.Power.Screen"
-#define CSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.gnome.SettingsDaemon.Power.Keyboard"
+#define CSD_POWER_DBUS_INTERFACE                "org.cinnamon.SettingsDaemon.Power"
+#define CSD_POWER_DBUS_INTERFACE_SCREEN         "org.cinnamon.SettingsDaemon.Power.Screen"
+#define CSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.cinnamon.SettingsDaemon.Power.Keyboard"
 
 #define GS_DBUS_NAME                            "org.gnome.ScreenSaver"
 #define GS_DBUS_PATH                            "/org/gnome/ScreenSaver"
@@ -92,7 +92,7 @@ enum {
 
 static const gchar introspection_xml[] =
 "<node>"
-  "<interface name='org.gnome.SettingsDaemon.Power'>"
+  "<interface name='org.cinnamon.SettingsDaemon.Power'>"
     "<property name='Icon' type='s' access='read'>"
     "</property>"
     "<property name='Tooltip' type='s' access='read'>"
@@ -104,7 +104,7 @@ static const gchar introspection_xml[] =
       "<arg name='devices' type='a(susdut)' direction='out' />"
     "</method>"
   "</interface>"
-"  <interface name='org.gnome.SettingsDaemon.Power.Screen'>"
+"  <interface name='org.cinnamon.SettingsDaemon.Power.Screen'>"
 "    <method name='StepUp'>"
 "      <arg type='u' name='new_percentage' direction='out'/>"
 "    </method>"
@@ -121,7 +121,7 @@ static const gchar introspection_xml[] =
 "    <signal name='Changed'>"
 "    </signal>"
 "  </interface>"
-"  <interface name='org.gnome.SettingsDaemon.Power.Keyboard'>"
+"  <interface name='org.cinnamon.SettingsDaemon.Power.Keyboard'>"
 "    <method name='StepUp'>"
 "      <arg type='u' name='new_percentage' direction='out'/>"
 "    </method>"
@@ -4222,7 +4222,7 @@ handle_method_call_main (CsdPowerManager *manager,
                 device = engine_get_primary_device (manager);
                 if (device == NULL) {
                         g_dbus_method_invocation_return_dbus_error (invocation,
-                                                                    "org.gnome.SettingsDaemon.Power.Failed",
+                                                                    "org.cinnamon.SettingsDaemon.Power.Failed",
                                                                     "There is no primary device.");
                         return;
                 }

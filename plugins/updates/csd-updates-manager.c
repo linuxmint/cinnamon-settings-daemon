@@ -1147,7 +1147,7 @@ emit_changed (CsdUpdatesManager *manager)
         ret = g_dbus_connection_emit_signal (manager->priv->connection,
                                              NULL,
                                              "/",
-                                             "org.gnome.SettingsDaemonUpdates",
+                                             "org.cinnamon.SettingsDaemonUpdates",
                                              "Changed",
                                              NULL,
                                              &error);
@@ -1415,7 +1415,7 @@ csd_updates_manager_start (CsdUpdatesManager *manager,
         reload_proxy_settings (manager);
 
         /* load introspection from file */
-        file = g_file_new_for_path (DATADIR "/dbus-1/interfaces/org.gnome.SettingsDaemonUpdates.xml");
+        file = g_file_new_for_path (DATADIR "/dbus-1/interfaces/org.cinnamon.SettingsDaemonUpdates.xml");
         ret = g_file_load_contents (file, NULL, &introspection_data, NULL, NULL, error);
         if (!ret)
                 goto out;
