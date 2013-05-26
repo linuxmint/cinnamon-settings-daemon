@@ -18,7 +18,7 @@ EXTRA_DIST = \
 	MAINTAINERS		\
 	ChangeLog		\
 	README			\
-    autogen.sh \
+	autogen.sh \
 	$(NULL)
 
 DISTCLEANFILES = \

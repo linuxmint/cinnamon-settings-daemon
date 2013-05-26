@@ -28,7 +28,7 @@ binary-install/cinnamon-settings-daemon::
 	find debian -name '*.la' -delete
 
 override_dh_autoreconf:
-    dh_autoreconf --as-needed ./autogen.sh
+	dh_autoreconf --as-needed ./autogen.sh
 
 common-binary-post-install-arch:: list-missing
 
