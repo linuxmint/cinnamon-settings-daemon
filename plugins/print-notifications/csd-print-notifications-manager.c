@@ -1141,7 +1141,10 @@ csd_print_notifications_manager_stop (CsdPrintNotificationsManager *manager)
         if (manager->priv->printing_printers)
                 g_hash_table_destroy (manager->priv->printing_printers);
 
-        g_clear_object (&manager->priv->cups_bus_connection);
+        if (manager->priv->cups_bus_connection != NULL) {
+            g_object_unref (manager->priv->cups_bus_connection);
+            manager->priv->cups_bus_connection = NULL;
+        }
 
         for (tmp = manager->priv->timeouts; tmp; tmp = g_list_next (tmp)) {
                 data = (TimeoutData *) tmp->data;

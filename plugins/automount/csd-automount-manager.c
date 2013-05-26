@@ -435,7 +435,11 @@ screensaver_vanished_callback (GDBusConnection *connection,
         g_debug ("ScreenSaver name vanished");
 
         manager->priv->screensaver_active = FALSE;
-        g_clear_object (&manager->priv->ss_proxy);
+
+        if (manager->priv->ss_proxy != NULL) {
+                g_object_unref (manager->priv->ss_proxy);
+                manager->priv->ss_proxy = NULL;
+        }
 
         /* in this case force a clear of the volume queue, without
          * mounting them.
@@ -503,10 +507,25 @@ csd_automount_manager_stop (CsdAutomountManager *manager)
 
         g_debug ("Stopping automounting manager");
 
-        g_clear_object (&p->session);
-        g_clear_object (&p->volume_monitor);
-        g_clear_object (&p->settings);
-        g_clear_object (&p->ss_proxy);
+        if (p->session != NULL) {
+                g_object_unref (p->session);
+                p->session = NULL;
+        }
+
+        if (p->volume_monitor != NULL) {
+                g_object_unref (p->volume_monitor);
+                p->volume_monitor = NULL;
+        }
+
+        if (p->settings != NULL) {
+                g_object_unref (p->settings);
+                p->settings = NULL;
+        }
+
+        if (p->ss_proxy != NULL) {
+                g_object_unref (p->ss_proxy);
+                p->ss_proxy = NULL;
+        }
 
         g_bus_unwatch_name (p->ss_watch_id);
 

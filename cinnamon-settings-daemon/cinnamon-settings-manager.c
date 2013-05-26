@@ -409,8 +409,15 @@ cinnamon_settings_manager_stop (CinnamonSettingsManager *manager)
                 manager->priv->owner_id = 0;
         }
 
-        g_clear_object (&manager->priv->settings);
-        g_clear_object (&manager->priv->pnp_ids);
+        if (manager->priv->settings != NULL) {
+                g_object_unref (manager->priv->settings);
+                manager->priv->settings = NULL;
+        }
+
+        if (manager->priv->pnp_ids != NULL) {
+                g_object_unref (manager->priv->pnp_ids);
+                manager->priv->pnp_ids = NULL;
+        }
 }
 
 static void
