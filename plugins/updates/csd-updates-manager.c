@@ -1462,9 +1462,9 @@ csd_updates_manager_stop (CsdUpdatesManager *manager)
                 g_object_unref (manager->priv->settings_ftp);
                 manager->priv->settings_ftp = NULL;
         }
-        if (manager->priv->settings_gsd != NULL) {
-                g_object_unref (manager->priv->settings_gsd);
-                manager->priv->settings_gsd = NULL;
+        if (manager->priv->settings_csd != NULL) {
+                g_object_unref (manager->priv->settings_csd);
+                manager->priv->settings_csd = NULL;
         }
         if (manager->priv->control != NULL) {
                 g_object_unref (manager->priv->control);
