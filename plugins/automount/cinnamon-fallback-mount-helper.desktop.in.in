@@ -7,6 +7,6 @@ Terminal=false
 Type=Application
 Categories=
 NoDisplay=true
-OnlyShowIn=GNOME;Unity;
+OnlyShowIn=X-Cinnamon;
 X-GNOME-Autostart-Notify=true
-AutostartCondition=GNOME3 unless-session gnome
+
