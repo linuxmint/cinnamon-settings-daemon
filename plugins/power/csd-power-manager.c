@@ -4005,25 +4005,71 @@ csd_power_manager_stop (CsdPowerManager *manager)
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
 
-        g_clear_object (&manager->priv->connection);
-        g_clear_object (&manager->priv->session);
-        g_clear_object (&manager->priv->settings);
-        g_clear_object (&manager->priv->settings_screensaver);
-        g_clear_object (&manager->priv->up_client);
-        g_clear_object (&manager->priv->x11_screen);
+        if (manager->priv->connection != NULL) {
+                g_object_unref (manager->priv->connection);
+                manager->priv->connection = NULL;
+        }
+
+        if (manager->priv->session != NULL) {
+                g_object_unref (manager->priv->session);
+                manager->priv->session = NULL;
+        }
+
+        if (manager->priv->settings != NULL) {
+                g_object_unref (manager->priv->settings);
+                manager->priv->settings = NULL;
+        }
+
+        if (manager->priv->settings_screensaver != NULL) {
+                g_object_unref (manager->priv->settings_screensaver);
+                manager->priv->settings_screensaver = NULL;
+        }
+
+        if (manager->priv->up_client != NULL) {
+                g_object_unref (manager->priv->up_client);
+                manager->priv->up_client = NULL;
+        }
+
+        if (manager->priv->x11_screen != NULL) {
+                g_object_unref (manager->priv->x11_screen);
+                manager->priv->x11_screen = NULL;
+        }
 
         g_ptr_array_unref (manager->priv->devices_array);
         manager->priv->devices_array = NULL;
-        g_clear_object (&manager->priv->phone);
-        g_clear_object (&manager->priv->device_composite);
-        g_clear_object (&manager->priv->previous_icon);
+
+        if (manager->priv->phone != NULL) {
+                g_object_unref (manager->priv->phone);
+                manager->priv->phone = NULL;
+        }
+
+        if (manager->priv->device_composite != NULL) {
+                g_object_unref (manager->priv->device_composite);
+                manager->priv->device_composite = NULL;
+        }
+
+        if (manager->priv->previous_icon != NULL) {
+                g_object_unref (manager->priv->previous_icon);
+                manager->priv->previous_icon = NULL;
+        }
 
         g_free (manager->priv->previous_summary);
         manager->priv->previous_summary = NULL;
 
-        g_clear_object (&manager->priv->upower_proxy);
-        g_clear_object (&manager->priv->session_proxy);
-        g_clear_object (&manager->priv->session_presence_proxy);
+        if (manager->priv->upower_proxy != NULL) {
+                g_object_unref (manager->priv->upower_proxy);
+                manager->priv->upower_proxy = NULL;
+        }
+
+        if (manager->priv->session_proxy != NULL) {
+                g_object_unref (manager->priv->session_proxy);
+                manager->priv->session_proxy = NULL;
+        }
+
+        if (manager->priv->session_presence_proxy != NULL) {
+                g_object_unref (manager->priv->session_presence_proxy);
+                manager->priv->session_presence_proxy = NULL;
+        }
 
         if (manager->priv->critical_alert_timeout_id > 0) {
                 g_source_remove (manager->priv->critical_alert_timeout_id);
@@ -4036,8 +4082,15 @@ csd_power_manager_stop (CsdPowerManager *manager)
                                               idle_idletime_alarm_expired_cb,
                                               manager);
 
-        g_clear_object (&manager->priv->idletime);
-        g_clear_object (&manager->priv->status_icon);
+        if (manager->priv->idletime != NULL) {
+                g_object_unref (manager->priv->idletime);
+                manager->priv->idletime = NULL;
+        }
+
+        if (manager->priv->status_icon != NULL) {
+                g_object_unref (manager->priv->status_icon);
+                manager->priv->status_icon = NULL;
+        }
 
         if (manager->priv->xscreensaver_watchdog_timer_id > 0) {
                 g_source_remove (manager->priv->xscreensaver_watchdog_timer_id);

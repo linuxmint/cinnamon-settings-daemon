@@ -303,7 +303,11 @@ combo_box_changed_cb (GtkComboBox *combo_box,
         if (info == NULL)
                 return;
 
-        g_clear_object (&data->selected_app);
+        if (data->selected_app != NULL) {
+                g_object_unref (data->selected_app);
+                data->selected_app = NULL;
+        }
+
         data->selected_app = info;
 }
 

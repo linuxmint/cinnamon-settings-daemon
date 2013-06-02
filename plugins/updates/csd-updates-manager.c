@@ -1450,18 +1450,54 @@ csd_updates_manager_stop (CsdUpdatesManager *manager)
 {
         g_debug ("Stopping updates manager");
 
-        g_clear_object (&manager->priv->settings_proxy);
-        g_clear_object (&manager->priv->settings_http);
-        g_clear_object (&manager->priv->settings_ftp);
-        g_clear_object (&manager->priv->settings_csd);
-        g_clear_object (&manager->priv->control);
-        g_clear_object (&manager->priv->task);
-        g_clear_object (&manager->priv->refresh);
-        g_clear_object (&manager->priv->firmware);
-        g_clear_object (&manager->priv->proxy_session);
-        g_clear_object (&manager->priv->volume_monitor);
-        g_clear_object (&manager->priv->cancellable);
-        g_clear_pointer (&manager->priv->introspection, g_dbus_node_info_unref);
+        if (manager->priv->settings_proxy != NULL) {
+                g_object_unref (manager->priv->settings_proxy);
+                manager->priv->settings_proxy = NULL;
+        }
+        if (manager->priv->settings_http != NULL) {
+                g_object_unref (manager->priv->settings_http);
+                manager->priv->settings_http = NULL;
+        }
+        if (manager->priv->settings_ftp != NULL) {
+                g_object_unref (manager->priv->settings_ftp);
+                manager->priv->settings_ftp = NULL;
+        }
+        if (manager->priv->settings_csd != NULL) {
+                g_object_unref (manager->priv->settings_csd);
+                manager->priv->settings_csd = NULL;
+        }
+        if (manager->priv->control != NULL) {
+                g_object_unref (manager->priv->control);
+                manager->priv->control = NULL;
+        }
+        if (manager->priv->task != NULL) {
+                g_object_unref (manager->priv->task);
+                manager->priv->task = NULL;
+        }
+        if (manager->priv->refresh != NULL) {
+                g_object_unref (manager->priv->refresh);
+                manager->priv->refresh = NULL;
+        }
+        if (manager->priv->firmware != NULL) {
+                g_object_unref (manager->priv->firmware);
+                manager->priv->firmware = NULL;
+        }
+        if (manager->priv->proxy_session != NULL) {
+                g_object_unref (manager->priv->proxy_session);
+                manager->priv->proxy_session = NULL;
+        }
+        if (manager->priv->volume_monitor != NULL) {
+                g_object_unref (manager->priv->volume_monitor);
+                manager->priv->volume_monitor = NULL;
+        }
+        if (manager->priv->cancellable != NULL) {
+                g_object_unref (manager->priv->cancellable);
+                manager->priv->cancellable = NULL;
+        }
+        if (manager->priv->introspection != NULL) {
+                g_dbus_node_info_unref (manager->priv->introspection);
+                manager->priv->introspection = NULL;
+        }
         if (manager->priv->update_viewer_watcher_id != 0) {
                 g_bus_unwatch_name (manager->priv->update_viewer_watcher_id);
                 manager->priv->update_viewer_watcher_id = 0;
@@ -1478,7 +1514,10 @@ csd_updates_manager_stop (CsdUpdatesManager *manager)
                 g_ptr_array_unref (manager->priv->update_packages);
                 manager->priv->update_packages = NULL;
         }
-        g_clear_object (&manager->priv->offline_update_error);
+        if (manager->priv->offline_update_error != NULL) {
+                g_object_unref (manager->priv->offline_update_error);
+                manager->priv->offline_update_error = 0;
+        }
 }
 
 static GObject *

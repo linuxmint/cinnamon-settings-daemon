@@ -561,7 +561,11 @@ show_hide_icon ()
 #endif
 	} else {
 #ifdef HAVE_APPINDICATOR
-		g_clear_object (&app_indicator);
+        if (app_indicator != NULL) {
+            g_object_unref (app_indicator);
+            app_indicator = NULL;
+        }
+
 #else
 		if (icon != NULL) {
 			xkl_debug (150, "Destroying icon\n");
@@ -844,7 +848,10 @@ csd_keyboard_xkb_shutdown (void)
 	xkl_engine = NULL;
 
 #ifdef HAVE_APPINDICATOR
-	g_clear_object (&gkbd_configuration);
+    if (gkbd_configuration != NULL) {
+            g_object_unref (gkbd_configuration);
+            gkbd_configuration = NULL;
+    }
 #endif
 
 	inited_ok = FALSE;

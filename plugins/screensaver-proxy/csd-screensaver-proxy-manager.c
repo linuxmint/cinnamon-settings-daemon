@@ -350,9 +350,21 @@ void
 csd_screensaver_proxy_manager_stop (CsdScreensaverProxyManager *manager)
 {
         g_debug ("Stopping screensaver_proxy manager");
-        g_clear_object (&manager->priv->session);
-        g_clear_pointer (&manager->priv->watch_ht, g_hash_table_destroy);
-        g_clear_pointer (&manager->priv->cookie_ht, g_hash_table_destroy);
+
+        if (manager->priv->session != NULL) {
+                g_object_unref (manager->priv->session);
+                manager->priv->session = NULL;
+        }
+
+        if (manager->priv->watch_ht != NULL) {
+                g_hash_table_destroy (manager->priv->watch_ht);
+                manager->priv->watch_ht = NULL;
+        }
+
+        if (manager->priv->cookie_ht != NULL) {
+                g_hash_table_destroy (manager->priv->cookie_ht);
+                manager->priv->cookie_ht = NULL;
+        }
 }
 
 static void
@@ -387,10 +399,21 @@ csd_screensaver_proxy_manager_finalize (GObject *object)
                 g_bus_unown_name (manager->priv->name_id);
                 manager->priv->name_id = 0;
         }
-        g_clear_object (&manager->priv->connection);
-        g_clear_object (&manager->priv->bus_cancellable);
-        g_clear_pointer (&manager->priv->introspection_data, g_dbus_node_info_unref);
 
+        if (manager->priv->connection != NULL) {
+                g_object_unref (manager->priv->connection);
+                manager->priv->connection = NULL;
+        }
+
+        if (manager->priv->bus_cancellable != NULL) {
+                g_object_unref (manager->priv->bus_cancellable);
+                manager->priv->bus_cancellable = NULL;
+        }
+
+        if (manager->priv->introspection_data != NULL) {
+                g_dbus_node_info_unref (manager->priv->introspection_data);
+                manager->priv->introspection_data = NULL;
+        }
         G_OBJECT_CLASS (csd_screensaver_proxy_manager_parent_class)->finalize (object);
 }
 
