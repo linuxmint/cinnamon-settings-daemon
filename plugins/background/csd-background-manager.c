@@ -341,9 +341,9 @@ draw_background_after_session_loads (CsdBackgroundManager *manager)
         manager->priv->proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
                                                               flags,
                                                               NULL, /* GDBusInterfaceInfo */
-                                                              "org.gnome.SessionManager",
-                                                              "/org/gnome/SessionManager",
-                                                              "org.gnome.SessionManager",
+                                                              "org.cinnamon.SessionManager",
+                                                              "/org/cinnamon/SessionManager",
+                                                              "org.cinnamon.SessionManager",
                                                               NULL, /* GCancellable */
                                                               &error);
         if (manager->priv->proxy == NULL) {

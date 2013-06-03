@@ -65,9 +65,9 @@
 #define CSD_MEDIA_KEYS_DBUS_PATH CSD_DBUS_PATH "/MediaKeys"
 #define CSD_MEDIA_KEYS_DBUS_NAME CSD_DBUS_NAME ".MediaKeys"
 
-#define GNOME_SESSION_DBUS_NAME "org.gnome.SessionManager"
-#define GNOME_SESSION_DBUS_PATH "/org/gnome/SessionManager"
-#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_NAME "org.cinnamon.SessionManager"
+#define GNOME_SESSION_DBUS_PATH "/org/cinnamon/SessionManager"
+#define GNOME_SESSION_DBUS_INTERFACE "org.cinnamon.SessionManager"
 
 #define GNOME_KEYRING_DBUS_NAME "org.gnome.keyring"
 #define GNOME_KEYRING_DBUS_PATH "/org/gnome/keyring/daemon"
