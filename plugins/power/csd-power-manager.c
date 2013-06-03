@@ -45,11 +45,11 @@
 #include "csd-power-manager.h"
 #include "csd-power-helper.h"
 
-#define GNOME_SESSION_DBUS_NAME                 "org.cinnamon.SessionManager"
-#define GNOME_SESSION_DBUS_PATH                 "/org/cinnamon/SessionManager"
-#define GNOME_SESSION_DBUS_PATH_PRESENCE        "/org/cinnamon/SessionManager/Presence"
-#define GNOME_SESSION_DBUS_INTERFACE            "org.cinnamon.SessionManager"
-#define GNOME_SESSION_DBUS_INTERFACE_PRESENCE   "org.cinnamon.SessionManager.Presence"
+#define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_PATH                 "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_PATH_PRESENCE        "/org/gnome/SessionManager/Presence"
+#define GNOME_SESSION_DBUS_INTERFACE            "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_INTERFACE_PRESENCE   "org.gnome.SessionManager.Presence"
 
 #define UPOWER_DBUS_NAME                        "org.freedesktop.UPower"
 #define UPOWER_DBUS_PATH                        "/org/freedesktop/UPower"

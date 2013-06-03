@@ -1038,12 +1038,12 @@ Index: cinnamon-settings-daemon-3.6.4/plugins/keyboard/csd-keyboard-manager.c
 -        priv->ibus_cancellable = g_cancellable_new ();
 -
 -        g_dbus_connection_call (connection,
--                                "org.cinnamon.SessionManager",
--                                "/org/cinnamon/SessionManager",
+-                                "org.gnome.SessionManager",
+-                                "/org/gnome/SessionManager",
 -                                "org.freedesktop.DBus.Properties",
 -                                "Get",
 -                                g_variant_new ("(ss)",
--                                               "org.cinnamon.SessionManager",
+-                                               "org.gnome.SessionManager",
 -                                               "SessionName"),
 -                                NULL,
 -                                G_DBUS_CALL_FLAGS_NONE,

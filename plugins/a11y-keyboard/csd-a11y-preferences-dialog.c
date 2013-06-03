@@ -33,9 +33,9 @@
 
 #include "csd-a11y-preferences-dialog.h"
 
-#define SM_DBUS_NAME      "org.cinnamon.SessionManager"
-#define SM_DBUS_PATH      "/org/cinnamon/SessionManager"
-#define SM_DBUS_INTERFACE "org.cinnamon.SessionManager"
+#define SM_DBUS_NAME      "org.gnome.SessionManager"
+#define SM_DBUS_PATH      "/org/gnome/SessionManager"
+#define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 
 
 #define CSD_A11Y_PREFERENCES_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_A11Y_PREFERENCES_DIALOG, CsdA11yPreferencesDialogPrivate))

@@ -508,9 +508,9 @@ csd_updates_refresh_init (CsdUpdatesRefresh *refresh)
                 g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
                                                G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
                                                NULL, /* GDBusInterfaceInfo */
-                                               "org.cinnamon.SessionManager",
-                                               "/org/cinnamon/SessionManager/Presence",
-                                               "org.cinnamon.SessionManager.Presence",
+                                               "org.gnome.SessionManager",
+                                               "/org/gnome/SessionManager/Presence",
+                                               "org.gnome.SessionManager.Presence",
                                                NULL, /* GCancellable */
                                                &error);
         if (refresh->priv->proxy_session == NULL) {

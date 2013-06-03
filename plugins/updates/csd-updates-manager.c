@@ -1388,9 +1388,9 @@ csd_updates_manager_start (CsdUpdatesManager *manager,
                 g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
                                                G_DBUS_PROXY_FLAGS_NONE,
                                                NULL, /* GDBusInterfaceInfo */
-                                               "org.cinnamon.SessionManager",
-                                               "/org/cinnamon/SessionManager",
-                                               "org.cinnamon.SessionManager",
+                                               "org.gnome.SessionManager",
+                                               "/org/gnome/SessionManager",
+                                               "org.gnome.SessionManager",
                                                manager->priv->cancellable,
                                                error);
         if (manager->priv->proxy_session == NULL)

@@ -111,9 +111,9 @@ G_DEFINE_TYPE (CsdScreensaverProxyManager, csd_screensaver_proxy_manager, G_TYPE
 
 static gpointer manager_object = NULL;
 
-#define GNOME_SESSION_DBUS_NAME      "org.cinnamon.SessionManager"
-#define GNOME_SESSION_DBUS_OBJECT    "/org/cinnamon/SessionManager"
-#define GNOME_SESSION_DBUS_INTERFACE "org.cinnamon.SessionManager"
+#define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
 static GDBusProxy *
 cinnamon_settings_session_get_session_proxy (void)

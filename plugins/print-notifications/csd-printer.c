@@ -55,13 +55,13 @@ static GDBusNodeInfo *pdi_introspection_data = NULL;
 #define DBUS_TIMEOUT           60000
 #define DBUS_INSTALL_TIMEOUT 3600000
 
-#define GNOME_SESSION_DBUS_NAME                 "org.cinnamon.SessionManager"
-#define GNOME_SESSION_DBUS_PATH                 "/org/cinnamon/SessionManager"
-#define GNOME_SESSION_DBUS_IFACE                "org.cinnamon.SessionManager"
-#define GNOME_SESSION_CLIENT_PRIVATE_DBUS_IFACE "org.cinnamon.SessionManager.ClientPrivate"
+#define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_PATH                 "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_IFACE                "org.gnome.SessionManager"
+#define GNOME_SESSION_CLIENT_PRIVATE_DBUS_IFACE "org.gnome.SessionManager.ClientPrivate"
 
-#define GNOME_SESSION_PRESENCE_DBUS_PATH  "/org/cinnamon/SessionManager/Presence"
-#define GNOME_SESSION_PRESENCE_DBUS_IFACE "org.cinnamon.SessionManager.Presence"
+#define GNOME_SESSION_PRESENCE_DBUS_PATH  "/org/gnome/SessionManager/Presence"
+#define GNOME_SESSION_PRESENCE_DBUS_IFACE "org.gnome.SessionManager.Presence"
 
 #if (CUPS_VERSION_MAJOR > 1) || (CUPS_VERSION_MINOR > 5)
 #define HAVE_CUPS_1_6 1

@@ -49,9 +49,9 @@ typedef enum
 #define SCREENSAVER_DBUS_PATH      "/"
 #define SCREENSAVER_DBUS_INTERFACE "org.gnome.ScreenSaver"
 
-#define SM_DBUS_NAME      "org.cinnamon.SessionManager"
-#define SM_DBUS_PATH      "/org/cinnamon/SessionManager"
-#define SM_DBUS_INTERFACE "org.cinnamon.SessionManager"
+#define SM_DBUS_NAME      "org.gnome.SessionManager"
+#define SM_DBUS_PATH      "/org/gnome/SessionManager"
+#define SM_DBUS_INTERFACE "org.gnome.SessionManager"
 #define SM_LOGOUT_MODE_FORCE 2
 
 #define KEY_REMOVE_ACTION "removal-action"

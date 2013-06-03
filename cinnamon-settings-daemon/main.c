@@ -39,10 +39,10 @@
 
 #define CSD_DBUS_NAME         "org.cinnamon.SettingsDaemon"
 
-#define GNOME_SESSION_DBUS_NAME      "org.cinnamon.SessionManager"
-#define GNOME_SESSION_DBUS_OBJECT    "/org/cinnamon/SessionManager"
-#define GNOME_SESSION_DBUS_INTERFACE "org.cinnamon.SessionManager"
-#define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.cinnamon.SessionManager.ClientPrivate"
+#define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
+#define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
+#define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
+#define GNOME_SESSION_CLIENT_PRIVATE_DBUS_INTERFACE "org.gnome.SessionManager.ClientPrivate"
 
 static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
@@ -307,7 +307,7 @@ set_legacy_ibus_env_vars (GDBusProxy *proxy)
         g_dbus_proxy_call (proxy,
                            "org.freedesktop.DBus.Properties.Get",
                            g_variant_new ("(ss)",
-                                          "org.cinnamon.SessionManager",
+                                          "org.gnome.SessionManager",
                                           "SessionName"),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
