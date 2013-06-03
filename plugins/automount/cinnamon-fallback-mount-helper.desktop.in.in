@@ -7,6 +7,6 @@ Terminal=false
 Type=Application
 Categories=
 NoDisplay=true
-OnlyShowIn=X-Cinnamon;
+OnlyShowIn=GNOME;
 X-GNOME-Autostart-Notify=true
 
