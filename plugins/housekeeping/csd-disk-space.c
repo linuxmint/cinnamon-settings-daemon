@@ -216,7 +216,7 @@ examine_callback (NotifyNotification *n,
 }
 
 static void
-nautilus_empty_trash_cb (GObject *object,
+nemo_empty_trash_cb (GObject *object,
                          GAsyncResult *res,
                          gpointer _unused)
 {
@@ -226,7 +226,7 @@ nautilus_empty_trash_cb (GObject *object,
         g_dbus_proxy_call_finish (proxy, res, &error);
 
         if (error != NULL) {
-                g_warning ("Unable to call EmptyTrash() on the Nautilus DBus interface: %s",
+                g_warning ("Unable to call EmptyTrash() on the Nemo DBus interface: %s",
                            error->message);
                 g_error_free (error);
         }
@@ -236,7 +236,7 @@ nautilus_empty_trash_cb (GObject *object,
 }
 
 static void
-nautilus_proxy_ready_cb (GObject *object,
+nemo_proxy_ready_cb (GObject *object,
                          GAsyncResult *res,
                          gpointer _unused)
 {
@@ -246,7 +246,7 @@ nautilus_proxy_ready_cb (GObject *object,
         proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
 
         if (proxy == NULL) {
-                g_warning ("Unable to create a proxy object for the Nautilus DBus interface: %s",
+                g_warning ("Unable to create a proxy object for the Nemo DBus interface: %s",
                            error->message);
                 g_error_free (error);
 
@@ -259,22 +259,22 @@ nautilus_proxy_ready_cb (GObject *object,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
-                           nautilus_empty_trash_cb,
+                           nemo_empty_trash_cb,
                            NULL);
 }
 
 void
 csd_ldsm_show_empty_trash (void)
 {
-        /* prepare the Nautilus proxy object */
+        /* prepare the Nemo proxy object */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   G_DBUS_PROXY_FLAGS_NONE,
                                   NULL,
-                                  "org.gnome.Nautilus",
-                                  "/org/gnome/Nautilus",
-                                  "org.gnome.Nautilus.FileOperations",
+                                  "org.Nemo",
+                                  "/org/Nemo",
+                                  "org.Nemo.FileOperations",
                                   NULL,
-                                  nautilus_proxy_ready_cb,
+                                  nemo_proxy_ready_cb,
                                   NULL);
 }
 
