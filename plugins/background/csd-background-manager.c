@@ -50,6 +50,7 @@
 struct CsdBackgroundManagerPrivate
 {
         GSettings   *settings;
+        GSettings   *nemo_settings;
         GnomeBG     *bg;
 
         GnomeBGCrossfade *fade;
@@ -77,10 +78,10 @@ dont_draw_background (CsdBackgroundManager *manager)
 }
 
 static gboolean
-nautilus_is_drawing_background (CsdBackgroundManager *manager)
+nemo_is_drawing_background (CsdBackgroundManager *manager)
 {
        Atom           window_id_atom;
-       Window         nautilus_xid;
+       Window         nemo_xid;
        Atom           actual_type;
        int            actual_format;
        unsigned long  nitems;
@@ -91,14 +92,14 @@ nautilus_is_drawing_background (CsdBackgroundManager *manager)
        gint           error;
        gboolean       show_desktop_icons;
 
-       show_desktop_icons = g_settings_get_boolean (manager->priv->settings,
+       show_desktop_icons = g_settings_get_boolean (manager->priv->nemo_settings,
                                                      "show-desktop-icons");
        if (! show_desktop_icons) {
                return FALSE;
        }
 
        window_id_atom = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                     "NAUTILUS_DESKTOP_WINDOW_ID", True);
+                                     "NEMO_DESKTOP_WINDOW_ID", True);
 
        if (window_id_atom == None) {
                return FALSE;
@@ -118,7 +119,7 @@ nautilus_is_drawing_background (CsdBackgroundManager *manager)
                            &data);
 
        if (data != NULL) {
-               nautilus_xid = *(Window *) data;
+               nemo_xid = *(Window *) data;
                XFree (data);
        } else {
                return FALSE;
@@ -136,7 +137,7 @@ nautilus_is_drawing_background (CsdBackgroundManager *manager)
        gdk_error_trap_push ();
 
        XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                           nautilus_xid,
+                           nemo_xid,
                            wmclass_atom,
                            0,
                            24,
@@ -160,7 +161,7 @@ nautilus_is_drawing_background (CsdBackgroundManager *manager)
            actual_format == 8 &&
            data != NULL &&
            !strcmp ((char *)data, "desktop_window") &&
-           !strcmp ((char *)data + strlen ((char *)data) + 1, "Nautilus")) {
+           !strcmp ((char *)data + strlen ((char *)data) + 1, "Nemo")) {
                running = TRUE;
        } else {
                running = FALSE;
@@ -189,7 +190,7 @@ draw_background (CsdBackgroundManager *manager,
         int         i;
 
 
-        if (nautilus_is_drawing_background (manager) ||
+        if (nemo_is_drawing_background (manager) ||
             dont_draw_background (manager)) {
                 return;
         }
@@ -514,19 +515,22 @@ csd_background_manager_start (CsdBackgroundManager *manager,
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.gnome.desktop.background");
+
+        manager->priv->nemo_settings = g_settings_new ("org.nemo.desktop");
+
         g_signal_connect (manager->priv->settings, "changed::draw-background",
                           G_CALLBACK (draw_background_changed), manager);
         g_signal_connect (manager->priv->settings, "changed::picture-uri",
                           G_CALLBACK (picture_uri_changed), manager);
 
-        /* If this is set, nautilus will draw the background and is
+        /* If this is set, nemo will draw the background and is
 	 * almost definitely in our session.  however, it may not be
-	 * running yet (so is_nautilus_running() will fail).  so, on
+	 * running yet (so is_nemo_running() will fail).  so, on
 	 * startup, just don't do anything if this key is set so we
 	 * don't waste time setting the background only to have
-	 * nautilus overwrite it.
+	 * nemo overwrite it.
 	 */
-        show_desktop_icons = g_settings_get_boolean (manager->priv->settings,
+        show_desktop_icons = g_settings_get_boolean (manager->priv->nemo_settings,
                                                      "show-desktop-icons");
 
         if (!show_desktop_icons) {
@@ -561,6 +565,11 @@ csd_background_manager_stop (CsdBackgroundManager *manager)
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
+        }
+
+        if (p->nemo_settings != NULL) {
+                g_object_unref (p->nemo_settings);
+                p->nemo_settings = NULL;
         }
 
         if (p->bg != NULL) {
