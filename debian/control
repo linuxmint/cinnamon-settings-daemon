@@ -48,7 +48,7 @@ Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          gsettings-desktop-schemas (>= 3.3.90-0ubuntu2),
-         nemo-data (>= 2.91.3-1)
+         nemo-data
 Recommends: pulseaudio,
             systemd-services,
 Pre-Depends: ${misc:Pre-Depends}
