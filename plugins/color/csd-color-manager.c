@@ -1734,15 +1734,37 @@ csd_color_manager_stop (CsdColorManager *manager)
 
     g_return_if_fail (manager->priv != NULL);
 
-    g_object_unref (manager->priv->settings);
-    g_object_unref (manager->priv->client);
-    g_object_unref (manager->priv->profile_store);
-    g_object_unref (manager->priv->dmi);
-    g_object_unref (manager->priv->session);
-    g_hash_table_destroy (manager->priv->edid_cache);
-    g_hash_table_destroy (manager->priv->device_assign_hash);
+    if (manager->priv->settings != NULL) {
+        g_object_unref (manager->priv->settings);
+        manager->priv->settings = NULL;
+    }
+    if (manager->priv->client != NULL) {
+        g_object_unref (manager->priv->client);
+        manager->priv->client = NULL;
+    }
+    if (manager->priv->profile_store != NULL) {
+        g_object_unref (manager->priv->profile_store);
+        manager->priv->profile_store = NULL;
+    }
+    if (manager->priv->dmi != NULL) {
+        g_object_unref (manager->priv->dmi);
+        manager->priv->dmi = NULL;
+    }
+    if (manager->priv->session != NULL) {
+        g_object_unref (manager->priv->session);
+        manager->priv->session = NULL;
+    }
+    if (manager->priv->edid_cache != NULL) {
+        g_hash_table_destroy (manager->priv->edid_cache);
+        manager->priv->edid_cache = NULL;
+    }
+    if (manager->priv->device_assign_hash != NULL) {
+        g_hash_table_destroy (manager->priv->device_assign_hash);
+        manager->priv->device_assign_hash = NULL;
+    }
     if (manager->priv->x11_screen != NULL)
         g_object_unref (manager->priv->x11_screen);
+        manager->priv->x11_screen = NULL;
 }
 
 static void
@@ -2327,25 +2349,7 @@ csd_color_manager_init (CsdColorManager *manager)
 static void
 csd_color_manager_finalize (GObject *object)
 {
-    CsdColorManager *manager;
-
     g_return_if_fail (object != NULL);
-    g_return_if_fail (CSD_IS_COLOR_MANAGER (object));
-
-    manager = CSD_COLOR_MANAGER (object);
-
-    g_return_if_fail (manager->priv != NULL);
-
-    g_object_unref (manager->priv->settings);
-    g_object_unref (manager->priv->client);
-    g_object_unref (manager->priv->profile_store);
-    g_object_unref (manager->priv->dmi);
-    g_object_unref (manager->priv->session);
-    g_hash_table_destroy (manager->priv->edid_cache);
-    g_hash_table_destroy (manager->priv->device_assign_hash);
-    if (manager->priv->x11_screen != NULL)
-        g_object_unref (manager->priv->x11_screen);
-
     G_OBJECT_CLASS (csd_color_manager_parent_class)->finalize (object);
 }
 
