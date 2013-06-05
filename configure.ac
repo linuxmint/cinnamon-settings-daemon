@@ -118,6 +118,24 @@ AC_SUBST(LIBNOTIFY_CFLAGS)
 AC_SUBST(LIBNOTIFY_LIBS)
 
 dnl ---------------------------------------------------------------------------
+dnl - Check for D-Bus
+dnl ---------------------------------------------------------------------------
+
+dnl - Are we specifying a different dbus root ?
+AC_ARG_WITH(dbus-sys,
+        [AC_HELP_STRING([--with-dbus-sys=<dir>],
+        [where D-BUS system.d directory is])])
+AC_ARG_WITH(dbus-services,
+        [AC_HELP_STRING([--with-dbus-services=<dir>],
+        [where D-BUS services directory is])])
+if ! test -z "$with_dbus_sys" ; then
+        DBUS_SYS_DIR="$with_dbus_sys"
+else
+        DBUS_SYS_DIR='${sysconfdir}/dbus-1/system.d'
+fi
+AC_SUBST(DBUS_SYS_DIR)
+
+dnl ---------------------------------------------------------------------------
 dnl - GUdev integration (default enabled)
 dnl ---------------------------------------------------------------------------
 GUDEV_PKG=""
@@ -351,27 +369,58 @@ fi
 
 AC_SUBST(NSS_DATABASE)
 
+dnl ---------------------------------------------------------------------------
+dnl - Check for D-Bus
+dnl ---------------------------------------------------------------------------
 
-dnl ==============================================
-dnl systemd check
-dnl ==============================================
-
-AC_ARG_ENABLE([systemd],
-              AS_HELP_STRING([--enable-systemd], [Use systemd for session tracking]),
-              [with_systemd=$enableval],
-              [with_systemd=no])
-if test "$with_systemd" = "yes" ; then
-  PKG_CHECK_MODULES(SYSTEMD, [libsystemd-login])
-  AC_DEFINE(HAVE_SYSTEMD, 1, [Define if systemd is used for session tracking])
-  SESSION_TRACKING=systemd
+dnl - Are we specifying a different dbus root ?
+AC_ARG_WITH(dbus-sys,
+        [AC_HELP_STRING([--with-dbus-sys=<dir>],
+        [where D-BUS system.d directory is])])
+AC_ARG_WITH(dbus-services,
+        [AC_HELP_STRING([--with-dbus-services=<dir>],
+        [where D-BUS services directory is])])
+if ! test -z "$with_dbus_sys" ; then
+        DBUS_SYS_DIR="$with_dbus_sys"
 else
-  SESSION_TRACKING=ConsoleKit
+        DBUS_SYS_DIR='${sysconfdir}/dbus-1/system.d'
 fi
+AC_SUBST(DBUS_SYS_DIR)
 
-AC_SUBST(SYSTEMD_CFLAGS)
-AC_SUBST(SYSTEMD_LIBS)
+# ---------------------------------------------------------------------------
+# PolicyKit for the date & time mechanism
+# ---------------------------------------------------------------------------
 
-AM_CONDITIONAL(WITH_SYSTEMD, [test "$with_systemd" = "yes"], [Using systemd])
+POLKIT_REQUIRED=0.97
+DBUS_REQUIRED=1.1.2
+
+# PolicyKit detection; defaults to 'auto' (use it if it's available)
+#
+POLKIT_CFLAGS=
+POLKIT_LIBS=
+AC_ARG_ENABLE(polkit,
+              AS_HELP_STRING([--enable-polkit],
+                             [Enable PolicyKit support (auto)]),
+              enable_polkit=$enableval,
+              enable_polkit=auto)
+
+if test "x$enable_polkit" = "xno" ; then
+  HAVE_POLKIT=no
+else
+  HAVE_POLKIT=no
+  PKG_CHECK_MODULES(POLKIT, polkit-gobject-1 >= $POLKIT_REQUIRED dbus-1 >= $DBUS_REQUIRED dbus-glib-1, HAVE_POLKIT=yes, HAVE_POLKIT=no)
+
+  if test "x$enable_polkit" = "xyes" -a "x$HAVE_POLKIT" = "xno" ; then
+    AC_MSG_ERROR(PolicyKit support explicity enabled but not available)
+  fi
+
+  if test "x$HAVE_POLKIT" = "xyes" ; then
+    AC_DEFINE(HAVE_POLKIT, 1, [Defined if PolicyKit support is enabled])
+  fi
+fi
+AM_CONDITIONAL(HAVE_POLKIT, test "x$HAVE_POLKIT" = "xyes")
+AC_SUBST(POLKIT_CFLAGS)
+AC_SUBST(POLKIT_LIBS)
 
 # ---------------------------------------------------------------------------
 # CUPS
@@ -520,6 +569,7 @@ plugins/clipboard/Makefile
 plugins/color/Makefile
 plugins/common/Makefile
 plugins/cursor/Makefile
+plugins/datetime/Makefile
 plugins/dummy/Makefile
 plugins/power/Makefile
 plugins/housekeeping/Makefile
@@ -578,6 +628,9 @@ echo "
         compiler:                 ${CC}
         cflags:                   ${CFLAGS}
         Maintainer mode:          ${USE_MAINTAINER_MODE}
+
+        dbus-1 system.d dir:      ${DBUS_SYS_DIR}
+        PolicyKit support:        ${HAVE_POLKIT}
 
         Session tracking:         ${SESSION_TRACKING}
         LCMS DICT support:        ${have_new_lcms}

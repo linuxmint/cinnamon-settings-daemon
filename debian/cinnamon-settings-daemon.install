@@ -3,6 +3,7 @@ debian/tmp/usr/lib/cinnamon-settings-daemon*
 debian/tmp/usr/share/icons
 debian/tmp/usr/share/locale
 debian/tmp/usr/share/cinnamon-settings-daemon
+debian/tmp/usr/share/dbus-1
 debian/tmp/usr/share/glib-2.0
 debian/tmp/usr/share/polkit-1
 debian/source_cinnamon-settings-daemon.py /usr/share/apport/package-hooks

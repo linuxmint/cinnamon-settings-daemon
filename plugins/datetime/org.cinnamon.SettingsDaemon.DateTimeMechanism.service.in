@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.cinnamon.SettingsDaemon.DateTimeMechanism
+Exec=@LIBEXECDIR@/csd-datetime-mechanism
+User=root

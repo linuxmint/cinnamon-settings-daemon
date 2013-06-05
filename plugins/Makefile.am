@@ -9,6 +9,7 @@ enabled_plugins =	\
 	color		\
 	cursor		\
 	dummy		\
+    datetime    \
 	power		\
 	housekeeping    \
 	keyboard	\
