@@ -195,7 +195,6 @@ list_devices (GList *devices)
 			 csd_wacom_device_type_to_string (csd_wacom_device_get_device_type (device)));
 		g_print ("\tReversible: %s\n", BOOL_AS_STR (csd_wacom_device_reversible (device)));
 		g_print ("\tScreen Tablet: %s\n", BOOL_AS_STR (csd_wacom_device_is_screen_tablet (device)));
-		g_print ("\tUnknown (fallback) device: %s\n", BOOL_AS_STR(csd_wacom_device_is_fallback (device)));
 
 		loc = get_loc (csd_wacom_device_get_settings (device));
 		g_print ("\tGeneric settings: %s\n", loc);
