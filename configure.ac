@@ -429,7 +429,7 @@ dnl ==============================================
 AC_ARG_ENABLE([systemd],
               AS_HELP_STRING([--enable-systemd], [Use systemd for session tracking]),
               [with_systemd=$enableval],
-              [with_systemd=no])
+              [with_systemd=auto])
 if test "$with_systemd" = "yes" ; then
   PKG_CHECK_MODULES(SYSTEMD, [libsystemd-login])
   AC_DEFINE(HAVE_SYSTEMD, 1, [Define if systemd is used for session tracking])
