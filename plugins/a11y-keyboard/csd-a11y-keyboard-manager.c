@@ -41,10 +41,6 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBstr.h>
 
-#ifdef HAVE_APPINDICATOR
-#include <libappindicator/app-indicator.h>
-#endif
-
 #include "cinnamon-settings-profile.h"
 #include "csd-a11y-keyboard-manager.h"
 #include "csd-a11y-preferences-dialog.h"
@@ -65,11 +61,8 @@ struct CsdA11yKeyboardManagerPrivate
         GtkWidget        *stickykeys_alert;
         GtkWidget        *slowkeys_alert;
         GtkWidget        *preferences_dialog;
-#ifdef HAVE_APPINDICATOR
-        AppIndicator *app_indicator;
-#else
+
         GtkStatusIcon    *status_icon;
-#endif
 
         GSettings        *settings;
 
@@ -435,24 +428,11 @@ maybe_show_status_icon (CsdA11yKeyboardManager *manager)
         /* for now, show if accessx is enabled */
         show = g_settings_get_boolean (manager->priv->settings, "enable");
 
-#ifdef HAVE_APPINDICATOR
-        if (!show && manager->priv->app_indicator == NULL)
-                return;
-	
-        csd_a11y_keyboard_manager_ensure_status_icon (manager);
-	if (show)
-		app_indicator_set_status (manager->priv->app_indicator,
-					  APP_INDICATOR_STATUS_ACTIVE);
-	else
-		app_indicator_set_status (manager->priv->app_indicator,
-					  APP_INDICATOR_STATUS_PASSIVE);
-#else
         if (!show && manager->priv->status_icon == NULL)
                 return;
 
         csd_a11y_keyboard_manager_ensure_status_icon (manager);
         gtk_status_icon_set_visible (manager->priv->status_icon, show);
-#endif
 }
 
 static void
@@ -529,12 +509,9 @@ ax_slowkeys_warning_post_bubble (CsdA11yKeyboardManager *manager,
                 _("Slow Keys Turned Off");
         message = _("You just held down the Shift key for 8 seconds.  This is the shortcut "
                     "for the Slow Keys feature, which affects the way your keyboard works.");
-
-#ifndef HAVE_APPINDICATOR
         if (manager->priv->status_icon == NULL || ! gtk_status_icon_is_embedded (manager->priv->status_icon)) {
                 return FALSE;
         }
-#endif
 
         if (manager->priv->slowkeys_alert != NULL) {
                 gtk_widget_destroy (manager->priv->slowkeys_alert);
@@ -667,11 +644,9 @@ ax_stickykeys_warning_post_bubble (CsdA11yKeyboardManager *manager,
                 _("You just pressed two keys at once, or pressed the Shift key 5 times in a row.  "
                   "This turns off the Sticky Keys feature, which affects the way your keyboard works.");
 
-#ifndef HAVE_APPINDICATOR
         if (manager->priv->status_icon == NULL || ! gtk_status_icon_is_embedded (manager->priv->status_icon)) {
                 return FALSE;
         }
-#endif
 
         if (manager->priv->slowkeys_alert != NULL) {
                 gtk_widget_destroy (manager->priv->slowkeys_alert);
@@ -1025,16 +1000,10 @@ csd_a11y_keyboard_manager_stop (CsdA11yKeyboardManager *manager)
                 p->device_manager = NULL;
         }
 
-#ifdef HAVE_APPINDICATOR
-	if (p->app_indicator)
-		app_indicator_set_status (p->app_indicator,
-					  APP_INDICATOR_STATUS_PASSIVE);
-#else
         if (p->status_icon) {
                 gtk_status_icon_set_visible (p->status_icon, FALSE);
                 p->status_icon = NULL;
         }
-#endif
 
         if (p->settings != NULL) {
                 g_signal_handlers_disconnect_by_func (p->settings, keyboard_callback, manager);
@@ -1099,13 +1068,8 @@ on_preferences_dialog_response (GtkDialog              *dialog,
 }
 
 static void
-#ifdef HAVE_APPINDICATOR
-on_status_icon_activate (GtkMenuItem            *item,
-                         CsdA11yKeyboardManager *manager)
-#else
 on_status_icon_activate (GtkStatusIcon          *status_icon,
                          CsdA11yKeyboardManager *manager)
-#endif
 {
         if (manager->priv->preferences_dialog == NULL) {
                 manager->priv->preferences_dialog = csd_a11y_preferences_dialog_new ();
@@ -1138,26 +1102,6 @@ csd_a11y_keyboard_manager_ensure_status_icon (CsdA11yKeyboardManager *manager)
 {
         cinnamon_settings_profile_start (NULL);
 
-#ifdef HAVE_APPINDICATOR
-	if (!manager->priv->app_indicator) {
-		GtkWidget *menu = gtk_menu_new ();
-		GtkWidget *item = gtk_menu_item_new_with_label (_("Universal Access Preferences"));
-
-		g_signal_connect (item,
-				  "activate",
-				  G_CALLBACK (on_status_icon_activate),
-				  manager);
-
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-		gtk_widget_show_all (menu);
-
-		manager->priv->app_indicator = app_indicator_new ("a11y-keyboard",
-								  "preferences-desktop-accessibility",
-								  APP_INDICATOR_CATEGORY_OTHER);
-		app_indicator_set_menu (manager->priv->app_indicator,
-					GTK_MENU (menu));
-	}
-#else
         if (!manager->priv->status_icon) {
 
                 manager->priv->status_icon = gtk_status_icon_new_from_icon_name ("preferences-desktop-accessibility");
@@ -1171,7 +1115,6 @@ csd_a11y_keyboard_manager_ensure_status_icon (CsdA11yKeyboardManager *manager)
                                   G_CALLBACK (on_status_icon_popup_menu),
                                   manager);
         }
-#endif
 
         cinnamon_settings_profile_end (NULL);
 }

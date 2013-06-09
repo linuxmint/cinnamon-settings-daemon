@@ -53,7 +53,6 @@ UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
 LIBWACOM_REQUIRED_VERSION=0.6
 UPOWER_REQUIRED_VERSION=0.9.11
-APPINDICATOR_REQUIRED_VERSION=0.3.0
 
 #EXTRA_COMPILE_WARNINGS(yes)
 
@@ -166,32 +165,6 @@ dnl - automount
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(AUTOMOUNT, x11 kbproto)
-
-dnl ---------------------------------
-dnl - Application indicator
-dnl ---------------------------------
-
-AC_ARG_ENABLE([appindicator],
-	AS_HELP_STRING([--enable-appindicator[=@<:@no/auto/yes@:>@]],[Build support for application indicators]),
-	[enable_appindicator=$enableval],
-	[enable_appindicator="auto"])
-
-
-if test x$enable_appindicator = xauto ; then
-	PKG_CHECK_EXISTS(appindicator3-0.1 >= $APPINDICATOR_REQUIRED_VERSION,
-		[enable_appindicator="yes"],
-		[enable_appindicator="no"])
-fi
-
-if test x$enable_appindicator = xyes ; then
-	PKG_CHECK_MODULES(APPINDICATOR,
-		[appindicator3-0.1 >= $APPINDICATOR_REQUIRED_VERSION],
-		[AC_DEFINE(HAVE_APPINDICATOR, 1, [Have AppIndicator])])
-fi
-
-AM_CONDITIONAL(HAVE_APPINDICATOR, test x$enable_appindicator = xyes)
-AC_SUBST(APPINDICATOR_CFLAGS)
-AC_SUBST(APPINDICATOR_LIBS)
 
 dnl ---------------------------------------------------------------------------
 dnl - background
@@ -656,7 +629,7 @@ echo "
         Session tracking:         ${SESSION_TRACKING}
         LCMS DICT support:        ${have_new_lcms}
         Libnotify support:        ${have_libnotify}
-	App indicator support:    ${enable_appindicator}
+
         PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}
         Cups support:             ${enable_cups}
