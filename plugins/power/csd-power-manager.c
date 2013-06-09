@@ -199,7 +199,6 @@ struct CsdPowerManagerPrivate
         GpmIdletime             *idletime;
         CsdPowerIdleMode         current_idle_mode;
         guint                    lid_close_safety_timer_id;
-        GtkStatusIcon           *status_icon;
         guint                    xscreensaver_watchdog_timer_id;
         gboolean                 is_virtual_machine;
 };
@@ -379,7 +378,6 @@ engine_get_tooltip_property_variant (CsdPowerManager  *manager)
 
 static void
 engine_emit_changed (CsdPowerManager *manager,
-                     gboolean         icon_changed,
                      gboolean         state_changed)
 {
         GVariantBuilder props_builder;
@@ -392,9 +390,6 @@ engine_emit_changed (CsdPowerManager *manager,
 
         g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
 
-        if (icon_changed)
-                g_variant_builder_add (&props_builder, "{sv}", "Icon",
-                                       engine_get_icon_property_variant (manager));
         if (state_changed)
                 g_variant_builder_add (&props_builder, "{sv}", "Tooltip",
                                        engine_get_tooltip_property_variant (manager));
@@ -634,106 +629,6 @@ engine_get_icon_priv (CsdPowerManager *manager,
         return NULL;
 }
 
-static GIcon *
-engine_get_icon (CsdPowerManager *manager)
-{
-        GIcon *icon = NULL;
-
-
-        /* we try CRITICAL: BATTERY, UPS, MOUSE, KEYBOARD */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_MOUSE, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_KEYBOARD, WARNING_CRITICAL, FALSE);
-        if (icon != NULL)
-                return icon;
-
-        /* we try CRITICAL: BATTERY, UPS, MOUSE, KEYBOARD */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_MOUSE, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_KEYBOARD, WARNING_LOW, FALSE);
-        if (icon != NULL)
-                return icon;
-
-        /* we try (DIS)CHARGING: BATTERY, UPS */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_NONE, TRUE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_NONE, TRUE);
-        if (icon != NULL)
-                return icon;
-
-        /* we try PRESENT: BATTERY, UPS */
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_BATTERY, WARNING_NONE, FALSE);
-        if (icon != NULL)
-                return icon;
-        icon = engine_get_icon_priv (manager, UP_DEVICE_KIND_UPS, WARNING_NONE, FALSE);
-        if (icon != NULL)
-                return icon;
-
-        /* do not show an icon */
-        return NULL;
-}
-
-static gboolean
-engine_recalculate_state_icon (CsdPowerManager *manager)
-{
-        GIcon *icon;
-
-        /* show a different icon if we are disconnected */
-        icon = engine_get_icon (manager);
-        gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
-
-        if (icon == NULL) {
-                /* none before, now none */
-                if (manager->priv->previous_icon == NULL)
-                        return FALSE;
-
-                g_object_unref (manager->priv->previous_icon);
-                manager->priv->previous_icon = NULL;
-                return TRUE;
-        }
-
-        /* no icon before, now icon */
-        if (manager->priv->previous_icon == NULL) {
-
-                /* set fallback icon */
-                gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
-                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
-                manager->priv->previous_icon = icon;
-                return TRUE;
-        }
-
-        /* icon before, now different */
-        if (!g_icon_equal (manager->priv->previous_icon, icon)) {
-
-                /* set fallback icon */
-                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
-
-                g_object_unref (manager->priv->previous_icon);
-                manager->priv->previous_icon = icon;
-                return TRUE;
-        }
-
-        g_debug ("no change");
-        /* nothing to do */
-        g_object_unref (icon);
-        return FALSE;
-}
-
 static gboolean
 engine_recalculate_state_summary (CsdPowerManager *manager)
 {
@@ -742,22 +637,12 @@ engine_recalculate_state_summary (CsdPowerManager *manager)
         summary = engine_get_summary (manager);
         if (manager->priv->previous_summary == NULL) {
                 manager->priv->previous_summary = summary;
-
-                /* set fallback tooltip */
-                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
-                                                  summary);
-
                 return TRUE;
         }
 
         if (strcmp (manager->priv->previous_summary, summary) != 0) {
                 g_free (manager->priv->previous_summary);
                 manager->priv->previous_summary = summary;
-
-                /* set fallback tooltip */
-                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
-                                                  summary);
-
                 return TRUE;
         }
         g_debug ("no change");
@@ -769,15 +654,13 @@ engine_recalculate_state_summary (CsdPowerManager *manager)
 static void
 engine_recalculate_state (CsdPowerManager *manager)
 {
-        gboolean icon_changed = FALSE;
         gboolean state_changed = FALSE;
 
-        icon_changed = engine_recalculate_state_icon (manager);
         state_changed = engine_recalculate_state_summary (manager);
 
         /* only emit if the icon or summary has changed */
-        if (icon_changed || state_changed)
-                engine_emit_changed (manager, icon_changed, state_changed);
+        if (state_changed)
+                engine_emit_changed (manager, state_changed);
 }
 
 static UpDevice *
@@ -922,9 +805,6 @@ engine_update_composite_device (CsdPowerManager *manager,
                       "state", state,
                       NULL);
 
-        /* force update of icon */
-        if (engine_recalculate_state_icon (manager))
-                engine_emit_changed (manager, TRUE, FALSE);
 out:
         /* return composite device or original device */
         return device;
@@ -3860,16 +3740,6 @@ csd_power_manager_start (CsdPowerManager *manager,
         g_signal_connect_after (manager->priv->up_client, "changed",
                                 G_CALLBACK (up_client_changed_cb), manager);
 
-        /* use the fallback name from gnome-power-manager so the shell
-         * blocks this, and uses the power extension instead */
-        manager->priv->status_icon = gtk_status_icon_new ();
-        gtk_status_icon_set_name (manager->priv->status_icon,
-                                  "gnome-power-manager");
-        /* TRANSLATORS: this is the title of the power manager status icon
-         * that is only shown in fallback mode */
-        gtk_status_icon_set_title (manager->priv->status_icon, _("Power Manager"));
-        gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
-
         /* connect to UPower for async power operations */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -4085,11 +3955,6 @@ csd_power_manager_stop (CsdPowerManager *manager)
         if (manager->priv->idletime != NULL) {
                 g_object_unref (manager->priv->idletime);
                 manager->priv->idletime = NULL;
-        }
-
-        if (manager->priv->status_icon != NULL) {
-                g_object_unref (manager->priv->status_icon);
-                manager->priv->status_icon = NULL;
         }
 
         if (manager->priv->xscreensaver_watchdog_timer_id > 0) {

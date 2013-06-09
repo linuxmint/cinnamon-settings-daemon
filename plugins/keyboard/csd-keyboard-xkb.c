@@ -63,8 +63,6 @@ static GSettings *settings_keyboard = NULL;
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
 
-static GtkStatusIcon *icon = NULL;
-
 static GHashTable *preview_dialogs = NULL;
 
 static void
@@ -307,38 +305,6 @@ create_status_menu (void)
 	return popup_menu;
 }
 
-static void
-status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
-{
-	GtkMenu *popup_menu = create_status_menu ();
-
-	gtk_menu_popup (popup_menu, NULL, NULL,
-			gtk_status_icon_position_menu,
-			(gpointer) icon, button, time);
-}
-
-static void
-show_hide_icon ()
-{
-	if (g_strv_length (current_kbd_config.layouts_variants) > 1) {
-		if (icon == NULL) {
-			xkl_debug (150, "Creating keyboard status icon\n");
-			icon = gkbd_status_new ();
-			g_signal_connect (icon, "popup-menu",
-					  G_CALLBACK
-					  (status_icon_popup_menu_cb),
-					  NULL);
-
-		}
-	} else {
-		if (icon != NULL) {
-			xkl_debug (150, "Destroying icon\n");
-			g_object_unref (icon);
-			icon = NULL;
-		}
-	}
-}
-
 static gboolean
 try_activating_xkb_config_if_new (GkbdKeyboardConfig *
 				  current_sys_kbd_config)
@@ -442,7 +408,6 @@ apply_xkb_settings (void)
 			   "Actual KBD configuration was not changed: redundant notification\n");
 
 	gkbd_keyboard_config_term (&current_sys_kbd_config);
-	show_hide_icon ();
 }
 
 static void
