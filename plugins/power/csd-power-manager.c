@@ -213,7 +213,6 @@ static void     csd_power_manager_finalize    (GObject              *object);
 
 static UpDevice *engine_get_composite_device (CsdPowerManager *manager, UpDevice *original_device);
 static UpDevice *engine_update_composite_device (CsdPowerManager *manager, UpDevice *original_device);
-static GIcon    *engine_get_icon (CsdPowerManager *manager);
 static gchar    *engine_get_summary (CsdPowerManager *manager);
 static void      do_power_action_type (CsdPowerManager *manager, CsdPowerActionType action_type);
 static void      do_lid_closed_action (CsdPowerManager *manager);
@@ -347,19 +346,9 @@ typedef enum {
 static GVariant *
 engine_get_icon_property_variant (CsdPowerManager  *manager)
 {
-        GIcon *icon;
         GVariant *retval;
 
-        icon = engine_get_icon (manager);
-        if (icon != NULL) {
-                char *str;
-                str = g_icon_to_string (icon);
-                g_object_unref (icon);
-                retval = g_variant_new_string (str);
-                g_free (str);
-        } else {
-                retval = g_variant_new_string ("");
-        }
+        retval = g_variant_new_string ("");
         return retval;
 }
 
