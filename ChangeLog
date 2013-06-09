@@ -305,7 +305,7 @@
 
 	Bug 570743 – restart on crash
 
-	* data/cinnamon-settings-daemon.desktop.in.in: Have gnome-session
+	* data/cinnamon-settings-daemon.desktop.in.in: Have cinnamon-session
 	restart g-s-d if it crashes (heaven forbid!).
 
 2009-02-04  Vincent Untz  <vuntz@gnome.org>
@@ -986,7 +986,7 @@ Tue Dec  2 15:37:21 2008  Søren Sandmann  <sandmann@redhat.com>
 
 	* cinnamon-settings-daemon/main.c (daemonize), (main):
 	Make parent wait for initialization in children to finish before
-	returning.  This makes gnome-session to wait for initialization
+	returning.  This makes cinnamon-session to wait for initialization
 	to be done before spawning other processes.  This way, apps
 	start up with the right xsettings and other settings, and don't
 	have to handle change signals right after starting up. (bug #559168)
@@ -1141,7 +1141,7 @@ Tue Dec  2 15:37:21 2008  Søren Sandmann  <sandmann@redhat.com>
 	Remove ESD-based sound plugin (bug #557806). This means that g-s-d
 	will no longer start a sound server (esd or PulseAudio) at session
 	startup. This should be handled using the autostart mechanism of
-	gnome-session instead.
+	cinnamon-session instead.
 
 	* configure.ac:
 	* plugins/Makefile.am:
@@ -1860,7 +1860,7 @@ Mon Jun 16 14:30:13 2008  Søren Sandmann  <sandmann@redhat.com>
 2008-04-21  Lucas Rocha  <lucasr@gnome.org>
 
 	Install .desktop for cinnamon-settings-daemon in a standard autostart
-	directory as required by new gnome-session (bug #526984).
+	directory as required by new cinnamon-session (bug #526984).
 
 	* configure.ac: expand $libexecdir to be used on .desktop file. 
 	* acinclude.m4: added new m4 macro (AS_AC_EXPAND) for expanding 
