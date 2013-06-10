@@ -5,11 +5,6 @@
       <_summary>Activation of this plugin</_summary>
       <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
     </key>
-    <key name="custom-keybindings" type="as">
-      <default>[]</default>
-      <_summary>Custom keybindings</_summary>
-      <_description>List of custom keybindings</_description>
-    </key>
     <key name="calculator" type="s">
       <default>'XF86Calculator'</default>
       <_summary>Launch calculator</_summary>
