@@ -1714,6 +1714,8 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 csd_power_hibernate (manager->priv->upower_proxy);
                 break;
         case CSD_POWER_ACTION_BLANK:
+                execute (manager, "cinnamon-screensaver-command --lock", FALSE);
+                break;
         case CSD_POWER_ACTION_NOTHING:
                 /* these actions cannot be handled by media-keys and
                  * are not used in this context */
