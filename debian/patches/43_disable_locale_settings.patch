@@ -21,5 +21,5 @@ Index: cinnamon-settings-daemon-3.6.1/cinnamon-settings-daemon/main.c
 -                   any client registers */
 -                set_locale (proxy);
  #ifdef HAVE_IBUS
-                 /* This will register with gnome-session after calling Setenv. */
+                 /* This will register with cinnamon-session after calling Setenv. */
                  set_legacy_ibus_env_vars (proxy);

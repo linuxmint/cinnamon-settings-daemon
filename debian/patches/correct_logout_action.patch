@@ -11,7 +11,7 @@ Index: cinnamon-settings-daemon-3.6.1/plugins/media-keys/csd-media-keys-manager.
  static void
 +do_logout_action (CsdMediaKeysManager *manager)
 +{
-+        execute (manager, "gnome-session-quit --logout", FALSE);
++        execute (manager, "cinnamon-session-quit --logout", FALSE);
 +}
 +
 +static void

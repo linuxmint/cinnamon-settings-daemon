@@ -431,7 +431,7 @@ queue_register_client (void)
                 return;
         }
 
-        /* Register the daemon with gnome-session */
+        /* Register the daemon with cinnamon-session */
         g_signal_connect (G_OBJECT (proxy), "g-signal",
                           G_CALLBACK (on_session_over), NULL);
 

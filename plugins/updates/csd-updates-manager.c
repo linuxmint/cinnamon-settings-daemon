@@ -970,7 +970,7 @@ session_inhibit (CsdUpdatesManager *manager)
                                          manager->priv->cancellable,
                                          &error);
         if (retval == NULL) {
-                g_warning ("failed to inhibit gnome-session: %s",
+                g_warning ("failed to inhibit cinnamon-session: %s",
                            error->message);
                 g_error_free (error);
                 goto out;
@@ -1004,7 +1004,7 @@ session_uninhibit (CsdUpdatesManager *manager)
                                          manager->priv->cancellable,
                                          &error);
         if (retval == NULL) {
-                g_warning ("failed to uninhibit gnome-session: %s",
+                g_warning ("failed to uninhibit cinnamon-session: %s",
                            error->message);
                 g_error_free (error);
                 goto out;
@@ -1383,7 +1383,7 @@ csd_updates_manager_start (CsdUpdatesManager *manager,
         g_signal_connect (manager->priv->settings_csd, "changed",
                           G_CALLBACK (settings_csd_changed_cb), manager);
 
-        /* use gnome-session for the idle detection */
+        /* use cinnamon-session for the idle detection */
         manager->priv->proxy_session =
                 g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
                                                G_DBUS_PROXY_FLAGS_NONE,

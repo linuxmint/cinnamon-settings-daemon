@@ -831,7 +831,7 @@ cinnamon_session_shutdown (CsdMediaKeysManager *manager)
 
 	/* Shouldn't happen, but you never know */
 	if (manager->priv->connection == NULL) {
-		execute (manager, "gnome-session-quit --logout", FALSE);
+		execute (manager, "cinnamon-session-quit --logout", FALSE);
 		return;
 	}
 
@@ -857,7 +857,7 @@ cinnamon_session_shutdown (CsdMediaKeysManager *manager)
 static void
 do_logout_action (CsdMediaKeysManager *manager)
 {
-        execute (manager, "gnome-session-quit --logout", FALSE);
+        execute (manager, "cinnamon-session-quit --logout", FALSE);
 }
 
 static void

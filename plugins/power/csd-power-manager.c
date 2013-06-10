@@ -2048,7 +2048,7 @@ cinnamon_session_shutdown_cb (GObject *source_object,
                                            res,
                                            &error);
         if (result == NULL) {
-                g_warning ("couldn't shutdown using gnome-session: %s",
+                g_warning ("couldn't shutdown using cinnamon-session: %s",
                            error->message);
                 g_error_free (error);
         } else {
@@ -2062,7 +2062,7 @@ cinnamon_session_shutdown (void)
         GError *error = NULL;
         GDBusProxy *proxy;
 
-        /* ask gnome-session to show the shutdown dialog with a timeout */
+        /* ask cinnamon-session to show the shutdown dialog with a timeout */
         proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
                                                G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                                NULL,
@@ -2071,7 +2071,7 @@ cinnamon_session_shutdown (void)
                                                GNOME_SESSION_DBUS_INTERFACE,
                                                NULL, &error);
         if (proxy == NULL) {
-                g_warning ("cannot connect to gnome-session: %s",
+                g_warning ("cannot connect to cinnamon-session: %s",
                            error->message);
                 g_error_free (error);
                 return;
@@ -3125,9 +3125,9 @@ idle_is_session_idle (CsdPowerManager *manager)
         GVariant *result;
         guint status;
 
-        /* not yet connected to gnome-session */
+        /* not yet connected to cinnamon-session */
         if (manager->priv->session_presence_proxy == NULL) {
-                g_warning ("session idleness not available, gnome-session is not available");
+                g_warning ("session idleness not available, cinnamon-session is not available");
                 return FALSE;
         }
 
@@ -3154,9 +3154,9 @@ idle_is_session_inhibited (CsdPowerManager *manager, guint mask)
         GVariant *retval = NULL;
         GError *error = NULL;
 
-        /* not yet connected to gnome-session */
+        /* not yet connected to cinnamon-session */
         if (manager->priv->session_proxy == NULL) {
-                g_warning ("session inhibition not available, gnome-session is not available");
+                g_warning ("session inhibition not available, cinnamon-session is not available");
                 return FALSE;
         }
 
@@ -3397,7 +3397,7 @@ session_proxy_ready_cb (GObject *source_object,
 
         manager->priv->session_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
         if (manager->priv->session_proxy == NULL) {
-                g_warning ("Could not connect to gnome-session: %s",
+                g_warning ("Could not connect to cinnamon-session: %s",
                            error->message);
                 g_error_free (error);
         } else {

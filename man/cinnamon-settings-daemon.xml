@@ -78,9 +78,9 @@
                 <para>cinnamon-settings-daemon is a required component of
                 the Cinnamon desktop, i.e. it is listed in the
                 RequiredComponents field of
-                <filename>/usr/share/gnome-session/sessions/gnome.session</filename>.
+                <filename>/usr/share/cinnamon-session/sessions/cinnamon.session</filename>.
                 It is started in the initialization phase of the session,
-                and <command>gnome-session</command> will restart it
+                and <command>cinnamon-session</command> will restart it
                 if it crashes.
                 </para>
 
@@ -116,7 +116,7 @@
                 <title>Files</title>
                 <variablelist>
                         <varlistentry>
-                                <term><filename>/usr/share/gnome-session/sessions/gnome.session</filename></term>
+                                <term><filename>/usr/share/cinnamon-session/sessions/cinnamon.session</filename></term>
 
                                 <listitem><para>GNOME session definition file where cinnamon-settings-daemon is listed as a required component.</para></listitem>
                         </varlistentry>
@@ -133,7 +133,7 @@
                 <para>
                         <citerefentry><refentrytitle>cinnamon</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>cinnamon-settings</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>gnome-session</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                        <citerefentry><refentrytitle>cinnamon-session</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

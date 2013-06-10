@@ -503,7 +503,7 @@ csd_updates_refresh_init (CsdUpdatesRefresh *refresh)
         refresh->priv->on_battery = up_client_get_on_battery (refresh->priv->client);
         g_debug ("setting on battery %i", refresh->priv->on_battery);
 
-        /* use gnome-session for the idle detection */
+        /* use cinnamon-session for the idle detection */
         refresh->priv->proxy_session =
                 g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
                                                G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,

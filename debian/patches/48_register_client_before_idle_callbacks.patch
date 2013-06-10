@@ -20,7 +20,7 @@ Index: cinnamon-settings-daemon-3.6.1/cinnamon-settings-daemon/main.c
 -                g_error_free (error);
 -        } else {
 -#ifdef HAVE_IBUS
--                /* This will register with gnome-session after calling Setenv. */
+-                /* This will register with cinnamon-session after calling Setenv. */
 -                set_legacy_ibus_env_vars (proxy);
 -#else
 -                register_with_gnome_session (proxy);
@@ -95,7 +95,7 @@ Index: cinnamon-settings-daemon-3.6.1/cinnamon-settings-daemon/main.c
 +                return;
 +        }
 +
-+        /* Register the daemon with gnome-session */
++        /* Register the daemon with cinnamon-session */
 +        g_signal_connect (G_OBJECT (proxy), "g-signal",
 +                          G_CALLBACK (on_session_over), NULL);
 +
