@@ -120,6 +120,10 @@ static const gchar kb_introspection_xml[] =
 #define VOLUME_STEP 6           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
 
+#define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
+#define KEY_CURRENT_INPUT_SOURCE "current"
+#define KEY_INPUT_SOURCES        "sources"
+
 #define CSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_MEDIA_KEYS_MANAGER, CsdMediaKeysManagerPrivate))
 
 typedef struct {
@@ -1750,6 +1754,40 @@ do_keyboard_brightness_action (CsdMediaKeysManager *manager,
                            manager);
 }
 
+static void
+do_switch_input_source_action (GsdMediaKeysManager *manager,
+                               MediaKeyType         type)
+{
+        GSettings *settings;
+        GVariant *sources;
+        gint i, n;
+
+        settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
+        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
+
+        n = g_variant_n_children (sources);
+        if (n < 2)
+                goto out;
+
+        i = g_settings_get_uint (settings, KEY_CURRENT_INPUT_SOURCE);
+
+        if (type == SWITCH_INPUT_SOURCE_KEY)
+                i += 1;
+        else
+                i -= 1;
+
+        if (i < 0)
+                i = n - 1;
+        else if (i >= n)
+                i = 0;
+
+        g_settings_set_uint (settings, KEY_CURRENT_INPUT_SOURCE, i);
+
+ out:
+        g_variant_unref (sources);
+        g_object_unref (settings);
+}
+
 static gboolean
 do_action (CsdMediaKeysManager *manager,
            guint                deviceid,
@@ -1907,6 +1945,10 @@ do_action (CsdMediaKeysManager *manager,
                 break;
         case BATTERY_KEY:
                 do_execute_desktop (manager, "gnome-power-statistics.desktop", timestamp);
+                break;
+        case SWITCH_INPUT_SOURCE_KEY:
+        case SWITCH_INPUT_SOURCE_BACKWARD_KEY:
+                do_switch_input_source_action (manager, type);
                 break;
         /* Note, no default so compiler catches missing keys */
         case CUSTOM_KEY:
