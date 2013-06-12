@@ -1755,7 +1755,7 @@ do_keyboard_brightness_action (CsdMediaKeysManager *manager,
 }
 
 static void
-do_switch_input_source_action (GsdMediaKeysManager *manager,
+do_switch_input_source_action (CsdMediaKeysManager *manager,
                                MediaKeyType         type)
 {
         GSettings *settings;

@@ -81,6 +81,8 @@ typedef enum {
         KEYBOARD_BRIGHTNESS_DOWN_KEY,
         KEYBOARD_BRIGHTNESS_TOGGLE_KEY,
         BATTERY_KEY,
+        SWITCH_INPUT_SOURCE_KEY,
+        SWITCH_INPUT_SOURCE_BACKWARD_KEY,
         CUSTOM_KEY
 } MediaKeyType;
 
@@ -148,6 +150,9 @@ static struct {
         { KEYBOARD_BRIGHTNESS_UP_KEY, NULL, "XF86KbdBrightnessUp" },
         { KEYBOARD_BRIGHTNESS_DOWN_KEY, NULL, "XF86KbdBrightnessDown" },
         { KEYBOARD_BRIGHTNESS_TOGGLE_KEY, NULL, "XF86KbdLightOnOff" },
+        { SWITCH_INPUT_SOURCE_KEY, "switch-input-source", NULL },
+        { SWITCH_INPUT_SOURCE_BACKWARD_KEY, "switch-input-source-backward", NULL },
+
         { BATTERY_KEY, NULL, "XF86Battery" },
 };
 
