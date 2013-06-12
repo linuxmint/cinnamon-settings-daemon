@@ -16,6 +16,7 @@ Build-Depends: cdbs,
                libxt-dev,
                libxi-dev,
                libfontconfig1-dev,
+               libibus-1.0-dev,
                libxext-dev,
                libx11-dev,
                libxtst-dev,
@@ -33,8 +34,7 @@ Build-Depends: cdbs,
                libgudev-1.0-dev,
                libwacom-dev (>= 0.4),
                xserver-xorg-input-wacom,
-               libgnomekbd-dev (>= 3.4.0),
-               libxklavier-dev
+               libxkbfile-dev
 Standards-Version: 3.9.3
 Homepage: http://cinnamon.linuxmint.com
 
