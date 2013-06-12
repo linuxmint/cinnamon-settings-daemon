@@ -1,4 +1,4 @@
-#include "gsd-keyboard-manager.c"
+#include "csd-keyboard-manager.c"
 
 static void
 test_make_xkb_source_id (void)

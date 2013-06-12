@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-#define CSD_TYPE_KEYBOARD_PLUGIN                (gsd_keyboard_plugin_get_type ())
+#define CSD_TYPE_KEYBOARD_PLUGIN                (csd_keyboard_plugin_get_type ())
 #define CSD_KEYBOARD_PLUGIN(o)                  (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_KEYBOARD_PLUGIN, CsdKeyboardPlugin))
 #define CSD_KEYBOARD_PLUGIN_CLASS(k)            (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_KEYBOARD_PLUGIN, CsdKeyboardPluginClass))
 #define CSD_IS_KEYBOARD_PLUGIN(o)               (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_KEYBOARD_PLUGIN))
@@ -49,7 +49,7 @@ typedef struct
         CinnamonSettingsPluginClass parent_class;
 } CsdKeyboardPluginClass;
 
-GType   gsd_keyboard_plugin_get_type            (void) G_GNUC_CONST;
+GType   csd_keyboard_plugin_get_type            (void) G_GNUC_CONST;
 
 /* All the plugins must implement this function */
 G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);

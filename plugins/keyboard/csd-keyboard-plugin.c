@@ -24,8 +24,8 @@
 #include <gmodule.h>
 
 #include "cinnamon-settings-plugin.h"
-#include "gsd-keyboard-plugin.h"
-#include "gsd-keyboard-manager.h"
+#include "csd-keyboard-plugin.h"
+#include "csd-keyboard-manager.h"
 
 struct CsdKeyboardPluginPrivate {
         CsdKeyboardManager *manager;
@@ -33,20 +33,20 @@ struct CsdKeyboardPluginPrivate {
 
 #define CSD_KEYBOARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_KEYBOARD_PLUGIN, CsdKeyboardPluginPrivate))
 
-CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdKeyboardPlugin, gsd_keyboard_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdKeyboardPlugin, csd_keyboard_plugin)
 
 static void
-gsd_keyboard_plugin_init (CsdKeyboardPlugin *plugin)
+csd_keyboard_plugin_init (CsdKeyboardPlugin *plugin)
 {
         plugin->priv = CSD_KEYBOARD_PLUGIN_GET_PRIVATE (plugin);
 
         g_debug ("CsdKeyboardPlugin initializing");
 
-        plugin->priv->manager = gsd_keyboard_manager_new ();
+        plugin->priv->manager = csd_keyboard_manager_new ();
 }
 
 static void
-gsd_keyboard_plugin_finalize (GObject *object)
+csd_keyboard_plugin_finalize (GObject *object)
 {
         CsdKeyboardPlugin *plugin;
 
@@ -63,7 +63,7 @@ gsd_keyboard_plugin_finalize (GObject *object)
                 g_object_unref (plugin->priv->manager);
         }
 
-        G_OBJECT_CLASS (gsd_keyboard_plugin_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_keyboard_plugin_parent_class)->finalize (object);
 }
 
 static void
@@ -75,7 +75,7 @@ impl_activate (CinnamonSettingsPlugin *plugin)
         g_debug ("Activating keyboard plugin");
 
         error = NULL;
-        res = gsd_keyboard_manager_start (CSD_KEYBOARD_PLUGIN (plugin)->priv->manager, &error);
+        res = csd_keyboard_manager_start (CSD_KEYBOARD_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start keyboard manager: %s", error->message);
                 g_error_free (error);
@@ -86,16 +86,16 @@ static void
 impl_deactivate (CinnamonSettingsPlugin *plugin)
 {
         g_debug ("Deactivating keyboard plugin");
-        gsd_keyboard_manager_stop (CSD_KEYBOARD_PLUGIN (plugin)->priv->manager);
+        csd_keyboard_manager_stop (CSD_KEYBOARD_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_keyboard_plugin_class_init (CsdKeyboardPluginClass *klass)
+csd_keyboard_plugin_class_init (CsdKeyboardPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
         CinnamonSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
-        object_class->finalize = gsd_keyboard_plugin_finalize;
+        object_class->finalize = csd_keyboard_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;

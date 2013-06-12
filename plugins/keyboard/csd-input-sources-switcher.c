@@ -25,8 +25,8 @@
 
 #include <X11/XKBlib.h>
 
-#include "gsd-enums.h"
-#include "gsd-keygrab.h"
+#include "csd-enums.h"
+#include "csd-keygrab.h"
 
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.cinnamon.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"

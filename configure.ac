@@ -200,8 +200,21 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-LIBGNOMEKBD_REQUIRED=2.91.1
-PKG_CHECK_MODULES(KEYBOARD, [libgnomekbdui >= $LIBGNOMEKBD_REQUIRED libgnomekbd >= $LIBGNOMEKBD_REQUIRED libxklavier >= 5.0 kbproto])
+AC_ARG_ENABLE(ibus,
+        AS_HELP_STRING([--disable-ibus],
+                       [Disable IBus support]),
+        enable_ibus=$enableval,
+        enable_ibus=yes)
+
+if test "x$enable_ibus" = "xyes" ; then
+        IBUS_MODULE="ibus-1.0 >= $IBUS_REQUIRED_VERSION"
+        AC_DEFINE(HAVE_IBUS, 1, [Defined if IBus support is enabled])
+else
+        IBUS_MODULE=
+fi
+AM_CONDITIONAL(HAVE_IBUS, test "x$enable_ibus" == "xyes")
+
+PKG_CHECK_MODULES(KEYBOARD, xkbfile $IBUS_MODULE gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff

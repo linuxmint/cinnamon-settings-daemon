@@ -50,9 +50,9 @@
 #endif
 
 #include "cinnamon-settings-profile.h"
-#include "gsd-keyboard-manager.h"
-#include "gsd-input-helper.h"
-#include "gsd-enums.h"
+#include "csd-keyboard-manager.h"
+#include "csd-input-helper.h"
+#include "csd-enums.h"
 
 #define CSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerPrivate))
 
@@ -114,9 +114,9 @@ struct CsdKeyboardManagerPrivate
         GPid input_sources_switcher_pid;
 };
 
-static void     gsd_keyboard_manager_class_init  (CsdKeyboardManagerClass *klass);
-static void     gsd_keyboard_manager_init        (CsdKeyboardManager      *keyboard_manager);
-static void     gsd_keyboard_manager_finalize    (GObject                 *object);
+static void     csd_keyboard_manager_class_init  (CsdKeyboardManagerClass *klass);
+static void     csd_keyboard_manager_init        (CsdKeyboardManager      *keyboard_manager);
+static void     csd_keyboard_manager_finalize    (GObject                 *object);
 static gboolean apply_input_sources_settings     (GSettings               *settings,
                                                   gpointer                 keys,
                                                   gint                     n_keys,
@@ -124,7 +124,7 @@ static gboolean apply_input_sources_settings     (GSettings               *setti
 static void     set_gtk_im_module                (CsdKeyboardManager      *manager,
                                                   const gchar             *new_module);
 
-G_DEFINE_TYPE (CsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdKeyboardManager, csd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -1272,7 +1272,7 @@ set_input_sources_switcher (CsdKeyboardManager *manager,
                 if (manager->priv->input_sources_switcher_spawned)
                         set_input_sources_switcher (manager, FALSE);
 
-                args[0] = LIBEXECDIR "/gsd-input-sources-switcher";
+                args[0] = LIBEXECDIR "/csd-input-sources-switcher";
                 args[1] = NULL;
 
                 g_spawn_async (NULL, args, NULL,
@@ -1615,7 +1615,7 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 }
 
 gboolean
-gsd_keyboard_manager_start (CsdKeyboardManager *manager,
+csd_keyboard_manager_start (CsdKeyboardManager *manager,
                             GError            **error)
 {
         gnome_settings_profile_start (NULL);
@@ -1633,7 +1633,7 @@ gsd_keyboard_manager_start (CsdKeyboardManager *manager,
 }
 
 void
-gsd_keyboard_manager_stop (CsdKeyboardManager *manager)
+csd_keyboard_manager_stop (CsdKeyboardManager *manager)
 {
         CsdKeyboardManagerPrivate *p = manager->priv;
 
@@ -1660,23 +1660,23 @@ gsd_keyboard_manager_stop (CsdKeyboardManager *manager)
 }
 
 static void
-gsd_keyboard_manager_class_init (CsdKeyboardManagerClass *klass)
+csd_keyboard_manager_class_init (CsdKeyboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->finalize = gsd_keyboard_manager_finalize;
+        object_class->finalize = csd_keyboard_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (CsdKeyboardManagerPrivate));
 }
 
 static void
-gsd_keyboard_manager_init (CsdKeyboardManager *manager)
+csd_keyboard_manager_init (CsdKeyboardManager *manager)
 {
         manager->priv = CSD_KEYBOARD_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
-gsd_keyboard_manager_finalize (GObject *object)
+csd_keyboard_manager_finalize (GObject *object)
 {
         CsdKeyboardManager *keyboard_manager;
 
@@ -1690,11 +1690,11 @@ gsd_keyboard_manager_finalize (GObject *object)
         if (keyboard_manager->priv->start_idle_id != 0)
                 g_source_remove (keyboard_manager->priv->start_idle_id);
 
-        G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_keyboard_manager_parent_class)->finalize (object);
 }
 
 CsdKeyboardManager *
-gsd_keyboard_manager_new (void)
+csd_keyboard_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
