@@ -49,14 +49,14 @@
 #include <ibus.h>
 #endif
 
-#include "gnome-settings-profile.h"
+#include "cinnamon-settings-profile.h"
 #include "gsd-keyboard-manager.h"
 #include "gsd-input-helper.h"
 #include "gsd-enums.h"
 
-#define GSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_KEYBOARD_MANAGER, GsdKeyboardManagerPrivate))
+#define CSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerPrivate))
 
-#define GSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
+#define CSD_KEYBOARD_DIR "org.cinnamon.settings-daemon.peripherals.keyboard"
 
 #define KEY_REPEAT         "repeat"
 #define KEY_CLICK          "click"
@@ -90,7 +90,7 @@
 
 #define DEFAULT_LANGUAGE "en_US"
 
-struct GsdKeyboardManagerPrivate
+struct CsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
@@ -105,7 +105,7 @@ struct GsdKeyboardManagerPrivate
         gboolean session_is_fallback;
 #endif
         gint       xkb_event_base;
-        GsdNumLockState old_state;
+        CsdNumLockState old_state;
         GdkDeviceManager *device_manager;
         guint device_added_id;
         guint device_removed_id;
@@ -114,17 +114,17 @@ struct GsdKeyboardManagerPrivate
         GPid input_sources_switcher_pid;
 };
 
-static void     gsd_keyboard_manager_class_init  (GsdKeyboardManagerClass *klass);
-static void     gsd_keyboard_manager_init        (GsdKeyboardManager      *keyboard_manager);
+static void     gsd_keyboard_manager_class_init  (CsdKeyboardManagerClass *klass);
+static void     gsd_keyboard_manager_init        (CsdKeyboardManager      *keyboard_manager);
 static void     gsd_keyboard_manager_finalize    (GObject                 *object);
 static gboolean apply_input_sources_settings     (GSettings               *settings,
                                                   gpointer                 keys,
                                                   gint                     n_keys,
-                                                  GsdKeyboardManager      *manager);
-static void     set_gtk_im_module                (GsdKeyboardManager      *manager,
+                                                  CsdKeyboardManager      *manager);
+static void     set_gtk_im_module                (CsdKeyboardManager      *manager,
                                                   const gchar             *new_module);
 
-G_DEFINE_TYPE (GsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CsdKeyboardManager, gsd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
@@ -164,9 +164,9 @@ schema_is_installed (const gchar *name)
 
 #ifdef HAVE_IBUS
 static void
-clear_ibus (GsdKeyboardManager *manager)
+clear_ibus (CsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
 
         g_cancellable_cancel (priv->ibus_cancellable);
         g_clear_object (&priv->ibus_cancellable);
@@ -217,9 +217,9 @@ make_xkb_source_id (const gchar *engine_id)
 static void
 fetch_ibus_engines_result (GObject            *object,
                            GAsyncResult       *result,
-                           GsdKeyboardManager *manager)
+                           CsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
         GList *list, *l;
         GError *error = NULL;
 
@@ -265,9 +265,9 @@ fetch_ibus_engines_result (GObject            *object,
 }
 
 static void
-fetch_ibus_engines (GsdKeyboardManager *manager)
+fetch_ibus_engines (CsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
 
         /* engines shouldn't be there yet */
         g_return_if_fail (priv->ibus_engines == NULL);
@@ -283,7 +283,7 @@ fetch_ibus_engines (GsdKeyboardManager *manager)
 }
 
 static void
-maybe_start_ibus (GsdKeyboardManager *manager,
+maybe_start_ibus (CsdKeyboardManager *manager,
                   GVariant           *sources)
 {
         gboolean need_ibus = FALSE;
@@ -326,11 +326,11 @@ maybe_start_ibus (GsdKeyboardManager *manager,
 static void
 got_session_name (GObject            *object,
                   GAsyncResult       *res,
-                  GsdKeyboardManager *manager)
+                  CsdKeyboardManager *manager)
 {
         GVariant *result, *variant;
         GDBusConnection *connection = G_DBUS_CONNECTION (object);
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
         const gchar *session_name = NULL;
         GError *error = NULL;
 
@@ -363,10 +363,10 @@ got_session_name (GObject            *object,
 static void
 got_bus (GObject            *object,
          GAsyncResult       *res,
-         GsdKeyboardManager *manager)
+         CsdKeyboardManager *manager)
 {
         GDBusConnection *connection;
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
         GError *error = NULL;
 
         /* IBus shouldn't have been touched yet */
@@ -403,11 +403,11 @@ got_bus (GObject            *object,
 static void
 set_ibus_engine_finish (GObject            *object,
                         GAsyncResult       *res,
-                        GsdKeyboardManager *manager)
+                        CsdKeyboardManager *manager)
 {
         gboolean result;
         IBusBus *ibus = IBUS_BUS (object);
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
         GError *error = NULL;
 
         g_clear_object (&priv->ibus_cancellable);
@@ -421,10 +421,10 @@ set_ibus_engine_finish (GObject            *object,
 }
 
 static void
-set_ibus_engine (GsdKeyboardManager *manager,
+set_ibus_engine (CsdKeyboardManager *manager,
                  const gchar        *engine_id)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
 
         g_return_if_fail (priv->ibus != NULL);
         g_return_if_fail (priv->ibus_engines != NULL);
@@ -442,11 +442,11 @@ set_ibus_engine (GsdKeyboardManager *manager,
 }
 
 static void
-set_ibus_xkb_engine (GsdKeyboardManager *manager,
+set_ibus_xkb_engine (CsdKeyboardManager *manager,
                      const gchar        *xkb_id)
 {
         IBusEngineDesc *engine;
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
 
         if (!priv->ibus_xkb_engines)
                 return;
@@ -635,7 +635,7 @@ xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
 }
 
 static gboolean
-check_xkb_extension (GsdKeyboardManager *manager)
+check_xkb_extension (CsdKeyboardManager *manager)
 {
         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
         int opcode, error_base, major, minor;
@@ -651,7 +651,7 @@ check_xkb_extension (GsdKeyboardManager *manager)
 }
 
 static void
-xkb_init (GsdKeyboardManager *manager)
+xkb_init (CsdKeyboardManager *manager)
 {
         Display *dpy;
 
@@ -671,26 +671,26 @@ numlock_NumLock_modifier_mask (void)
 }
 
 static void
-numlock_set_xkb_state (GsdNumLockState new_state)
+numlock_set_xkb_state (CsdNumLockState new_state)
 {
         unsigned int num_mask;
         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        if (new_state != GSD_NUM_LOCK_STATE_ON && new_state != GSD_NUM_LOCK_STATE_OFF)
+        if (new_state != CSD_NUM_LOCK_STATE_ON && new_state != CSD_NUM_LOCK_STATE_OFF)
                 return;
         num_mask = numlock_NumLock_modifier_mask ();
-        XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state == GSD_NUM_LOCK_STATE_ON ? num_mask : 0);
+        XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state == CSD_NUM_LOCK_STATE_ON ? num_mask : 0);
 }
 
 static const char *
-num_lock_state_to_string (GsdNumLockState numlock_state)
+num_lock_state_to_string (CsdNumLockState numlock_state)
 {
 	switch (numlock_state) {
-	case GSD_NUM_LOCK_STATE_UNKNOWN:
-		return "GSD_NUM_LOCK_STATE_UNKNOWN";
-	case GSD_NUM_LOCK_STATE_ON:
-		return "GSD_NUM_LOCK_STATE_ON";
-	case GSD_NUM_LOCK_STATE_OFF:
-		return "GSD_NUM_LOCK_STATE_OFF";
+	case CSD_NUM_LOCK_STATE_UNKNOWN:
+		return "CSD_NUM_LOCK_STATE_UNKNOWN";
+	case CSD_NUM_LOCK_STATE_ON:
+		return "CSD_NUM_LOCK_STATE_ON";
+	case CSD_NUM_LOCK_STATE_OFF:
+		return "CSD_NUM_LOCK_STATE_OFF";
 	default:
 		return "UNKNOWN";
 	}
@@ -703,7 +703,7 @@ xkb_events_filter (GdkXEvent *xev_,
 {
         XEvent *xev = (XEvent *) xev_;
 	XkbEvent *xkbev = (XkbEvent *) xev;
-        GsdKeyboardManager *manager = (GsdKeyboardManager *) user_data;
+        CsdKeyboardManager *manager = (CsdKeyboardManager *) user_data;
 
         if (xev->type != manager->priv->xkb_event_base ||
             xkbev->any.xkb_type != XkbStateNotify)
@@ -712,9 +712,9 @@ xkb_events_filter (GdkXEvent *xev_,
 	if (xkbev->state.changed & XkbModifierLockMask) {
 		unsigned num_mask = numlock_NumLock_modifier_mask ();
 		unsigned locked_mods = xkbev->state.locked_mods;
-		GsdNumLockState numlock_state;
+		CsdNumLockState numlock_state;
 
-		numlock_state = (num_mask & locked_mods) ? GSD_NUM_LOCK_STATE_ON : GSD_NUM_LOCK_STATE_OFF;
+		numlock_state = (num_mask & locked_mods) ? CSD_NUM_LOCK_STATE_ON : CSD_NUM_LOCK_STATE_OFF;
 
 		if (numlock_state != manager->priv->old_state) {
 			g_debug ("New num-lock state '%s' != Old num-lock state '%s'",
@@ -731,7 +731,7 @@ xkb_events_filter (GdkXEvent *xev_,
 }
 
 static void
-install_xkb_filter (GsdKeyboardManager *manager)
+install_xkb_filter (CsdKeyboardManager *manager)
 {
         gdk_window_add_filter (NULL,
                                xkb_events_filter,
@@ -739,7 +739,7 @@ install_xkb_filter (GsdKeyboardManager *manager)
 }
 
 static void
-remove_xkb_filter (GsdKeyboardManager *manager)
+remove_xkb_filter (CsdKeyboardManager *manager)
 {
         gdk_window_remove_filter (NULL,
                                   xkb_events_filter,
@@ -852,7 +852,7 @@ layout_equal (const gchar *layout_a,
 }
 
 static void
-replace_layout_and_variant (GsdKeyboardManager *manager,
+replace_layout_and_variant (CsdKeyboardManager *manager,
                             XkbRF_VarDefsRec   *xkb_var_defs,
                             const gchar        *layout,
                             const gchar        *variant)
@@ -986,7 +986,7 @@ append_options (gchar **a,
 }
 
 static void
-add_xkb_options (GsdKeyboardManager *manager,
+add_xkb_options (CsdKeyboardManager *manager,
                  XkbRF_VarDefsRec   *xkb_var_defs,
                  gchar             **extra_options)
 {
@@ -1005,7 +1005,7 @@ add_xkb_options (GsdKeyboardManager *manager,
 }
 
 static void
-apply_xkb_settings (GsdKeyboardManager *manager,
+apply_xkb_settings (CsdKeyboardManager *manager,
                     const gchar        *layout,
                     const gchar        *variant,
                     gchar             **options)
@@ -1043,10 +1043,10 @@ apply_xkb_settings (GsdKeyboardManager *manager,
 }
 
 static void
-set_gtk_im_module (GsdKeyboardManager *manager,
+set_gtk_im_module (CsdKeyboardManager *manager,
                    const gchar        *new_module)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
         gchar *current_module;
 
         current_module = g_settings_get_string (priv->interface_settings,
@@ -1062,9 +1062,9 @@ static gboolean
 apply_input_sources_settings (GSettings          *settings,
                               gpointer            keys,
                               gint                n_keys,
-                              GsdKeyboardManager *manager)
+                              CsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *priv = manager->priv;
+        CsdKeyboardManagerPrivate *priv = manager->priv;
         GVariant *sources;
         guint current;
         guint n_sources;
@@ -1156,7 +1156,7 @@ apply_input_sources_settings (GSettings          *settings,
 }
 
 static void
-apply_bell (GsdKeyboardManager *manager)
+apply_bell (CsdKeyboardManager *manager)
 {
 	GSettings       *settings;
         XKeyboardControl kbdcontrol;
@@ -1164,7 +1164,7 @@ apply_bell (GsdKeyboardManager *manager)
         int              bell_volume;
         int              bell_pitch;
         int              bell_duration;
-        GsdBellMode      bell_mode;
+        CsdBellMode      bell_mode;
         int              click_volume;
 
         g_debug ("Applying the bell settings");
@@ -1176,7 +1176,7 @@ apply_bell (GsdKeyboardManager *manager)
         bell_duration = g_settings_get_int   (settings, KEY_BELL_DURATION);
 
         bell_mode = g_settings_get_enum (settings, KEY_BELL_MODE);
-        bell_volume   = (bell_mode == GSD_BELL_MODE_ON) ? 50 : 0;
+        bell_volume   = (bell_mode == CSD_BELL_MODE_ON) ? 50 : 0;
 
         /* as percentage from 0..100 inclusive */
         if (click_volume < 0) {
@@ -1199,7 +1199,7 @@ apply_bell (GsdKeyboardManager *manager)
 }
 
 static void
-apply_numlock (GsdKeyboardManager *manager)
+apply_numlock (CsdKeyboardManager *manager)
 {
 	GSettings *settings;
         gboolean rnumlock;
@@ -1221,7 +1221,7 @@ apply_numlock (GsdKeyboardManager *manager)
 }
 
 static void
-apply_repeat (GsdKeyboardManager *manager)
+apply_repeat (CsdKeyboardManager *manager)
 {
 	GSettings       *settings;
         gboolean         repeat;
@@ -1254,7 +1254,7 @@ apply_repeat (GsdKeyboardManager *manager)
 }
 
 static void
-apply_all_settings (GsdKeyboardManager *manager)
+apply_all_settings (CsdKeyboardManager *manager)
 {
 	apply_repeat (manager);
 	apply_bell (manager);
@@ -1262,7 +1262,7 @@ apply_all_settings (GsdKeyboardManager *manager)
 }
 
 static void
-set_input_sources_switcher (GsdKeyboardManager *manager,
+set_input_sources_switcher (CsdKeyboardManager *manager,
                             gboolean            state)
 {
         if (state) {
@@ -1293,19 +1293,19 @@ set_input_sources_switcher (GsdKeyboardManager *manager,
 }
 
 static gboolean
-enable_switcher (GsdKeyboardManager *manager)
+enable_switcher (CsdKeyboardManager *manager)
 {
-        GsdInputSourcesSwitcher switcher;
+        CsdInputSourcesSwitcher switcher;
 
         switcher = g_settings_get_enum (manager->priv->settings, KEY_SWITCHER);
 
-        return switcher != GSD_INPUT_SOURCES_SWITCHER_OFF;
+        return switcher != CSD_INPUT_SOURCES_SWITCHER_OFF;
 }
 
 static void
 settings_changed (GSettings          *settings,
                   const char         *key,
-                  GsdKeyboardManager *manager)
+                  CsdKeyboardManager *manager)
 {
 	if (g_strcmp0 (key, KEY_CLICK) == 0||
 	    g_strcmp0 (key, KEY_CLICK_VOLUME) == 0 ||
@@ -1335,7 +1335,7 @@ settings_changed (GSettings          *settings,
 static void
 device_added_cb (GdkDeviceManager   *device_manager,
                  GdkDevice          *device,
-                 GsdKeyboardManager *manager)
+                 CsdKeyboardManager *manager)
 {
         GdkInputSource source;
 
@@ -1351,7 +1351,7 @@ device_added_cb (GdkDeviceManager   *device_manager,
 static void
 device_removed_cb (GdkDeviceManager   *device_manager,
                    GdkDevice          *device,
-                   GsdKeyboardManager *manager)
+                   CsdKeyboardManager *manager)
 {
         GdkInputSource source;
 
@@ -1362,7 +1362,7 @@ device_removed_cb (GdkDeviceManager   *device_manager,
 }
 
 static void
-set_devicepresence_handler (GsdKeyboardManager *manager)
+set_devicepresence_handler (CsdKeyboardManager *manager)
 {
         GdkDeviceManager *device_manager;
 
@@ -1539,7 +1539,7 @@ out:
 }
 
 static void
-maybe_create_input_sources (GsdKeyboardManager *manager)
+maybe_create_input_sources (CsdKeyboardManager *manager)
 {
         GSettings *settings;
         GVariant *sources;
@@ -1565,13 +1565,13 @@ maybe_create_input_sources (GsdKeyboardManager *manager)
 }
 
 static gboolean
-start_keyboard_idle_cb (GsdKeyboardManager *manager)
+start_keyboard_idle_cb (CsdKeyboardManager *manager)
 {
         gnome_settings_profile_start (NULL);
 
         g_debug ("Starting keyboard manager");
 
-        manager->priv->settings = g_settings_new (GSD_KEYBOARD_DIR);
+        manager->priv->settings = g_settings_new (CSD_KEYBOARD_DIR);
 
 	xkb_init (manager);
 
@@ -1615,7 +1615,7 @@ start_keyboard_idle_cb (GsdKeyboardManager *manager)
 }
 
 gboolean
-gsd_keyboard_manager_start (GsdKeyboardManager *manager,
+gsd_keyboard_manager_start (CsdKeyboardManager *manager,
                             GError            **error)
 {
         gnome_settings_profile_start (NULL);
@@ -1633,9 +1633,9 @@ gsd_keyboard_manager_start (GsdKeyboardManager *manager,
 }
 
 void
-gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
+gsd_keyboard_manager_stop (CsdKeyboardManager *manager)
 {
-        GsdKeyboardManagerPrivate *p = manager->priv;
+        CsdKeyboardManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping keyboard manager");
 
@@ -1660,30 +1660,30 @@ gsd_keyboard_manager_stop (GsdKeyboardManager *manager)
 }
 
 static void
-gsd_keyboard_manager_class_init (GsdKeyboardManagerClass *klass)
+gsd_keyboard_manager_class_init (CsdKeyboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
         object_class->finalize = gsd_keyboard_manager_finalize;
 
-        g_type_class_add_private (klass, sizeof (GsdKeyboardManagerPrivate));
+        g_type_class_add_private (klass, sizeof (CsdKeyboardManagerPrivate));
 }
 
 static void
-gsd_keyboard_manager_init (GsdKeyboardManager *manager)
+gsd_keyboard_manager_init (CsdKeyboardManager *manager)
 {
-        manager->priv = GSD_KEYBOARD_MANAGER_GET_PRIVATE (manager);
+        manager->priv = CSD_KEYBOARD_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
 gsd_keyboard_manager_finalize (GObject *object)
 {
-        GsdKeyboardManager *keyboard_manager;
+        CsdKeyboardManager *keyboard_manager;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_KEYBOARD_MANAGER (object));
+        g_return_if_fail (CSD_IS_KEYBOARD_MANAGER (object));
 
-        keyboard_manager = GSD_KEYBOARD_MANAGER (object);
+        keyboard_manager = CSD_KEYBOARD_MANAGER (object);
 
         g_return_if_fail (keyboard_manager->priv != NULL);
 
@@ -1693,16 +1693,16 @@ gsd_keyboard_manager_finalize (GObject *object)
         G_OBJECT_CLASS (gsd_keyboard_manager_parent_class)->finalize (object);
 }
 
-GsdKeyboardManager *
+CsdKeyboardManager *
 gsd_keyboard_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
-                manager_object = g_object_new (GSD_TYPE_KEYBOARD_MANAGER, NULL);
+                manager_object = g_object_new (CSD_TYPE_KEYBOARD_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
         }
 
-        return GSD_KEYBOARD_MANAGER (manager_object);
+        return CSD_KEYBOARD_MANAGER (manager_object);
 }

@@ -23,12 +23,12 @@ libkeyboard_la_SOURCES = 	\
 	$(NULL)
 
 libkeyboard_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/data				\
 	-I$(top_srcdir)/plugins/common			\
 	-DDATADIR=\""$(pkgdatadir)"\"			\
 	-DLIBEXECDIR=\""$(libexecdir)"\"		\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
 libkeyboard_la_CFLAGS = \
@@ -38,7 +38,7 @@ libkeyboard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libkeyboard_la_LDFLAGS = 	\
-	$(GSD_PLUGIN_LDFLAGS)	\
+	$(CSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 
 libkeyboard_la_LIBADD  =				\
@@ -57,20 +57,20 @@ gsd_test_keyboard_SOURCES =	\
 
 gsd_test_keyboard_CFLAGS = $(libkeyboard_la_CFLAGS)
 gsd_test_keyboard_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
-gsd_test_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+gsd_test_keyboard_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libgsd.la
 
 plugin_in_files = 		\
-	keyboard.gnome-settings-plugin.in	\
+	keyboard.cinnamon-settings-plugin.in	\
 	$(NULL)
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 if HAVE_IBUS
 noinst_PROGRAMS = test-keyboard-ibus-utils
 test_keyboard_ibus_utils_SOURCES = test-keyboard-ibus-utils.c
 test_keyboard_ibus_utils_CFLAGS = $(libkeyboard_la_CFLAGS)
 test_keyboard_ibus_utils_CPPFLAGS = $(libkeyboard_la_CPPFLAGS)
-test_keyboard_ibus_utils_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/gnome-settings-daemon/libgsd.la
+test_keyboard_ibus_utils_LDADD = $(libkeyboard_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libgsd.la
 
 check-local: test-keyboard-ibus-utils
 	$(builddir)/test-keyboard-ibus-utils > /dev/null
@@ -112,4 +112,4 @@ DISTCLEANFILES =		\
 	$(plugin_DATA)		\
 	$(NULL)
 
-@GSD_INTLTOOL_PLUGIN_RULE@
+@CSD_INTLTOOL_PLUGIN_RULE@

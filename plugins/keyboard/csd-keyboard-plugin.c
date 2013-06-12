@@ -23,24 +23,24 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "cinnamon-settings-plugin.h"
 #include "gsd-keyboard-plugin.h"
 #include "gsd-keyboard-manager.h"
 
-struct GsdKeyboardPluginPrivate {
-        GsdKeyboardManager *manager;
+struct CsdKeyboardPluginPrivate {
+        CsdKeyboardManager *manager;
 };
 
-#define GSD_KEYBOARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), GSD_TYPE_KEYBOARD_PLUGIN, GsdKeyboardPluginPrivate))
+#define CSD_KEYBOARD_PLUGIN_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), CSD_TYPE_KEYBOARD_PLUGIN, CsdKeyboardPluginPrivate))
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdKeyboardPlugin, gsd_keyboard_plugin)
+CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdKeyboardPlugin, gsd_keyboard_plugin)
 
 static void
-gsd_keyboard_plugin_init (GsdKeyboardPlugin *plugin)
+gsd_keyboard_plugin_init (CsdKeyboardPlugin *plugin)
 {
-        plugin->priv = GSD_KEYBOARD_PLUGIN_GET_PRIVATE (plugin);
+        plugin->priv = CSD_KEYBOARD_PLUGIN_GET_PRIVATE (plugin);
 
-        g_debug ("GsdKeyboardPlugin initializing");
+        g_debug ("CsdKeyboardPlugin initializing");
 
         plugin->priv->manager = gsd_keyboard_manager_new ();
 }
@@ -48,14 +48,14 @@ gsd_keyboard_plugin_init (GsdKeyboardPlugin *plugin)
 static void
 gsd_keyboard_plugin_finalize (GObject *object)
 {
-        GsdKeyboardPlugin *plugin;
+        CsdKeyboardPlugin *plugin;
 
         g_return_if_fail (object != NULL);
-        g_return_if_fail (GSD_IS_KEYBOARD_PLUGIN (object));
+        g_return_if_fail (CSD_IS_KEYBOARD_PLUGIN (object));
 
-        g_debug ("GsdKeyboardPlugin finalizing");
+        g_debug ("CsdKeyboardPlugin finalizing");
 
-        plugin = GSD_KEYBOARD_PLUGIN (object);
+        plugin = CSD_KEYBOARD_PLUGIN (object);
 
         g_return_if_fail (plugin->priv != NULL);
 
@@ -67,7 +67,7 @@ gsd_keyboard_plugin_finalize (GObject *object)
 }
 
 static void
-impl_activate (GnomeSettingsPlugin *plugin)
+impl_activate (CinnamonSettingsPlugin *plugin)
 {
         gboolean res;
         GError  *error;
@@ -75,7 +75,7 @@ impl_activate (GnomeSettingsPlugin *plugin)
         g_debug ("Activating keyboard plugin");
 
         error = NULL;
-        res = gsd_keyboard_manager_start (GSD_KEYBOARD_PLUGIN (plugin)->priv->manager, &error);
+        res = gsd_keyboard_manager_start (CSD_KEYBOARD_PLUGIN (plugin)->priv->manager, &error);
         if (! res) {
                 g_warning ("Unable to start keyboard manager: %s", error->message);
                 g_error_free (error);
@@ -83,22 +83,22 @@ impl_activate (GnomeSettingsPlugin *plugin)
 }
 
 static void
-impl_deactivate (GnomeSettingsPlugin *plugin)
+impl_deactivate (CinnamonSettingsPlugin *plugin)
 {
         g_debug ("Deactivating keyboard plugin");
-        gsd_keyboard_manager_stop (GSD_KEYBOARD_PLUGIN (plugin)->priv->manager);
+        gsd_keyboard_manager_stop (CSD_KEYBOARD_PLUGIN (plugin)->priv->manager);
 }
 
 static void
-gsd_keyboard_plugin_class_init (GsdKeyboardPluginClass *klass)
+gsd_keyboard_plugin_class_init (CsdKeyboardPluginClass *klass)
 {
         GObjectClass           *object_class = G_OBJECT_CLASS (klass);
-        GnomeSettingsPluginClass *plugin_class = GNOME_SETTINGS_PLUGIN_CLASS (klass);
+        CinnamonSettingsPluginClass *plugin_class = CINNAMON_SETTINGS_PLUGIN_CLASS (klass);
 
         object_class->finalize = gsd_keyboard_plugin_finalize;
 
         plugin_class->activate = impl_activate;
         plugin_class->deactivate = impl_deactivate;
 
-        g_type_class_add_private (klass, sizeof (GsdKeyboardPluginPrivate));
+        g_type_class_add_private (klass, sizeof (CsdKeyboardPluginPrivate));
 }

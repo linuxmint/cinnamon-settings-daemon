@@ -32,7 +32,7 @@
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 
-#define GSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
+#define CSD_KEYBOARD_DIR "org.gnome.settings-daemon.peripherals.keyboard"
 #define KEY_SWITCHER "input-sources-switcher"
 
 static GSettings *input_sources_settings;
@@ -73,11 +73,11 @@ init_keys (void)
 {
   GSettings *settings;
 
-  settings = g_settings_new (GSD_KEYBOARD_DIR);
+  settings = g_settings_new (CSD_KEYBOARD_DIR);
 
   switch (g_settings_get_enum (settings, KEY_SWITCHER))
     {
-    case GSD_INPUT_SOURCES_SWITCHER_SHIFT_L:
+    case CSD_INPUT_SOURCES_SWITCHER_SHIFT_L:
       n_keys = 1;
       the_keys = g_new0 (Key, n_keys);
 
@@ -85,7 +85,7 @@ init_keys (void)
       the_keys[0].state = 0;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_L:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_L:
       n_keys = 1;
       the_keys = g_new0 (Key, n_keys);
 
@@ -93,7 +93,7 @@ init_keys (void)
       the_keys[0].state = 0;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CTRL_L:
+    case CSD_INPUT_SOURCES_SWITCHER_CTRL_L:
       n_keys = 1;
       the_keys = g_new0 (Key, n_keys);
 
@@ -101,7 +101,7 @@ init_keys (void)
       the_keys[0].state = 0;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_SHIFT_R:
+    case CSD_INPUT_SOURCES_SWITCHER_SHIFT_R:
       n_keys = 1;
       the_keys = g_new0 (Key, n_keys);
 
@@ -109,7 +109,7 @@ init_keys (void)
       the_keys[0].state = 0;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_R:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_R:
       n_keys = 2;
       the_keys = g_new0 (Key, n_keys);
 
@@ -119,7 +119,7 @@ init_keys (void)
       the_keys[1].state = 0;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CTRL_R:
+    case CSD_INPUT_SOURCES_SWITCHER_CTRL_R:
       n_keys = 1;
       the_keys = g_new0 (Key, n_keys);
 
@@ -127,7 +127,7 @@ init_keys (void)
       the_keys[0].state = 0;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_SHIFT_L:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_SHIFT_L:
       n_keys = 2;
       the_keys = g_new0 (Key, n_keys);
 
@@ -137,7 +137,7 @@ init_keys (void)
       the_keys[1].state = GDK_SHIFT_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_SHIFT_R:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_SHIFT_R:
       n_keys = 4;
       the_keys = g_new0 (Key, n_keys);
 
@@ -151,7 +151,7 @@ init_keys (void)
       the_keys[3].state = GDK_SHIFT_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CTRL_SHIFT_L:
+    case CSD_INPUT_SOURCES_SWITCHER_CTRL_SHIFT_L:
       n_keys = 2;
       the_keys = g_new0 (Key, n_keys);
 
@@ -161,7 +161,7 @@ init_keys (void)
       the_keys[1].state = GDK_SHIFT_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CTRL_SHIFT_R:
+    case CSD_INPUT_SOURCES_SWITCHER_CTRL_SHIFT_R:
       n_keys = 2;
       the_keys = g_new0 (Key, n_keys);
 
@@ -171,7 +171,7 @@ init_keys (void)
       the_keys[1].state = GDK_SHIFT_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_SHIFT_L_SHIFT_R:
+    case CSD_INPUT_SOURCES_SWITCHER_SHIFT_L_SHIFT_R:
       n_keys = 2;
       the_keys = g_new0 (Key, n_keys);
 
@@ -181,7 +181,7 @@ init_keys (void)
       the_keys[1].state = GDK_SHIFT_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_L_ALT_R:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_L_ALT_R:
       n_keys = 4;
       the_keys = g_new0 (Key, n_keys);
 
@@ -195,7 +195,7 @@ init_keys (void)
       the_keys[3].state = GDK_MOD1_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CTRL_L_CTRL_R:
+    case CSD_INPUT_SOURCES_SWITCHER_CTRL_L_CTRL_R:
       n_keys = 2;
       the_keys = g_new0 (Key, n_keys);
 
@@ -205,7 +205,7 @@ init_keys (void)
       the_keys[1].state = GDK_CONTROL_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_SHIFT:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_SHIFT:
       n_keys = 7;
       the_keys = g_new0 (Key, n_keys);
 
@@ -225,7 +225,7 @@ init_keys (void)
       the_keys[6].state = GDK_SHIFT_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CTRL_SHIFT:
+    case CSD_INPUT_SOURCES_SWITCHER_CTRL_SHIFT:
       n_keys = 4;
       the_keys = g_new0 (Key, n_keys);
 
@@ -239,7 +239,7 @@ init_keys (void)
       the_keys[3].state = GDK_SHIFT_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_CTRL:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_CTRL:
       n_keys = 7;
       the_keys = g_new0 (Key, n_keys);
 
@@ -259,7 +259,7 @@ init_keys (void)
       the_keys[6].state = GDK_CONTROL_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CAPS:
+    case CSD_INPUT_SOURCES_SWITCHER_CAPS:
       includes_caps = TRUE;
       n_keys = 1;
       the_keys = g_new0 (Key, n_keys);
@@ -268,7 +268,7 @@ init_keys (void)
       the_keys[0].state = 0;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_SHIFT_CAPS:
+    case CSD_INPUT_SOURCES_SWITCHER_SHIFT_CAPS:
       includes_caps = TRUE;
       n_keys = 3;
       the_keys = g_new0 (Key, n_keys);
@@ -281,7 +281,7 @@ init_keys (void)
       the_keys[2].state = GDK_LOCK_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_ALT_CAPS:
+    case CSD_INPUT_SOURCES_SWITCHER_ALT_CAPS:
       includes_caps = TRUE;
       n_keys = 5;
       the_keys = g_new0 (Key, n_keys);
@@ -298,7 +298,7 @@ init_keys (void)
       the_keys[4].state = GDK_LOCK_MASK;
       break;
 
-    case GSD_INPUT_SOURCES_SWITCHER_CTRL_CAPS:
+    case CSD_INPUT_SOURCES_SWITCHER_CTRL_CAPS:
       includes_caps = TRUE;
       n_keys = 3;
       the_keys = g_new0 (Key, n_keys);
@@ -517,7 +517,7 @@ grab_key (Key        *key,
 
   gdk_x11_display_error_trap_push (display);
 
-  grab_key_unsafe (key, GSD_KEYGRAB_ALLOW_UNMODIFIED | GSD_KEYGRAB_SYNCHRONOUS, screens);
+  grab_key_unsafe (key, CSD_KEYGRAB_ALLOW_UNMODIFIED | CSD_KEYGRAB_SYNCHRONOUS, screens);
 
   gdk_x11_display_error_trap_pop_ignored (display);
 
