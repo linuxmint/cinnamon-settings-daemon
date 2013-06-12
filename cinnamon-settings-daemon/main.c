@@ -319,6 +319,29 @@ set_legacy_ibus_env_vars (GDBusProxy *proxy)
 }
 #endif
 
+static void
+got_session_proxy (GObject      *source_object,
+                   GAsyncResult *res,
+                   gpointer      user_data)
+{
+        GDBusProxy *proxy;
+        GError *error = NULL;
+
+        proxy = g_dbus_proxy_new_finish (res, &error);
+        if (proxy == NULL) {
+                g_debug ("Could not connect to the Session manager: %s", error->message);
+                g_error_free (error);
+        } else {
+                set_locale (proxy);
+#ifdef HAVE_IBUS
+                /* This will register with cinnamon-session after calling Setenv. */
+                set_legacy_ibus_env_vars (proxy);
+#else
+                register_with_gnome_session (proxy);
+#endif
+        }
+}
+
 static gboolean
 on_term_signal_pipe_closed (GIOChannel *source,
                             GIOCondition condition,
@@ -368,6 +391,16 @@ set_session_over_handler (GDBusConnection *bus)
 {
         g_assert (bus != NULL);
 
+        g_dbus_proxy_new (bus,
+                          G_DBUS_PROXY_FLAGS_NONE,
+                          NULL,
+                          GNOME_SESSION_DBUS_NAME,
+                          GNOME_SESSION_DBUS_OBJECT,
+                          GNOME_SESSION_DBUS_INTERFACE,
+                          NULL,
+                          (GAsyncReadyCallback) got_session_proxy,
+                          NULL);
+
         watch_for_term_signal (manager);
 }
 
@@ -388,56 +421,6 @@ name_lost_handler (GDBusConnection *connection,
 
         g_warning ("Name taken or bus went away - shutting down");
         gtk_main_quit ();
-}
-
-static gboolean
-do_register_client (gpointer user_data)
-{
-        GDBusProxy *proxy = (GDBusProxy *) user_data;
-        g_assert (proxy != NULL);
-
-        const char *startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
-        g_dbus_proxy_call (proxy,
-                           "RegisterClient",
-                           g_variant_new ("(ss)", "cinnamon-settings-daemon", startup_id ? startup_id : ""),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           (GAsyncReadyCallback) on_client_registered,
-                           manager);
-
-        return FALSE;
-}
-
-static void
-queue_register_client (void)
-{
-        GDBusConnection *bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
-        if (!bus)
-                return;
-
-        GError *error = NULL;
-        GDBusProxy *proxy = g_dbus_proxy_new_sync (bus,
-                                                   G_DBUS_PROXY_FLAGS_NONE,
-                                                   NULL,
-                                                   GNOME_SESSION_DBUS_NAME,
-                                                   GNOME_SESSION_DBUS_OBJECT,
-                                                   GNOME_SESSION_DBUS_INTERFACE,
-                                                   NULL,
-                                                   &error);
-        g_object_unref (bus);
-
-        if (proxy == NULL) {
-                g_debug ("Could not connect to the Session manager: %s", error->message);
-                g_error_free (error);
-                return;
-        }
-
-        /* Register the daemon with cinnamon-session */
-        g_signal_connect (G_OBJECT (proxy), "g-signal",
-                          G_CALLBACK (on_session_over), NULL);
-
-        g_idle_add_full (G_PRIORITY_DEFAULT, do_register_client, proxy, NULL);
 }
 
 static void
@@ -540,8 +523,6 @@ main (int argc, char *argv[])
         g_log_set_default_handler (csd_log_default_handler, NULL);
 
         notify_init ("cinnamon-settings-daemon");
-
-        queue_register_client ();
 
         bus_register ();
 
