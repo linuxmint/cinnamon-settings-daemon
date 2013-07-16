@@ -305,7 +305,7 @@ maybe_start_ibus (CsdKeyboardManager *manager,
 
         if (!manager->priv->ibus) {
                 ibus_init ();
-                manager->priv->ibus = ibus_bus_new_async ();
+                manager->priv->ibus = ibus_bus_new ();
                 g_signal_connect_swapped (manager->priv->ibus, "connected",
                                           G_CALLBACK (fetch_ibus_engines), manager);
                 g_signal_connect_swapped (manager->priv->ibus, "disconnected",
@@ -1567,7 +1567,7 @@ maybe_create_input_sources (CsdKeyboardManager *manager)
 static gboolean
 start_keyboard_idle_cb (CsdKeyboardManager *manager)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
         g_debug ("Starting keyboard manager");
 
@@ -1607,7 +1607,7 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 	install_xkb_filter (manager);
         set_input_sources_switcher (manager, enable_switcher (manager));
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
 
@@ -1618,7 +1618,7 @@ gboolean
 csd_keyboard_manager_start (CsdKeyboardManager *manager,
                             GError            **error)
 {
-        gnome_settings_profile_start (NULL);
+        cinnamon_settings_profile_start (NULL);
 
 	if (check_xkb_extension (manager) == FALSE) {
 		g_debug ("XKB is not supported, not applying any settings");
@@ -1627,7 +1627,7 @@ csd_keyboard_manager_start (CsdKeyboardManager *manager,
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
 
-        gnome_settings_profile_end (NULL);
+        cinnamon_settings_profile_end (NULL);
 
         return TRUE;
 }
