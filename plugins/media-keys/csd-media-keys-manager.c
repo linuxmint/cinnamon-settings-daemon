@@ -60,10 +60,18 @@
 
 #include <libnotify/notify.h>
 
-#define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
-#define CSD_DBUS_NAME "org.cinnamon.SettingsDaemon"
-#define CSD_MEDIA_KEYS_DBUS_PATH CSD_DBUS_PATH "/MediaKeys"
-#define CSD_MEDIA_KEYS_DBUS_NAME CSD_DBUS_NAME ".MediaKeys"
+/* For media keys, we need to keep using org.gnome because
+   that's what apps are looking for */
+#define GNOME_DBUS_PATH "/org/gnome/SettingsDaemon"
+#define GNOME_DBUS_NAME "org.gnome.SettingsDaemon"
+#define CSD_MEDIA_KEYS_DBUS_PATH GNOME_DBUS_PATH "/MediaKeys"
+#define CSD_MEDIA_KEYS_DBUS_NAME GNOME_DBUS_NAME ".MediaKeys"
+
+#define CINNAMON_DBUS_PATH "/org/cinnamon/SettingsDaemon"
+#define CINNAMON_DBUS_NAME "org.cinnamon.SettingsDaemon"
+
+#define CINNAMON_KEYBINDINGS_PATH CINNAMON_DBUS_PATH "/KeybindingHandler"
+#define CINNAMON_KEYBINDINGS_NAME CINNAMON_DBUS_NAME ".KeybindingHandler"
 
 #define GNOME_SESSION_DBUS_NAME "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH "/org/gnome/SessionManager"
@@ -76,7 +84,7 @@
 
 static const gchar introspection_xml[] =
 "<node>"
-"  <interface name='org.cinnamon.SettingsDaemon.MediaKeys'>"
+"  <interface name='org.gnome.SettingsDaemon.MediaKeys'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_media_keys_manager'/>"
 "    <method name='GrabMediaPlayerKeys'>"
 "      <arg name='application' direction='in' type='s'/>"
@@ -89,6 +97,16 @@ static const gchar introspection_xml[] =
 "      <arg name='application' type='s'/>"
 "      <arg name='key' type='s'/>"
 "    </signal>"
+"  </interface>"
+"</node>";
+
+static const gchar kb_introspection_xml[] =
+"<node>"
+"  <interface name='org.cinnamon.SettingsDaemon.KeybindingHandler'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_media_keys_manager'/>"
+"    <method name='HandleKeybinding'>"
+"      <arg name='type' direction='in' type='s'/>"
+"    </method>"
 "  </interface>"
 "</node>";
 
@@ -156,6 +174,7 @@ struct CsdMediaKeysManagerPrivate
         GList           *media_players;
 
         GDBusNodeInfo   *introspection_data;
+        GDBusNodeInfo   *kb_introspection_data;
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
         GDBusProxy      *xrandr_proxy;
@@ -1305,6 +1324,11 @@ handle_method_call (GDBusConnection       *connection,
                 g_variant_get (parameters, "(&su)", &app_name, &time);
                 csd_media_keys_manager_grab_media_player_keys (manager, app_name, sender, time);
                 g_dbus_method_invocation_return_value (invocation, NULL);
+        } else if (g_strcmp0 (method_name, "HandleKeybinding") == 0) {
+                const char *action;
+                g_variant_get (parameters, "(&s)", &action);
+                csd_media_player_key_pressed (manager, action);
+                g_dbus_method_invocation_return_value (invocation, NULL);
         }
 }
 
@@ -2391,6 +2415,14 @@ on_bus_gotten (GObject             *source_object,
                                            NULL,
                                            NULL);
 
+        g_dbus_connection_register_object (connection,
+                                           CINNAMON_KEYBINDINGS_PATH,
+                                           manager->priv->kb_introspection_data->interfaces[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
+
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
                           NULL,
@@ -2426,8 +2458,10 @@ static void
 register_manager (CsdMediaKeysManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->priv->kb_introspection_data = g_dbus_node_info_new_for_xml (kb_introspection_xml, NULL);
         manager->priv->bus_cancellable = g_cancellable_new ();
         g_assert (manager->priv->introspection_data != NULL);
+        g_assert (manager->priv->kb_introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
                    manager->priv->bus_cancellable,

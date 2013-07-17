@@ -38,6 +38,7 @@
 #include "cinnamon-settings-profile.h"
 
 #define CSD_DBUS_NAME         "org.cinnamon.SettingsDaemon"
+#define GSD_DBUS_NAME         "org.gnome.SettingsDaemon" /* Needed for media player keys integration */
 
 #define GNOME_SESSION_DBUS_NAME      "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_OBJECT    "/org/gnome/SessionManager"
@@ -48,6 +49,7 @@ static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
 static int        term_signal_pipe_fds[2];
 static guint      name_id      = 0;
+static guint      gnome_name_id = 0;
 static CinnamonSettingsManager *manager = NULL;
 
 static GOptionEntry entries[] = {
@@ -449,6 +451,14 @@ bus_register (void)
                                   (GBusNameLostCallback) name_lost_handler,
                                   NULL,
                                   NULL);
+        gnome_name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
+                                  GSD_DBUS_NAME,
+                                  G_BUS_NAME_OWNER_FLAGS_NONE,
+                                  NULL,
+                                  (GBusNameAcquiredCallback) name_acquired_handler,
+                                  (GBusNameLostCallback) name_lost_handler,
+                                  NULL,
+                                  NULL);
 }
 
 static void
@@ -564,7 +574,10 @@ out:
                 g_bus_unown_name (name_id);
                 name_id = 0;
         }
-
+        if (gnome_name_id > 0) {
+                g_bus_unown_name (gnome_name_id);
+                gnome_name_id = 0;
+        }
         if (manager != NULL) {
                 g_object_unref (manager);
         }
