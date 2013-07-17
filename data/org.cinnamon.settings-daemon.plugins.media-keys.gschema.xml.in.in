@@ -177,21 +177,4 @@
     </key>
   </schema>
 
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.media-keys.custom-keybinding">
-    <key name="name" type="s">
-      <default>''</default>
-      <_summary>Name</_summary>
-      <_description>Name of the custom binding</_description>
-    </key>
-    <key name="binding" type="s">
-      <default>''</default>
-      <_summary>Binding</_summary>
-      <_description>Binding for the custom binding</_description>
-    </key>
-    <key name="command" type="s">
-      <default>''</default>
-      <_summary>Command</_summary>
-      <_description>Command to run when the binding is invoked</_description>
-    </key>
-  </schema>
 </schemalist>

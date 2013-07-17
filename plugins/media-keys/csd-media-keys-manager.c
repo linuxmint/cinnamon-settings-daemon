@@ -1327,7 +1327,16 @@ handle_method_call (GDBusConnection       *connection,
         } else if (g_strcmp0 (method_name, "HandleKeybinding") == 0) {
                 const char *action;
                 g_variant_get (parameters, "(&s)", &action);
-                csd_media_player_key_pressed (manager, action);
+
+                if (g_strcmp0 (action, "VolumeMute") == 0) {
+                    do_sound_action (manager, NULL, MUTE_KEY, FALSE);
+                } else if (g_strcmp0 (action, "VolumeDown") == 0) {
+                    do_sound_action (manager, NULL, VOLUME_DOWN_KEY, FALSE);
+                } else if (g_strcmp0 (action, "VolumeUp") == 0) {
+                    do_sound_action (manager, NULL, VOLUME_UP_KEY, FALSE);
+                } else {
+                    csd_media_player_key_pressed (manager, action);
+                }
                 g_dbus_method_invocation_return_value (invocation, NULL);
         }
 }
