@@ -105,7 +105,7 @@ static const gchar kb_introspection_xml[] =
 "  <interface name='org.cinnamon.SettingsDaemon.KeybindingHandler'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_media_keys_manager'/>"
 "    <method name='HandleKeybinding'>"
-"      <arg name='type' direction='in' type='s'/>"
+"      <arg name='type' direction='in' type='uu'/>"
 "    </method>"
 "  </interface>"
 "</node>";
@@ -192,6 +192,10 @@ static void     csd_media_keys_manager_class_init  (CsdMediaKeysManagerClass *kl
 static void     csd_media_keys_manager_init        (CsdMediaKeysManager      *media_keys_manager);
 static void     csd_media_keys_manager_finalize    (GObject                  *object);
 static void     register_manager                   (CsdMediaKeysManager      *manager);
+static gboolean do_action (CsdMediaKeysManager *manager,
+                           guint                deviceid,
+                           MediaKeyType         type,
+                           gint64               timestamp);
 
 G_DEFINE_TYPE (CsdMediaKeysManager, csd_media_keys_manager, G_TYPE_OBJECT)
 
@@ -1325,18 +1329,10 @@ handle_method_call (GDBusConnection       *connection,
                 csd_media_keys_manager_grab_media_player_keys (manager, app_name, sender, time);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "HandleKeybinding") == 0) {
-                const char *action;
-                g_variant_get (parameters, "(&s)", &action);
-
-                if (g_strcmp0 (action, "VolumeMute") == 0) {
-                    do_sound_action (manager, NULL, MUTE_KEY, FALSE);
-                } else if (g_strcmp0 (action, "VolumeDown") == 0) {
-                    do_sound_action (manager, NULL, VOLUME_DOWN_KEY, FALSE);
-                } else if (g_strcmp0 (action, "VolumeUp") == 0) {
-                    do_sound_action (manager, NULL, VOLUME_UP_KEY, FALSE);
-                } else {
-                    csd_media_player_key_pressed (manager, action);
-                }
+                MediaKeyType action;
+                guint32 timestamp;
+                g_variant_get (parameters, "(uu)", &action, &timestamp);
+                do_action (manager, NULL, action, timestamp);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         }
 }
