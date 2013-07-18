@@ -105,7 +105,7 @@ static const gchar kb_introspection_xml[] =
 "  <interface name='org.cinnamon.SettingsDaemon.KeybindingHandler'>"
 "    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_media_keys_manager'/>"
 "    <method name='HandleKeybinding'>"
-"      <arg name='type' direction='in' type='uu'/>"
+"      <arg name='type' direction='in' type='u'/>"
 "    </method>"
 "  </interface>"
 "</node>";
@@ -1302,6 +1302,15 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
 }
 
 static void
+csd_media_keys_manager_handle_cinnamon_keybinding (CsdMediaKeysManager *manager,
+                                                   guint                deviceid,
+                                                   MediaKeyType         type,
+                                                   gint64               timestamp)
+{
+    do_action (manager, NULL, type, timestamp);
+}
+
+static void
 handle_method_call (GDBusConnection       *connection,
                     const gchar           *sender,
                     const gchar           *object_path,
@@ -1330,9 +1339,8 @@ handle_method_call (GDBusConnection       *connection,
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "HandleKeybinding") == 0) {
                 MediaKeyType action;
-                guint32 timestamp;
-                g_variant_get (parameters, "(uu)", &action, &timestamp);
-                do_action (manager, NULL, action, timestamp);
+                g_variant_get (parameters, "(u)", &action);
+                csd_media_keys_manager_handle_cinnamon_keybinding (manager, NULL, action, CurrentTime);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         }
 }
@@ -2209,6 +2217,11 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         if (priv->introspection_data) {
                 g_dbus_node_info_unref (priv->introspection_data);
                 priv->introspection_data = NULL;
+        }
+
+        if (priv->kb_introspection_data) {
+                g_dbus_node_info_unref (priv->kb_introspection_data);
+                priv->kb_introspection_data = NULL;
         }
 
         if (priv->connection != NULL) {
