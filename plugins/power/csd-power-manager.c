@@ -3358,7 +3358,8 @@ sleep_cb_screensaver_proxy_ready_cb (GObject *source_object,
         g_debug ("cinnamon-screensaver activated, doing cinnamon-screensaver lock");
         g_dbus_proxy_call (manager->priv->screensaver_proxy,
                            "Lock",
-                           NULL, G_DBUS_CALL_FLAGS_NONE, -1,
+                           g_variant_new("(s)", ""),
+                           G_DBUS_CALL_FLAGS_NONE, -1,
                            NULL, NULL, NULL);
 }
 
@@ -3529,7 +3530,8 @@ lock_screensaver (CsdPowerManager *manager)
                 g_debug ("doing cinnamon-screensaver lock");
                 g_dbus_proxy_call (manager->priv->screensaver_proxy,
                                    "Lock",
-                                   NULL, G_DBUS_CALL_FLAGS_NONE, -1,
+                                   g_variant_new("(s)", ""),
+                                   G_DBUS_CALL_FLAGS_NONE, -1,
                                    NULL, NULL, NULL);
         } else {
                 /* connect to the screensaver first */
@@ -3561,7 +3563,8 @@ upower_notify_sleep_cb (UpClient *client,
                 g_debug ("doing cinnamon-screensaver lock");
                 g_dbus_proxy_call (manager->priv->screensaver_proxy,
                                    "Lock",
-                                   NULL, G_DBUS_CALL_FLAGS_NONE, -1,
+                                   g_variant_new("(s)", ""),
+                                   G_DBUS_CALL_FLAGS_NONE, -1,
                                    NULL, NULL, NULL);
         } else {
                 /* connect to the screensaver first */
