@@ -3563,7 +3563,7 @@ upower_notify_sleep_cb (UpClient *client,
                 g_debug ("doing cinnamon-screensaver lock");
                 g_dbus_proxy_call (manager->priv->screensaver_proxy,
                                    "Lock",
-                                   g_variant_new("s", "suspend"),
+                                   g_variant_new("s", ""),
                                    G_DBUS_CALL_FLAGS_NONE, -1,
                                    NULL, NULL, NULL);
         } else {
