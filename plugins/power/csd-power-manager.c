@@ -3554,8 +3554,8 @@ upower_notify_sleep_cb (UpClient *client,
 {
         gboolean do_lock;
 
-        do_lock = g_settings_get_boolean (manager->priv->settings_screensaver,
-                                          "ubuntu-lock-on-suspend");
+        do_lock = g_settings_get_boolean (manager->priv->settings,
+                                          "lock-on-suspend");
         if (!do_lock)
                 return;
 
@@ -3563,7 +3563,7 @@ upower_notify_sleep_cb (UpClient *client,
                 g_debug ("doing cinnamon-screensaver lock");
                 g_dbus_proxy_call (manager->priv->screensaver_proxy,
                                    "Lock",
-                                   g_variant_new("(s)", ""),
+                                   g_variant_new("s", "suspend"),
                                    G_DBUS_CALL_FLAGS_NONE, -1,
                                    NULL, NULL, NULL);
         } else {

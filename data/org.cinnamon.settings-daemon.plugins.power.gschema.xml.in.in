@@ -146,5 +146,10 @@
       <_summary>If we should show the recalled battery warning for a broken battery</_summary>
       <_description>If we should show the recalled battery warning for a broken battery. Set this to false only if you know your battery is okay.</_description>
     </key>
+    <key name="lock-on-suspend" type="b">
+      <default>false</default>
+      <_summary>If the computer should lock when entering suspend mode</_summary>
+      <_description>If the computer should lock during suspend - replaces ubuntu-lock-on-suspend</_description>
+    </key>
   </schema>
 </schemalist>
