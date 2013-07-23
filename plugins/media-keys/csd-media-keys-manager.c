@@ -1559,8 +1559,10 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 csd_power_suspend (manager->priv->upower_proxy);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
-        case CSD_POWER_ACTION_SHUTDOWN:
                 cinnamon_session_shutdown (manager);
+                break;
+        case CSD_POWER_ACTION_SHUTDOWN:
+                execute (manager, "cinnamon-session-quit --power-off --no-prompt", FALSE);
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
                 csd_power_hibernate (manager->priv->upower_proxy);
