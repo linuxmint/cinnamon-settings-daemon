@@ -596,6 +596,7 @@ data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
+data/org.cinnamon.settings-daemon.plugins.background.gschema.xml.in
 po/Makefile.in
 man/Makefile
 ])
