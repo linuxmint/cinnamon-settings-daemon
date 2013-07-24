@@ -50,6 +50,7 @@
 struct CsdBackgroundManagerPrivate
 {
         GSettings   *settings;
+        GSettings   *plugin_settings;
         GSettings   *nemo_settings;
         GnomeBG     *bg;
 
@@ -73,7 +74,7 @@ static gpointer manager_object = NULL;
 static gboolean
 dont_draw_background (CsdBackgroundManager *manager)
 {
-        return !g_settings_get_boolean (manager->priv->settings,
+        return !g_settings_get_boolean (manager->priv->plugin_settings,
                                         "draw-background");
 }
 
@@ -515,10 +516,10 @@ csd_background_manager_start (CsdBackgroundManager *manager,
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.gnome.desktop.background");
-
+        manager->priv->plugin_settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.background");
         manager->priv->nemo_settings = g_settings_new ("org.nemo.desktop");
 
-        g_signal_connect (manager->priv->settings, "changed::draw-background",
+        g_signal_connect (manager->priv->plugin_settings, "changed::draw-background",
                           G_CALLBACK (draw_background_changed), manager);
         g_signal_connect (manager->priv->settings, "changed::picture-uri",
                           G_CALLBACK (picture_uri_changed), manager);
@@ -570,6 +571,11 @@ csd_background_manager_stop (CsdBackgroundManager *manager)
         if (p->nemo_settings != NULL) {
                 g_object_unref (p->nemo_settings);
                 p->nemo_settings = NULL;
+        }
+
+        if (p->plugin_settings != NULL) {
+                g_object_unref (p->plugin_settings);
+                p->plugin_settings = NULL;
         }
 
         if (p->bg != NULL) {
