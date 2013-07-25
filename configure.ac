@@ -53,6 +53,7 @@ UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
 LIBWACOM_REQUIRED_VERSION=0.4
 UPOWER_REQUIRED_VERSION=0.9.11
+GTK_XINPUT_2_3_VERSION=3.7.8
 
 #EXTRA_COMPILE_WARNINGS(yes)
 
@@ -72,6 +73,11 @@ PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gsettings-desktop-schemas
         x11
 )
+
+PKG_CHECK_MODULES(XI23, gtk+-3.0 >= $GTK_XINPUT_2_3_VERSION, have_xi_23=yes, have_xi_23=no)
+if test x$have_xi_23 = xyes ; then
+  AC_DEFINE(XI_23, 1, [Defined if GTK version is higher than 3.7.8])
+fi
 
 CSD_PLUGIN_LDFLAGS="-export_dynamic -module -avoid-version -no-undefined"
 case $host_os in
