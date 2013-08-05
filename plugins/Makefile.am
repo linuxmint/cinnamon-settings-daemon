@@ -23,12 +23,6 @@ enabled_plugins =	\
 
 disabled_plugins = $(NULL)
 
-if HAVE_PACKAGEKIT
-enabled_plugins += updates
-else
-disabled_plugins += updates
-endif
-
 if SMARTCARD_SUPPORT
 enabled_plugins += smartcard
 else
@@ -39,12 +33,6 @@ if HAVE_GUDEV
 enabled_plugins += orientation
 else
 disabled_plugins += orientation
-endif
-
-if HAVE_WACOM
-enabled_plugins += wacom
-else
-disabled_plugins += wacom
 endif
 
 if BUILD_PRINT_NOTIFICATIONS

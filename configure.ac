@@ -51,7 +51,6 @@ GNOME_DESKTOP_REQUIRED_VERSION=3.4.2
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
-LIBWACOM_REQUIRED_VERSION=0.4
 UPOWER_REQUIRED_VERSION=0.9.11
 GTK_XINPUT_2_3_VERSION=3.7.8
 
@@ -252,56 +251,6 @@ dnl - color
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
-
-dnl ---------------------------------------------------------------------------
-dnl - wacom (disabled for s390/s390x and non Linux platforms)
-dnl ---------------------------------------------------------------------------
-
-case $host_os in
-  linux*)
-    if test "$host_cpu" = s390 -o "$host_cpu" = s390x; then
-      have_wacom=no
-    else
-      if test x$enable_gudev != xno; then
-        PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION xorg-wacom])
-      else
-        AC_MSG_ERROR([GUdev is necessary to compile Wacom support])
-      fi
-      have_wacom=yes
-    fi
-    ;;
-  *)
-    have_wacom=no
-    ;;
-esac
-AM_CONDITIONAL(HAVE_WACOM, test x$have_wacom = xyes)
-
-dnl ==============================================
-dnl PackageKit section
-dnl ==============================================
-
-have_packagekit=false
-AC_ARG_ENABLE(packagekit,
-  AC_HELP_STRING([--disable-packagekit],
-                 [turn off PackageKit support]),
-       [case "${enableval}" in
-               yes) WANT_PACKAGEKIT=yes ;;
-               no)  WANT_PACKAGEKIT=no ;;
-               *) AC_MSG_ERROR(bad value ${enableval} for --disable-packagekit) ;;
-       esac],
-       [WANT_PACKAGEKIT=yes]) dnl Default value
-
-if test x$WANT_PACKAGEKIT = xyes ; then
-       PK_REQUIRED_VERSION=0.7.4
-       PKG_CHECK_MODULES(PACKAGEKIT, glib-2.0 packagekit-glib2 >= $PK_REQUIRED_VERSION upower-glib >= $UPOWER_REQUIRED_VERSION gudev-1.0 libnotify >= $LIBNOTIFY_REQUIRED_VERSION,
-             [have_packagekit=true
-              AC_DEFINE(HAVE_PACKAGEKIT, 1, [Define if PackageKit should be used])],
-             [have_packagekit=false])
-fi
-AM_CONDITIONAL(HAVE_PACKAGEKIT, test "x$have_packagekit" = "xtrue")
-
-AC_SUBST(PACKAGEKIT_CFLAGS)
-AC_SUBST(PACKAGEKIT_LIBS)
 
 dnl ==============================================
 dnl smartcard section
@@ -582,8 +531,6 @@ plugins/print-notifications/Makefile
 plugins/screensaver-proxy/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
-plugins/updates/Makefile
-plugins/wacom/Makefile
 plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
@@ -598,9 +545,7 @@ data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
-data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.background.gschema.xml.in
 po/Makefile.in
@@ -637,10 +582,8 @@ echo "
         LCMS DICT support:        ${have_new_lcms}
         Libnotify support:        ${have_libnotify}
 
-        PackageKit support:       ${have_packagekit}
         Smartcard support:        ${have_smartcard_support}
         Cups support:             ${enable_cups}
-        Wacom support:            ${have_wacom}
 ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
 }\

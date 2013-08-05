@@ -1,8 +1,0 @@
-[Cinnamon Settings Plugin]
-Module=csdwacom
-IAge=0
-_Name=Wacom
-_Description=Wacom plugin
-Authors=Peter Hutterer
-Copyright=Copyright © 2010
-Website=
