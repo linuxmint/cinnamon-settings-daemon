@@ -7,7 +7,6 @@
     <child name="color" schema="org.cinnamon.settings-daemon.plugins.color"/>
     <child name="cursor" schema="org.cinnamon.settings-daemon.plugins.cursor"/>
     <child name="font" schema="org.cinnamon.settings-daemon.plugins.font"/>
-    <child name="csdwacom" schema="org.cinnamon.settings-daemon.plugins.csdwacom"/>
     <child name="housekeeping" schema="org.cinnamon.settings-daemon.plugins.housekeeping"/>
     <child name="keyboard" schema="org.cinnamon.settings-daemon.plugins.keyboard"/>
     <child name="media-keys" schema="org.cinnamon.settings-daemon.plugins.media-keys"/>
@@ -18,7 +17,6 @@
     <child name="screensaver-proxy" schema="org.cinnamon.settings-daemon.plugins.screensaver-proxy"/>
     <child name="smartcard" schema="org.cinnamon.settings-daemon.plugins.smartcard"/>
     <child name="sound" schema="org.cinnamon.settings-daemon.plugins.sound"/>
-    <child name="updates" schema="org.cinnamon.settings-daemon.plugins.updates"/>
     <child name="xrandr" schema="org.cinnamon.settings-daemon.plugins.xrandr"/>
     <child name="xsettings" schema="org.cinnamon.settings-daemon.plugins.xsettings"/>
   </schema>
