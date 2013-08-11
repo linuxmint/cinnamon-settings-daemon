@@ -890,7 +890,7 @@ start_shell_monitor (CinnamonSettingsXSettingsManager *manager)
         notify_have_shell (manager);
         manager->priv->have_shell = TRUE;
         manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                               "org.gnome.Shell",
+                                                               "org.Cinnamon",
                                                                0,
                                                                on_shell_appeared,
                                                                on_shell_disappeared,
@@ -939,6 +939,8 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                              INTERFACE_SETTINGS_SCHEMA, g_settings_new (INTERFACE_SETTINGS_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              SOUND_SETTINGS_SCHEMA, g_settings_new (SOUND_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             XSETTINGS_PLUGIN_SCHEMA, g_settings_new (XSETTINGS_PLUGIN_SCHEMA));
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GVariant *val;
