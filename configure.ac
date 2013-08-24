@@ -62,14 +62,14 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gio-2.0 >= $GIO_REQUIRED_VERSION
         gmodule-2.0
         gthread-2.0
-	cinnamon-desktop-data >= 1.0.0
+	cinnamon-desktop
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         gio-2.0 >= $GIO_REQUIRED_VERSION
         libnotify >= $LIBNOTIFY_REQUIRED_VERSION
-        cinnamon-desktop-data
+        cinnamon-desktop
         x11
 )
 
