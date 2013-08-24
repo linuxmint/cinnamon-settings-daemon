@@ -47,7 +47,7 @@ GLIB_REQUIRED_VERSION=2.31.0
 GTK_REQUIRED_VERSION=3.3.18
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.26.0
-GNOME_DESKTOP_REQUIRED_VERSION=3.4.2
+CINNAMON_DESKTOP_REQUIRED_VERSION=1.0.0
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
@@ -62,14 +62,14 @@ PKG_CHECK_MODULES(SETTINGS_DAEMON,
         gio-2.0 >= $GIO_REQUIRED_VERSION
         gmodule-2.0
         gthread-2.0
-	gsettings-desktop-schemas >= 3.4.1
+	cinnamon-desktop-data >= 1.0.0
 )
 
 PKG_CHECK_MODULES(SETTINGS_PLUGIN,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         gio-2.0 >= $GIO_REQUIRED_VERSION
         libnotify >= $LIBNOTIFY_REQUIRED_VERSION
-        gsettings-desktop-schemas
+        cinnamon-desktop-data
         x11
 )
 
@@ -97,7 +97,7 @@ GLIB_GSETTINGS
 dnl ---------------------------------------------------------------------------
 dnl - Check for gnome-desktop
 dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+PKG_CHECK_MODULES(CINNAMON_DESKTOP, cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for LCMS2
@@ -175,7 +175,7 @@ dnl ---------------------------------------------------------------------------
 dnl - background
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(BACKGROUND, x11 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+PKG_CHECK_MODULES(BACKGROUND, x11 cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - mouse
@@ -218,14 +218,14 @@ dnl ---------------------------------------------------------------------------
 dnl - xrandr plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(XRANDR, [gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION upower-glib >= $UPOWER_REQUIRED_VERSION])
+PKG_CHECK_MODULES(XRANDR, [cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION upower-glib >= $UPOWER_REQUIRED_VERSION])
 
 dnl ---------------------------------------------------------------------------
 dnl - orientation plugin stuff
 dnl ---------------------------------------------------------------------------
 
 if test x$have_gudev != xno; then
-	PKG_CHECK_MODULES(ORIENTATION, [gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION gudev-1.0])
+	PKG_CHECK_MODULES(ORIENTATION, [cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION gudev-1.0])
 fi
 
 dnl ---------------------------------------------------------------------------
@@ -237,7 +237,7 @@ PKG_CHECK_MODULES(SOUND, [libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-m
 # ---------------------------------------------------------------------------
 # Power
 # ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(POWER, upower-glib >= $UPOWER_REQUIRED_VERSION gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
+PKG_CHECK_MODULES(POWER, upower-glib >= $UPOWER_REQUIRED_VERSION cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
 
 if test x$have_gudev != xno; then
 	PKG_CHECK_MODULES(BACKLIGHT_HELPER,
@@ -250,7 +250,7 @@ dnl ---------------------------------------------------------------------------
 dnl - color
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
+PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
 
 dnl ==============================================
 dnl smartcard section

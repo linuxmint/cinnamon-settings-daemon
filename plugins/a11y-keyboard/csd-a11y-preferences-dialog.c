@@ -42,15 +42,15 @@
 
 #define GTKBUILDER_UI_FILE "csd-a11y-preferences-dialog.ui"
 
-#define INTERFACE_SCHEMA          "org.gnome.desktop.interface"
+#define INTERFACE_SCHEMA          "org.cinnamon.desktop.interface"
 #define KEY_TEXT_SCALING_FACTOR   "text-scaling-factor"
 
-#define KEYBOARD_A11Y_SCHEMA      "org.gnome.desktop.a11y.keyboard"
+#define KEYBOARD_A11Y_SCHEMA      "org.cinnamon.desktop.a11y.keyboard"
 #define KEY_STICKY_KEYS_ENABLED   "stickykeys-enable"
 #define KEY_BOUNCE_KEYS_ENABLED   "bouncekeys-enable"
 #define KEY_SLOW_KEYS_ENABLED     "slowkeys-enable"
 
-#define KEY_AT_SCHEMA                "org.gnome.desktop.a11y.applications"
+#define KEY_AT_SCHEMA                "org.cinnamon.desktop.a11y.applications"
 #define KEY_AT_SCREEN_KEYBOARD_ENABLED  "screen-keyboard-enabled"
 #define KEY_AT_SCREEN_MAGNIFIER_ENABLED "screen-magnifier-enabled"
 #define KEY_AT_SCREEN_READER_ENABLED    "screen-reader-enabled"
@@ -170,8 +170,8 @@ config_set_high_contrast (gboolean enabled)
         GSettings *settings;
         GSettings *wm_settings;
 
-        settings = g_settings_new ("org.gnome.desktop.interface");
-        wm_settings = g_settings_new ("org.gnome.desktop.wm.preferences");
+        settings = g_settings_new ("org.cinnamon.desktop.interface");
+        wm_settings = g_settings_new ("org.cinnamon.desktop.wm.preferences");
 
         if (enabled) {
                 g_settings_set_string (settings, KEY_GTK_THEME, HIGH_CONTRAST_THEME);

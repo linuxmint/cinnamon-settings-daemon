@@ -31,7 +31,7 @@
 #include <gudev/gudev.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
+#include <libcinnamon-desktop/gnome-rr.h>
 
 #include "csd-input-helper.h"
 #include "cinnamon-settings-profile.h"

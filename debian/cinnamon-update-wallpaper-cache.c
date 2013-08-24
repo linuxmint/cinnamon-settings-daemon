@@ -22,7 +22,7 @@
 #include <glib.h>
 #include <gdk/gdk.h>
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-bg.h>
+#include <libcinnamon-desktop/gnome-bg.h>
 
 static GOptionEntry entries[] =
 {

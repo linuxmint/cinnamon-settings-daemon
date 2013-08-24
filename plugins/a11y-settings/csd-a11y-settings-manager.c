@@ -91,8 +91,8 @@ csd_a11y_settings_manager_start (CsdA11ySettingsManager *manager,
         g_debug ("Starting a11y_settings manager");
         cinnamon_settings_profile_start (NULL);
 
-	manager->priv->interface_settings = g_settings_new ("org.gnome.desktop.interface");
-	manager->priv->a11y_apps_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
+	manager->priv->interface_settings = g_settings_new ("org.cinnamon.desktop.interface");
+	manager->priv->a11y_apps_settings = g_settings_new ("org.cinnamon.desktop.a11y.applications");
 
 	g_signal_connect (G_OBJECT (manager->priv->a11y_apps_settings), "changed",
 			  G_CALLBACK (apps_settings_changed), manager);

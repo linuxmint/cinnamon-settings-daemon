@@ -110,7 +110,7 @@ static const gchar kb_introspection_xml[] =
 "  </interface>"
 "</node>";
 
-#define SETTINGS_INTERFACE_DIR "org.gnome.desktop.interface"
+#define SETTINGS_INTERFACE_DIR "org.cinnamon.desktop.interface"
 #define SETTINGS_POWER_DIR "org.cinnamon.settings-daemon.plugins.power"
 #define SETTINGS_XSETTINGS_DIR "org.cinnamon.settings-daemon.plugins.xsettings"
 #define SETTINGS_TOUCHPAD_DIR "org.cinnamon.settings-daemon.peripherals.touchpad"
@@ -287,7 +287,7 @@ get_term_command (CsdMediaKeysManager *manager)
         char *cmd = NULL;
         GSettings *settings;
 
-        settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
+        settings = g_settings_new ("org.cinnamon.desktop.default-applications.terminal");
         cmd_term = g_settings_get_string (settings, "exec");
         if (cmd_term[0] == '\0')
                 cmd_term = g_strdup ("gnome-terminal");
@@ -651,7 +651,7 @@ do_terminal_action (CsdMediaKeysManager *manager)
         GSettings *settings;
         char *term;
 
-        settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
+        settings = g_settings_new ("org.cinnamon.desktop.default-applications.terminal");
         term = g_settings_get_string (settings, "exec");
 
         if (term)
@@ -1442,7 +1442,7 @@ do_toggle_accessibility_key (const char *key)
         GSettings *settings;
         gboolean state;
 
-        settings = g_settings_new ("org.gnome.desktop.a11y.applications");
+        settings = g_settings_new ("org.cinnamon.desktop.a11y.applications");
         state = g_settings_get_boolean (settings, key);
         g_settings_set_boolean (settings, key, !state);
         g_object_unref (settings);
@@ -1515,7 +1515,7 @@ do_magnifier_zoom_action (CsdMediaKeysManager *manager,
 	else
 		offset = -1.0;
 
-	settings = g_settings_new ("org.gnome.desktop.a11y.magnifier");
+	settings = g_settings_new ("org.cinnamon.desktop.a11y.magnifier");
 	value = g_settings_get_double (settings, "mag-factor");
 	value += offset;
 	value = roundl (value);

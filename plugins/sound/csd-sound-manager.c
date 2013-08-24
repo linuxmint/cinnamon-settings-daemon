@@ -207,7 +207,7 @@ settings_changed_cb (GSettings       *settings,
 static void
 register_config_callback (CsdSoundManager *manager)
 {
-	manager->priv->settings = g_settings_new ("org.gnome.desktop.sound");
+	manager->priv->settings = g_settings_new ("org.cinnamon.desktop.sound");
 	g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
 			  G_CALLBACK (settings_changed_cb), manager);
 }

@@ -28,7 +28,7 @@
 #include "csd-enums.h"
 #include "csd-keygrab.h"
 
-#define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
+#define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.cinnamon.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 

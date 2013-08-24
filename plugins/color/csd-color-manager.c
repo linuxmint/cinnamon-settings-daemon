@@ -30,7 +30,7 @@
 #include <canberra-gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
+#include <libcinnamon-desktop/gnome-rr.h>
 
 #include "cinnamon-settings-profile.h"
 #include "cinnamon-settings-session.h"

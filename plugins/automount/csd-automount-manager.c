@@ -492,7 +492,7 @@ csd_automount_manager_start (CsdAutomountManager *manager,
         g_debug ("Starting automounting manager");
         cinnamon_settings_profile_start (NULL);
 
-        manager->priv->settings = g_settings_new ("org.gnome.desktop.media-handling");
+        manager->priv->settings = g_settings_new ("org.cinnamon.desktop.media-handling");
         setup_automounter (manager);
 
         cinnamon_settings_profile_end (NULL);

@@ -27,7 +27,7 @@
 #include <string.h>
 #include <gio/gio.h>
 #include <stdlib.h>
-#include <libgnome-desktop/gnome-pnp-ids.h>
+#include <libcinnamon-desktop/gnome-pnp-ids.h>
 
 #include "gcm-edid.h"
 

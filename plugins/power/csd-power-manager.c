@@ -34,7 +34,7 @@
 #include <canberra-gtk.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
+#include <libcinnamon-desktop/gnome-rr.h>
 
 #include "gpm-common.h"
 #include "gpm-phone.h"
@@ -3847,7 +3847,7 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->settings = g_settings_new (CSD_POWER_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
-        manager->priv->settings_screensaver = g_settings_new ("org.gnome.desktop.screensaver");
+        manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
         manager->priv->up_client = up_client_new ();
         g_signal_connect (manager->priv->up_client, "notify-sleep",
                           G_CALLBACK (upower_notify_sleep_cb), manager);

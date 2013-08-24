@@ -39,7 +39,7 @@
 #include <gdk/gdkx.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-bg.h>
+#include <libcinnamon-desktop/gnome-bg.h>
 #include <X11/Xatom.h>
 
 #include "cinnamon-settings-profile.h"
@@ -515,7 +515,7 @@ csd_background_manager_start (CsdBackgroundManager *manager,
         g_debug ("Starting background manager");
         cinnamon_settings_profile_start (NULL);
 
-        manager->priv->settings = g_settings_new ("org.gnome.desktop.background");
+        manager->priv->settings = g_settings_new ("org.cinnamon.desktop.background");
         manager->priv->plugin_settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.background");
         manager->priv->nemo_settings = g_settings_new ("org.nemo.desktop");
 

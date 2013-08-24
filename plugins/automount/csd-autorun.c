@@ -150,7 +150,7 @@ csd_autorun_get_preferences (const char *x_content_type,
 	g_return_if_fail (pref_ignore != NULL);
 	g_return_if_fail (pref_open_folder != NULL);
 
-        settings = g_settings_new ("org.gnome.desktop.media-handling");
+        settings = g_settings_new ("org.cinnamon.desktop.media-handling");
 
 	*pref_start_app = FALSE;
 	*pref_ignore = FALSE;
@@ -231,7 +231,7 @@ csd_autorun_set_preferences (const char *x_content_type,
 
 	g_assert (x_content_type != NULL);
 
-	settings = g_settings_new ("org.gnome.desktop.media-handling");
+	settings = g_settings_new ("org.cinnamon.desktop.media-handling");
 
 	x_content_start_app = g_settings_get_strv (settings, "autorun-x-content-start-app");
 	x_content_ignore = g_settings_get_strv (settings, "autorun-x-content-ignore");

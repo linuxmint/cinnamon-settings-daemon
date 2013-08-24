@@ -33,7 +33,7 @@
 #define INTERVAL_TWO_MINUTES 2*60
 
 /* Thumbnail cleaner */
-#define THUMB_PREFIX "org.gnome.desktop.thumbnail-cache"
+#define THUMB_PREFIX "org.cinnamon.desktop.thumbnail-cache"
 
 #define THUMB_AGE_KEY "maximum-age"
 #define THUMB_SIZE_KEY "maximum-size"

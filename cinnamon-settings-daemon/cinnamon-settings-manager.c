@@ -31,7 +31,7 @@
 #include <gio/gio.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-pnp-ids.h>
+#include <libcinnamon-desktop/gnome-pnp-ids.h>
 
 #include "cinnamon-settings-plugin-info.h"
 #include "cinnamon-settings-manager.h"

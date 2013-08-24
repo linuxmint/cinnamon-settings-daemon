@@ -45,7 +45,7 @@
 #include "csd-a11y-keyboard-manager.h"
 #include "csd-a11y-preferences-dialog.h"
 
-#define KEYBOARD_A11Y_SCHEMA "org.gnome.desktop.a11y.keyboard"
+#define KEYBOARD_A11Y_SCHEMA "org.cinnamon.desktop.a11y.keyboard"
 #define NOTIFICATION_TIMEOUT 30
 
 #define CSD_A11Y_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_A11Y_KEYBOARD_MANAGER, CsdA11yKeyboardManagerPrivate))

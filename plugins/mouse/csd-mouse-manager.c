@@ -1203,7 +1203,7 @@ csd_mouse_manager_idle_cb (CsdMouseManager *manager)
         g_signal_connect (manager->priv->mouse_settings, "changed",
                           G_CALLBACK (mouse_callback), manager);
 
-        manager->priv->mouse_a11y_settings = g_settings_new ("org.gnome.desktop.a11y.mouse");
+        manager->priv->mouse_a11y_settings = g_settings_new ("org.cinnamon.desktop.a11y.mouse");
         g_signal_connect (manager->priv->mouse_a11y_settings, "changed",
                           G_CALLBACK (mouse_callback), manager);
 

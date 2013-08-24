@@ -48,8 +48,8 @@
 #define CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerPrivate))
 
 #define MOUSE_SETTINGS_SCHEMA     "org.cinnamon.settings-daemon.peripherals.mouse"
-#define INTERFACE_SETTINGS_SCHEMA "org.gnome.desktop.interface"
-#define SOUND_SETTINGS_SCHEMA     "org.gnome.desktop.sound"
+#define INTERFACE_SETTINGS_SCHEMA "org.cinnamon.desktop.interface"
+#define SOUND_SETTINGS_SCHEMA     "org.cinnamon.desktop.sound"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.cinnamon.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
@@ -336,35 +336,35 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
         { "org.cinnamon.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
 
-        { "org.gnome.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
-        { "org.gnome.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-key-theme",          "Gtk/KeyThemeName",        translate_string_string },
-        { "org.gnome.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string_toolbar },
-        { "org.gnome.desktop.interface", "toolbar-icons-size",     "Gtk/ToolbarIconSize",     translate_string_string },
-        { "org.gnome.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
-        { "org.gnome.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
-        { "org.gnome.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
-        { "org.gnome.desktop.interface", "cursor-blink-timeout",   "Gtk/CursorBlinkTimeout",  translate_int_int },
-        { "org.gnome.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-timeout-initial",    "Gtk/TimeoutInitial",      translate_int_int },
-        { "org.gnome.desktop.interface", "gtk-timeout-repeat",     "Gtk/TimeoutRepeat",       translate_int_int },
-        { "org.gnome.desktop.interface", "gtk-color-scheme",       "Gtk/ColorScheme",         translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
-        { "org.gnome.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
-        { "org.gnome.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
+        { "org.cinnamon.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
+        { "org.cinnamon.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },
+        { "org.cinnamon.desktop.interface", "gtk-key-theme",          "Gtk/KeyThemeName",        translate_string_string },
+        { "org.cinnamon.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string_toolbar },
+        { "org.cinnamon.desktop.interface", "toolbar-icons-size",     "Gtk/ToolbarIconSize",     translate_string_string },
+        { "org.cinnamon.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
+        { "org.cinnamon.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
+        { "org.cinnamon.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
+        { "org.cinnamon.desktop.interface", "cursor-blink-timeout",   "Gtk/CursorBlinkTimeout",  translate_int_int },
+        { "org.cinnamon.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
+        { "org.cinnamon.desktop.interface", "gtk-timeout-initial",    "Gtk/TimeoutInitial",      translate_int_int },
+        { "org.cinnamon.desktop.interface", "gtk-timeout-repeat",     "Gtk/TimeoutRepeat",       translate_int_int },
+        { "org.cinnamon.desktop.interface", "gtk-color-scheme",       "Gtk/ColorScheme",         translate_string_string },
+        { "org.cinnamon.desktop.interface", "gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      translate_string_string },
+        { "org.cinnamon.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
+        { "org.cinnamon.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
+        { "org.cinnamon.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "menus-have-icons", "Gtk/MenuImages",          translate_bool_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "buttons-have-icons",     "Gtk/ButtonImages",        translate_bool_int },
-        { "org.gnome.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
-        { "org.gnome.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
-        { "org.gnome.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
-        { "org.gnome.desktop.interface", "cursor-size",            "Gtk/CursorThemeSize",     translate_int_int },
+        { "org.cinnamon.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
+        { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
+        { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
+        { "org.cinnamon.desktop.interface", "cursor-size",            "Gtk/CursorThemeSize",     translate_int_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
-        { "org.gnome.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
-        { "org.gnome.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
-        { "org.gnome.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
+        { "org.cinnamon.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
+        { "org.cinnamon.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
+        { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
 };
 
 static gboolean

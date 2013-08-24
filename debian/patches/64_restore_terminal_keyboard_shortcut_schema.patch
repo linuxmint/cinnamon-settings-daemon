@@ -27,7 +27,7 @@ Index: cinnamon-settings-daemon-3.6.1/plugins/media-keys/csd-media-keys-manager.
 +        GSettings *settings;
 +        char *term;
 +
-+        settings = g_settings_new ("org.gnome.desktop.default-applications.terminal");
++        settings = g_settings_new ("org.cinnamon.desktop.default-applications.terminal");
 +        term = g_settings_get_string (settings, "exec");
 +
 +        if (term)
