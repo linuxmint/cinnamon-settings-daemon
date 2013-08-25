@@ -214,7 +214,7 @@ else
 fi
 AM_CONDITIONAL(HAVE_IBUS, test "x$enable_ibus" == "xyes")
 
-PKG_CHECK_MODULES(KEYBOARD, xkbfile $IBUS_MODULE gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+PKG_CHECK_MODULES(KEYBOARD, xkbfile $IBUS_MODULE cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Housekeeping plugin stuff
