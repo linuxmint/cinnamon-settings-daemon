@@ -207,7 +207,7 @@ set_locale (GDBusProxy *proxy)
         gchar *region;
 
         /* Set locale environment */
-        locale_settings = g_settings_new ("org.gnome.system.locale");
+        locale_settings = g_settings_new ("org.cinnamon.system.locale");
         region = g_settings_get_string (locale_settings, "region");
         if (region[0]) {
                 /* Only set the locale settings if the user has ever customized them */
