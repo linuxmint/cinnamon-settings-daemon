@@ -2431,10 +2431,7 @@ get_primary_output (CsdPowerManager *manager)
                 goto out;
 
         for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_laptop (outputs[i]) &&
-                    gnome_rr_output_get_backlight_min (outputs[i]) >= 0 &&
-                    gnome_rr_output_get_backlight_max (outputs[i]) > 0) {
+                if (gnome_rr_output_is_builtin_display (outputs[i])) {
                         output = outputs[i];
                         break;
                 }
@@ -2585,8 +2582,7 @@ backlight_get_abs (CsdPowerManager *manager, GError **error)
         /* prefer xbacklight */
         output = get_primary_output (manager);
         if (output != NULL) {
-                return gnome_rr_output_get_backlight (output,
-                                                      error);
+                return gnome_rr_output_get_backlight (output);
         }
 
         /* fall back to the polkit helper */
@@ -2605,13 +2601,10 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
         /* prefer xbacklight */
         output = get_primary_output (manager);
         if (output != NULL) {
-
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
+                now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                         goto out;
-                value = ABS_TO_PERCENTAGE (min, max, now);
+                value = ABS_TO_PERCENTAGE (0, 100, now);
                 goto out;
         }
 
@@ -2625,44 +2618,6 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
         value = ABS_TO_PERCENTAGE (min, max, now);
 out:
         return value;
-}
-
-static gint
-backlight_get_min (CsdPowerManager *manager)
-{
-        GnomeRROutput *output;
-
-        /* if we have no xbacklight device, then hardcode zero as sysfs
-         * offsets everything to 0 as min */
-        output = get_primary_output (manager);
-        if (output == NULL)
-                return 0;
-
-        /* get xbacklight value, which maybe non-zero */
-        return gnome_rr_output_get_backlight_min (output);
-}
-
-static gint
-backlight_get_max (CsdPowerManager *manager, GError **error)
-{
-        gint value;
-        GnomeRROutput *output;
-
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
-                value = gnome_rr_output_get_backlight_max (output);
-                if (value < 0) {
-                        g_set_error (error,
-                                     CSD_POWER_MANAGER_ERROR,
-                                     CSD_POWER_MANAGER_ERROR_FAILED,
-                                     "failed to get backlight max");
-                }
-                return value;
-        }
-
-        /* fall back to the polkit helper */
-        return  backlight_helper_get_value ("get-max-brightness", error);
 }
 
 static void
@@ -2702,13 +2657,7 @@ backlight_set_percentage (CsdPowerManager *manager,
         /* prefer xbacklight */
         output = get_primary_output (manager);
         if (output != NULL) {
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                if (min < 0 || max < 0) {
-                        g_warning ("no xrandr backlight capability");
-                        goto out;
-                }
-                discrete = PERCENTAGE_TO_ABS (min, max, value);
+                discrete = PERCENTAGE_TO_ABS (0, 100, value);
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
                                                      error);
@@ -2755,12 +2704,10 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
                                      gnome_rr_output_get_name (output));
                         goto out;
                 }
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
+                now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                        goto out;
-                step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+                step = BRIGHTNESS_STEP_AMOUNT (100 - 0 + 1);
                 discrete = MIN (now + step, max);
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
@@ -2816,12 +2763,10 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
                                      gnome_rr_output_get_name (output));
                         goto out;
                 }
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
+                now = gnome_rr_output_get_backlight (output);
                 if (now < 0)
                        goto out;
-                step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+                step = BRIGHTNESS_STEP_AMOUNT (100 - 0 + 1);
                 discrete = MAX (now - step, 0);
                 ret = gnome_rr_output_set_backlight (output,
                                                      discrete,
@@ -2897,16 +2842,11 @@ display_backlight_dim (CsdPowerManager *manager,
 
         /* is the dim brightness actually *dimmer* than the
          * brightness we have now? */
-        min = backlight_get_min (manager);
-        max = backlight_get_max (manager, error);
-        if (max < 0) {
-                goto out;
-        }
-        idle = PERCENTAGE_TO_ABS (min, max, idle_percentage);
+        idle = PERCENTAGE_TO_ABS (0, 100, idle_percentage);
         if (idle > now) {
                 g_debug ("brightness already now %i/%i, so "
                          "ignoring dim to %i/%i",
-                         now, max, idle, max);
+                         now, 100, idle, 100);
                 ret = TRUE;
                 goto out;
         }
