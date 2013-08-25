@@ -43,7 +43,7 @@
 #include <X11/extensions/XKBrules.h>
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-xkb-info.h>
+#include <libcinnamon-desktop/gnome-xkb-info.h>
 
 #ifdef HAVE_IBUS
 #include <ibus.h>
@@ -73,13 +73,13 @@
 
 #define KEY_SWITCHER "input-sources-switcher"
 
-#define GNOME_DESKTOP_INTERFACE_DIR "org.gnome.desktop.interface"
+#define GNOME_DESKTOP_INTERFACE_DIR "org.cinnamon.desktop.interface"
 
 #define KEY_GTK_IM_MODULE    "gtk-im-module"
 #define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
 #define GTK_IM_MODULE_IBUS   "ibus"
 
-#define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
+#define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.cinnamon.desktop.input-sources"
 
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"

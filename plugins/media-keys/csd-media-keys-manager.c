@@ -120,7 +120,7 @@ static const gchar kb_introspection_xml[] =
 #define VOLUME_STEP 6           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
 
-#define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
+#define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.cinnamon.desktop.input-sources"
 #define KEY_CURRENT_INPUT_SOURCE "current"
 #define KEY_INPUT_SOURCES        "sources"
 
