@@ -50,8 +50,6 @@
 struct CsdBackgroundManagerPrivate
 {
         GSettings   *settings;
-        GSettings   *plugin_settings;
-        GSettings   *nemo_settings;
         GnomeBG     *bg;
 
         GnomeBGCrossfade *fade;
@@ -71,110 +69,6 @@ G_DEFINE_TYPE (CsdBackgroundManager, csd_background_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static gboolean
-dont_draw_background (CsdBackgroundManager *manager)
-{
-        return !g_settings_get_boolean (manager->priv->plugin_settings,
-                                        "draw-background");
-}
-
-static gboolean
-nemo_is_drawing_background (CsdBackgroundManager *manager)
-{
-       Atom           window_id_atom;
-       Window         nemo_xid;
-       Atom           actual_type;
-       int            actual_format;
-       unsigned long  nitems;
-       unsigned long  bytes_after;
-       unsigned char *data;
-       Atom           wmclass_atom;
-       gboolean       running;
-       gint           error;
-       gboolean       show_desktop_icons;
-
-       show_desktop_icons = g_settings_get_boolean (manager->priv->nemo_settings,
-                                                     "show-desktop-icons");
-       if (! show_desktop_icons) {
-               return FALSE;
-       }
-
-       window_id_atom = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                     "NEMO_DESKTOP_WINDOW_ID", True);
-
-       if (window_id_atom == None) {
-               return FALSE;
-       }
-
-       XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                           GDK_ROOT_WINDOW (),
-                           window_id_atom,
-                           0,
-                           1,
-                           False,
-                           XA_WINDOW,
-                           &actual_type,
-                           &actual_format,
-                           &nitems,
-                           &bytes_after,
-                           &data);
-
-       if (data != NULL) {
-               nemo_xid = *(Window *) data;
-               XFree (data);
-       } else {
-               return FALSE;
-       }
-
-       if (actual_type != XA_WINDOW) {
-               return FALSE;
-       }
-       if (actual_format != 32) {
-               return FALSE;
-       }
-
-       wmclass_atom = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "WM_CLASS", False);
-
-       gdk_error_trap_push ();
-
-       XGetWindowProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                           nemo_xid,
-                           wmclass_atom,
-                           0,
-                           24,
-                           False,
-                           XA_STRING,
-                           &actual_type,
-                           &actual_format,
-                           &nitems,
-                           &bytes_after,
-                           &data);
-
-       error = gdk_error_trap_pop ();
-
-       if (error == BadWindow) {
-               return FALSE;
-       }
-
-       if (actual_type == XA_STRING &&
-           nitems == 24 &&
-           bytes_after == 0 &&
-           actual_format == 8 &&
-           data != NULL &&
-           !strcmp ((char *)data, "desktop_window") &&
-           !strcmp ((char *)data + strlen ((char *)data) + 1, "Nemo")) {
-               running = TRUE;
-       } else {
-               running = FALSE;
-       }
-
-       if (data != NULL) {
-               XFree (data);
-       }
-
-       return running;
-}
-
 static void
 on_crossfade_finished (CsdBackgroundManager *manager)
 {
@@ -189,12 +83,6 @@ draw_background (CsdBackgroundManager *manager,
         GdkDisplay *display;
         int         n_screens;
         int         i;
-
-
-        if (nemo_is_drawing_background (manager) ||
-            dont_draw_background (manager)) {
-                return;
-        }
 
         cinnamon_settings_profile_start (NULL);
 
@@ -406,15 +294,6 @@ connect_screen_signals (CsdBackgroundManager *manager)
 }
 
 static void
-draw_background_changed (GSettings            *settings,
-                         const char           *key,
-                         CsdBackgroundManager *manager)
-{
-        if (dont_draw_background (manager) == FALSE)
-                setup_bg_and_draw_background (manager);
-}
-
-static void
 set_accountsservice_background (const gchar *background)
 {
   GDBusProxy *proxy = NULL;
@@ -516,29 +395,11 @@ csd_background_manager_start (CsdBackgroundManager *manager,
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.cinnamon.desktop.background");
-        manager->priv->plugin_settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.background");
-        manager->priv->nemo_settings = g_settings_new ("org.nemo.desktop");
 
-        g_signal_connect (manager->priv->plugin_settings, "changed::draw-background",
-                          G_CALLBACK (draw_background_changed), manager);
         g_signal_connect (manager->priv->settings, "changed::picture-uri",
                           G_CALLBACK (picture_uri_changed), manager);
 
-        /* If this is set, nemo will draw the background and is
-	 * almost definitely in our session.  however, it may not be
-	 * running yet (so is_nemo_running() will fail).  so, on
-	 * startup, just don't do anything if this key is set so we
-	 * don't waste time setting the background only to have
-	 * nemo overwrite it.
-	 */
-        show_desktop_icons = g_settings_get_boolean (manager->priv->nemo_settings,
-                                                     "show-desktop-icons");
-
-        if (!show_desktop_icons) {
-                setup_bg (manager);
-        } else {
-                draw_background_after_session_loads (manager);
-        }
+        draw_background_after_session_loads (manager);
 
         cinnamon_settings_profile_end (NULL);
 
@@ -566,16 +427,6 @@ csd_background_manager_stop (CsdBackgroundManager *manager)
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
-        }
-
-        if (p->nemo_settings != NULL) {
-                g_object_unref (p->nemo_settings);
-                p->nemo_settings = NULL;
-        }
-
-        if (p->plugin_settings != NULL) {
-                g_object_unref (p->plugin_settings);
-                p->plugin_settings = NULL;
         }
 
         if (p->bg != NULL) {

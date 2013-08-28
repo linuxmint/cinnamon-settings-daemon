@@ -10,10 +10,5 @@
       <_summary>Priority to use for this plugin</_summary>
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
-    <key name="draw-background" type="b">
-      <default>true</default>
-      <_summary>Whether to draw the desktop background</_summary>
-      <_description>Whether to draw the desktop background</_description>
-    </key>
   </schema>
 </schemalist>
