@@ -293,98 +293,6 @@ connect_screen_signals (CsdBackgroundManager *manager)
         }
 }
 
-static void
-set_accountsservice_background (const gchar *background)
-{
-  GDBusProxy *proxy = NULL;
-  GDBusProxy *user = NULL;
-  GVariant *variant = NULL;
-  GError *error = NULL;
-  gchar *object_path = NULL;
-
-  proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                         G_DBUS_PROXY_FLAGS_NONE,
-                                         NULL,
-                                         "org.freedesktop.Accounts",
-                                         "/org/freedesktop/Accounts",
-                                         "org.freedesktop.Accounts",
-                                         NULL,
-                                         &error);
-
-  if (proxy == NULL) {
-    g_warning ("Failed to contact accounts service: %s", error->message);
-    g_error_free (error);
-    return;
-  }
-
-  variant = g_dbus_proxy_call_sync (proxy,
-                                    "FindUserByName",
-                                    g_variant_new ("(s)", g_get_user_name ()),
-                                    G_DBUS_CALL_FLAGS_NONE,
-                                    -1,
-                                    NULL,
-                                    &error);
-
-  if (variant == NULL) {
-    g_warning ("Could not contact accounts service to look up '%s': %s",
-               g_get_user_name (), error->message);
-    g_error_free (error);
-    goto bail;
-  }
-
-  g_variant_get (variant, "(o)", &object_path);
-  user = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                        G_DBUS_PROXY_FLAGS_NONE,
-                                        NULL,
-                                        "org.freedesktop.Accounts",
-                                        object_path,
-                                        "org.freedesktop.Accounts.User",
-                                        NULL,
-                                        &error);
-  g_free (object_path);
-
-  if (user == NULL) {
-    g_warning ("Could not create proxy for user '%s': %s",
-               g_variant_get_string (variant, NULL), error->message);
-    g_error_free (error);
-    goto bail;
-  }
-  g_variant_unref (variant);
-
-  variant = g_dbus_proxy_call_sync (user,
-                                    "SetBackgroundFile",
-                                    g_variant_new ("(s)", background ? background : ""),
-                                    G_DBUS_CALL_FLAGS_NONE,
-                                    -1,
-                                    NULL,
-                                    &error);
-
-  if (variant == NULL) {
-    g_warning ("Failed to set the background '%s': %s", background, error->message);
-    g_error_free (error);
-    goto bail;
-  }
-
-bail:
-  if (proxy != NULL)
-    g_object_unref (proxy);
-  if (variant != NULL)
-    g_variant_unref (variant);
-}
-
-static void
-picture_uri_changed (GSettings            *settings,
-                     const char           *key,
-                     CsdBackgroundManager *manager)
-{
-        const char *picture_uri = g_settings_get_string (settings, key);
-        GFile *picture_file = g_file_new_for_uri (picture_uri);
-        char *picture_path = g_file_get_path (picture_file);
-        set_accountsservice_background (picture_path);
-        g_free (picture_path);
-        g_object_unref (picture_file);
-}
-
 gboolean
 csd_background_manager_start (CsdBackgroundManager *manager,
                               GError              **error)
@@ -395,9 +303,6 @@ csd_background_manager_start (CsdBackgroundManager *manager,
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.cinnamon.desktop.background");
-
-        g_signal_connect (manager->priv->settings, "changed::picture-uri",
-                          G_CALLBACK (picture_uri_changed), manager);
 
         draw_background_after_session_loads (manager);
 
