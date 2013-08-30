@@ -970,8 +970,6 @@ gcm_session_get_x11_output_by_id (CsdColorManager *manager,
                 goto out;
         }
         for (i = 0; outputs[i] != NULL && output == NULL; i++) {
-                if (!gnome_rr_output_is_connected (outputs[i]))
-                        continue;
                 output_id = gcm_session_get_output_id (manager, outputs[i]);
                 if (g_strcmp0 (output_id, device_id) == 0)
                         output = outputs[i];
@@ -1008,8 +1006,6 @@ gcm_session_use_output_profile_for_screen (CsdColorManager *manager,
                 return FALSE;
         }
         for (i = 0; outputs[i] != NULL; i++) {
-                if (!gnome_rr_output_is_connected (outputs[i]))
-                        continue;
                 if (connected == NULL)
                         connected = outputs[i];
                 if (gnome_rr_output_get_is_primary (outputs[i]))
@@ -1605,9 +1601,6 @@ cinnamon_rr_screen_output_changed_cb (GnomeRRScreen *screen,
                 return;
         }
         for (i = 0; outputs[i] != NULL; i++) {
-                if (!gnome_rr_output_is_connected (outputs[i]))
-                        continue;
-
                 /* get CdDevice for this output */
                 cd_client_find_device_by_property (manager->priv->client,
                                                    CD_DEVICE_METADATA_XRANDR_NAME,
@@ -1667,8 +1660,7 @@ gcm_session_client_connect_cb (GObject *source_object,
                 goto out;
         }
         for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_connected (outputs[i]))
-                        gcm_session_add_x11_output (manager, outputs[i]);
+                gcm_session_add_x11_output (manager, outputs[i]);
         }
 
         /* only connect when colord is awake */
