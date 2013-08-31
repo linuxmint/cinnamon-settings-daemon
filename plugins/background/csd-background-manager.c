@@ -167,7 +167,8 @@ on_bg_changed (GnomeBG              *bg,
 static void
 setup_bg (CsdBackgroundManager *manager)
 {
-        g_return_if_fail (manager->priv->bg == NULL);
+        if (manager->priv->bg != NULL)
+            return;
 
         manager->priv->bg = gnome_bg_new ();
 
