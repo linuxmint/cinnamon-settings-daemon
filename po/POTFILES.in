@@ -2,7 +2,6 @@
 # Please keep this file in alphabetical order.
 data/cinnamon-settings-daemon.desktop.in.in
 data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in
-data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in
@@ -11,7 +10,6 @@ data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in
-data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in
 cinnamon-settings-daemon/main.c
@@ -46,10 +44,6 @@ plugins/print-notifications/gsd-print-notifications-manager.c
 [type: gettext/ini]plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in
 plugins/smartcard/gsd-smartcard.c
 plugins/smartcard/gsd-smartcard-manager.c
-plugins/updates/gsd-updates-firmware.c
-plugins/updates/gsd-updates-manager.c
-plugins/wacom/gsd-wacom-device.c
-plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in.in
 plugins/xrandr/gsd-xrandr-manager.c
 [type: gettext/ini]plugins/xrandr/xrandr.cinnamon-settings-plugin.in
 plugins/xsettings/gsd-xsettings-manager.c
