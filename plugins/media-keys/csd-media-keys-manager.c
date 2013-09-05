@@ -841,7 +841,7 @@ update_dialog (CsdMediaKeysManager *manager,
                gboolean             muted,
                gboolean             sound_changed,
                gboolean             quiet)
-{
+{    
         vol = CLAMP (vol, 0, 100);
 
         dialog_init (manager);
@@ -853,14 +853,16 @@ update_dialog (CsdMediaKeysManager *manager,
         dialog_show (manager);
 
 done:
-        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
-                ca_context_change_device (manager->priv->ca,
-                                          gvc_mixer_stream_get_name (stream));
-                ca_context_play (manager->priv->ca, 1,
-                                        CA_PROP_EVENT_ID, "audio-volume-change",
-                                        CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
-                                        CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
-                                        NULL);
+        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {                            
+                GSettings *settings = g_settings_new ("org.cinnamon.desktop.sound");
+                gboolean enabled = g_settings_get_boolean (settings, "volume-sound-enabled");
+                char *sound = g_settings_get_string (settings, "volume-sound-file");                
+                if (enabled) {
+                    ca_context_change_device (manager->priv->ca, gvc_mixer_stream_get_name (stream));
+                    ca_context_play (manager->priv->ca, 1, CA_PROP_MEDIA_FILENAME, sound, NULL);
+                }
+                g_free(sound);
+                g_object_unref (settings);
         }
 }
 
@@ -1037,18 +1039,18 @@ do_sound_action (CsdMediaKeysManager *manager,
         update_dialog (manager, stream, osd_vol, new_muted, sound_changed, quiet);
 }
 
-static void
-sound_theme_changed (GtkSettings         *settings,
-                     GParamSpec          *pspec,
-                     CsdMediaKeysManager *manager)
-{
-        char *theme_name;
+// static void
+// sound_theme_changed (GtkSettings         *settings,
+//                      GParamSpec          *pspec,
+//                      CsdMediaKeysManager *manager)
+// {
+//         char *theme_name;
 
-        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
-        if (theme_name)
-                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
-        g_free (theme_name);
-}
+//         g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
+//         if (theme_name)
+//                 ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
+//         g_free (theme_name);
+// }
 
 static void
 update_default_sink (CsdMediaKeysManager *manager)
@@ -2025,7 +2027,7 @@ static gboolean
 start_media_keys_idle_cb (CsdMediaKeysManager *manager)
 {
         GSList *l;
-        char *theme_name;
+        //char *theme_name;
 
         g_debug ("Starting media_keys manager");
         cinnamon_settings_profile_start (NULL);
@@ -2044,12 +2046,12 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
                                  CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
                                  NULL);
         manager->priv->gtksettings = gtk_settings_get_for_screen (gdk_screen_get_default ());
-        g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
-        if (theme_name)
-                ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
-        g_free (theme_name);
-        g_signal_connect (manager->priv->gtksettings, "notify::gtk-sound-theme-name",
-                          G_CALLBACK (sound_theme_changed), manager);
+        //g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
+        //if (theme_name)
+        //        ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
+        //g_free (theme_name);
+        //g_signal_connect (manager->priv->gtksettings, "notify::gtk-sound-theme-name",
+        //                  G_CALLBACK (sound_theme_changed), manager);
 
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
@@ -2165,7 +2167,7 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         }
 
         if (manager->priv->gtksettings != NULL) {
-                g_signal_handlers_disconnect_by_func (manager->priv->gtksettings, sound_theme_changed, manager);
+                //g_signal_handlers_disconnect_by_func (manager->priv->gtksettings, sound_theme_changed, manager);
                 manager->priv->gtksettings = NULL;
         }
 
