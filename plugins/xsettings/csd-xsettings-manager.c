@@ -241,11 +241,6 @@ struct CinnamonSettingsXSettingsManagerPrivate
 
         CsdXSettingsGtk   *gtk;
 
-        guint              shell_name_watch_id;
-        guint              unity_name_watch_id;
-        gboolean           have_shell;
-        gboolean           have_unity;
-
         guint              notify_idle_id;
 };
 
@@ -704,70 +699,6 @@ stop_fontconfig_monitor (CinnamonSettingsXSettingsManager  *manager)
 }
 
 static void
-notify_have_shell (CinnamonSettingsXSettingsManager   *manager)
-{
-        int i;
-
-        cinnamon_settings_profile_start (NULL);
-        for (i = 0; manager->priv->managers [i]; i++) {
-                /* Shell is showing appmenu if either GNOME Shell or Unity is running. */
-                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsAppMenu",
-                                           manager->priv->have_shell || manager->priv->have_unity);
-                /* Shell is showing menubar *only* if Unity runs */
-                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsMenubar",
-                                           manager->priv->have_unity);
-        }
-        queue_notify (manager);
-        cinnamon_settings_profile_end (NULL);
-}
-
-static void
-on_shell_appeared (GDBusConnection *connection,
-                   const gchar     *name,
-                   const gchar     *name_owner,
-                   gpointer         user_data)
-{
-        CinnamonSettingsXSettingsManager *manager = user_data;
-
-        manager->priv->have_shell = TRUE;
-        notify_have_shell (manager);
-}
-
-static void
-on_shell_disappeared (GDBusConnection *connection,
-                      const gchar     *name,
-                      gpointer         user_data)
-{
-        CinnamonSettingsXSettingsManager *manager = user_data;
-
-        manager->priv->have_shell = FALSE;
-        notify_have_shell (manager);
-}
-
-static void
-on_unity_appeared (GDBusConnection *connection,
-                   const gchar     *name,
-                   const gchar     *name_owner,
-                   gpointer         user_data)
-{
-        CinnamonSettingsXSettingsManager *manager = user_data;
-
-        manager->priv->have_unity = TRUE;
-        notify_have_shell (manager);
-}
-
-static void
-on_unity_disappeared (GDBusConnection *connection,
-                      const gchar     *name,
-                      gpointer         user_data)
-{
-        CinnamonSettingsXSettingsManager *manager = user_data;
-
-        manager->priv->have_unity = FALSE;
-        notify_have_shell (manager);
-}
-
-static void
 process_value (CinnamonSettingsXSettingsManager *manager,
                TranslationEntry      *trans,
                GVariant              *value)
@@ -884,34 +815,6 @@ setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
         return TRUE;
 }
 
-static void
-start_shell_monitor (CinnamonSettingsXSettingsManager *manager)
-{
-        notify_have_shell (manager);
-        manager->priv->have_shell = TRUE;
-        manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                               "org.Cinnamon",
-                                                               0,
-                                                               on_shell_appeared,
-                                                               on_shell_disappeared,
-                                                               manager,
-                                                               NULL);
-}
-
-static void
-start_unity_monitor (CinnamonSettingsXSettingsManager *manager)
-{
-        notify_have_shell (manager);
-        manager->priv->have_unity = TRUE;
-        manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                               "com.canonical.AppMenu.Registrar",
-                                                               0,
-                                                               on_unity_appeared,
-                                                               on_unity_disappeared,
-                                                               manager,
-                                                               NULL);
-}
-
 gboolean
 cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                                GError               **error)
@@ -979,21 +882,23 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
 
         start_fontconfig_monitor (manager);
 
-        start_shell_monitor (manager);
-        start_unity_monitor (manager);
-
-        for (i = 0; manager->priv->managers [i]; i++)
+        overrides = g_settings_get_value (manager->priv->plugin_settings, XSETTINGS_OVERRIDE_KEY);
+        for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_string (manager->priv->managers [i],
                                               "Net/FallbackIconTheme",
                                               "gnome");
 
-        overrides = g_settings_get_value (manager->priv->plugin_settings, XSETTINGS_OVERRIDE_KEY);
-        for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_overrides (manager->priv->managers [i], overrides);
+
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsAppMenu",
+                                           FALSE);
+
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsMenubar",
+                                           FALSE);
         }
+
         queue_notify (manager);
         g_variant_unref (overrides);
-
 
         cinnamon_settings_profile_end (NULL);
 
@@ -1022,12 +927,6 @@ cinnamon_xsettings_manager_stop (CinnamonSettingsXSettingsManager *manager)
         }
 
         stop_fontconfig_monitor (manager);
-
-        if (manager->priv->shell_name_watch_id > 0)
-                g_bus_unwatch_name (manager->priv->shell_name_watch_id);
-
-        if (manager->priv->unity_name_watch_id > 0)
-                g_bus_unwatch_name (manager->priv->unity_name_watch_id);
 
         if (p->settings != NULL) {
                 g_hash_table_destroy (p->settings);
