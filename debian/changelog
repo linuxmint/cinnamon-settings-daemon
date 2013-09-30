@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (1.9.1) petra; urgency=low
+
+  * 1.9.1
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 30 Sep 2013 13:55:00 +0100
+
 cinnamon-settings-daemon (1.0.0) olivia; urgency=low
 
   * Initial functionality with Cinnamon
