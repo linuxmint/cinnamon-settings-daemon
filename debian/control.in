@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Linux Mint <root@linuxmint.com>
 Build-Depends: cdbs,
-               debhelper (>= 9),
+               debhelper (>= 8),
                gnome-pkg-tools,
                gtk-doc-tools,
                dh-autoreconf,
