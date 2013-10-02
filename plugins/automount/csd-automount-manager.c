@@ -317,9 +317,9 @@ do_initialize_session (CsdAutomountManager *manager)
         session_state_changed (manager->priv->session, NULL, manager);
 }
 
-#define SCREENSAVER_NAME "org.gnome.ScreenSaver"
-#define SCREENSAVER_PATH "/org/gnome/ScreenSaver"
-#define SCREENSAVER_INTERFACE "org.gnome.ScreenSaver"
+#define SCREENSAVER_NAME "org.cinnamon.ScreenSaver"
+#define SCREENSAVER_PATH "/org/cinnamon/ScreenSaver"
+#define SCREENSAVER_INTERFACE "org.cinnamon.ScreenSaver"
 
 static void
 screensaver_signal_callback (GDBusProxy *proxy,

@@ -45,9 +45,9 @@ typedef enum
     CSD_SMARTCARD_REMOVE_ACTION_FORCE_LOGOUT,
 } CsdSmartcardRemoveAction;
 
-#define SCREENSAVER_DBUS_NAME      "org.gnome.ScreenSaver"
+#define SCREENSAVER_DBUS_NAME      "org.cinnamon.ScreenSaver"
 #define SCREENSAVER_DBUS_PATH      "/"
-#define SCREENSAVER_DBUS_INTERFACE "org.gnome.ScreenSaver"
+#define SCREENSAVER_DBUS_INTERFACE "org.cinnamon.ScreenSaver"
 
 #define SM_DBUS_NAME      "org.gnome.SessionManager"
 #define SM_DBUS_PATH      "/org/gnome/SessionManager"

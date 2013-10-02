@@ -66,9 +66,9 @@
 #define CSD_POWER_DBUS_INTERFACE_SCREEN         "org.cinnamon.SettingsDaemon.Power.Screen"
 #define CSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.cinnamon.SettingsDaemon.Power.Keyboard"
 
-#define GS_DBUS_NAME                            "org.gnome.ScreenSaver"
-#define GS_DBUS_PATH                            "/org/gnome/ScreenSaver"
-#define GS_DBUS_INTERFACE                       "org.gnome.ScreenSaver"
+#define GS_DBUS_NAME                            "org.cinnamon.ScreenSaver"
+#define GS_DBUS_PATH                            "/org/cinnamon/ScreenSaver"
+#define GS_DBUS_INTERFACE                       "org.cinnamon.ScreenSaver"
 
 #define CSD_POWER_MANAGER_NOTIFY_TIMEOUT_NEVER          0 /* ms */
 #define CSD_POWER_MANAGER_NOTIFY_TIMEOUT_SHORT          10 * 1000 /* ms */
