@@ -1,4 +1,4 @@
-debian/tmp/etc
+debian/tmp/usr/share/applications
 debian/tmp/usr/lib/cinnamon-settings-daemon*
 debian/tmp/usr/share/icons
 debian/tmp/usr/share/locale

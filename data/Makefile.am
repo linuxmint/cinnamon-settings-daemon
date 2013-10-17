@@ -25,7 +25,7 @@ gsettings_SCHEMAS =							\
 @GSETTINGS_RULES@
 
 @INTLTOOL_DESKTOP_RULE@
-desktopdir = $(sysconfdir)/xdg/autostart
+desktopdir = $(datadir)/applications
 desktop_in_files = cinnamon-settings-daemon.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 

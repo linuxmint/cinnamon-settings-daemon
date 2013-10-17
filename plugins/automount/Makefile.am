@@ -23,7 +23,7 @@ cinnamon_fallback_mount_helper_LDADD =	\
 	$(AUTOMOUNT_LIBS)		\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
 
-autostartdir = $(sysconfdir)/xdg/autostart
+autostartdir = $(datadir)/applications
 autostart_in_files = cinnamon-fallback-mount-helper.desktop.in
 autostart_in_in_files = cinnamon-fallback-mount-helper.desktop.in.in
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
