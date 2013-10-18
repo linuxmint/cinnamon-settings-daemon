@@ -3362,10 +3362,6 @@ sleep_cb_screensaver_proxy_ready_cb (GObject *source_object,
                            G_DBUS_CALL_FLAGS_NONE, -1,
                            NULL, NULL, NULL);
 
-        if (manager->priv->screensaver_proxy != NULL) {
-            g_object_unref (manager->priv->screensaver_proxy);
-            manager->priv->screensaver_proxy = NULL;
-        }
 }
 
 static void
@@ -3584,6 +3580,11 @@ upower_notify_resume_cb (UpClient *client,
                                    NULL,
                                    G_DBUS_CALL_FLAGS_NONE,
                                    -1, NULL, NULL, NULL);
+        }
+
+        if (manager->priv->screensaver_proxy != NULL) {
+            g_object_unref (manager->priv->screensaver_proxy);
+            manager->priv->screensaver_proxy = NULL;
         }
 
         /* close existing notifications on resume, the system power
