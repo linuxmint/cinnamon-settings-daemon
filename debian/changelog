@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.0.3) petra; urgency=low
+
+  * 2.0.3
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 18 Oct 2013 17:40:20 +0100
+
 cinnamon-settings-daemon (2.0.2) petra; urgency=low
 
   * 2.0.2
