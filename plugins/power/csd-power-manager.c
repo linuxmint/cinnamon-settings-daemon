@@ -3361,6 +3361,11 @@ sleep_cb_screensaver_proxy_ready_cb (GObject *source_object,
                            g_variant_new("(s)", ""),
                            G_DBUS_CALL_FLAGS_NONE, -1,
                            NULL, NULL, NULL);
+
+        if (manager->priv->screensaver_proxy != NULL) {
+            g_object_unref (manager->priv->screensaver_proxy);
+            manager->priv->screensaver_proxy = NULL;
+        }
 }
 
 static void
@@ -3526,25 +3531,16 @@ lock_screensaver (CsdPowerManager *manager)
         if (!do_lock)
                 return;
 
-        if (manager->priv->screensaver_proxy != NULL) {
-                g_debug ("doing cinnamon-screensaver lock");
-                g_dbus_proxy_call (manager->priv->screensaver_proxy,
-                                   "Lock",
-                                   g_variant_new("(s)", ""),
-                                   G_DBUS_CALL_FLAGS_NONE, -1,
-                                   NULL, NULL, NULL);
-        } else {
-                /* connect to the screensaver first */
-                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                          G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                          NULL,
-                                          GS_DBUS_NAME,
-                                          GS_DBUS_PATH,
-                                          GS_DBUS_INTERFACE,
-                                          NULL,
-                                          sleep_cb_screensaver_proxy_ready_cb,
-                                          manager);
-        }
+            /* connect to the screensaver first */
+            g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                      G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                      NULL,
+                                      GS_DBUS_NAME,
+                                      GS_DBUS_PATH,
+                                      GS_DBUS_INTERFACE,
+                                      NULL,
+                                      sleep_cb_screensaver_proxy_ready_cb,
+                                      manager);
 }
 
 static void
@@ -3559,25 +3555,17 @@ upower_notify_sleep_cb (UpClient *client,
         if (!do_lock)
                 return;
 
-        if (manager->priv->screensaver_proxy != NULL) {
-                g_debug ("doing cinnamon-screensaver lock");
-                g_dbus_proxy_call (manager->priv->screensaver_proxy,
-                                   "Lock",
-                                   g_variant_new("s", ""),
-                                   G_DBUS_CALL_FLAGS_NONE, -1,
-                                   NULL, NULL, NULL);
-        } else {
-                /* connect to the screensaver first */
-                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                          G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                          NULL,
-                                          GS_DBUS_NAME,
-                                          GS_DBUS_PATH,
-                                          GS_DBUS_INTERFACE,
-                                          NULL,
-                                          sleep_cb_screensaver_proxy_ready_cb,
-                                          manager);
-        }
+        /* connect to the screensaver first */
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                  NULL,
+                                  GS_DBUS_NAME,
+                                  GS_DBUS_PATH,
+                                  GS_DBUS_INTERFACE,
+                                  NULL,
+                                  sleep_cb_screensaver_proxy_ready_cb,
+                                  manager);
+
 }
 
 static void
