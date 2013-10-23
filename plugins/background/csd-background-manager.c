@@ -52,8 +52,6 @@ struct CsdBackgroundManagerPrivate
         GSettings   *settings;
         GnomeBG     *bg;
 
-        GnomeBGCrossfade *fade;
-
         guint        watch_id;
 };
 
@@ -69,15 +67,7 @@ G_DEFINE_TYPE (CsdBackgroundManager, csd_background_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static void
-on_crossfade_finished (CsdBackgroundManager *manager)
-{
-        g_object_unref (manager->priv->fade);
-        manager->priv->fade = NULL;
-}
-
-static void
-draw_background (CsdBackgroundManager *manager,
-                 gboolean              use_crossfade)
+draw_background (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
         int         n_screens;
@@ -103,19 +93,7 @@ draw_background (CsdBackgroundManager *manager,
                                                    gdk_screen_get_height (screen),
                                                    TRUE);
 
-                if (use_crossfade) {
-
-                        if (manager->priv->fade != NULL) {
-                                g_object_unref (manager->priv->fade);
-                        }
-
-                        manager->priv->fade = gnome_bg_set_surface_as_root_with_crossfade (screen, surface);
-                        g_signal_connect_swapped (manager->priv->fade, "finished",
-                                                  G_CALLBACK (on_crossfade_finished),
-                                                  manager);
-                } else {
-                        gnome_bg_set_surface_as_root (screen, surface);
-                }
+                gnome_bg_set_surface_as_root (screen, surface);
 
                 cairo_surface_destroy (surface);
         }
@@ -123,11 +101,12 @@ draw_background (CsdBackgroundManager *manager,
         cinnamon_settings_profile_end (NULL);
 }
 
+
 static void
 on_bg_transitioned (GnomeBG              *bg,
                     CsdBackgroundManager *manager)
 {
-        draw_background (manager, FALSE);
+        draw_background (manager);
 }
 
 static gboolean
@@ -145,7 +124,7 @@ static void
 on_screen_size_changed (GdkScreen            *screen,
                         CsdBackgroundManager *manager)
 {
-        draw_background (manager, FALSE);
+        draw_background (manager);
 }
 
 static void
@@ -161,7 +140,7 @@ static void
 on_bg_changed (GnomeBG              *bg,
                CsdBackgroundManager *manager)
 {
-        draw_background (manager, TRUE);
+        draw_background (manager);
 }
 
 static void
@@ -188,11 +167,12 @@ setup_bg (CsdBackgroundManager *manager)
                                         manager->priv->settings);
 }
 
-static void
+static gboolean
 setup_bg_and_draw_background (CsdBackgroundManager *manager)
 {
         setup_bg (manager);
-        draw_background (manager, FALSE);
+        draw_background (manager);
+        return FALSE;
 }
 
 static void
@@ -203,14 +183,14 @@ on_dbus_appeared (GDBusConnection *connection,
 {
     CsdBackgroundManager *manager = CSD_BACKGROUND_MANAGER (user_data);
 
-    setup_bg_and_draw_background (manager);
+    g_timeout_add(3000, (GSourceFunc) setup_bg_and_draw_background, manager);
 }
 
 static void
 draw_background_after_cinnamon_loads (CsdBackgroundManager *manager)
 {
         manager->priv->watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                    "org.Cinnamon",
+                                                    "org.Nemo",
                                                     0,
                                                     on_dbus_appeared,
                                                     NULL,
