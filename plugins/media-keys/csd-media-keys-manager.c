@@ -2085,6 +2085,15 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
                 cinnamon_settings_profile_end ("gdk_window_add_filter");
         }
 
+        GSettings *settings = g_settings_new ("org.cinnamon.sounds");
+        gboolean enabled = g_settings_get_boolean(settings, "login-enabled");
+        gchar *sound = g_settings_get_string (settings, "login-file");
+        if (enabled) {
+            ca_context_play (manager->priv->ca, 1, CA_PROP_MEDIA_FILENAME, sound, NULL);
+        }
+        g_free(sound);
+        g_object_unref (settings);
+
         cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
