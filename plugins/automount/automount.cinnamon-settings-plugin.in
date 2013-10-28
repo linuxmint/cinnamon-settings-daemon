@@ -1,0 +1,8 @@
+[Cinnamon Settings Plugin]
+Module=automount
+IAge=0
+_Name=Automount
+_Description=Automounter plugin
+Authors=Tomas Bzatek
+Copyright=Copyright © 2010 Red Hat, Inc.
+Website=

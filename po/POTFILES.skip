@@ -20,6 +20,5 @@ data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in
-plugins/automount/gnome-fallback-mount-helper.desktop.in
 plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in
 plugins/wacom/org.cinnamon.settings-daemon.plugins.wacom.policy.in
