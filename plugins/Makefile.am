@@ -4,7 +4,6 @@ enabled_plugins =	\
 	a11y-keyboard	\
 	a11y-settings	\
 	automount	\
-	background	\
 	clipboard	\
 	color		\
 	cursor		\
