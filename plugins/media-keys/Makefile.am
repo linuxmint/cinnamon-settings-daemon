@@ -28,6 +28,10 @@ libmedia_keys_la_SOURCES = 		\
 	csd-osd-window.h		\
 	csd-osd-window-private.h	\
 	shortcuts-list.h		\
+	bus-watch-namespace.c		\
+	bus-watch-namespace.h		\
+	mpris-controller.c		\
+	mpris-controller.h		\
 	$(BUILT_SOURCES)		\
 	$(NULL)
 
@@ -101,6 +105,10 @@ csd_test_media_keys_SOURCES =			\
 	csd-osd-window.c			\
 	csd-osd-window.h			\
 	csd-osd-window-private.h		\
+	bus-watch-namespace.c			\
+	bus-watch-namespace.h			\
+	mpris-controller.c		        \
+	mpris-controller.h	        	\
 	test-media-keys.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
