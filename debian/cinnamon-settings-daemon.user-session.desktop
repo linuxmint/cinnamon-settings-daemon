@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Cinnamon Settings Daemon
-Exec=/usr/lib/cinnamon-settings-daemon/cinnamon-settings-daemon
-Hidden=true
-Name[en_US]=cinnamon-settings-daemon.user-session.desktop
