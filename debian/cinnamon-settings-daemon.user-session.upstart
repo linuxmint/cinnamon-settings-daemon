@@ -1,8 +1,0 @@
-description "The Cinnamon Settings Daemon"
-author "Michael Webster <miketwebster@gmail.com>"
-
-start on started dbus and starting cinnamon-session
-stop on stopping cinnamon-session
-
-respawn
-exec /usr/lib/cinnamon-settings-daemon/cinnamon-settings-daemon

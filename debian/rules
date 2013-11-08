@@ -20,8 +20,6 @@ build/cinnamon-settings-daemon::
 
 install/cinnamon-settings-daemon::
 	/usr/bin/install -c cinnamon-settings-daemon/cinnamon-update-wallpaper-cache 'debian/tmp/usr/lib/cinnamon-settings-daemon'
-	install -m 644 -D debian/cinnamon-settings-daemon.user-session.upstart debian/cinnamon-settings-daemon/usr/share/upstart/sessions/cinnamon-settings-daemon.conf
-	install -m 644 -D debian/cinnamon-settings-daemon.user-session.desktop debian/cinnamon-settings-daemon/usr/share/upstart/xdg/autostart/cinnamon-settings-daemon.desktop
 
 binary-install/cinnamon-settings-daemon::
 	find debian -name '*.a' -delete
