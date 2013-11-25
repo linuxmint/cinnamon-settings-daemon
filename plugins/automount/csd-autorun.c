@@ -326,6 +326,8 @@ prepare_combo_box (GtkWidget *combo_box,
 
         content_type = gtk_app_chooser_get_content_type (GTK_APP_CHOOSER (app_chooser));
 
+        gtk_app_chooser_button_set_show_default_item (GTK_APP_CHOOSER_BUTTON (combo_box), TRUE);
+
         /* fetch preferences for this content type */
         csd_autorun_get_preferences (content_type,
                                      &pref_start_app, &pref_ignore, &pref_open_folder);
