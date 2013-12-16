@@ -16,6 +16,7 @@ enabled_plugins =	\
 	mouse		\
 	screensaver-proxy \
 	sound		\
+	wacom		\
 	xrandr		\
 	xsettings	\
 	$(NULL)

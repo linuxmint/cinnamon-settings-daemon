@@ -1,0 +1,106 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.csdwacom" path="/org/cinnamon/settings-daemon/plugins/csdwacom/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by gnome-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>0</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in gnome-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom">
+    <child name="stylus" schema="org.cinnamon.settings-daemon.peripherals.wacom.stylus"/>
+    <child name="eraser" schema="org.cinnamon.settings-daemon.peripherals.wacom.eraser"/>
+
+    <!-- is-absolute applies to all tools but PAD, CURSOR is hard-coded -->
+    <key name="is-absolute" type="b">
+      <default>true</default>
+      <_summary>Wacom stylus absolute mode</_summary>
+      <_description>Enable this to set the tablet to absolute mode.</_description>
+    </key>
+    <key name="area" type="ai">
+      <default>[-1, -1, -1, -1]</default>
+      <_summary>Wacom tablet area</_summary>
+      <_description>Set this to x1, y1 and x2, y2 of the area usable by the tools.</_description>
+    </key>
+    <key name="keep-aspect" type="b">
+      <default>false</default>
+      <_summary>Wacom tablet aspect ratio</_summary>
+      <_description>Enable this to restrict the Wacom tablet area to match the aspect ratio of the output.</_description>
+    </key>
+    <key name="rotation" enum="org.cinnamon.settings-daemon.CsdWacomRotation">
+      <default>'none'</default>
+      <_summary>Wacom tablet rotation</_summary>
+      <_description>Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise.</_description>
+    </key>
+    <key name="touch" type="b">
+      <default>true</default>
+      <_summary>Wacom touch feature</_summary>
+      <_description>Enable this to move the cursor when the user touches the tablet.</_description>
+    </key>
+    <key name="tablet-pc-button" type="b">
+      <default>false</default>
+      <_summary>Wacom tablet PC feature</_summary>
+      <_description>Enable this to only report stylus events when the tip is pressed.</_description>
+    </key>
+    <key name="display" type="as">
+      <default>["", "", ""]</default>
+      <_summary>Wacom display mapping</_summary>
+      <_description>EDID information of monitor to map tablet to. Must be in the format [vendor, product, serial]. ["","",""] disables mapping.</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.stylus">
+    <key name="pressurecurve" type="ai">
+      <default>[0, 0, 100, 100]</default>
+      <_summary>Wacom stylus pressure curve</_summary>
+      <_description>Set this to x1, y1 and x2, y2 of the pressure curve applied to the stylus.</_description>
+    </key>
+    <key name="buttonmapping" type="ai">
+      <default>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]</default>
+      <_summary>Wacom stylus button mapping</_summary>
+      <_description>Set this to the logical button mapping.</_description>
+    </key>
+    <key name="pressurethreshold" type="i">
+      <default>-1</default>
+      <_summary>Wacom stylus pressure threshold</_summary>
+      <_description>Set this to the pressure value at which a stylus click event is generated.</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.eraser">
+    <key name="pressurecurve" type="ai">
+      <default>[0, 0, 100, 100]</default>
+      <_summary>Wacom eraser pressure curve</_summary>
+      <_description>Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser.</_description>
+    </key>
+    <key name="buttonmapping" type="ai">
+      <default>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]</default>
+      <_summary>Wacom eraser button mapping</_summary>
+      <_description>Set this to the logical button mapping.</_description>
+    </key>
+    <key name="pressurethreshold" type="i">
+      <default>-1</default>
+      <_summary>Wacom eraser pressure threshold</_summary>
+      <_description>Set this to the pressure value at which an eraser click event is generated.</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.tablet-button">
+    <key name="action-type" enum="org.cinnamon.settings-daemon.CsdWacomActionType">
+      <default>'none'</default>
+      <_summary>Wacom button action type</_summary>
+      <_description>The type of action triggered by the button being pressed.</_description>
+    </key>
+    <key name="custom-action" type="s">
+      <default>''</default>
+      <_summary>Key combination for the custom action</_summary>
+      <_description>The keyboard shortcut generated when the button is pressed for custom actions.</_description>
+    </key>
+    <key name="custom-elevator-action" type="as">
+      <default>['', '']</default>
+      <_summary>Key combinations for a touchring or touchstrip custom action</_summary>
+      <_description>The keyboard shortcuts generated when a touchring or touchstrip is used for custom actions (up followed by down).</_description>
+    </key>
+  </schema>
+</schemalist>

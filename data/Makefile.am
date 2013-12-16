@@ -8,6 +8,7 @@ gsettings_ENUM_FILES = $(top_srcdir)/data/$(api_DATA)
 
 gsettings_SCHEMAS =							\
 	org.cinnamon.settings-daemon.peripherals.gschema.xml		\
+	org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml      \
 	org.cinnamon.settings-daemon.plugins.gschema.xml			\
 	org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml		\
 	org.cinnamon.settings-daemon.plugins.power.gschema.xml		\
@@ -18,7 +19,7 @@ gsettings_SCHEMAS =							\
 	org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml	\
 	org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml		\
 	org.cinnamon.settings-daemon.plugins.orientation.gschema.xml
-
+	
 @INTLTOOL_XML_NOMERGE_RULE@
 
 @GSETTINGS_RULES@

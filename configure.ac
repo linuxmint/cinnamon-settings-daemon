@@ -51,6 +51,8 @@ CINNAMON_DESKTOP_REQUIRED_VERSION=1.0.0
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
+LIBWACOM_REQUIRED_VERSION=0.7
+LIBRSVG_REQUIRED_VERSION=2.36.2
 UPOWER_REQUIRED_VERSION=0.9.11
 GTK_XINPUT_2_3_VERSION=3.7.8
 
@@ -245,6 +247,12 @@ dnl - color
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
+
+dnl ---------------------------------------------------------------------------
+dnl - wacom
+dnl ---------------------------------------------------------------------------
+
+PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 cinnamon-desktop xorg-wacom librsvg-2.0 >= $LIBRSVG_REQUIRED_VERSION])
 
 dnl ==============================================
 dnl smartcard section
@@ -524,6 +532,7 @@ plugins/print-notifications/Makefile
 plugins/screensaver-proxy/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
+plugins/wacom/Makefile
 plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
@@ -538,6 +547,7 @@ data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in
+data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
 po/Makefile.in
