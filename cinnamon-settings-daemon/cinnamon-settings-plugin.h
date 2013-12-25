@@ -96,14 +96,14 @@ typedef struct {                                                               \
     CinnamonSettingsPluginClass parent_class;                                 \
 } PluginName##PluginClass;                                                     \
 GType plugin_name##_plugin_get_type (void) G_GNUC_CONST;                       \
-G_MODULE_EXPORT GType register_gnome_settings_plugin (GTypeModule *module);    \
+G_MODULE_EXPORT GType register_cinnamon_settings_plugin (GTypeModule *module);    \
                                                                                \
         G_DEFINE_DYNAMIC_TYPE (PluginName##Plugin,                             \
                                plugin_name##_plugin,                           \
                                CINNAMON_TYPE_SETTINGS_PLUGIN)                     \
                                                                                \
 G_MODULE_EXPORT GType                                                          \
-register_gnome_settings_plugin (GTypeModule *type_module)                      \
+register_cinnamon_settings_plugin (GTypeModule *type_module)                      \
 {                                                                              \
         plugin_name##_plugin_register_type (type_module);                      \
                                                                                \
@@ -171,35 +171,6 @@ plugin_name##_plugin_class_init (PluginName##PluginClass *klass)               \
         plugin_class->deactivate = impl_deactivate;                            \
         g_type_class_add_private (klass, sizeof (PluginName##PluginPrivate));  \
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 G_END_DECLS
 
