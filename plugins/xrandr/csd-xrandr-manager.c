@@ -46,7 +46,9 @@
 #include <libcinnamon-desktop/gnome-rr-config.h>
 #include <libcinnamon-desktop/gnome-rr.h>
 
+#ifdef HAVE_WACOM
 #include <libwacom/libwacom.h>
+#endif
 
 #include "csd-enums.h"
 #include "csd-input-helper.h"
@@ -119,8 +121,9 @@ struct CsdXrandrManagerPrivate
 
         /* Last time at which we got a "screen got reconfigured" event; see on_randr_event() */
         guint32 last_config_timestamp;
-
+#ifdef HAVE_WACOM
         WacomDeviceDatabase *wacom_db;
+#endif
 };
 
 static const GnomeRRRotation possible_rotations[] = {
@@ -1515,6 +1518,7 @@ static gboolean
 is_wacom_tablet_device (CsdXrandrManager *mgr,
                         XDeviceInfo      *device_info)
 {
+#ifdef HAVE_WACOM
         CsdXrandrManagerPrivate *priv = mgr->priv;
         gchar       *device_node;
         WacomDevice *wacom_device;
@@ -1539,6 +1543,9 @@ is_wacom_tablet_device (CsdXrandrManager *mgr,
         libwacom_destroy (wacom_device);
 
         return is_tablet;
+#else
+        return FALSE;
+#endif
 }
 
 static void
@@ -2080,12 +2087,12 @@ csd_xrandr_manager_stop (CsdXrandrManager *manager)
                 g_object_unref (manager->priv->connection);
                 manager->priv->connection = NULL;
         }
-
+#ifdef HAVE_WACOM
         if (manager->priv->wacom_db != NULL) {
                 libwacom_database_destroy (manager->priv->wacom_db);
                 manager->priv->wacom_db = NULL;
         }
-
+#endif
         log_open ();
         log_msg ("STOPPING XRANDR PLUGIN\n------------------------------------------------------------\n");
         log_close ();

@@ -251,8 +251,11 @@ PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 cinnamon-desktop >= $CINNAMON_DESKTOP_
 dnl ---------------------------------------------------------------------------
 dnl - wacom
 dnl ---------------------------------------------------------------------------
+build_wacom=false
+PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 cinnamon-desktop xorg-wacom librsvg-2.0 >= $LIBRSVG_REQUIRED_VERSION gtk+-3.0 >= 3.8.0],
+                  [build_wacom="true" AC_DEFINE(HAVE_WACOM, 1, [Define if wacom is being build])], [build_wacom="false"])
 
-PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 cinnamon-desktop xorg-wacom librsvg-2.0 >= $LIBRSVG_REQUIRED_VERSION])
+AM_CONDITIONAL(BUILD_WACOM, test "x$build_wacom" = "xtrue")
 
 dnl ==============================================
 dnl smartcard section
