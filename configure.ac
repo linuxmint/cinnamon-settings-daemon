@@ -587,6 +587,8 @@ echo "
         LCMS DICT support:        ${have_new_lcms}
         Libnotify support:        ${have_libnotify}
 
+        Wacom support:            ${build_wacom}
+
         Smartcard support:        ${have_smartcard_support}
         Cups support:             ${enable_cups}
 ${NSS_DATABASE:+\
