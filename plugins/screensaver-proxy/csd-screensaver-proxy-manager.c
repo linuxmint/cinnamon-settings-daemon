@@ -237,8 +237,6 @@ handle_method_call (GDBusConnection       *connection,
                                         parameters,
                                         G_DBUS_CALL_FLAGS_NONE,
                                         -1, NULL, NULL);
-                g_debug ("Removing cookie %u from the list for %s", cookie, sender);
-                g_hash_table_remove (manager->priv->cookie_ht, GUINT_TO_POINTER (cookie));
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "Throttle") == 0) {
                 g_dbus_method_invocation_return_value (invocation, NULL);
