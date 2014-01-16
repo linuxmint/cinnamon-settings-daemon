@@ -117,7 +117,7 @@ static const gchar kb_introspection_xml[] =
 #define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
 #define HIGH_CONTRAST "HighContrast"
 
-#define VOLUME_STEP 6           /* percents for one volume button press */
+#define VOLUME_STEP 5           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
 
 #define CSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_MEDIA_KEYS_MANAGER, CsdMediaKeysManagerPrivate))
