@@ -58,6 +58,8 @@
 #define GTK_MODULES_ENABLED_KEY  "enabled-gtk-modules"
 
 #define TEXT_SCALING_FACTOR_KEY "text-scaling-factor"
+#define SCALING_FACTOR_KEY "scaling-factor"
+#define CURSOR_SIZE_KEY "cursor-size"
 
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
@@ -216,6 +218,7 @@
  * 
  */
 #define DPI_FALLBACK 96
+#define HIDPI_LIMIT (DPI_FALLBACK * 2)
 
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (CinnamonSettingsXSettingsManager *manager,
@@ -353,7 +356,7 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
         { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
         { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
-        { "org.cinnamon.desktop.interface", "cursor-size",            "Gtk/CursorThemeSize",     translate_int_int },
+
         { "org.cinnamon.settings-daemon.plugins.xsettings", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
@@ -398,10 +401,51 @@ get_dpi_from_gsettings (CinnamonSettingsXSettingsManager *manager)
         return dpi * factor;
 }
 
+static int
+get_window_scale (CinnamonSettingsXSettingsManager *manager)
+{
+    GSettings  *interface_settings;
+    int window_scale;
+    GdkRectangle rect;
+    GdkDisplay *display;
+    GdkScreen *screen;
+    int width_mm, height_mm;
+    int monitor_scale;
+    double dpi_x, dpi_y;
+
+   interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
+        window_scale =
+                g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
+        if (window_scale == 0) {
+                display = gdk_display_get_default ();
+                screen = gdk_display_get_default_screen (display);
+                gdk_screen_get_monitor_geometry (screen, 0, &rect);
+                width_mm = gdk_screen_get_monitor_width_mm (screen, 0);
+                height_mm = gdk_screen_get_monitor_height_mm (screen, 0);
+                monitor_scale = gdk_screen_get_monitor_scale_factor (screen, 0);
+
+                window_scale = 1;
+                if (width_mm > 0 && height_mm > 0) {
+                        dpi_x = (double)rect.width * monitor_scale / (width_mm / 25.4);
+                        dpi_y = (double)rect.height * monitor_scale / (height_mm / 25.4);
+                        /* We don't completely trust these values so both
+                           must be high, and never pick higher ratio than
+                          2 automatically */
+                        if (dpi_x > HIDPI_LIMIT && dpi_y > HIDPI_LIMIT)
+                                window_scale = 2;
+                }
+        }
+
+        return window_scale;
+}
+
 typedef struct {
         gboolean    antialias;
         gboolean    hinting;
+        int         scaled_dpi;
         int         dpi;
+        int         window_scale;
+        int         cursor_size;
         const char *rgba;
         const char *hintstyle;
 } CinnamonSettingsXftSettings;
@@ -411,10 +455,15 @@ static void
 xft_settings_get (CinnamonSettingsXSettingsManager *manager,
                   CinnamonSettingsXftSettings      *settings)
 {
+        GSettings  *interface_settings;
         CsdFontAntialiasingMode antialiasing;
         CsdFontHinting hinting;
         CsdFontRgbaOrder order;
         gboolean use_rgba = FALSE;
+        double dpi;
+        int cursor_size;
+
+        interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
 
         antialiasing = g_settings_get_enum (manager->priv->plugin_settings, FONT_ANTIALIASING_KEY);
         hinting = g_settings_get_enum (manager->priv->plugin_settings, FONT_HINTING_KEY);
@@ -422,7 +471,14 @@ xft_settings_get (CinnamonSettingsXSettingsManager *manager,
 
         settings->antialias = (antialiasing != CSD_FONT_ANTIALIASING_MODE_NONE);
         settings->hinting = (hinting != CSD_FONT_HINTING_NONE);
-        settings->dpi = get_dpi_from_gsettings (manager) * 1024; /* Xft wants 1/1024ths of an inch */
+
+        settings->window_scale = get_window_scale (manager);
+        dpi = get_dpi_from_gsettings (manager);
+        settings->dpi = dpi * 1024; /* Xft wants 1/1024ths of an inch */
+        settings->scaled_dpi = dpi * settings->window_scale * 1024;
+        cursor_size = g_settings_get_int (interface_settings, CURSOR_SIZE_KEY);
+        settings->cursor_size = cursor_size * settings->window_scale;
+
         settings->rgba = "rgb";
         settings->hintstyle = "hintfull";
 
@@ -488,8 +544,11 @@ xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/Antialias", settings->antialias);
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/Hinting", settings->hinting);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/HintStyle", settings->hintstyle);
-                xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->dpi);
+                xsettings_manager_set_int (manager->priv->managers [i], "Gdk/WindowScalingFactor", settings->window_scale);
+                xsettings_manager_set_int (manager->priv->managers [i], "Gdk/UnscaledDPI", settings->dpi);
+                xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->scaled_dpi);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/CursorThemeSize", settings->cursor_size);
         }
         cinnamon_settings_profile_end (NULL);
 }
@@ -542,7 +601,7 @@ xft_settings_set_xresources (CinnamonSettingsXftSettings *settings)
         g_debug("xft_settings_set_xresources: orig res '%s'", add_string->str);
 
         update_property (add_string, "Xft.dpi",
-                                g_ascii_dtostr (dpibuf, sizeof (dpibuf), (double) settings->dpi / 1024.0));
+                                g_ascii_dtostr (dpibuf, sizeof (dpibuf), (double) settings->scaled_dpi / 1024.0));
         update_property (add_string, "Xft.antialias",
                                 settings->antialias ? "1" : "0");
         update_property (add_string, "Xft.hinting",
@@ -736,9 +795,10 @@ xsettings_callback (GSettings             *settings,
         guint             i;
         GVariant         *value;
 
-        if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY)) {
-        	xft_callback (NULL, key, manager);
-        	return;
+        if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY) ||
+            g_str_equal (key, SCALING_FACTOR_KEY)) {
+            xft_callback (NULL, key, manager);
+            return;
 	}
 
         trans = find_translation_entry (settings, key);
