@@ -2,7 +2,7 @@
 Type=Application
 _Name=Cinnamon Settings Daemon
 Exec=@libexecdir@/cinnamon-settings-daemon
-OnlyShowIn=GNOME;
+OnlyShowIn=X-Cinnamon;
 NoDisplay=true
 X-GNOME-Autostart-Phase=Initialization
 X-GNOME-Autostart-Notify=true
