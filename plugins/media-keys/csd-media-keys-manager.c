@@ -699,6 +699,12 @@ do_logout_action (CsdMediaKeysManager *manager)
 }
 
 static void
+do_shutdown_action (CsdMediaKeysManager *manager)
+{
+        cinnamon_session_shutdown (manager);
+}
+
+static void
 do_eject_action_cb (GDrive              *drive,
                     GAsyncResult        *res,
                     CsdMediaKeysManager *manager)
@@ -1788,6 +1794,9 @@ do_action (CsdMediaKeysManager *manager,
                 break;
         case LOGOUT_KEY:
                 do_logout_action (manager);
+                break;
+        case SHUTDOWN_KEY:
+                do_shutdown_action (manager);
                 break;
         case EJECT_KEY:
                 do_eject_action (manager);

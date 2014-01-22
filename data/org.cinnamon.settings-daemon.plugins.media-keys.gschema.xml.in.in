@@ -55,6 +55,11 @@
       <_summary>Log out</_summary>
       <_description>Binding to log out.</_description>
     </key>
+    <key name="shutdown" type="s">
+      <default>'&lt;Control&gt;&lt;Alt&gt;End'</default>
+      <_summary>Shut down the computer</_summary>
+      <_description>Binding to shut down.</_description>
+    </key>
     <key name="previous" type="s">
       <default>'XF86AudioPrev'</default>
       <_summary>Previous track</_summary>
