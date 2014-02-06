@@ -67,14 +67,10 @@
 #define KEY_BELL_DURATION  "bell-duration"
 #define KEY_BELL_MODE      "bell-mode"
 
-#define LIBGNOMEKBD_KEYBOARD_DIR "org.gnome.libgnomekbd.keyboard"
-#define LIBGNOMEKBD_KEY_LAYOUTS  "layouts"
-
 struct CsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
-        GSettings *libgnomekbd_settings;
         gboolean   have_xkb;
         gint       xkb_event_base;
         CsdNumLockState old_state;
@@ -276,93 +272,6 @@ csd_keyboard_manager_apply_settings (CsdKeyboardManager *manager)
         apply_settings (manager->priv->settings, NULL, manager);
 }
 
-static void
-apply_libgnomekbd_settings (GSettings          *settings,
-                            const char         *key,
-                            CsdKeyboardManager *manager)
-{
-        gchar **layouts;
-
-        layouts = g_settings_get_strv  (settings, LIBGNOMEKBD_KEY_LAYOUTS);
-
-        /* Get accounts daemon */
-        GDBusProxy *proxy = NULL;
-        GDBusProxy *user = NULL;
-        GVariant *variant = NULL;
-        GError *error = NULL;
-        gchar *object_path = NULL;
-
-        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                               G_DBUS_PROXY_FLAGS_NONE,
-                                               NULL,
-                                               "org.freedesktop.Accounts",
-                                               "/org/freedesktop/Accounts",
-                                               "org.freedesktop.Accounts",
-                                               NULL,
-                                               &error);
-
-        if (proxy == NULL) {
-                g_warning ("Failed to contact accounts service: %s", error->message);
-                g_error_free (error);
-                goto bail;
-        }
-
-        variant = g_dbus_proxy_call_sync (proxy,
-                                          "FindUserByName",
-                                          g_variant_new ("(s)", g_get_user_name ()),
-                                          G_DBUS_CALL_FLAGS_NONE,
-                                          -1,
-                                          NULL,
-                                          &error);
-
-        if (variant == NULL) {
-                g_warning ("Could not contact accounts service to look up '%s': %s",
-                           g_get_user_name (), error->message);
-                g_error_free (error);
-                goto bail;
-        }
-
-        g_variant_get (variant, "(o)", &object_path);
-        user = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                              G_DBUS_PROXY_FLAGS_NONE,
-                                              NULL,
-                                              "org.freedesktop.Accounts",
-                                              object_path,
-                                              "org.freedesktop.Accounts.User",
-                                              NULL,
-                                              &error);
-        g_free (object_path);
-
-        if (user == NULL) {
-                g_warning ("Could not create proxy for user '%s': %s",
-                           g_variant_get_string (variant, NULL), error->message);
-                g_error_free (error);
-                goto bail;
-        }
-        g_variant_unref (variant);
-
-        variant = g_dbus_proxy_call_sync (user,
-                                          "SetXKeyboardLayouts",
-                                          g_variant_new ("(^as)", layouts),
-                                          G_DBUS_CALL_FLAGS_NONE,
-                                          -1,
-                                          NULL,
-                                          &error);
-
-        if (variant == NULL) {
-                g_warning ("Failed to set the keyboard layouts: %s", error->message);
-                g_error_free (error);
-                goto bail;
-        }
-
-bail:
-        if (proxy != NULL)
-                g_object_unref (proxy);
-        if (variant != NULL)
-                g_variant_unref (variant);
-        g_strfreev (layouts);
-}
-
 static gboolean
 start_keyboard_idle_cb (CsdKeyboardManager *manager)
 {
@@ -372,7 +281,6 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         manager->priv->have_xkb = 0;
         manager->priv->settings = g_settings_new (CSD_KEYBOARD_DIR);
-        manager->priv->libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_KEYBOARD_DIR);
 
         /* Essential - xkb initialization should happen before */
         csd_keyboard_xkb_init (manager);
@@ -384,10 +292,6 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (apply_settings), manager);
-
-        apply_libgnomekbd_settings (manager->priv->libgnomekbd_settings, NULL, manager);
-        g_signal_connect (G_OBJECT (manager->priv->libgnomekbd_settings), "changed",
-                          G_CALLBACK (apply_libgnomekbd_settings), manager);
 
         numlock_install_xkb_callback (manager);
 
@@ -421,11 +325,6 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
-        }
-
-        if (p->libgnomekbd_settings != NULL) {
-                g_object_unref (p->libgnomekbd_settings);
-                p->libgnomekbd_settings = NULL;
         }
 
         if (p->have_xkb) {
