@@ -442,7 +442,7 @@ apply_xkb_settings (void)
 			   "Actual KBD configuration was not changed: redundant notification\n");
 
 	gkbd_keyboard_config_term (&current_sys_kbd_config);
-	show_hide_icon ();
+	//show_hide_icon ();
 }
 
 static void
