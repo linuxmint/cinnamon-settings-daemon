@@ -83,6 +83,10 @@
 
 #define XSCREENSAVER_WATCHDOG_TIMEOUT                   120 /* seconds */
 
+#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
+#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
+#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+
 enum {
         CSD_POWER_IDLETIME_NULL_ID,
         CSD_POWER_IDLETIME_DIM_ID,
@@ -202,6 +206,11 @@ struct CsdPowerManagerPrivate
         GtkStatusIcon           *status_icon;
         guint                    xscreensaver_watchdog_timer_id;
         gboolean                 is_virtual_machine;
+
+        /* systemd stuff */
+        GDBusProxy              *logind_proxy;
+        gint                     inhibit_lid_switch_fd;
+        gboolean                 inhibit_lid_switch_taken;
 };
 
 enum {
@@ -3810,6 +3819,77 @@ out:
         return ret;
 }
 
+static void
+inhibit_lid_switch_done (GObject      *source,
+                         GAsyncResult *result,
+                         gpointer      user_data)
+{
+        GDBusProxy *proxy = G_DBUS_PROXY (source);
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+        GError *error = NULL;
+        GVariant *res;
+        GUnixFDList *fd_list = NULL;
+        gint idx;
+
+        res = g_dbus_proxy_call_with_unix_fd_list_finish (proxy, &fd_list, result, &error);
+        if (res == NULL) {
+                g_warning ("Unable to inhibit lid switch: %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_get (res, "(h)", &idx);
+                manager->priv->inhibit_lid_switch_fd = g_unix_fd_list_get (fd_list, idx, &error);
+                if (manager->priv->inhibit_lid_switch_fd == -1) {
+                        g_warning ("Failed to receive system inhibitor fd: %s", error->message);
+                        g_error_free (error);
+                }
+                g_debug ("System inhibitor fd is %d", manager->priv->inhibit_lid_switch_fd);
+                g_object_unref (fd_list);
+                g_variant_unref (res);
+        }
+}
+
+static void
+inhibit_lid_switch (CsdPowerManager *manager)
+{
+        GVariant *params;
+
+        if (manager->priv->inhibit_lid_switch_taken) {
+                g_debug ("already inhibited lid-switch");
+                return;
+        }
+        g_debug ("Adding lid switch system inhibitor");
+        manager->priv->inhibit_lid_switch_taken = TRUE;
+
+        params = g_variant_new ("(ssss)",
+                                "handle-lid-switch",
+                                g_get_user_name (),
+                                "Lid is handled by cinnamon-settings-daemon power",
+                                "block");
+        g_dbus_proxy_call_with_unix_fd_list (manager->priv->logind_proxy,
+                                             "Inhibit",
+                                             params,
+                                             0,
+                                             G_MAXINT,
+                                             NULL,
+                                             NULL,
+                                             inhibit_lid_switch_done,
+                                             manager);
+}
+
+static void
+uninhibit_lid_switch (CsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_lid_switch_fd == -1) {
+                g_debug ("no lid-switch inhibitor");
+                return;
+        }
+        g_debug ("Removing lid switch system inhibitor");
+        close (manager->priv->inhibit_lid_switch_fd);
+        manager->priv->inhibit_lid_switch_fd = -1;
+        manager->priv->inhibit_lid_switch_taken = FALSE;
+}
+
+
 gboolean
 csd_power_manager_start (CsdPowerManager *manager,
                          GError **error)
@@ -3823,6 +3903,25 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
         if (manager->priv->x11_screen == NULL)
                 return FALSE;
+
+       /* Set up the logind proxy */
+        manager->priv->logind_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               0,
+                                               NULL,
+                                               SYSTEMD_DBUS_NAME,
+                                               SYSTEMD_DBUS_PATH,
+                                               SYSTEMD_DBUS_INTERFACE,
+                                               NULL,
+                                               error);
+        if (manager->priv->logind_proxy == NULL) {
+                g_debug ("No systemd (logind) support, disabling plugin");
+                return FALSE;
+        }
+
+        /* proper logind lid handling is done in 3.8; for now, just disable
+         * logind's lid handling while g-s-d is active */
+        inhibit_lid_switch (manager);
 
         /* track the active session */
         manager->priv->session = cinnamon_settings_session_new ();
@@ -3993,6 +4092,7 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 manager->priv->introspection_data = NULL;
         }
 
+        uninhibit_lid_switch (manager);
         kill_lid_close_safety_timer (manager);
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);

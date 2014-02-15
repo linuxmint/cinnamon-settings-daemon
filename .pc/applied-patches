@@ -21,3 +21,4 @@ revert_new_ibus_use.patch
 migrate_metacity_keys.patch
 touchscreen_rotation.patch
 nexus-orientation.patch
+logind_support.patch
