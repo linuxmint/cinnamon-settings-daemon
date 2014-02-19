@@ -31,7 +31,7 @@
       <_description>Select the touchpad scroll method. Supported values are: "disabled", "edge-scrolling", "two-finger-scrolling".</_description>
     </key>
     <key name="tap-to-click" type="b">
-      <default>false</default>
+      <default>true</default>
       <_summary>Enable mouse clicks with touchpad</_summary>
       <_description>Set this to TRUE to be able to send mouse clicks by tapping on the touchpad.</_description>
     </key>
