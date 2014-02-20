@@ -2,6 +2,7 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins" path="/org/cinnamon/settings-daemon/plugins/">
     <child name="a11y-keyboard" schema="org.cinnamon.settings-daemon.plugins.a11y-keyboard"/>
     <child name="a11y-settings" schema="org.cinnamon.settings-daemon.plugins.a11y-settings"/>
+    <child name="automount" schema="org.cinnamon.settings-daemon.plugins.automount"/>
     <child name="clipboard" schema="org.cinnamon.settings-daemon.plugins.clipboard"/>
     <child name="color" schema="org.cinnamon.settings-daemon.plugins.color"/>
     <child name="cursor" schema="org.cinnamon.settings-daemon.plugins.cursor"/>
@@ -39,6 +40,18 @@
     </key>
     <key name="priority" type="i">
       <default>7</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.automount" path="/org/cinnamon/settings-daemon/plugins/automount/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>97</default>
       <_summary>Priority to use for this plugin</_summary>
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>

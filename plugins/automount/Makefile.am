@@ -1,38 +1,87 @@
-libexec_PROGRAMS = cinnamon-fallback-mount-helper
+NULL =
 
-cinnamon_fallback_mount_helper_SOURCES = \
-	cinnamon-fallback-mount-helper.c \
-	csd-automount-manager.c \
-	csd-automount-manager.h \
-	csd-autorun.c \
-	csd-autorun.h
+plugin_name = automount
 
-cinnamon_fallback_mount_helper_CPPFLAGS = \
+libexec_PROGRAMS = csd-test-automount
+
+csd_test_automount_SOURCES = 		\
+	test-automount.c		\
+	csd-automount-manager.h		\
+	csd-automount-manager.c		\
+	csd-autorun.c		\
+	csd-autorun.h		\
+	$(NULL)
+
+csd_test_automount_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
+
+csd_test_automount_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(SYSTEMD_CFLAGS)		\
+	$(AUTOMOUNT_CFLAGS)
+	$(AM_CFLAGS)
+
+csd_test_automount_LDADD =			\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
+	$(SETTINGS_PLUGIN_LIBS)		\
+	$(SYSTEMD_LIBS)			\
+	$(AUTOMOUNT_LIBS)		\
+	$(NULL)
+
+plugin_LTLIBRARIES = \
+	libautomount.la		\
+	$(NULL)
+
+libautomount_la_SOURCES =		\
+	csd-automount-plugin.h		\
+	csd-automount-plugin.c		\
+	csd-automount-manager.h		\
+	csd-automount-manager.c		\
+	csd-autorun.c		\
+	csd-autorun.h		\
+	$(NULL)
+
+libautomount_la_CPPFLAGS = \
 	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
-cinnamon_fallback_mount_helper_CFLAGS =	\
+libautomount_la_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(SYSTEMD_CFLAGS)		\
-	$(AUTOMOUNT_CFLAGS)
+	$(AUTOMOUNT_CFLAGS)		\
+	$(AM_CFLAGS)
 
-cinnamon_fallback_mount_helper_LDADD =	\
+libautomount_la_LDFLAGS =		\
+	$(CSD_PLUGIN_LDFLAGS)		\
+	$(NULL)
+
+libautomount_la_LIBADD  =		\
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(SYSTEMD_LIBS)			\
 	$(AUTOMOUNT_LIBS)		\
-	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
+	$(NULL)
 
-autostartdir = $(datadir)/applications
-autostart_in_files = cinnamon-fallback-mount-helper.desktop.in
-autostart_in_in_files = cinnamon-fallback-mount-helper.desktop.in.in
-autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
+plugin_in_files =		\
+	automount.cinnamon-settings-plugin.in	\
+	$(NULL)
 
-$(autostart_in_files): $(autostart_in_in_files)
-	@sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
+plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
-@INTLTOOL_DESKTOP_RULE@
+EXTRA_DIST = 			\
+	$(plugin_in_files)	\
+	$(NULL)
 
-EXTRA_DIST = $(autostart_in_in_files)
+CLEANFILES = 			\
+	$(plugin_DATA)		\
+	$(NULL)
 
-CLEANFILES = $(autostart_DATA) $(autostart_in_files)
+DISTCLEANFILES =		\
+	$(plugin_DATA)		\
+	$(NULL)
+
+@CSD_INTLTOOL_PLUGIN_RULE@

@@ -18,8 +18,9 @@ plugins/a11y-keyboard/csd-a11y-keyboard-manager.c
 plugins/a11y-keyboard/csd-a11y-preferences-dialog.c
 [type: gettext/glade]plugins/a11y-keyboard/csd-a11y-preferences-dialog.ui
 [type: gettext/ini]plugins/a11y-settings/a11y-settings.cinnamon-settings-plugin.in
-plugins/automount/cinnamon-fallback-mount-helper.desktop.in.in
+[type: gettext/ini]plugins/automount/automount.cinnamon-settings-plugin.in
 plugins/automount/csd-automount-manager.c
+plugins/automount/csd-automount-plugin.c
 plugins/automount/csd-autorun.c
 [type: gettext/ini]plugins/background/background.cinnamon-settings-plugin.in
 [type: gettext/ini]plugins/clipboard/clipboard.cinnamon-settings-plugin.in
