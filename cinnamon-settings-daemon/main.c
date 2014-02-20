@@ -201,27 +201,6 @@ set_session_env (GDBusProxy  *proxy,
 }
 
 static void
-set_locale (GDBusProxy *proxy)
-{
-        GSettings *locale_settings;
-        gchar *region;
-
-        /* Set locale environment */
-        locale_settings = g_settings_new ("org.cinnamon.system.locale");
-        region = g_settings_get_string (locale_settings, "region");
-        if (region[0]) {
-                /* Only set the locale settings if the user has ever customized them */
-                set_session_env (proxy, "LC_TIME", region);
-                set_session_env (proxy, "LC_NUMERIC", region);
-                set_session_env (proxy, "LC_MONETARY", region);
-                set_session_env (proxy, "LC_MEASUREMENT", region);
-        }
-        g_free (region);
-
-        g_object_unref (locale_settings);
-}
-
-static void
 register_with_gnome_session (GDBusProxy *proxy)
 {
         const char *startup_id;
