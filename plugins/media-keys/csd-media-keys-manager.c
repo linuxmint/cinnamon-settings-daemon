@@ -44,6 +44,7 @@
 #include <gudev/gudev.h>
 #endif
 
+#include "mpris-controller.h"
 #include "cinnamon-settings-profile.h"
 #include "csd-marshal.h"
 #include "csd-media-keys-manager.h"
@@ -181,6 +182,8 @@ struct CsdMediaKeysManagerPrivate
         GCancellable    *cancellable;
 
         guint            start_idle_id;
+
+        MprisController *mpris_controller;
 
         /* Ubuntu notifications */
         NotifyNotification *volume_notification;
@@ -1283,12 +1286,14 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
         have_listeners = (manager->priv->media_players != NULL);
 
         if (!have_listeners) {
+                if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                 /* Popup a dialog with an (/) icon */
                 dialog_init (manager);
                 csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
                                                          "action-unavailable-symbolic",
                                                          FALSE);
                 dialog_show (manager);
+                 }
                 return TRUE;
         }
 
@@ -2103,6 +2108,9 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
         g_free(sound);
         g_object_unref (settings);
 
+        g_debug ("Starting mpris controller");
+        manager->priv->mpris_controller = mpris_controller_new ();
+
         cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
@@ -2223,6 +2231,11 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         if (priv->power_keyboard_proxy) {
                 g_object_unref (priv->power_keyboard_proxy);
                 priv->power_keyboard_proxy = NULL;
+        }
+
+        if (priv->mpris_controller) {
+                g_object_unref (priv->mpris_controller);
+                priv->mpris_controller = NULL;
         }
 
         if (priv->upower_proxy) {
