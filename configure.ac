@@ -112,6 +112,14 @@ else
 fi
 
 dnl ---------------------------------------------------------------------------
+dnl - Check for GLib 2.38 or more
+dnl ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(NEW_GLIB, glib-2.0 >= 2.38.0, have_new_glib=yes, have_new_gib=no)
+if test x$have_new_glib = xyes; then
+        AC_DEFINE(HAVE_NEW_GLIB,1,[Got new glib-2.0])
+fi
+
+dnl ---------------------------------------------------------------------------
 dnl - Check for libnotify
 dnl ---------------------------------------------------------------------------
 
