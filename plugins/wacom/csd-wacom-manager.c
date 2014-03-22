@@ -1539,8 +1539,10 @@ csd_wacom_manager_finalize (GObject *object)
 		wacom_manager->priv->rr_screens = NULL;
 	}
 
-        if (wacom_manager->priv->start_idle_id != 0)
-                g_source_remove (wacom_manager->priv->start_idle_id);
+        if (wacom_manager->priv->start_idle_id != 0) {
+            g_source_remove (wacom_manager->priv->start_idle_id);
+            wacom_manager->priv->start_idle_id = 0;
+        }
 
         G_OBJECT_CLASS (csd_wacom_manager_parent_class)->finalize (object);
 }

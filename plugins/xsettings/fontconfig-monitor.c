@@ -137,8 +137,10 @@ stuff_changed (GFileMonitor *monitor G_GNUC_UNUSED,
         fontconfig_monitor_handle_t *handle = data;
 
         /* wait for quiescence */
-        if (handle->timeout)
-                g_source_remove (handle->timeout);
+        if (handle->timeout) {
+            g_source_remove (handle->timeout);
+            handle->timeout = 0;
+        }
 
         handle->timeout = g_timeout_add_seconds (TIMEOUT_SECONDS, update, data);
 }
@@ -160,10 +162,11 @@ fontconfig_monitor_start (GFunc    notify_callback,
 void
 fontconfig_monitor_stop  (fontconfig_monitor_handle_t *handle)
 {
-        if (handle->timeout)
+        if (handle->timeout) {
           g_source_remove (handle->timeout);
-        handle->timeout = 0;
-
+          handle->timeout = 0;
+        }
+        
         monitors_free (handle->monitors);
         handle->monitors = NULL;
 }

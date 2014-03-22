@@ -188,8 +188,10 @@ static void
 trigger_flush (CsdSoundManager *manager)
 {
 
-        if (manager->priv->timeout)
-                g_source_remove (manager->priv->timeout);
+        if (manager->priv->timeout) {
+            g_source_remove (manager->priv->timeout);
+            manager->priv->timeout = 0;
+        }
 
         /* We delay the flushing a bit so that we can coalesce
          * multiple changes into a single cache flush */

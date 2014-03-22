@@ -1026,8 +1026,10 @@ csd_clipboard_manager_finalize (GObject *object)
 
         g_return_if_fail (clipboard_manager->priv != NULL);
 
-        if (clipboard_manager->priv->start_idle_id !=0)
-                g_source_remove (clipboard_manager->priv->start_idle_id);
+        if (clipboard_manager->priv->start_idle_id !=0) {
+            g_source_remove (clipboard_manager->priv->start_idle_id);
+            clipboard_manager->priv->start_idle_id = 0;
+        }
 
         G_OBJECT_CLASS (csd_clipboard_manager_parent_class)->finalize (object);
 }

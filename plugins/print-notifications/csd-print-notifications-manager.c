@@ -545,7 +545,10 @@ on_cups_notification (GDBusConnection *connection,
                         for (tmp = manager->priv->timeouts; tmp; tmp = g_list_next (tmp)) {
                                 data = (TimeoutData *) tmp->data;
                                 if (g_strcmp0 (printer_name, data->printer_name) == 0) {
-                                        g_source_remove (data->timeout_id);
+                                        if (data && data->timeout_id) {
+                                            g_source_remove (data->timeout_id);
+                                            data->timeout_id = 0;
+                                        }
                                         manager->priv->timeouts = g_list_remove_link (manager->priv->timeouts, tmp);
                                         g_list_free_full (tmp, free_timeout_data);
                                         break;
@@ -1148,8 +1151,10 @@ csd_print_notifications_manager_stop (CsdPrintNotificationsManager *manager)
 
         for (tmp = manager->priv->timeouts; tmp; tmp = g_list_next (tmp)) {
                 data = (TimeoutData *) tmp->data;
-                if (data)
-                        g_source_remove (data->timeout_id);
+                if (data && data->timeout_id != 0) {
+                    g_source_remove (data->timeout_id);
+                    data->timeout_id = 0;
+                }
         }
         g_list_free_full (manager->priv->timeouts, free_timeout_data);
 

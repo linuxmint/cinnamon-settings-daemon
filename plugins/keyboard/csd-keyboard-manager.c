@@ -379,8 +379,10 @@ csd_keyboard_manager_finalize (GObject *object)
 
         g_return_if_fail (keyboard_manager->priv != NULL);
 
-        if (keyboard_manager->priv->start_idle_id != 0)
+        if (keyboard_manager->priv->start_idle_id != 0) {
                 g_source_remove (keyboard_manager->priv->start_idle_id);
+                keyboard_manager->priv->start_idle_id = 0;
+        }
 
         G_OBJECT_CLASS (csd_keyboard_manager_parent_class)->finalize (object);
 }

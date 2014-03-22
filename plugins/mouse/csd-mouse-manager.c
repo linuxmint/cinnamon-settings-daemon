@@ -1319,8 +1319,10 @@ csd_mouse_manager_finalize (GObject *object)
         if (mouse_manager->priv->blacklist != NULL)
                 g_hash_table_destroy (mouse_manager->priv->blacklist);
 
-        if (mouse_manager->priv->start_idle_id != 0)
-                g_source_remove (mouse_manager->priv->start_idle_id);
+        if (mouse_manager->priv->start_idle_id != 0) {
+            g_source_remove (mouse_manager->priv->start_idle_id);
+            mouse_manager->priv->start_idle_id = 0;
+        }
 
         if (mouse_manager->priv->device_manager != NULL) {
                 g_signal_handler_disconnect (mouse_manager->priv->device_manager, mouse_manager->priv->device_added_id);

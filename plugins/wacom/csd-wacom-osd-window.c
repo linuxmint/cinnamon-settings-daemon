@@ -363,8 +363,10 @@ csd_wacom_osd_button_set_active (CsdWacomOSDButton *osd_button,
 		if (active == TRUE)
 			osd_button->priv->active = active;
 
-		if (osd_button->priv->timeout)
+		if (osd_button->priv->timeout) {
 			g_source_remove (osd_button->priv->timeout);
+			osd_button->priv->timeout = 0;
+		}
 		osd_button->priv->timeout = g_timeout_add (osd_button->priv->auto_off,
 		                                           (GSourceFunc) csd_wacom_osd_button_timer,
 		                                           osd_button);
@@ -548,8 +550,10 @@ csd_wacom_osd_button_finalize (GObject *object)
 
 	priv = osd_button->priv;
 
-	if (priv->timeout > 0)
+	if (priv->timeout > 0) {
 		g_source_remove (priv->timeout);
+		priv->timeout = 0;
+	}
 	g_clear_pointer (&priv->id, g_free);
 	g_clear_pointer (&priv->class, g_free);
 	g_clear_pointer (&priv->label, g_free);

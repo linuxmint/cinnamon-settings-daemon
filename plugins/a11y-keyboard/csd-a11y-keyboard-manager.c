@@ -1137,8 +1137,10 @@ csd_a11y_keyboard_manager_finalize (GObject *object)
 
         g_return_if_fail (a11y_keyboard_manager->priv != NULL);
 
-        if (a11y_keyboard_manager->priv->start_idle_id != 0)
+        if (a11y_keyboard_manager->priv->start_idle_id != 0) {
                 g_source_remove (a11y_keyboard_manager->priv->start_idle_id);
+                a11y_keyboard_manager->priv->start_idle_id = 0;
+        }
 
         G_OBJECT_CLASS (csd_a11y_keyboard_manager_parent_class)->finalize (object);
 }

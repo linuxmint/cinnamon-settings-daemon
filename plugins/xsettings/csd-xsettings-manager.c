@@ -982,8 +982,10 @@ cinnamon_xsettings_manager_finalize (GObject *object)
 
         g_return_if_fail (xsettings_manager->priv != NULL);
 
-        if (xsettings_manager->priv->start_idle_id != 0)
+        if (xsettings_manager->priv->start_idle_id != 0) {
                 g_source_remove (xsettings_manager->priv->start_idle_id);
+                xsettings_manager->priv->start_idle_id = 0;
+        }
 
         G_OBJECT_CLASS (cinnamon_xsettings_manager_parent_class)->finalize (object);
 }

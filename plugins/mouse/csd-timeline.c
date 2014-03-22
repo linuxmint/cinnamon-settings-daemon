@@ -605,7 +605,10 @@ csd_timeline_set_fps (CsdTimeline *timeline,
 
   if (csd_timeline_is_running (timeline))
     {
-      g_source_remove (priv->source_id);
+      if (priv->source_id) {
+        g_source_remove (priv->source_id);
+        priv->source_id = 0;
+      }
       priv->source_id = gdk_threads_add_timeout (FRAME_INTERVAL (priv->fps),
 						 (GSourceFunc) csd_timeline_run_frame,
 						 timeline);

@@ -689,8 +689,10 @@ ldsm_mounts_changed (GObject  *monitor,
         ldsm_check_all_mounts (NULL);
 
         /* and reset the timeout */
-        if (ldsm_timeout_id)
-                g_source_remove (ldsm_timeout_id);
+        if (ldsm_timeout_id) {
+            g_source_remove (ldsm_timeout_id);
+            ldsm_timeout_id = 0;
+        }
         ldsm_timeout_id = g_timeout_add_seconds (CHECK_EVERY_X_SECONDS,
                                                  ldsm_check_all_mounts, NULL);
 }
@@ -788,9 +790,10 @@ csd_ldsm_setup (gboolean check_now)
 void
 csd_ldsm_clean (void)
 {
-        if (ldsm_timeout_id)
-                g_source_remove (ldsm_timeout_id);
-        ldsm_timeout_id = 0;
+        if (ldsm_timeout_id) {
+            g_source_remove (ldsm_timeout_id);
+            ldsm_timeout_id = 0;
+        }        
 
         if (ldsm_notified_hash)
                 g_hash_table_destroy (ldsm_notified_hash);

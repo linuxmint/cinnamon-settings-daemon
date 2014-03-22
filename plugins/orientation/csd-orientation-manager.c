@@ -575,8 +575,10 @@ csd_orientation_manager_finalize (GObject *object)
 
         g_return_if_fail (orientation_manager->priv != NULL);
 
-        if (orientation_manager->priv->start_idle_id != 0)
+        if (orientation_manager->priv->start_idle_id != 0) {
                 g_source_remove (orientation_manager->priv->start_idle_id);
+                orientation_manager->priv->start_idle_id = 0;
+        }
 
         G_OBJECT_CLASS (csd_orientation_manager_parent_class)->finalize (object);
 }

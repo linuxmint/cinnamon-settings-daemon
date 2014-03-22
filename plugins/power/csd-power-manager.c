@@ -255,7 +255,11 @@ play_loop_stop (CsdPowerManager *manager)
                 return FALSE;
         }
 
-        g_source_remove (manager->priv->critical_alert_timeout_id);
+        if (manager->priv->critical_alert_timeout_id) {
+            g_source_remove (manager->priv->critical_alert_timeout_id);
+            manager->priv->critical_alert_timeout_id = 0;
+        }
+        
         ca_proplist_destroy (manager->priv->critical_alert_loop_props);
 
         manager->priv->critical_alert_loop_props = NULL;

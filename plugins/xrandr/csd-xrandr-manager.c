@@ -650,7 +650,11 @@ user_says_things_are_ok (CsdXrandrManager *manager, GdkWindow *parent_window)
         gtk_main ();
 
         gtk_widget_destroy (timeout.dialog);
-        g_source_remove (timeout_id);
+
+        if (timeout_id) {
+            g_source_remove (timeout_id);
+            timeout_id = 0;
+        }
 
         if (timeout.response_id == GTK_RESPONSE_ACCEPT)
                 return TRUE;

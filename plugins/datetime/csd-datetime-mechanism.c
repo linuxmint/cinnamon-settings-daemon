@@ -62,6 +62,7 @@ reset_killtimer (void)
 
         if (timer_id > 0) {
                 g_source_remove (timer_id);
+                timer_id = 0;
         }
         g_debug ("Setting killtimer to 30 seconds...");
         timer_id = g_timeout_add_seconds (30, do_exit, NULL);

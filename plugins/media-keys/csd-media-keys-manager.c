@@ -2373,8 +2373,10 @@ csd_media_keys_manager_finalize (GObject *object)
 
         g_return_if_fail (media_keys_manager->priv != NULL);
 
-        if (media_keys_manager->priv->start_idle_id != 0)
-                g_source_remove (media_keys_manager->priv->start_idle_id);
+        if (media_keys_manager->priv->start_idle_id != 0) {
+            g_source_remove (media_keys_manager->priv->start_idle_id);
+            media_keys_manager->priv->start_idle_id = 0;
+        }
 
         G_OBJECT_CLASS (csd_media_keys_manager_parent_class)->finalize (object);
 }
