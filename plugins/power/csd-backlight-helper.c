@@ -29,12 +29,15 @@
 #include <fcntl.h>
 #include <string.h>
 #include <gudev/gudev.h>
+#include <gio/gio.h>
 
 #define CSD_BACKLIGHT_HELPER_EXIT_CODE_SUCCESS			0
 #define CSD_BACKLIGHT_HELPER_EXIT_CODE_FAILED			1
 #define CSD_BACKLIGHT_HELPER_EXIT_CODE_ARGUMENTS_INVALID	3
 #define CSD_BACKLIGHT_HELPER_EXIT_CODE_INVALID_USER		4
 #define CSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES		5
+
+#define CSD_POWER_SETTINGS_SCHEMA	"org.cinnamon.settings-daemon.plugins.power"
 
 static gchar *
 csd_backlight_helper_get_type (GList *devices, const gchar *type)
@@ -51,28 +54,36 @@ csd_backlight_helper_get_type (GList *devices, const gchar *type)
 }
 
 static gchar *
-csd_backlight_helper_get_best_backlight ()
+csd_backlight_helper_get_best_backlight (gchar** preference_list)
 {
 	gchar *path = NULL;
 	GList *devices;
 	GUdevClient *client;
+	GSettings *settings;
 
 	client = g_udev_client_new (NULL);
 	devices = g_udev_client_query_by_subsystem (client, "backlight");
 	if (devices == NULL)
 		goto out;
 
-	/* search the backlight devices and prefer the types:
-	 * firmware -> platform -> raw */
-	path = csd_backlight_helper_get_type (devices, "firmware");
-	if (path != NULL)
-		goto out;
-	path = csd_backlight_helper_get_type (devices, "platform");
-	if (path != NULL)
-		goto out;
-	path = csd_backlight_helper_get_type (devices, "raw");
-	if (path != NULL)
-		goto out;
+	/* setup our gsettings interface */
+	/*settings = g_settings_new (CSD_POWER_SETTINGS_SCHEMA);
+	gchar** preference_list = g_settings_get_strv (settings, 
+					"backlight-preference-order");
+    */
+	if (preference_list[0] == NULL)
+		g_print("%s\n%s\n",
+		"Warning: no backlight sources have been configured.",
+		"Check " CSD_POWER_SETTINGS_SCHEMA " to configure some.");
+
+	int i = 0;
+	for (i=0; preference_list[i] != NULL; i++) {
+		path = csd_backlight_helper_get_type 
+			(devices, preference_list[i]);
+		if (path != NULL)
+			goto out;
+	}
+
 out:
 	g_object_unref (client);
 	g_list_foreach (devices, (GFunc) g_object_unref, NULL);
@@ -129,6 +140,7 @@ main (int argc, char *argv[])
 	gchar *filename = NULL;
 	gchar *filename_file = NULL;
 	gchar *contents = NULL;
+	gchar** backlight_preference_order = NULL;
 
 	const GOptionEntry options[] = {
 		{ "set-brightness", '\0', 0, G_OPTION_ARG_INT, &set_brightness,
@@ -140,6 +152,10 @@ main (int argc, char *argv[])
 		{ "get-max-brightness", '\0', 0, G_OPTION_ARG_NONE, &get_max_brightness,
 		   /* command line argument */
 		  "Get the number of brightness levels supported", NULL },
+        { "backlight-preference", 'b', 0, G_OPTION_ARG_STRING_ARRAY,
+          &backlight_preference_order,
+		   /* command line argument */
+          "Set a backlight control search preference", NULL },
 		{ NULL}
 	};
 
@@ -166,7 +182,8 @@ main (int argc, char *argv[])
 	}
 
 	/* find device */
-	filename = csd_backlight_helper_get_best_backlight ();
+	filename = csd_backlight_helper_get_best_backlight
+	                (backlight_preference_order);
 	if (filename == NULL) {
 		retval = CSD_BACKLIGHT_HELPER_EXIT_CODE_NO_DEVICES;
 		g_print ("%s: %s\n",
