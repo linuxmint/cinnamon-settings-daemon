@@ -39,6 +39,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gio/gdesktopappinfo.h>
+#include <gio/gunixfdlist.h>
 
 #ifdef HAVE_GUDEV
 #include <gudev/gudev.h>
@@ -121,6 +122,10 @@ static const gchar kb_introspection_xml[] =
 #define VOLUME_STEP 5           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
 
+#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
+#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
+#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+
 #define CSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_MEDIA_KEYS_MANAGER, CsdMediaKeysManagerPrivate))
 
 typedef struct {
@@ -166,6 +171,10 @@ struct CsdMediaKeysManagerPrivate
         GDBusProxy      *upower_proxy;
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
+
+        /* systemd stuff */
+        GDBusProxy      *logind_proxy;
+        gint             inhibit_keys_fd;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -2213,6 +2222,11 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         }
 #endif /* HAVE_GUDEV */
 
+        if (priv->logind_proxy) {
+                g_object_unref (priv->logind_proxy);
+                priv->logind_proxy = NULL;
+        }
+
         if (priv->settings) {
                 g_object_unref (priv->settings);
                 priv->settings = NULL;
@@ -2356,9 +2370,85 @@ csd_media_keys_manager_class_init (CsdMediaKeysManagerClass *klass)
 }
 
 static void
+inhibit_done (GObject      *source,
+              GAsyncResult *result,
+              gpointer      user_data)
+{
+        GDBusProxy *proxy = G_DBUS_PROXY (source);
+        CsdMediaKeysManager *manager = CSD_MEDIA_KEYS_MANAGER (user_data);
+        GError *error = NULL;
+        GVariant *res;
+        GUnixFDList *fd_list = NULL;
+        gint idx;
+
+        res = g_dbus_proxy_call_with_unix_fd_list_finish (proxy, &fd_list, result, &error);
+        if (res == NULL) {
+                g_warning ("Unable to inhibit keypresses: %s", error->message);
+                g_error_free (error);
+        } else {
+                g_variant_get (res, "(h)", &idx);
+                manager->priv->inhibit_keys_fd = g_unix_fd_list_get (fd_list, idx, &error);
+                if (manager->priv->inhibit_keys_fd == -1) {
+                        g_warning ("Failed to receive system inhibitor fd: %s", error->message);
+                        g_error_free (error);
+                }
+                g_debug ("System inhibitor fd is %d", manager->priv->inhibit_keys_fd);
+                g_object_unref (fd_list);
+                g_variant_unref (res);
+        }
+}
+
+static void
 csd_media_keys_manager_init (CsdMediaKeysManager *manager)
 {
+        GError *error;
+        GDBusConnection *bus;
+
+        error = NULL;
         manager->priv = CSD_MEDIA_KEYS_MANAGER_GET_PRIVATE (manager);
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
+        if (bus == NULL) {
+                g_warning ("Failed to connect to system bus: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        manager->priv->logind_proxy =
+                g_dbus_proxy_new_sync (bus,
+                                       0,
+                                       NULL,
+                                       SYSTEMD_DBUS_NAME,
+                                       SYSTEMD_DBUS_PATH,
+                                       SYSTEMD_DBUS_INTERFACE,
+                                       NULL,
+                                       &error);
+
+        if (manager->priv->logind_proxy == NULL) {
+                g_warning ("Failed to connect to systemd: %s",
+                           error->message);
+                g_error_free (error);
+        }
+
+        g_object_unref (bus);
+
+        g_debug ("Adding system inhibitors for power keys");
+        manager->priv->inhibit_keys_fd = -1;
+        g_dbus_proxy_call_with_unix_fd_list (manager->priv->logind_proxy,
+                                             "Inhibit",
+                                             g_variant_new ("(ssss)",
+                                                            "handle-power-key:handle-suspend-key:handle-hibernate-key",
+                                                            g_get_user_name (),
+                                                            "Cinnamon handling keypresses",
+                                                            "block"),
+                                             0,
+                                             G_MAXINT,
+                                             NULL,
+                                             NULL,
+                                             inhibit_done,
+                                             manager);
+
 }
 
 static void
@@ -2377,6 +2467,8 @@ csd_media_keys_manager_finalize (GObject *object)
             g_source_remove (media_keys_manager->priv->start_idle_id);
             media_keys_manager->priv->start_idle_id = 0;
         }
+        if (media_keys_manager->priv->inhibit_keys_fd != -1)
+            close (media_keys_manager->priv->inhibit_keys_fd);
 
         G_OBJECT_CLASS (csd_media_keys_manager_parent_class)->finalize (object);
 }
