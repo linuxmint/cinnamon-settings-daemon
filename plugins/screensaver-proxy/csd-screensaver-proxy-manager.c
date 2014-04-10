@@ -84,9 +84,50 @@ static const gchar introspection_xml[] =
     "</signal>"
   "</interface>"
 "</node>";
+static const gchar introspection_xml2[] =
+"<node name='/ScreenSaver'>"
+    "<interface name='org.freedesktop.ScreenSaver'>"
+    "<method name='Lock'/>"
+    "<method name='SimulateUserActivity'/>"
+    "<method name='GetActive'>"
+      "<arg type='b' direction='out'/>"
+    "</method>"
+    "<method name='GetActiveTime'>"
+      "<arg name='seconds' type='u' direction='out'/>"
+    "</method>"
+    "<method name='GetSessionIdleTime'>"
+      "<arg name='seconds' type='u' direction='out'/>"
+    "</method>"
+    "<method name='SetActive'>"
+      "<arg type='b' direction='out'/>"
+      "<arg name='e' type='b' direction='in'/>"
+    "</method>"
+    "<method name='Inhibit'>"
+      "<arg name='application_name' type='s' direction='in'/>"
+      "<arg name='reason_for_inhibit' type='s' direction='in'/>"
+      "<arg name='cookie' type='u' direction='out'/>"
+    "</method>"
+    "<method name='UnInhibit'>"
+      "<arg name='cookie' type='u' direction='in'/>"
+    "</method>"
+    "<method name='Throttle'>"
+      "<arg name='application_name' type='s' direction='in'/>"
+      "<arg name='reason_for_inhibit' type='s' direction='in'/>"
+      "<arg name='cookie' type='u' direction='out'/>"
+    "</method>"
+    "<method name='UnThrottle'>"
+      "<arg name='cookie' type='u' direction='in'/>"
+    "</method>"
+
+    "<signal name='ActiveChanged'>"
+      "<arg type='b'/>"
+    "</signal>"
+  "</interface>"
+"</node>";
 
 #define CSD_SCREENSAVER_PROXY_DBUS_SERVICE      "org.freedesktop.ScreenSaver"
 #define CSD_SCREENSAVER_PROXY_DBUS_PATH         "/org/freedesktop/ScreenSaver"
+#define CSD_SCREENSAVER_PROXY_DBUS_PATH2        "/ScreenSaver"
 #define CSD_SCREENSAVER_PROXY_DBUS_INTERFACE    "org.freedesktop.ScreenSaver"
 
 #define GSM_INHIBITOR_FLAG_IDLE 1 << 3
@@ -97,6 +138,7 @@ struct CsdScreensaverProxyManagerPrivate
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusNodeInfo           *introspection_data;
+        GDBusNodeInfo           *introspection_data2;
         guint                    name_id;
 
         GHashTable              *watch_ht;  /* key = sender, value = name watch id */
@@ -237,8 +279,6 @@ handle_method_call (GDBusConnection       *connection,
                                         parameters,
                                         G_DBUS_CALL_FLAGS_NONE,
                                         -1, NULL, NULL);
-                g_debug ("Removing cookie %u from the list for %s", cookie, sender);
-                g_hash_table_remove (manager->priv->cookie_ht, GUINT_TO_POINTER (cookie));
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "Throttle") == 0) {
                 g_dbus_method_invocation_return_value (invocation, NULL);
@@ -303,6 +343,14 @@ on_bus_gotten (GObject                    *source_object,
                                            manager,
                                            NULL,
                                            NULL);
+        infos = manager->priv->introspection_data2->interfaces;
+        g_dbus_connection_register_object (connection,
+                                           CSD_SCREENSAVER_PROXY_DBUS_PATH2,
+                                           infos[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
 
         manager->priv->name_id = g_bus_own_name_on_connection (manager->priv->connection,
                                                                CSD_SCREENSAVER_PROXY_DBUS_SERVICE,
@@ -317,8 +365,10 @@ static void
 register_manager_dbus (CsdScreensaverProxyManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
+        manager->priv->introspection_data2 = g_dbus_node_info_new_for_xml (introspection_xml2, NULL);
         manager->priv->bus_cancellable = g_cancellable_new ();
         g_assert (manager->priv->introspection_data != NULL);
+        g_assert (manager->priv->introspection_data2 != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
                    manager->priv->bus_cancellable,
@@ -414,6 +464,12 @@ csd_screensaver_proxy_manager_finalize (GObject *object)
                 g_dbus_node_info_unref (manager->priv->introspection_data);
                 manager->priv->introspection_data = NULL;
         }
+
+        if (manager->priv->introspection_data2 != NULL) {
+                g_dbus_node_info_unref (manager->priv->introspection_data2);
+                manager->priv->introspection_data2 = NULL;
+        }
+
         G_OBJECT_CLASS (csd_screensaver_proxy_manager_parent_class)->finalize (object);
 }
 
