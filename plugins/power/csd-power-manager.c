@@ -3386,7 +3386,6 @@ lock_screensaver (CsdPowerManager *manager)
                                   sleep_cb_screensaver_proxy_ready_cb,
                                   manager);
 }
-#endif
 
 static void
 idle_send_to_sleep (CsdPowerManager *manager)
