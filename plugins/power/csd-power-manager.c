@@ -987,6 +987,7 @@ engine_coldplug (CsdPowerManager *manager)
         gboolean ret;
         GError *error = NULL;
 
+#if ! UP_CHECK_VERSION(0,99,0) 
         /* get devices from UPower */
         ret = up_client_enumerate_devices_sync (manager->priv->up_client, NULL, &error);
         if (!ret) {
@@ -994,6 +995,7 @@ engine_coldplug (CsdPowerManager *manager)
                 g_error_free (error);
                 goto out;
         }
+#endif
 
         /* connected mobile phones */
         gpm_phone_coldplug (manager->priv->phone);
@@ -1133,12 +1135,17 @@ manager_critical_action_get (CsdPowerManager *manager,
 
         policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
         if (policy == CSD_POWER_ACTION_SUSPEND) {
-                if (is_ups == FALSE &&
-                    up_client_get_can_suspend (manager->priv->up_client))
+                if (is_ups == FALSE
+#if ! UP_CHECK_VERSION(0,99,0)
+                    && up_client_get_can_suspend (manager->priv->up_client)
+#endif
+                )
                         return policy;
                 return CSD_POWER_ACTION_SHUTDOWN;
         } else if (policy == CSD_POWER_ACTION_HIBERNATE) {
+#if ! UP_CHECK_VERSION(0,99,0)
                 if (up_client_get_can_hibernate (manager->priv->up_client))
+#endif
                         return policy;
                 return CSD_POWER_ACTION_SHUTDOWN;
         }
@@ -2127,6 +2134,7 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                                                    "lid-close-ac-action");
         }
 
+#if ! UP_CHECK_VERSION(0,99,0)
         /* check we won't melt when the lid is closed */
         if (action_type != CSD_POWER_ACTION_SUSPEND &&
             action_type != CSD_POWER_ACTION_HIBERNATE) {
@@ -2139,6 +2147,7 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                         lock_screensaver (manager);
                 }
         }
+#endif
 
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
@@ -3366,6 +3375,7 @@ lock_screensaver (CsdPowerManager *manager)
                                       manager);
 }
 
+#if ! UP_CHECK_VERSION(0,99,0)
 static void
 upower_notify_sleep_cb (UpClient *client,
                         UpSleepKind sleep_kind,
@@ -3429,6 +3439,7 @@ upower_notify_resume_cb (UpClient *client,
                 g_error_free (error);
         }
 }
+#endif
 
 static void
 idle_send_to_sleep (CsdPowerManager *manager)
@@ -3665,10 +3676,12 @@ csd_power_manager_start (CsdPowerManager *manager,
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
         manager->priv->up_client = up_client_new ();
+#if ! UP_CHECK_VERSION(0,99,0)
         g_signal_connect (manager->priv->up_client, "notify-sleep",
                           G_CALLBACK (upower_notify_sleep_cb), manager);
         g_signal_connect (manager->priv->up_client, "notify-resume",
                           G_CALLBACK (upower_notify_resume_cb), manager);
+#endif
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
         g_signal_connect (manager->priv->up_client, "device-added",
                           G_CALLBACK (engine_device_added_cb), manager);
