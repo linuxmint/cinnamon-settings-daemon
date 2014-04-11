@@ -3678,7 +3678,15 @@ handle_suspend_actions (CsdPowerManager *manager)
         do_lock = g_settings_get_boolean (manager->priv->settings,
                                           "lock-on-suspend");
         if (do_lock)
-                lock_screensaver (manager);
+                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                          G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                          NULL,
+                                          GS_DBUS_NAME,
+                                          GS_DBUS_PATH,
+                                          GS_DBUS_INTERFACE,
+                                          NULL,
+                                          sleep_cb_screensaver_proxy_ready_cb,
+                                          manager);
 
         /* lift the delay inhibit, so logind can proceed */
         uninhibit_suspend (manager);
