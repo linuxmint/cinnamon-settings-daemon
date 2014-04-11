@@ -2146,10 +2146,10 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                                                    "lid-close-ac-action");
         }
 
-#if ! UP_CHECK_VERSION(0,99,0)
         /* check we won't melt when the lid is closed */
         if (action_type != CSD_POWER_ACTION_SUSPEND &&
             action_type != CSD_POWER_ACTION_HIBERNATE) {
+#if ! UP_CHECK_VERSION(0,99,0)
                 if (up_client_get_lid_force_sleep (manager->priv->up_client)) {
                         g_warning ("to prevent damage, now forcing suspend");
                         do_power_action_type (manager, CSD_POWER_ACTION_SUSPEND);
@@ -2158,8 +2158,10 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                         /* maybe lock the screen if the lid is closed */
                         lock_screensaver (manager);
                 }
-        }
+#else
+                lock_screensaver (manager);
 #endif
+        }
 
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
