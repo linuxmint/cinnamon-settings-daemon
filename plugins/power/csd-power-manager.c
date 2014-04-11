@@ -3730,6 +3730,7 @@ handle_resume_actions (CsdPowerManager *manager)
         inhibit_suspend (manager);
 }
 
+#if ! UP_CHECK_VERSION(0,99,0)
 static void
 upower_notify_sleep_cb (UpClient *client,
                         UpSleepKind sleep_kind,
@@ -3745,6 +3746,7 @@ upower_notify_resume_cb (UpClient *client,
 {
         handle_resume_actions (manager);
 }
+#endif
 
 static void
 logind_proxy_signal_cb (GDBusProxy  *proxy,
