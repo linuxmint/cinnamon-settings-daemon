@@ -2146,10 +2146,10 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                                                    "lid-close-ac-action");
         }
 
-#if ! UP_CHECK_VERSION(0,99,0)
         /* check we won't melt when the lid is closed */
         if (action_type != CSD_POWER_ACTION_SUSPEND &&
             action_type != CSD_POWER_ACTION_HIBERNATE) {
+#if ! UP_CHECK_VERSION(0,99,0)
                 if (up_client_get_lid_force_sleep (manager->priv->up_client)) {
                         g_warning ("to prevent damage, now forcing suspend");
                         do_power_action_type (manager, CSD_POWER_ACTION_SUSPEND);
@@ -2158,8 +2158,10 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                         /* maybe lock the screen if the lid is closed */
                         lock_screensaver (manager);
                 }
-        }
+#else
+                lock_screensaver (manager);
 #endif
+        }
 
         /* ensure we turn the panel back on after resume */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
@@ -3678,7 +3680,15 @@ handle_suspend_actions (CsdPowerManager *manager)
         do_lock = g_settings_get_boolean (manager->priv->settings,
                                           "lock-on-suspend");
         if (do_lock)
-                lock_screensaver (manager);
+                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
+                                          G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                          NULL,
+                                          GS_DBUS_NAME,
+                                          GS_DBUS_PATH,
+                                          GS_DBUS_INTERFACE,
+                                          NULL,
+                                          sleep_cb_screensaver_proxy_ready_cb,
+                                          manager);
 
         /* lift the delay inhibit, so logind can proceed */
         uninhibit_suspend (manager);
@@ -3720,6 +3730,7 @@ handle_resume_actions (CsdPowerManager *manager)
         inhibit_suspend (manager);
 }
 
+#if ! UP_CHECK_VERSION(0,99,0)
 static void
 upower_notify_sleep_cb (UpClient *client,
                         UpSleepKind sleep_kind,
@@ -3735,6 +3746,7 @@ upower_notify_resume_cb (UpClient *client,
 {
         handle_resume_actions (manager);
 }
+#endif
 
 static void
 logind_proxy_signal_cb (GDBusProxy  *proxy,
