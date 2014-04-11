@@ -176,6 +176,8 @@ struct CsdPowerManagerPrivate
         GCancellable            *bus_cancellable;
         GDBusProxy              *upower_proxy;
         GDBusProxy              *upower_kdb_proxy;
+        gboolean				backlight_helper_force;
+        gchar*                  backlight_helper_preference_args;
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
@@ -2293,6 +2295,43 @@ out:
         return output;
 }
 
+static void
+backlight_override_settings_refresh (CsdPowerManager *manager)
+{
+        int i = 0;
+        /* update all the stored backlight override properties
+         * this is called on startup and by engine_settings_key_changed_cb */
+        manager->priv->backlight_helper_force = g_settings_get_boolean
+                        (manager->priv->settings, "backlight-helper-force");
+
+        /* concatenate all the search preferences into a single argument string */
+        gchar** backlight_preference_order = g_settings_get_strv
+                (manager->priv->settings, "backlight-helper-preference-order");
+
+        gchar* tmp1 = NULL;
+        gchar* tmp2 = NULL;
+
+        if (backlight_preference_order[0] != NULL) {
+                tmp1 = g_strdup_printf("-b %s", backlight_preference_order[0]);
+        }
+
+        for (i=1; backlight_preference_order[i] != NULL; i++ )
+        {
+                tmp2 = tmp1;
+                tmp1 = g_strdup_printf("%s -b %s", tmp2,
+                                backlight_preference_order[i]);
+                g_free(tmp2);
+        }
+
+        tmp2 = manager->priv->backlight_helper_preference_args;
+        manager->priv->backlight_helper_preference_args = tmp1;
+        g_free(tmp2);
+        tmp2 = NULL;
+
+        g_free(backlight_preference_order);
+        backlight_preference_order = NULL;
+}
+
 /**
  * backlight_helper_get_value:
  *
@@ -2302,7 +2341,8 @@ out:
  * for failure. If -1 then @error is set.
  **/
 static gint64
-backlight_helper_get_value (const gchar *argument, GError **error)
+backlight_helper_get_value (const gchar *argument, CsdPowerManager* manager,
+                GError **error)
 {
         gboolean ret;
         gchar *stdout_data = NULL;
@@ -2321,8 +2361,9 @@ backlight_helper_get_value (const gchar *argument, GError **error)
 #endif
 
         /* get the data */
-        command = g_strdup_printf (LIBEXECDIR "/csd-backlight-helper --%s",
-                                   argument);
+        command = g_strdup_printf (LIBEXECDIR "/csd-backlight-helper --%s %s",
+                                   argument,
+                                   manager->priv->backlight_helper_preference_args);
         ret = g_spawn_command_line_sync (command,
                                          &stdout_data,
                                          NULL,
@@ -2393,6 +2434,7 @@ out:
 static gboolean
 backlight_helper_set_value (const gchar *argument,
                             gint value,
+                            CsdPowerManager* manager,
                             GError **error)
 {
         gboolean ret;
@@ -2409,8 +2451,9 @@ backlight_helper_set_value (const gchar *argument,
 #endif
 
         /* get the data */
-        command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-backlight-helper --%s %i",
-                                   argument, value);
+        command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-backlight-helper --%s %i %s",
+                                   argument, value,
+                                   manager->priv->backlight_helper_preference_args);
         ret = g_spawn_command_line_sync (command,
                                          NULL,
                                          NULL,
@@ -2432,15 +2475,19 @@ backlight_get_abs (CsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
 
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
-                return gnome_rr_output_get_backlight (output,
-                                                      error);
+        /* prioritize user override settings */
+        if (!manager->priv->backlight_helper_force)
+        {
+                /* prefer xbacklight */
+                output = get_primary_output (manager);
+                if (output != NULL) {
+                        return gnome_rr_output_get_backlight (output,
+                                                              error);
+                }
         }
 
         /* fall back to the polkit helper */
-        return backlight_helper_get_value ("get-brightness", error);
+        return backlight_helper_get_value ("get-brightness", manager, error);
 }
 
 static gint
@@ -2452,24 +2499,28 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
         gint min = 0;
         gint max;
 
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
+        /* prioritize user override settings */
+        if (!manager->priv->backlight_helper_force)
+        {
+                /* prefer xbacklight */
+                output = get_primary_output (manager);
+                if (output != NULL) {
 
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
-                if (now < 0)
+                        min = gnome_rr_output_get_backlight_min (output);
+                        max = gnome_rr_output_get_backlight_max (output);
+                        now = gnome_rr_output_get_backlight (output, error);
+                        if (now < 0)
+                                goto out;
+                        value = ABS_TO_PERCENTAGE (min, max, now);
                         goto out;
-                value = ABS_TO_PERCENTAGE (min, max, now);
-                goto out;
+                }
         }
 
         /* fall back to the polkit helper */
-        max = backlight_helper_get_value ("get-max-brightness", error);
+        max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
-        now = backlight_helper_get_value ("get-brightness", error);
+        now = backlight_helper_get_value ("get-brightness", manager, error);
         if (now < 0)
                 goto out;
         value = ABS_TO_PERCENTAGE (min, max, now);
@@ -2480,10 +2531,15 @@ out:
 static gint
 backlight_get_min (CsdPowerManager *manager)
 {
+        /* if we have no xbacklight device, then hardcode zero as sysfs
+        * offsets everything to 0 as min */
+
+        /* user override means we will be using sysfs */
+        if (manager->priv->backlight_helper_force)
+                return 0;
+
         GnomeRROutput *output;
 
-        /* if we have no xbacklight device, then hardcode zero as sysfs
-         * offsets everything to 0 as min */
         output = get_primary_output (manager);
         if (output == NULL)
                 return 0;
@@ -2498,21 +2554,25 @@ backlight_get_max (CsdPowerManager *manager, GError **error)
         gint value;
         GnomeRROutput *output;
 
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
-                value = gnome_rr_output_get_backlight_max (output);
-                if (value < 0) {
-                        g_set_error (error,
-                                     CSD_POWER_MANAGER_ERROR,
-                                     CSD_POWER_MANAGER_ERROR_FAILED,
-                                     "failed to get backlight max");
+        /* prioritize user override settings */
+        if (!manager->priv->backlight_helper_force)
+        {
+                /* prefer xbacklight */
+                output = get_primary_output (manager);
+                if (output != NULL) {
+                        value = gnome_rr_output_get_backlight_max (output);
+                        if (value < 0) {
+                                g_set_error (error,
+                                             CSD_POWER_MANAGER_ERROR,
+                                             CSD_POWER_MANAGER_ERROR_FAILED,
+                                             "failed to get backlight max");
+                        }
+                        return value;
                 }
-                return value;
         }
 
         /* fall back to the polkit helper */
-        return  backlight_helper_get_value ("get-max-brightness", error);
+        return  backlight_helper_get_value ("get-max-brightness", manager, error);
 }
 
 static void
@@ -2549,29 +2609,34 @@ backlight_set_percentage (CsdPowerManager *manager,
         gint max;
         guint discrete;
 
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                if (min < 0 || max < 0) {
-                        g_warning ("no xrandr backlight capability");
+        /* prioritize user override settings */
+        if (!manager->priv->backlight_helper_force)
+        {
+                /* prefer xbacklight */
+                output = get_primary_output (manager);
+                if (output != NULL) {
+                        min = gnome_rr_output_get_backlight_min (output);
+                        max = gnome_rr_output_get_backlight_max (output);
+                        if (min < 0 || max < 0) {
+                                g_warning ("no xrandr backlight capability");
+                                goto out;
+                        }
+                        discrete = PERCENTAGE_TO_ABS (min, max, value);
+                        ret = gnome_rr_output_set_backlight (output,
+                                                             discrete,
+                                                             error);
                         goto out;
                 }
-                discrete = PERCENTAGE_TO_ABS (min, max, value);
-                ret = gnome_rr_output_set_backlight (output,
-                                                     discrete,
-                                                     error);
-                goto out;
         }
 
         /* fall back to the polkit helper */
-        max = backlight_helper_get_value ("get-max-brightness", error);
+        max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
         discrete = PERCENTAGE_TO_ABS (min, max, value);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
+                                          manager,
                                           error);
 out:
         if (ret && emit_changed)
@@ -2592,45 +2657,50 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
         guint discrete;
         GnomeRRCrtc *crtc;
 
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
+        /* prioritize user override settings */
+        if (!manager->priv->backlight_helper_force)
+        {
+                /* prefer xbacklight */
+                output = get_primary_output (manager);
+                if (output != NULL) {
 
-                crtc = gnome_rr_output_get_crtc (output);
-                if (crtc == NULL) {
-                        g_set_error (error,
-                                     CSD_POWER_MANAGER_ERROR,
-                                     CSD_POWER_MANAGER_ERROR_FAILED,
-                                     "no crtc for %s",
-                                     gnome_rr_output_get_name (output));
+                        crtc = gnome_rr_output_get_crtc (output);
+                        if (crtc == NULL) {
+                                g_set_error (error,
+                                             CSD_POWER_MANAGER_ERROR,
+                                             CSD_POWER_MANAGER_ERROR_FAILED,
+                                             "no crtc for %s",
+                                             gnome_rr_output_get_name (output));
+                                goto out;
+                        }
+                        min = gnome_rr_output_get_backlight_min (output);
+                        max = gnome_rr_output_get_backlight_max (output);
+                        now = gnome_rr_output_get_backlight (output, error);
+                        if (now < 0)
+                               goto out;
+                        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+                        discrete = MIN (now + step, max);
+                        ret = gnome_rr_output_set_backlight (output,
+                                                             discrete,
+                                                             error);
+                        if (ret)
+                                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
                         goto out;
                 }
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
-                if (now < 0)
-                       goto out;
-                step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
-                discrete = MIN (now + step, max);
-                ret = gnome_rr_output_set_backlight (output,
-                                                     discrete,
-                                                     error);
-                if (ret)
-                        percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
-                goto out;
         }
 
         /* fall back to the polkit helper */
-        now = backlight_helper_get_value ("get-brightness", error);
+        now = backlight_helper_get_value ("get-brightness", manager, error);
         if (now < 0)
                 goto out;
-        max = backlight_helper_get_value ("get-max-brightness", error);
+        max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
         step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
         discrete = MIN (now + step, max);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
+                                          manager,
                                           error);
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
@@ -2653,45 +2723,50 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
         guint discrete;
         GnomeRRCrtc *crtc;
 
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
+        /* prioritize user override settings */
+        if (!manager->priv->backlight_helper_force)
+        {
+                /* prefer xbacklight */
+                output = get_primary_output (manager);
+                if (output != NULL) {
 
-                crtc = gnome_rr_output_get_crtc (output);
-                if (crtc == NULL) {
-                        g_set_error (error,
-                                     CSD_POWER_MANAGER_ERROR,
-                                     CSD_POWER_MANAGER_ERROR_FAILED,
-                                     "no crtc for %s",
-                                     gnome_rr_output_get_name (output));
+                        crtc = gnome_rr_output_get_crtc (output);
+                        if (crtc == NULL) {
+                                g_set_error (error,
+                                             CSD_POWER_MANAGER_ERROR,
+                                             CSD_POWER_MANAGER_ERROR_FAILED,
+                                             "no crtc for %s",
+                                             gnome_rr_output_get_name (output));
+                                goto out;
+                        }
+                        min = gnome_rr_output_get_backlight_min (output);
+                        max = gnome_rr_output_get_backlight_max (output);
+                        now = gnome_rr_output_get_backlight (output, error);
+                        if (now < 0)
+                               goto out;
+                        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+                        discrete = MAX (now - step, 0);
+                        ret = gnome_rr_output_set_backlight (output,
+                                                             discrete,
+                                                             error);
+                        if (ret)
+                                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
                         goto out;
                 }
-                min = gnome_rr_output_get_backlight_min (output);
-                max = gnome_rr_output_get_backlight_max (output);
-                now = gnome_rr_output_get_backlight (output, error);
-                if (now < 0)
-                       goto out;
-                step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
-                discrete = MAX (now - step, 0);
-                ret = gnome_rr_output_set_backlight (output,
-                                                     discrete,
-                                                     error);
-                if (ret)
-                        percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
-                goto out;
         }
 
         /* fall back to the polkit helper */
-        now = backlight_helper_get_value ("get-brightness", error);
+        now = backlight_helper_get_value ("get-brightness", manager, error);
         if (now < 0)
                 goto out;
-        max = backlight_helper_get_value ("get-max-brightness", error);
+        max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
         step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
         discrete = MAX (now - step, 0);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
+                                          manager,
                                           error);
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
@@ -2710,18 +2785,22 @@ backlight_set_abs (CsdPowerManager *manager,
         GnomeRROutput *output;
         gboolean ret = FALSE;
 
-        /* prefer xbacklight */
-        output = get_primary_output (manager);
-        if (output != NULL) {
-                ret = gnome_rr_output_set_backlight (output,
-                                                     value,
-                                                     error);
-                goto out;
+        /* prioritize user override settings */
+        if (!manager->priv->backlight_helper_force)
+        {
+                /* prefer xbacklight */
+                output = get_primary_output (manager);
+                if (output != NULL) {
+                        ret = gnome_rr_output_set_backlight (output,
+                                                             value,
+                                                             error);
+                        goto out;
+                }
         }
-
         /* fall back to the polkit helper */
         ret = backlight_helper_set_value ("set-brightness",
                                           value,
+                                          manager,
                                           error);
 out:
         if (ret && emit_changed)
@@ -3449,6 +3528,9 @@ engine_settings_key_changed_cb (GSettings *settings,
                                 const gchar *key,
                                 CsdPowerManager *manager)
 {
+        /* note: you *have* to check if your key was changed here before
+         * doing anything here. this gets invoked on module stop, and
+         * will crash c-s-d if you don't. */
         if (g_strcmp0 (key, "use-time-for-policy") == 0) {
                 manager->priv->use_time_primary = g_settings_get_boolean (settings, key);
                 return;
@@ -3460,6 +3542,11 @@ engine_settings_key_changed_cb (GSettings *settings,
         if (g_str_has_prefix (key, "sleep-inactive") ||
             g_str_has_prefix (key, "sleep-display")) {
                 idle_configure (manager);
+                return;
+        }
+
+        if (g_str_has_prefix (key, "backlight-helper")) {
+                backlight_override_settings_refresh (manager);
                 return;
         }
 }
@@ -3956,6 +4043,10 @@ csd_power_manager_start (CsdPowerManager *manager,
                       "is-present", TRUE,
                       NULL);
 
+        /* get backlight setting overrides */
+        manager->priv->backlight_helper_preference_args = NULL;
+        backlight_override_settings_refresh (manager);
+
         /* get percentage policy */
         manager->priv->low_percentage = g_settings_get_int (manager->priv->settings,
                                                             "percentage-low");
@@ -4079,6 +4170,9 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 g_object_unref (manager->priv->logind_proxy);
                 manager->priv->logind_proxy = NULL;
         }
+
+        g_free (manager->priv->backlight_helper_preference_args);
+        manager->priv->backlight_helper_preference_args = NULL;
 
         if (manager->priv->x11_screen != NULL) {
                 g_object_unref (manager->priv->x11_screen);

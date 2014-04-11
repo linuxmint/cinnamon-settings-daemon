@@ -146,5 +146,20 @@
       <_summary>If the computer should lock when entering suspend mode</_summary>
       <_description>If the computer should lock during suspend - replaces ubuntu-lock-on-suspend</_description>
     </key>
+    <key name="backlight-helper-force" type="b">
+	  <default>false</default>
+	  <_summary>Use the backlight helper application by default</_summary>
+	  <_description>Setting this to true forces cinnamon-settings-daemon to use the backlight helper application
+	  to provide backlight control. This will usually fix backlight control problems on laptops where X11 picks
+	  the wrong interface, or uses an interface incorrectly. Adjust backlight-preference-order if the default
+	  selection logic still chooses the wrong interface.</_description>
+	</key>
+    <key name="backlight-helper-preference-order" type="as">
+      <default>['firmware','platform','raw']</default>
+      <_summary>Search order for backlight control interfaces</_summary>
+      <_description>Controls the type of interfaces the backlight-helper will search for to control the backlight.
+	This can be useful for working around systems with broken default backlight control behavior which provide
+	multiple interfaces. If you are having problems, try setting 'raw' to a higher priority.</_description>
+    </key>
   </schema>
 </schemalist>
