@@ -1,7 +1,7 @@
 AC_PREREQ([2.60])
 
 AC_INIT([cinnamon-settings-daemon],
-        [2.0.8],
+        [2.2.0],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=cinnamon-settings-daemon])
 
 AC_CONFIG_SRCDIR([cinnamon-settings-daemon/cinnamon-settings-manager.c])

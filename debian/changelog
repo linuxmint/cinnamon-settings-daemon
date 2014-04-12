@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.2.0) qiana; urgency=medium
+
+  * 2.2.0
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 12 Apr 2014 11:44:20 +0100
+
 cinnamon-settings-daemon (2.0.8) petra; urgency=low
 
   * 2.0.8
