@@ -1471,12 +1471,6 @@ do_toggle_accessibility_key (const char *key)
 }
 
 static void
-do_magnifier_action (CsdMediaKeysManager *manager)
-{
-        do_toggle_accessibility_key ("screen-magnifier-enabled");
-}
-
-static void
 do_screenreader_action (CsdMediaKeysManager *manager)
 {
         do_toggle_accessibility_key ("screen-reader-enabled");
@@ -1523,26 +1517,6 @@ do_text_size_action (CsdMediaKeysManager *manager,
 		g_settings_reset (manager->priv->interface_settings, "text-scaling-factor");
 	else
 		g_settings_set_double (manager->priv->interface_settings, "text-scaling-factor", best);
-}
-
-static void
-do_magnifier_zoom_action (CsdMediaKeysManager *manager,
-			  MediaKeyType         type)
-{
-	GSettings *settings;
-	gdouble offset, value;
-
-	if (type == MAGNIFIER_ZOOM_IN_KEY)
-		offset = 1.0;
-	else
-		offset = -1.0;
-
-	settings = g_settings_new ("org.cinnamon.desktop.a11y.magnifier");
-	value = g_settings_get_double (settings, "mag-factor");
-	value += offset;
-	value = roundl (value);
-	g_settings_set_double (settings, "mag-factor", value);
-	g_object_unref (settings);
 }
 
 static void
@@ -1889,9 +1863,6 @@ do_action (CsdMediaKeysManager *manager,
         case ROTATE_VIDEO_KEY:
                 do_video_rotate_action (manager, timestamp);
                 break;
-        case MAGNIFIER_KEY:
-                do_magnifier_action (manager);
-                break;
         case SCREENREADER_KEY:
                 do_screenreader_action (manager);
                 break;
@@ -1901,10 +1872,6 @@ do_action (CsdMediaKeysManager *manager,
 	case INCREASE_TEXT_KEY:
 	case DECREASE_TEXT_KEY:
 		do_text_size_action (manager, type);
-		break;
-	case MAGNIFIER_ZOOM_IN_KEY:
-	case MAGNIFIER_ZOOM_OUT_KEY:
-		do_magnifier_zoom_action (manager, type);
 		break;
 	case TOGGLE_CONTRAST_KEY:
 		do_toggle_contrast_action (manager);
