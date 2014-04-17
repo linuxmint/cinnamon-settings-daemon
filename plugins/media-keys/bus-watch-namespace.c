@@ -17,6 +17,7 @@
  * Author: Lars Uebernickel <lars.uebernickel@canonical.com>
  */
 
+#include "config.h"
 #include <gio/gio.h>
 #include <string.h>
 #include "bus-watch-namespace.h"

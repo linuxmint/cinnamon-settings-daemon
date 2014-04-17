@@ -83,6 +83,9 @@ mpris_controller_key (MprisController *self, const gchar *key)
   if (!priv->mpris_client_proxy)
     return FALSE;
 
+  if (g_strcmp0 (key, "Play") == 0)
+    key = "PlayPause";
+
   g_debug ("calling %s over dbus to mpris client %s",
            key, g_dbus_proxy_get_name (priv->mpris_client_proxy));
   g_dbus_proxy_call (priv->mpris_client_proxy,
@@ -104,6 +107,8 @@ mpris_proxy_ready_cb (GObject      *object,
 
   if (!priv->mpris_client_proxy)
     g_warning ("Error connecting to mpris interface %s", error->message);
+
+  priv->connecting = FALSE;
 
   g_clear_error (&error);
 }
