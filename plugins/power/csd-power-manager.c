@@ -1204,7 +1204,7 @@ manager_critical_action_get (CsdPowerManager *manager,
                         policy = CSD_POWER_ACTION_SHUTDOWN;
                 g_variant_unref (result);
         } else {
-                policy = CSD_POWER_ACTION_SHUTDOWN
+                policy = CSD_POWER_ACTION_SHUTDOWN;
 #else
                 if (up_client_get_can_hibernate (manager->priv->up_client))
                         return policy;
