@@ -1196,18 +1196,18 @@ static gboolean
 manager_critical_action_do (CsdPowerManager *manager,
                             gboolean         is_ups)
 {
+#if ! UP_CHECK_VERSION(0,99,0)
         CsdPowerActionType action_type;
+
 
         /* stop playing the alert as it's too late to do anything now */
         if (manager->priv->critical_alert_timeout_id > 0)
                 play_loop_stop (manager);
 
-#if UP_CHECK_VERSION(0,99,0)
-        action_type = manager_critical_action_get (manager);
-#else
+#if ! UP_CHECK_VERSION(0,99,0)
         action_type = manager_critical_action_get (manager, is_ups);
-#endif
         do_power_action_type (manager, action_type);
+#endif
 
         return FALSE;
 }
