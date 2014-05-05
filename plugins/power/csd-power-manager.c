@@ -1198,7 +1198,7 @@ manager_critical_action_do (CsdPowerManager *manager,
 {
 #if ! UP_CHECK_VERSION(0,99,0)
         CsdPowerActionType action_type;
-
+#endif
 
         /* stop playing the alert as it's too late to do anything now */
         if (manager->priv->critical_alert_timeout_id > 0)
