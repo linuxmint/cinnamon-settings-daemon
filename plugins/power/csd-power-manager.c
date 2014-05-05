@@ -1160,7 +1160,7 @@ engine_ups_discharging (CsdPowerManager *manager, UpDevice *device)
 
 static CsdPowerActionType
 #if UP_CHECK_VERSION(0,99,0)
-manager_critical_action_get (GsdPowerManager *manager)
+manager_critical_action_get (CsdPowerManager *manager)
 {
         CsdPowerActionType policy;
         char *action;
