@@ -218,7 +218,14 @@
  * 
  */
 #define DPI_FALLBACK 96
+
+/* The minimum resolution at which we turn on a window-scale of 2 */
 #define HIDPI_LIMIT (DPI_FALLBACK * 2)
+
+/* The minimum screen height at which we turn on a window-scale of 2;
+ * below this there just isn't enough vertical real estate for GNOME
+ * apps to work, and it's better to just be tiny */
+#define HIDPI_MIN_HEIGHT 1200
 
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (CinnamonSettingsXSettingsManager *manager,
@@ -417,14 +424,21 @@ get_window_scale (CinnamonSettingsXSettingsManager *manager)
         window_scale =
                 g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
         if (window_scale == 0) {
+                int primary;
+
                 display = gdk_display_get_default ();
                 screen = gdk_display_get_default_screen (display);
-                gdk_screen_get_monitor_geometry (screen, 0, &rect);
-                width_mm = gdk_screen_get_monitor_width_mm (screen, 0);
-                height_mm = gdk_screen_get_monitor_height_mm (screen, 0);
-                monitor_scale = gdk_screen_get_monitor_scale_factor (screen, 0);
+                primary = gdk_screen_get_primary_monitor (screen);
+                gdk_screen_get_monitor_geometry (screen, primary, &rect);
+                width_mm = gdk_screen_get_monitor_width_mm (screen, primary);
+                height_mm = gdk_screen_get_monitor_height_mm (screen, primary);
+                monitor_scale = gdk_screen_get_monitor_scale_factor (screen, primary);
 
                 window_scale = 1;
+
+                if (rect.height < HIDPI_MIN_HEIGHT)
+                    goto out;
+
                 if (width_mm > 0 && height_mm > 0) {
                         dpi_x = (double)rect.width * monitor_scale / (width_mm / 25.4);
                         dpi_y = (double)rect.height * monitor_scale / (height_mm / 25.4);
@@ -436,6 +450,7 @@ get_window_scale (CinnamonSettingsXSettingsManager *manager)
                 }
         }
 
+out:
         return window_scale;
 }
 
@@ -647,6 +662,13 @@ xft_callback (GSettings             *settings,
 {
         update_xft_settings (manager);
         queue_notify (manager);
+}
+
+static void
+size_changed_callback (GdkScreen *screen, CinnamonSettingsXSettingsManager *manager)
+{
+    update_xft_settings (manager);
+    queue_notify (manager);
 }
 
 static void
@@ -870,6 +892,7 @@ setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
                         g_warning ("Could not create xsettings manager for screen %d!", i);
                         return FALSE;
                 }
+                g_signal_connect (screen, "size-changed", G_CALLBACK (size_changed_callback), manager);
         }
 
         return TRUE;
