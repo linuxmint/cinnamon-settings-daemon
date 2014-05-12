@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.2.3) qiana; urgency=medium
+
+  * 2.2.3
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 12 May 2014 21:40:22 +0100
+
 cinnamon-settings-daemon (2.2.2) qiana; urgency=medium
 
   * 2.2.2
