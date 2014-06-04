@@ -38,7 +38,8 @@ Build-Depends: cdbs,
                libwacom-dev (>= 0.4),
                xserver-xorg-input-wacom,
                libgnomekbd-dev (>= 3.4.0),
-               libxklavier-dev
+               libxklavier-dev,
+               librsvg2-dev
 Standards-Version: 3.9.3
 Homepage: http://cinnamon.linuxmint.com
 
