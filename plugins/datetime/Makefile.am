@@ -22,8 +22,12 @@ endif
 csd_datetime_mechanism_SOURCES =		\
 	csd-datetime-mechanism.c		\
 	csd-datetime-mechanism.h		\
+	csd-datetime-mechanism-fedora.c		\
+	csd-datetime-mechanism-fedora.h		\
 	csd-datetime-mechanism-debian.c		\
 	csd-datetime-mechanism-debian.h		\
+	csd-datetime-mechanism-suse.c		\
+	csd-datetime-mechanism-suse.h		\
 	csd-datetime-mechanism-main.c		\
 	system-timezone.c			\
 	system-timezone.h
@@ -33,11 +37,11 @@ if HAVE_POLKIT
 BUILT_SOURCES = csd-datetime-mechanism-glue.h
 endif
 
-AM_CFLAGS = $(POLKIT_CFLAGS)
-csd_datetime_mechanism_LDADD = $(POLKIT_LIBS)
+AM_CFLAGS = $(PLUGIN_CFLAGS) $(SETTINGS_PLUGIN_CFLAGS) $(POLKIT_CFLAGS)
+csd_datetime_mechanism_LDADD = $(POLKIT_LIBS) $(SETTINGS_PLUGIN_LIBS)
 
 test_system_timezone_SOURCES = test-system-timezone.c system-timezone.c system-timezone.h
-test_system_timezone_LDADD = $(POLKIT_LIBS)
+test_system_timezone_LDADD = $(POLKIT_LIBS) $(SETTINGS_PLUGIN_LIBS)
 
 if HAVE_POLKIT
 dbus_services_DATA = $(dbus_services_in_files:.service.in=.service)
@@ -60,7 +64,7 @@ EXTRA_DIST =						\
 	$(dbus_services_in_files)			\
 	org.cinnamon.SettingsDaemon.DateTimeMechanism.conf	\
 	$(polkit_in_files)				\
-	gsd-datetime-mechanism.xml
+	csd-datetime-mechanism.xml
 
 CLEANFILES = 		\
 	org.cinnamon.SettingsDaemon.DateTimeMechanism.service	\
