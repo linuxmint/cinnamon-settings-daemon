@@ -116,17 +116,17 @@
       <_description>Binding to take a screenshot of an area.</_description>
     </key>
     <key name="screenshot-clip" type="s">
-      <default>'&lt;Ctrl&gt;Print'</default>
+      <default>'&lt;Control&gt;Print'</default>
       <_summary>Copy a screenshot to clipboard</_summary>
       <_description>Binding to copy a screenshot to clipboard.</_description>
     </key>
     <key name="window-screenshot-clip" type="s">
-      <default>'&lt;Ctrl&gt;&lt;Alt&gt;Print'</default>
+      <default>'&lt;Control&gt;&lt;Alt&gt;Print'</default>
       <_summary>Copy a screenshot of a window to clipboard</_summary>
       <_description>Binding to copy a screenshot of a window to clipboard.</_description>
     </key>
     <key name="area-screenshot-clip" type="s">
-      <default>'&lt;Ctrl&gt;&lt;Shift&gt;Print'</default>
+      <default>'&lt;Control&gt;&lt;Shift&gt;Print'</default>
       <_summary>Copy a screenshot of an area to clipboard</_summary>
       <_description>Binding to copy a screenshot of an area to clipboard.</_description>
     </key>
