@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (2.2.4) qiana; urgency=medium
+
+  * Replace Ctrl with Control so keybindings can parse it properly
+  * Added missing wacom build dep for wacom module to be properly built
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 08 Jun 2014 13:00:36 +0100
+
 cinnamon-settings-daemon (2.2.3) qiana; urgency=medium
 
   * 2.2.3
