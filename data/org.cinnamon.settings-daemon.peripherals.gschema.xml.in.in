@@ -35,6 +35,16 @@
       <_summary>Enable mouse clicks with touchpad</_summary>
       <_description>Set this to TRUE to be able to send mouse clicks by tapping on the touchpad.</_description>
     </key>
+    <key name="two-finger-click" type="b">
+      <default>true</default>
+      <_summary>Simulate a right-click when clicking with two fingers</_summary>
+      <_description>Set this to TRUE to be able to right-click by clicking the touchpad with 2 fingers.</_description>
+    </key>
+    <key name="three-finger-click" type="b">
+      <default>true</default>
+      <_summary>Simulate a middle-click when clicking with three fingers</_summary>
+      <_description>Set this to TRUE to be able to middle-click by clicking the touchpad with 3 fingers.</_description>
+    </key>
     <key name="touchpad-enabled" type="b">
       <default>true</default>
       <_summary>Enable touchpad</_summary>

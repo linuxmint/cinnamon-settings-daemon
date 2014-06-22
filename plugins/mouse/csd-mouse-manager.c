@@ -67,6 +67,9 @@
 #define KEY_PAD_HORIZ_SCROLL             "horiz-scroll-enabled"
 #define KEY_SCROLL_METHOD                "scroll-method"
 #define KEY_TAP_TO_CLICK                 "tap-to-click"
+#define KEY_TWO_FINGER_CLICK             "two-finger-click"
+#define KEY_THREE_FINGER_CLICK           "three-finger-click"
+
 #define KEY_TOUCHPAD_ENABLED             "touchpad-enabled"
 #define KEY_NATURAL_SCROLL_ENABLED       "natural-scroll"
 
@@ -100,6 +103,9 @@ static void     csd_mouse_manager_finalize    (GObject             *object);
 static void     set_tap_to_click              (GdkDevice           *device,
                                                gboolean             state,
                                                gboolean             left_handed);
+static void     set_click_actions             (GdkDevice           *device,
+                                               gboolean             enable_two_finger_click,
+                                               gboolean             enable_three_finger_click);
 static void     set_natural_scroll            (CsdMouseManager *manager,
                                                GdkDevice       *device,
                                                gboolean         natural_scroll);
@@ -329,6 +335,41 @@ touchpad_has_single_button (XDevice *device)
         gdk_error_trap_pop_ignored ();
 
         return is_single_button;
+}
+
+static int
+touchpad_num_fingers_supported (XDevice *device)
+{
+        Atom type, prop;
+        int format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
+        int num_fingers = 1;
+        int rc;
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Capabilities", False);
+        if (!prop)
+                return FALSE;
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device, prop, 0, 1, False,
+                                XA_INTEGER, &type, &format, &nitems,
+                                &bytes_after, &data);
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 5) {
+            if (data[3] == 1) {
+                num_fingers = 2;
+            }
+            if (data[4] == 1) {
+                num_fingers = 3;
+            }
+        }
+
+        if (rc == Success)
+                XFree (data);
+
+        gdk_error_trap_pop_ignored ();
+
+        return num_fingers;
 }
 
 static void
@@ -672,6 +713,53 @@ set_tap_to_click (GdkDevice *device,
 }
 
 static void
+set_click_actions (GdkDevice *device,
+                  gboolean   enable_two_finger_click,
+                  gboolean   enable_three_finger_click)
+{
+        int format, rc;
+        unsigned long nitems, bytes_after;
+        XDevice *xdevice;
+        unsigned char* data;
+        Atom prop, type;
+
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Click Action", False);
+        if (!prop)
+                return;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        if (!device_is_touchpad (xdevice)) {
+                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+                return;
+        }
+
+    g_debug ("setting click action to click on %s", gdk_device_get_name (device));
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
+                                 False, XA_INTEGER, &type, &format, &nitems,
+                                 &bytes_after, &data);
+
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3) {
+            data[0] = 1;
+            data[1] = (enable_two_finger_click) ? 3 : 0;
+            data[2] = (enable_three_finger_click) ? 2 : 0;
+            XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, XA_INTEGER, 8, PropModeReplace, data, nitems);
+        }
+
+        if (rc == Success)
+                XFree (data);
+
+        if (gdk_error_trap_pop ())
+                g_warning ("Error in setting click actions on \"%s\"", gdk_device_get_name (device));
+
+        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+}
+
+static void
 set_horiz_scroll (GdkDevice *device,
                   gboolean   state)
 {
@@ -961,6 +1049,7 @@ set_mouse_settings (CsdMouseManager *manager,
         set_middle_button (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
 
         set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
+        set_click_actions( device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TWO_FINGER_CLICK), g_settings_get_boolean (manager->priv->touchpad_settings, KEY_THREE_FINGER_CLICK));
         set_edge_scroll (device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
         set_horiz_scroll (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
         set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
@@ -1092,6 +1181,9 @@ touchpad_callback (GSettings       *settings,
                 if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
                         set_tap_to_click (device, g_settings_get_boolean (settings, key),
                                           g_settings_get_boolean (manager->priv->touchpad_settings, KEY_LEFT_HANDED));
+                }
+                else if (g_str_equal (key, KEY_TWO_FINGER_CLICK) || g_str_equal (key, KEY_THREE_FINGER_CLICK)) {
+                        set_click_actions( device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TWO_FINGER_CLICK), g_settings_get_boolean (manager->priv->touchpad_settings, KEY_THREE_FINGER_CLICK));
                 } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
                         set_edge_scroll (device, g_settings_get_enum (settings, key));
                         set_horiz_scroll (device, g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
