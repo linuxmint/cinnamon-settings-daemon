@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.3.0) unstable; urgency=medium
+
+  * 2.3.0
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 27 Jun 2014 14:23:04 +0100
+
 cinnamon-settings-daemon (2.2.4) qiana; urgency=medium
 
   * Replace Ctrl with Control so keybindings can parse it properly
