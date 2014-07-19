@@ -1979,7 +1979,11 @@ turn_off_laptop_display (CsdXrandrManager *manager, guint32 timestamp)
 }
 
 static void
+#if UP_CHECK_VERSION(0,99,0)
+lid_state_changed_cb (UpClient *client, GParamSpec *pspec, gpointer data)
+#else
 power_client_changed_cb (UpClient *client, gpointer data)
+#endif
 {
         CsdXrandrManager *manager = data;
         CsdXrandrManagerPrivate *priv = manager->priv;
@@ -2029,8 +2033,13 @@ csd_xrandr_manager_start (CsdXrandrManager *manager,
 
         manager->priv->upower_client = up_client_new ();
         manager->priv->laptop_lid_is_closed = up_client_get_lid_is_closed (manager->priv->upower_client);
+#if UP_CHECK_VERSION(0,99,0)
+        g_signal_connect (manager->priv->upower_client, "notify::lid-is-closed",
+                          G_CALLBACK (lid_state_changed_cb), manager);
+#else
         g_signal_connect (manager->priv->upower_client, "changed",
                           G_CALLBACK (power_client_changed_cb), manager);
+#endif
 
         log_msg ("State of screen at startup:\n");
         log_screen (manager->priv->rw_screen);
