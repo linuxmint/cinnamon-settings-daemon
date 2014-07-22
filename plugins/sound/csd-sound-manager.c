@@ -35,17 +35,43 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <pulse/pulseaudio.h>
+#include <canberra.h>
 
 #include "csd-sound-manager.h"
 #include "cinnamon-settings-profile.h"
 
 #define CSD_SOUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_SOUND_MANAGER, CsdSoundManagerPrivate))
 
+#define SOUND_HANDLER_DBUS_PATH "/org/cinnamon/SettingsDaemon/Sound"
+#define SOUND_HANDLER_DBUS_NAME "org.cinnamon.SettingsDaemon.Sound" 
+
+static const gchar introspection_xml[] =
+"<node>"
+"  <interface name='org.cinnamon.SettingsDaemon.Sound'>"
+"    <annotation name='org.freedesktop.DBus.GLib.CSymbol' value='csd_sound_manager'/>"
+"    <method name='PlaySoundFile'>"
+"      <arg name='id' direction='in' type='u'/>"
+"      <arg name='filename' direction='in' type='s'/>"
+"    </method>"
+"    <method name='PlaySound'>"
+"      <arg name='id' direction='in' type='u'/>"
+"      <arg name='name' direction='in' type='s'/>"
+"    </method>"
+"    <method name='CancelSound'>"
+"      <arg name='id' direction='in' type='u'/>"
+"    </method>"
+"  </interface>"
+"</node>";
+
 struct CsdSoundManagerPrivate
 {
         GSettings *settings;
         GList     *monitors;
         guint      timeout;
+        GDBusNodeInfo   *idata;
+        ca_context      *ca;
+        GCancellable    *bus_cancellable;
+        GDBusConnection *connection;
 };
 
 static void csd_sound_manager_class_init (CsdSoundManagerClass *klass);
@@ -55,6 +81,58 @@ static void csd_sound_manager_finalize (GObject *object);
 G_DEFINE_TYPE (CsdSoundManager, csd_sound_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static void
+handle_sound_request (GDBusConnection       *connection,
+                      const gchar           *sender,
+                      const gchar           *object_path,
+                      const gchar           *interface_name,
+                      const gchar           *method_name,
+                      GVariant              *parameters,
+                      GDBusMethodInvocation *invocation,
+                      gpointer               user_data)
+{
+        CsdSoundManager *manager = (CsdSoundManager *) user_data;
+
+        g_debug ("Calling method '%s' for sound", method_name);
+
+        if (g_strcmp0 (method_name, "PlaySound") == 0) {
+                const char *sound_name;
+                guint id;
+
+                g_variant_get (parameters, "(u&s)", &id, &sound_name);
+                ca_context_play (manager->priv->ca,
+                                 id,
+                                 CA_PROP_EVENT_ID,
+                                 sound_name,
+                                 NULL);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else if (g_strcmp0 (method_name, "PlaySoundFile") == 0) {
+                const char *sound_file;
+                guint id;
+
+                g_variant_get (parameters, "(u&s)", &id, &sound_file);
+                ca_context_play (manager->priv->ca,
+                                 id,
+                                 CA_PROP_MEDIA_FILENAME,
+                                 sound_file,
+                                 NULL);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        } else if (g_strcmp0 (method_name, "CancelSound") == 0) {
+                guint id;
+
+                g_variant_get (parameters, "(u)", &id);
+                ca_context_cancel (manager->priv->ca, id);
+                g_dbus_method_invocation_return_value (invocation, NULL);
+        }
+}
+
+static const GDBusInterfaceVTable interface_vtable =
+{
+        handle_sound_request,
+        NULL, /* Get Property */
+        NULL, /* Set Property */
+};
 
 static void
 sample_info_cb (pa_context *c, const pa_sample_info *i, int eol, void *userdata)
@@ -253,6 +331,37 @@ register_directory_callback (CsdSoundManager *manager,
         return succ;
 }
 
+static void
+on_bus_gotten (GObject             *source_object,
+               GAsyncResult        *res,
+               CsdSoundManager *manager)
+{
+        GDBusConnection *connection;
+        GError *error = NULL;
+
+        if (manager->priv->bus_cancellable == NULL ||
+            g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
+                g_warning ("Operation has been cancelled, so not retrieving session bus");
+                return;
+        }
+
+        connection = g_bus_get_finish (res, &error);
+        if (connection == NULL) {
+                g_warning ("Could not get session bus: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        manager->priv->connection = connection;
+
+        g_dbus_connection_register_object (connection,
+                                           SOUND_HANDLER_DBUS_PATH,
+                                           manager->priv->idata->interfaces[0],
+                                           &interface_vtable,
+                                           manager,
+                                           NULL,
+                                           NULL);
+}
+
 gboolean
 csd_sound_manager_start (CsdSoundManager *manager,
                          GError **error)
@@ -292,6 +401,23 @@ csd_sound_manager_start (CsdSoundManager *manager,
 
         g_strfreev (ps);
 
+        /* Sound events */
+        ca_context_create (&manager->priv->ca);
+        ca_context_set_driver (manager->priv->ca, "pulse");
+        ca_context_change_props (manager->priv->ca, 0,
+                                 CA_PROP_APPLICATION_ID, "org.Cinnamon.Sound",
+                                 NULL);
+
+        manager->priv->idata = g_dbus_node_info_new_for_xml (introspection_xml,
+                                                             NULL);
+        manager->priv->bus_cancellable = g_cancellable_new ();
+        g_assert (manager->priv->idata != NULL);
+
+        g_bus_get (G_BUS_TYPE_SESSION,
+                   manager->priv->bus_cancellable,
+                   (GAsyncReadyCallback) on_bus_gotten,
+                   manager);
+
         cinnamon_settings_profile_end (NULL);
 
         return TRUE;
@@ -310,6 +436,27 @@ csd_sound_manager_stop (CsdSoundManager *manager)
         if (manager->priv->timeout) {
                 g_source_remove (manager->priv->timeout);
                 manager->priv->timeout = 0;
+        }
+
+        if (manager->priv->bus_cancellable != NULL) {
+                g_cancellable_cancel (manager->priv->bus_cancellable);
+                g_object_unref (manager->priv->bus_cancellable);
+                manager->priv->bus_cancellable = NULL;
+        }
+
+        if (manager->priv->idata) {
+                g_dbus_node_info_unref (manager->priv->idata);
+                manager->priv->idata = NULL;
+        }
+
+        if (manager->priv->ca) {
+                ca_context_destroy (manager->priv->ca);
+                manager->priv->ca = NULL;
+        }
+
+        if (manager->priv->connection != NULL) {
+                g_object_unref (manager->priv->connection);
+                manager->priv->connection = NULL;
         }
 
         while (manager->priv->monitors) {

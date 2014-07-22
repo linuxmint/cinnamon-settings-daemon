@@ -236,7 +236,7 @@ dnl ---------------------------------------------------------------------------
 dnl - sound plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(SOUND, [libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION])
+PKG_CHECK_MODULES(SOUND, [libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION] libcanberra)
 
 # ---------------------------------------------------------------------------
 # Power
