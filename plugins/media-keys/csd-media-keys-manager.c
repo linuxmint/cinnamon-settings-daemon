@@ -150,7 +150,7 @@ struct CsdMediaKeysManagerPrivate
         GvcMixerControl *volume;
         GvcMixerStream  *stream;
         ca_context      *ca;
-        GtkSettings     *gtksettings;
+
 #ifdef HAVE_GUDEV
         GHashTable      *streams; /* key = X device ID, value = stream id */
         GUdevClient     *udev_client;
@@ -1056,19 +1056,6 @@ do_sound_action (CsdMediaKeysManager *manager,
                 osd_vol = 0;
         update_dialog (manager, stream, osd_vol, new_muted, sound_changed, quiet);
 }
-
-// static void
-// sound_theme_changed (GtkSettings         *settings,
-//                      GParamSpec          *pspec,
-//                      CsdMediaKeysManager *manager)
-// {
-//         char *theme_name;
-
-//         g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
-//         if (theme_name)
-//                 ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
-//         g_free (theme_name);
-// }
 
 static void
 update_default_sink (CsdMediaKeysManager *manager)
@@ -2022,7 +2009,6 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
         g_debug ("Starting media_keys manager");
         cinnamon_settings_profile_start (NULL);
 
-
         gvc_mixer_control_open (manager->priv->volume);
 
         manager->priv->settings = g_settings_new (SETTINGS_BINDING_DIR);
@@ -2035,13 +2021,6 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
         ca_context_change_props (manager->priv->ca, 0,
                                  CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
                                  NULL);
-        manager->priv->gtksettings = gtk_settings_get_for_screen (gdk_screen_get_default ());
-        //g_object_get (G_OBJECT (manager->priv->gtksettings), "gtk-sound-theme-name", &theme_name, NULL);
-        //if (theme_name)
-        //        ca_context_change_props (manager->priv->ca, CA_PROP_CANBERRA_XDG_THEME_NAME, theme_name, NULL);
-        //g_free (theme_name);
-        //g_signal_connect (manager->priv->gtksettings, "notify::gtk-sound-theme-name",
-        //                  G_CALLBACK (sound_theme_changed), manager);
 
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
@@ -2166,11 +2145,6 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
                                           (GdkFilterFunc) filter_key_events,
                                           manager);
-        }
-
-        if (manager->priv->gtksettings != NULL) {
-                //g_signal_handlers_disconnect_by_func (manager->priv->gtksettings, sound_theme_changed, manager);
-                manager->priv->gtksettings = NULL;
         }
 
         if (manager->priv->ca) {
