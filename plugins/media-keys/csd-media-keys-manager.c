@@ -50,15 +50,16 @@
 #include "csd-marshal.h"
 #include "csd-media-keys-manager.h"
 
-#include "shortcuts-list.h"
 #include "csd-osd-window.h"
-#include "csd-input-helper.h"
+
 #include "csd-power-helper.h"
 #include "csd-enums.h"
 
 #include <canberra.h>
 #include <pulse/pulseaudio.h>
 #include "gvc-mixer-control.h"
+
+#include <libcinnamon-desktop/cdesktop-enums.h>
 
 #include <libnotify/notify.h>
 
@@ -82,7 +83,6 @@
 #define GNOME_KEYRING_DBUS_NAME "org.gnome.keyring"
 #define GNOME_KEYRING_DBUS_PATH "/org/gnome/keyring/daemon"
 #define GNOME_KEYRING_DBUS_INTERFACE "org.gnome.keyring.Daemon"
-
 
 static const gchar introspection_xml[] =
 "<node>"
@@ -135,15 +135,6 @@ typedef struct {
         guint   watch_id;
 } MediaPlayer;
 
-typedef struct {
-        MediaKeyType key_type;
-        const char *settings_key;
-        const char *hard_coded;
-        char *custom_path;
-        char *custom_command;
-        Key *key;
-} MediaKey;
-
 struct CsdMediaKeysManagerPrivate
 {
         /* Volume bits */
@@ -157,9 +148,6 @@ struct CsdMediaKeysManagerPrivate
 #endif /* HAVE_GUDEV */
 
         GtkWidget       *dialog;
-        GSettings       *settings;
-
-        GPtrArray       *keys;
 
         /* HighContrast theme settings */
         GSettings       *interface_settings;
@@ -206,7 +194,7 @@ static void     csd_media_keys_manager_finalize    (GObject                  *ob
 static void     register_manager                   (CsdMediaKeysManager      *manager);
 static gboolean do_action (CsdMediaKeysManager *manager,
                            guint                deviceid,
-                           MediaKeyType         type,
+                           CDesktopMediaKeyType type,
                            gint64               timestamp);
 
 G_DEFINE_TYPE (CsdMediaKeysManager, csd_media_keys_manager, G_TYPE_OBJECT)
@@ -219,7 +207,7 @@ static gpointer manager_object = NULL;
 
 typedef struct {
         CsdMediaKeysManager *manager;
-        MediaKeyType type;
+        CDesktopMediaKeyType type;
         guint old_percentage;
 
 } CsdBrightnessActionData;
@@ -279,17 +267,6 @@ init_screens (CsdMediaKeysManager *manager)
         }
 
         manager->priv->current_screen = manager->priv->screens->data;
-}
-
-static void
-media_key_free (MediaKey *key)
-{
-        if (key == NULL)
-                return;
-        g_free (key->custom_path);
-        g_free (key->custom_command);
-        free_key (key->key);
-        g_free (key);
 }
 
 static char *
@@ -430,139 +407,6 @@ dialog_init (CsdMediaKeysManager *manager)
         if (manager->priv->dialog == NULL) {
                 manager->priv->dialog = csd_osd_window_new ();
         }
-}
-
-static void
-print_key_parse_error (MediaKey      *key,
-		       const char    *str)
-{
-	if (str == NULL || *str == '\0')
-		return;
-	if (key->settings_key != NULL)
-		g_debug ("Unable to parse key '%s' for GSettings entry '%s'", str, key->settings_key);
-	else
-		g_debug ("Unable to parse hard-coded key '%s'", key->hard_coded);
-}
-
-static char *
-get_key_string (CsdMediaKeysManager *manager,
-		MediaKey            *key)
-{
-	if (key->settings_key != NULL)
-		return g_settings_get_string (manager->priv->settings, key->settings_key);
-	else if (key->hard_coded != NULL)
-		return g_strdup (key->hard_coded);
-    else
-		g_assert_not_reached ();
-}
-
-static gboolean
-grab_media_key (MediaKey            *key,
-		CsdMediaKeysManager *manager)
-{
-	char *tmp;
-	gboolean need_flush;
-
-	need_flush = FALSE;
-
-	if (key->key != NULL) {
-		need_flush = TRUE;
-		ungrab_key_unsafe (key->key, manager->priv->screens);
-	}
-
-	free_key (key->key);
-	key->key = NULL;
-
-	tmp = get_key_string (manager, key);
-
-	key->key = parse_key (tmp);
-	if (key->key == NULL) {
-		print_key_parse_error (key, tmp);
-		g_free (tmp);
-		return need_flush;
-	}
-
-	grab_key_unsafe (key->key, CSD_KEYGRAB_NORMAL, manager->priv->screens);
-
-	g_free (tmp);
-
-	return TRUE;
-}
-
- static void
-gsettings_changed_cb (GSettings           *settings,
-                      const gchar         *settings_key,
-                      CsdMediaKeysManager *manager)
-{
-        int      i;
-        gboolean need_flush = TRUE;
-
-        gdk_error_trap_push ();
-
-        /* Find the key that was modified */
-        for (i = 0; i < manager->priv->keys->len; i++) {
-                MediaKey *key;
-
-                key = g_ptr_array_index (manager->priv->keys, i);
-
-                /* Skip over hard-coded and GConf keys */
-                if (key->settings_key == NULL)
-                        continue;
-                if (strcmp (settings_key, key->settings_key) == 0) {
-                        if (grab_media_key (key, manager))
-                                need_flush = TRUE;
-                        break;
-                }
-        }
-
-        if (need_flush)
-                gdk_flush ();
-        if (gdk_error_trap_pop ())
-                g_warning ("Grab failed for some keys, another application may already have access the them.");
-}
-
-static void
-add_key (CsdMediaKeysManager *manager, guint i)
-{
-	MediaKey *key;
-
-	key = g_new0 (MediaKey, 1);
-	key->key_type = media_keys[i].key_type;
-	key->settings_key = media_keys[i].settings_key;
-	key->hard_coded = media_keys[i].hard_coded;
-
-	g_ptr_array_add (manager->priv->keys, key);
-
-	grab_media_key (key, manager);
-}
-
-static void
-init_kbd (CsdMediaKeysManager *manager)
-{
-        int i;
-
-        cinnamon_settings_profile_start (NULL);
-
-        gdk_error_trap_push ();
-
-        manager->priv->keys = g_ptr_array_new_with_free_func ((GDestroyNotify) media_key_free);
-
-        /* Media keys
-         * Add hard-coded shortcuts first so that they can't be preempted */
-        for (i = 0; i < G_N_ELEMENTS (media_keys); i++) {
-                if (media_keys[i].hard_coded)
-                        add_key (manager, i);
-        }
-        for (i = 0; i < G_N_ELEMENTS (media_keys); i++) {
-                if (media_keys[i].hard_coded == NULL)
-                        add_key (manager, i);
-        }
-
-        gdk_flush ();
-        if (gdk_error_trap_pop ())
-                g_warning ("Grab failed for some keys, another application may already have access the them.");
-
-        cinnamon_settings_profile_end (NULL);
 }
 
 static void
@@ -708,12 +552,6 @@ static void
 do_logout_action (CsdMediaKeysManager *manager)
 {
         execute (manager, "cinnamon-session-quit --logout", FALSE);
-}
-
-static void
-do_shutdown_action (CsdMediaKeysManager *manager)
-{
-        cinnamon_session_shutdown (manager);
 }
 
 static void
@@ -1015,10 +853,10 @@ do_sound_action (CsdMediaKeysManager *manager,
         sound_changed = FALSE;
 
         switch (type) {
-        case MUTE_KEY:
+        case C_DESKTOP_MEDIA_KEY_MUTE:
                 new_muted = !old_muted;
                 break;
-        case VOLUME_DOWN_KEY:
+        case C_DESKTOP_MEDIA_KEY_VOLUME_DOWN:
                 if (old_vol <= norm_vol_step) {
                         new_vol = 0;
                         new_muted = TRUE;
@@ -1026,7 +864,7 @@ do_sound_action (CsdMediaKeysManager *manager,
                         new_vol = old_vol - norm_vol_step;
                 }
                 break;
-        case VOLUME_UP_KEY:
+        case C_DESKTOP_MEDIA_KEY_VOLUME_UP:
                 new_muted = FALSE;
                 /* When coming out of mute only increase the volume if it was 0 */
                 if (!old_muted || old_vol == 0)
@@ -1046,9 +884,9 @@ do_sound_action (CsdMediaKeysManager *manager,
                 }
         }
 
-        if (type == VOLUME_DOWN_KEY && old_vol == 0 && old_muted)
+        if (type == C_DESKTOP_MEDIA_KEY_VOLUME_DOWN && old_vol == 0 && old_muted)
                 osd_vol = -1;
-        else if (type == VOLUME_UP_KEY && old_vol == PA_VOLUME_NORM && !old_muted)
+        else if (type == C_DESKTOP_MEDIA_KEY_VOLUME_UP && old_vol == PA_VOLUME_NORM && !old_muted)
                 osd_vol = 101;
         else if (!new_muted)
                 osd_vol = (int) (100 * (double) new_vol / PA_VOLUME_NORM);
@@ -1313,7 +1151,7 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
 static void
 csd_media_keys_manager_handle_cinnamon_keybinding (CsdMediaKeysManager *manager,
                                                    guint                deviceid,
-                                                   MediaKeyType         type,
+                                                   CDesktopMediaKeyType type,
                                                    gint64               timestamp)
 {
     do_action (manager, NULL, type, timestamp);
@@ -1347,7 +1185,7 @@ handle_method_call (GDBusConnection       *connection,
                 csd_media_keys_manager_grab_media_player_keys (manager, app_name, sender, time);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "HandleKeybinding") == 0) {
-                MediaKeyType action;
+                CDesktopMediaKeyType action;
                 g_variant_get (parameters, "(u)", &action);
                 csd_media_keys_manager_handle_cinnamon_keybinding (manager, NULL, action, CurrentTime);
                 g_dbus_method_invocation_return_value (invocation, NULL);
@@ -1471,7 +1309,7 @@ do_on_screen_keyboard_action (CsdMediaKeysManager *manager)
 
 static void
 do_text_size_action (CsdMediaKeysManager *manager,
-		     MediaKeyType         type)
+                     CDesktopMediaKeyType type)
 {
 	gdouble factor, best, distance;
 	guint i;
@@ -1486,7 +1324,7 @@ do_text_size_action (CsdMediaKeysManager *manager,
 
 	/* Figure out the current DPI scaling factor */
 	factor = g_settings_get_double (manager->priv->interface_settings, "text-scaling-factor");
-	factor += (type == INCREASE_TEXT_KEY ? 0.25 : -0.25);
+	factor += (type == C_DESKTOP_MEDIA_KEY_INCREASE_TEXT ? 0.25 : -0.25);
 
 	/* Try to find a matching value */
 	distance = 1e6;
@@ -1585,9 +1423,9 @@ update_screen_cb (GObject             *source_object,
         g_variant_get (new_percentage, "(u)", &percentage);
         guint osd_percentage;
 
-        if (data->old_percentage == 100 && data->type == SCREEN_BRIGHTNESS_UP_KEY)
+        if (data->old_percentage == 100 && data->type == C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_UP)
                 osd_percentage = 101;
-        else if (data->old_percentage == 0 && data->type == SCREEN_BRIGHTNESS_DOWN_KEY)
+        else if (data->old_percentage == 0 && data->type == C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_DOWN)
                 osd_percentage = -1;
         else
                 osd_percentage = CLAMP (percentage, 0, 100);
@@ -1626,7 +1464,7 @@ do_screen_brightness_action_real (GObject       *source_object,
 
         /* call into the power plugin */
         g_dbus_proxy_call (manager->priv->power_screen_proxy,
-                           data->type == SCREEN_BRIGHTNESS_UP_KEY ? "StepUp" : "StepDown",
+                           data->type == C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_UP ? "StepUp" : "StepDown",
                            NULL,
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
@@ -1639,7 +1477,7 @@ do_screen_brightness_action_real (GObject       *source_object,
 
 static void
 do_screen_brightness_action (CsdMediaKeysManager *manager,
-                             MediaKeyType type)
+                             CDesktopMediaKeyType type)
 {
         if (manager->priv->connection == NULL ||
             manager->priv->power_screen_proxy == NULL) {
@@ -1697,8 +1535,8 @@ update_keyboard_cb (GObject             *source_object,
 }
 
 static void
-do_keyboard_brightness_action (CsdMediaKeysManager *manager,
-                               MediaKeyType type)
+do_keyboard_brightness_action (CsdMediaKeysManager   *manager,
+                               CDesktopMediaKeyType   type)
 {
         const char *cmd;
 
@@ -1709,13 +1547,13 @@ do_keyboard_brightness_action (CsdMediaKeysManager *manager,
         }
 
         switch (type) {
-        case KEYBOARD_BRIGHTNESS_UP_KEY:
+        case C_DESKTOP_MEDIA_KEY_KEYBOARD_BRIGHTNESS_UP:
                 cmd = "StepUp";
                 break;
-        case KEYBOARD_BRIGHTNESS_DOWN_KEY:
+        case C_DESKTOP_MEDIA_KEY_KEYBOARD_BRIGHTNESS_DOWN:
                 cmd = "StepDown";
                 break;
-        case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
+        case C_DESKTOP_MEDIA_KEY_KEYBOARD_BRIGHTNESS_TOGGLE:
                 cmd = "Toggle";
                 break;
         default:
@@ -1736,7 +1574,7 @@ do_keyboard_brightness_action (CsdMediaKeysManager *manager,
 static gboolean
 do_action (CsdMediaKeysManager *manager,
            guint                deviceid,
-           MediaKeyType         type,
+           CDesktopMediaKeyType type,
            gint64               timestamp)
 {
         char *cmd;
@@ -1744,42 +1582,39 @@ do_action (CsdMediaKeysManager *manager,
         g_debug ("Launching action for key type '%d' (on device id %d)", type, deviceid);
 
         switch (type) {
-        case TOUCHPAD_KEY:
+        case C_DESKTOP_MEDIA_KEY_TOUCHPAD:
                 do_touchpad_action (manager);
                 break;
-        case TOUCHPAD_ON_KEY:
+        case C_DESKTOP_MEDIA_KEY_TOUCHPAD_ON:
                 do_touchpad_osd_action (manager, TRUE);
                 break;
-        case TOUCHPAD_OFF_KEY:
+        case C_DESKTOP_MEDIA_KEY_TOUCHPAD_OFF:
                 do_touchpad_osd_action (manager, FALSE);
                 break;
-        case MUTE_KEY:
-        case VOLUME_DOWN_KEY:
-        case VOLUME_UP_KEY:
+        case C_DESKTOP_MEDIA_KEY_MUTE:
+        case C_DESKTOP_MEDIA_KEY_VOLUME_DOWN:
+        case C_DESKTOP_MEDIA_KEY_VOLUME_UP:
                 do_sound_action (manager, deviceid, type, FALSE);
                 break;
-        case MUTE_QUIET_KEY:
-                do_sound_action (manager, deviceid, MUTE_KEY, TRUE);
+        case C_DESKTOP_MEDIA_KEY_MUTE_QUIET:
+                do_sound_action (manager, deviceid, C_DESKTOP_MEDIA_KEY_MUTE, TRUE);
                 break;
-        case VOLUME_DOWN_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_DOWN_KEY, TRUE);
+        case C_DESKTOP_MEDIA_KEY_VOLUME_DOWN_QUIET:
+                do_sound_action (manager, deviceid, C_DESKTOP_MEDIA_KEY_VOLUME_DOWN, TRUE);
                 break;
-        case VOLUME_UP_QUIET_KEY:
-                do_sound_action (manager, deviceid, VOLUME_UP_KEY, TRUE);
+        case C_DESKTOP_MEDIA_KEY_VOLUME_UP_QUIET:
+                do_sound_action (manager, deviceid, C_DESKTOP_MEDIA_KEY_VOLUME_UP, TRUE);
                 break;
-        case LOGOUT_KEY:
+        case C_DESKTOP_MEDIA_KEY_LOGOUT:
                 do_logout_action (manager);
                 break;
-        case SHUTDOWN_KEY:
-                do_shutdown_action (manager);
-                break;
-        case EJECT_KEY:
+        case C_DESKTOP_MEDIA_KEY_EJECT:
                 do_eject_action (manager);
                 break;
-        case HOME_KEY:
+        case C_DESKTOP_MEDIA_KEY_HOME:
                 do_home_key_action (manager, timestamp);
                 break;
-        case SEARCH_KEY:
+        case C_DESKTOP_MEDIA_KEY_SEARCH:
                 cmd = NULL;
                 if ((cmd = g_find_program_in_path ("tracker-search-tool")))
                         do_execute_desktop (manager, "tracker-needle.desktop", timestamp);
@@ -1787,196 +1622,109 @@ do_action (CsdMediaKeysManager *manager,
                         do_execute_desktop (manager, "gnome-search-tool.desktop", timestamp);
                 g_free (cmd);
                 break;
-        case EMAIL_KEY:
+        case C_DESKTOP_MEDIA_KEY_EMAIL:
                 do_url_action (manager, "mailto", timestamp);
                 break;
-        case SCREENSAVER_KEY:
+        case C_DESKTOP_MEDIA_KEY_SCREENSAVER:
                 execute (manager, "cinnamon-screensaver-command --lock", FALSE);
                 break;
-        case HELP_KEY:
+        case C_DESKTOP_MEDIA_KEY_HELP:
                 do_url_action (manager, "ghelp", timestamp);
                 break;
-        case SCREENSHOT_KEY:
+        case C_DESKTOP_MEDIA_KEY_SCREENSHOT:
                 execute (manager, "gnome-screenshot", FALSE);
                 break;
-        case WINDOW_SCREENSHOT_KEY:
+        case C_DESKTOP_MEDIA_KEY_WINDOW_SCREENSHOT:
                 execute (manager, "gnome-screenshot --window", FALSE);
                 break;
-        case AREA_SCREENSHOT_KEY:
+        case C_DESKTOP_MEDIA_KEY_AREA_SCREENSHOT:
                 execute (manager, "gnome-screenshot --area", FALSE);
                 break;
-        case SCREENSHOT_CLIP_KEY:
+        case C_DESKTOP_MEDIA_KEY_SCREENSHOT_CLIP:
                 execute (manager, "gnome-screenshot --clipboard", FALSE);
                 break;
-        case WINDOW_SCREENSHOT_CLIP_KEY:
+        case C_DESKTOP_MEDIA_KEY_WINDOW_SCREENSHOT_CLIP:
                 execute (manager, "gnome-screenshot --window --clipboard", FALSE);
                 break;
-        case AREA_SCREENSHOT_CLIP_KEY:
+        case C_DESKTOP_MEDIA_KEY_AREA_SCREENSHOT_CLIP:
                 execute (manager, "gnome-screenshot --area --clipboard", FALSE);
                 break;
-        case TERMINAL_KEY:
+        case C_DESKTOP_MEDIA_KEY_TERMINAL:
                 do_terminal_action (manager);
                 break;
-        case WWW_KEY:
+        case C_DESKTOP_MEDIA_KEY_WWW:
                 do_url_action (manager, "http", timestamp);
                 break;
-        case MEDIA_KEY:
+        case C_DESKTOP_MEDIA_KEY_MEDIA:
                 do_media_action (manager, timestamp);
                 break;
-        case CALCULATOR_KEY:
+        case C_DESKTOP_MEDIA_KEY_CALCULATOR:
                 do_execute_desktop (manager, "gcalctool.desktop", timestamp);
                 break;
-        case PLAY_KEY:
+        case C_DESKTOP_MEDIA_KEY_PLAY:
                 return do_multimedia_player_action (manager, NULL, "Play");
-        case PAUSE_KEY:
+        case C_DESKTOP_MEDIA_KEY_PAUSE:
                 return do_multimedia_player_action (manager, NULL, "Pause");
-        case STOP_KEY:
+        case C_DESKTOP_MEDIA_KEY_STOP:
                 return do_multimedia_player_action (manager, NULL, "Stop");
-        case PREVIOUS_KEY:
+        case C_DESKTOP_MEDIA_KEY_PREVIOUS:
                 return do_multimedia_player_action (manager, NULL, "Previous");
-        case NEXT_KEY:
+        case C_DESKTOP_MEDIA_KEY_NEXT:
                 return do_multimedia_player_action (manager, NULL, "Next");
-        case REWIND_KEY:
+        case C_DESKTOP_MEDIA_KEY_REWIND:
                 return do_multimedia_player_action (manager, NULL, "Rewind");
-        case FORWARD_KEY:
+        case C_DESKTOP_MEDIA_KEY_FORWARD:
                 return do_multimedia_player_action (manager, NULL, "FastForward");
-        case REPEAT_KEY:
+        case C_DESKTOP_MEDIA_KEY_REPEAT:
                 return do_multimedia_player_action (manager, NULL, "Repeat");
-        case RANDOM_KEY:
+        case C_DESKTOP_MEDIA_KEY_RANDOM:
                 return do_multimedia_player_action (manager, NULL, "Shuffle");
-        case VIDEO_OUT_KEY:
+        case C_DESKTOP_MEDIA_KEY_VIDEO_OUT:
                 do_video_out_action (manager, timestamp);
                 break;
-        case ROTATE_VIDEO_KEY:
+        case C_DESKTOP_MEDIA_KEY_ROTATE_VIDEO:
                 do_video_rotate_action (manager, timestamp);
                 break;
-        case SCREENREADER_KEY:
+        case C_DESKTOP_MEDIA_KEY_SCREENREADER:
                 do_screenreader_action (manager);
                 break;
-        case ON_SCREEN_KEYBOARD_KEY:
+        case C_DESKTOP_MEDIA_KEY_ON_SCREEN_KEYBOARD:
                 do_on_screen_keyboard_action (manager);
                 break;
-	case INCREASE_TEXT_KEY:
-	case DECREASE_TEXT_KEY:
+	case C_DESKTOP_MEDIA_KEY_INCREASE_TEXT:
+	case C_DESKTOP_MEDIA_KEY_DECREASE_TEXT:
 		do_text_size_action (manager, type);
 		break;
-	case TOGGLE_CONTRAST_KEY:
+	case C_DESKTOP_MEDIA_KEY_TOGGLE_CONTRAST:
 		do_toggle_contrast_action (manager);
 		break;
-        case POWER_KEY:
+        case C_DESKTOP_MEDIA_KEY_SHUTDOWN:
                 do_config_power_action (manager, "button-power");
                 break;
-        case SLEEP_KEY:
-                do_config_power_action (manager, "button-sleep");
-                break;
-        case SUSPEND_KEY:
+        case C_DESKTOP_MEDIA_KEY_SUSPEND:
                 do_config_power_action (manager, "button-suspend");
                 break;
-        case HIBERNATE_KEY:
+        case C_DESKTOP_MEDIA_KEY_HIBERNATE:
                 do_config_power_action (manager, "button-hibernate");
                 break;
-        case SCREEN_BRIGHTNESS_UP_KEY:
-        case SCREEN_BRIGHTNESS_DOWN_KEY:
+        case C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_UP:
+        case C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_DOWN:
                 do_screen_brightness_action (manager, type);
                 break;
-        case KEYBOARD_BRIGHTNESS_UP_KEY:
-        case KEYBOARD_BRIGHTNESS_DOWN_KEY:
-        case KEYBOARD_BRIGHTNESS_TOGGLE_KEY:
+        case C_DESKTOP_MEDIA_KEY_KEYBOARD_BRIGHTNESS_UP:
+        case C_DESKTOP_MEDIA_KEY_KEYBOARD_BRIGHTNESS_DOWN:
+        case C_DESKTOP_MEDIA_KEY_KEYBOARD_BRIGHTNESS_TOGGLE:
                 do_keyboard_brightness_action (manager, type);
                 break;
-        case BATTERY_KEY:
+        case C_DESKTOP_MEDIA_KEY_BATTERY:
                 do_execute_desktop (manager, "gnome-power-statistics.desktop", timestamp);
                 break;
         /* Note, no default so compiler catches missing keys */
-        case CUSTOM_KEY:
+        case C_DESKTOP_MEDIA_KEY_SEPARATOR:
                 g_assert_not_reached ();
         }
 
         return FALSE;
-}
-
-static GdkScreen *
-get_screen_from_root (CsdMediaKeysManager *manager,
-                      Window               root)
-{
-        GSList    *l;
-
-        /* Look for which screen we're receiving events */
-        for (l = manager->priv->screens; l != NULL; l = l->next) {
-                GdkScreen *screen = (GdkScreen *) l->data;
-                GdkWindow *window = gdk_screen_get_root_window (screen);
-
-                if (GDK_WINDOW_XID (window) == root)
-                        return screen;
-        }
-
-        return NULL;
-}
-
-static GdkFilterReturn
-filter_key_events (XEvent              *xevent,
-                   GdkEvent            *event,
-                   CsdMediaKeysManager *manager)
-{
-	XIEvent             *xiev;
-	XIDeviceEvent       *xev;
-	XGenericEventCookie *cookie;
-        guint                i;
-	guint                deviceid;
-
-        /* verify we have a key event */
-	if (xevent->type != GenericEvent)
-		return GDK_FILTER_CONTINUE;
-	cookie = &xevent->xcookie;
-	if (cookie->extension != manager->priv->opcode)
-		return GDK_FILTER_CONTINUE;
-
-	xiev = (XIEvent *) xevent->xcookie.data;
-
-	if (xiev->evtype != XI_KeyPress &&
-	    xiev->evtype != XI_KeyRelease)
-		return GDK_FILTER_CONTINUE;
-
-	xev = (XIDeviceEvent *) xiev;
-
-	deviceid = xev->sourceid;
-
-        for (i = 0; i < manager->priv->keys->len; i++) {
-                MediaKey *key;
-
-                key = g_ptr_array_index (manager->priv->keys, i);
-
-                if (match_xi2_key (key->key, xev)) {
-                        switch (key->key_type) {
-                        case VOLUME_DOWN_KEY:
-                        case VOLUME_UP_KEY:
-                        case VOLUME_DOWN_QUIET_KEY:
-                        case VOLUME_UP_QUIET_KEY:
-                        case SCREEN_BRIGHTNESS_UP_KEY:
-                        case SCREEN_BRIGHTNESS_DOWN_KEY:
-                        case KEYBOARD_BRIGHTNESS_UP_KEY:
-                        case KEYBOARD_BRIGHTNESS_DOWN_KEY:
-                                /* auto-repeatable keys */
-                                if (xiev->evtype != XI_KeyPress)
-                                        return GDK_FILTER_CONTINUE;
-                                break;
-                        default:
-                                if (xiev->evtype != XI_KeyRelease) {
-                                        return GDK_FILTER_CONTINUE;
-                                }
-                        }
-
-                        manager->priv->current_screen = get_screen_from_root (manager, xev->root);
-
-                        if (do_action (manager, deviceid, key->key_type, xev->time) == FALSE) {
-                                return GDK_FILTER_REMOVE;
-                        } else {
-                                return GDK_FILTER_CONTINUE;
-                        }
-                }
-        }
-
-        return GDK_FILTER_CONTINUE;
 }
 
 static void
@@ -2011,10 +1759,6 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
 
         gvc_mixer_control_open (manager->priv->volume);
 
-        manager->priv->settings = g_settings_new (SETTINGS_BINDING_DIR);
-        g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
-                          G_CALLBACK (gsettings_changed_cb), manager);
-
         /* Sound events */
         ca_context_create (&manager->priv->ca);
         ca_context_set_driver (manager->priv->ca, "pulse");
@@ -2039,20 +1783,6 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
 	manager->priv->icon_theme = g_settings_get_string (manager->priv->interface_settings, "icon-theme");
 
         init_screens (manager);
-        init_kbd (manager);
-
-        /* Start filtering the events */
-        for (l = manager->priv->screens; l != NULL; l = l->next) {
-                cinnamon_settings_profile_start ("gdk_window_add_filter");
-
-                g_debug ("adding key filter for screen: %d",
-                         gdk_screen_get_number (l->data));
-
-                gdk_window_add_filter (gdk_screen_get_root_window (l->data),
-                                       (GdkFilterFunc) filter_key_events,
-                                       manager);
-                cinnamon_settings_profile_end ("gdk_window_add_filter");
-        }
 
         GSettings *settings = g_settings_new ("org.cinnamon.sounds");
         gboolean enabled = g_settings_get_boolean(settings, "login-enabled");
@@ -2080,11 +1810,6 @@ csd_media_keys_manager_start (CsdMediaKeysManager *manager,
         const char * const subsystems[] = { "input", "usb", "sound", NULL };
 
         cinnamon_settings_profile_start (NULL);
-
-        if (supports_xinput2_devices (&manager->priv->opcode) == FALSE) {
-                g_debug ("No Xinput2 support, disabling plugin");
-                return TRUE;
-        }
 
 #ifdef HAVE_GUDEV
         manager->priv->streams = g_hash_table_new (g_direct_hash, g_direct_equal);
@@ -2141,12 +1866,6 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 priv->bus_cancellable = NULL;
         }
 
-        for (ls = priv->screens; ls != NULL; ls = ls->next) {
-                gdk_window_remove_filter (gdk_screen_get_root_window (ls->data),
-                                          (GdkFilterFunc) filter_key_events,
-                                          manager);
-        }
-
         if (manager->priv->ca) {
                 ca_context_destroy (manager->priv->ca);
                 manager->priv->ca = NULL;
@@ -2166,11 +1885,6 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         if (priv->logind_proxy) {
                 g_object_unref (priv->logind_proxy);
                 priv->logind_proxy = NULL;
-        }
-
-        if (priv->settings) {
-                g_object_unref (priv->settings);
-                priv->settings = NULL;
         }
 
         if (priv->power_settings) {
@@ -2235,23 +1949,6 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 notify_notification_close (priv->kb_backlight_notification, NULL);
                 g_object_unref (priv->kb_backlight_notification);
                 priv->kb_backlight_notification = NULL;
-        }
-
-        if (priv->keys != NULL) {
-                gdk_error_trap_push ();
-                for (i = 0; i < priv->keys->len; ++i) {
-                        MediaKey *key;
-
-                        key = g_ptr_array_index (manager->priv->keys, i);
-
-                        if (key->key)
-                                ungrab_key_unsafe (key->key, priv->screens);
-                }
-                g_ptr_array_free (priv->keys, TRUE);
-                priv->keys = NULL;
-
-                gdk_flush ();
-                gdk_error_trap_pop_ignored ();
         }
 
         if (priv->screens != NULL) {

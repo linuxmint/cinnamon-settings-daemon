@@ -70,11 +70,6 @@
       <summary>Hibernate button action</summary>
       <description>The action to take when the system hibernate button is pressed.</description>
     </key>
-    <key name="button-sleep" enum="org.cinnamon.settings-daemon.CsdPowerActionType">
-      <default>'hibernate'</default>
-      <summary>Sleep button action</summary>
-      <description>The action to take when the system sleep (non-specific type) button is pressed.</description>
-    </key>
     <key name="button-power" enum="org.cinnamon.settings-daemon.CsdPowerActionType">
       <default>'suspend'</default>
       <summary>Power button action</summary>

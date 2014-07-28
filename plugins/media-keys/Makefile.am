@@ -27,7 +27,6 @@ libmedia_keys_la_SOURCES = 		\
 	csd-osd-window.c		\
 	csd-osd-window.h		\
 	csd-osd-window-private.h	\
-	shortcuts-list.h		\
 	bus-watch-namespace.c		\
 	bus-watch-namespace.h		\
 	mpris-controller.c		\
