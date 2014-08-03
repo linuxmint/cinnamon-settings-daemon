@@ -53,6 +53,7 @@
 #include "csd-osd-window.h"
 
 #include "csd-power-helper.h"
+#include "csd-input-helper.h"
 #include "csd-enums.h"
 
 #include <canberra.h>
@@ -242,7 +243,7 @@ static const char *
 calculate_icon_name (gint value, const char **icon_names)
 {
         value = CLAMP (value, 0, 100);
-        gint length = g_strv_length (icon_names);
+        gint length = g_strv_length ((char **)icon_names);
         gint s = (length - 1) * value / 100 + 1;
         s = CLAMP (s, 1, length - 1);
 
@@ -1154,7 +1155,7 @@ csd_media_keys_manager_handle_cinnamon_keybinding (CsdMediaKeysManager *manager,
                                                    CDesktopMediaKeyType type,
                                                    gint64               timestamp)
 {
-    do_action (manager, NULL, type, timestamp);
+    do_action (manager, deviceid, type, timestamp);
 }
 
 static void
@@ -1187,7 +1188,7 @@ handle_method_call (GDBusConnection       *connection,
         } else if (g_strcmp0 (method_name, "HandleKeybinding") == 0) {
                 CDesktopMediaKeyType action;
                 g_variant_get (parameters, "(u)", &action);
-                csd_media_keys_manager_handle_cinnamon_keybinding (manager, NULL, action, CurrentTime);
+                csd_media_keys_manager_handle_cinnamon_keybinding (manager, 0, action, CurrentTime);
                 g_dbus_method_invocation_return_value (invocation, NULL);
         }
 }
