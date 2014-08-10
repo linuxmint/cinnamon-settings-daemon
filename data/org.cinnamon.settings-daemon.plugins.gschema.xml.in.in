@@ -2,6 +2,7 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins" path="/org/cinnamon/settings-daemon/plugins/">
     <child name="a11y-keyboard" schema="org.cinnamon.settings-daemon.plugins.a11y-keyboard"/>
     <child name="a11y-settings" schema="org.cinnamon.settings-daemon.plugins.a11y-settings"/>
+    <child name="background" schema="org.cinnamon.settings-daemon.plugins.background"/>
     <child name="automount" schema="org.cinnamon.settings-daemon.plugins.automount"/>
     <child name="clipboard" schema="org.cinnamon.settings-daemon.plugins.clipboard"/>
     <child name="color" schema="org.cinnamon.settings-daemon.plugins.color"/>

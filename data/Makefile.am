@@ -18,7 +18,8 @@ gsettings_SCHEMAS =							\
 	org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml	\
 	org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml	\
 	org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml		\
-	org.cinnamon.settings-daemon.plugins.orientation.gschema.xml
+	org.cinnamon.settings-daemon.plugins.orientation.gschema.xml   \
+	org.cinnamon.settings-daemon.plugins.background.gschema.xml
 	
 @INTLTOOL_XML_NOMERGE_RULE@
 
