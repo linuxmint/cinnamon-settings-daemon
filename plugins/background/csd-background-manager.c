@@ -169,19 +169,11 @@ setup_bg (CsdBackgroundManager *manager)
 }
 
 static gboolean
-vbox_redraw_bg_callback (gpointer user_data)
-{
-    CsdBackgroundManager *manager = CSD_BACKGROUND_MANAGER (user_data);
-    draw_background (manager);
-    return FALSE;
-}
-
-static void
 setup_bg_and_draw_background (CsdBackgroundManager *manager)
 {
         setup_bg (manager);
         draw_background (manager);
-        g_timeout_add (3000, (GSourceFunc) vbox_redraw_bg_callback, manager);
+        return FALSE;
 }
 
 static void
