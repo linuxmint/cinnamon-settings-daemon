@@ -139,6 +139,7 @@ settings_change_event_cb (GSettings            *settings,
 {
         gnome_bg_load_from_preferences (manager->priv->bg,
                                         manager->priv->settings);
+        gnome_bg_set_accountsservice_background(gnome_bg_get_filename(manager->priv->bg));
         return FALSE;
 }
 
