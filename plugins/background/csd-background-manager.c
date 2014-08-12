@@ -54,7 +54,8 @@ struct CsdBackgroundManagerPrivate
 
         GnomeBGCrossfade *fade;
 
-        guint        watch_id;
+        GDBusProxy  *proxy;
+        guint        proxy_signal_id;
 };
 
 static void     csd_background_manager_class_init  (CsdBackgroundManagerClass *klass);
@@ -196,27 +197,59 @@ setup_bg_and_draw_background (CsdBackgroundManager *manager)
 }
 
 static void
-on_dbus_appeared (GDBusConnection *connection,
-                  const gchar     *name,
-                  const gchar     *name_owner,
-                  gpointer         user_data)
+disconnect_session_manager_listener (CsdBackgroundManager *manager)
 {
-    CsdBackgroundManager *manager = CSD_BACKGROUND_MANAGER (user_data);
-
-    setup_bg_and_draw_background (manager);
+        if (manager->priv->proxy && manager->priv->proxy_signal_id) {
+                g_signal_handler_disconnect (manager->priv->proxy,
+                                             manager->priv->proxy_signal_id);
+                manager->priv->proxy_signal_id = 0;
+        }
 }
 
 static void
-draw_background_after_cinnamon_loads (CsdBackgroundManager *manager)
+on_session_manager_signal (GDBusProxy   *proxy,
+                           const gchar  *sender_name,
+                           const gchar  *signal_name,
+                           GVariant     *parameters,
+                           gpointer      user_data)
 {
-        manager->priv->watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                                    "org.Cinnamon",
-                                                    0,
-                                                    on_dbus_appeared,
-                                                    NULL,
-                                                    manager,
-                                                    NULL);
+        CsdBackgroundManager *manager = CSD_BACKGROUND_MANAGER (user_data);
+
+        if (g_strcmp0 (signal_name, "SessionRunning") == 0) {
+                setup_bg_and_draw_background (manager);
+                disconnect_session_manager_listener (manager);
+        }
 }
+
+static void
+draw_background_after_session_loads (CsdBackgroundManager *manager)
+{
+        GError *error = NULL;
+        GDBusProxyFlags flags;
+
+        flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+                G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
+        manager->priv->proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                              flags,
+                                                              NULL, /* GDBusInterfaceInfo */
+                                                              "org.gnome.SessionManager",
+                                                              "/org/gnome/SessionManager",
+                                                              "org.gnome.SessionManager",
+                                                              NULL, /* GCancellable */
+                                                              &error);
+        if (manager->priv->proxy == NULL) {
+                g_warning ("Could not listen to session manager: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        manager->priv->proxy_signal_id = g_signal_connect (manager->priv->proxy,
+                                                           "g-signal",
+                                                           G_CALLBACK (on_session_manager_signal),
+                                                           manager);
+}
+
 
 static void
 disconnect_screen_signals (CsdBackgroundManager *manager)
@@ -271,7 +304,8 @@ csd_background_manager_start (CsdBackgroundManager *manager,
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.cinnamon.desktop.background");
-        draw_background_after_cinnamon_loads (manager);
+
+        draw_background_after_session_loads (manager);
 
         cinnamon_settings_profile_end (NULL);
 
@@ -286,6 +320,11 @@ csd_background_manager_stop (CsdBackgroundManager *manager)
         g_debug ("Stopping background manager");
 
         disconnect_screen_signals (manager);
+
+        if (manager->priv->proxy) {
+                disconnect_session_manager_listener (manager);
+                g_object_unref (manager->priv->proxy);
+        }
 
         g_signal_handlers_disconnect_by_func (manager->priv->settings,
                                               settings_change_event_cb,
