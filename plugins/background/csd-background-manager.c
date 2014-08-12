@@ -330,9 +330,6 @@ csd_background_manager_stop (CsdBackgroundManager *manager)
                                               settings_change_event_cb,
                                               manager);
 
-        if (p->watch_id > 0)
-            g_bus_unwatch_name (p->watch_id);
-
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
