@@ -54,7 +54,6 @@ struct CsdBackgroundManagerPrivate
 
         GDBusProxy  *proxy;
         guint        proxy_signal_id;
-        gboolean     vbox_run_once;
 
 };
 
@@ -174,12 +173,6 @@ vbox_redraw_bg_callback (gpointer user_data)
 {
     CsdBackgroundManager *manager = CSD_BACKGROUND_MANAGER (user_data);
     draw_background (manager);
-
-    if (!manager->priv->vbox_run_once) {
-        manager->priv->vbox_run_once = TRUE;
-        return TRUE;
-    }
-
     return FALSE;
 }
 
@@ -188,7 +181,7 @@ setup_bg_and_draw_background (CsdBackgroundManager *manager)
 {
         setup_bg (manager);
         draw_background (manager);
-        g_timeout_add (4000, (GSourceFunc) vbox_redraw_bg_callback, manager);
+        g_timeout_add (3000, (GSourceFunc) vbox_redraw_bg_callback, manager);
 }
 
 static void
@@ -296,7 +289,7 @@ csd_background_manager_start (CsdBackgroundManager *manager,
 
         g_debug ("Starting background manager");
         cinnamon_settings_profile_start (NULL);
-        manager->priv->vbox_run_once = FALSE;
+
         manager->priv->settings = g_settings_new ("org.cinnamon.desktop.background");
 
         draw_background_after_session_loads (manager);
