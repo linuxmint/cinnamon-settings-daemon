@@ -104,7 +104,7 @@ draw_background (CsdBackgroundManager *manager,
                                                    gdk_screen_get_height (screen),
                                                    TRUE);
 
-                if (use_crossfade) {
+                if (FALSE) {  /* use_crossfade - buggy now?  need to look at cinnamon-desktop */
 
                         if (manager->priv->fade != NULL) {
                                 g_object_unref (manager->priv->fade);
