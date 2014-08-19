@@ -508,14 +508,14 @@ main (int argc, char *argv[])
         parse_args (&argc, &argv);
 
         g_type_init ();
-
+        g_setenv ("GDK_SCALE", "1", TRUE);
         cinnamon_settings_profile_start ("opening gtk display");
         if (! gtk_init_check (NULL, NULL)) {
                 g_warning ("Unable to initialize GTK+");
                 exit (EXIT_FAILURE);
         }
         cinnamon_settings_profile_end ("opening gtk display");
-
+        g_unsetenv ("GDK_SCALE");
         g_log_set_default_handler (csd_log_default_handler, NULL);
 
         notify_init ("cinnamon-settings-daemon");
