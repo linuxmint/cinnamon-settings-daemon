@@ -1785,15 +1785,6 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
 
         init_screens (manager);
 
-        GSettings *settings = g_settings_new ("org.cinnamon.sounds");
-        gboolean enabled = g_settings_get_boolean(settings, "login-enabled");
-        gchar *sound = g_settings_get_string (settings, "login-file");
-        if (enabled) {
-            ca_context_play (manager->priv->ca, 1, CA_PROP_MEDIA_FILENAME, sound, NULL);
-        }
-        g_free(sound);
-        g_object_unref (settings);
-
         g_debug ("Starting mpris controller");
         manager->priv->mpris_controller = mpris_controller_new ();
 

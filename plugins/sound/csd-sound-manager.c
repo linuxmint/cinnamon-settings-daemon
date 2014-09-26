@@ -45,6 +45,8 @@
 #define SOUND_HANDLER_DBUS_PATH "/org/cinnamon/SettingsDaemon/Sound"
 #define SOUND_HANDLER_DBUS_NAME "org.cinnamon.SettingsDaemon.Sound" 
 
+#define PLAY_ONCE_FLAG 8675309
+
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.cinnamon.SettingsDaemon.Sound'>"
@@ -72,6 +74,13 @@ struct CsdSoundManagerPrivate
         ca_context      *ca;
         GCancellable    *bus_cancellable;
         GDBusConnection *connection;
+
+        /* DBus users pass an ID with the sound string
+         * We can use this as a flag also to denote a sound
+         * that we only ever want played once (i.e. initial desktop
+         * welcome sound)
+         */
+        GList *onetime_sounds;
 };
 
 static void csd_sound_manager_class_init (CsdSoundManagerClass *klass);
@@ -81,6 +90,30 @@ static void csd_sound_manager_finalize (GObject *object);
 G_DEFINE_TYPE (CsdSoundManager, csd_sound_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static gboolean
+should_play (CsdSoundManager *manager, guint id, const gchar *str)
+{
+    if (id != PLAY_ONCE_FLAG)
+        return TRUE;
+
+    GList *l;
+    gboolean already_ran = FALSE;
+
+    for (l = manager->priv->onetime_sounds; l; l = l->next) {
+        if (g_strcmp0 (l->data, str) == 0) {
+            already_ran = TRUE;
+            break;
+        }
+    }
+
+    if (!already_ran) {
+        manager->priv->onetime_sounds = g_list_prepend (manager->priv->onetime_sounds,
+                                                        g_strdup (str));
+    }
+
+    return !already_ran;
+}
 
 static void
 handle_sound_request (GDBusConnection       *connection,
@@ -101,23 +134,29 @@ handle_sound_request (GDBusConnection       *connection,
                 guint id;
 
                 g_variant_get (parameters, "(u&s)", &id, &sound_name);
-                ca_context_play (manager->priv->ca,
-                                 id,
-                                 CA_PROP_EVENT_ID,
-                                 sound_name,
-                                 NULL);
-                g_dbus_method_invocation_return_value (invocation, NULL);
+
+                if (should_play (manager, id, sound_name)) {
+                    ca_context_play (manager->priv->ca,
+                                     id == PLAY_ONCE_FLAG ? 0 : id,
+                                     CA_PROP_EVENT_ID,
+                                     sound_name,
+                                     NULL);
+                    g_dbus_method_invocation_return_value (invocation, NULL);
+                }
         } else if (g_strcmp0 (method_name, "PlaySoundFile") == 0) {
                 const char *sound_file;
                 guint id;
 
                 g_variant_get (parameters, "(u&s)", &id, &sound_file);
-                ca_context_play (manager->priv->ca,
-                                 id,
-                                 CA_PROP_MEDIA_FILENAME,
-                                 sound_file,
-                                 NULL);
-                g_dbus_method_invocation_return_value (invocation, NULL);
+
+                if (should_play (manager, id, sound_file)) {
+                    ca_context_play (manager->priv->ca,
+                                     id == PLAY_ONCE_FLAG ? 0 : id,
+                                     CA_PROP_MEDIA_FILENAME,
+                                     sound_file,
+                                     NULL);
+                    g_dbus_method_invocation_return_value (invocation, NULL);
+                }
         } else if (g_strcmp0 (method_name, "CancelSound") == 0) {
                 guint id;
 
@@ -401,6 +440,8 @@ csd_sound_manager_start (CsdSoundManager *manager,
 
         g_strfreev (ps);
 
+        manager->priv->onetime_sounds = NULL;
+
         /* Sound events */
         ca_context_create (&manager->priv->ca);
         ca_context_set_driver (manager->priv->ca, "pulse");
@@ -457,6 +498,11 @@ csd_sound_manager_stop (CsdSoundManager *manager)
         if (manager->priv->connection != NULL) {
                 g_object_unref (manager->priv->connection);
                 manager->priv->connection = NULL;
+        }
+
+        if (manager->priv->onetime_sounds != NULL) {
+                g_list_free_full (manager->priv->onetime_sounds, g_free);
+                manager->priv->onetime_sounds = NULL;
         }
 
         while (manager->priv->monitors) {
