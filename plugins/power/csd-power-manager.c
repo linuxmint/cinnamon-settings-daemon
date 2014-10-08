@@ -3464,16 +3464,16 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
         g_variant_get (k_now, "(i)", &manager->priv->kbd_brightness_now);
         g_variant_get (k_max, "(i)", &manager->priv->kbd_brightness_max);
 
-        /* set brightness to max if not currently set so is something
-         * sensible */
-        if (manager->priv->kbd_brightness_now  < 0) {
+        /* Set keyboard brightness to zero if the current value is out of valid range.
+        Unlike display brightness, keyboard backlight brightness should be dim by default.*/
+        if ((manager->priv->kbd_brightness_now  < 0) || (manager->priv->kbd_brightness_now > manager->priv->kbd_brightness_max)) {
                 gboolean ret;
                 ret = upower_kbd_set_brightness (manager,
-                                                 manager->priv->kbd_brightness_max,
+                                                 0,
                                                  &error);
                 if (!ret) {
                         g_warning ("failed to initialize kbd backlight to %i: %s",
-                                   manager->priv->kbd_brightness_max,
+                                   0,
                                    error->message);
                         g_error_free (error);
                 }
