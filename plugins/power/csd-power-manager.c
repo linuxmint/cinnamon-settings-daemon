@@ -3466,7 +3466,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
 
         /* set brightness to max if not currently set so is something
          * sensible */
-        if (manager->priv->kbd_brightness_now <= 0) {
+        if (manager->priv->kbd_brightness_now  < 0) {
                 gboolean ret;
                 ret = upower_kbd_set_brightness (manager,
                                                  manager->priv->kbd_brightness_max,
