@@ -1660,7 +1660,15 @@ do_action (CsdMediaKeysManager *manager,
                 do_media_action (manager, timestamp);
                 break;
         case C_DESKTOP_MEDIA_KEY_CALCULATOR:
-                do_execute_desktop (manager, "gcalctool.desktop", timestamp);
+                if ((cmd = g_find_program_in_path ("galculator"))) {
+                        execute (manager, "galculator", FALSE, FALSE);
+                } else if ((cmd = g_find_program_in_path ("gcalctool"))) {
+                        execute (manager, "gcalctool", FALSE, FALSE);
+                } else {
+                        execute (manager, "mate-calc", FALSE, FALSE);
+                }
+
+                g_free (cmd);
                 break;
         case C_DESKTOP_MEDIA_KEY_PLAY:
                 return do_multimedia_player_action (manager, NULL, "Play");
