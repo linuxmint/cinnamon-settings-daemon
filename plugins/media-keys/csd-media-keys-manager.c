@@ -1660,12 +1660,12 @@ do_action (CsdMediaKeysManager *manager,
                 do_media_action (manager, timestamp);
                 break;
         case C_DESKTOP_MEDIA_KEY_CALCULATOR:
-                if ((cmd = g_find_program_in_path ("galculator"))) {
-                        execute (manager, "galculator", FALSE, FALSE);
-                } else if ((cmd = g_find_program_in_path ("gcalctool"))) {
-                        execute (manager, "gcalctool", FALSE, FALSE);
+                if ((cmd = g_find_program_in_path ("gcalctool"))) {
+                        execute (manager, "gcalctool", timestamp);
+                } else if ((cmd = g_find_program_in_path ("galculator"))) {
+                        execute (manager, "galculator", timestamp);
                 } else {
-                        execute (manager, "mate-calc", FALSE, FALSE);
+                        execute (manager, "mate-calc", timestamp);
                 }
 
                 g_free (cmd);
