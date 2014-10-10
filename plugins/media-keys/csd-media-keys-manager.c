@@ -1660,12 +1660,12 @@ do_action (CsdMediaKeysManager *manager,
                 do_media_action (manager, timestamp);
                 break;
         case C_DESKTOP_MEDIA_KEY_CALCULATOR:
-                if ((cmd = g_find_program_in_path ("gcalctool"))) {
-                        execute (manager, "gcalctool", timestamp);
+                if ((cmd = g_find_program_in_path ("gnome-calculator"))) {
+                do_execute_desktop (manager, "gcalctool.desktop", timestamp);
                 } else if ((cmd = g_find_program_in_path ("galculator"))) {
-                        execute (manager, "galculator", timestamp);
+                do_execute_desktop (manager, "galculator.desktop", timestamp);
                 } else {
-                        execute (manager, "mate-calc", timestamp);
+                do_execute_desktop (manager, "mate-calc.desktop", timestamp);
                 }
 
                 g_free (cmd);
