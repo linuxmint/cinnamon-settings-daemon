@@ -227,6 +227,8 @@ draw_background_after_session_loads (CsdBackgroundManager *manager)
 {
         GError *error = NULL;
         GDBusProxyFlags flags;
+        GVariant *var = NULL;
+        gboolean running = FALSE;
 
         flags = G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
                 G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
@@ -245,10 +247,27 @@ draw_background_after_session_loads (CsdBackgroundManager *manager)
                 return;
         }
 
-        manager->priv->proxy_signal_id = g_signal_connect (manager->priv->proxy,
-                                                           "g-signal",
-                                                           G_CALLBACK (on_session_manager_signal),
-                                                           manager);
+        var = g_dbus_proxy_call_sync (manager->priv->proxy,
+                                      "IsSessionRunning",
+                                      NULL,
+                                      G_DBUS_CALL_FLAGS_NONE,
+                                      -1,
+                                      NULL,
+                                      NULL);
+
+        if (var != NULL) {
+            g_variant_get (var, "(b)", &running);
+            g_variant_unref (var);
+        }
+
+        if (running) {
+            setup_bg_and_draw_background (manager);
+        } else {
+            manager->priv->proxy_signal_id = g_signal_connect (manager->priv->proxy,
+                                                               "g-signal",
+                                                               G_CALLBACK (on_session_manager_signal),
+                                                               manager);
+        }
 }
 
 
