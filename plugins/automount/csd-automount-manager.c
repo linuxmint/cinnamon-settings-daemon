@@ -255,21 +255,36 @@ autorun_show_window (GMount *mount, gpointer user_data)
 	char *name;
 
 	location = g_mount_get_root (mount);
-        uri = g_file_get_uri (location);
+  uri = g_file_get_uri (location);
 
-        error = NULL;
+  error = NULL;
 	/* use default folder handler */
-        if (! gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, &error)) {
-		name = g_mount_get_name (mount);
-		primary = g_strdup_printf (_("Unable to open a folder for %s"), name);
-		g_free (name);
-		show_error_dialog (primary,
-				   error->message);
-		g_free (primary);
-		g_error_free (error);
-        }
+  g_debug("Opening %s", uri);
 
-        g_free (uri);
+  if (g_str_has_prefix (uri, "afc://")) {
+    // AFC (Apple File Conduit, which runs on iPhone and other Apple devices) doesn't always work well
+    // Observed on an iOS 4 device it would work the first time the device was connected, and then indefinitely hang after that
+    // Even a simple 'ls /run/user/$USER/gvfs' would hang forever
+    // It is unacceptable for CSD to hang, so we're treating AFC differently (asynchronously)
+    g_debug("AFC protocol detected, opening asynchronously!");
+    char * command = g_strdup_printf("timeout 10s xdg-open %s", uri);
+    g_debug("Executing command '%s'", command);
+    system(command);
+    g_debug("Command was executed, moving on..");
+    g_free(command);
+  }
+  else {
+    if (! gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, &error)) {
+  		name = g_mount_get_name (mount);
+  		primary = g_strdup_printf (_("Unable to open a folder for %s"), name);
+  		g_free (name);
+  		show_error_dialog (primary, error->message);
+  		g_free (primary);
+  		g_error_free (error);
+    }
+  }
+
+  g_free (uri);
 	g_object_unref (location);
 }
 
