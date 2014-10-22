@@ -698,7 +698,7 @@ set_tap_to_click (GdkDevice *device,
                 /* Set RLM mapping for 1/2/3 fingers*/
                 data[4] = (state) ? ((left_handed) ? 3 : 1) : 0;
                 data[5] = (state) ? ((left_handed) ? 1 : 3) : 0;
-                data[6] = 0; /* Disable three touch tap so gestures work */
+                data[6] = (state) ? 2 : 0;
                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, XA_INTEGER, 8,
                                        PropModeReplace, data, nitems);
         }
