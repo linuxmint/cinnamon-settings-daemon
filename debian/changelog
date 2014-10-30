@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.4.0) rebecca; urgency=medium
+
+  * 2.4.0
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 30 Oct 2014 16:06:31 +0100
+
 cinnamon-settings-daemon (2.3.0) unstable; urgency=medium
 
   * 2.3.0
