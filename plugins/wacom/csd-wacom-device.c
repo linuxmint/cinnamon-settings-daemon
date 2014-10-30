@@ -702,10 +702,16 @@ set_display_by_output (CsdWacomDevice  *device,
 	gchar       *o_vendor_s, *o_product_s, *o_serial_s;
 	int          o_product, o_serial;
 	const gchar *values[3];
+	const gchar **unused_variant;
 
 	tablet  = csd_wacom_device_get_settings (device);
 	c_array = g_settings_get_value (tablet, "display");
-	g_variant_get_strv (c_array, &nvalues);
+	unused_variant = g_variant_get_strv (c_array, &nvalues);
+
+	/* these arrays aren't used, only nvalues is */
+	g_free (unused_variant);
+	g_variant_unref (c_array);
+
 	if (nvalues != 3) {
 		g_warning ("Unable set set display property. Got %"G_GSIZE_FORMAT" items; expected %d items.\n", nvalues, 4);
 		return;
