@@ -1538,7 +1538,6 @@ is_wacom_tablet_device (CsdXrandrManager *mgr,
         wacom_device = libwacom_new_from_path (priv->wacom_db, device_node, FALSE, NULL);
         g_free (device_node);
         if (wacom_device == NULL) {
-                g_free (device_node);
                 return FALSE;
         }
         is_tablet = libwacom_has_touch (wacom_device) &&
