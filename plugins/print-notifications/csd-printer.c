@@ -118,7 +118,6 @@ get_missing_executables (const gchar *ppd_file_name)
         GHashTable *executables = NULL;
         GDBusProxy *proxy;
         GVariant   *output;
-        GVariant   *array;
         GError     *error = NULL;
         gint        i;
 
@@ -150,17 +149,23 @@ get_missing_executables (const gchar *ppd_file_name)
                                          &error);
 
         if (output && g_variant_n_children (output) == 1) {
-                array = g_variant_get_child_value (output, 0);
+                GVariant *array = g_variant_get_child_value (output, 0);
                 if (array) {
                         executables = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                              g_free, NULL);
                         for (i = 0; i < g_variant_n_children (array); i++) {
+                                GVariant *child_value = g_variant_get_child_value (array, i);
                                 g_hash_table_insert (executables,
                                                      g_strdup (g_variant_get_string (
-                                                       g_variant_get_child_value (array, i),
+                                                       child_value,
                                                        NULL)),
                                                      NULL);
+                                if (child_value) {
+                                        g_variant_unref (child_value);
+                                }
                         }
+
+                        g_variant_unref (array);
                 }
         }
 
@@ -307,8 +312,6 @@ get_best_ppd (gchar *device_id,
 {
         GDBusProxy  *proxy;
         GVariant    *output;
-        GVariant    *array;
-        GVariant    *tuple;
         GError      *error = NULL;
         gchar       *ppd_name = NULL;
         gint         i, j;
@@ -346,20 +349,37 @@ get_best_ppd (gchar *device_id,
                                          &error);
 
         if (output && g_variant_n_children (output) >= 1) {
-                array = g_variant_get_child_value (output, 0);
-                if (array)
-                        for (j = 0; j < G_N_ELEMENTS (match_levels) && ppd_name == NULL; j++)
+                GVariant *array = g_variant_get_child_value (output, 0);
+                if (array) {
+                        for (j = 0; j < G_N_ELEMENTS (match_levels) && ppd_name == NULL; j++) {
                                 for (i = 0; i < g_variant_n_children (array) && ppd_name == NULL; i++) {
-                                        tuple = g_variant_get_child_value (array, i);
+                                        GVariant *tuple = g_variant_get_child_value (array, i);
                                         if (tuple && g_variant_n_children (tuple) == 2) {
-                                                if (g_strcmp0 (g_variant_get_string (
-                                                                   g_variant_get_child_value (tuple, 1),
-                                                                   NULL), match_levels[j]) == 0)
+                                                GVariant *child_value_1 = g_variant_get_child_value (tuple, 1);
+                                                if (g_strcmp0 (g_variant_get_string (child_value_1, NULL),
+                                                        match_levels[j]) == 0) {
+                                                        GVariant *child_value_0 = g_variant_get_child_value (tuple, 0);
                                                         ppd_name = g_strdup (g_variant_get_string (
-                                                                                 g_variant_get_child_value (tuple, 0),
+                                                                                 child_value_0,
                                                                                  NULL));
+                                                        if (child_value_0) {
+                                                                g_variant_unref (child_value_0);
+                                                        }
+                                                }
+
+                                                if (child_value_1) {
+                                                        g_variant_unref (child_value_1);
+                                                }
+                                        }
+
+                                        if (tuple) {
+                                                g_variant_unref (tuple);
                                         }
                                 }
+                        }
+
+                        g_variant_unref (array);
+                }
         }
 
         if (output) {
