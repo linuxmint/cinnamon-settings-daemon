@@ -189,6 +189,7 @@ main (void)
 
         loop = g_main_loop_new (NULL, TRUE);
         g_main_loop_run (loop);
+        g_main_loop_unref (loop);
 
         return 0;
 }

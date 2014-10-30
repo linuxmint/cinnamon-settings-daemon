@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 	GtkWidget *widget;
 	GError *error = NULL;
 	GOptionContext *context;
-	CsdWacomDevice *device;
+	CsdWacomDevice *device = NULL;
 	gchar *message;
 	gchar *tablet = NULL;
 	const GOptionEntry entries[] = {
@@ -96,8 +96,10 @@ int main(int argc, char** argv)
 	g_option_context_set_help_enabled (context, TRUE);
 	if (g_option_context_parse (context, &argc, &argv, &error) == FALSE) {
 		g_print ("%s\n", error->message);
+		g_option_context_free (context);
 		return 1;
 	}
+
 	g_option_context_free (context);
 
 	if (option_debug)
@@ -132,6 +134,12 @@ int main(int argc, char** argv)
 
 	gtk_widget_show (widget);
 	gtk_main ();
+
+	g_free (tablet);
+
+	if (device) {
+		g_object_unref (device);
+	}
 
 	return 0;
 }

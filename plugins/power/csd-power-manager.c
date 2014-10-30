@@ -1688,8 +1688,10 @@ engine_charge_action (CsdPowerManager *manager, UpDevice *device)
         }
 
         /* not all types have actions */
-        if (title == NULL)
+        if (title == NULL) {
+                g_free (message);
                 return;
+        }
 
         /* get correct icon */
         icon = gpm_upower_get_device_icon (device, TRUE);
