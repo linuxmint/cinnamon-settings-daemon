@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.4.1) rebecca; urgency=medium
+
+  * Enable middle-click mouse emulation by default and support for single-button touchpads
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 31 Oct 2014 16:04:10 +0100
+
 cinnamon-settings-daemon (2.4.0) rebecca; urgency=medium
 
   * 2.4.0
