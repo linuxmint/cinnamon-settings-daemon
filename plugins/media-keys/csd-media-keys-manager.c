@@ -389,7 +389,7 @@ execute (CsdMediaKeysManager *manager,
                 g_strfreev (envp);
         }
 
-        if (retval == FALSE) {
+        if (retval == FALSE && error != NULL) {
                 g_warning ("Couldn't execute command: %s: %s", exec, error->message);
                 g_error_free (error);
         }
