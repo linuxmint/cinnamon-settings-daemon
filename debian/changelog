@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.4.2) rebecca; urgency=medium
+
+  * Re-added media-keys keybindings schema to allow cinnamon-desktop migrate script to work
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 08 Nov 2014 10:06:29 +0100
+
 cinnamon-settings-daemon (2.4.1) rebecca; urgency=medium
 
   * Enable middle-click mouse emulation by default and support for single-button touchpads
