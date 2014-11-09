@@ -1384,7 +1384,8 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 cinnamon_session_shutdown (manager);
                 break;
         case CSD_POWER_ACTION_SHUTDOWN:
-                execute (manager, "cinnamon-session-quit --power-off --no-prompt", FALSE);
+                //FIXME: A wee bit cheating here...
+                execute (manager, "dbus-send --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.RequestShutdown", FALSE);
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
                 csd_power_hibernate (manager->priv->upower_proxy);
