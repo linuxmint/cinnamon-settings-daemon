@@ -692,11 +692,6 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        // dialog_init (manager);
-        // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-        //                                          "media-eject-symbolic",
-        //                                          FALSE);
-        // dialog_show (manager);
         show_osd (manager, "media-eject-symbolic", -1);
 
         /* Clean up the drive selection and exit if no suitable
@@ -755,11 +750,6 @@ do_execute_desktop (CsdMediaKeysManager *manager,
 static void
 do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
 {
-    // dialog_init (manager);
-    // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-    //                                         state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-    //                                         FALSE);
-    // dialog_show (manager);
     show_osd (manager,
               state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
               -1);
@@ -1495,8 +1485,7 @@ update_screen_cb (GObject             *source_object,
         GError *error = NULL;
         guint percentage;
         GVariant *new_percentage;
-        CsdBrightnessActionData *data = (CsdBrightnessActionData *) user_data;
-        CsdMediaKeysManager *manager = data->manager;
+        CsdMediaKeysManager *manager = CSD_MEDIA_KEYS_MANAGER (user_data);
 
         new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                                    res, &error);
@@ -1504,31 +1493,12 @@ update_screen_cb (GObject             *source_object,
                 g_warning ("Failed to set new screen percentage: %s",
                            error->message);
                 g_error_free (error);
-                g_free (data);
                 return;
         }
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        guint osd_percentage;
-
-        if (data->old_percentage == 100 && data->type == C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_UP)
-                osd_percentage = 101;
-        else if (data->old_percentage == 0 && data->type == C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_DOWN)
-                osd_percentage = -1;
-        else
-                osd_percentage = CLAMP (percentage, 0, 100);
-
-        // dialog_init (manager);
-        // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-        //                                          "display-brightness-symbolic",
-        //                                          TRUE);
-        // csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-        //                                         percentage);
-        // dialog_show (manager);
         show_osd (manager, "display-brightness-symbolic", percentage);
-
-        g_free (data);
         g_variant_unref (new_percentage);
 }
 
@@ -1610,18 +1580,7 @@ update_keyboard_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-
-        /* FIXME: No overshoot effect for keyboard, as the power plugin has no interface
-         *        to get the old brightness */
-        // dialog_init (manager);
-        // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-        //                                          "keyboard-brightness-symbolic",
-        //                                          TRUE);
-        // csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-        //                                         percentage);
-        // dialog_show (manager);
         show_osd (manager, "keyboard-brightness-symbolic", percentage);
-
         g_variant_unref (new_percentage);
 }
 
