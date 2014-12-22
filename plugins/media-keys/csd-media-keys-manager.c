@@ -74,6 +74,9 @@
 #define CINNAMON_DBUS_PATH "/org/cinnamon/SettingsDaemon"
 #define CINNAMON_DBUS_NAME "org.cinnamon.SettingsDaemon"
 
+#define CINNAMON_SHELL_DBUS_PATH "/org/Cinnamon"
+#define CINNAMON_SHELL_DBUS_NAME "org.Cinnamon"
+
 #define CINNAMON_KEYBINDINGS_PATH CINNAMON_DBUS_PATH "/KeybindingHandler"
 #define CINNAMON_KEYBINDINGS_NAME CINNAMON_DBUS_NAME ".KeybindingHandler"
 
@@ -160,6 +163,10 @@ struct CsdMediaKeysManagerPrivate
         GDBusProxy      *upower_proxy;
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
+
+        /* OSD stuff */
+        GDBusProxy      *osd_proxy;
+        GCancellable    *osd_cancellable;
 
         /* systemd stuff */
         GDBusProxy      *logind_proxy;
@@ -410,6 +417,89 @@ dialog_init (CsdMediaKeysManager *manager)
         }
 }
 
+static void 
+ensure_cancellable (GCancellable **cancellable)
+{
+    if (*cancellable == NULL) {
+        *cancellable = g_cancellable_new ();
+        g_object_add_weak_pointer (G_OBJECT (*cancellable),
+                                   (gpointer *)cancellable);
+    } else {
+        g_object_ref (*cancellable);
+    }
+}
+
+static void
+show_osd_complete (GObject      *source,
+                   GAsyncResult *result,
+                   gpointer     data)
+{
+    CsdMediaKeysManager *manager = data;
+    g_object_unref (manager->priv->osd_cancellable);
+}
+
+static void
+show_osd (CsdMediaKeysManager *manager,
+          const char          *icon,
+          int                  level)
+{
+    GVariantBuilder builder;
+
+    if (manager->priv->connection == NULL ||
+        manager->priv->osd_proxy == NULL) {
+            g_warning ("No existing D-Bus connection trying to handle osd");
+            return;
+    }
+
+    g_variant_builder_init (&builder, G_VARIANT_TYPE_TUPLE);
+    g_variant_builder_open (&builder, G_VARIANT_TYPE_VARDICT);
+    if (icon)
+        g_variant_builder_add (&builder, "{sv}",
+                               "icon", g_variant_new_string (icon));
+    if (level >= 0)
+        g_variant_builder_add (&builder, "{sv}",
+                               "level", g_variant_new_int32 (level));
+    g_variant_builder_close (&builder);
+
+    ensure_cancellable (&manager->priv->osd_cancellable);
+
+    g_dbus_proxy_call (manager->priv->osd_proxy,
+                       "ShowOSD",
+                       g_variant_builder_end (&builder),
+                       G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                       -1,
+                       manager->priv->osd_cancellable,
+                       show_osd_complete,
+                       manager);
+}
+
+static const char *
+get_icon_name_for_volume (gboolean muted,
+                          int volume)
+{
+    static const char *icon_names[] = {
+        "audio-volume-muted-symbolic",
+        "audio-volume-low-symbolic",
+        "audio-volume-medium-symbolic",
+        "audio-volume-high-symbolic",
+        NULL
+    };
+    int n;
+
+    if (muted) {
+        n = 0;
+    } else {
+        n = 3 * volume / 100 + 1;
+        if (n < 1) {
+            n = 1;
+        } else if (n > 3) {
+            n = 3;
+        }
+    }
+
+    return icon_names[n];
+}
+
 static void
 dialog_show (CsdMediaKeysManager *manager)
 {
@@ -602,11 +692,12 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        dialog_init (manager);
-        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "media-eject-symbolic",
-                                                 FALSE);
-        dialog_show (manager);
+        // dialog_init (manager);
+        // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+        //                                          "media-eject-symbolic",
+        //                                          FALSE);
+        // dialog_show (manager);
+        show_osd (manager, "media-eject-symbolic", -1);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -664,11 +755,14 @@ do_execute_desktop (CsdMediaKeysManager *manager,
 static void
 do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
 {
-    dialog_init (manager);
-    csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                            state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-                                            FALSE);
-    dialog_show (manager);
+    // dialog_init (manager);
+    // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+    //                                         state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
+    //                                         FALSE);
+    // dialog_show (manager);
+    show_osd (manager,
+              state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
+              -1);
 }
 
 static void
@@ -699,15 +793,12 @@ update_dialog (CsdMediaKeysManager *manager,
                gboolean             sound_changed,
                gboolean             quiet)
 {    
+    const char *icon;
         vol = CLAMP (vol, 0, 100);
 
-        dialog_init (manager);
-        csd_osd_window_set_volume_muted (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                muted);
-        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog), vol);
-        csd_osd_window_set_action (CSD_OSD_WINDOW (manager->priv->dialog),
-                                          CSD_OSD_WINDOW_ACTION_VOLUME);
-        dialog_show (manager);
+        icon = get_icon_name_for_volume (muted, vol);
+
+        show_osd (manager, icon, vol);
 
 done:
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {                            
@@ -1123,11 +1214,7 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
         if (!have_listeners) {
                 if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                 /* Popup a dialog with an (/) icon */
-                dialog_init (manager);
-                csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                         "action-unavailable-symbolic",
-                                                         FALSE);
-                dialog_show (manager);
+                    show_osd (manager, "action-unavailable-symbolic", -1);
                  }
                 return TRUE;
         }
@@ -1432,13 +1519,14 @@ update_screen_cb (GObject             *source_object,
         else
                 osd_percentage = CLAMP (percentage, 0, 100);
 
-        dialog_init (manager);
-        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "display-brightness-symbolic",
-                                                 TRUE);
-        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                percentage);
-        dialog_show (manager);
+        // dialog_init (manager);
+        // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+        //                                          "display-brightness-symbolic",
+        //                                          TRUE);
+        // csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
+        //                                         percentage);
+        // dialog_show (manager);
+        show_osd (manager, "display-brightness-symbolic", percentage);
 
         g_free (data);
         g_variant_unref (new_percentage);
@@ -1525,13 +1613,14 @@ update_keyboard_cb (GObject             *source_object,
 
         /* FIXME: No overshoot effect for keyboard, as the power plugin has no interface
          *        to get the old brightness */
-        dialog_init (manager);
-        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "keyboard-brightness-symbolic",
-                                                 TRUE);
-        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                percentage);
-        dialog_show (manager);
+        // dialog_init (manager);
+        // csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
+        //                                          "keyboard-brightness-symbolic",
+        //                                          TRUE);
+        // csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
+        //                                         percentage);
+        // dialog_show (manager);
+        show_osd (manager, "keyboard-brightness-symbolic", percentage);
 
         g_variant_unref (new_percentage);
 }
@@ -1913,6 +2002,11 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 priv->upower_proxy = NULL;
         }
 
+        if (priv->osd_proxy) {
+            g_object_unref (priv->osd_proxy);
+            priv->osd_proxy = NULL;
+        }
+
         if (priv->cancellable != NULL) {
                 g_cancellable_cancel (priv->cancellable);
                 g_object_unref (priv->cancellable);
@@ -1950,6 +2044,12 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 notify_notification_close (priv->kb_backlight_notification, NULL);
                 g_object_unref (priv->kb_backlight_notification);
                 priv->kb_backlight_notification = NULL;
+        }
+
+        if (priv->osd_cancellable != NULL) {
+            g_cancellable_cancel (priv->osd_cancellable);
+            g_object_unref (priv->osd_cancellable);
+            priv->osd_cancellable = NULL;
         }
 
         if (priv->screens != NULL) {
@@ -2172,6 +2272,20 @@ power_keyboard_ready_cb (GObject             *source_object,
 }
 
 static void
+osd_ready_cb (GObject             *source_object,
+              GAsyncResult        *res,
+              CsdMediaKeysManager *manager)
+{
+    GError *error = NULL;
+
+    manager->priv->osd_proxy = g_dbus_proxy_new_finish (res, &error);
+    if (manager->priv->osd_proxy == NULL) {
+        g_warning ("Failed to get proxy for OSD operations: %s", error->message);
+        g_error_free (error);
+    }
+}
+
+static void
 on_bus_gotten (GObject             *source_object,
                GAsyncResult        *res,
                CsdMediaKeysManager *manager)
@@ -2238,6 +2352,16 @@ on_bus_gotten (GObject             *source_object,
                           NULL,
                           (GAsyncReadyCallback) power_keyboard_ready_cb,
                           manager);
+
+    g_dbus_proxy_new (manager->priv->connection,
+                      G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                      NULL,
+                      "org.Cinnamon",
+                      "/org/Cinnamon",
+                      "org.Cinnamon",
+                      NULL,
+                      (GAsyncReadyCallback) osd_ready_cb,
+                      manager);
 }
 
 static void
