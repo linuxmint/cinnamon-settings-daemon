@@ -50,8 +50,6 @@
 #include "csd-marshal.h"
 #include "csd-media-keys-manager.h"
 
-#include "csd-osd-window.h"
-
 #include "csd-power-helper.h"
 #include "csd-input-helper.h"
 #include "csd-enums.h"
@@ -220,43 +218,6 @@ typedef struct {
 
 } CsdBrightnessActionData;
 
-static const char *volume_icons[] = {
-        "notification-audio-volume-muted",
-        "notification-audio-volume-low",
-        "notification-audio-volume-medium",
-        "notification-audio-volume-high",
-        NULL
-};
-
-static const char *brightness_icons[] = {
-        "notification-display-brightness-off",
-	"notification-display-brightness-low",
-	"notification-display-brightness-medium",
-	"notification-display-brightness-high",
-	"notification-display-brightness-full",
-        NULL
-};
-
-static const char *kb_backlight_icons[] = {
-        "notification-keyboard-brightness-off",
-        "notification-keyboard-brightness-low",
-        "notification-keyboard-brightness-medium",
-        "notification-keyboard-brightness-high",
-        "notification-keyboard-brightness-full",
-        NULL
-};
-
-static const char *
-calculate_icon_name (gint value, const char **icon_names)
-{
-        value = CLAMP (value, 0, 100);
-        gint length = g_strv_length ((char **)icon_names);
-        gint s = (length - 1) * value / 100 + 1;
-        s = CLAMP (s, 1, length - 1);
-
-        return icon_names[s];
-}
-
 static void
 init_screens (CsdMediaKeysManager *manager)
 {
@@ -403,20 +364,6 @@ execute (CsdMediaKeysManager *manager,
         g_free (exec);
 }
 
-static void
-dialog_init (CsdMediaKeysManager *manager)
-{
-        if (manager->priv->dialog != NULL
-            && !csd_osd_window_is_valid (CSD_OSD_WINDOW (manager->priv->dialog))) {
-                gtk_widget_destroy (manager->priv->dialog);
-                manager->priv->dialog = NULL;
-        }
-
-        if (manager->priv->dialog == NULL) {
-                manager->priv->dialog = csd_osd_window_new ();
-        }
-}
-
 static void 
 ensure_cancellable (GCancellable **cancellable)
 {
@@ -498,47 +445,6 @@ get_icon_name_for_volume (gboolean muted,
     }
 
     return icon_names[n];
-}
-
-static void
-dialog_show (CsdMediaKeysManager *manager)
-{
-        int            orig_w;
-        int            orig_h;
-        int            screen_w;
-        int            screen_h;
-        int            x;
-        int            y;
-        GdkRectangle   geometry;
-        int            monitor;
-
-        gtk_window_set_screen (GTK_WINDOW (manager->priv->dialog),
-                               manager->priv->current_screen);
-
-        /*
-         * get the window size
-         * if the window hasn't been mapped, it doesn't necessarily
-         * know its true size, yet, so we need to jump through hoops
-         */
-        gtk_window_get_default_size (GTK_WINDOW (manager->priv->dialog), &orig_w, &orig_h);
-
-        monitor = gdk_screen_get_primary_monitor (manager->priv->current_screen);
-
-        gdk_screen_get_monitor_geometry (manager->priv->current_screen,
-                                         monitor,
-                                         &geometry);
-
-        screen_w = geometry.width;
-        screen_h = geometry.height;
-
-        x = ((screen_w - orig_w) / 2) + geometry.x;
-        y = geometry.y + (screen_h / 2) + (screen_h / 2 - orig_h) / 2;
-
-        gtk_window_move (GTK_WINDOW (manager->priv->dialog), x, y);
-
-        gtk_widget_show (manager->priv->dialog);
-
-        gdk_display_sync (gdk_screen_get_display (manager->priv->current_screen));
 }
 
 static void
@@ -1809,9 +1715,6 @@ update_theme_settings (GSettings           *settings,
 static gboolean
 start_media_keys_idle_cb (CsdMediaKeysManager *manager)
 {
-        GSList *l;
-        //char *theme_name;
-
         g_debug ("Starting media_keys manager");
         cinnamon_settings_profile_start (NULL);
 
@@ -1903,9 +1806,7 @@ void
 csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
 {
         CsdMediaKeysManagerPrivate *priv = manager->priv;
-        GSList *ls;
         GList *l;
-        int i;
 
         g_debug ("Stopping media_keys manager");
 

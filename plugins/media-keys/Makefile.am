@@ -24,9 +24,6 @@ libmedia_keys_la_SOURCES = 		\
 	csd-media-keys-plugin.c		\
 	csd-media-keys-manager.h	\
 	csd-media-keys-manager.c	\
-	csd-osd-window.c		\
-	csd-osd-window.h		\
-	csd-osd-window-private.h	\
 	bus-watch-namespace.c		\
 	bus-watch-namespace.h		\
 	mpris-controller.c		\
@@ -66,44 +63,11 @@ plugin_in_files = 		\
 
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
-noinst_PROGRAMS = test-media-window
-
-test_media_window_SOURCES =			\
-	csd-osd-window.c			\
-	csd-osd-window.h			\
-	csd-osd-window-private.h		\
-	test-media-window.c			\
-	$(NULL)
-
-test_media_window_CPPFLAGS = \
-	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/cinnamon-settings-daemon			\
-	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
-	-DDATADIR=\""$(datadir)"\"				\
-	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
-	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
-
-test_media_window_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-test_media_window_LDADD = \
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_DAEMON_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)			\
-	-lm
-
 libexec_PROGRAMS = csd-test-media-keys
 
 csd_test_media_keys_SOURCES =			\
 	csd-media-keys-manager.c		\
 	csd-media-keys-manager.h		\
-	csd-osd-window.c			\
-	csd-osd-window.h			\
-	csd-osd-window-private.h		\
 	bus-watch-namespace.c			\
 	bus-watch-namespace.h			\
 	mpris-controller.c		        \
@@ -141,7 +105,6 @@ csd_test_media_keys_LDADD = \
 EXTRA_DIST = 				\
 	csd-marshal.list		\
 	README.media-keys-API		\
-	test-media-window-clutter.c	\
 	$(plugin_in_files)
 
 CLEANFILES = 			\
