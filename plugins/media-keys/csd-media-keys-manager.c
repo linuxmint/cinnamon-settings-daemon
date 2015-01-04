@@ -1436,7 +1436,7 @@ do_screen_brightness_action_real (GObject       *source_object,
                            -1,
                            NULL,
                            update_screen_cb,
-                           data);
+                           manager);
 
         g_variant_unref (old_percentage);
 }
