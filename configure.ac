@@ -49,11 +49,10 @@ GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.26.0
 CINNAMON_DESKTOP_REQUIRED_VERSION=1.0.0
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
-UPOWER_GLIB_REQUIRED_VERSION=0.9.1
+UPOWER_GLIB_REQUIRED_VERSION=0.9.11
 PA_REQUIRED_VERSION=0.9.16
 LIBWACOM_REQUIRED_VERSION=0.7
 LIBRSVG_REQUIRED_VERSION=2.36.2
-UPOWER_REQUIRED_VERSION=0.9.11
 GTK_XINPUT_2_3_VERSION=3.7.8
 
 #EXTRA_COMPILE_WARNINGS(yes)
@@ -229,7 +228,7 @@ dnl ---------------------------------------------------------------------------
 dnl - xrandr plugin stuff
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(XRANDR, [cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION upower-glib >= $UPOWER_REQUIRED_VERSION])
+PKG_CHECK_MODULES(XRANDR, [cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION upower-glib >= $UPOWER_GLIB_REQUIRED_VERSION])
 
 dnl ---------------------------------------------------------------------------
 dnl - orientation plugin stuff
@@ -248,7 +247,7 @@ PKG_CHECK_MODULES(SOUND, [libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-m
 # ---------------------------------------------------------------------------
 # Power
 # ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(POWER, upower-glib >= $UPOWER_REQUIRED_VERSION cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
+PKG_CHECK_MODULES(POWER, upower-glib >= $UPOWER_GLIB_REQUIRED_VERSION cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION libcanberra-gtk3 libnotify x11 xext)
 
 if test x$have_gudev != xno; then
 	PKG_CHECK_MODULES(BACKLIGHT_HELPER,
