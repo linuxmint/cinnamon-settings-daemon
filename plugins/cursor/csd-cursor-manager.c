@@ -106,7 +106,7 @@ set_cursor_visibility (CsdCursorManager *manager,
 
         gdk_error_trap_push ();
 
-        screen = gdk_display_get_screen (display, 0);
+        screen = gdk_display_get_default_screen (display);
         if (screen) {
                 if (visible)
                         XFixesShowCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));

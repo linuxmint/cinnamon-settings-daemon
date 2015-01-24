@@ -882,7 +882,7 @@ setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
 
         terminated = FALSE;
 
-        screen = gdk_display_get_screen (display, 0);
+        screen = gdk_display_get_default_screen (display);
 
         manager->priv->managers [0] = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
                                                              gdk_screen_get_number (screen),

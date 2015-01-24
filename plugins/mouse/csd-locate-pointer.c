@@ -446,7 +446,7 @@ set_locate_pointer (void)
                   GdkScreen *screen;
                   Window xroot;
 
-                  screen = gdk_display_get_screen (display, 0);
+                  screen = gdk_display_get_default_screen (display);
                   xroot = gdk_x11_window_get_xid (gdk_screen_get_root_window (screen));
 
                   gdk_x11_display_error_trap_push (display);
@@ -487,7 +487,7 @@ set_locate_pointer (void)
 
           GdkScreen *screen;
 
-          screen = gdk_display_get_screen (display, 0);
+          screen = gdk_display_get_default_screen (display);
           gdk_window_add_filter (gdk_screen_get_root_window (screen),
                                  filter,
                                  screen);

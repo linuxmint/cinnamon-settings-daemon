@@ -258,7 +258,7 @@ init_screens (CsdMediaKeysManager *manager)
 
         display = gdk_display_get_default ();
 
-        screen = gdk_display_get_screen (display, 0);
+        screen = gdk_display_get_default_screen (display);
         if (screen) {
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
         }

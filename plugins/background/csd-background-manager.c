@@ -89,7 +89,7 @@ draw_background (CsdBackgroundManager *manager,
 
         display = gdk_display_get_default ();
 
-        screen = gdk_display_get_screen (display, 0);
+        screen = gdk_display_get_default_screen (display);
 
         root_window = gdk_screen_get_root_window (screen);
 
@@ -272,7 +272,7 @@ disconnect_screen_signals (CsdBackgroundManager *manager)
         GdkScreen *screen;
 
         display = gdk_display_get_default ();
-        screen = gdk_display_get_screen (display, 0);
+        screen = gdk_display_get_default_screen (display);
 
         g_signal_handlers_disconnect_by_func (screen,
                                               G_CALLBACK (on_screen_size_changed),
@@ -286,7 +286,7 @@ connect_screen_signals (CsdBackgroundManager *manager)
         GdkScreen *screen;
 
         display = gdk_display_get_default ();
-        screen = gdk_display_get_screen (display, 0);
+        screen = gdk_display_get_default_screen (display);
 
         g_signal_connect (screen,
                           "monitors-changed",
