@@ -254,19 +254,14 @@ static void
 init_screens (CsdMediaKeysManager *manager)
 {
         GdkDisplay *display;
-        int i;
+        GdkScreen *screen;
 
         display = gdk_display_get_default ();
-        for (i = 0; i < gdk_display_get_n_screens (display); i++) {
-                GdkScreen *screen;
 
-                screen = gdk_display_get_screen (display, i);
-                if (screen == NULL) {
-                        continue;
-                }
+        screen = gdk_display_get_screen (display, 0);
+        if (screen) {
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
         }
-
         manager->priv->current_screen = manager->priv->screens->data;
 }
 
@@ -1437,7 +1432,7 @@ update_screen_cb (GObject             *source_object,
                                                  "display-brightness-symbolic",
                                                  TRUE);
         csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                percentage);
+                                                osd_percentage);
         dialog_show (manager);
 
         g_free (data);
@@ -1761,7 +1756,6 @@ update_theme_settings (GSettings           *settings,
 static gboolean
 start_media_keys_idle_cb (CsdMediaKeysManager *manager)
 {
-        GSList *l;
         //char *theme_name;
 
         g_debug ("Starting media_keys manager");
@@ -1855,9 +1849,7 @@ void
 csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
 {
         CsdMediaKeysManagerPrivate *priv = manager->priv;
-        GSList *ls;
         GList *l;
-        int i;
 
         g_debug ("Stopping media_keys manager");
 

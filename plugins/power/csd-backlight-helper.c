@@ -59,7 +59,6 @@ csd_backlight_helper_get_best_backlight (gchar** preference_list)
 	gchar *path = NULL;
 	GList *devices;
 	GUdevClient *client;
-	GSettings *settings;
 
 	client = g_udev_client_new (NULL);
 	devices = g_udev_client_query_by_subsystem (client, "backlight");

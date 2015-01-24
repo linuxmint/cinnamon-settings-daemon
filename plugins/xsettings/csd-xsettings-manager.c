@@ -864,13 +864,11 @@ static gboolean
 setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
 {
         GdkDisplay *display;
-        int         i;
-        int         n_screens;
         gboolean    res;
         gboolean    terminated;
+        GdkScreen *screen;
 
         display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
 
         res = xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display),
                                                gdk_screen_get_number (gdk_screen_get_default ()));
@@ -880,24 +878,21 @@ setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
                 return FALSE;
         }
 
-        manager->priv->managers = g_new0 (XSettingsManager *, n_screens + 1);
+        manager->priv->managers = g_new0 (XSettingsManager *, 2);
 
         terminated = FALSE;
-        for (i = 0; i < n_screens; i++) {
-                GdkScreen *screen;
 
-                screen = gdk_display_get_screen (display, i);
+        screen = gdk_display_get_screen (display, 0);
 
-                manager->priv->managers [i] = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
-                                                                     gdk_screen_get_number (screen),
-                                                                     terminate_cb,
-                                                                     &terminated);
-                if (! manager->priv->managers [i]) {
-                        g_warning ("Could not create xsettings manager for screen %d!", i);
-                        return FALSE;
-                }
-                g_signal_connect (screen, "size-changed", G_CALLBACK (size_changed_callback), manager);
+        manager->priv->managers [0] = xsettings_manager_new (gdk_x11_display_get_xdisplay (display),
+                                                             gdk_screen_get_number (screen),
+                                                             terminate_cb,
+                                                             &terminated);
+        if (! manager->priv->managers [0]) {
+                g_warning ("Could not create xsettings manager for screen %d!", 0);
+                return FALSE;
         }
+        g_signal_connect (screen, "size-changed", G_CALLBACK (size_changed_callback), manager);
 
         return TRUE;
 }

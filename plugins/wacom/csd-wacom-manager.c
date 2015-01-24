@@ -1411,18 +1411,14 @@ static void
 init_screens (CsdWacomManager *manager)
 {
         GdkDisplay *display;
-        int i;
+        GError *error = NULL;
+        GdkScreen *screen;
+        GnomeRRScreen *rr_screen;
 
         display = gdk_display_get_default ();
-        for (i = 0; i < gdk_display_get_n_screens (display); i++) {
-                GError *error = NULL;
-                GdkScreen *screen;
-                GnomeRRScreen *rr_screen;
 
-                screen = gdk_display_get_screen (display, i);
-                if (screen == NULL) {
-                        continue;
-                }
+        screen = gdk_display_get_screen (display, 0);
+        if (screen) {
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
 
 		/*
@@ -1433,13 +1429,15 @@ init_screens (CsdWacomManager *manager)
 		if (rr_screen == NULL) {
 			g_warning ("Failed to create GnomeRRScreen: %s", error->message);
 			g_error_free (error);
-			continue;
 		}
-		manager->priv->rr_screens = g_list_prepend (manager->priv->rr_screens, rr_screen);
-		g_signal_connect (rr_screen,
-				  "changed",
-				  G_CALLBACK (on_screen_changed_cb),
-			          manager);
+                else
+                {
+           	        manager->priv->rr_screens = g_list_prepend (manager->priv->rr_screens, rr_screen);
+		        g_signal_connect (rr_screen,
+			        	  "changed",
+			        	  G_CALLBACK (on_screen_changed_cb),
+			                  manager);
+                }
         }
 }
 
