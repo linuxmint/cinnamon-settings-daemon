@@ -2016,8 +2016,12 @@ power_client_changed_cb (UpClient *client, gpointer data)
 
                 if (is_closed)
                         turn_off_laptop_display (manager, GDK_CURRENT_TIME); /* sucks not to have a timestamp for the notification */
-                else
-                        use_stored_configuration_or_auto_configure_outputs (manager, GDK_CURRENT_TIME);
+
+                /* Use stored configuration or auto-configure outputs all the
+                 * time. Don't switch between 2 possibilities; notebook can be
+                 * woken up with lid closed and then no output is activated.
+                 */
+                use_stored_configuration_or_auto_configure_outputs (manager, GDK_CURRENT_TIME);
         }
 }
 
