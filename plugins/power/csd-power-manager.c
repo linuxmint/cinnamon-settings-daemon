@@ -61,6 +61,7 @@
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
 #define CSD_POWER_SETTINGS_SCHEMA               "org.cinnamon.settings-daemon.plugins.power"
+#define CSD_XRANDR_SETTINGS_SCHEMA              "org.cinnamon.settings-daemon.plugins.xrandr"
 
 #define CSD_DBUS_SERVICE                        "org.cinnamon.SettingsDaemon"
 #define CSD_DBUS_PATH                           "/org/cinnamon/SettingsDaemon"
@@ -170,6 +171,7 @@ struct CsdPowerManagerPrivate
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
+        GSettings               *settings_xrandr;
         UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
@@ -217,6 +219,7 @@ struct CsdPowerManagerPrivate
         gboolean                 inhibit_lid_switch_taken;
         gint                     inhibit_suspend_fd;
         gboolean                 inhibit_suspend_taken;
+        guint                    inhibit_lid_switch_timer_id;
 };
 
 enum {
@@ -231,8 +234,12 @@ static UpDevice *engine_get_composite_device (CsdPowerManager *manager, UpDevice
 static UpDevice *engine_update_composite_device (CsdPowerManager *manager, UpDevice *original_device);
 static GIcon    *engine_get_icon (CsdPowerManager *manager);
 static gchar    *engine_get_summary (CsdPowerManager *manager);
+
+static gboolean  external_monitor_is_connected (GnomeRRScreen *screen);
 static void      do_power_action_type (CsdPowerManager *manager, CsdPowerActionType action_type);
 static void      do_lid_closed_action (CsdPowerManager *manager);
+static void      inhibit_lid_switch (CsdPowerManager *manager);
+static void      uninhibit_lid_switch (CsdPowerManager *manager);
 static void      lock_screensaver (CsdPowerManager *manager);
 static void      kill_lid_close_safety_timer (CsdPowerManager *manager);
 
@@ -2063,6 +2070,114 @@ upower_kbd_toggle (CsdPowerManager *manager,
         return ret;
 }
 
+static gboolean
+suspend_on_lid_close (CsdPowerManager *manager)
+{
+        CsdXrandrBootBehaviour val;
+
+        if (!external_monitor_is_connected (manager->priv->x11_screen))
+                return TRUE;
+
+        val = g_settings_get_enum (manager->priv->settings_xrandr, "default-monitors-setup");
+        return val == CSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING;
+}
+
+static gboolean
+inhibit_lid_switch_timer_cb (CsdPowerManager *manager)
+{
+        if (suspend_on_lid_close (manager)) {
+                g_debug ("no external monitors for a while; uninhibiting lid close");
+                uninhibit_lid_switch (manager);
+                manager->priv->inhibit_lid_switch_timer_id = 0;
+                return G_SOURCE_REMOVE;
+        }
+
+        g_debug ("external monitor still there; trying again later");
+        return G_SOURCE_CONTINUE;
+}
+
+/* Sets up a timer to be triggered some seconds after closing the laptop lid
+ * when the laptop is *not* suspended for some reason.  We'll check conditions
+ * again in the timeout handler to see if we can suspend then.
+ */
+static void
+setup_inhibit_lid_switch_timer (CsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_lid_switch_timer_id != 0) {
+                g_debug ("lid close safety timer already set up");
+                return;
+        }
+
+        g_debug ("setting up lid close safety timer");
+
+        manager->priv->inhibit_lid_switch_timer_id = g_timeout_add_seconds (CSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT,
+                                                                          (GSourceFunc) inhibit_lid_switch_timer_cb,
+                                                                          manager);
+        g_source_set_name_by_id (manager->priv->inhibit_lid_switch_timer_id, "[CsdPowerManager] lid close safety timer");
+}
+
+static void
+restart_inhibit_lid_switch_timer (CsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_lid_switch_timer_id != 0) {
+                g_debug ("restarting lid close safety timer");
+                g_source_remove (manager->priv->inhibit_lid_switch_timer_id);
+                manager->priv->inhibit_lid_switch_timer_id = 0;
+                setup_inhibit_lid_switch_timer (manager);
+        }
+}
+
+
+static gboolean
+randr_output_is_on (GnomeRROutput *output)
+{
+        GnomeRRCrtc *crtc;
+
+        crtc = gnome_rr_output_get_crtc (output);
+        if (!crtc)
+                return FALSE;
+        return gnome_rr_crtc_get_current_mode (crtc) != NULL;
+}
+
+static gboolean
+external_monitor_is_connected (GnomeRRScreen *screen)
+{
+        GnomeRROutput **outputs;
+        guint i;
+
+        /* see if we have more than one screen plugged in */
+        outputs = gnome_rr_screen_list_outputs (screen);
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (randr_output_is_on (outputs[i]) &&
+                    !gnome_rr_output_is_laptop (outputs[i]))
+                        return TRUE;
+        }
+
+        return FALSE;
+}
+
+static void
+on_randr_event (GnomeRRScreen *screen, gpointer user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+        if (suspend_on_lid_close (manager)) {
+                restart_inhibit_lid_switch_timer (manager);
+                return;
+        }
+
+        /* when a second monitor is plugged in, we take the
+        * handle-lid-switch inhibitor lock of logind to prevent
+        * it from suspending.
+        *
+        * Uninhibiting is done in the inhibit_lid_switch_timer,
+        * since we want to give users a few seconds when unplugging
+        * and replugging an external monitor, not suspend right away.
+        */
+        inhibit_lid_switch (manager);
+        setup_inhibit_lid_switch_timer (manager);
+}
+
 static void
 do_lid_open_action (CsdPowerManager *manager)
 {
@@ -3731,6 +3846,20 @@ inhibit_lid_switch (CsdPowerManager *manager)
 }
 
 static void
+uninhibit_lid_switch (CsdPowerManager *manager)
+{
+        if (manager->priv->inhibit_lid_switch_fd == -1) {
+                g_debug ("no lid-switch inhibitor");
+                return;
+        }
+        g_debug ("Removing lid switch system inhibitor");
+        close (manager->priv->inhibit_lid_switch_fd);
+        manager->priv->inhibit_lid_switch_fd = -1;
+        manager->priv->inhibit_lid_switch_taken = FALSE;
+}
+
+
+static void
 inhibit_suspend_done (GObject      *source,
                       GAsyncResult *result,
                       gpointer      user_data)
@@ -3994,6 +4123,7 @@ csd_power_manager_start (CsdPowerManager *manager,
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
+        manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->up_client = up_client_new ();
 #if ! UP_CHECK_VERSION(0,99,0)
         g_signal_connect (manager->priv->up_client, "notify-sleep",
@@ -4119,6 +4249,10 @@ csd_power_manager_start (CsdPowerManager *manager,
                           G_CALLBACK (idle_idletime_reset_cb), manager);
         g_signal_connect (manager->priv->idletime, "alarm-expired",
                           G_CALLBACK (idle_idletime_alarm_expired_cb), manager);
+
+        /* set up the screens */
+        g_signal_connect (manager->priv->x11_screen, "changed", G_CALLBACK (on_randr_event), manager);
+        on_randr_event (manager->priv->x11_screen, manager);
 
         /* ensure the default dpms timeouts are cleared */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,

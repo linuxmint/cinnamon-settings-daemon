@@ -650,11 +650,7 @@ user_says_things_are_ok (CsdXrandrManager *manager, GdkWindow *parent_window)
         gtk_main ();
 
         gtk_widget_destroy (timeout.dialog);
-
-        if (timeout_id) {
-            g_source_remove (timeout_id);
-            timeout_id = 0;
-        }
+        g_source_remove (timeout_id);
 
         if (timeout.response_id == GTK_RESPONSE_ACCEPT)
                 return TRUE;
@@ -881,8 +877,6 @@ make_clone_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
                 return NULL;
 
         result = gnome_rr_config_new_current (screen, NULL);
-        gnome_rr_config_set_clone (result, TRUE);
-
         outputs = gnome_rr_config_get_outputs (result);
 
         for (i = 0; outputs[i] != NULL; ++i) {
@@ -923,6 +917,8 @@ make_clone_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
+
+        gnome_rr_config_set_clone (result, TRUE);
 
         print_configuration (result, "clone setup");
 
@@ -1005,8 +1001,6 @@ make_laptop_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
         GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
 
-        gnome_rr_config_set_clone (result, FALSE);
-
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
 
@@ -1022,10 +1016,12 @@ make_laptop_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
                 }
         }
 
-        if (result != NULL && config_is_all_off (result)) {
+        if (config_is_all_off (result)) {
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
+
+        gnome_rr_config_set_clone (result, FALSE);
 
         print_configuration (result, "Laptop setup");
 
@@ -1128,6 +1124,14 @@ trim_rightmost_outputs_that_dont_fit_in_framebuffer (GnomeRRScreen *rr_screen, G
         return applicable;
 }
 
+static gboolean
+follow_laptop_lid(CsdXrandrManager *manager)
+{
+        CsdXrandrBootBehaviour val;
+        val = g_settings_get_enum (manager->priv->settings, CONF_KEY_DEFAULT_MONITORS_SETUP);
+        return val == CSD_XRANDR_BOOT_BEHAVIOUR_FOLLOW_LID || val == CSD_XRANDR_BOOT_BEHAVIOUR_CLONE;
+}
+
 static GnomeRRConfig *
 make_xinerama_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
 {
@@ -1139,14 +1143,12 @@ make_xinerama_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
         int i;
         int x;
 
-        gnome_rr_config_set_clone (result, FALSE);
-
         x = 0;
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
 
                 if (is_laptop (screen, info)) {
-                        if (laptop_lid_is_closed (manager))
+                        if (laptop_lid_is_closed (manager) && follow_laptop_lid (manager))
                                 gnome_rr_output_info_set_active (info, FALSE);
                         else {
                                 gnome_rr_output_info_set_primary (info, TRUE);
@@ -1169,6 +1171,8 @@ make_xinerama_setup (CsdXrandrManager *manager, GnomeRRScreen *screen)
                 result = NULL;
         }
 
+        gnome_rr_config_set_clone (result, FALSE);
+
         print_configuration (result, "xinerama setup");
 
         return result;
@@ -1184,8 +1188,6 @@ make_other_setup (GnomeRRScreen *screen)
         GnomeRRConfig *result = gnome_rr_config_new_current (screen, NULL);
         GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (result);
         int i;
-
-        gnome_rr_config_set_clone (result, FALSE);
 
         for (i = 0; outputs[i] != NULL; ++i) {
                 GnomeRROutputInfo *info = outputs[i];
@@ -1203,6 +1205,8 @@ make_other_setup (GnomeRRScreen *screen)
                 g_object_unref (G_OBJECT (result));
                 result = NULL;
         }
+
+        gnome_rr_config_set_clone (result, FALSE);
 
         print_configuration (result, "other setup");
 
@@ -1538,6 +1542,7 @@ is_wacom_tablet_device (CsdXrandrManager *mgr,
         wacom_device = libwacom_new_from_path (priv->wacom_db, device_node, FALSE, NULL);
         g_free (device_node);
         if (wacom_device == NULL) {
+                g_free (device_node);
                 return FALSE;
         }
         is_tablet = libwacom_has_touch (wacom_device) &&
@@ -1862,6 +1867,12 @@ apply_default_boot_configuration (CsdXrandrManager *mgr, guint32 timestamp)
         switch (boot) {
         case CSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
                 return;
+        case CSD_XRANDR_BOOT_BEHAVIOUR_FOLLOW_LID:
+                if (laptop_lid_is_closed (mgr))
+                        config = make_other_setup (screen);
+                else
+                        config = make_xinerama_setup (mgr, screen);
+                break;
         case CSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
                 config = make_clone_setup (mgr, screen);
                 break;
@@ -1992,6 +2003,8 @@ power_client_changed_cb (UpClient *client, gpointer data)
 
         if (is_closed != priv->laptop_lid_is_closed) {
                 priv->laptop_lid_is_closed = is_closed;
+                if (!follow_laptop_lid (manager))
+                    return;
 
                 /* Refresh the RANDR state.  The lid just got opened/closed, so we can afford to
                  * probe the outputs right now.  It will also help the case where we can't detect
