@@ -429,6 +429,7 @@ set_locate_pointer (void)
   gboolean has_entries;
   static const guint keyvals[] = { GDK_KEY_Control_L, GDK_KEY_Control_R };
   unsigned j;
+  GdkScreen *screen_t;
 
   display = gdk_display_get_default ();
 
@@ -485,12 +486,10 @@ set_locate_pointer (void)
 
           g_free (keys);
 
-          GdkScreen *screen;
-
-          screen = gdk_display_get_default_screen (display);
-          gdk_window_add_filter (gdk_screen_get_root_window (screen),
+          screen_t = gdk_display_get_default_screen (display);
+          gdk_window_add_filter (gdk_screen_get_root_window (screen_t),
                                  filter,
-                                 screen);
+                                 screen_t);
         }
     }
 }
