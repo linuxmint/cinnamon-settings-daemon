@@ -4324,6 +4324,11 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 manager->priv->settings_screensaver = NULL;
         }
 
+        if (manager->priv->settings_xrandr != NULL) {
+                g_object_unref (manager->priv->settings_xrandr);
+                manager->priv->settings_xrandr = NULL;
+        }
+
         if (manager->priv->up_client != NULL) {
                 g_object_unref (manager->priv->up_client);
                 manager->priv->up_client = NULL;
