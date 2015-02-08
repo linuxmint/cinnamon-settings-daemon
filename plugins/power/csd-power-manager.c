@@ -535,11 +535,9 @@ engine_get_warning (CsdPowerManager *manager, UpDevice *device)
                 warning_type = engine_get_warning_csr (manager, device);
 
         } else if (kind == UP_DEVICE_KIND_UPS ||
-#if UP_CHECK_VERSION(0,9,5)
                    kind == UP_DEVICE_KIND_MEDIA_PLAYER ||
                    kind == UP_DEVICE_KIND_TABLET ||
                    kind == UP_DEVICE_KIND_COMPUTER ||
-#endif
                    kind == UP_DEVICE_KIND_PDA) {
 
                 warning_type = engine_get_warning_percentage (manager, device);
@@ -1338,7 +1336,6 @@ engine_charge_low (CsdPowerManager *manager, UpDevice *device)
                 /* TRANSLATORS: tell user more details */
                 message = g_strdup_printf (_("Cell phone is low in power (%.0f%%)"), percentage);
 
-#if UP_CHECK_VERSION(0,9,5)
         } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
                 /* TRANSLATORS: media player, e.g. mp3 is getting a little low */
                 title = _("Media player battery low");
@@ -1359,7 +1356,6 @@ engine_charge_low (CsdPowerManager *manager, UpDevice *device)
 
                 /* TRANSLATORS: tell user more details */
                 message = g_strdup_printf (_("Attached computer is low in power (%.0f%%)"), percentage);
-#endif
         }
 
         /* get correct icon */
@@ -1513,7 +1509,6 @@ engine_charge_critical (CsdPowerManager *manager, UpDevice *device)
                                              "This device will soon stop functioning if not charged."),
                                            percentage);
 
-#if UP_CHECK_VERSION(0,9,5)
         } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
 
                 /* TRANSLATORS: the cell battery is very low */
@@ -1541,7 +1536,6 @@ engine_charge_critical (CsdPowerManager *manager, UpDevice *device)
                 message = g_strdup_printf (_("Attached computer is very low in power (%.0f%%). "
                                              "The device will soon shutdown if not charged."),
                                            percentage);
-#endif
         }
 
         /* get correct icon */
