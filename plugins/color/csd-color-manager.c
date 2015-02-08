@@ -1433,14 +1433,12 @@ gcm_session_add_x11_output (CsdColorManager *manager, GnomeRROutput *output)
         g_hash_table_insert (device_props,
                              (gpointer) CD_DEVICE_METADATA_XRANDR_NAME,
                              (gpointer) gnome_rr_output_get_name (output));
-#if CD_CHECK_VERSION(0,1,25)
         g_hash_table_insert (device_props,
                              (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY,
                              gnome_rr_output_get_is_primary (output) ?
                              (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_PRIMARY :
                              (gpointer) CD_DEVICE_METADATA_OUTPUT_PRIORITY_SECONDARY);
-#endif
-#if CD_CHECK_VERSION(0,1,27)
+
         /* set this so we can call the device a 'Laptop Screen' in the
          * control center main panel */
         if (gnome_rr_output_is_laptop (output)) {
@@ -1448,7 +1446,7 @@ gcm_session_add_x11_output (CsdColorManager *manager, GnomeRROutput *output)
                                      (gpointer) CD_DEVICE_PROPERTY_EMBEDDED,
                                      NULL);
         }
-#endif
+
         cd_client_create_device (priv->client,
                                  device_id,
                                  CD_OBJECT_SCOPE_TEMP,
@@ -1640,14 +1638,12 @@ gcm_session_client_connect_cb (GObject *source_object,
                 return;
         }
 
-#if CD_CHECK_VERSION(0,1,12)
         /* is there an available colord instance? */
         ret = cd_client_get_has_server (manager->priv->client);
         if (!ret) {
                 g_warning ("There is no colord server available");
                 goto out;
         }
-#endif
 
         /* add profiles */
         gcm_profile_store_search (priv->profile_store);

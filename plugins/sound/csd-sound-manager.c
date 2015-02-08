@@ -141,8 +141,10 @@ handle_sound_request (GDBusConnection       *connection,
                                      CA_PROP_EVENT_ID,
                                      sound_name,
                                      NULL);
-                    g_dbus_method_invocation_return_value (invocation, NULL);
                 }
+
+                g_dbus_method_invocation_return_value (invocation, NULL);
+
         } else if (g_strcmp0 (method_name, "PlaySoundFile") == 0) {
                 const char *sound_file;
                 guint id;
@@ -155,8 +157,10 @@ handle_sound_request (GDBusConnection       *connection,
                                      CA_PROP_MEDIA_FILENAME,
                                      sound_file,
                                      NULL);
-                    g_dbus_method_invocation_return_value (invocation, NULL);
                 }
+
+                g_dbus_method_invocation_return_value (invocation, NULL);
+
         } else if (g_strcmp0 (method_name, "CancelSound") == 0) {
                 guint id;
 

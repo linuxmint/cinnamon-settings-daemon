@@ -13,9 +13,9 @@ Build-Depends: cdbs,
                dh-autoreconf,
                autotools-dev,
                intltool (>= 0.37.1),
-               libdbus-glib-1-dev (>= 0.74),
-               libglib2.0-dev (>= 2.31.0),
-               libgtk-3-dev (>= 3.3.4),
+               libdbus-glib-1-dev (>= 0.88),
+               libglib2.0-dev (>= 2.37.3),
+               libgtk-3-dev (>= 3.9.10),
                libnotify-dev (>= 0.7.0),
                libxt-dev,
                libxi-dev,
@@ -23,21 +23,21 @@ Build-Depends: cdbs,
                libxext-dev,
                libx11-dev,
                libxtst-dev,
-               cinnamon-desktop-data (>= 2.3.0),
-               libcinnamon-desktop-dev (>= 2.3.0),
+               cinnamon-desktop-data (>= 2.4.0),
+               libcinnamon-desktop-dev (>= 2.4.0),
                libpulse-dev (>= 0.9.16),
                libcanberra-gtk3-dev,
                libcups2-dev,
                libpolkit-gobject-1-dev,
                hwdata,
                libupower-glib-dev (>= 0.9.11),
-               libcolord-dev (>= 0.1.12),
+               libcolord-dev (>= 0.1.27),
                liblcms2-dev,
                libnss3-dev,
                libgudev-1.0-dev,
                libwacom-dev (>= 0.4),
                xserver-xorg-input-wacom,
-               libgnomekbd-dev (>= 3.4.0),
+               libgnomekbd-dev (>= 3.6.0),
                libxklavier-dev,
                librsvg2-dev
 Standards-Version: 3.9.3
@@ -47,6 +47,7 @@ Package: cinnamon-settings-daemon
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         colord (>= 0.1.27),
          gsettings-desktop-schemas (>= 3.3.90-0ubuntu2),
          nemo-data
 Recommends: pulseaudio,
@@ -82,8 +83,8 @@ Package: cinnamon-settings-daemon-dev
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
-         libdbus-glib-1-dev (>= 0.74),
-         libglib2.0-dev (>= 2.26.0)
+         libdbus-glib-1-dev (>= 0.88),
+         libglib2.0-dev (>= 2.37.3)
 Description: Headers for building applications communicating with cinnamon-settings-daemon
  This package contains header files required to build applications that
  communicate with the Cinnamon settings daemon over D-Bus.

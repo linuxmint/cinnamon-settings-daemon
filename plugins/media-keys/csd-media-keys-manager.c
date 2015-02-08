@@ -50,8 +50,6 @@
 #include "csd-marshal.h"
 #include "csd-media-keys-manager.h"
 
-#include "csd-osd-window.h"
-
 #include "csd-power-helper.h"
 #include "csd-input-helper.h"
 #include "csd-enums.h"
@@ -73,6 +71,9 @@
 
 #define CINNAMON_DBUS_PATH "/org/cinnamon/SettingsDaemon"
 #define CINNAMON_DBUS_NAME "org.cinnamon.SettingsDaemon"
+
+#define CINNAMON_SHELL_DBUS_PATH "/org/Cinnamon"
+#define CINNAMON_SHELL_DBUS_NAME "org.Cinnamon"
 
 #define CINNAMON_KEYBINDINGS_PATH CINNAMON_DBUS_PATH "/KeybindingHandler"
 #define CINNAMON_KEYBINDINGS_NAME CINNAMON_DBUS_NAME ".KeybindingHandler"
@@ -161,6 +162,10 @@ struct CsdMediaKeysManagerPrivate
         GDBusProxy      *power_screen_proxy;
         GDBusProxy      *power_keyboard_proxy;
 
+        /* OSD stuff */
+        GDBusProxy      *osd_proxy;
+        GCancellable    *osd_cancellable;
+
         /* systemd stuff */
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
@@ -212,43 +217,6 @@ typedef struct {
         guint old_percentage;
 
 } CsdBrightnessActionData;
-
-static const char *volume_icons[] = {
-        "notification-audio-volume-muted",
-        "notification-audio-volume-low",
-        "notification-audio-volume-medium",
-        "notification-audio-volume-high",
-        NULL
-};
-
-static const char *brightness_icons[] = {
-        "notification-display-brightness-off",
-	"notification-display-brightness-low",
-	"notification-display-brightness-medium",
-	"notification-display-brightness-high",
-	"notification-display-brightness-full",
-        NULL
-};
-
-static const char *kb_backlight_icons[] = {
-        "notification-keyboard-brightness-off",
-        "notification-keyboard-brightness-low",
-        "notification-keyboard-brightness-medium",
-        "notification-keyboard-brightness-high",
-        "notification-keyboard-brightness-full",
-        NULL
-};
-
-static const char *
-calculate_icon_name (gint value, const char **icon_names)
-{
-        value = CLAMP (value, 0, 100);
-        gint length = g_strv_length ((char **)icon_names);
-        gint s = (length - 1) * value / 100 + 1;
-        s = CLAMP (s, 1, length - 1);
-
-        return icon_names[s];
-}
 
 static void
 init_screens (CsdMediaKeysManager *manager)
@@ -384,66 +352,94 @@ execute (CsdMediaKeysManager *manager,
                 g_strfreev (envp);
         }
 
-        if (retval == FALSE) {
+        if (retval == FALSE && error != NULL) {
                 g_warning ("Couldn't execute command: %s: %s", exec, error->message);
                 g_error_free (error);
         }
         g_free (exec);
 }
 
-static void
-dialog_init (CsdMediaKeysManager *manager)
+static void 
+ensure_cancellable (GCancellable **cancellable)
 {
-        if (manager->priv->dialog != NULL
-            && !csd_osd_window_is_valid (CSD_OSD_WINDOW (manager->priv->dialog))) {
-                gtk_widget_destroy (manager->priv->dialog);
-                manager->priv->dialog = NULL;
-        }
-
-        if (manager->priv->dialog == NULL) {
-                manager->priv->dialog = csd_osd_window_new ();
-        }
+    if (*cancellable == NULL) {
+        *cancellable = g_cancellable_new ();
+        g_object_add_weak_pointer (G_OBJECT (*cancellable),
+                                   (gpointer *)cancellable);
+    } else {
+        g_object_ref (*cancellable);
+    }
 }
 
 static void
-dialog_show (CsdMediaKeysManager *manager)
+show_osd_complete (GObject      *source,
+                   GAsyncResult *result,
+                   gpointer     data)
 {
-        int            orig_w;
-        int            orig_h;
-        int            screen_w;
-        int            screen_h;
-        int            x;
-        int            y;
-        GdkRectangle   geometry;
-        int            monitor;
+    CsdMediaKeysManager *manager = data;
+    g_object_unref (manager->priv->osd_cancellable);
+}
 
-        gtk_window_set_screen (GTK_WINDOW (manager->priv->dialog),
-                               manager->priv->current_screen);
+static void
+show_osd (CsdMediaKeysManager *manager,
+          const char          *icon,
+          int                  level)
+{
+    GVariantBuilder builder;
 
-        /*
-         * get the window size
-         * if the window hasn't been mapped, it doesn't necessarily
-         * know its true size, yet, so we need to jump through hoops
-         */
-        gtk_window_get_default_size (GTK_WINDOW (manager->priv->dialog), &orig_w, &orig_h);
+    if (manager->priv->connection == NULL ||
+        manager->priv->osd_proxy == NULL) {
+            g_warning ("No existing D-Bus connection trying to handle osd");
+            return;
+    }
 
-        monitor = gdk_screen_get_primary_monitor (manager->priv->current_screen);
+    g_variant_builder_init (&builder, G_VARIANT_TYPE_TUPLE);
+    g_variant_builder_open (&builder, G_VARIANT_TYPE_VARDICT);
+    if (icon)
+        g_variant_builder_add (&builder, "{sv}",
+                               "icon", g_variant_new_string (icon));
+    if (level >= 0)
+        g_variant_builder_add (&builder, "{sv}",
+                               "level", g_variant_new_int32 (level));
+    g_variant_builder_close (&builder);
 
-        gdk_screen_get_monitor_geometry (manager->priv->current_screen,
-                                         monitor,
-                                         &geometry);
+    ensure_cancellable (&manager->priv->osd_cancellable);
 
-        screen_w = geometry.width;
-        screen_h = geometry.height;
+    g_dbus_proxy_call (manager->priv->osd_proxy,
+                       "ShowOSD",
+                       g_variant_builder_end (&builder),
+                       G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                       -1,
+                       manager->priv->osd_cancellable,
+                       show_osd_complete,
+                       manager);
+}
 
-        x = ((screen_w - orig_w) / 2) + geometry.x;
-        y = geometry.y + (screen_h / 2) + (screen_h / 2 - orig_h) / 2;
+static const char *
+get_icon_name_for_volume (gboolean muted,
+                          int volume)
+{
+    static const char *icon_names[] = {
+        "audio-volume-muted-symbolic",
+        "audio-volume-low-symbolic",
+        "audio-volume-medium-symbolic",
+        "audio-volume-high-symbolic",
+        NULL
+    };
+    int n;
 
-        gtk_window_move (GTK_WINDOW (manager->priv->dialog), x, y);
+    if (muted) {
+        n = 0;
+    } else {
+        n = 3 * volume / 100 + 1;
+        if (n < 1) {
+            n = 1;
+        } else if (n > 3) {
+            n = 3;
+        }
+    }
 
-        gtk_widget_show (manager->priv->dialog);
-
-        gdk_display_sync (gdk_screen_get_display (manager->priv->current_screen));
+    return icon_names[n];
 }
 
 static void
@@ -597,11 +593,7 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        dialog_init (manager);
-        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "media-eject-symbolic",
-                                                 FALSE);
-        dialog_show (manager);
+        show_osd (manager, "media-eject-symbolic", -1);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -659,11 +651,9 @@ do_execute_desktop (CsdMediaKeysManager *manager,
 static void
 do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
 {
-    dialog_init (manager);
-    csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                            state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-                                            FALSE);
-    dialog_show (manager);
+    show_osd (manager,
+              state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
+              -1);
 }
 
 static void
@@ -694,15 +684,12 @@ update_dialog (CsdMediaKeysManager *manager,
                gboolean             sound_changed,
                gboolean             quiet)
 {    
+    const char *icon;
         vol = CLAMP (vol, 0, 100);
 
-        dialog_init (manager);
-        csd_osd_window_set_volume_muted (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                muted);
-        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog), vol);
-        csd_osd_window_set_action (CSD_OSD_WINDOW (manager->priv->dialog),
-                                          CSD_OSD_WINDOW_ACTION_VOLUME);
-        dialog_show (manager);
+        icon = get_icon_name_for_volume (muted, vol);
+
+        show_osd (manager, icon, vol);
 
 done:
         if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {                            
@@ -1118,11 +1105,7 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
         if (!have_listeners) {
                 if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                 /* Popup a dialog with an (/) icon */
-                dialog_init (manager);
-                csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                         "action-unavailable-symbolic",
-                                                         FALSE);
-                dialog_show (manager);
+                    show_osd (manager, "action-unavailable-symbolic", -1);
                  }
                 return TRUE;
         }
@@ -1403,8 +1386,7 @@ update_screen_cb (GObject             *source_object,
         GError *error = NULL;
         guint percentage;
         GVariant *new_percentage;
-        CsdBrightnessActionData *data = (CsdBrightnessActionData *) user_data;
-        CsdMediaKeysManager *manager = data->manager;
+        CsdMediaKeysManager *manager = CSD_MEDIA_KEYS_MANAGER (user_data);
 
         new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
                                                    res, &error);
@@ -1412,30 +1394,14 @@ update_screen_cb (GObject             *source_object,
                 g_warning ("Failed to set new screen percentage: %s",
                            error->message);
                 g_error_free (error);
-                g_free (data);
                 return;
         }
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        guint osd_percentage;
 
-        if (data->old_percentage == 100 && data->type == C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_UP)
-                osd_percentage = 101;
-        else if (data->old_percentage == 0 && data->type == C_DESKTOP_MEDIA_KEY_SCREEN_BRIGHTNESS_DOWN)
-                osd_percentage = -1;
-        else
-                osd_percentage = CLAMP (percentage, 0, 100);
+        show_osd (manager, "display-brightness-symbolic", percentage);
 
-        dialog_init (manager);
-        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "display-brightness-symbolic",
-                                                 TRUE);
-        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                osd_percentage);
-        dialog_show (manager);
-
-        g_free (data);
         g_variant_unref (new_percentage);
 }
 
@@ -1467,7 +1433,7 @@ do_screen_brightness_action_real (GObject       *source_object,
                            -1,
                            NULL,
                            update_screen_cb,
-                           data);
+                           manager);
 
         g_variant_unref (old_percentage);
 }
@@ -1517,17 +1483,7 @@ update_keyboard_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-
-        /* FIXME: No overshoot effect for keyboard, as the power plugin has no interface
-         *        to get the old brightness */
-        dialog_init (manager);
-        csd_osd_window_set_action_custom (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                 "keyboard-brightness-symbolic",
-                                                 TRUE);
-        csd_osd_window_set_volume_level (CSD_OSD_WINDOW (manager->priv->dialog),
-                                                percentage);
-        dialog_show (manager);
-
+        show_osd (manager, "keyboard-brightness-symbolic", percentage);
         g_variant_unref (new_percentage);
 }
 
@@ -1756,8 +1712,6 @@ update_theme_settings (GSettings           *settings,
 static gboolean
 start_media_keys_idle_cb (CsdMediaKeysManager *manager)
 {
-        //char *theme_name;
-
         g_debug ("Starting media_keys manager");
         cinnamon_settings_profile_start (NULL);
 
@@ -1905,6 +1859,11 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 priv->upower_proxy = NULL;
         }
 
+        if (priv->osd_proxy) {
+            g_object_unref (priv->osd_proxy);
+            priv->osd_proxy = NULL;
+        }
+
         if (priv->cancellable != NULL) {
                 g_cancellable_cancel (priv->cancellable);
                 g_object_unref (priv->cancellable);
@@ -1942,6 +1901,12 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 notify_notification_close (priv->kb_backlight_notification, NULL);
                 g_object_unref (priv->kb_backlight_notification);
                 priv->kb_backlight_notification = NULL;
+        }
+
+        if (priv->osd_cancellable != NULL) {
+            g_cancellable_cancel (priv->osd_cancellable);
+            g_object_unref (priv->osd_cancellable);
+            priv->osd_cancellable = NULL;
         }
 
         if (priv->screens != NULL) {
@@ -2164,6 +2129,20 @@ power_keyboard_ready_cb (GObject             *source_object,
 }
 
 static void
+osd_ready_cb (GObject             *source_object,
+              GAsyncResult        *res,
+              CsdMediaKeysManager *manager)
+{
+    GError *error = NULL;
+
+    manager->priv->osd_proxy = g_dbus_proxy_new_finish (res, &error);
+    if (manager->priv->osd_proxy == NULL) {
+        g_warning ("Failed to get proxy for OSD operations: %s", error->message);
+        g_error_free (error);
+    }
+}
+
+static void
 on_bus_gotten (GObject             *source_object,
                GAsyncResult        *res,
                CsdMediaKeysManager *manager)
@@ -2230,6 +2209,16 @@ on_bus_gotten (GObject             *source_object,
                           NULL,
                           (GAsyncReadyCallback) power_keyboard_ready_cb,
                           manager);
+
+    g_dbus_proxy_new (manager->priv->connection,
+                      G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                      NULL,
+                      "org.Cinnamon",
+                      "/org/Cinnamon",
+                      "org.Cinnamon",
+                      NULL,
+                      (GAsyncReadyCallback) osd_ready_cb,
+                      manager);
 }
 
 static void
