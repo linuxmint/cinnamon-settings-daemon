@@ -16,9 +16,9 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
     <key name="default-monitors-setup" enum="org.cinnamon.settings-daemon.CsdXrandrBootBehaviour">
-      <default>'do-nothing'</default>
+      <default>'follow-lid'</default>
       <_summary>Whether to turn off specific monitors after boot</_summary>
-      <_description>'clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions)</_description>
+      <_description>clone' will display the same thing on all monitors, 'dock' will switch off the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend the desktop in recent versions). The default, 'follow-lid', will choose between 'do-nothing' and 'dock' depending on whether the lid is (respectively) open or closed.</_description>
     </key>
   </schema>
 </schemalist>
