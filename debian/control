@@ -31,7 +31,7 @@ Build-Depends: cdbs,
                libpolkit-gobject-1-dev,
                hwdata,
                libupower-glib-dev (>= 0.9.11),
-               libcolord-dev (>= 0.1.12),
+               libcolord-dev (>= 0.1.27),
                liblcms2-dev,
                libnss3-dev,
                libgudev-1.0-dev,
@@ -47,6 +47,7 @@ Package: cinnamon-settings-daemon
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         colord (>= 0.1.27),
          gsettings-desktop-schemas (>= 3.3.90-0ubuntu2),
          nemo-data
 Recommends: pulseaudio,
