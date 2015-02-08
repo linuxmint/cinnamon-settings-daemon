@@ -43,11 +43,11 @@ dnl ---------------------------------------------------------------------------
 dnl - Dependencies
 dnl ---------------------------------------------------------------------------
 
-GLIB_REQUIRED_VERSION=2.31.0
-GTK_REQUIRED_VERSION=3.3.18
+GLIB_REQUIRED_VERSION=2.37.3
+GTK_REQUIRED_VERSION=3.9.10
 GCONF_REQUIRED_VERSION=2.6.1
 GIO_REQUIRED_VERSION=2.26.0
-CINNAMON_DESKTOP_REQUIRED_VERSION=1.0.0
+CINNAMON_DESKTOP_REQUIRED_VERSION=2.4.0
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 UPOWER_GLIB_REQUIRED_VERSION=0.9.1
 PA_REQUIRED_VERSION=0.9.16
@@ -209,7 +209,7 @@ dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff
 dnl ---------------------------------------------------------------------------
 
-LIBGNOMEKBD_REQUIRED=2.91.1
+LIBGNOMEKBD_REQUIRED=3.6.0
 PKG_CHECK_MODULES(KEYBOARD, [libgnomekbdui >= $LIBGNOMEKBD_REQUIRED libgnomekbd >= $LIBGNOMEKBD_REQUIRED libxklavier >= 5.0 kbproto])
 
 dnl ---------------------------------------------------------------------------
