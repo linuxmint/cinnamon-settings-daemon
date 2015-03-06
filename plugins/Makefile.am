@@ -23,6 +23,12 @@ enabled_plugins =	\
 
 disabled_plugins = $(NULL)
 
+if BUILD_RFKILL
+enabled_plugins += rfkill
+else
+disabled_plugins += rfkill
+endif
+
 if BUILD_WACOM
 enabled_plugins += wacom
 else

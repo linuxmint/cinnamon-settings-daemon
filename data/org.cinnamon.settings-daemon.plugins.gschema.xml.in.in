@@ -105,6 +105,18 @@
       <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.rfkill" path="/org/cinnamon/settings-daemon/plugins/rfkill/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>0</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
+    </key>
+  </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.screensaver-proxy" path="/org/cinnamon/settings-daemon/plugins/screensaver-proxy/">
     <key name="active" type="b">
       <default>true</default>

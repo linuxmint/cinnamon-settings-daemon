@@ -43,6 +43,7 @@ plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in
 plugins/print-notifications/csd-printer.c
 plugins/print-notifications/csd-print-notifications-manager.c
 [type: gettext/ini]plugins/print-notifications/print-notifications.cinnamon-settings-plugin.in
+[type: gettext/ini]plugins/rfkill/rfkill.cinnamon-settings-plugin.in
 plugins/smartcard/csd-smartcard.c
 plugins/smartcard/csd-smartcard-manager.c
 plugins/xrandr/csd-xrandr-manager.c

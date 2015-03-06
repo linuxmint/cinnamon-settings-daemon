@@ -429,6 +429,21 @@ fi
 AM_CONDITIONAL(BUILD_PRINT_NOTIFICATIONS, [test x"$enable_cups" = x"yes"])
 
 # ---------------------------------------------------------------------------
+# Rfkill
+# ---------------------------------------------------------------------------
+
+AC_ARG_ENABLE(rfkill,
+ AS_HELP_STRING([--disable-rfkill], [disable rfkill support (default: enabled)]),,
+ enable_rfkill=yes, enabled_rfkill=no)
+
+if test x"$enable_rfkill" != x"no" ; then
+ AC_CHECK_HEADERS([linux/rfkill.h],,
+ AC_MSG_ERROR([RFKill headers not found but rfkill support requested]))
+fi
+
+AM_CONDITIONAL(BUILD_RFKILL, [test x"$enable_rfkill" = x"yes"])
+
+# ---------------------------------------------------------------------------
 # Enable Profiling
 # ---------------------------------------------------------------------------
 AC_ARG_ENABLE(profiling,
@@ -548,6 +563,7 @@ plugins/media-keys/cut-n-paste/Makefile
 plugins/mouse/Makefile
 plugins/orientation/Makefile
 plugins/print-notifications/Makefile
+plugins/rfkill/Makefile
 plugins/screensaver-proxy/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
@@ -608,6 +624,7 @@ echo "
 
         Smartcard support:        ${have_smartcard_support}
         Cups support:             ${enable_cups}
+        RFKill support:           ${enable_rfkill}
 ${NSS_DATABASE:+\
         System nssdb:             ${NSS_DATABASE}
 }\
