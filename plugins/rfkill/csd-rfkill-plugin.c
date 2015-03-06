@@ -26,4 +26,4 @@
 #include "cinnamon-settings-plugin.h"
 #include "csd-rfkill-manager.h"
 
-CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdRfkill, csd_rfkill)
+NEW_CINNAMON_SETTINGS_PLUGIN_REGISTER (CsdRfkill, csd_rfkill)

@@ -60,6 +60,8 @@ struct CsdRfkillManagerPrivate
         gchar                   *chassis_type;
 };
 
+#define CSD_DBUS_NAME         "org.cinnamon.SettingsDaemon"
+#define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
 #define CSD_RFKILL_DBUS_NAME CSD_DBUS_NAME ".Rfkill"
 #define CSD_RFKILL_DBUS_PATH CSD_DBUS_PATH "/Rfkill"
 
