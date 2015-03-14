@@ -26,7 +26,7 @@
       <_description>Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key.</_description>
     </key>
     <key name="scroll-method" enum="org.cinnamon.settings-daemon.CsdTouchpadScrollMethod">
-      <default>'edge-scrolling'</default>
+      <default>'two-finger-scrolling'</default>
       <_summary>Select the touchpad scroll method</_summary>
       <_description>Select the touchpad scroll method. Supported values are: "disabled", "edge-scrolling", "two-finger-scrolling".</_description>
     </key>
