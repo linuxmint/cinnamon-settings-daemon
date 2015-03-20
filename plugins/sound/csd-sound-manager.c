@@ -55,6 +55,11 @@ static const gchar introspection_xml[] =
 "      <arg name='id' direction='in' type='u'/>"
 "      <arg name='filename' direction='in' type='s'/>"
 "    </method>"
+"    <method name='PlaySoundFileVolume'>"
+"      <arg name='id' direction='in' type='u'/>"
+"      <arg name='filename' direction='in' type='s'/>"
+"      <arg name='volume' direction='in' type='s'/>"
+"    </method>"
 "    <method name='PlaySound'>"
 "      <arg name='id' direction='in' type='u'/>"
 "      <arg name='name' direction='in' type='s'/>"
@@ -156,6 +161,25 @@ handle_sound_request (GDBusConnection       *connection,
                                      id == PLAY_ONCE_FLAG ? 0 : id,
                                      CA_PROP_MEDIA_FILENAME,
                                      sound_file,
+                                     NULL);
+                }
+
+                g_dbus_method_invocation_return_value (invocation, NULL);
+
+        } else if (g_strcmp0 (method_name, "PlaySoundFileVolume") == 0) {
+                const char *sound_file;
+                guint id;
+                const char *volume;
+
+                g_variant_get (parameters, "(u&s&s)", &id, &sound_file, &volume);
+
+                if (should_play (manager, id, sound_file)) {
+                    ca_context_play (manager->priv->ca,
+                                     id == PLAY_ONCE_FLAG ? 0 : id,
+                                     CA_PROP_MEDIA_FILENAME,
+                                     sound_file,
+                                     CA_PROP_CANBERRA_VOLUME,
+                                     volume,
                                      NULL);
                 }
 
