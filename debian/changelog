@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.4.3betsy1) betsy; urgency=medium
+
+  * Switch CSD to logind
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 20 Mar 2015 13:55:30 +0100
+
 cinnamon-settings-daemon (2.4.3) rebecca; urgency=medium
 
   * Fixed power button asking what to do even when set to just do it
