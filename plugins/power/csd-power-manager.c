@@ -3198,35 +3198,6 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
 }
 
 static gboolean
-idle_is_session_idle (CsdPowerManager *manager)
-{
-        gboolean ret;
-        GVariant *result;
-        guint status;
-
-        /* not yet connected to cinnamon-session */
-        if (manager->priv->session_presence_proxy == NULL) {
-                g_warning ("session idleness not available, cinnamon-session is not available");
-                return FALSE;
-        }
-
-        /* get the session status */
-        result = g_dbus_proxy_get_cached_property (manager->priv->session_presence_proxy,
-                                                   "status");
-        if (result == NULL) {
-                g_warning ("no readable status property on %s",
-                           g_dbus_proxy_get_interface_name (manager->priv->session_presence_proxy));
-                return FALSE;
-        }
-
-        g_variant_get (result, "u", &status);
-        ret = (status == SESSION_STATUS_CODE_IDLE);
-        g_variant_unref (result);
-
-        return ret;
-}
-
-static gboolean
 idle_is_session_inhibited (CsdPowerManager *manager, guint mask)
 {
         gboolean ret;
@@ -3619,32 +3590,6 @@ lock_screensaver (CsdPowerManager *manager)
 }
 
 static void
-idle_send_to_sleep (CsdPowerManager *manager)
-{
-        gboolean is_inhibited;
-        gboolean is_idle;
-
-        /* check the session is not now inhibited */
-        is_inhibited = idle_is_session_inhibited (manager,
-                                                  SESSION_INHIBIT_MASK_SUSPEND);
-        if (is_inhibited) {
-                g_debug ("suspend inhibited");
-                return;
-        }
-
-        /* check the session is really idle*/
-        is_idle = idle_is_session_idle (manager);
-        if (!is_idle) {
-                g_debug ("session is not idle, cannot SLEEP");
-                return;
-        }
-
-        /* send to sleep, and cancel timeout */
-        g_debug ("sending to SLEEP");
-        idle_set_mode (manager, CSD_POWER_IDLE_MODE_SLEEP);
-}
-
-static void
 idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
                                 guint alarm_id,
                                 CsdPowerManager *manager)
@@ -3659,7 +3604,7 @@ idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_BLANK);
                 break;
         case CSD_POWER_IDLETIME_SLEEP_ID:
-                idle_send_to_sleep (manager);
+                idle_set_mode (manager, CSD_POWER_IDLE_MODE_SLEEP);
                 break;
         }
 }
