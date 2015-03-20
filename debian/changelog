@@ -1,4 +1,4 @@
-cinnamon-settings-daemon (2.4.3betsy1) betsy; urgency=medium
+cinnamon-settings-daemon (2.4.3.betsy1) betsy; urgency=medium
 
   * Switch CSD to logind
 
