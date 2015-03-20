@@ -35,7 +35,9 @@ Build-Depends: cdbs,
                xserver-xorg-input-wacom,
                libgnomekbd-dev (>= 3.4.0),
                libxklavier-dev,
-               librsvg2-dev
+               librsvg2-dev,
+               libsystemd-daemon-dev,
+               libsystemd-login-dev
 Standards-Version: 3.9.3
 Homepage: http://cinnamon.linuxmint.com
 
