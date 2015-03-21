@@ -71,10 +71,13 @@ csd_backlight_helper_get_best_backlight (gchar** preference_list)
 	gchar** preference_list = g_settings_get_strv (settings, 
 					"backlight-preference-order");
     */
-	if (preference_list[0] == NULL)
-		g_print("%s\n%s\n",
-		"Warning: no backlight sources have been configured.",
-		"Check " CSD_POWER_SETTINGS_SCHEMA " to configure some.");
+	if (preference_list != NULL)
+		if (preference_list[0] != NULL)
+			goto ok:
+	g_print("%s\n%s\n",
+	"Warning: no backlight sources have been configured.",
+	"Check " CSD_POWER_SETTINGS_SCHEMA " to configure some.");
+ok:
 
 	int i = 0;
 	for (i=0; preference_list[i] != NULL; i++) {
@@ -155,7 +158,7 @@ main (int argc, char *argv[])
         { "backlight-preference", 'b', 0, G_OPTION_ARG_STRING_ARRAY,
           &backlight_preference_order,
 		   /* command line argument */
-          "Set a backlight control search preference", NULL },
+          "Set a backlight control search preference", {"firmware", "platform", "raw"} },
 		{ NULL}
 	};
 
@@ -260,6 +263,7 @@ out:
 	g_free (filename);
 	g_free (filename_file);
 	g_free (contents);
+	g_strfreev(backlight_preference_order);
 	return retval;
 }
 
