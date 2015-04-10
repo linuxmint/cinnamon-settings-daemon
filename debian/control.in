@@ -44,8 +44,7 @@ Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          colord (>= 0.1.27),
-         gsettings-desktop-schemas (>= 3.3.90-0ubuntu2),
-         nemo-data
+         gsettings-desktop-schemas (>= 3.3.90-0ubuntu2)
 Recommends: pulseaudio,
             systemd-services,
 Pre-Depends: ${misc:Pre-Depends}

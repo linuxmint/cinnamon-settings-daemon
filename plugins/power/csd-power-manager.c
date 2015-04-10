@@ -138,6 +138,15 @@ static const gchar introspection_xml[] =
 "    <method name='Toggle'>"
 "      <arg type='u' name='new_percentage' direction='out'/>"
 "    </method>"
+"    <method name='GetPercentage'>"
+"      <arg type='u' name='percentage' direction='out'/>"
+"    </method>"
+"    <method name='SetPercentage'>"
+"      <arg type='u' name='percentage' direction='in'/>"
+"      <arg type='u' name='new_percentage' direction='out'/>"
+"    </method>"
+"    <signal name='Changed'>"
+"    </signal>"
 "  </interface>"
 "</node>";
 
@@ -2010,6 +2019,50 @@ do_power_action_type (CsdPowerManager *manager,
 }
 
 static gboolean
+upower_kbd_get_percentage (CsdPowerManager *manager, GError **error)
+{
+        gint value = -1;
+        GVariant *k_now = NULL;
+
+        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+                                        "GetBrightness",
+                                        NULL,
+                                        G_DBUS_CALL_FLAGS_NONE,
+                                        -1,
+                                        NULL,
+                                        error);
+        if (k_now != NULL) {
+                g_variant_get (k_now, "(i)", &manager->priv->kbd_brightness_now);
+                g_variant_unref (k_now);
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
+static void
+upower_kbd_emit_changed (CsdPowerManager *manager)
+{
+        gboolean ret;
+        GError *error = NULL;
+
+        /* not yet connected to the bus */
+        if (manager->priv->connection == NULL)
+                return;
+        ret = g_dbus_connection_emit_signal (manager->priv->connection,
+                                             CSD_DBUS_SERVICE,
+                                             CSD_POWER_DBUS_PATH,
+                                             CSD_POWER_DBUS_INTERFACE_KEYBOARD,
+                                             "Changed",
+                                             NULL,
+                                             &error);
+        if (!ret) {
+                g_warning ("failed to emit Changed: %s", error->message);
+                g_error_free (error);
+        }
+}
+
+static gboolean
 upower_kbd_set_brightness (CsdPowerManager *manager, guint value, GError **error)
 {
         GVariant *retval;
@@ -2032,6 +2085,7 @@ upower_kbd_set_brightness (CsdPowerManager *manager, guint value, GError **error
         /* save new value */
         manager->priv->kbd_brightness_now = value;
         g_variant_unref (retval);
+        upower_kbd_emit_changed(manager);
         return TRUE;
 }
 
@@ -2061,7 +2115,25 @@ upower_kbd_toggle (CsdPowerManager *manager,
                 }
         }
 
+        upower_kbd_emit_changed(manager);
         return ret;
+}
+
+static void
+upower_kbd_handle_changed (GDBusProxy *proxy,
+                           gchar      *sender_name,
+                           gchar      *signal_name,
+                           GVariant   *parameters,
+                           gpointer    user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+        g_debug("keyboard changed signal");
+
+        g_variant_get (parameters, "(i)", &manager->priv->kbd_brightness_now);
+        g_variant_unref (parameters);
+
+        upower_kbd_emit_changed(manager);
 }
 
 static gboolean
@@ -3543,6 +3615,8 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                 goto out;
         }
 
+        g_signal_connect (manager->priv->upower_kdb_proxy, "g-signal", G_CALLBACK(upower_kbd_handle_changed), manager);
+
         g_variant_get (k_now, "(i)", &manager->priv->kbd_brightness_now);
         g_variant_get (k_max, "(i)", &manager->priv->kbd_brightness_max);
 
@@ -4400,7 +4474,21 @@ handle_method_call_keyboard (CsdPowerManager *manager,
         guint percentage;
         GError *error = NULL;
 
-        if (g_strcmp0 (method_name, "StepUp") == 0) {
+        if (g_strcmp0 (method_name, "GetPercentage") == 0) {
+                g_debug ("keyboard get percentage");
+                ret = upower_kbd_get_percentage (manager, &error);
+                value = manager->priv->kbd_brightness_now;
+
+        } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
+                g_debug ("keyboard set percentage");
+
+                guint value_tmp;
+                g_variant_get (parameters, "(u)", &value_tmp);
+                ret = upower_kbd_set_brightness (manager, PERCENTAGE_TO_ABS(0, manager->priv->kbd_brightness_max, value_tmp), &error);
+                if (ret)
+                        value = value_tmp;
+
+        } else if (g_strcmp0 (method_name, "StepUp") == 0) {
                 g_debug ("keyboard step up");
                 step = BRIGHTNESS_STEP_AMOUNT (manager->priv->kbd_brightness_max);
                 value = MIN (manager->priv->kbd_brightness_now + step,
