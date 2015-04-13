@@ -3334,6 +3334,51 @@ idle_adjust_timeout (guint idle_time, guint timeout)
 }
 
 /**
+ * @timeout: The new timeout we want to set, in seconds
+ **/
+static void
+idle_set_timeout_dim (CsdPowerManager *manager, guint timeout)
+{
+        guint idle_time;
+        gboolean is_idle_inhibited;
+
+        /* are we inhibited from going idle */
+        is_idle_inhibited = idle_is_session_inhibited (manager,
+                                                       SESSION_INHIBIT_MASK_IDLE);
+        if (is_idle_inhibited) {
+                g_debug ("inhibited, so using normal state");
+                idle_set_mode (manager, CSD_POWER_IDLE_MODE_NORMAL);
+
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           CSD_POWER_IDLETIME_DIM_ID);
+                return;
+        }
+
+        idle_time = gpm_idletime_get_time (manager->priv->idletime) / 1000;
+
+        g_debug ("Setting dim idle timeout: %ds", timeout);
+        if (timeout > 0) {
+                gpm_idletime_alarm_set (manager->priv->idletime,
+                                        CSD_POWER_IDLETIME_DIM_ID,
+                                        idle_adjust_timeout (idle_time, timeout) * 1000);
+        } else {
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           CSD_POWER_IDLETIME_DIM_ID);
+        }
+        return;
+}
+
+static void
+refresh_idle_dim_settings (CsdPowerManager *manager)
+{
+        gint timeout_dim;
+        timeout_dim = g_settings_get_int (manager->priv->settings,
+                                          "idle-dim-time");
+        g_debug ("idle dim set with timeout %i", timeout_dim);
+        idle_set_timeout_dim (manager, timeout_dim);
+}
+
+/**
  * idle_adjust_timeout_blank:
  * @idle_time: current idle time, in seconds.
  * @timeout: the new timeout we want to set, in seconds.
@@ -3369,6 +3414,8 @@ idle_configure (CsdPowerManager *manager)
                                            CSD_POWER_IDLETIME_BLANK_ID);
                 gpm_idletime_alarm_remove (manager->priv->idletime,
                                            CSD_POWER_IDLETIME_SLEEP_ID);
+
+                refresh_idle_dim_settings (manager);
                 return;
         }
 
@@ -3414,40 +3461,8 @@ idle_configure (CsdPowerManager *manager)
                 gpm_idletime_alarm_remove (manager->priv->idletime,
                                            CSD_POWER_IDLETIME_SLEEP_ID);
         }
-}
 
-/**
- * @timeout: The new timeout we want to set, in seconds
- **/
-static gboolean
-idle_set_timeout_dim (CsdPowerManager *manager, guint timeout)
-{
-        guint idle_time;
-
-        idle_time = gpm_idletime_get_time (manager->priv->idletime) / 1000;
-        if (idle_time == 0)
-                return FALSE;
-
-        g_debug ("Setting dim idle timeout: %ds", timeout);
-        if (timeout > 0) {
-                gpm_idletime_alarm_set (manager->priv->idletime,
-                                        CSD_POWER_IDLETIME_DIM_ID,
-                                        idle_adjust_timeout (idle_time, timeout) * 1000);
-        } else {
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_DIM_ID);
-        }
-        return TRUE;
-}
-
-static void
-refresh_idle_dim_settings (CsdPowerManager *manager)
-{
-        gint timeout_dim;
-        timeout_dim = g_settings_get_int (manager->priv->settings,
-                                          "idle-dim-time");
-        g_debug ("idle dim set with timeout %i", timeout_dim);
-        idle_set_timeout_dim (manager, timeout_dim);
+        refresh_idle_dim_settings (manager);
 }
 
 static void
@@ -4278,9 +4293,6 @@ csd_power_manager_start (CsdPowerManager *manager,
 
         /* coldplug the engine */
         engine_coldplug (manager);
-
-        /* set the initial dim time that can adapt for the user */
-        refresh_idle_dim_settings (manager);
 
         /* Make sure that Xorg's DPMS extension never gets in our way. The defaults seem to have changed in Xorg 1.14
          * being "0" by default to being "600" by default 
