@@ -37,6 +37,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <gio/gio.h>
 
 #include "cinnamon-settings-profile.h"
 #include "csd-enums.h"
@@ -253,6 +254,10 @@ struct CinnamonSettingsXSettingsManagerPrivate
         CsdXSettingsGtk   *gtk;
 
         guint              notify_idle_id;
+
+        guint              shell_name_watch_id;
+        GDBusProxy         *proxy;
+        GDBusConnection    *connection;
 };
 
 #define CSD_XSETTINGS_ERROR csd_xsettings_error_quark ()
@@ -268,6 +273,131 @@ static void     cinnamon_xsettings_manager_finalize    (GObject                 
 G_DEFINE_TYPE (CinnamonSettingsXSettingsManager, cinnamon_xsettings_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static void
+menu_shell_generic_signal_cb (GDBusProxy *proxy,
+                             gchar *sender_name, gchar *signal_name,
+                             GVariant *parameters, gpointer user_data) {
+
+        gboolean show;
+        //GArray *black_list;
+
+        CinnamonSettingsXSettingsManager *manager = CINNAMON_XSETTINGS_MANAGER (user_data);
+
+        if (!g_strcmp0 (signal_name, "ShellShowAppMenu")) {
+                g_variant_get (parameters, "(b)", &show);
+                notify_have_shell_menubar (manager, show);
+                return;
+        }
+
+        if (!g_strcmp0 (signal_name, "ShellShowMenuBar")) {
+                g_variant_get (parameters, "(b)", &show);
+                notify_have_shell_menubar (manager, show);
+                return;
+        }
+
+        /* not a signal we're interested in */
+}
+
+void
+notify_have_shell_appmenu (CinnamonSettingsXSettingsManager   *manager,
+                           gboolean                 have_shell)
+{
+        int i;
+
+        cinnamon_settings_profile_start (NULL);
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsAppMenu", have_shell);
+                xsettings_manager_notify (manager->priv->managers [i]);
+        }
+        cinnamon_settings_profile_end (NULL);
+}
+
+void
+notify_have_shell_menubar (CinnamonSettingsXSettingsManager   *manager,
+                           gboolean                 have_shell)
+{
+        int i;
+
+        cinnamon_settings_profile_start (NULL);
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/ShellShowsMenubar", have_shell);
+                xsettings_manager_notify (manager->priv->managers [i]);
+        }
+        cinnamon_settings_profile_end (NULL);
+}
+
+static void
+on_shell_appeared (GDBusConnection *connection,
+                   const gchar     *name,
+                   const gchar     *name_owner,
+                   CinnamonSettingsXSettingsManager      *manager)
+{
+        GError *error = NULL;
+        g_return_if_fail (CINNAMON_IS_XSETTINGS_MANAGER (manager));
+
+        if (manager->priv->connection == NULL) {
+                g_debug ("get connection");
+                g_clear_error (&error);
+                manager->priv->connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+                if (manager->priv->connection == NULL) {
+                        g_warning ("Could not connect to DBUS daemon: %s", error->message);
+                        g_error_free (error);
+                        manager->priv->connection = NULL;
+                        return;
+                }
+        }
+        if (manager->priv->proxy == NULL) {
+                g_debug ("get proxy");
+                g_clear_error (&error);
+                manager->priv->proxy = g_dbus_proxy_new_sync (manager->priv->connection,
+                                G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                NULL,
+                                CINNAMON_SHELL_MENU_MANAGER_DBUS_SERVICE,
+                                CINNAMON_SHELL_MENU_MANAGER_DBUS_PATH,
+                                CINNAMON_SHELL_MENU_MANAGER_DBUS_INTERFACE,
+                                NULL, &error);
+                if (manager->priv->proxy == NULL) {
+                        g_warning ("Cannot connect, maybe the daemon is not running: %s", error->message);
+                        g_error_free (error);
+                        manager->priv->proxy = NULL;
+                        return;
+                }
+
+                g_signal_connect (manager->priv->proxy, "g-signal", G_CALLBACK(menu_shell_generic_signal_cb), manager);
+        }
+}
+
+static void
+on_shell_disappeared (GDBusConnection *connection,
+                      const gchar     *name,
+                      CinnamonSettingsXSettingsManager      *manager)
+{
+        g_return_if_fail (CINNAMON_IS_XSETTINGS_MANAGER (manager));
+
+        if (manager->priv->proxy == NULL)
+                return;
+        g_debug ("removing proxy");
+        g_object_unref (manager->priv->proxy);
+        manager->priv->proxy = NULL;
+        notify_have_shell_menubar (manager, FALSE);
+        notify_have_shell_appmenu (manager, FALSE);
+}
+
+static void
+shell_menu_init (CinnamonSettingsXSettingsManager *manager)
+{
+        /* Shell flag */
+        manager->priv->shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
+                                                               CINNAMON_SHELL_MENU_MANAGER_DBUS_SERVICE,
+                                                               0,
+                                                               on_shell_appeared,
+                                                               on_shell_disappeared,
+                                                               manager,
+                                                               NULL);
+}
 
 static GQuark
 csd_xsettings_error_quark (void)
@@ -989,6 +1119,8 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
         queue_notify (manager);
         g_variant_unref (overrides);
 
+        shell_menu_init (manager)
+
         cinnamon_settings_profile_end (NULL);
 
         return TRUE;
@@ -1016,6 +1148,8 @@ cinnamon_xsettings_manager_stop (CinnamonSettingsXSettingsManager *manager)
         }
 
         stop_fontconfig_monitor (manager);
+
+        g_bus_unwatch_name (manager->priv->shell_name_watch_id);
 
         if (p->settings != NULL) {
                 g_hash_table_destroy (p->settings);
@@ -1075,6 +1209,9 @@ cinnamon_xsettings_manager_finalize (GObject *object)
                 g_source_remove (xsettings_manager->priv->start_idle_id);
                 xsettings_manager->priv->start_idle_id = 0;
         }
+
+        if (xsettings_manager->priv->proxy != NULL)
+                g_object_unref (xsettings_manager->priv->proxy);
 
         G_OBJECT_CLASS (cinnamon_xsettings_manager_parent_class)->finalize (object);
 }
