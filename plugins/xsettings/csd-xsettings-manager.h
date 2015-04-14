@@ -32,6 +32,10 @@ G_BEGIN_DECLS
 #define CINNAMON_IS_XSETTINGS_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CINNAMON_TYPE_XSETTINGS_MANAGER))
 #define CINNAMON_XSETTINGS_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerClass))
 
+#define CINNAMON_SHELL_MENU_MANAGER_DBUS_SERVICE        "org.Cinnamon.MenuShell"
+#define CINNAMON_SHELL_MENU_MANAGER_DBUS_PATH           "/org/Cinnamon/MenuShell"
+#define CINNAMON_SHELL_MENU_MANAGER_DBUS_INTERFACE      "org.Cinnamon.MenuShell"
+
 typedef struct CinnamonSettingsXSettingsManagerPrivate CinnamonSettingsXSettingsManagerPrivate;
 
 typedef struct
