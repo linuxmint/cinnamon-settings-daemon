@@ -222,19 +222,14 @@ static void
 init_screens (CsdMediaKeysManager *manager)
 {
         GdkDisplay *display;
-        int i;
+        GdkScreen *screen;
 
         display = gdk_display_get_default ();
-        for (i = 0; i < gdk_display_get_n_screens (display); i++) {
-                GdkScreen *screen;
 
-                screen = gdk_display_get_screen (display, i);
-                if (screen == NULL) {
-                        continue;
-                }
+        screen = gdk_display_get_default_screen (display);
+        if (screen) {
                 manager->priv->screens = g_slist_append (manager->priv->screens, screen);
         }
-
         manager->priv->current_screen = manager->priv->screens->data;
 }
 
@@ -1404,7 +1399,9 @@ update_screen_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
+
         show_osd (manager, "display-brightness-symbolic", percentage);
+
         g_variant_unref (new_percentage);
 }
 

@@ -425,14 +425,13 @@ set_locate_pointer (void)
 {
   GdkKeymapKey *keys;
   GdkDisplay *display;
-  int n_screens;
   int n_keys;
   gboolean has_entries;
   static const guint keyvals[] = { GDK_KEY_Control_L, GDK_KEY_Control_R };
   unsigned j;
+  GdkScreen *screen_t;
 
   display = gdk_display_get_default ();
-  n_screens = gdk_display_get_n_screens (display);
 
   for (j = 0 ; j < G_N_ELEMENTS (keyvals) ; j++)
     {
@@ -442,15 +441,13 @@ set_locate_pointer (void)
                                                        &n_keys);
       if (has_entries)
         {
-          gint i, j;
+          gint i;
           for (i = 0; i < n_keys; i++)
             {
-              for (j = 0; j < n_screens; j++)
-                {
                   GdkScreen *screen;
                   Window xroot;
 
-                  screen = gdk_display_get_screen (display, j);
+                  screen = gdk_display_get_default_screen (display);
                   xroot = gdk_x11_window_get_xid (gdk_screen_get_root_window (screen));
 
                   gdk_x11_display_error_trap_push (display);
@@ -485,20 +482,14 @@ set_locate_pointer (void)
                             GrabModeSync);
 
                   gdk_x11_display_error_trap_pop_ignored (display);
-                }
             }
 
           g_free (keys);
 
-          for (i = 0; i < n_screens; i++)
-            {
-              GdkScreen *screen;
-
-              screen = gdk_display_get_screen (display, i);
-              gdk_window_add_filter (gdk_screen_get_root_window (screen),
-                                     filter,
-                                     screen);
-            }
+          screen_t = gdk_display_get_default_screen (display);
+          gdk_window_add_filter (gdk_screen_get_root_window (screen_t),
+                                 filter,
+                                 screen_t);
         }
     }
 }
