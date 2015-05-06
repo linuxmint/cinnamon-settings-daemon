@@ -22,25 +22,24 @@
 
 #include "csd-power-helper.h"
 
-#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
-#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
-#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+#define LOGIND_DBUS_NAME                       "org.freedesktop.login1"
+#define LOGIND_DBUS_PATH                       "/org/freedesktop/login1"
+#define LOGIND_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
 #define CONSOLEKIT_DBUS_NAME                    "org.freedesktop.ConsoleKit"
 #define CONSOLEKIT_DBUS_PATH_MANAGER            "/org/freedesktop/ConsoleKit/Manager"
 #define CONSOLEKIT_DBUS_INTERFACE_MANAGER       "org.freedesktop.ConsoleKit.Manager"
 
-#ifdef HAVE_SYSTEMD
 static void
-systemd_stop (void)
+logind_stop (void)
 {
         GDBusConnection *bus;
 
         bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
         g_dbus_connection_call (bus,
-                                SYSTEMD_DBUS_NAME,
-                                SYSTEMD_DBUS_PATH,
-                                SYSTEMD_DBUS_INTERFACE,
+                                LOGIND_DBUS_NAME,
+                                LOGIND_DBUS_PATH,
+                                LOGIND_DBUS_INTERFACE,
                                 "PowerOff",
                                 g_variant_new ("(b)", FALSE),
                                 NULL, 0, G_MAXINT, NULL, NULL, NULL);
@@ -48,15 +47,15 @@ systemd_stop (void)
 }
 
 static void
-systemd_suspend (void)
+logind_suspend (void)
 {
         GDBusConnection *bus;
 
         bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
         g_dbus_connection_call (bus,
-                                SYSTEMD_DBUS_NAME,
-                                SYSTEMD_DBUS_PATH,
-                                SYSTEMD_DBUS_INTERFACE,
+                                LOGIND_DBUS_NAME,
+                                LOGIND_DBUS_PATH,
+                                LOGIND_DBUS_INTERFACE,
                                 "Suspend",
                                 g_variant_new ("(b)", TRUE),
                                 NULL, 0, G_MAXINT, NULL, NULL, NULL);
@@ -64,22 +63,20 @@ systemd_suspend (void)
 }
 
 static void
-systemd_hibernate (void)
+logind_hibernate (void)
 {
         GDBusConnection *bus;
 
         bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
         g_dbus_connection_call (bus,
-                                SYSTEMD_DBUS_NAME,
-                                SYSTEMD_DBUS_PATH,
-                                SYSTEMD_DBUS_INTERFACE,
+                                LOGIND_DBUS_NAME,
+                                LOGIND_DBUS_PATH,
+                                LOGIND_DBUS_INTERFACE,
                                 "Hibernate",
                                 g_variant_new ("(b)", TRUE),
                                 NULL, 0, G_MAXINT, NULL, NULL, NULL);
         g_object_unref (bus);
 }
-
-#else /* HAVE_SYSTEMD */
 
 static void
 consolekit_stop_cb (GObject *source_object,
@@ -170,34 +167,36 @@ upower_hibernate (GDBusProxy *upower_proxy)
                            -1, NULL,
                            upower_sleep_cb, NULL);
 }
-#endif /* HAVE_SYSTEMD */
 
 void
-csd_power_suspend (GDBusProxy *upower_proxy)
+csd_power_suspend (gboolean use_logind, GDBusProxy *upower_proxy)
 {
-#ifdef HAVE_SYSTEMD
-	systemd_suspend ();
-#else
-	upower_suspend (upower_proxy);
-#endif
+  if (use_logind) {
+    logind_suspend ();
+  }
+  else {
+    upower_suspend (upower_proxy);
+  }
 }
 
 void
-csd_power_poweroff (void)
+csd_power_poweroff (gboolean use_logind)
 {
-#ifdef HAVE_SYSTEMD
-	systemd_stop ();
-#else
-	consolekit_stop ();
-#endif
+  if (use_logind) {
+    logind_stop ();
+  }
+  else {
+    consolekit_stop ();
+  }
 }
 
 void
-csd_power_hibernate (GDBusProxy *upower_proxy)
+csd_power_hibernate (gboolean use_logind, GDBusProxy *upower_proxy)
 {
-#ifdef HAVE_SYSTEMD
-	systemd_hibernate ();
-#else
-	upower_hibernate (upower_proxy);
-#endif
+  if (use_logind) {
+    logind_hibernate ();
+  }
+  else {
+    upower_hibernate (upower_proxy);
+  }
 }

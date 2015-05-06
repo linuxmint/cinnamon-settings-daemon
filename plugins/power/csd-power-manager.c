@@ -62,6 +62,7 @@
 
 #define CSD_POWER_SETTINGS_SCHEMA               "org.cinnamon.settings-daemon.plugins.power"
 #define CSD_XRANDR_SETTINGS_SCHEMA              "org.cinnamon.settings-daemon.plugins.xrandr"
+#define CSD_SESSION_SETTINGS_SCHEMA             "org.cinnamon.desktop.session"
 
 #define CSD_DBUS_SERVICE                        "org.cinnamon.SettingsDaemon"
 #define CSD_DBUS_PATH                           "/org/cinnamon/SettingsDaemon"
@@ -81,9 +82,9 @@
 #define CSD_POWER_MANAGER_CRITICAL_ALERT_TIMEOUT        5 /* seconds */
 #define CSD_POWER_MANAGER_LID_CLOSE_SAFETY_TIMEOUT      30 /* seconds */
 
-#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
-#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
-#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+#define LOGIND_DBUS_NAME                       "org.freedesktop.login1"
+#define LOGIND_DBUS_PATH                       "/org/freedesktop/login1"
+#define LOGIND_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
 /* Keep this in sync with gnome-shell */
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
@@ -181,6 +182,8 @@ struct CsdPowerManagerPrivate
         GSettings               *settings;
         GSettings               *settings_screensaver;
         GSettings               *settings_xrandr;
+        GSettings               *settings_session;
+        gboolean                use_logind;
         UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
@@ -222,7 +225,7 @@ struct CsdPowerManagerPrivate
         guint                    xscreensaver_watchdog_timer_id;
         gboolean                 is_virtual_machine;
 
-        /* systemd stuff */
+        /* logind stuff */
         GDBusProxy              *logind_proxy;
         gint                     inhibit_lid_switch_fd;
         gboolean                 inhibit_lid_switch_taken;
@@ -1989,19 +1992,19 @@ do_power_action_type (CsdPowerManager *manager,
 
         switch (action_type) {
         case CSD_POWER_ACTION_SUSPEND:
-                csd_power_suspend (manager->priv->upower_proxy);
+                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown ();
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
-                csd_power_hibernate (manager->priv->upower_proxy);
+                csd_power_hibernate (manager->priv->use_logind, manager->priv->upower_proxy);
                 break;
         case CSD_POWER_ACTION_SHUTDOWN:
                 /* this is only used on critically low battery where
                  * hibernate is not available and is marginally better
                  * than just powering down the computer mid-write */
-                csd_power_poweroff ();
+                csd_power_poweroff (manager->priv->use_logind);
                 break;
         case CSD_POWER_ACTION_BLANK:
                 ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
@@ -4123,9 +4126,9 @@ csd_power_manager_start (CsdPowerManager *manager,
                 g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                0,
                                                NULL,
-                                               SYSTEMD_DBUS_NAME,
-                                               SYSTEMD_DBUS_PATH,
-                                               SYSTEMD_DBUS_INTERFACE,
+                                               LOGIND_DBUS_NAME,
+                                               LOGIND_DBUS_PATH,
+                                               LOGIND_DBUS_INTERFACE,
                                                NULL,
                                                error);
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
@@ -4152,6 +4155,9 @@ csd_power_manager_start (CsdPowerManager *manager,
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
         manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
+        manager->priv->settings_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
+        manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_session, "use-systemd");
+
         manager->priv->up_client = up_client_new ();
 #if ! UP_CHECK_VERSION(0,99,0)
         g_signal_connect (manager->priv->up_client, "notify-sleep",
@@ -4358,6 +4364,11 @@ csd_power_manager_stop (CsdPowerManager *manager)
         if (manager->priv->settings_xrandr != NULL) {
                 g_object_unref (manager->priv->settings_xrandr);
                 manager->priv->settings_xrandr = NULL;
+        }
+
+        if (manager->priv->settings_session != NULL) {
+                g_object_unref (manager->priv->settings_session);
+                manager->priv->settings_session = NULL;
         }
 
         if (manager->priv->up_client != NULL) {

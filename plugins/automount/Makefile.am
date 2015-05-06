@@ -21,14 +21,14 @@ csd_test_automount_CPPFLAGS = \
 csd_test_automount_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(SYSTEMD_CFLAGS)		\
+	$(LOGIND_CFLAGS)		\
 	$(AUTOMOUNT_CFLAGS)
 	$(AM_CFLAGS)
 
 csd_test_automount_LDADD =			\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(SYSTEMD_LIBS)			\
+	$(LOGIND_LIBS)			\
 	$(AUTOMOUNT_LIBS)		\
 	$(NULL)
 
@@ -52,7 +52,7 @@ libautomount_la_CPPFLAGS = \
 
 libautomount_la_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(SYSTEMD_CFLAGS)		\
+	$(LOGIND_CFLAGS)		\
 	$(AUTOMOUNT_CFLAGS)		\
 	$(AM_CFLAGS)
 
@@ -62,7 +62,7 @@ libautomount_la_LDFLAGS =		\
 
 libautomount_la_LIBADD  =		\
 	$(SETTINGS_PLUGIN_LIBS)		\
-	$(SYSTEMD_LIBS)			\
+	$(LOGIND_LIBS)			\
 	$(AUTOMOUNT_LIBS)		\
 	$(NULL)
 
