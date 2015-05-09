@@ -29,16 +29,20 @@
 
 #include "cinnamon-settings-session.h"
 
-#ifdef HAVE_SYSTEMD
+#ifdef HAVE_LOGIND
 #include <systemd/sd-login.h>
+#endif
 
 typedef struct
 {
   GSource source;
   GPollFD pollfd;
+#ifdef HAVE_LOGIND
   sd_login_monitor *monitor;
+#endif
 } SdSource;
 
+#ifdef HAVE_LOGIND
 static gboolean
 sd_source_prepare (GSource *source,
                    gint    *timeout)
@@ -128,12 +132,9 @@ static void     cinnamon_settings_session_finalize	(GObject		*object);
 
 struct CinnamonSettingsSessionPrivate
 {
-#ifdef HAVE_SYSTEMD
-        GSource                   *sd_source;
-#else
-	GDBusProxy		*proxy_session;
-	GCancellable		*cancellable;
-#endif
+	GSource			*sd_source; // used in logind mode
+	GDBusProxy		*proxy_session; // used in consolekit mode
+	GCancellable	*cancellable; // used in consolekit mode
 	gchar			*session_id;
 	CinnamonSettingsSessionState state;
 };
@@ -223,7 +224,7 @@ cinnamon_settings_session_class_init (CinnamonSettingsSessionClass *klass)
 							    G_PARAM_READABLE));
 }
 
-#ifdef HAVE_SYSTEMD
+#ifdef HAVE_LOGIND
 
 static gboolean
 sessions_changed (gpointer user_data)
@@ -237,7 +238,7 @@ sessions_changed (gpointer user_data)
         return TRUE;
 }
 
-#else /* HAVE_SYSTEMD */
+#endif
 
 static void
 cinnamon_settings_session_proxy_signal_cb (GDBusProxy *proxy,
@@ -371,26 +372,29 @@ got_manager_proxy_cb (GObject *source_object, GAsyncResult *res, gpointer user_d
 	g_object_unref (proxy_manager);
 }
 
-#endif /* HAVE_SYSTEMD */
-
 static void
 cinnamon_settings_session_init (CinnamonSettingsSession *session)
 {
 	session->priv = CINNAMON_SETTINGS_SESSION_GET_PRIVATE (session);
 
-#ifdef HAVE_SYSTEMD
-        sd_pid_get_session (getpid(), &session->priv->session_id);
+	GSettings *session_settings = g_settings_new ("org.cinnamon.desktop.session");
+	gboolean use_logind = g_settings_get_boolean (session_settings, "use-systemd");
+	g_object_unref (session_settings);
 
+	if (use_logind) {
+#ifdef HAVE_LOGIND
+        sd_pid_get_session (getpid(), &session->priv->session_id);
         session->priv->sd_source = sd_source_new ();
         g_source_set_callback (session->priv->sd_source, sessions_changed, session, NULL);
         g_source_attach (session->priv->sd_source, NULL);
-
         sessions_changed (session);
-#else
-	session->priv->cancellable = g_cancellable_new ();
+#endif
+    }
+	else {
+		session->priv->cancellable = g_cancellable_new ();
 
-	/* connect to ConsoleKit */
-	g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+		/* connect to ConsoleKit */
+		g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
 				  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
 				  NULL,
 				  CONSOLEKIT_NAME,
@@ -399,7 +403,8 @@ cinnamon_settings_session_init (CinnamonSettingsSession *session)
 				  session->priv->cancellable,
 				  got_manager_proxy_cb,
 				  session);
-#endif
+	}
+
 }
 
 static void
@@ -409,20 +414,18 @@ cinnamon_settings_session_finalize (GObject *object)
 
 	session = CINNAMON_SETTINGS_SESSION (object);
 
-        g_free (session->priv->session_id);
+    g_free (session->priv->session_id);
 
-#ifdef HAVE_SYSTEMD
-        if (session->priv->sd_source != NULL) {
-                g_source_destroy (session->priv->sd_source);
-                g_source_unref (session->priv->sd_source);
-        }
-#else
+    if (session->priv->sd_source != NULL) {
+        g_source_destroy (session->priv->sd_source);
+        g_source_unref (session->priv->sd_source);
+    }
+
 	g_cancellable_cancel (session->priv->cancellable);
 
 	if (session->priv->proxy_session != NULL)
 		g_object_unref (session->priv->proxy_session);
 	g_object_unref (session->priv->cancellable);
-#endif
 
 	G_OBJECT_CLASS (cinnamon_settings_session_parent_class)->finalize (object);
 }

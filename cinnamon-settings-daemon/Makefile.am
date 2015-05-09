@@ -10,7 +10,7 @@ INCLUDES = \
 	$(SETTINGS_DAEMON_CFLAGS)				\
 	$(LIBNOTIFY_CFLAGS)					\
 	$(GNOME_DESKTOP_CFLAGS)					\
-	$(SYSTEMD_CFLAGS)					\
+	$(LOGIND_CFLAGS)					\
 	$(NULL)
 
 privlibdir = $(pkglibdir)-$(CSD_API_VERSION)
@@ -34,7 +34,7 @@ libcsd_la_CFLAGS =		\
 	$(NULL)
 
 libcsd_la_LIBADD =		\
-	$(SYSTEMD_LIBS)		\
+	$(LOGIND_LIBS)		\
 	$(GIOUNIX_LIBS)		\
 	$(NULL)
 

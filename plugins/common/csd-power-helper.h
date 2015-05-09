@@ -26,9 +26,9 @@ G_BEGIN_DECLS
 
 #include <gio/gio.h>
 
-void csd_power_suspend   (GDBusProxy *upower_proxy);
-void csd_power_hibernate (GDBusProxy *upower_proxy);
-void csd_power_poweroff  (void);
+void csd_power_suspend   (gboolean use_logind, GDBusProxy *upower_proxy);
+void csd_power_hibernate (gboolean use_logind, GDBusProxy *upower_proxy);
+void csd_power_poweroff  (gboolean use_logind);
 
 G_END_DECLS
 

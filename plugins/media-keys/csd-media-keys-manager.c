@@ -124,9 +124,9 @@ static const gchar kb_introspection_xml[] =
 #define VOLUME_STEP 5           /* percents for one volume button press */
 #define MAX_VOLUME 65536.0
 
-#define SYSTEMD_DBUS_NAME                       "org.freedesktop.login1"
-#define SYSTEMD_DBUS_PATH                       "/org/freedesktop/login1"
-#define SYSTEMD_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
+#define LOGIND_DBUS_NAME                       "org.freedesktop.login1"
+#define LOGIND_DBUS_PATH                       "/org/freedesktop/login1"
+#define LOGIND_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
 
 #define CSD_MEDIA_KEYS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_MEDIA_KEYS_MANAGER, CsdMediaKeysManagerPrivate))
 
@@ -166,9 +166,11 @@ struct CsdMediaKeysManagerPrivate
         GDBusProxy      *osd_proxy;
         GCancellable    *osd_cancellable;
 
-        /* systemd stuff */
+        /* logind stuff */
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
+        GSettings        *session_settings;
+        gboolean         use_logind;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -1361,7 +1363,7 @@ do_config_power_action (CsdMediaKeysManager *manager,
                                            config_key);
         switch (action_type) {
         case CSD_POWER_ACTION_SUSPEND:
-                csd_power_suspend (manager->priv->upower_proxy);
+                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown (manager);
@@ -1371,7 +1373,7 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 execute (manager, "dbus-send --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.RequestShutdown", FALSE);
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
-                csd_power_hibernate (manager->priv->upower_proxy);
+                csd_power_hibernate (manager->priv->use_logind, manager->priv->upower_proxy);
                 break;
         case CSD_POWER_ACTION_BLANK:
                 execute (manager, "cinnamon-screensaver-command --lock", FALSE);
@@ -1727,8 +1729,11 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
                                  CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
                                  NULL);
 
+        manager->priv->session_settings = g_settings_new("org.cinnamon.desktop.session");
+        manager->priv->use_logind = g_settings_get_boolean (manager->priv->session_settings, "use-systemd");
+
         /* for the power plugin interface code */
-        manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
+        manager->priv->power_settings = g_settings_new ("org.cinnamon.desktop.session");
 
         /* Logic from http://git.gnome.org/browse/gnome-shell/tree/js/ui/status/accessibility.js#n163 */
         manager->priv->interface_settings = g_settings_new (SETTINGS_INTERFACE_DIR);
@@ -2018,14 +2023,14 @@ csd_media_keys_manager_init (CsdMediaKeysManager *manager)
                 g_dbus_proxy_new_sync (bus,
                                        0,
                                        NULL,
-                                       SYSTEMD_DBUS_NAME,
-                                       SYSTEMD_DBUS_PATH,
-                                       SYSTEMD_DBUS_INTERFACE,
+                                       LOGIND_DBUS_NAME,
+                                       LOGIND_DBUS_PATH,
+                                       LOGIND_DBUS_INTERFACE,
                                        NULL,
                                        &error);
 
         if (manager->priv->logind_proxy == NULL) {
-                g_warning ("Failed to connect to systemd: %s",
+                g_warning ("Failed to connect to logind: %s",
                            error->message);
                 g_error_free (error);
         }

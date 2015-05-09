@@ -369,26 +369,18 @@ AM_CONDITIONAL(HAVE_POLKIT, test "x$HAVE_POLKIT" = "xyes")
 AC_SUBST(POLKIT_CFLAGS)
 AC_SUBST(POLKIT_LIBS)
 
-dnl ==============================================
-dnl systemd check
-dnl ==============================================
+dnl ====================================================================
+dnl Check for logind
+dnl ====================================================================
 
-AC_ARG_ENABLE([systemd],
-              AS_HELP_STRING([--enable-systemd], [Use systemd for session tracking]),
-              [with_systemd=$enableval],
-              [with_systemd=auto])
-if test "$with_systemd" = "yes" ; then
-  PKG_CHECK_MODULES(SYSTEMD, [libsystemd-login])
-  AC_DEFINE(HAVE_SYSTEMD, 1, [Define if systemd is used for session tracking])
-  SESSION_TRACKING=systemd
-else
-  SESSION_TRACKING=ConsoleKit
+PKG_CHECK_MODULES(LOGIND, [libsystemd-login], [have_logind=yes], [have_logind=no])
+
+if test x$have_logind = xyes; then
+    AC_DEFINE(HAVE_LOGIND, 1, [Define if logind is supported])
 fi
 
-AC_SUBST(SYSTEMD_CFLAGS)
-AC_SUBST(SYSTEMD_LIBS)
-
-AM_CONDITIONAL(WITH_SYSTEMD, [test "$with_systemd" = "yes"], [Using systemd])
+AC_SUBST(LOGIND_CFLAGS)
+AC_SUBST(LOGIND_LIBS)
 
 # ---------------------------------------------------------------------------
 # CUPS
@@ -599,7 +591,7 @@ echo "
         dbus-1 system.d dir:      ${DBUS_SYS_DIR}
         PolicyKit support:        ${HAVE_POLKIT}
 
-        Session tracking:         ${SESSION_TRACKING}
+        Logind supported:         ${have_logind}
         LCMS DICT support:        ${have_new_lcms}
         Libnotify support:        ${have_libnotify}
 
