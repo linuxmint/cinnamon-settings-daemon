@@ -1730,7 +1730,7 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
                                  NULL);
 
         manager->priv->session_settings = g_settings_new("org.cinnamon.desktop.session");
-        manager->priv->use_logind = g_settings_get_boolean (manager->priv->session_settings, "use-systemd");
+        manager->priv->use_logind = g_settings_get_boolean (manager->priv->session_settings, "settings-daemon-uses-logind");
 
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new ("org.cinnamon.desktop.session");

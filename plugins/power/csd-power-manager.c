@@ -4156,7 +4156,7 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
         manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->settings_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
-        manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_session, "use-systemd");
+        manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_session, "settings-daemon-uses-logind");
 
         manager->priv->up_client = up_client_new ();
 #if ! UP_CHECK_VERSION(0,99,0)
