@@ -1733,7 +1733,7 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
         manager->priv->use_logind = g_settings_get_boolean (manager->priv->session_settings, "settings-daemon-uses-logind");
 
         /* for the power plugin interface code */
-        manager->priv->power_settings = g_settings_new ("org.cinnamon.desktop.session");
+        manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
 
         /* Logic from http://git.gnome.org/browse/gnome-shell/tree/js/ui/status/accessibility.js#n163 */
         manager->priv->interface_settings = g_settings_new (SETTINGS_INTERFACE_DIR);
