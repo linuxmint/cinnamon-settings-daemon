@@ -19,8 +19,8 @@ Build-Depends: cdbs,
                libxext-dev,
                libx11-dev,
                libxtst-dev,
-               cinnamon-desktop-data (>= 2.4.0),
-               libcinnamon-desktop-dev (>= 2.4.0),
+               cinnamon-desktop-data (>= 2.6.3),
+               libcinnamon-desktop-dev (>= 2.6.3),
                libpulse-dev (>= 0.9.16),
                libcanberra-gtk3-dev,
                libcups2-dev,
@@ -44,6 +44,7 @@ Package: cinnamon-settings-daemon
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         cinnamon-desktop-data (>= 2.6.3),
          colord (>= 0.1.27),
          gsettings-desktop-schemas (>= 3.3.90-0ubuntu2)
 Recommends: pulseaudio,
