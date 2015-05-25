@@ -45,7 +45,7 @@ Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          cinnamon-desktop-data (>= 2.6.3),
-         colord (>= 0.1.27),
+         colord (>= 0.1.27)
 Recommends: pulseaudio,
             systemd-services,
 Pre-Depends: ${misc:Pre-Depends}
