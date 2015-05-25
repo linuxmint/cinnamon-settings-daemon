@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (2.6.1) rafaela; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Replaced "use-systemd" with "settings-daemon-uses-logind" gsettings key
+
+  [ leigh123linux ]
+  * Fix broken KB shortcuts for suspend, hibernate and shutdown
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 25 May 2015 10:37:48 +0200
+
 cinnamon-settings-daemon (2.6.0) rafaela; urgency=medium
 
   * 2.6.0 
