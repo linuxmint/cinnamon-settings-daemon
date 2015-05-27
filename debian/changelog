@@ -1,3 +1,12 @@
+cinnamon-settings-daemon (2.6.2) rafaela; urgency=medium
+
+  [ leigh123linux ]
+  * bump version to account for cinnamon-desktop systemd schema change
+  * remove gsettings-desktop-schemas require as the c-s-d code doesn't need it
+  * clean up
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 27 May 2015 10:23:01 +0200
+
 cinnamon-settings-daemon (2.6.1) rafaela; urgency=medium
 
   [ Clement Lefebvre ]
