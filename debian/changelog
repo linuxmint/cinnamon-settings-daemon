@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (2.6.3) rafaela; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Revert "mouse: Enable two-finger scrolling by default"
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 24 Jun 2015 19:26:31 +0200
+
 cinnamon-settings-daemon (2.6.2) rafaela; urgency=medium
 
   [ leigh123linux ]
