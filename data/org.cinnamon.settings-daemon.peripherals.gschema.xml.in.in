@@ -21,12 +21,12 @@
       <_description>Set this to TRUE if you have problems with accidentally hitting the touchpad while typing.</_description>
     </key>
     <key name="horiz-scroll-enabled" type="b">
-      <default>true</default>
+      <default>false</default>
       <_summary>Enable horizontal scrolling</_summary>
       <_description>Set this to TRUE to allow horizontal scrolling by the same method selected with the scroll_method key.</_description>
     </key>
     <key name="scroll-method" enum="org.cinnamon.settings-daemon.CsdTouchpadScrollMethod">
-      <default>'two-finger-scrolling'</default>
+      <default>'edge-scrolling'</default>
       <_summary>Select the touchpad scroll method</_summary>
       <_description>Select the touchpad scroll method. Supported values are: "disabled", "edge-scrolling", "two-finger-scrolling".</_description>
     </key>
