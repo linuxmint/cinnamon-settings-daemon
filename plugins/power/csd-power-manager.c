@@ -106,10 +106,10 @@ static const gchar introspection_xml[] =
     "<property name='Tooltip' type='s' access='read'>"
     "</property>"
     "<method name='GetPrimaryDevice'>"
-      "<arg name='device' type='(susdut)' direction='out' />"
+      "<arg name='device' type='(sssusdut)' direction='out' />"
     "</method>"
     "<method name='GetDevices'>"
-      "<arg name='devices' type='a(susdut)' direction='out' />"
+      "<arg name='devices' type='a(sssusdut)' direction='out' />"
     "</method>"
   "</interface>"
 "  <interface name='org.cinnamon.SettingsDaemon.Power.Screen'>"
@@ -4592,7 +4592,7 @@ handle_method_call_screen (CsdPowerManager *manager,
 static GVariant *
 device_to_variant_blob (UpDevice *device)
 {
-        const gchar *object_path;
+        const gchar *object_path, *vendor, *model;
         gchar *device_icon;
         gdouble percentage;
         GIcon *icon;
@@ -4605,6 +4605,8 @@ device_to_variant_blob (UpDevice *device)
         icon = gpm_upower_get_device_icon (device, TRUE);
         device_icon = g_icon_to_string (icon);
         g_object_get (device,
+                      "vendor", &vendor,
+                      "model", &model,
                       "kind", &kind,
                       "percentage", &percentage,
                       "state", &state,
@@ -4624,8 +4626,10 @@ device_to_variant_blob (UpDevice *device)
                 object_path = CSD_DBUS_PATH;
 
         /* format complex object */
-        value = g_variant_new ("(susdut)",
+        value = g_variant_new ("(sssusdut)",
                                object_path,
+                               vendor,
+                               model,
                                kind,
                                device_icon,
                                percentage,
@@ -4673,7 +4677,7 @@ handle_method_call_main (CsdPowerManager *manager,
         if (g_strcmp0 (method_name, "GetDevices") == 0) {
 
                 /* create builder */
-                builder = g_variant_builder_new (G_VARIANT_TYPE("a(susdut)"));
+                builder = g_variant_builder_new (G_VARIANT_TYPE("a(sssusdut)"));
 
                 /* add each tuple to the array */
                 array = manager->priv->devices_array;
