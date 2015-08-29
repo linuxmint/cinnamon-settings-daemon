@@ -506,6 +506,14 @@ csd_keyboard_xkb_init (CsdKeyboardManager * kbd_manager)
 
 		settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
 		settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
+
+		gkbd_desktop_config_start_listen (&current_config,
+		                                  (GCallback) apply_desktop_settings,
+		                                  NULL);
+		gkbd_keyboard_config_start_listen (&current_kbd_config,
+		                                   (GCallback) apply_xkb_settings,
+		                                   NULL);
+
 		g_signal_connect (settings_desktop, "changed",
 				  (GCallback) apply_desktop_settings,
 				  NULL);
