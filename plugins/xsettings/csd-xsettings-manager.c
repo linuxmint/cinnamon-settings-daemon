@@ -797,7 +797,7 @@ find_translation_entry (GSettings *settings, const char *key)
         guint i;
         char *schema;
 
-        g_object_get (settings, "schema", &schema, NULL);
+        g_object_get (settings, "schema-id", &schema, NULL);
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 if (g_str_equal (schema, translations[i].gsettings_schema) &&
