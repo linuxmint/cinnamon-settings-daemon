@@ -122,7 +122,6 @@ process_desktop_file (const char      *path,
                 key = g_key_file_get_string (keyfile, "GTK Module", "X-GTK-Module-Enabled-Key", NULL);
 
                 settings = g_settings_new (schema);
-                enabled = g_settings_get_boolean (settings, key);
 
                 gtk->priv->cond_settings = g_list_prepend (gtk->priv->cond_settings, settings);
 
@@ -130,6 +129,7 @@ process_desktop_file (const char      *path,
 
                 signal = g_strdup_printf ("changed::%s", key);
                 g_signal_connect_object (G_OBJECT (settings), signal, G_CALLBACK (cond_setting_changed), gtk, 0);
+                enabled = g_settings_get_boolean (settings, key);
                 g_free (signal);
                 g_free (schema);
                 g_free (key);
