@@ -440,6 +440,7 @@ on_cups_notification (GDBusConnection *connection,
                                 ippDelete(response);
                         }
                         g_free (job_uri);
+                        httpClose (http);
                 }
         }
         else {
@@ -873,6 +874,7 @@ cancel_subscription (gint id)
                 ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
                               "notify-subscription-id", id);
                 ippDelete (cupsDoRequest (http, request, "/"));
+                httpClose (http);
         }
 }
 
