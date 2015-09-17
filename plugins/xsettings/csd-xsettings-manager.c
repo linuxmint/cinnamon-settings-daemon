@@ -934,6 +934,12 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
         g_hash_table_insert (manager->priv->settings,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
 
+        list = g_hash_table_get_values (manager->priv->settings);
+        for (l = list; l != NULL; l = l->next) {
+                g_signal_connect_object (G_OBJECT (l->data), "changed", G_CALLBACK (xsettings_callback), manager, 0);
+        }
+        g_list_free (list);
+
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GVariant *val;
                 GSettings *settings;
@@ -950,12 +956,6 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                 process_value (manager, &translations[i], val);
                 g_variant_unref (val);
         }
-
-        list = g_hash_table_get_values (manager->priv->settings);
-        for (l = list; l != NULL; l = l->next) {
-                g_signal_connect_object (G_OBJECT (l->data), "changed", G_CALLBACK (xsettings_callback), manager, 0);
-        }
-        g_list_free (list);
 
         /* Plugin settings (GTK modules and Xft) */
         manager->priv->plugin_settings = g_settings_new (XSETTINGS_PLUGIN_SCHEMA);
