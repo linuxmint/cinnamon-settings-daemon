@@ -38,9 +38,9 @@ get_loc (GSettings *settings)
 
 	g_object_get (G_OBJECT (settings),
 		      "path", &path,
-		      "schema", &schema,
+		      "schema-id", &schema,
 		      NULL);
-	ret = g_strdup_printf ("schema: %s (path: %s)", schema, path);
+	ret = g_strdup_printf ("schema-id: %s (path: %s)", schema, path);
 	g_free (schema);
 	g_free (path);
 
