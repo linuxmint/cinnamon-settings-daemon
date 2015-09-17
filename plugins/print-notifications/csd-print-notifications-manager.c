@@ -263,16 +263,25 @@ show_notification (gpointer user_data)
 }
 
 static gboolean
-reason_is_blacklisted (const gchar *reason) {
+reason_is_blacklisted (const gchar *reason)
+{
         if (g_str_equal (reason, "none"))
                 return TRUE;
+
         if (g_str_equal (reason, "other"))
                 return TRUE;
+
         if (g_str_equal (reason, "com.apple.print.recoverable"))
                 return TRUE;
+
         /* https://bugzilla.redhat.com/show_bug.cgi?id=883401 */
         if (g_str_has_prefix (reason, "cups-remote-"))
                 return TRUE;
+
+        /* https://bugzilla.redhat.com/show_bug.cgi?id=1207154 */
+        if (g_str_equal (reason, "cups-waiting-for-job-completed"))
+                return TRUE;
+
         return FALSE;
 }
 
@@ -431,6 +440,7 @@ on_cups_notification (GDBusConnection *connection,
                                 ippDelete(response);
                         }
                         g_free (job_uri);
+                        httpClose (http);
                 }
         }
         else {
@@ -864,6 +874,7 @@ cancel_subscription (gint id)
                 ippAddInteger (request, IPP_TAG_OPERATION, IPP_TAG_INTEGER,
                               "notify-subscription-id", id);
                 ippDelete (cupsDoRequest (http, request, "/"));
+                httpClose (http);
         }
 }
 
