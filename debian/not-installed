@@ -1,0 +1,7 @@
+# Mmh, nah
+usr/share/cinnamon-settings-daemon-3.0/input-device-example.sh
+# We don't want the libtool nor static files
+usr/lib/*/cinnamon-settings-daemon-3.0/*.a
+usr/lib/*/cinnamon-settings-daemon-3.0/*.la
+# False positive
+usr/share/man/man1/cinnamon-settings-daemon.1

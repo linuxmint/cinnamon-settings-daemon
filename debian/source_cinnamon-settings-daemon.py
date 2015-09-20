@@ -1,16 +1,27 @@
-import os, apport.packaging, re
-from apport.hookutils import *
+import apport.packaging
+import re
+
 
 def add_info(report):
-	# the issue is not in the cinnamon-settings-daemon code so reassign
-	if "Stacktrace" in report and "/usr/lib/cinnamon-settings-daemon-3.0" in report["Stacktrace"]:
-		for words in report["Stacktrace"].split():
-			if words.startswith("/usr/lib/cinnamon-settings-daemon-3.0"):
-			    if apport.packaging.get_file_package(words) != 'cinnamon-settings-daemon':
-    				report.add_package_info(apport.packaging.get_file_package(words))
-    				return    			
-    		    # update the title to reflect the component and tab	
-			    component = re.compile("lib(\w*).so").search(words).groups(1)[0]
-			    report['Title'] = '[%s]: %s' % (component, report.get('Title', report.standard_title()))
-			    report['Tags'] = '%s %s' % (report.get('Tags', ""), component)
-			    break # Stop on the first .so that's the interesting one
+    if not 'Stacktrace' in report:
+        return
+
+    m = re.search(r'/usr/lib/([\w-]+/)?cinnamon-settings-daemon-3.0',
+                  report['Stacktrace'])
+    if not m:
+        return
+    package = apport.packaging.get_file_package(m.group(0))
+    report.add_package_info(package)
+
+    # the issue is not in the cinnamon-settings-daemon code so reassign
+    for word in report['Stacktrace'].split():
+        # update the title to reflect the component and tab
+        m = re.search(r'lib([\w-]+)\.so', word)
+        if not m:
+            continue
+        component = m.group(1)
+        report['Title'] = '[%s]: %s' % \
+            (component, report.get('Title', report.standard_title()))
+        tags = ('%s ' % report['Tags']) if report.get('Tags', '') else ''
+        report['Tags'] = tags + component
+        break  # Stop on the first .so that's the interesting one
