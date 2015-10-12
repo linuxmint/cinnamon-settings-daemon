@@ -1,7 +1,0 @@
-rm_conffile /etc/gnome/config/Editres.ad 3.6.3-0ubuntu3~
-rm_conffile /etc/gnome/config/Emacs.ad 3.6.3-0ubuntu3~
-rm_conffile /etc/gnome/config/General.ad 3.6.3-0ubuntu3~
-rm_conffile /etc/gnome/config/Motif.ad 3.6.3-0ubuntu3~
-rm_conffile /etc/gnome/config/Tk.ad 3.6.3-0ubuntu3~
-rm_conffile /etc/gnome/config/Xaw.ad 3.6.3-0ubuntu3~
-
