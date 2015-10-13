@@ -1903,6 +1903,8 @@ apply_stored_configuration_at_startup (CsdXrandrManager *manager, guint32 timest
         char *intended_filename;
         GnomePnpIds *pnp_ids;
 
+        /* This avoids the GnomePnpIds object being created multiple times.
+         * See c9240e8b69c5833074508b46bc56307aac12ec19 */
         pnp_ids = gnome_pnp_ids_new ();
         backup_filename = gnome_rr_config_get_backup_filename ();
         intended_filename = gnome_rr_config_get_intended_filename ();
