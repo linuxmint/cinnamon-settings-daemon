@@ -424,9 +424,8 @@ get_window_scale (CinnamonSettingsXSettingsManager *manager)
     int monitor_scale;
     double dpi_x, dpi_y;
 
-   interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
-        window_scale =
-                g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
+    interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
+    window_scale = g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
         if (window_scale == 0) {
                 int primary;
 
@@ -441,6 +440,13 @@ get_window_scale (CinnamonSettingsXSettingsManager *manager)
                 window_scale = 1;
 
                 if (rect.height < HIDPI_MIN_HEIGHT)
+                    goto out;
+
+                /* Some monitors/TV encode the aspect ratio (16/9 or 16/10) instead of the physical size */
+                if ((width_mm == 160 && height_mm == 90) ||
+                    (width_mm == 160 && height_mm == 100) ||
+                    (width_mm == 16 && height_mm == 9) ||
+                    (width_mm == 16 && height_mm == 10))
                     goto out;
 
                 if (width_mm > 0 && height_mm > 0) {
