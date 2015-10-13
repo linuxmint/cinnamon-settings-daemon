@@ -335,7 +335,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Deamhan Socruithe GNOME"
+msgstr "Deamhan Socruithe Cinnamon"
 
 #: ../data/cinnamon-settings-daemon.schemas.in.h:1
 msgid "Binding to toggle the magnifier."

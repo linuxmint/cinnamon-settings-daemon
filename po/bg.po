@@ -26,7 +26,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Сървър за настройките на GNOME"
+msgstr "Сървър за настройките на Cinnamon"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1450,7 +1450,7 @@ msgstr "Принтерът „%s“ скоро ще трябва да бъде �
 #: ../plugins/color/gsd-color-manager.c:2194
 #: ../plugins/color/gsd-color-manager.c:2210
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "Приставка за цветове към сървъра за настройките на GNOME"
+msgstr "Приставка за цветове към сървъра за настройките на Cinnamon"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2196

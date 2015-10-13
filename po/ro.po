@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Serviciul de configurări GNOME"
+msgstr "Serviciul de configurări Cinnamon"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Command to be run when a device is added or removed."
@@ -1465,7 +1465,7 @@ msgstr "Imprimanta „%s” trebuie recalibrată în curând."
 #: ../plugins/color/gsd-color-manager.c:2034
 #: ../plugins/color/gsd-color-manager.c:2050
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "Modul culoare la serviciul de configurări GNOME"
+msgstr "Modul culoare la serviciul de configurări Cinnamon"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2036

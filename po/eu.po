@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "GNOMEren ezarpenen daemon-a"
+msgstr "Cinnamonren ezarpenen daemon-a"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Command to be run when a device is added or removed."
@@ -1532,7 +1532,7 @@ msgstr "'%s' inprimagailua laster berriro kalibratu beharko da."
 #: ../plugins/color/gsd-color-manager.c:2153
 #: ../plugins/color/gsd-color-manager.c:2169
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "GNOMEren ezarpenen daemon-aren koloreen plugina"
+msgstr "Cinnamonren ezarpenen daemon-aren koloreen plugina"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2155

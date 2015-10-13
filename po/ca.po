@@ -26,7 +26,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Dimoni de paràmetres del GNOME"
+msgstr "Dimoni de paràmetres del Cinnamon"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1476,7 +1476,7 @@ msgstr ""
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "Connector de color del dimoni de paràmetres del GNOME"
+msgstr "Connector de color del dimoni de paràmetres del Cinnamon"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187

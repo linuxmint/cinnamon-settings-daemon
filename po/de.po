@@ -39,7 +39,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "GNOME-Einstellungsdienst"
+msgstr "Cinnamon-Einstellungsdienst"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1220,7 +1220,7 @@ msgstr "Der Drucker »%s« sollte bald neu kalibriert werden."
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "Farb-Plugin für GNOME-Einstellungsdienst"
+msgstr "Farb-Plugin für Cinnamon-Einstellungsdienst"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187

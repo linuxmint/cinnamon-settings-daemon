@@ -29,7 +29,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "GNOME అమర్పుల డెమోన్"
+msgstr "Cinnamon అమర్పుల డెమోన్"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1492,7 +1492,7 @@ msgstr "'%s'అను ముద్రణాయంత్రమును త్వ
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "GNOME అమర్పుల డెమోన్ వర్ణపు ప్లగ్‌ఇన్"
+msgstr "Cinnamon అమర్పుల డెమోన్ వర్ణపు ప్లగ్‌ఇన్"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187

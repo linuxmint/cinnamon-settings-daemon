@@ -33,7 +33,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Démon nastavení GNOME"
+msgstr "Démon nastavení Cinnamon"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1452,7 +1452,7 @@ msgstr "Tiskárna „%s“ by měla být v dohledné době překalibrována."
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "Zásuvný modul barev pro démona nastavení GNOME"
+msgstr "Zásuvný modul barev pro démona nastavení Cinnamon"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187

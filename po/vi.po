@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Trình nền Thiết lập GNOME"
+msgstr "Trình nền Thiết lập Cinnamon"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1397,7 +1397,7 @@ msgstr "Máy in '%s' sẽ được cân chỉnh sớm."
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "Phần bổ sung màu sắc cho trình nền thiết lập GNOME"
+msgstr "Phần bổ sung màu sắc cho trình nền thiết lập Cinnamon"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187

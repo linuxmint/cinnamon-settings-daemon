@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "GNOME સુયોજન ડિમન"
+msgstr "Cinnamon સુયોજન ડિમન"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1416,7 +1416,7 @@ msgstr "પ્રિન્ટર '%s' ને ઝલ્દી ફરી કેલ
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "GNOME સુયોજન ડિમન રંગ પ્લગઇન"
+msgstr "Cinnamon સુયોજન ડિમન રંગ પ્લગઇન"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187

@@ -28,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 msgid "Cinnamon Settings Daemon"
-msgstr "GNOME sätetedeemon"
+msgstr "Cinnamon sätetedeemon"
 
 msgid "Smartcard removal action"
 msgstr "Smartcardi eemaldamise tegevus"
@@ -1091,7 +1091,7 @@ msgstr "Printerit '%s' tuleks varsti uuesti kalibreerida."
 
 #. TRANSLATORS: this is the application name
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "GNOME sätetedeemoni värviplugin"
+msgstr "Cinnamon sätetedeemoni värviplugin"
 
 #. TRANSLATORS: this is a sound description
 msgid "Color calibration device added"

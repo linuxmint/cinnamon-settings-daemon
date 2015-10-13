@@ -421,7 +421,7 @@ msgstr "Set denne til TRUE for å slå på alle styreplater"
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 #| msgid "Keep GNOME settings"
 msgid "Cinnamon Settings Daemon"
-msgstr "GNOME innstillingsnisse"
+msgstr "Cinnamon innstillingsnisse"
 
 #: ../data/cinnamon-settings-daemon.schemas.in.h:1
 #| msgid "Binding to open the Home folder."

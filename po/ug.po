@@ -1309,7 +1309,7 @@ msgstr "پرىنتېر ‹%s› پات ئارىدا قايتا تەڭشىلىش�
 #: ../plugins/color/gsd-color-manager.c:2201
 #: ../plugins/color/gsd-color-manager.c:2217
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "GNOME تەڭشەك مۇئەككىلى رەڭ قىستۇرمىسى"
+msgstr "Cinnamon تەڭشەك مۇئەككىلى رەڭ قىستۇرمىسى"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2203

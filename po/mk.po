@@ -28,7 +28,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Демонот за поставувања на GNOME"
+msgstr "Демонот за поставувања на Cinnamon"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Command to be run when a device is added or removed."
@@ -1218,7 +1218,7 @@ msgstr "Печеатачот „%s“ ќе треба да се рекалибр
 #: ../plugins/color/gsd-color-manager.c:2050
 #| msgid "Cinnamon Settings Daemon"
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "Приклучок за боја за демонот за поставувања на GNOME"
+msgstr "Приклучок за боја за демонот за поставувања на Cinnamon"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2036

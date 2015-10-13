@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "GNOME 設定值伺服程式"
+msgstr "Cinnamon 設定值伺服程式"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -1316,7 +1316,7 @@ msgstr "打印機「%s」不應該這麼快就重新校正。"
 #: ../plugins/color/gsd-color-manager.c:2185
 #: ../plugins/color/gsd-color-manager.c:2201
 msgid "Cinnamon Settings Daemon Color Plugin"
-msgstr "GNOME 設定值伺服程式顏色外掛程式"
+msgstr "Cinnamon 設定值伺服程式顏色外掛程式"
 
 #. TRANSLATORS: this is a sound description
 #: ../plugins/color/gsd-color-manager.c:2187
