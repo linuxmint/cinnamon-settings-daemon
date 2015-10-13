@@ -626,6 +626,7 @@ user_says_things_are_ok (CsdXrandrManager *manager, GdkWindow *parent_window)
 
         print_countdown_text (&timeout);
 
+        gtk_window_set_title (GTK_WINDOW (timeout.dialog), _("Confirm New Configuration"));
         gtk_window_set_icon_name (GTK_WINDOW (timeout.dialog), "preferences-desktop-display");
         gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Restore Previous Configuration"), GTK_RESPONSE_CANCEL);
         gtk_dialog_add_button (GTK_DIALOG (timeout.dialog), _("_Keep This Configuration"), GTK_RESPONSE_ACCEPT);
