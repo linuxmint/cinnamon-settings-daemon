@@ -30,6 +30,7 @@
 
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
+#include <glib-unix.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <libnotify/notify.h>
@@ -47,7 +48,6 @@
 
 static gboolean   debug        = FALSE;
 static gboolean   do_timed_exit = FALSE;
-static int        term_signal_pipe_fds[2];
 static guint      name_id      = 0;
 static guint      gnome_name_id = 0;
 static CinnamonSettingsManager *manager = NULL;
@@ -299,12 +299,8 @@ set_legacy_ibus_env_vars (GDBusProxy *proxy)
 #endif
 
 static gboolean
-on_term_signal_pipe_closed (GIOChannel *source,
-                            GIOCondition condition,
-                            gpointer data)
+on_term_signal (gpointer user_data)
 {
-        term_signal_pipe_fds[0] = -1;
-
         g_debug ("Received SIGTERM - shutting down");
         /* Got SIGTERM, time to clean up and get out
          */
@@ -314,40 +310,11 @@ on_term_signal_pipe_closed (GIOChannel *source,
 }
 
 static void
-on_term_signal (int signal)
-{
-        /* Wake up main loop to tell it to shutdown */
-        close (term_signal_pipe_fds[1]);
-        term_signal_pipe_fds[1] = -1;
-}
-
-static void
-watch_for_term_signal (CinnamonSettingsManager *manager)
-{
-        GIOChannel *channel;
-
-        if (-1 == pipe (term_signal_pipe_fds) ||
-            -1 == fcntl (term_signal_pipe_fds[0], F_SETFD, FD_CLOEXEC) ||
-            -1 == fcntl (term_signal_pipe_fds[1], F_SETFD, FD_CLOEXEC)) {
-                g_error ("Could not create pipe: %s", g_strerror (errno));
-                exit (EXIT_FAILURE);
-        }
-
-        channel = g_io_channel_unix_new (term_signal_pipe_fds[0]);
-        g_io_channel_set_encoding (channel, NULL, NULL);
-        g_io_channel_set_buffered (channel, FALSE);
-        g_io_add_watch (channel, G_IO_HUP, on_term_signal_pipe_closed, manager);
-        g_io_channel_unref (channel);
-
-        signal (SIGTERM, on_term_signal);
-}
-
-static void
 set_session_over_handler (GDBusConnection *bus)
 {
         g_assert (bus != NULL);
 
-        watch_for_term_signal (manager);
+        g_unix_signal_add (SIGTERM, on_term_signal, manager);
 }
 
 static void
