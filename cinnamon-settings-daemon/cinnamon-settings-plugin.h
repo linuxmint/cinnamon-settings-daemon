@@ -146,8 +146,8 @@ impl_activate (CinnamonSettingsPlugin *plugin)                                  
         g_debug ("Activating %s plugin", G_STRINGIFY(plugin_name));            \
         plugin_cast = G_TYPE_CHECK_INSTANCE_CAST ((plugin), plugin_name##_plugin_get_type(), PluginName##Plugin); \
         if (!plugin_name##_manager_start (plugin_cast->priv->manager, &error)) { \
-                g_warning ("Unable to start %s manager: %s", G_STRINGIFY(plugin_name), error->message); \
-                g_error_free (error);                                          \
+                g_warning ("Unable to start %s manager: %s", G_STRINGIFY(plugin_name), error ? error->message : "No reason"); \
+                g_clear_error (&error);                                        \
         }                                                                      \
 }                                                                              \
                                                                                \
