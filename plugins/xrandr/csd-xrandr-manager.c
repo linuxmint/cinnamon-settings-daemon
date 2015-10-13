@@ -1665,15 +1665,47 @@ out:
         g_object_unref (current);
 }
 
-static void
-auto_configure_outputs (CsdXrandrManager *manager, guint32 timestamp)
+static GnomeRRConfig *
+make_default_setup (CsdXrandrManager *manager)
 {
         CsdXrandrManagerPrivate *priv = manager->priv;
         GnomeRRConfig *config;
+        CsdXrandrBootBehaviour boot;
 
-        config = make_xinerama_setup (manager, priv->rw_screen);
+        boot = g_settings_get_enum (priv->settings, CONF_KEY_DEFAULT_MONITORS_SETUP);
+        g_debug ("xrandr default monitors setup: %d\n", boot);
+
+        switch (boot) {
+        case CSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
+                config = make_xinerama_setup (manager, priv->rw_screen);
+                break;
+        case CSD_XRANDR_BOOT_BEHAVIOUR_FOLLOW_LID:
+                if (laptop_lid_is_closed (manager))
+                        config = make_other_setup (priv->rw_screen);
+                else
+                        config = make_xinerama_setup (manager, priv->rw_screen);
+                break;
+        case CSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
+                config = make_clone_setup (manager, priv->rw_screen);
+                break;
+        case CSD_XRANDR_BOOT_BEHAVIOUR_DOCK:
+                config = make_other_setup (priv->rw_screen);
+                break;
+        default:
+                g_assert_not_reached ();
+        }
+
+        return config;
+}
+
+static void
+auto_configure_outputs (CsdXrandrManager *manager, guint32 timestamp)
+{
+        GnomeRRConfig *config;
+
+        g_debug ("xrandr auto-configure\n");
+        config = make_default_setup (manager);
         if (config) {
-                print_configuration (config, "auto-configure - xinerama mode");
                 apply_configuration (manager, config, timestamp, FALSE);
                 g_object_unref (config);
         } else {
@@ -1844,31 +1876,15 @@ static void
 apply_default_boot_configuration (CsdXrandrManager *mgr, guint32 timestamp)
 {
         CsdXrandrManagerPrivate *priv = mgr->priv;
-        GnomeRRScreen *screen = priv->rw_screen;
         GnomeRRConfig *config;
         CsdXrandrBootBehaviour boot;
 
         boot = g_settings_get_enum (priv->settings, CONF_KEY_DEFAULT_MONITORS_SETUP);
 
-        switch (boot) {
-        case CSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING:
-                return;
-        case CSD_XRANDR_BOOT_BEHAVIOUR_FOLLOW_LID:
-                if (laptop_lid_is_closed (mgr))
-                        config = make_other_setup (screen);
-                else
-                        config = make_xinerama_setup (mgr, screen);
-                break;
-        case CSD_XRANDR_BOOT_BEHAVIOUR_CLONE:
-                config = make_clone_setup (mgr, screen);
-                break;
-        case CSD_XRANDR_BOOT_BEHAVIOUR_DOCK:
-                config = make_other_setup (screen);
-                break;
-        default:
-                g_assert_not_reached ();
-        }
+        if (boot == CSD_XRANDR_BOOT_BEHAVIOUR_DO_NOTHING)
+            return;
 
+        config = make_default_setup (mgr);
         if (config) {
                 /* We don't save the configuration (the "false" parameter to the following function) because we don't want to
                  * install a user-side setting when *here* we are using a system-default setting.
