@@ -115,7 +115,7 @@ int main (int argc, char **argv)
 				g_print ("Device %d is touchpad/touchscreen:\t%s\n", (int) device_info[i].id, "no");
 		}
 
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                xdevice_close (device);
         }
         XFreeDeviceList (device_info);
 

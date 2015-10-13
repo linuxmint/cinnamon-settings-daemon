@@ -79,6 +79,7 @@ gboolean  run_custom_command      (GdkDevice              *device,
 GList *   get_disabled_devices     (GdkDeviceManager       *manager);
 char *    xdevice_get_device_node  (int                     deviceid);
 int       xdevice_get_last_tool_id (int                     deviceid);
+void      xdevice_close            (XDevice                *xdevice);
 
 G_END_DECLS
 

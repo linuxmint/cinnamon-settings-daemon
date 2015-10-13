@@ -260,11 +260,11 @@ device_type_is_present (InfoIdentifyFunc info_func,
 
                 retval = (device_func) (device);
                 if (retval) {
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                        xdevice_close (device);
                         break;
                 }
 
-                XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                xdevice_close (device);
         }
         XFreeDeviceList (device_info);
 
@@ -558,4 +558,12 @@ get_disabled_devices (GdkDeviceManager *manager)
         XFreeDeviceList (device_info);
 
         return ret;
+}
+
+void
+xdevice_close (XDevice *xdevice)
+{
+    gdk_error_trap_push ();
+    XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
+    gdk_error_trap_pop_ignored();
 }

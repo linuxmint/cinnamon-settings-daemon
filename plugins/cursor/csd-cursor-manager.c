@@ -170,7 +170,7 @@ update_cursor_for_current (CsdCursorManager *manager)
                         continue;
 
                 if (device_is_xtest (device)) {
-                        XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device);
+                        xdevice_close (device);
                         continue;
                 }
 
