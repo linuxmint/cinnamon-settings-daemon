@@ -211,6 +211,13 @@ device_info_is_touchscreen (XDeviceInfo *device_info)
 }
 
 gboolean
+device_info_is_tablet (XDeviceInfo *device_info)
+{
+        /* Note that this doesn't match Wacom tablets */
+        return (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_TABLET, False));
+}
+
+gboolean
 device_info_is_mouse (XDeviceInfo *device_info)
 {
         return (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_MOUSE, False));
