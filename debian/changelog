@@ -1,3 +1,43 @@
+cinnamon-settings-daemon (2.8.0) rosa; urgency=medium
+
+  [ leigh123linux ]
+  * Change summary for motion-acceleration as it has nothing to do with single click
+  * Stop using deprecated GSettings:schema property
+  * print-notifications: Don't show error for job in progress
+  * print-notifications: Close HTTP connections
+
+  [ Mike Gerow ]
+  * Pressing the mic-mute button now toggles the microphone's mute status
+
+  [ Clement Lefebvre ]
+  * Power plugin: Added vendor and model info to GetPrimaryDevice() and GetDevices()
+  * [halfline] Xrandr plugin: don't ever show a dialog for xrandr failures
+  * Xrandr: Catch-up with GSD 3.16 - set a title to the confirmation dialog https://bugzilla.gnome.org/show_bug.cgi?id=706128
+  * Xrandr: Catch-up with GSD 3.16 - Simplify layout of adjacent screens
+  * Xrandr: Catch-up with GSD 3.16 - Add object path to the interface definition XML
+  * Xrandr: Catch-up with GSD 3.16 - Avoid the GnomePnpIds object being created multiple times
+  * Xrandr: Catch-up with GSD 3.16 - Add more debug to the rotate windows call
+  * Xrandr: Catch-up with GSD 3.16 - Swap axes for tablets as well
+  * Xrandr: Catch-up with GSD 3.16 - use default-monitors-setup for autoconfigure
+  * Xrandr: Catch-up with GSD 3.16 - Add reasoning for GnomePnpIds instantiation
+  * Catch-up with GSD 3.16 - Provide a helper function to close an XDevice safely
+  * HiDPI: Don't scale when the physical size isn't properly encoded
+  * Fix crash when a plugin failed to start
+  * modernize code for handling SIGTERM
+  * Unown our DBus name when cinnamon-session says "Stop"
+  * Remove unused code
+  * po: Fixed some refs to GNOME
+
+  [ Fabio Fantoni ]
+  * remove unused debian patches
+  * update debian/copyright
+  * remove unused maintscript
+  * remove manpage from debian, the source one will be used instead
+  * debian packaging improvements and fixes
+  * update man with the one that was in debian folder
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 16 Oct 2015 14:14:18 +0100
+
 cinnamon-settings-daemon (2.6.3) rafaela; urgency=medium
 
   [ Clement Lefebvre ]
