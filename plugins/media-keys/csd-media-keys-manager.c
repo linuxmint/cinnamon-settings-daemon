@@ -698,19 +698,6 @@ update_dialog (CsdMediaKeysManager *manager,
         icon = get_icon_name_for_volume (muted, vol);
 
         show_osd (manager, icon, vol);
-
-done:
-        if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {                            
-                GSettings *settings = g_settings_new ("org.cinnamon.desktop.sound");
-                gboolean enabled = g_settings_get_boolean (settings, "volume-sound-enabled");
-                char *sound = g_settings_get_string (settings, "volume-sound-file");                
-                if (enabled) {
-                    ca_context_change_device (manager->priv->ca, gvc_mixer_stream_get_name (stream));
-                    ca_context_play (manager->priv->ca, 1, CA_PROP_MEDIA_FILENAME, sound, NULL);
-                }
-                g_free(sound);
-                g_object_unref (settings);
-        }
 }
 
 #ifdef HAVE_GUDEV

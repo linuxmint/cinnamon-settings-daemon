@@ -59,7 +59,6 @@ csd_backlight_helper_get_best_backlight (gchar** preference_list)
 	gchar *path = NULL;
 	GList *devices;
 	GUdevClient *client;
-	GSettings *settings;
 
 	client = g_udev_client_new (NULL);
 	devices = g_udev_client_query_by_subsystem (client, "backlight");
@@ -67,10 +66,6 @@ csd_backlight_helper_get_best_backlight (gchar** preference_list)
 		goto out;
 
 	/* setup our gsettings interface */
-	/*settings = g_settings_new (CSD_POWER_SETTINGS_SCHEMA);
-	gchar** preference_list = g_settings_get_strv (settings, 
-					"backlight-preference-order");
-    */
 	if (preference_list[0] == NULL)
 		g_print("%s\n%s\n",
 		"Warning: no backlight sources have been configured.",

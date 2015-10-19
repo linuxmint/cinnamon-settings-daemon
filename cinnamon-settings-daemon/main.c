@@ -68,13 +68,6 @@ timed_exit_cb (void)
 }
 
 static void
-stop_manager (CinnamonSettingsManager *manager)
-{
-        cinnamon_settings_manager_stop (manager);
-        gtk_main_quit ();
-}
-
-static void
 respond_to_end_session (GDBusProxy *proxy)
 {
         /* we must answer with "EndSessionResponse" */
@@ -190,37 +183,6 @@ session_env_done (GObject             *source_object,
         }
 
         g_variant_unref (result);
-}
-
-static void
-set_session_env (GDBusProxy  *proxy,
-                 const gchar *name,
-                 const gchar *value)
-{
-        g_dbus_proxy_call (proxy,
-                           "Setenv",
-                           g_variant_new ("(ss)", name, value),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           (GAsyncReadyCallback) session_env_done,
-                           NULL);
-}
-
-static void
-register_with_gnome_session (GDBusProxy *proxy)
-{
-        const char *startup_id;
-
-        startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
-        g_dbus_proxy_call (proxy,
-                           "RegisterClient",
-                           g_variant_new ("(ss)", "cinnamon-settings-daemon", startup_id ? startup_id : ""),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           NULL,
-                           (GAsyncReadyCallback) on_client_registered,
-                           manager);
 }
 
 #ifdef HAVE_IBUS
