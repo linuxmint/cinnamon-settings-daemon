@@ -317,28 +317,6 @@ status_icon_popup_menu_cb (GtkStatusIcon * icon, guint button, guint time)
 			(gpointer) icon, button, time);
 }
 
-static void
-show_hide_icon ()
-{
-	if (g_strv_length (current_kbd_config.layouts_variants) > 1) {
-		if (icon == NULL) {
-			xkl_debug (150, "Creating keyboard status icon\n");
-			icon = gkbd_status_new ();
-			g_signal_connect (icon, "popup-menu",
-					  G_CALLBACK
-					  (status_icon_popup_menu_cb),
-					  NULL);
-
-		}
-	} else {
-		if (icon != NULL) {
-			xkl_debug (150, "Destroying icon\n");
-			g_object_unref (icon);
-			icon = NULL;
-		}
-	}
-}
-
 static gboolean
 try_activating_xkb_config_if_new (GkbdKeyboardConfig *
 				  current_sys_kbd_config)

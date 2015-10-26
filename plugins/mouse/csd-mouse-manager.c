@@ -337,41 +337,6 @@ touchpad_has_single_button (XDevice *device)
         return is_single_button;
 }
 
-static int
-touchpad_num_fingers_supported (XDevice *device)
-{
-        Atom type, prop;
-        int format;
-        unsigned long nitems, bytes_after;
-        unsigned char *data;
-        int num_fingers = 1;
-        int rc;
-
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Capabilities", False);
-        if (!prop)
-                return FALSE;
-
-        gdk_error_trap_push ();
-        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device, prop, 0, 1, False,
-                                XA_INTEGER, &type, &format, &nitems,
-                                &bytes_after, &data);
-        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 5) {
-            if (data[3] == 1) {
-                num_fingers = 2;
-            }
-            if (data[4] == 1) {
-                num_fingers = 3;
-            }
-        }
-
-        if (rc == Success)
-                XFree (data);
-
-        gdk_error_trap_pop_ignored ();
-
-        return num_fingers;
-}
-
 static void
 set_left_handed (CsdMouseManager *manager,
                  GdkDevice       *device,

@@ -2024,7 +2024,6 @@ do_power_action_type (CsdPowerManager *manager,
 static gboolean
 upower_kbd_get_percentage (CsdPowerManager *manager, GError **error)
 {
-        gint value = -1;
         GVariant *k_now = NULL;
 
         k_now = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,

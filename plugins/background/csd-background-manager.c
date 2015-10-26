@@ -318,8 +318,6 @@ gboolean
 csd_background_manager_start (CsdBackgroundManager *manager,
                               GError              **error)
 {
-        gboolean show_desktop_icons;
-
         g_debug ("Starting background manager");
         cinnamon_settings_profile_start (NULL);
 
