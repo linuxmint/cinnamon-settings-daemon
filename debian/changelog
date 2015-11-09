@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (2.8.1) rosa; urgency=medium
+
+  [ JosephMcc ]
+  * clean up some unused functions and variables
+
+  [ leigh123linux ]
+  * csd-datetime forgets to authorize users
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 09 Nov 2015 10:45:19 +0000
+
 cinnamon-settings-daemon (2.8.0) rosa; urgency=medium
 
   [ leigh123linux ]
