@@ -354,6 +354,9 @@ _set_date (CsdDatetimeMechanism  *mechanism,
         int exit_status;
         GError *error;
 
+        if (!_check_polkit_for_action (mechanism, context))
+                return FALSE;
+
         date_str = g_strdup_printf ("%02d/%02d/%d", month, day, year);
         error = NULL;
 
