@@ -226,7 +226,7 @@
 /* The minimum screen height at which we turn on a window-scale of 2;
  * below this there just isn't enough vertical real estate for GNOME
  * apps to work, and it's better to just be tiny */
-#define HIDPI_MIN_HEIGHT 1200
+#define HIDPI_MIN_HEIGHT 1500
 
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (CinnamonSettingsXSettingsManager *manager,
