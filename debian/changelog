@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (2.8.3) rosa; urgency=medium
+
+  * Re-added code removed by mistake.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 26 Nov 2015 20:29:18 +0000
+
 cinnamon-settings-daemon (2.8.2) rosa; urgency=medium
 
   [ Cindy Quach ]
