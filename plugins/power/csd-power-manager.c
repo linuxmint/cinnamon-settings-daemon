@@ -3444,6 +3444,8 @@ idle_configure (CsdPowerManager *manager)
                                            CSD_POWER_IDLETIME_BLANK_ID);
         }
 
+        gboolean is_sleep_inhibited = idle_is_session_inhibited (manager,
+                                                                 SESSION_INHIBIT_MASK_SUSPEND);
         /* only do the sleep timeout when the session is idle
          * and we aren't inhibited from sleeping */
         if (on_battery) {
@@ -3453,7 +3455,7 @@ idle_configure (CsdPowerManager *manager)
                 timeout_sleep = g_settings_get_int (manager->priv->settings,
                                                     "sleep-inactive-ac-timeout");
         }
-        if (timeout_sleep != 0) {
+        if (!is_sleep_inhibited && timeout_sleep != 0) {
                 g_debug ("setting up sleep callback %is", timeout_sleep);
 
                 gpm_idletime_alarm_set (manager->priv->idletime,
