@@ -302,11 +302,6 @@ set_server_from_gsettings (CsdA11yKeyboardManager *manager)
                                                      XkbAccessXFeedbackMask | XkbAX_StickyKeysFBMask);
         }
 
-        /* toggle keys */
-        desc->ctrls->ax_options = set_clear (g_settings_get_boolean (settings, "togglekeys-enable"),
-                                             desc->ctrls->ax_options,
-                                             XkbAccessXFeedbackMask | XkbAX_IndicatorFBMask);
-
         /*
         g_debug ("CHANGE to : 0x%x", desc->ctrls->enabled_ctrls);
         g_debug ("CHANGE to : 0x%x (2)", desc->ctrls->ax_options);
@@ -850,10 +845,6 @@ set_gsettings_from_server (CsdA11yKeyboardManager *manager)
         changed |= set_bool (settings,
                              "stickykeys-modifier-beep",
                              desc->ctrls->ax_options & XkbAX_StickyKeysFBMask);
-
-        changed |= set_bool (settings,
-                             "togglekeys-enable",
-                             desc->ctrls->ax_options & XkbAX_IndicatorFBMask);
 
         if (!changed && stickykeys_changed ^ slowkeys_changed) {
                 /*
