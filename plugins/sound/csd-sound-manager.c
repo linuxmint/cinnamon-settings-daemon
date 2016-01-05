@@ -145,6 +145,8 @@ handle_sound_request (GDBusConnection       *connection,
                                      id == PLAY_ONCE_FLAG ? 0 : id,
                                      CA_PROP_EVENT_ID,
                                      sound_name,
+                                     CA_PROP_CANBERRA_CACHE_CONTROL,
+                                     id == PLAY_ONCE_FLAG ? "never" : "volatile",
                                      NULL);
                 }
 
@@ -161,6 +163,8 @@ handle_sound_request (GDBusConnection       *connection,
                                      id == PLAY_ONCE_FLAG ? 0 : id,
                                      CA_PROP_MEDIA_FILENAME,
                                      sound_file,
+                                     CA_PROP_CANBERRA_CACHE_CONTROL,
+                                     id == PLAY_ONCE_FLAG ? "never" : "volatile",
                                      NULL);
                 }
 
@@ -180,6 +184,8 @@ handle_sound_request (GDBusConnection       *connection,
                                      sound_file,
                                      CA_PROP_CANBERRA_VOLUME,
                                      volume,
+                                     CA_PROP_CANBERRA_CACHE_CONTROL,
+                                     id == PLAY_ONCE_FLAG ? "never" : "volatile",
                                      NULL);
                 }
 
