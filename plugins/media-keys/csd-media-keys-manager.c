@@ -164,8 +164,8 @@ struct CsdMediaKeysManagerPrivate
         GDBusProxy      *power_keyboard_proxy;
 
         /* OSD stuff */
-        GDBusProxy      *osd_proxy;
-        GCancellable    *osd_cancellable;
+        GDBusProxy      *cinnamon_proxy;
+        GCancellable    *cinnamon_cancellable;
 
         /* logind stuff */
         GDBusProxy      *logind_proxy;
@@ -380,12 +380,12 @@ ensure_cancellable (GCancellable **cancellable)
 }
 
 static void
-show_osd_complete (GObject      *source,
+cinnamon_proxy_complete (GObject      *source,
                    GAsyncResult *result,
                    gpointer     data)
 {
     CsdMediaKeysManager *manager = data;
-    g_object_unref (manager->priv->osd_cancellable);
+    g_object_unref (manager->priv->cinnamon_cancellable);
 }
 
 static void
@@ -396,7 +396,7 @@ show_osd (CsdMediaKeysManager *manager,
     GVariantBuilder builder;
 
     if (manager->priv->connection == NULL ||
-        manager->priv->osd_proxy == NULL) {
+        manager->priv->cinnamon_proxy == NULL) {
             g_warning ("No existing D-Bus connection trying to handle osd");
             return;
     }
@@ -411,15 +411,15 @@ show_osd (CsdMediaKeysManager *manager,
                                "level", g_variant_new_int32 (level));
     g_variant_builder_close (&builder);
 
-    ensure_cancellable (&manager->priv->osd_cancellable);
+    ensure_cancellable (&manager->priv->cinnamon_cancellable);
 
-    g_dbus_proxy_call (manager->priv->osd_proxy,
+    g_dbus_proxy_call (manager->priv->cinnamon_proxy,
                        "ShowOSD",
                        g_variant_builder_end (&builder),
                        G_DBUS_CALL_FLAGS_NO_AUTO_START,
                        -1,
-                       manager->priv->osd_cancellable,
-                       show_osd_complete,
+                       manager->priv->cinnamon_cancellable,
+                       cinnamon_proxy_complete,
                        manager);
 }
 
@@ -1339,7 +1339,23 @@ do_screenreader_action (CsdMediaKeysManager *manager)
 static void
 do_on_screen_keyboard_action (CsdMediaKeysManager *manager)
 {
-        do_toggle_accessibility_key ("screen-keyboard-enabled");
+    if (manager->priv->connection == NULL ||
+        manager->priv->cinnamon_proxy == NULL) {
+            g_warning ("No existing D-Bus connection trying to handle osd");
+            do_toggle_accessibility_key ("screen-keyboard-enabled");
+            return;
+    }
+
+    ensure_cancellable (&manager->priv->cinnamon_cancellable);
+
+    g_dbus_proxy_call (manager->priv->cinnamon_proxy,
+                       "ToggleKeyboard",
+                       NULL,
+                       G_DBUS_CALL_FLAGS_NONE,
+                       -1,
+                       manager->priv->cinnamon_cancellable,
+                       cinnamon_proxy_complete,
+                       manager);
 }
 
 static void
@@ -1921,9 +1937,9 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 priv->upower_proxy = NULL;
         }
 
-        if (priv->osd_proxy) {
-            g_object_unref (priv->osd_proxy);
-            priv->osd_proxy = NULL;
+        if (priv->cinnamon_proxy) {
+            g_object_unref (priv->cinnamon_proxy);
+            priv->cinnamon_proxy = NULL;
         }
 
         if (priv->cancellable != NULL) {
@@ -1965,10 +1981,10 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
                 priv->kb_backlight_notification = NULL;
         }
 
-        if (priv->osd_cancellable != NULL) {
-            g_cancellable_cancel (priv->osd_cancellable);
-            g_object_unref (priv->osd_cancellable);
-            priv->osd_cancellable = NULL;
+        if (priv->cinnamon_cancellable != NULL) {
+            g_cancellable_cancel (priv->cinnamon_cancellable);
+            g_object_unref (priv->cinnamon_cancellable);
+            priv->cinnamon_cancellable = NULL;
         }
 
         if (priv->screens != NULL) {
@@ -2197,8 +2213,8 @@ osd_ready_cb (GObject             *source_object,
 {
     GError *error = NULL;
 
-    manager->priv->osd_proxy = g_dbus_proxy_new_finish (res, &error);
-    if (manager->priv->osd_proxy == NULL) {
+    manager->priv->cinnamon_proxy = g_dbus_proxy_new_finish (res, &error);
+    if (manager->priv->cinnamon_proxy == NULL) {
         g_warning ("Failed to get proxy for OSD operations: %s", error->message);
         g_error_free (error);
     }
