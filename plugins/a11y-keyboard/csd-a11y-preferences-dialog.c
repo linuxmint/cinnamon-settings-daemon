@@ -412,8 +412,7 @@ csd_a11y_preferences_dialog_init (CsdA11yPreferencesDialog *dialog)
         gtk_window_set_title (GTK_WINDOW (dialog), _("Universal Access Preferences"));
         gtk_window_set_icon_name (GTK_WINDOW (dialog), "preferences-desktop-accessibility");
         g_object_set (dialog,
-                      "allow-shrink", FALSE,
-                      "allow-grow", FALSE,
+                      "resizable", FALSE,
                       NULL);
 
         gtk_dialog_add_buttons (GTK_DIALOG (dialog),
