@@ -115,9 +115,11 @@ static const gchar introspection_xml[] =
 "  <interface name='org.cinnamon.SettingsDaemon.Power.Screen'>"
 "    <method name='StepUp'>"
 "      <arg type='u' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='output_id' direction='out'/>"
 "    </method>"
 "    <method name='StepDown'>"
 "      <arg type='u' name='new_percentage' direction='out'/>"
+"      <arg type='i' name='output_id' direction='out'/>"
 "    </method>"
 "    <method name='GetPercentage'>"
 "      <arg type='u' name='percentage' direction='out'/>"
@@ -254,6 +256,8 @@ static void      inhibit_lid_switch (CsdPowerManager *manager);
 static void      uninhibit_lid_switch (CsdPowerManager *manager);
 static void      lock_screensaver (CsdPowerManager *manager);
 static void      kill_lid_close_safety_timer (CsdPowerManager *manager);
+
+int             backlight_get_output_id (CsdPowerManager *manager);
 
 #if UP_CHECK_VERSION(0,99,0)
 static void device_properties_changed_cb (UpDevice *device, GParamSpec *pspec, CsdPowerManager *manager);
@@ -2694,6 +2698,41 @@ out:
         return ret;
 }
 
+int
+backlight_get_output_id (CsdPowerManager *manager)
+{
+        GnomeRROutput *output = NULL;
+        GnomeRROutput **outputs;
+        GnomeRRCrtc *crtc;
+        GdkScreen *gdk_screen;
+        gint x, y;
+        guint i;
+
+        outputs = gnome_rr_screen_list_outputs (manager->priv->x11_screen);
+        if (outputs == NULL)
+                return -1;
+
+        for (i = 0; outputs[i] != NULL; i++) {
+                if (gnome_rr_output_is_connected (outputs[i]) &&
+                    gnome_rr_output_is_laptop (outputs[i])) {
+                        output = outputs[i];
+                        break;
+                }
+        }
+
+        if (output == NULL)
+                return -1;
+
+        crtc = gnome_rr_output_get_crtc (output);
+        if (crtc == NULL)
+                return -1;
+
+        gdk_screen = gdk_screen_get_default ();
+        gnome_rr_crtc_get_position (crtc, &x, &y);
+
+        return gdk_screen_get_monitor_at_point (gdk_screen, x, y);
+}
+
 static gint
 backlight_get_abs (CsdPowerManager *manager, GError **error)
 {
@@ -4557,36 +4596,51 @@ handle_method_call_screen (CsdPowerManager *manager,
         guint value_tmp;
         GError *error = NULL;
 
-        if (g_strcmp0 (method_name, "GetPercentage") == 0) {
-                g_debug ("screen get percentage");
-                value = backlight_get_percentage (manager, &error);
+        if ((g_strcmp0 (method_name, "GetPercentage") == 0) || (g_strcmp0 (method_name, "SetPercentage") == 0)) {
+                if (g_strcmp0 (method_name, "GetPercentage") == 0) {
+                        g_debug ("screen get percentage");
+                        value = backlight_get_percentage (manager, &error);
 
-        } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
-                g_debug ("screen set percentage");
-                g_variant_get (parameters, "(u)", &value_tmp);
-                ret = backlight_set_percentage (manager, value_tmp, TRUE, &error);
-                if (ret)
-                        value = value_tmp;
+                } else if (g_strcmp0 (method_name, "SetPercentage") == 0) {
+                        g_debug ("screen set percentage");
+                        g_variant_get (parameters, "(u)", &value_tmp);
+                        ret = backlight_set_percentage (manager, value_tmp, TRUE, &error);
+                        if (ret)
+                                value = value_tmp;
+                }
 
-        } else if (g_strcmp0 (method_name, "StepUp") == 0) {
-                g_debug ("screen step up");
-                value = backlight_step_up (manager, &error);
-        } else if (g_strcmp0 (method_name, "StepDown") == 0) {
-                g_debug ("screen step down");
-                value = backlight_step_down (manager, &error);
+                /* return value */
+                if (value < 0) {
+                        g_dbus_method_invocation_return_gerror (invocation,
+                                                                error);
+                        g_error_free (error);
+                } else {
+                        g_dbus_method_invocation_return_value (invocation,
+                                                               g_variant_new ("(u)",
+                                                                              value));
+                }
+        } else if ((g_strcmp0 (method_name, "StepUp") == 0) || (g_strcmp0 (method_name, "StepDown") == 0)) {
+                if (g_strcmp0 (method_name, "StepUp") == 0) {
+                        g_debug ("screen step up");
+                        value = backlight_step_up (manager, &error);
+                } else if (g_strcmp0 (method_name, "StepDown") == 0) {
+                        g_debug ("screen step down");
+                        value = backlight_step_down (manager, &error);
+                }
+
+                /* return value */
+                if (value < 0) {
+                        g_dbus_method_invocation_return_gerror (invocation,
+                                                                error);
+                        g_error_free (error);
+                } else {
+                        g_dbus_method_invocation_return_value (invocation,
+                                                               g_variant_new ("(ui)",
+                                                                              value,
+                                                                              backlight_get_output_id (manager)));
+                }
         } else {
                 g_assert_not_reached ();
-        }
-
-        /* return value */
-        if (value < 0) {
-                g_dbus_method_invocation_return_gerror (invocation,
-                                                        error);
-                g_error_free (error);
-        } else {
-                g_dbus_method_invocation_return_value (invocation,
-                                                       g_variant_new ("(u)",
-                                                                      value));
         }
 }
 
