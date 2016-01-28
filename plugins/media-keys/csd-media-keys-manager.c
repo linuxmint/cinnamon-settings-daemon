@@ -86,6 +86,8 @@
 #define GNOME_KEYRING_DBUS_PATH "/org/gnome/keyring/daemon"
 #define GNOME_KEYRING_DBUS_INTERFACE "org.gnome.keyring.Daemon"
 
+#define OSD_ALL_OUTPUTS -1
+
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.gnome.SettingsDaemon.MediaKeys'>"
@@ -370,57 +372,61 @@ execute (CsdMediaKeysManager *manager,
 static void 
 ensure_cancellable (GCancellable **cancellable)
 {
-    if (*cancellable == NULL) {
-        *cancellable = g_cancellable_new ();
-        g_object_add_weak_pointer (G_OBJECT (*cancellable),
-                                   (gpointer *)cancellable);
-    } else {
-        g_object_ref (*cancellable);
-    }
+        if (*cancellable == NULL) {
+                *cancellable = g_cancellable_new ();
+                g_object_add_weak_pointer (G_OBJECT (*cancellable),
+                                           (gpointer *)cancellable);
+        } else {
+                g_object_ref (*cancellable);
+        }
 }
 
 static void
 cinnamon_proxy_complete (GObject      *source,
-                   GAsyncResult *result,
-                   gpointer     data)
+                         GAsyncResult *result,
+                         gpointer     data)
 {
-    CsdMediaKeysManager *manager = data;
-    g_object_unref (manager->priv->cinnamon_cancellable);
+        CsdMediaKeysManager *manager = data;
+        g_object_unref (manager->priv->cinnamon_cancellable);
 }
 
 static void
 show_osd (CsdMediaKeysManager *manager,
           const char          *icon,
-          int                  level)
+          int                  level,
+          int                  monitor)
 {
-    GVariantBuilder builder;
+        GVariantBuilder builder;
 
-    if (manager->priv->connection == NULL ||
-        manager->priv->cinnamon_proxy == NULL) {
-            g_warning ("No existing D-Bus connection trying to handle osd");
-            return;
-    }
+        if (manager->priv->connection == NULL ||
+            manager->priv->cinnamon_proxy == NULL) {
+                g_warning ("No existing D-Bus connection trying to handle osd");
+                return;
+        }
 
-    g_variant_builder_init (&builder, G_VARIANT_TYPE_TUPLE);
-    g_variant_builder_open (&builder, G_VARIANT_TYPE_VARDICT);
-    if (icon)
-        g_variant_builder_add (&builder, "{sv}",
-                               "icon", g_variant_new_string (icon));
-    if (level >= 0)
-        g_variant_builder_add (&builder, "{sv}",
-                               "level", g_variant_new_int32 (level));
-    g_variant_builder_close (&builder);
+        g_variant_builder_init (&builder, G_VARIANT_TYPE_TUPLE);
+        g_variant_builder_open (&builder, G_VARIANT_TYPE_VARDICT);
+        if (icon)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "icon", g_variant_new_string (icon));
+        if (level >= 0)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "level", g_variant_new_int32 (level));
+        if (monitor >= 0)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "monitor", g_variant_new_int32 (monitor));
+        g_variant_builder_close (&builder);
 
-    ensure_cancellable (&manager->priv->cinnamon_cancellable);
+        ensure_cancellable (&manager->priv->cinnamon_cancellable);
 
-    g_dbus_proxy_call (manager->priv->cinnamon_proxy,
-                       "ShowOSD",
-                       g_variant_builder_end (&builder),
-                       G_DBUS_CALL_FLAGS_NO_AUTO_START,
-                       -1,
-                       manager->priv->cinnamon_cancellable,
-                       cinnamon_proxy_complete,
-                       manager);
+        g_dbus_proxy_call (manager->priv->cinnamon_proxy,
+                           "ShowOSD",
+                           g_variant_builder_end (&builder),
+                           G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                           -1,
+                           manager->priv->cinnamon_cancellable,
+                           cinnamon_proxy_complete,
+                           manager);
 }
 
 static const char *
@@ -601,7 +607,7 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        show_osd (manager, "media-eject-symbolic", -1);
+        show_osd (manager, "media-eject-symbolic", -1, OSD_ALL_OUTPUTS);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -661,7 +667,7 @@ do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
 {
     show_osd (manager,
               state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-              -1);
+              -1, OSD_ALL_OUTPUTS);
 }
 
 static void
@@ -695,7 +701,7 @@ update_dialog (CsdMediaKeysManager *manager,
     const char *icon;
     vol = CLAMP (vol, 0, 100);
     icon = get_icon_name_for_volume (muted, vol);
-    show_osd (manager, icon, vol);
+    show_osd (manager, icon, vol, OSD_ALL_OUTPUTS);
     if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
         GSettings *settings = g_settings_new ("org.cinnamon.desktop.sound");
         gboolean enabled = g_settings_get_boolean (settings, "volume-sound-enabled");
@@ -1161,7 +1167,7 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
         if (!have_listeners) {
                 if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                 /* Popup a dialog with an (/) icon */
-                    show_osd (manager, "action-unavailable-symbolic", -1);
+                    show_osd (manager, "action-unavailable-symbolic", -1, OSD_ALL_OUTPUTS);
                  }
                 return TRUE;
         }
@@ -1457,12 +1463,13 @@ update_screen_cb (GObject             *source_object,
 {
         GError *error = NULL;
         guint percentage;
-        GVariant *new_percentage;
+        int output_id;
+        GVariant *variant;
         CsdMediaKeysManager *manager = CSD_MEDIA_KEYS_MANAGER (user_data);
 
-        new_percentage = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
-                                                   res, &error);
-        if (new_percentage == NULL) {
+        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                            res, &error);
+        if (variant == NULL) {
                 g_warning ("Failed to set new screen percentage: %s",
                            error->message);
                 g_error_free (error);
@@ -1470,9 +1477,9 @@ update_screen_cb (GObject             *source_object,
         }
 
         /* update the dialog with the new value */
-        g_variant_get (new_percentage, "(u)", &percentage);
-        show_osd (manager, "display-brightness-symbolic", percentage);
-        g_variant_unref (new_percentage);
+        g_variant_get (variant, "(ui)", &percentage, &output_id);
+        show_osd (manager, "display-brightness-symbolic", percentage, output_id);
+        g_variant_unref (variant);
 }
 
 static void
@@ -1553,7 +1560,7 @@ update_keyboard_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        show_osd (manager, "keyboard-brightness-symbolic", percentage);
+        show_osd (manager, "keyboard-brightness-symbolic", percentage, OSD_ALL_OUTPUTS);
         g_variant_unref (new_percentage);
 }
 
