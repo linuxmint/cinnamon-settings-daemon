@@ -373,7 +373,9 @@ dnl ====================================================================
 dnl Check for logind
 dnl ====================================================================
 
-PKG_CHECK_MODULES(LOGIND, [libsystemd-login], [have_logind=yes], [have_logind=no])
+PKG_CHECK_MODULES(LOGIND, [libsystemd-login], [have_logind=yes], [
+ PKG_CHECK_MODULES(LOGIND, [libsystemd], [have_logind=yes], [have_logind=no])
+])
 
 if test x$have_logind = xyes; then
     AC_DEFINE(HAVE_LOGIND, 1, [Define if logind is supported])
