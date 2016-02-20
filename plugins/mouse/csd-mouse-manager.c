@@ -64,11 +64,14 @@
 
 /* Touchpad settings */
 #define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable-while-typing"
-#define KEY_PAD_HORIZ_SCROLL             "horiz-scroll-enabled"
-#define KEY_SCROLL_METHOD                "scroll-method"
 #define KEY_TAP_TO_CLICK                 "tap-to-click"
 #define KEY_TWO_FINGER_CLICK             "two-finger-click"
 #define KEY_THREE_FINGER_CLICK           "three-finger-click"
+
+#define KEY_VERT_EDGE_SCROLL             "vertical-edge-scrolling"
+#define KEY_HORIZ_EDGE_SCROLL            "horizontal-edge-scrolling"
+#define KEY_VERT_TWO_FINGER_SCROLL       "vertical-two-finger-scrolling"
+#define KEY_HORIZ_TWO_FINGER_SCROLL      "horizontal-two-finger-scrolling"
 
 #define KEY_TOUCHPAD_ENABLED             "touchpad-enabled"
 #define KEY_NATURAL_SCROLL_ENABLED       "natural-scroll"
@@ -724,133 +727,66 @@ set_click_actions (GdkDevice *device,
         xdevice_close (xdevice);
 }
 
-static void
-set_horiz_scroll (GdkDevice *device,
-                  gboolean   state)
-{
-        int rc;
-        XDevice *xdevice;
-        Atom act_type, prop_edge, prop_twofinger;
-        int act_format;
-        unsigned long nitems, bytes_after;
-        unsigned char *data;
+static void synaptics_set_bool (GdkDevice *device, const char * property_name, int property_index, gboolean enable) {
+    int rc;
+    XDevice *xdevice;
+    Atom act_type, property;
+    int act_format;
+    unsigned long nitems, bytes_after;
+    unsigned char *data;
 
-        prop_edge = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Edge Scrolling", False);
-        prop_twofinger = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Two-Finger Scrolling", False);
+    property = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), property_name, False);
+    if (!property) {
+        return;  
+    }
 
-        if (!prop_edge || !prop_twofinger)
-                return;
+    xdevice = open_gdk_device (device);
+    if (xdevice == NULL) {
+        return;
+    }
 
-        xdevice = open_gdk_device (device);
-        if (xdevice == NULL)
-                return;
-
-        if (!device_is_touchpad (xdevice)) {
-                xdevice_close (xdevice);
-                return;
-        }
-
-	g_debug ("setting horiz scroll on %s", gdk_device_get_name (device));
-
-        gdk_error_trap_push ();
-        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                 prop_edge, 0, 1, False,
-                                 XA_INTEGER, &act_type, &act_format, &nitems,
-                                 &bytes_after, &data);
-        if (rc == Success && act_type == XA_INTEGER &&
-            act_format == 8 && nitems >= 2) {
-                data[1] = (state && data[0]);
-                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                       prop_edge, XA_INTEGER, 8,
-                                       PropModeReplace, data, nitems);
-        }
-
-        XFree (data);
-
-        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                 prop_twofinger, 0, 1, False,
-                                 XA_INTEGER, &act_type, &act_format, &nitems,
-                                 &bytes_after, &data);
-        if (rc == Success && act_type == XA_INTEGER &&
-            act_format == 8 && nitems >= 2) {
-                data[1] = (state && data[0]);
-                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                       prop_twofinger, XA_INTEGER, 8,
-                                       PropModeReplace, data, nitems);
-        }
-
-        if (gdk_error_trap_pop ())
-                g_warning ("Error in setting horiz scroll on \"%s\"", gdk_device_get_name (device));
-
-        if (rc == Success)
-                XFree (data);
-
+    if (!device_is_touchpad (xdevice)) {
         xdevice_close (xdevice);
+        return;
+    }
 
+    int value = 0;
+    if (enable) {
+        value = 1;
+    }
+
+    g_debug ("Setting %s on %s to %d", property_name, gdk_device_get_name (device), value);
+
+    gdk_error_trap_push ();
+    rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                             property, 0, 1, False,
+                             XA_INTEGER, &act_type, &act_format, &nitems,
+                             &bytes_after, &data);
+    if (rc == Success && act_type == XA_INTEGER && act_format == 8 && nitems > property_index) {
+        data[property_index] = value;
+        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                               property, XA_INTEGER, 8,
+                               PropModeReplace, data, nitems);
+    }
+
+    if (rc == Success) {
+        XFree (data);
+    }
+
+    if (gdk_error_trap_pop ()) {
+        g_warning ("Error while setting %s on \"%s\"", property_name, gdk_device_get_name (device));
+    }
+
+    xdevice_close (xdevice);
 }
 
 static void
-set_edge_scroll (GdkDevice               *device,
-                 CsdTouchpadScrollMethod  method)
+set_scrolling (GdkDevice *device, GSettings *settings)
 {
-        int rc;
-        XDevice *xdevice;
-        Atom act_type, prop_edge, prop_twofinger;
-        int act_format;
-        unsigned long nitems, bytes_after;
-        unsigned char *data;
-
-        prop_edge = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Edge Scrolling", False);
-        prop_twofinger = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Two-Finger Scrolling", False);
-
-        if (!prop_edge || !prop_twofinger)
-                return;
-
-        xdevice = open_gdk_device (device);
-        if (xdevice == NULL)
-                return;
-
-        if (!device_is_touchpad (xdevice)) {
-                xdevice_close (xdevice);
-                return;
-        }
-
-	g_debug ("setting edge scroll on %s", gdk_device_get_name (device));
-
-        gdk_error_trap_push ();
-        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                 prop_edge, 0, 1, False,
-                                 XA_INTEGER, &act_type, &act_format, &nitems,
-                                 &bytes_after, &data);
-        if (rc == Success && act_type == XA_INTEGER &&
-            act_format == 8 && nitems >= 2) {
-                data[0] = (method == CSD_TOUCHPAD_SCROLL_METHOD_EDGE_SCROLLING) ? 1 : 0;
-                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                       prop_edge, XA_INTEGER, 8,
-                                       PropModeReplace, data, nitems);
-        }
-
-        XFree (data);
-
-        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                 prop_twofinger, 0, 1, False,
-                                 XA_INTEGER, &act_type, &act_format, &nitems,
-                                 &bytes_after, &data);
-        if (rc == Success && act_type == XA_INTEGER &&
-            act_format == 8 && nitems >= 2) {
-                data[0] = (method == CSD_TOUCHPAD_SCROLL_METHOD_TWO_FINGER_SCROLLING) ? 1 : 0;
-                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                                       prop_twofinger, XA_INTEGER, 8,
-                                       PropModeReplace, data, nitems);
-        }
-
-        if (gdk_error_trap_pop ())
-                g_warning ("Error in setting edge scroll on \"%s\"", gdk_device_get_name (device));
-
-        if (rc == Success)
-                XFree (data);
-
-        xdevice_close (xdevice);
+    synaptics_set_bool (device, "Synaptics Edge Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_EDGE_SCROLL));
+    synaptics_set_bool (device, "Synaptics Edge Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_EDGE_SCROLL));
+    synaptics_set_bool (device, "Synaptics Two-Finger Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_TWO_FINGER_SCROLL));
+    synaptics_set_bool (device, "Synaptics Two-Finger Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_TWO_FINGER_SCROLL));
 }
 
 static void
@@ -1015,8 +951,7 @@ set_mouse_settings (CsdMouseManager *manager,
 
         set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
         set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_TWO_FINGER_CLICK), g_settings_get_int (manager->priv->touchpad_settings, KEY_THREE_FINGER_CLICK));
-        set_edge_scroll (device, g_settings_get_enum (manager->priv->touchpad_settings, KEY_SCROLL_METHOD));
-        set_horiz_scroll (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_PAD_HORIZ_SCROLL));
+        set_scrolling (device, manager->priv->touchpad_settings);
         set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
                 set_touchpad_disabled (device);
@@ -1149,11 +1084,8 @@ touchpad_callback (GSettings       *settings,
                 }
                 else if (g_str_equal (key, KEY_TWO_FINGER_CLICK) || g_str_equal (key, KEY_THREE_FINGER_CLICK)) {
                         set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_TWO_FINGER_CLICK), g_settings_get_int (manager->priv->touchpad_settings, KEY_THREE_FINGER_CLICK));
-                } else if (g_str_equal (key, KEY_SCROLL_METHOD)) {
-                        set_edge_scroll (device, g_settings_get_enum (settings, key));
-                        set_horiz_scroll (device, g_settings_get_boolean (settings, KEY_PAD_HORIZ_SCROLL));
-                } else if (g_str_equal (key, KEY_PAD_HORIZ_SCROLL)) {
-                        set_horiz_scroll (device, g_settings_get_boolean (settings, key));
+                } else if (g_str_equal (key, KEY_VERT_EDGE_SCROLL) || g_str_equal (key, KEY_HORIZ_EDGE_SCROLL) || g_str_equal (key, KEY_VERT_TWO_FINGER_SCROLL) || g_str_equal (key, KEY_HORIZ_TWO_FINGER_SCROLL)) {
+                        set_scrolling (device, settings);
                 } else if (g_str_equal (key, KEY_TOUCHPAD_ENABLED)) {
                         if (g_settings_get_boolean (settings, key) == FALSE)
                                 set_touchpad_disabled (device);
