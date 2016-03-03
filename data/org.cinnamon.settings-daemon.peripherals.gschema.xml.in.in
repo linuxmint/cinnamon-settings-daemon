@@ -76,7 +76,7 @@
       <description>Distance in pixels the pointer must move before accelerated mouse motion is activated. A value of -1 is the system default.</description>
     </key>
     <key name="natural-scroll" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Natural scrolling</summary>
       <description>Set this to TRUE to enable natural (reverse) scrolling for touchpads.</description>
     </key>
