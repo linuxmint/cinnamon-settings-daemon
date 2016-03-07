@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (2.8.4) rosa; urgency=medium
+
+  [ Michael Webster ]
+  * power manager: prevent sleep properly when the session has a sleep (not idle) inhibitor active
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 07 Mar 2016 17:10:45 +0000
+
 cinnamon-settings-daemon (2.8.3) rosa; urgency=medium
 
   * Re-added code removed by mistake.
