@@ -64,6 +64,11 @@ static const gchar introspection_xml[] =
 "      <arg name='id' direction='in' type='u'/>"
 "      <arg name='name' direction='in' type='s'/>"
 "    </method>"
+"    <method name='PlaySoundWithChannel'>"
+"      <arg name='id' direction='in' type='u'/>"
+"      <arg name='name' direction='in' type='s'/>"
+"      <arg name='channelname' direction='in' type='s'/>"
+"    </method>"
 "    <method name='CancelSound'>"
 "      <arg name='id' direction='in' type='u'/>"
 "    </method>"
@@ -147,6 +152,24 @@ handle_sound_request (GDBusConnection       *connection,
                                      sound_name,
                                      CA_PROP_CANBERRA_CACHE_CONTROL,
                                      id == PLAY_ONCE_FLAG ? "never" : "volatile",
+                                     NULL);
+                }
+
+                g_dbus_method_invocation_return_value (invocation, NULL);
+
+        } else if (g_strcmp0 (method_name, "PlaySoundWithChannel") == 0) {
+                const char *sound_name;
+                const char *channel_name;
+                guint id;
+
+                g_variant_get (parameters, "(u&s&s)", &id, &sound_name, &channel_name);
+
+                if (should_play (manager, id, sound_name)) {
+                    ca_context_play (manager->priv->ca,
+                                     id == PLAY_ONCE_FLAG ? 0 : id,
+                                     CA_PROP_EVENT_ID, sound_name,
+                                     CA_PROP_MEDIA_ROLE, "test",
+                                     CA_PROP_CANBERRA_FORCE_CHANNEL, channel_name,
                                      NULL);
                 }
 
