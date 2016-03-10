@@ -4,8 +4,8 @@ context = actions
 plugin_name = media-keys
 
 NULL =
+SUBDIRS =
 
-SUBDIRS = cut-n-paste
 plugin_LTLIBRARIES = libmedia-keys.la
 
 BUILT_SOURCES = 			\
@@ -35,7 +35,6 @@ libmedia_keys_la_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
@@ -53,7 +52,6 @@ libmedia_keys_la_LDFLAGS = 		\
 
 libmedia_keys_la_LIBADD  = 		\
 	$(top_builddir)/plugins/common/libcommon.la			\
-	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(MEDIA_KEYS_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	-lm
@@ -80,7 +78,6 @@ csd_test_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
-	-I$(top_srcdir)/plugins/media-keys/cut-n-paste		\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
@@ -96,7 +93,6 @@ csd_test_media_keys_CFLAGS = \
 csd_test_media_keys_LDADD = \
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
-	$(top_builddir)/plugins/media-keys/cut-n-paste/libgvc.la	\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)			\
 	$(MEDIA_KEYS_LIBS)			\

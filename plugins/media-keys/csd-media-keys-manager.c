@@ -55,8 +55,7 @@
 #include "csd-enums.h"
 
 #include <canberra.h>
-#include <pulse/pulseaudio.h>
-#include "gvc-mixer-control.h"
+#include <libcvc/gvc-mixer-control.h>
 
 #include <libcinnamon-desktop/cdesktop-enums.h>
 
