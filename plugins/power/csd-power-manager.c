@@ -1019,9 +1019,7 @@ engine_device_add (CsdPowerManager *manager, UpDevice *device)
 #if UP_CHECK_VERSION(0,99,0)
         g_ptr_array_add (manager->priv->devices_array, g_object_ref(device));
 
-        g_signal_connect (device, "notify::state",
-                          G_CALLBACK (device_properties_changed_cb), manager);
-        g_signal_connect (device, "notify::warning-level",
+        g_signal_connect (device, "notify",
                           G_CALLBACK (device_properties_changed_cb), manager);
 #endif
 
