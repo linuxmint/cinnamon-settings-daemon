@@ -430,13 +430,18 @@ show_osd (CsdMediaKeysManager *manager,
 
 static const char *
 get_icon_name_for_volume (gboolean muted,
-                          int volume)
+                          int volume,
+                          gboolean is_mic)
 {
     static const char *icon_names[] = {
         "audio-volume-muted-symbolic",
         "audio-volume-low-symbolic",
         "audio-volume-medium-symbolic",
         "audio-volume-high-symbolic",
+        "microphone-sensitivity-muted-symbolic",
+        "microphone-sensitivity-low-symbolic",
+        "microphone-sensitivity-medium-symbolic",
+        "microphone-sensitivity-high-symbolic",
         NULL
     };
     int n;
@@ -450,6 +455,9 @@ get_icon_name_for_volume (gboolean muted,
         } else if (n > 3) {
             n = 3;
         }
+    }
+    if (is_mic) {
+      n += 4;
     }
 
     return icon_names[n];
@@ -692,6 +700,7 @@ do_touchpad_action (CsdMediaKeysManager *manager)
 static void
 update_dialog (CsdMediaKeysManager *manager,
                GvcMixerStream      *stream,
+               gboolean             is_mic,
                gint                 vol,
                gboolean             muted,
                gboolean             sound_changed,
@@ -699,7 +708,7 @@ update_dialog (CsdMediaKeysManager *manager,
 {
     const char *icon;
     vol = CLAMP (vol, 0, 100);
-    icon = get_icon_name_for_volume (muted, vol);
+    icon = get_icon_name_for_volume (muted, vol, is_mic);
     show_osd (manager, icon, vol, OSD_ALL_OUTPUTS);
     if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
         GSettings *settings = g_settings_new ("org.cinnamon.desktop.sound");
@@ -898,7 +907,7 @@ do_sound_action (CsdMediaKeysManager *manager,
                 osd_vol = (int) (100 * (double) new_vol / PA_VOLUME_NORM);
         else
                 osd_vol = 0;
-        update_dialog (manager, stream, osd_vol, new_muted, sound_changed, quiet);
+        update_dialog (manager, stream, is_source_stream, osd_vol, new_muted, sound_changed, quiet);
 }
 
 static void
