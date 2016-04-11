@@ -1086,6 +1086,7 @@ engine_device_removed_cb (UpClient *client, const char *object_path, CsdPowerMan
                         break;
                 }
         }
+        engine_recalculate_state (manager);
 #else
 engine_device_removed_cb (UpClient *client, UpDevice *device, CsdPowerManager *manager)
 {
