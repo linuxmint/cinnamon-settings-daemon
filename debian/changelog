@@ -1,3 +1,16 @@
+cinnamon-settings-daemon (3.0.0) sarah; urgency=medium
+
+  [ Stephen Collins ]
+  * Add dbus method to play sound event on specified channel
+
+  [ Justin King-Lacroix ]
+  * Corrected the icon shown in the OSD when the mic-mute button is used.
+
+  [ Clement Lefebvre ]
+  * Power plugin: Fixed CSD not notifying Cinnamon on device removal
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 23 Apr 2016 16:17:45 +0100
+
 cinnamon-settings-daemon (2.8.4) rosa; urgency=medium
 
   [ Michael Webster ]
