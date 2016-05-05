@@ -16,7 +16,7 @@
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchpad" path="/org/cinnamon/settings-daemon/peripherals/touchpad/">
     <key name="disable-while-typing" type="b">
-      <default>false</default>
+      <default>true</default>
       <_summary>Disable touchpad while typing</_summary>
       <_description>Set this to TRUE if you have problems with accidentally hitting the touchpad while typing.</_description>
     </key>
