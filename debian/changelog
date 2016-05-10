@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (3.0.1) sarah; urgency=medium
+
+  * Touchpad: By default, disable the touchpad while typing
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 10 May 2016 16:30:09 +0100
+
 cinnamon-settings-daemon (3.0.0) sarah; urgency=medium
 
   [ Stephen Collins ]
