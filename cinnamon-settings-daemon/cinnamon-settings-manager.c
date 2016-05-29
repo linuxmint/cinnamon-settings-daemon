@@ -182,24 +182,21 @@ on_plugin_deactivated (CinnamonSettingsPluginInfo *info,
 }
 
 static gboolean
-contained (const char * const *items,
-           const char         *item)
-{
-        while (*items) {
-                if (g_strcmp0 (*items++, item) == 0) {
-                        return TRUE;
-                }
-        }
-
-        return FALSE;
-}
-
-static gboolean
 is_schema (const char *schema)
 {
-        return contained (g_settings_list_schemas (), schema);
-}
+        GSettingsSchemaSource *source = NULL;
+        GSettingsSchema *test = NULL;
 
+        source = g_settings_schema_source_get_default ();
+        if (!source)
+                return FALSE;
+
+        test = g_settings_schema_source_lookup (source, schema, TRUE);
+        if (test != NULL)
+                return TRUE;
+        else
+                return FALSE;
+}
 
 static void
 _load_file (CinnamonSettingsManager *manager,
