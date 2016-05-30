@@ -81,25 +81,28 @@ draw_background (CsdBackgroundManager *manager,
                  gboolean              use_crossfade)
 {
         GdkDisplay *display;
-        GdkScreen *screen;
-        GdkWindow *root_window;
-        cairo_surface_t *surface;
 
         cinnamon_settings_profile_start (NULL);
 
         display = gdk_display_get_default ();
 
-        screen = gdk_display_get_screen (display, 0);
+        if (display)
+        {
+            GdkScreen *screen;
+            GdkWindow *root_window;
+            cairo_surface_t *surface;
 
-        root_window = gdk_screen_get_root_window (screen);
+            screen = gdk_display_get_screen (display, 0);
 
-        surface = gnome_bg_create_surface (manager->priv->bg,
-                                           root_window,
-                                           gdk_screen_get_width (screen),
-                                           gdk_screen_get_height (screen),
-                                           TRUE);
+            root_window = gdk_screen_get_root_window (screen);
 
-        if (FALSE) {  /* use_crossfade - buggy now?  need to look at cinnamon-desktop */
+            surface = gnome_bg_create_surface (manager->priv->bg,
+                                               root_window,
+                                               gdk_screen_get_width (screen),
+                                               gdk_screen_get_height (screen),
+                                               TRUE);
+
+            if (FALSE) {  /* use_crossfade - buggy now?  need to look at cinnamon-desktop */
 
                 if (manager->priv->fade != NULL) {
                         g_object_unref (manager->priv->fade);
@@ -109,11 +112,12 @@ draw_background (CsdBackgroundManager *manager,
                 g_signal_connect_swapped (manager->priv->fade, "finished",
                                           G_CALLBACK (on_crossfade_finished),
                                           manager);
-        } else {
+            } else {
                 gnome_bg_set_surface_as_root (screen, surface);
-        }
+            }
 
-        cairo_surface_destroy (surface);
+            cairo_surface_destroy (surface);
+        }
 
         cinnamon_settings_profile_end (NULL);
 }
@@ -269,33 +273,41 @@ static void
 disconnect_screen_signals (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
-        GdkScreen *screen;
 
         display = gdk_display_get_default ();
 
-        screen = gdk_display_get_screen (display, 0);
-        g_signal_handlers_disconnect_by_func (screen,
-                                              G_CALLBACK (on_screen_size_changed),
-                                              manager);
+        if (display)
+        {
+            GdkScreen *screen;
+
+            screen = gdk_display_get_screen (display, 0);
+            g_signal_handlers_disconnect_by_func (screen,
+                                                  G_CALLBACK (on_screen_size_changed),
+                                                  manager);
+        }
 }
 
 static void
 connect_screen_signals (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
-        GdkScreen *screen;
 
         display = gdk_display_get_default ();
 
-        screen = gdk_display_get_screen (display, 0);
-        g_signal_connect (screen,
-                          "monitors-changed",
-                          G_CALLBACK (on_screen_size_changed),
-                          manager);
-        g_signal_connect (screen,
-                          "size-changed",
-                           G_CALLBACK (on_screen_size_changed),
-                           manager);
+        if (display)
+        {
+            GdkScreen *screen;
+
+            screen = gdk_display_get_screen (display, 0);
+            g_signal_connect (screen,
+                              "monitors-changed",
+                              G_CALLBACK (on_screen_size_changed),
+                              manager);
+            g_signal_connect (screen,
+                              "size-changed",
+                               G_CALLBACK (on_screen_size_changed),
+                               manager);
+        }
 }
 
 gboolean
