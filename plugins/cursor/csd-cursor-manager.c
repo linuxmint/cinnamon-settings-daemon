@@ -97,28 +97,22 @@ set_cursor_visibility (CsdCursorManager *manager,
 {
         Display *xdisplay;
         GdkDisplay *display;
-        guint n_screens;
-        guint i;
+        GdkScreen *screen;
 
         g_debug ("Attempting to %s the cursor", visible ? "show" : "hide");
 
         display = gdk_display_get_default ();
         xdisplay = GDK_DISPLAY_XDISPLAY (display);
 
-        n_screens = gdk_display_get_n_screens (display);
-
         gdk_error_trap_push ();
 
-        for (i = 0; i < n_screens; i++) {
-                GdkScreen *screen;
+        screen = gdk_display_get_screen (display, 0);
 
-                screen = gdk_display_get_screen (display, i);
+        if (visible)
+                XFixesShowCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
+        else
+                XFixesHideCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
 
-                if (visible)
-                        XFixesShowCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
-                else
-                        XFixesHideCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
-        }
         if (gdk_error_trap_pop ()) {
                 g_warning ("An error occurred trying to %s the cursor",
                            visible ? "show" : "hide");
