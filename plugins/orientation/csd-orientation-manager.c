@@ -213,10 +213,9 @@ on_xrandr_action_call_finished (GObject               *source_object,
 
         variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
 
-        g_object_unref (manager->priv->cancellable);
-        manager->priv->cancellable = NULL;
+        g_clear_object (&manager->priv->cancellable);
 
-        if (error != NULL) {
+        if (variant == NULL) {
                 g_warning ("Unable to call 'RotateTo': %s", error->message);
                 g_error_free (error);
         } else {
@@ -542,25 +541,10 @@ csd_orientation_manager_stop (CsdOrientationManager *manager)
 
         g_debug ("Stopping orientation manager");
 
-        if (p->settings) {
-                g_object_unref (p->settings);
-                p->settings = NULL;
-        }
-
-        if (p->sysfs_path) {
-                g_free (p->sysfs_path);
-                p->sysfs_path = NULL;
-        }
-
-        if (p->introspection_data) {
-                g_dbus_node_info_unref (p->introspection_data);
-                p->introspection_data = NULL;
-        }
-
-        if (p->client) {
-                g_object_unref (p->client);
-                p->client = NULL;
-        }
+        g_clear_object (&p->settings);
+        g_clear_pointer (&p->sysfs_path, g_free);
+        g_clear_pointer (&p->introspection_data, g_dbus_node_info_unref);
+        g_clear_object (&p->client);
 }
 
 static void
