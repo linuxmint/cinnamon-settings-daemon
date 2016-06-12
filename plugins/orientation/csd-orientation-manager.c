@@ -437,9 +437,9 @@ csd_orientation_manager_start (CsdOrientationManager *manager,
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new (CONF_SCHEMA);
-        manager->priv->orientation_lock = g_settings_get_boolean (manager->priv->settings, ORIENTATION_LOCK_KEY);
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed::" ORIENTATION_LOCK_KEY,
                           G_CALLBACK (orientation_lock_changed_cb), manager);
+        manager->priv->orientation_lock = g_settings_get_boolean (manager->priv->settings, ORIENTATION_LOCK_KEY);
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   G_DBUS_PROXY_FLAGS_NONE,
