@@ -1175,7 +1175,7 @@ switch_monitor (CsdWacomDevice *device)
 {
 	gint current_monitor, n_monitors;
 
-	/* We dont; do that for screen tablets, sorry... */
+	/* We don't; do that for screen tablets, sorry... */
 	if (csd_wacom_device_is_screen_tablet (device))
 		return;
 

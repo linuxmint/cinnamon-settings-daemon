@@ -679,11 +679,11 @@ load_nss (GError **error)
                 goto out;
         }
 
-        g_debug ("NSS database sucessfully loaded");
+        g_debug ("NSS database successfully loaded");
         return TRUE;
 
 out:
-        g_debug ("NSS database couldn't be sucessfully loaded");
+        g_debug ("NSS database couldn't be successfully loaded");
         return FALSE;
 }
 
@@ -1263,7 +1263,7 @@ csd_smartcard_manager_worker_watch_for_and_process_event (CsdSmartcardManagerWor
 
                 error_code = PORT_GetError ();
                 if ((error_code == 0) || (error_code == SEC_ERROR_NO_EVENT)) {
-                        g_debug ("spurrious event occurred");
+                        g_debug ("spurious event occurred");
                         return TRUE;
                 }
 

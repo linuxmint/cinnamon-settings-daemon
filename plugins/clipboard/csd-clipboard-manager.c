@@ -98,7 +98,7 @@ G_DEFINE_TYPE (CsdClipboardManager, csd_clipboard_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 /* We need to use reference counting for the target data, since we may
- * need to keep the data around after loosing the CLIPBOARD ownership
+ * need to keep the data around after losing the CLIPBOARD ownership
  * to complete incremental transfers.
  */
 static TargetData *

@@ -531,7 +531,7 @@ csd_timeline_rewind (CsdTimeline *timeline)
 
   priv = CSD_TIMELINE_GET_PRIV (timeline);
 
-  /* destroy and re-create timer if neccesary  */
+  /* destroy and re-create timer if necessary  */
   if (priv->timer)
     {
       g_timer_destroy (priv->timer);

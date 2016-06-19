@@ -48,12 +48,12 @@
     <key name="two-finger-click" type="i">
       <default>3</default>
       <_summary>Enabled two-finger button-click emulation</_summary>
-      <_description>0 thru 3, 0 is inactive, 1-3 is button for two-finger click to emulate.</_description>
+      <_description>0 through 3, 0 is inactive, 1-3 is button for two-finger click to emulate.</_description>
     </key>
     <key name="three-finger-click" type="i">
       <default>2</default>
       <_summary>Enable three-finger button-click emulation</_summary>
-      <_description>0 thru 3, 0 is inactive, 1-3 is button for three-finger click to emulate.</_description>
+      <_description>0 through 3, 0 is inactive, 1-3 is button for three-finger click to emulate.</_description>
     </key>
     <key name="touchpad-enabled" type="b">
       <default>true</default>
