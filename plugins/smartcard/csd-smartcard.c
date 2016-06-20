@@ -484,7 +484,7 @@ _csd_smartcard_set_state (CsdSmartcard      *card,
 }
 
 /* So we could conceivably make the closure data a pointer to the card
- * or something similiar and then emit signals when we want passwords,
+ * or something similar and then emit signals when we want passwords,
  * but it's probably easier to just get the password up front and use
  * it.  So we just take the passed in g_malloc'd (well probably, who knows)
  * and strdup it using NSPR's memory allocation routines.

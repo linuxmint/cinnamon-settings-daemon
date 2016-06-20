@@ -304,7 +304,7 @@ gpm_upower_get_device_summary (UpDevice *device)
         time_to_full_round = gpm_precision_round_down (time_to_full, GPM_UP_TIME_PRECISION);
         time_to_empty_round = gpm_precision_round_down (time_to_empty, GPM_UP_TIME_PRECISION);
 
-        /* we always display "Laptop battery 16 minutes remaining" as we need to clarify what device we are refering to */
+        /* we always display "Laptop battery 16 minutes remaining" as we need to clarify what device we are referring to */
         if (state == UP_DEVICE_STATE_FULLY_CHARGED) {
 
                 g_string_append (description, device_desc);

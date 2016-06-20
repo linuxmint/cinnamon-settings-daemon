@@ -1257,7 +1257,7 @@ csd_wacom_osd_window_mapped (GtkWidget *widget,
 
 	g_return_if_fail (CSD_IS_WACOM_OSD_WINDOW (osd_window));
 
-	/* Position the window at its expected postion before moving
+	/* Position the window at its expected position before moving
 	 * to fullscreen, so the window will be on the right monitor.
 	 */
 	gtk_window_move (GTK_WINDOW (osd_window),

@@ -1452,7 +1452,7 @@ Tue Dec  2 15:37:21 2008  Søren Sandmann  <sandmann@redhat.com>
 2008-08-05  Jens Granseuer  <jensgr@gmx.net>
 
 	* plugins/font/gsd-font-manager.c: (gsd_font_manager_class_init),
-	(gsd_font_manager_init): remove some unneccessary boilerplate
+	(gsd_font_manager_init): remove some unnecessary boilerplate
 
 2008-08-05  Jens Granseuer  <jensgr@gmx.net>
 
@@ -3217,7 +3217,7 @@ Mon Jun 16 14:30:13 2008  Søren Sandmann  <sandmann@redhat.com>
 
 2008-01-14  Denis Washington  <denisw@svn.gnome.org>
 
-	* plugins/xrandr/Makefile.in: This was probably commited by
+	* plugins/xrandr/Makefile.in: This was probably committed by
 	accident, remove it.
 
 2008-01-14  Denis Washington  <denisw@svn.gnome.org>

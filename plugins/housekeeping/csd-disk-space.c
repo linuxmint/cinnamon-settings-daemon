@@ -742,7 +742,7 @@ csd_ldsm_get_config (void)
                                 ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
                 }
 
-                /* Make sure we dont leave stale entries in ldsm_notified_hash */
+                /* Make sure we don't leave stale entries in ldsm_notified_hash */
                 g_hash_table_foreach_remove (ldsm_notified_hash,
                                              ldsm_is_hash_item_in_ignore_paths, NULL);
 
