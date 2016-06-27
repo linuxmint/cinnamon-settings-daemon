@@ -181,12 +181,6 @@ dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(AUTOMOUNT, x11 kbproto)
 
 dnl ---------------------------------------------------------------------------
-dnl - background
-dnl ---------------------------------------------------------------------------
-
-PKG_CHECK_MODULES(BACKGROUND, x11 cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
-
-dnl ---------------------------------------------------------------------------
 dnl - mouse
 dnl ---------------------------------------------------------------------------
 
@@ -525,7 +519,6 @@ plugins/Makefile
 plugins/a11y-keyboard/Makefile
 plugins/a11y-settings/Makefile
 plugins/automount/Makefile
-plugins/background/Makefile
 plugins/clipboard/Makefile
 plugins/color/Makefile
 plugins/common/Makefile
@@ -560,7 +553,6 @@ data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.background.gschema.xml.in
 po/Makefile.in
 man/Makefile
 ])
