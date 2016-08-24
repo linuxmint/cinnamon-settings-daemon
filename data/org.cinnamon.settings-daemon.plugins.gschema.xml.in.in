@@ -16,6 +16,7 @@
     <child name="power" schema="org.cinnamon.settings-daemon.plugins.power"/>
     <child name="print-notifications" schema="org.cinnamon.settings-daemon.plugins.print-notifications"/>
     <child name="screensaver-proxy" schema="org.cinnamon.settings-daemon.plugins.screensaver-proxy"/>
+    <child name="sharing" schema="org.cinnamon.settings-daemon.plugins.sharing"/>
     <child name="smartcard" schema="org.cinnamon.settings-daemon.plugins.smartcard"/>
     <child name="sound" schema="org.cinnamon.settings-daemon.plugins.sound"/>
     <child name="xrandr" schema="org.cinnamon.settings-daemon.plugins.xrandr"/>
