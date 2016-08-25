@@ -54,6 +54,7 @@ PA_REQUIRED_VERSION=0.9.16
 LIBWACOM_REQUIRED_VERSION=0.7
 LIBRSVG_REQUIRED_VERSION=2.36.2
 GTK_XINPUT_2_3_VERSION=3.7.8
+NM_REQUIRED_VERSION=0.9.9.1
 
 #EXTRA_COMPILE_WARNINGS(yes)
 
@@ -420,6 +421,25 @@ fi
 
 AM_CONDITIONAL(BUILD_PRINT_NOTIFICATIONS, [test x"$enable_cups" = x"yes"])
 
+dnl ---------------------------------------------------------------------------
+dnl Sharing plugin
+dnl ---------------------------------------------------------------------------
+
+AC_ARG_ENABLE(network-manager,
+        AS_HELP_STRING([--disable-network-manager],
+                       [Disable NetworkManager support]),
+        enable_network_manager=$enableval,
+        enable_network_manager=yes)
+
+if test "x$enable_network_manager" = "xyes" ; then
+        NM_MODULE="libnm-glib >= $NM_REQUIRED_VERSION libnm-util >= $NM_REQUIRED_VERSION"
+        AC_DEFINE(HAVE_NETWORK_MANAGER, 1, [Defined if NetworkManager support is enabled])
+else
+        NM_MODULE=
+fi
+
+PKG_CHECK_MODULES(SHARING, gio-2.0 $NM_MODULE)
+
 # ---------------------------------------------------------------------------
 # Enable Profiling
 # ---------------------------------------------------------------------------
@@ -540,6 +560,7 @@ plugins/mouse/Makefile
 plugins/orientation/Makefile
 plugins/print-notifications/Makefile
 plugins/screensaver-proxy/Makefile
+plugins/sharing/Makefile
 plugins/smartcard/Makefile
 plugins/sound/Makefile
 plugins/wacom/Makefile
@@ -557,6 +578,7 @@ data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in
+data/org.cinnamon.settings-daemon.plugins.sharing.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
@@ -593,6 +615,7 @@ echo "
 
         Logind supported:         ${have_logind}
         LCMS DICT support:        ${have_new_lcms}
+        NetworkManager support:   ${enable_network_manager}
         Libnotify support:        ${have_libnotify}
 
         Wacom support:            ${build_wacom}

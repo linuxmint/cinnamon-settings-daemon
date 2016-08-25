@@ -16,6 +16,7 @@ enabled_plugins =	\
 	media-keys	\
 	mouse		\
 	screensaver-proxy \
+	sharing		\
 	sound		\
 	xrandr		\
 	xsettings	\
