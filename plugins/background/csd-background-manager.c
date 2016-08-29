@@ -81,44 +81,42 @@ draw_background (CsdBackgroundManager *manager,
                  gboolean              use_crossfade)
 {
         GdkDisplay *display;
-        int         n_screens;
-        int         i;
 
         cinnamon_settings_profile_start (NULL);
 
         display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
 
-        for (i = 0; i < n_screens; ++i) {
-                GdkScreen *screen;
-                GdkWindow *root_window;
-                cairo_surface_t *surface;
+        if (display)
+        {
+            GdkScreen *screen;
+            GdkWindow *root_window;
+            cairo_surface_t *surface;
 
-                screen = gdk_display_get_screen (display, i);
+            screen = gdk_display_get_screen (display, 0);
 
-                root_window = gdk_screen_get_root_window (screen);
+            root_window = gdk_screen_get_root_window (screen);
 
-                surface = gnome_bg_create_surface (manager->priv->bg,
-                                                   root_window,
-                                                   gdk_screen_get_width (screen),
-                                                   gdk_screen_get_height (screen),
-                                                   TRUE);
+            surface = gnome_bg_create_surface (manager->priv->bg,
+                                               root_window,
+                                               gdk_screen_get_width (screen),
+                                               gdk_screen_get_height (screen),
+                                               TRUE);
 
-                if (FALSE) {  /* use_crossfade - buggy now?  need to look at cinnamon-desktop */
+            if (FALSE) {  /* use_crossfade - buggy now?  need to look at cinnamon-desktop */
 
-                        if (manager->priv->fade != NULL) {
-                                g_object_unref (manager->priv->fade);
-                        }
-
-                        manager->priv->fade = gnome_bg_set_surface_as_root_with_crossfade (screen, surface);
-                        g_signal_connect_swapped (manager->priv->fade, "finished",
-                                                  G_CALLBACK (on_crossfade_finished),
-                                                  manager);
-                } else {
-                        gnome_bg_set_surface_as_root (screen, surface);
+                if (manager->priv->fade != NULL) {
+                        g_object_unref (manager->priv->fade);
                 }
 
-                cairo_surface_destroy (surface);
+                manager->priv->fade = gnome_bg_set_surface_as_root_with_crossfade (screen, surface);
+                g_signal_connect_swapped (manager->priv->fade, "finished",
+                                          G_CALLBACK (on_crossfade_finished),
+                                          manager);
+            } else {
+                gnome_bg_set_surface_as_root (screen, surface);
+            }
+
+            cairo_surface_destroy (surface);
         }
 
         cinnamon_settings_profile_end (NULL);
@@ -275,18 +273,17 @@ static void
 disconnect_screen_signals (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
-        int         i;
-        int         n_screens;
 
         display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
 
-        for (i = 0; i < n_screens; ++i) {
-                GdkScreen *screen;
-                screen = gdk_display_get_screen (display, i);
-                g_signal_handlers_disconnect_by_func (screen,
-                                                      G_CALLBACK (on_screen_size_changed),
-                                                      manager);
+        if (display)
+        {
+            GdkScreen *screen;
+
+            screen = gdk_display_get_screen (display, 0);
+            g_signal_handlers_disconnect_by_func (screen,
+                                                  G_CALLBACK (on_screen_size_changed),
+                                                  manager);
         }
 }
 
@@ -294,23 +291,22 @@ static void
 connect_screen_signals (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
-        int         i;
-        int         n_screens;
 
         display = gdk_display_get_default ();
-        n_screens = gdk_display_get_n_screens (display);
 
-        for (i = 0; i < n_screens; ++i) {
-                GdkScreen *screen;
-                screen = gdk_display_get_screen (display, i);
-                g_signal_connect (screen,
-                                  "monitors-changed",
-                                  G_CALLBACK (on_screen_size_changed),
-                                  manager);
-                g_signal_connect (screen,
-                                  "size-changed",
-                                  G_CALLBACK (on_screen_size_changed),
-                                  manager);
+        if (display)
+        {
+            GdkScreen *screen;
+
+            screen = gdk_display_get_screen (display, 0);
+            g_signal_connect (screen,
+                              "monitors-changed",
+                              G_CALLBACK (on_screen_size_changed),
+                              manager);
+            g_signal_connect (screen,
+                              "size-changed",
+                               G_CALLBACK (on_screen_size_changed),
+                               manager);
         }
 }
 
