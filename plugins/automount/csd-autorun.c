@@ -107,7 +107,7 @@ render_icon (GIcon *icon, gint icon_size)
 
 		if (info) {
 			pixbuf = gtk_icon_info_load_icon (info, NULL);
-		        gtk_icon_info_free (info);
+		        g_object_unref (info);
 		}
 
 		if (pixbuf == NULL) {
