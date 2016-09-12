@@ -698,9 +698,9 @@ set_disable_w_typing (CsdMouseManager *manager, gboolean state)
 }
 
 static void
-set_tap_to_click (GdkDevice *device,
-                  gboolean   state,
-                  gboolean   left_handed)
+set_tap_to_click_synaptics (GdkDevice *device,
+                            gboolean   state,
+                            gboolean   left_handed)
 {
         int format, rc;
         unsigned long nitems, bytes_after;
@@ -748,6 +748,26 @@ set_tap_to_click (GdkDevice *device,
                 g_warning ("Error in setting tap to click on \"%s\"", gdk_device_get_name (device));
 
         xdevice_close (xdevice);
+}
+
+static void
+set_tap_to_click_libinput (GdkDevice *device, gboolean state)
+{
+        g_debug ("setting tap to click on %s", gdk_device_get_name (device));
+
+        touchpad_set_bool (device, "libinput Tapping Enabled", 0, state);
+}
+
+static void
+set_tap_to_click (GdkDevice *device,
+                  gboolean   state,
+                  gboolean   left_handed)
+{
+        if (property_from_name ("Synaptics Tap Action"))
+                set_tap_to_click_synaptics (device, state, left_handed);
+
+        if (property_from_name ("libinput Tapping Enabled"))
+                set_tap_to_click_libinput (device, state);
 }
 
 static void
