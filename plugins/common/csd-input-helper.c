@@ -180,10 +180,12 @@ device_is_touchpad (XDevice *xdevice)
 
         /* we don't check on the type being XI_TOUCHPAD here,
          * but having a "Synaptics Off" property should be enough */
-
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", True);
-        if (!prop)
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "libinput Tapping Enabled", True);
+        if (!prop) {
+            prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", True);
+            if (!prop)
                 return FALSE;
+        }
 
         gdk_error_trap_push ();
         if ((XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 1, False,
