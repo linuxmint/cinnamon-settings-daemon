@@ -351,6 +351,61 @@ touchpad_has_single_button (XDevice *device)
 }
 
 static void
+touchpad_set_bool (GdkDevice *device, const char * property_name, int property_index, gboolean enable)
+{
+        int rc;
+        XDevice *xdevice;
+        Atom act_type, property;
+        int act_format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
+
+        property = property_from_name (property_name);
+        if (!property) {
+                return;
+        }
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL) {
+                return;
+        }
+
+        if (!device_is_touchpad (xdevice)) {
+                xdevice_close (xdevice);
+                return;
+        }
+
+        int value = 0;
+        if (enable) {
+                value = 1;
+        }
+
+        g_debug ("Setting %s on %s to %d", property_name, gdk_device_get_name (device), value);
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 property, 0, 1, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success && act_type == XA_INTEGER && act_format == 8 && nitems > property_index) {
+                data[property_index] = value;
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                       property, XA_INTEGER, 8,
+                                       PropModeReplace, data, nitems);
+        }
+
+        if (rc == Success) {
+                XFree (data);
+        }
+
+        if (gdk_error_trap_pop ()) {
+                g_warning ("Error while setting %s on \"%s\"", property_name, gdk_device_get_name (device));
+        }
+
+        xdevice_close (xdevice);
+}
+
+static void
 set_left_handed (CsdMouseManager *manager,
                  GdkDevice       *device,
                  gboolean mouse_left_handed,
@@ -736,66 +791,13 @@ set_click_actions (GdkDevice *device,
         xdevice_close (xdevice);
 }
 
-static void synaptics_set_bool (GdkDevice *device, const char * property_name, int property_index, gboolean enable) {
-    int rc;
-    XDevice *xdevice;
-    Atom act_type, property;
-    int act_format;
-    unsigned long nitems, bytes_after;
-    unsigned char *data;
-
-    property = property_from_name (property_name);
-    if (!property) {
-        return;  
-    }
-
-    xdevice = open_gdk_device (device);
-    if (xdevice == NULL) {
-        return;
-    }
-
-    if (!device_is_touchpad (xdevice)) {
-        xdevice_close (xdevice);
-        return;
-    }
-
-    int value = 0;
-    if (enable) {
-        value = 1;
-    }
-
-    g_debug ("Setting %s on %s to %d", property_name, gdk_device_get_name (device), value);
-
-    gdk_error_trap_push ();
-    rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                             property, 0, 1, False,
-                             XA_INTEGER, &act_type, &act_format, &nitems,
-                             &bytes_after, &data);
-    if (rc == Success && act_type == XA_INTEGER && act_format == 8 && nitems > property_index) {
-        data[property_index] = value;
-        XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
-                               property, XA_INTEGER, 8,
-                               PropModeReplace, data, nitems);
-    }
-
-    if (rc == Success) {
-        XFree (data);
-    }
-
-    if (gdk_error_trap_pop ()) {
-        g_warning ("Error while setting %s on \"%s\"", property_name, gdk_device_get_name (device));
-    }
-
-    xdevice_close (xdevice);
-}
-
 static void
 set_scrolling (GdkDevice *device, GSettings *settings)
 {
-    synaptics_set_bool (device, "Synaptics Edge Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_EDGE_SCROLL));
-    synaptics_set_bool (device, "Synaptics Edge Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_EDGE_SCROLL));
-    synaptics_set_bool (device, "Synaptics Two-Finger Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_TWO_FINGER_SCROLL));
-    synaptics_set_bool (device, "Synaptics Two-Finger Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_TWO_FINGER_SCROLL));
+        touchpad_set_bool (device, "Synaptics Edge Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_EDGE_SCROLL));
+        touchpad_set_bool (device, "Synaptics Edge Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_EDGE_SCROLL));
+        touchpad_set_bool (device, "Synaptics Two-Finger Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_TWO_FINGER_SCROLL));
+        touchpad_set_bool (device, "Synaptics Two-Finger Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_TWO_FINGER_SCROLL));
 }
 
 static void
