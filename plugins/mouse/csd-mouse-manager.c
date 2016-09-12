@@ -818,12 +818,90 @@ set_click_actions (GdkDevice *device,
 }
 
 static void
-set_scrolling (GdkDevice *device, GSettings *settings)
+set_scrolling_synaptics (GdkDevice *device, GSettings *settings)
 {
         touchpad_set_bool (device, "Synaptics Edge Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_EDGE_SCROLL));
         touchpad_set_bool (device, "Synaptics Edge Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_EDGE_SCROLL));
         touchpad_set_bool (device, "Synaptics Two-Finger Scrolling", 0, g_settings_get_boolean (settings, KEY_VERT_TWO_FINGER_SCROLL));
         touchpad_set_bool (device, "Synaptics Two-Finger Scrolling", 1, g_settings_get_boolean (settings, KEY_HORIZ_TWO_FINGER_SCROLL));
+}
+
+static void
+set_scrolling_libinput (GdkDevice *device, GSettings *settings)
+{
+        int format, rc;
+        unsigned long nitems, bytes_after;
+        XDevice *xdevice;
+        unsigned char* data;
+        Atom prop, type;
+        gboolean want_edge, want_2fg;
+        gboolean want_horiz;
+
+        prop = property_from_name ("libinput Scroll Method Enabled");
+        if (!prop)
+                return;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        if (!device_is_touchpad (xdevice)) {
+                xdevice_close (xdevice);
+                return;
+        }
+
+        want_2fg = g_settings_get_boolean (settings, KEY_VERT_TWO_FINGER_SCROLL);
+        want_edge = g_settings_get_boolean (settings, KEY_VERT_EDGE_SCROLL);
+
+        /* libinput only allows for one scroll method at a time. If both are
+         * set, pick 2fg scrolling */
+        if (want_2fg)
+                want_edge = FALSE;
+
+        g_debug ("setting scroll method on %s", gdk_device_get_name (device));
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
+                                 False, XA_INTEGER, &type, &format, &nitems,
+                                 &bytes_after, &data);
+
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3) {
+                data[0] = want_2fg;
+                data[1] = want_edge;
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                       prop, XA_INTEGER, 8, PropModeReplace, data, nitems);
+        }
+
+        if (rc == Success)
+                XFree (data);
+
+        if (gdk_error_trap_pop ())
+                g_warning ("Error in setting scroll method on \"%s\"", gdk_device_get_name (device));
+
+        xdevice_close (xdevice);
+
+        /* horizontal scrolling is handled by xf86-input-libinput and
+         * there's only one bool. Pick the one matching the scroll method we
+         * picked above.
+         */
+        if (want_2fg)
+                want_horiz = g_settings_get_boolean (settings, KEY_HORIZ_TWO_FINGER_SCROLL);
+        else if (want_edge)
+                want_horiz = g_settings_get_boolean (settings, KEY_HORIZ_EDGE_SCROLL);
+        else
+                return;
+
+        touchpad_set_bool (device, "libinput Horizontal Scroll Enabled", 0, want_horiz);
+}
+
+static void
+set_scrolling (GdkDevice *device, GSettings *settings)
+{
+        if (property_from_name ("Synaptics Edge Scrolling"))
+                set_scrolling_synaptics (device, settings);
+
+        if (property_from_name ("libinput Scroll Method Enabled"))
+                set_scrolling_libinput (device, settings);
 }
 
 static void
