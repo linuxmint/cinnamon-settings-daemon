@@ -359,7 +359,7 @@ set_left_handed (CsdMouseManager *manager,
         if (xdevice == NULL)
                 return;
 
-	g_debug ("setting handedness on %s", gdk_device_get_name (device));
+        g_debug ("setting handedness on %s", gdk_device_get_name (device));
 
         buttons = g_new (guchar, buttons_capacity);
 
@@ -396,7 +396,7 @@ set_left_handed (CsdMouseManager *manager,
 
         configure_button_layout (buttons, n_buttons, left_handed);
 
-	gdk_error_trap_push ();
+        gdk_error_trap_push ();
         XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, buttons, n_buttons);
         gdk_error_trap_pop_ignored ();
 
@@ -423,7 +423,7 @@ set_motion (CsdMouseManager *manager,
         if (xdevice == NULL)
                 return;
 
-	g_debug ("setting motion on %s", gdk_device_get_name (device));
+        g_debug ("setting motion on %s", gdk_device_get_name (device));
 
         if (device_is_touchpad (xdevice))
                 settings = manager->priv->touchpad_settings;
@@ -519,7 +519,7 @@ set_middle_button (CsdMouseManager *manager,
         if (xdevice == NULL)
                 return;
 
-	g_debug ("setting middle button on %s", gdk_device_get_name (device));
+        g_debug ("setting middle button on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
 
@@ -651,7 +651,7 @@ set_tap_to_click (GdkDevice *device,
                 return;
         }
 
-	g_debug ("setting tap to click on %s", gdk_device_get_name (device));
+        g_debug ("setting tap to click on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
@@ -659,9 +659,9 @@ set_tap_to_click (GdkDevice *device,
                                  &bytes_after, &data);
 
         if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 7) {
-               /* Set MR mapping for corner tapping on the right side*/
-               data[0] = (state) ? 2 : 0;
-               data[1] = (state) ? 3 : 0;
+                /* Set MR mapping for corner tapping on the right side*/
+                data[0] = (state) ? 2 : 0;
+                data[1] = (state) ? 3 : 0;
 
                 /* Set RLM mapping for 1/2/3 fingers*/
                 data[4] = (state) ? ((left_handed) ? 3 : 1) : 0;
@@ -704,7 +704,7 @@ set_click_actions (GdkDevice *device,
                 return;
         }
 
-    g_debug ("setting click action to click on %s", gdk_device_get_name (device));
+        g_debug ("setting click action to click on %s", gdk_device_get_name (device));
 
         gdk_error_trap_push ();
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
