@@ -995,9 +995,9 @@ set_mouse_settings (CsdMouseManager *manager,
 }
 
 static void
-set_natural_scroll (CsdMouseManager *manager,
-                    GdkDevice       *device,
-                    gboolean         natural_scroll)
+set_natural_scroll_synaptics (CsdMouseManager *manager,
+                              GdkDevice       *device,
+                              gboolean         natural_scroll)
 {
         XDevice *xdevice;
         Atom scrolling_distance, act_type;
@@ -1052,6 +1052,30 @@ set_natural_scroll (CsdMouseManager *manager,
                 XFree (data);
 
         xdevice_close (xdevice);
+}
+
+static void
+set_natural_scroll_libinput (CsdMouseManager *manager,
+                             GdkDevice       *device,
+                             gboolean         natural_scroll)
+{
+        g_debug ("Trying to set %s for \"%s\"",
+                 natural_scroll ? "natural (reverse) scroll" : "normal scroll",
+                 gdk_device_get_name (device));
+
+        touchpad_set_bool (device, "libinput Natural Scrolling Enabled", 0, natural_scroll);
+}
+
+static void
+set_natural_scroll (CsdMouseManager *manager,
+                    GdkDevice       *device,
+                    gboolean         natural_scroll)
+{
+        if (property_from_name ("Synaptics Scrolling Distance"))
+                set_natural_scroll_synaptics (manager, device, natural_scroll);
+
+        if (property_from_name ("libinput Natural Scrolling Enabled"))
+                set_natural_scroll_libinput (manager, device, natural_scroll);
 }
 
 static void
