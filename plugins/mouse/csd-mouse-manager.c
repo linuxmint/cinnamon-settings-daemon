@@ -718,9 +718,9 @@ set_motion (CsdMouseManager *manager,
 }
 
 static void
-set_middle_button (CsdMouseManager *manager,
-                   GdkDevice       *device,
-                   gboolean         middle_button)
+set_middle_button_evdev (CsdMouseManager *manager,
+                         GdkDevice       *device,
+                         gboolean         middle_button)
 {
         Atom prop;
         XDevice *xdevice;
@@ -761,6 +761,41 @@ set_middle_button (CsdMouseManager *manager,
                 XFree (data);
 
         xdevice_close (xdevice);
+}
+
+static void
+set_middle_button_libinput (CsdMouseManager *manager,
+                            GdkDevice       *device,
+                            gboolean         middle_button)
+{
+        XDevice *xdevice;
+
+        g_debug ("setting middle button on %s", gdk_device_get_name (device));
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        /* we didn't set it for synaptics, so bail out for touchpads */
+        if (device_is_touchpad (xdevice))
+                return;
+
+        property_set_bool (device, xdevice, "libinput Middle Emulation Enabled",
+                           0, middle_button);
+
+        xdevice_close (xdevice);
+}
+
+static void
+set_middle_button (CsdMouseManager *manager,
+                   GdkDevice       *device,
+                   gboolean         middle_button)
+{
+        if (property_from_name ("Evdev Middle Button Emulation"))
+                set_middle_button_evdev (manager, device, middle_button);
+
+        if (property_from_name ("libinput Middle Emulation Enabled"))
+                set_middle_button_libinput (manager, device, middle_button);
 }
 
 /* Ensure that syndaemon dies together with us, to avoid running several of
