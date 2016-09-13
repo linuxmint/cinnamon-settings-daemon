@@ -350,6 +350,37 @@ touchpad_has_single_button (XDevice *device)
         return is_single_button;
 }
 
+static gboolean
+property_exists_on_device (GdkDevice *device, const char * property_name)
+{
+        int rc;
+        Atom act_type, property;
+        int act_format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
+        XDevice *xdevice;
+
+        property = property_from_name (property_name);
+        if (!property)
+                return FALSE;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return FALSE;
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 property, 0, 1, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success)
+            XFree(data);
+
+        gdk_error_trap_pop_ignored ();
+
+        return rc == Success;
+}
+
 static void
 property_set_bool (GdkDevice *device,
                    XDevice *xdevice,
@@ -412,10 +443,10 @@ touchpad_set_bool (GdkDevice *device, const char * property_name, int property_i
 }
 
 static void
-set_left_handed (CsdMouseManager *manager,
-                 GdkDevice       *device,
-                 gboolean mouse_left_handed,
-                 gboolean touchpad_left_handed)
+set_left_handed_legacy_driver (CsdMouseManager *manager,
+                               GdkDevice       *device,
+                               gboolean mouse_left_handed,
+                               gboolean touchpad_left_handed)
 {
         XDevice *xdevice;
         guchar *buttons;
@@ -474,6 +505,37 @@ set_left_handed (CsdMouseManager *manager,
 out:
         xdevice_close (xdevice);
         g_free (buttons);
+}
+
+static void
+set_left_handed_libinput (GdkDevice       *device,
+                          gboolean mouse_left_handed,
+                          gboolean touchpad_left_handed)
+{
+        XDevice *xdevice;
+        gboolean want_lefthanded;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        want_lefthanded = device_is_touchpad (xdevice) ? touchpad_left_handed : mouse_left_handed;
+
+        property_set_bool (device, xdevice, "libinput Left Handed Enabled", 0, want_lefthanded);
+
+        xdevice_close (xdevice);
+}
+
+static void
+set_left_handed (CsdMouseManager *manager,
+                 GdkDevice       *device,
+                 gboolean mouse_left_handed,
+                 gboolean touchpad_left_handed)
+{
+        if (property_exists_on_device (device, "libinput Left Handed Enabled"))
+                set_left_handed_libinput (device, mouse_left_handed, touchpad_left_handed);
+        else
+                set_left_handed_legacy_driver (manager, device, mouse_left_handed, touchpad_left_handed);
 }
 
 static void
