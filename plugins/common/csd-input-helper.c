@@ -181,7 +181,7 @@ device_is_touchpad (XDevice *xdevice)
         /* we don't check on the type being XI_TOUCHPAD here,
          * but having a "Synaptics Off" property should be enough */
 
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", False);
+        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", True);
         if (!prop)
                 return FALSE;
 
