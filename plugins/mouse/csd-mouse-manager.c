@@ -351,10 +351,13 @@ touchpad_has_single_button (XDevice *device)
 }
 
 static void
-touchpad_set_bool (GdkDevice *device, const char * property_name, int property_index, gboolean enable)
+property_set_bool (GdkDevice *device,
+                   XDevice *xdevice,
+                   const char * property_name,
+                   int property_index,
+                   gboolean enable)
 {
         int rc;
-        XDevice *xdevice;
         Atom act_type, property;
         int act_format;
         unsigned long nitems, bytes_after;
@@ -362,16 +365,6 @@ touchpad_set_bool (GdkDevice *device, const char * property_name, int property_i
 
         property = property_from_name (property_name);
         if (!property) {
-                return;
-        }
-
-        xdevice = open_gdk_device (device);
-        if (xdevice == NULL) {
-                return;
-        }
-
-        if (!device_is_touchpad (xdevice)) {
-                xdevice_close (xdevice);
                 return;
         }
 
@@ -401,6 +394,19 @@ touchpad_set_bool (GdkDevice *device, const char * property_name, int property_i
         if (gdk_error_trap_pop ()) {
                 g_warning ("Error while setting %s on \"%s\"", property_name, gdk_device_get_name (device));
         }
+}
+
+static void
+touchpad_set_bool (GdkDevice *device, const char * property_name, int property_index, gboolean enable)
+{
+        XDevice *xdevice;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        if (device_is_touchpad (xdevice))
+                property_set_bool (device, xdevice, property_name, property_index, enable);
 
         xdevice_close (xdevice);
 }
