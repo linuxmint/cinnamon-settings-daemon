@@ -539,8 +539,8 @@ set_left_handed (CsdMouseManager *manager,
 }
 
 static void
-set_motion (CsdMouseManager *manager,
-            GdkDevice       *device)
+set_motion_legacy_driver (CsdMouseManager *manager,
+                          GdkDevice       *device)
 {
         XDevice *xdevice;
         XPtrFeedbackControl feedback;
@@ -627,6 +627,94 @@ set_motion (CsdMouseManager *manager,
     out:
 
         xdevice_close (xdevice);
+}
+
+static void
+set_motion_libinput (CsdMouseManager *manager,
+                     GdkDevice       *device)
+{
+        int rc;
+        XDevice *xdevice;
+        GSettings *settings;
+        Atom act_type, property, float_type;
+        int act_format;
+        unsigned long nitems, bytes_after;
+        union {
+                unsigned char *c;
+                long *l;
+        } data;
+        gfloat accel;
+        gfloat motion_acceleration;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        g_debug ("setting motion on %s", gdk_device_get_name (device));
+
+        if (device_is_touchpad (xdevice))
+                settings = manager->priv->touchpad_settings;
+        else
+                settings = manager->priv->mouse_settings;
+
+
+        /* Calculate acceleration */
+        motion_acceleration = g_settings_get_double (settings, KEY_MOTION_ACCELERATION);
+
+        /* panel gives us a range of 1.0-10.0, map to libinput's -1, 1
+
+           oldrange = (oldmax - oldmin)
+           newrange = (newmax - newmin)
+
+           mapped = (value - oldmin) * newrange / oldrange + oldmin
+         */
+
+        if (motion_acceleration == -1.0) /* unset */
+                accel = 0.0;
+        else
+                accel = (motion_acceleration - 1.0) * 2.0 / 9.0 - 1;
+
+
+        float_type = property_from_name ("FLOAT");
+        if (!float_type)
+                return;
+
+        property = property_from_name ("libinput Accel Speed");
+        if (!property) {
+                return;
+        }
+
+        gdk_error_trap_push ();
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 property, 0, 1, False,
+                                 float_type, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data.c);
+        if (rc == Success && act_type == float_type && act_format == 32 && nitems >= 1) {
+                *(float*)data.l = accel;
+                XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                       property, float_type, 32,
+                                       PropModeReplace, data.c, nitems);
+        }
+
+        if (rc == Success) {
+                XFree (data.c);
+        }
+
+        if (gdk_error_trap_pop ()) {
+                g_warning ("Error while setting accel speed on \"%s\"", gdk_device_get_name (device));
+        }
+
+        xdevice_close (xdevice);
+}
+
+static void
+set_motion (CsdMouseManager *manager,
+            GdkDevice       *device)
+{
+        if (property_exists_on_device (device, "libinput Accel Speed"))
+                set_motion_libinput (manager, device);
+        else
+                set_motion_legacy_driver (manager, device);
 }
 
 static void
