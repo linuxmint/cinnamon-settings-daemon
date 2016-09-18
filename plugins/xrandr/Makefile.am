@@ -1,5 +1,7 @@
 plugin_name = xrandr
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 icondir = $(datadir)/icons/hicolor
 context = apps
 
@@ -55,6 +57,7 @@ libxrandr_la_CFLAGS =			\
 	$(AM_CFLAGS)
 
 libxrandr_la_LDFLAGS = 			\
+	$(WARN_LDFLAGS)			\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libxrandr_la_LIBADD  =					\

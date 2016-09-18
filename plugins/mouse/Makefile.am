@@ -2,6 +2,8 @@ plugin_name = mouse
 
 plugin_LTLIBRARIES = libmouse.la
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libmouse_la_SOURCES = 		\
 	csd-mouse-plugin.h	\
 	csd-mouse-plugin.c	\
@@ -23,6 +25,7 @@ libmouse_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libmouse_la_LDFLAGS = 		\
+	$(WARN_LDFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libmouse_la_LIBADD  =							\

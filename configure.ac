@@ -4,10 +4,13 @@ AC_INIT([cinnamon-settings-daemon],
         [3.0.1],
         [https://github.com/linuxmint/cinnamon-settings-daemon/issues])
 
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([cinnamon-settings-daemon/cinnamon-settings-manager.c])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-xz no-dist-gzip check-news])
 AM_MAINTAINER_MODE([enable])
+
+m4_ifdef([AX_IS_RELEASE], [AX_IS_RELEASE([always])])
 
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
@@ -38,6 +41,9 @@ AM_GLIB_GNU_GETTEXT
 
 CSD_INTLTOOL_PLUGIN_RULE='%.cinnamon-settings-plugin:   %.cinnamon-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
 AC_SUBST([CSD_INTLTOOL_PLUGIN_RULE])
+
+m4_ifdef([AX_COMPILER_FLAGS],
+         [AX_COMPILER_FLAGS([WARN_CFLAGS],[WARN_LDFLAGS])])
 
 dnl ---------------------------------------------------------------------------
 dnl - Dependencies
@@ -457,48 +463,6 @@ AM_CONDITIONAL(ENABLE_MAN, test "$enable_man" != no)
 dnl ---------------------------------------------------------------------------
 dnl - Finish
 dnl ---------------------------------------------------------------------------
-
-
-# Turn on the additional warnings last, so warnings don't affect other tests.
-
-AC_ARG_ENABLE(more-warnings,
-	[AC_HELP_STRING([--enable-more-warnings],
-	[Maximum compiler warnings])],
-	set_more_warnings="$enableval",[
-		if test -d $srcdir/.git; then
-			set_more_warnings=yes
-		else
-			set_more_warnings=no
-		fi
-        ])
-AC_MSG_CHECKING(for more warnings)
-if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
-        AC_MSG_RESULT(yes)
-        CFLAGS="\
-        -Wall \
-        -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes \
-        -Wnested-externs -Wpointer-arith \
-        -Wcast-align -Wsign-compare \
-        $CFLAGS"
-
-        for option in -Wno-strict-aliasing -Wno-sign-compare; do
-                SAVE_CFLAGS="$CFLAGS"
-                CFLAGS="$CFLAGS $option"
-                AC_MSG_CHECKING([whether gcc understands $option])
-                AC_TRY_COMPILE([], [],
-                        has_option=yes,
-                        has_option=no,)
-                if test $has_option = no; then
-                        CFLAGS="$SAVE_CFLAGS"
-                fi
-                AC_MSG_RESULT($has_option)
-                unset has_option
-                unset SAVE_CFLAGS
-        done
-        unset option
-else
-        AC_MSG_RESULT(no)
-fi
 
 #
 # Enable Debug

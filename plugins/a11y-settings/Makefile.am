@@ -40,6 +40,7 @@ liba11y_settings_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 liba11y_settings_la_LDFLAGS = 		\
+	$(WARN_LDFLAGS)			\
 	$(CSD_PLUGIN_LDFLAGS)
 
 liba11y_settings_la_LIBADD  = 		\

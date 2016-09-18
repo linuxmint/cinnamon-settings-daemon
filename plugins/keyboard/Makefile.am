@@ -28,6 +28,8 @@ libkeyboard_la_SOURCES = 	\
 	gkbd-configuration.h	\
 	$(NULL)
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libkeyboard_la_CPPFLAGS = \
 	-I$(top_srcdir)/cinnamon-settings-daemon		\
 	-I$(top_srcdir)/data				\
@@ -43,6 +45,7 @@ libkeyboard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libkeyboard_la_LDFLAGS = 	\
+	$(WARN_LDFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 

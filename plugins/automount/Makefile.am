@@ -4,6 +4,8 @@ plugin_name = automount
 
 libexec_PROGRAMS = csd-test-automount
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 csd_test_automount_SOURCES = 		\
 	test-automount.c		\
 	csd-automount-manager.h		\
@@ -57,6 +59,7 @@ libautomount_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libautomount_la_LDFLAGS =		\
+	$(WARN_LDFLAGS)			\
 	$(CSD_PLUGIN_LDFLAGS)		\
 	$(NULL)
 

@@ -3,6 +3,8 @@ plugin_name = dummy
 plugin_LTLIBRARIES = \
 	libdummy.la
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libdummy_la_SOURCES = 		\
 	csd-dummy-manager.c	\
 	csd-dummy-manager.h	\
@@ -20,6 +22,7 @@ libdummy_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libdummy_la_LDFLAGS = 		\
+	$(WARN_CFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libdummy_la_LIBADD  = 		\

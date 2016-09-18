@@ -4,6 +4,8 @@ plugin_name = background
 
 libexec_PROGRAMS = csd-test-background
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 csd_test_background_SOURCES =       \
     test-background.c       \
     csd-background-manager.h    \
@@ -51,6 +53,7 @@ libbackground_la_CFLAGS = \
     $(AM_CFLAGS)
 
 libbackground_la_LDFLAGS =      \
+    $(WARN_LDFLAGS)             \
     $(CSD_PLUGIN_LDFLAGS)       \
     $(NULL)
 
