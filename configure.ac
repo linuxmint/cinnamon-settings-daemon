@@ -233,9 +233,7 @@ dnl ---------------------------------------------------------------------------
 dnl - orientation plugin stuff
 dnl ---------------------------------------------------------------------------
 
-if test x$have_gudev != xno; then
-	PKG_CHECK_MODULES(ORIENTATION, [cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION gudev-1.0])
-fi
+PKG_CHECK_MODULES(ORIENTATION, [cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION])
 
 dnl ---------------------------------------------------------------------------
 dnl - sound plugin stuff

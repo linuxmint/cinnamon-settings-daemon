@@ -15,6 +15,7 @@ enabled_plugins =	\
 	keyboard	\
 	media-keys	\
 	mouse		\
+	orientation	\
 	screensaver-proxy \
 	sound		\
 	xrandr		\
@@ -33,12 +34,6 @@ if SMARTCARD_SUPPORT
 enabled_plugins += smartcard
 else
 disabled_plugins += smartcard
-endif
-
-if HAVE_GUDEV
-enabled_plugins += orientation
-else
-disabled_plugins += orientation
 endif
 
 if BUILD_PRINT_NOTIFICATIONS
