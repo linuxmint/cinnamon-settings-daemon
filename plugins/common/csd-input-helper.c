@@ -177,23 +177,32 @@ device_is_touchpad (XDevice *xdevice)
         int realformat;
         unsigned long nitems, bytes_after;
         unsigned char *data;
+        const char *names[] = {
+            "libinput Tapping Enabled",
+            /* we don't check on the type being XI_TOUCHPAD here,
+             * but having a "Synaptics Off" property should be enough */
+            "Synaptics Off",
+            NULL,
+        };
+        const char **name = names;
 
-        /* we don't check on the type being XI_TOUCHPAD here,
-         * but having a "Synaptics Off" property should be enough */
+        do {
+                prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), *name, True);
+                if (prop) {
+                        gdk_error_trap_push ();
+                        if ((XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
+                                                 xdevice, prop, 0, 1, False,
+                                                 XA_INTEGER, &realtype, &realformat, &nitems,
+                                                 &bytes_after, &data) == Success) && (realtype != None)) {
+                                gdk_error_trap_pop_ignored ();
+                                XFree (data);
+                                return TRUE;
+                        }
+                        gdk_error_trap_pop_ignored ();
+                }
 
-        prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Synaptics Off", False);
-        if (!prop)
-                return FALSE;
-
-        gdk_error_trap_push ();
-        if ((XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 1, False,
-                                XA_INTEGER, &realtype, &realformat, &nitems,
-                                &bytes_after, &data) == Success) && (realtype != None)) {
-                gdk_error_trap_pop_ignored ();
-                XFree (data);
-                return TRUE;
-        }
-        gdk_error_trap_pop_ignored ();
+                name++;
+        } while (*name);
 
         return FALSE;
 }
