@@ -3,6 +3,8 @@ plugin_name = cursor
 plugin_LTLIBRARIES = \
 	libcursor.la
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libcursor_la_SOURCES =		\
 	csd-cursor-manager.c	\
 	csd-cursor-manager.h	\
@@ -22,6 +24,7 @@ libcursor_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcursor_la_LDFLAGS =		\
+	$(WARN_LDFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libcursor_la_LIBADD  =					\

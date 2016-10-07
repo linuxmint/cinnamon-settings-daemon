@@ -2,6 +2,8 @@ NULL =
 
 plugin_name = a11y-keyboard
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 gtkbuilderdir = $(pkgdatadir)
 gtkbuilder_DATA = 			\
 	csd-a11y-preferences-dialog.ui	\
@@ -85,6 +87,7 @@ liba11y_keyboard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 liba11y_keyboard_la_LDFLAGS = 		\
+	$(WARN_LDFLAGS)			\
 	$(CSD_PLUGIN_LDFLAGS)		\
 	$(NULL)
 

@@ -1,5 +1,7 @@
 plugin_name = smartcard
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libexec_PROGRAMS = csd-test-smartcard
 
 csd_test_smartcard_SOURCES =	\
@@ -52,6 +54,7 @@ libsmartcard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libsmartcard_la_LDFLAGS = \
+	$(WARN_LDFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libsmartcard_la_LIBADD = \

@@ -3,6 +3,8 @@ plugin_name = color
 plugin_LTLIBRARIES = \
 	libcolor.la
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libcolor_la_SOURCES = 			\
 	gcm-profile-store.c		\
 	gcm-profile-store.h		\

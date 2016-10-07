@@ -2,6 +2,8 @@ plugin_name = common
 
 noinst_LTLIBRARIES = libcommon.la
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libcommon_la_SOURCES = \
 	csd-keygrab.c		\
 	csd-keygrab.h		\
@@ -20,6 +22,7 @@ libcommon_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcommon_la_LDFLAGS = \
+	$(WARN_LDFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libcommon_la_LIBADD  = \

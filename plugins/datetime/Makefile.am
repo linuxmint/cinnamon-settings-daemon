@@ -37,7 +37,7 @@ if HAVE_POLKIT
 BUILT_SOURCES = csd-datetime-mechanism-glue.h
 endif
 
-AM_CFLAGS = $(PLUGIN_CFLAGS) $(SETTINGS_PLUGIN_CFLAGS) $(POLKIT_CFLAGS)
+AM_CFLAGS = $(WARN_CFLAGS) $(PLUGIN_CFLAGS) $(SETTINGS_PLUGIN_CFLAGS) $(POLKIT_CFLAGS)
 csd_datetime_mechanism_LDADD = $(POLKIT_LIBS) $(SETTINGS_PLUGIN_LIBS)
 
 test_system_timezone_SOURCES = test-system-timezone.c system-timezone.c system-timezone.h

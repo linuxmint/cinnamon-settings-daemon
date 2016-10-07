@@ -1,5 +1,7 @@
 plugin_name = sound
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 libexec_PROGRAMS = csd-test-sound
 
 csd_test_sound_SOURCES =	\
@@ -43,6 +45,7 @@ libsound_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libsound_la_LDFLAGS = \
+	$(WARN_LDFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libsound_la_LIBADD = \

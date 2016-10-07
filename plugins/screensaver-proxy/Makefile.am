@@ -1,5 +1,7 @@
 plugin_name = screensaver-proxy
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 plugin_LTLIBRARIES = libscreensaver-proxy.la
 
 libscreensaver_proxy_la_SOURCES =	\
@@ -18,7 +20,7 @@ libscreensaver_proxy_la_CFLAGS =	\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-libscreensaver_proxy_la_LDFLAGS = $(CSD_PLUGIN_LDFLAGS)
+libscreensaver_proxy_la_LDFLAGS = $(WARN_LDFLAGS) $(CSD_PLUGIN_LDFLAGS)
 
 libscreensaver_proxy_la_LIBADD  = $(SETTINGS_PLUGIN_LIBS)
 

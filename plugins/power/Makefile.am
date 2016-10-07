@@ -1,5 +1,7 @@
 plugin_name = power
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 plugin_LTLIBRARIES =					\
 	libpower.la
 
@@ -32,6 +34,7 @@ libpower_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libpower_la_LDFLAGS = 					\
+	$(WARN_LDFLAGS)					\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libpower_la_LIBADD  = 					\
@@ -91,6 +94,7 @@ csd_backlight_helper_LDFLAGS =				\
 	-lm
 
 csd_backlight_helper_CFLAGS =				\
+	$(WARN_CFLAGS)					\
 	$(BACKLIGHT_HELPER_CFLAGS)
 
 EXTRA_DIST += 						\

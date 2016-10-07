@@ -1,10 +1,10 @@
 NULL =
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\"				\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\" 			\
-	-DCINNAMON_SETTINGS_PLUGINDIR=\""$(plugindir)"\"		\
+	-DCINNAMON_SETTINGS_PLUGINDIR=\""$(plugindir)"\"	\
 	$(WARN_CFLAGS)						\
 	$(DISABLE_DEPRECATED_CFLAGS)				\
 	$(SETTINGS_DAEMON_CFLAGS)				\
@@ -12,6 +12,10 @@ INCLUDES = \
 	$(GNOME_DESKTOP_CFLAGS)					\
 	$(LOGIND_CFLAGS)					\
 	$(NULL)
+
+AM_CFLAGS = $(WARN_CFLAGS)
+
+AM_LDFLAGS = $(WARN_LDFLAGS)
 
 privlibdir = $(pkglibdir)-$(CSD_API_VERSION)
 
@@ -28,9 +32,11 @@ libcsd_la_SOURCES =		\
 
 libcsd_la_CPPFLAGS = 		\
 	$(DISABLE_DEPRECATED_CFLAGS)	\
+	$(AM_CPPFLAGS)			\
 	$(NULL)
 
 libcsd_la_CFLAGS =		\
+	$(WARN_CFLAGS)		\
 	$(NULL)
 
 libcsd_la_LIBADD =		\
@@ -39,6 +45,7 @@ libcsd_la_LIBADD =		\
 	$(NULL)
 
 libcsd_la_LDFLAGS =		\
+	$(WARN_LDFLAGS)		\
 	-export-dynamic		\
 	-avoid-version		\
 	-no-undefined		\

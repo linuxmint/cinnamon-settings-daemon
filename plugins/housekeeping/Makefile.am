@@ -10,6 +10,8 @@ COMMON_FILES =				\
 
 noinst_PROGRAMS = csd-disk-space-test csd-empty-trash-test
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 csd_disk_space_test_SOURCES =		\
 	csd-disk-space-test.c		\
 	$(COMMON_FILES)
@@ -51,7 +53,7 @@ libhousekeeping_la_CFLAGS = 		\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-libhousekeeping_la_LDFLAGS = $(CSD_PLUGIN_LDFLAGS)
+libhousekeeping_la_LDFLAGS = $(WARN_LDFLAGS) $(CSD_PLUGIN_LDFLAGS)
 
 libhousekeeping_la_LIBADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
 

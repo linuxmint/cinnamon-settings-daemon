@@ -2,6 +2,8 @@ NULL =
 
 plugin_name = xsettings
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 noinst_PROGRAMS = test-gtk-modules
 
 test_gtk_modules_SOURCES =	\
@@ -77,6 +79,7 @@ libxsettings_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libxsettings_la_LDFLAGS = 	\
+	$(WARN_CFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 

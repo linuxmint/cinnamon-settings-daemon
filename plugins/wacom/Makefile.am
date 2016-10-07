@@ -27,6 +27,7 @@ libcsdwacom_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libcsdwacom_la_LDFLAGS =		\
+	$(WARN_LDFLAGS)			\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libcsdwacom_la_LIBADD  =						\
@@ -59,10 +60,12 @@ if HAVE_GUDEV
 libexec_PROGRAMS = csd-wacom-led-helper
 
 csd_wacom_led_helper_LDFLAGS =				\
+	$(WARN_LDFLAGS)					\
 	$(BACKLIGHT_HELPER_LIBS)			\
 	-lm
 
 csd_wacom_led_helper_CFLAGS =				\
+	$(WARN_CFLAGS)					\
 	$(BACKLIGHT_HELPER_CFLAGS)
 else
 libexec_PROGRAMS =

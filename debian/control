@@ -2,7 +2,8 @@ Source: cinnamon-settings-daemon
 Section: x11
 Priority: optional
 Maintainer: Linux Mint <root@linuxmint.com>
-Build-Depends: autotools-dev,
+Build-Depends: autoconf-archive,
+               autotools-dev,
                debhelper (>= 9),
                dh-autoreconf,
                gtk-doc-tools,

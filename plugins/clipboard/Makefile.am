@@ -2,6 +2,8 @@ NULL =
 
 plugin_name = clipboard
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 plugin_LTLIBRARIES = \
 	libclipboard.la		\
 	$(NULL)
@@ -28,6 +30,7 @@ libclipboard_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libclipboard_la_LDFLAGS = 	\
+	$(WARN_LDFLAGS)		\
 	$(CSD_PLUGIN_LDFLAGS)	\
 	$(NULL)
 

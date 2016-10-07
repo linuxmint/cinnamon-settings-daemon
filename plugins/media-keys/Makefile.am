@@ -6,6 +6,8 @@ plugin_name = media-keys
 NULL =
 SUBDIRS =
 
+AM_CFLAGS = $(WARN_CFLAGS)
+
 plugin_LTLIBRARIES = libmedia-keys.la
 
 BUILT_SOURCES = 			\
@@ -48,6 +50,7 @@ libmedia_keys_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libmedia_keys_la_LDFLAGS = 		\
+	$(WARN_LDFLAGS)			\
 	$(CSD_PLUGIN_LDFLAGS)
 
 libmedia_keys_la_LIBADD  = 		\
