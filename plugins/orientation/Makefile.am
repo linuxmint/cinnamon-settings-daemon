@@ -47,11 +47,12 @@ liborientation_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 liborientation_la_LDFLAGS = 		\
-	$(WARN_LDFLAGS)
+	$(WARN_LDFLAGS) \
 	$(CSD_PLUGIN_LDFLAGS)
 
 liborientation_la_LIBADD  =						\
 	$(top_builddir)/plugins/common/libcommon.la			\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(ORIENTATION_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)
 
