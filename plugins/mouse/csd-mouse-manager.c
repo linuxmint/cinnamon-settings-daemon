@@ -46,6 +46,7 @@
 
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XIproto.h>
+#include <X11/extensions/XInput2.h>
 
 #include "cinnamon-settings-profile.h"
 #include "csd-mouse-manager.h"
@@ -99,6 +100,10 @@ struct CsdMouseManagerPrivate
         gboolean locate_pointer_spawned;
         GPid locate_pointer_pid;
 };
+
+typedef struct Matrix {
+    float m[9];
+} Matrix;
 
 static void     csd_mouse_manager_class_init  (CsdMouseManagerClass *klass);
 static void     csd_mouse_manager_init        (CsdMouseManager      *mouse_manager);
@@ -507,6 +512,70 @@ out:
         g_free (buttons);
 }
 
+static int
+set_transformation_matrix (int deviceid, int scale)
+{
+    Atom prop_float, prop_matrix;
+    Display *dpy;
+
+    union {
+        unsigned char *c;
+        float *f;
+    } data;
+
+    int format_return;
+    Atom type_return;
+    unsigned long nitems;
+    unsigned long bytes_after;
+
+    int rc;
+
+    Matrix m;
+    memset(&m, 0, sizeof(m.m));
+
+    dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+
+    prop_float = XInternAtom(dpy, "FLOAT", False);
+    prop_matrix = XInternAtom(dpy, "Coordinate Transformation Matrix", False);
+
+    if (!prop_float)
+    {
+        fprintf(stderr, "Float atom not found. This server is too old.\n");
+        return EXIT_FAILURE;
+    }
+    if (!prop_matrix)
+    {
+        fprintf(stderr, "Coordinate transformation matrix not found. This "
+                "server is too old\n");
+        return EXIT_FAILURE;
+    }
+
+    rc = XIGetProperty(dpy, deviceid, prop_matrix, 0, 9, False, prop_float,
+                       &type_return, &format_return, &nitems, &bytes_after,
+                       &data.c);
+
+    if (rc != Success || prop_float != type_return || format_return != 32 ||
+        nitems != 9 || bytes_after != 0)
+    {
+        fprintf(stderr, "Failed to retrieve current property values\n");
+        return EXIT_FAILURE;
+    }
+
+    memcpy (&m.m, data.f, sizeof(m.m));
+
+    m.m[0] = (float) scale * ((m.m[0] < 0.0) ? -1.0 : 1.0);
+    m.m[4] = (float) scale * ((m.m[4] < 0.0) ? -1.0 : 1.0);
+
+    memcpy(data.f, &m.m, sizeof(m.m));
+
+    XIChangeProperty(dpy, deviceid, prop_matrix, prop_float,
+                     format_return, PropModeReplace, data.c, nitems);
+
+    XFree(data.c);
+
+    return EXIT_SUCCESS;
+}
+
 static void
 set_left_handed_libinput (GdkDevice       *device,
                           gboolean mouse_left_handed,
@@ -563,6 +632,15 @@ set_motion_legacy_driver (CsdMouseManager *manager,
         else
                 settings = manager->priv->mouse_settings;
 
+        gint scale = 1;
+        GValue value = G_VALUE_INIT;
+
+        g_value_init (&value, G_TYPE_INT);
+
+        if (gdk_screen_get_setting (gdk_screen_get_default (), "gdk-window-scaling-factor", &value)) {
+            scale = g_value_get_int (&value);
+        }
+
         /* Calculate acceleration */
         motion_acceleration = g_settings_get_double (settings, KEY_MOTION_ACCELERATION);
 
@@ -592,7 +670,11 @@ set_motion_legacy_driver (CsdMouseManager *manager,
         }
 
         /* And threshold */
+
         motion_threshold = g_settings_get_int (settings, KEY_MOTION_THRESHOLD);
+
+        if (motion_threshold > 0)
+            motion_threshold = motion_threshold * scale;
 
         /* Get the list of feedbacks for the device */
         states = XGetFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, &num_feedbacks);
@@ -623,6 +705,10 @@ set_motion_legacy_driver (CsdMouseManager *manager,
         }
 
         XFreeFeedbackList (states);
+
+        if (set_transformation_matrix (gdk_x11_device_get_id (device), scale) == EXIT_FAILURE) {
+            g_debug ("Could not set transformation matrix for device '%s'", gdk_device_get_name (device));
+        }
 
     out:
 
@@ -1580,6 +1666,30 @@ device_removed_cb (GdkDeviceManager *device_manager,
 }
 
 static void
+scale_changed_cb (GtkSettings *settings,
+                  GParamSpec *pspec,
+                  gpointer data)
+{
+    CsdMouseManager *manager = CSD_MOUSE_MANAGER (data);
+
+    GList *devices, *l;
+
+    devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
+
+    for (l = devices; l != NULL; l = l->next) {
+        GdkDevice *device = l->data;
+
+        if (device_is_ignored (manager, device)) {
+            continue;
+        }
+
+        set_mouse_settings (manager, device);
+    }
+
+    g_list_free (devices);
+}
+
+static void
 set_devicepresence_handler (CsdMouseManager *manager)
 {
         GdkDeviceManager *device_manager;
@@ -1658,6 +1768,9 @@ csd_mouse_manager_idle_cb (CsdMouseManager *manager)
                 g_list_free (devices);
         }
 
+        g_signal_connect (gtk_settings_get_default (), "notify::gtk-xft-dpi",
+                          G_CALLBACK (scale_changed_cb), manager);
+
         cinnamon_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
@@ -1710,6 +1823,8 @@ csd_mouse_manager_stop (CsdMouseManager *manager)
                 g_object_unref (p->touchpad_settings);
                 p->touchpad_settings = NULL;
         }
+
+        g_signal_handlers_disconnect_by_func (gtk_settings_get_default (), scale_changed_cb, manager);
 
         set_locate_pointer (manager, FALSE);
 }
