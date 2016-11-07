@@ -1,3 +1,63 @@
+cinnamon-settings-daemon (3.2.0) serena; urgency=medium
+
+  [ brownsr ]
+  * avoid compiler warning message about spurious comma
+  * remove deprecated gdk_display_get_n_screens this is now hardcoded to return 1, so loops using this can be removed
+  * remove deprecated function gdk_display_get_n_screens this only returns 1 now, so loops can be removed.
+  * add precautionary test on default display being there
+  * add precautionary test on existence of default display
+
+  [ Jakub Adam ]
+  * orientation: Use g_clear_* helpers
+  * orientation: Remove empty constructor and dispose functions
+  * orientation: Call stop from finalize
+  * orientation: Port to iio-sensor-proxy
+  * orientation: Use symbolic name for the GSettings key name
+  * orientation: Fix screen lock not getting applied
+  * Fix double free in is_wacom_tablet_device()
+
+  [ leigh123linux ]
+  * xsettings: Fix cursor-size changes being ignored
+  * fix spelling mistakes
+
+  [ brownsr ]
+  * remove deprecated g_settings_list_schemas
+  * replace deprecated gtk_icon_info_free with g_object_unref
+
+  [ Peter Hutterer ]
+  * common: don't create the Synaptics Off property if it doesn't exist
+  * common: recognize libinput touchpads as touchpads
+  * mouse: fix indentation
+  * mouse: add helper function for fetching a property
+  * mouse: rename helper to touchpad_set_bool
+  * mouse: split into separate bool helpers
+  * mouse: libinput - hook up tapping configuration
+  * mouse: libinput - hook up natural scroll configuration
+  * mouse: libinput - hook up scrolling settings
+  * mouse: libinput - hook up click methods
+  * mouse: libinput - hook up left-handed setting
+  * mouse: libinput - hook up accel speed
+  * mouse: libinput - hook up middle button emulation
+  * mouse: libinput - hook up disable while typing
+
+  [ Maximiliano Curia ]
+  * Migrate away from gnome-common deprecated vars and macros
+  * Build depend on autoconf-archive
+
+  [ Clement Lefebvre ]
+  * Xrandr plugin: Do not save configuration when RotateTo is called.
+
+  [ Michael Webster ]
+  * orientation plugin: Fix makefile, missing backslash - from previous build migration commit.
+
+  [ brownsr ]
+  * remove a couple of unused variables
+
+  [ monsta ]
+  * mouse: Fix critical warnings with touchpad settings
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 07 Nov 2016 10:44:50 +0000
+
 cinnamon-settings-daemon (3.0.1) sarah; urgency=medium
 
   * Touchpad: By default, disable the touchpad while typing
