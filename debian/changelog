@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (3.2.1) serena; urgency=medium
+
+  [ leigh123linux ]
+  * media-keys: Add Rotation lock support
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 10 Dec 2016 11:57:53 +0000
+
 cinnamon-settings-daemon (3.2.0) serena; urgency=medium
 
   [ brownsr ]
