@@ -378,6 +378,7 @@ property_exists_on_device (GdkDevice *device, const char * property_name)
 
         gdk_error_trap_pop_ignored ();
 
+        xdevice_close (xdevice);
         return rc == Success;
 }
 
