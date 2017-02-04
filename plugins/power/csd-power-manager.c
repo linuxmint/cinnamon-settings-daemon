@@ -1197,22 +1197,53 @@ manager_critical_action_get (CsdPowerManager *manager,
                              gboolean         is_ups)
 {
         CsdPowerActionType policy;
+#if UP_CHECK_VERSION(0,99,0)
+        GVariant *result = NULL;
+#endif
 
         policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
+
         if (policy == CSD_POWER_ACTION_SUSPEND) {
-                if (is_ups == FALSE
-#if ! UP_CHECK_VERSION(0,99,0)
-                    && up_client_get_can_suspend (manager->priv->up_client)
-#endif
-                )
+#if UP_CHECK_VERSION(0,99,0)
+                if (is_ups == FALSE) {
+                        result = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
+                                                         "CanSuspend",
+                                                         NULL,
+                                                         G_DBUS_CALL_FLAGS_NONE,
+                                                         -1, NULL, NULL);
+                }
+#else
+                if (is_ups == FALSE &&
+                    up_client_get_can_suspend (manager->priv->up_client))
                         return policy;
                 return CSD_POWER_ACTION_SHUTDOWN;
+#endif
         } else if (policy == CSD_POWER_ACTION_HIBERNATE) {
-#if ! UP_CHECK_VERSION(0,99,0)
+#if UP_CHECK_VERSION(0,99,0)
+                result = g_dbus_proxy_call_sync (manager->priv->logind_proxy,
+                                                 "CanHibernate",
+                                                 NULL,
+                                                 G_DBUS_CALL_FLAGS_NONE,
+                                                 -1, NULL, NULL);
+        } else {
+                /* Other actions need no check */
+                return policy;
+        }
+
+        if (result) {
+                const char *s;
+
+                g_variant_get (result, "(s)", &s);
+                if (g_strcmp0 (s, "yes") != 0)
+                        policy = CSD_POWER_ACTION_SHUTDOWN;
+                g_variant_unref (result);
+        } else {
+                policy = CSD_POWER_ACTION_SHUTDOWN;
+#else
                 if (up_client_get_can_hibernate (manager->priv->up_client))
-#endif
                         return policy;
                 return CSD_POWER_ACTION_SHUTDOWN;
+#endif
         }
 
         return policy;
