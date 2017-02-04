@@ -13,7 +13,7 @@ AM_MAINTAINER_MODE([enable])
 m4_ifdef([AX_IS_RELEASE], [AX_IS_RELEASE([always])])
 
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
-
+AC_CONFIG_MACRO_DIR([m4])
 m4_define([gsd_api_version_major],[3])
 m4_define([gsd_api_version_minor],[0])
 m4_define([gsd_api_version],[gsd_api_version_major.gsd_api_version_minor])

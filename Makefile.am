@@ -12,7 +12,7 @@ SUBDIRS += man
 endif
 
 # Honor aclocal flags
-ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
+ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 
 EXTRA_DIST = \
 	MAINTAINERS		\
