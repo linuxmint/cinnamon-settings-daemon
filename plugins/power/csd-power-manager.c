@@ -1193,6 +1193,19 @@ engine_ups_discharging (CsdPowerManager *manager, UpDevice *device)
 }
 
 static CsdPowerActionType
+#if UP_CHECK_VERSION(0,99,0)
+manager_critical_action_get (CsdPowerManager *manager)
+{
+        CsdPowerActionType policy;
+        char *action;
+        action = up_client_get_critical_action (manager->priv->up_client);
+        /* We don't make the difference between HybridSleep and Hibernate */
+        if (g_strcmp0 (action, "PowerOff") == 0)
+                 policy = CSD_POWER_ACTION_SHUTDOWN;
+        else
+                 policy = CSD_POWER_ACTION_HIBERNATE;
+        g_free (action);
+#else
 manager_critical_action_get (CsdPowerManager *manager,
                              gboolean         is_ups)
 {
@@ -1200,21 +1213,16 @@ manager_critical_action_get (CsdPowerManager *manager,
 
         policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
         if (policy == CSD_POWER_ACTION_SUSPEND) {
-                if (is_ups == FALSE
-#if ! UP_CHECK_VERSION(0,99,0)
-                    && up_client_get_can_suspend (manager->priv->up_client)
-#endif
-                )
+                if (is_ups == FALSE &&
+                    up_client_get_can_suspend (manager->priv->up_client))
                         return policy;
                 return CSD_POWER_ACTION_SHUTDOWN;
         } else if (policy == CSD_POWER_ACTION_HIBERNATE) {
-#if ! UP_CHECK_VERSION(0,99,0)
                 if (up_client_get_can_hibernate (manager->priv->up_client))
-#endif
                         return policy;
                 return CSD_POWER_ACTION_SHUTDOWN;
         }
-
+#endif
         return policy;
 }
 
@@ -1222,14 +1230,18 @@ static gboolean
 manager_critical_action_do (CsdPowerManager *manager,
                             gboolean         is_ups)
 {
+#if ! UP_CHECK_VERSION(0,99,0)
         CsdPowerActionType action_type;
+#endif
 
         /* stop playing the alert as it's too late to do anything now */
         if (manager->priv->critical_alert_timeout_id > 0)
                 play_loop_stop (manager);
 
+#if ! UP_CHECK_VERSION(0,99,0)
         action_type = manager_critical_action_get (manager, is_ups);
         do_power_action_type (manager, action_type);
+#endif
 
         return FALSE;
 }
@@ -1460,7 +1472,11 @@ engine_charge_critical (CsdPowerManager *manager, UpDevice *device)
                 }
 
                 /* we have to do different warnings depending on the policy */
+#if UP_CHECK_VERSION(0,99,0)
+                policy = manager_critical_action_get (manager);
+#else
                 policy = manager_critical_action_get (manager, FALSE);
+#endif
 
                 /* use different text for different actions */
                 if (policy == CSD_POWER_ACTION_NOTHING) {
@@ -1642,7 +1658,11 @@ engine_charge_action (CsdPowerManager *manager, UpDevice *device)
                 title = _("Laptop battery critically low");
 
                 /* we have to do different warnings depending on the policy */
+#if UP_CHECK_VERSION(0,99,0)
+                policy = manager_critical_action_get (manager);
+#else
                 policy = manager_critical_action_get (manager, FALSE);
+#endif
 
                 /* use different text for different actions */
                 if (policy == CSD_POWER_ACTION_NOTHING) {
@@ -1678,7 +1698,11 @@ engine_charge_action (CsdPowerManager *manager, UpDevice *device)
                 title = _("UPS critically low");
 
                 /* we have to do different warnings depending on the policy */
+#if UP_CHECK_VERSION(0,99,0)
+                policy = manager_critical_action_get (manager);
+#else
                 policy = manager_critical_action_get (manager, TRUE);
+#endif
 
                 /* use different text for different actions */
                 if (policy == CSD_POWER_ACTION_NOTHING) {
