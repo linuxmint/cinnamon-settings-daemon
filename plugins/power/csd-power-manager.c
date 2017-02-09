@@ -191,7 +191,7 @@ struct CsdPowerManagerPrivate
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusProxy              *upower_proxy;
-        GDBusProxy              *upower_kdb_proxy;
+        GDBusProxy              *upower_kbd_proxy;
         gboolean				backlight_helper_force;
         gchar*                  backlight_helper_preference_args;
         gint                     kbd_brightness_now;
@@ -2029,7 +2029,7 @@ upower_kbd_get_percentage (CsdPowerManager *manager, GError **error)
 {
         GVariant *k_now = NULL;
 
-        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                         "GetBrightness",
                                         NULL,
                                         G_DBUS_CALL_FLAGS_NONE,
@@ -2077,7 +2077,7 @@ upower_kbd_set_brightness (CsdPowerManager *manager, guint value, GError **error
                 return TRUE;
 
         /* update h/w value */
-        retval = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+        retval = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                          "SetBrightness",
                                          g_variant_new ("(i)", (gint) value),
                                          G_DBUS_CALL_FLAGS_NONE,
@@ -2273,7 +2273,7 @@ do_lid_open_action (CsdPowerManager *manager)
         }
 
         /* only toggle keyboard if present and already toggled off */
-        if (manager->priv->upower_kdb_proxy != NULL &&
+        if (manager->priv->upower_kbd_proxy != NULL &&
             manager->priv->kbd_brightness_old != -1) {
                 ret = upower_kbd_toggle (manager, &error);
                 if (!ret) {
@@ -2399,7 +2399,7 @@ suspend_with_lid_closed (CsdPowerManager *manager)
         }
 
         /* only toggle keyboard if present and not already toggled */
-        if (manager->priv->upower_kdb_proxy &&
+        if (manager->priv->upower_kbd_proxy &&
             manager->priv->kbd_brightness_old == -1) {
                 ret = upower_kbd_toggle (manager, &error);
                 if (!ret) {
@@ -3126,7 +3126,7 @@ kbd_backlight_dim (CsdPowerManager *manager,
         gint max;
         gint now;
 
-        if (manager->priv->upower_kdb_proxy == NULL)
+        if (manager->priv->upower_kbd_proxy == NULL)
                 return TRUE;
 
         now = manager->priv->kbd_brightness_now;
@@ -3231,7 +3231,7 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                 }
 
                 /* only toggle keyboard if present and not already toggled */
-                if (manager->priv->upower_kdb_proxy &&
+                if (manager->priv->upower_kbd_proxy &&
                     manager->priv->kbd_brightness_old == -1) {
                         ret = upower_kbd_toggle (manager, &error);
                         if (!ret) {
@@ -3282,7 +3282,7 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                 }
 
                 /* only toggle keyboard if present and already toggled off */
-                if (manager->priv->upower_kdb_proxy &&
+                if (manager->priv->upower_kbd_proxy &&
                     manager->priv->kbd_brightness_old != -1) {
                         ret = upower_kbd_toggle (manager, &error);
                         if (!ret) {
@@ -3634,15 +3634,15 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
         GError *error = NULL;
         CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
 
-        manager->priv->upower_kdb_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->upower_kdb_proxy == NULL) {
+        manager->priv->upower_kbd_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+        if (manager->priv->upower_kbd_proxy == NULL) {
                 g_warning ("Could not connect to UPower: %s",
                            error->message);
                 g_error_free (error);
                 goto out;
         }
 
-        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                         "GetBrightness",
                                         NULL,
                                         G_DBUS_CALL_FLAGS_NONE,
@@ -3659,7 +3659,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                 goto out;
         }
 
-        k_max = g_dbus_proxy_call_sync (manager->priv->upower_kdb_proxy,
+        k_max = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
                                         "GetMaxBrightness",
                                         NULL,
                                         G_DBUS_CALL_FLAGS_NONE,
@@ -3672,7 +3672,7 @@ power_keyboard_proxy_ready_cb (GObject             *source_object,
                 goto out;
         }
 
-        g_signal_connect (manager->priv->upower_kdb_proxy, "g-signal", G_CALLBACK(upower_kbd_handle_changed), manager);
+        g_signal_connect (manager->priv->upower_kbd_proxy, "g-signal", G_CALLBACK(upower_kbd_handle_changed), manager);
 
         g_variant_get (k_now, "(i)", &manager->priv->kbd_brightness_now);
         g_variant_get (k_max, "(i)", &manager->priv->kbd_brightness_max);
