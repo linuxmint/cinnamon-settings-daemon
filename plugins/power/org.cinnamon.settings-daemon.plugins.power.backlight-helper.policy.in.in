@@ -3,15 +3,12 @@
  "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
  "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
 <policyconfig>
-
   <!--
     Policy definitions for cinnamon-settings-daemon system-wide actions.
     Copyright (c) 2010-2011 Richard Hughes <richard@hughsie.com>
   -->
-
-  <vendor>Cinnamon Settings Daemon</vendor>
-  <vendor_url>http://git.gnome.org/browse/cinnamon-settings-daemon</vendor_url>
-  <icon_name>battery</icon_name>
+  <vendor>Cinnamon</vendor>
+  <vendor_url>https://github.com/linuxmint/cinnamon-settings-daemon</vendor_url>
 
   <action id="org.cinnamon.settings-daemon.plugins.power.backlight-helper">
     <!-- SECURITY:
@@ -19,13 +16,15 @@
             to change the backlight brightness.
      -->
     <_description>Modify the laptop brightness</_description>
-    <_message>Authentication is required to modify the laptop brightness</_message>
+    <_message>No password is required to modify the laptop brightness</_message>
+    <icon_name>battery</icon_name>
     <defaults>
       <allow_any>no</allow_any>
       <allow_inactive>no</allow_inactive>
       <allow_active>yes</allow_active>
     </defaults>
     <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/csd-backlight-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
 </policyconfig>

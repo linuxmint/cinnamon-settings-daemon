@@ -51,10 +51,15 @@ plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-
 org.cinnamon.settings-daemon.plugins.power.policy.in: org.cinnamon.settings-daemon.plugins.power.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
+if HAVE_POLKIT
 @INTLTOOL_POLICY_RULE@
-polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.cinnamon.settings-daemon.plugins.power.policy.in
-polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
+polkit_dir = $(datadir)/polkit-1/actions
+polkit_in_files = org.cinnamon.settings-daemon.plugins.power.backlight-helper.policy.in
+polkit_DATA = $(polkit_in_files:.policy.in=.policy)
+
+else
+polkit_DATA =
+endif
 
 # so it always gets included in the tarball
 csd_backlight_helper_SOURCES =				\
@@ -107,6 +112,7 @@ clean-local:
 CLEANFILES = 						\
 	$(plugin_DATA)					\
 	org.cinnamon.settings-daemon.plugins.power.policy	\
-	org.cinnamon.settings-daemon.plugins.power.policy.in
+	org.cinnamon.settings-daemon.plugins.power.policy.in \
+	org.cinnamon.settings-daemon.plugins.power.backlight-helper.policy
 
 @CSD_INTLTOOL_PLUGIN_RULE@

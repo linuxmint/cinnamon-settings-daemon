@@ -3,14 +3,11 @@
  "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
  "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
 <policyconfig>
-
   <!--
-    Policy definitions for gnome-settings-daemon system-wide actions.
+    Policy definitions for cinnamon-settings-daemon system-wide actions.
   -->
-
-  <vendor>CINNAMON Settings Daemon</vendor>
-  <vendor_url>http://git.gnome.org/browse/gnome-settings-daemon</vendor_url>
-  <icon_name>input-tablet</icon_name>
+  <vendor>Cinnamon</vendor>
+  <vendor_url>https://github.com/linuxmint/cinnamon-settings-daemon</vendor_url>
 
   <action id="org.cinnamon.settings-daemon.plugins.wacom.wacom-led-helper">
     <!-- SECURITY:
@@ -18,13 +15,15 @@
             to change the LED setting for a Wacom tablet
      -->
     <_description>Modify the lit LED for a Wacom tablet</_description>
-    <_message>Authentication is required to modify the lit LED for a Wacom tablet</_message>
+    <_message>No password is required to modify the lit LED for a Wacom tablet</_message>
+    <icon_name>input-tablet</icon_name>
     <defaults>
       <allow_any>no</allow_any>
       <allow_inactive>no</allow_inactive>
       <allow_active>yes</allow_active>
     </defaults>
     <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/csd-wacom-led-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
 </policyconfig>
