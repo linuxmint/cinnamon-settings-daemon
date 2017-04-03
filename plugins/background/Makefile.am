@@ -42,8 +42,8 @@ libbackground_la_SOURCES =      \
     $(NULL)
 
 libbackground_la_CPPFLAGS = \
-    -I$(top_srcdir)/cinnamon-settings-daemon        \
-    -I$(top_srcdir)/plugins/background/libbackground   \
+    -I$(top_srcdir)/cinnamon-settings-daemon \
+    -I$(top_srcdir)/plugins/background \
     -DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
     $(AM_CPPFLAGS)
 
