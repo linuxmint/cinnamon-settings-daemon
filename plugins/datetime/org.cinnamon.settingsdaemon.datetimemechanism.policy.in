@@ -2,19 +2,19 @@
 <!DOCTYPE policyconfig PUBLIC
  "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
  "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
-
 <policyconfig>
+
   <vendor>Cinnamon</vendor>
-  <vendor_url>http://cinnamon.linuxmint.com/</vendor_url>
-  <icon_name>gnome-panel-clock</icon_name>
+  <vendor_url>https://github.com/linuxmint/cinnamon-settings-daemon</vendor_url>
 
   <action id="org.cinnamon.settingsdaemon.datetimemechanism.configure">
     <_description>Change system time and date settings</_description>
-    <_message>To change time or date settings, you need to authenticate.</_message>
+    <_message>No password is required to change time or date settings.</_message>
+    <icon_name>cs-date-time</icon_name>
     <defaults>
       <allow_any>no</allow_any>
       <allow_inactive>no</allow_inactive>
-      <allow_active>auth_admin_keep</allow_active>
+      <allow_active>yes</allow_active>
     </defaults>
   </action>
 

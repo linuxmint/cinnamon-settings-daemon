@@ -46,10 +46,15 @@ csd-wacom-resources.c: wacom.gresource.xml tablet-layout.css
 		--c-name csd_wacom 			\
 		$(srcdir)/wacom.gresource.xml
 
+if HAVE_POLKIT
 @INTLTOOL_POLICY_RULE@
-polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.cinnamon.settings-daemon.plugins.wacom.policy.in
-polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
+polkit_dir = $(datadir)/polkit-1/actions
+polkit_in_files = org.cinnamon.settings-daemon.plugins.wacom.wacom-led-helper.policy.in
+polkit_DATA = $(polkit_in_files:.policy.in=.policy)
+
+else
+polkit_DATA =
+endif
 
 # so it always gets included in the tarball
 csd_wacom_led_helper_SOURCES =	csd-wacom-led-helper.c
@@ -180,6 +185,7 @@ CLEANFILES =						\
 	$(plugin_DATA)					\
 	csd-wacom-resources.c				\
 	org.cinnamon.settings-daemon.plugins.wacom.policy	\
-	org.cinnamon.settings-daemon.plugins.wacom.policy.in
+	org.cinnamon.settings-daemon.plugins.wacom.policy.in \
+	org.cinnamon.settings-daemon.plugins.wacom.wacom-led-helper.policy
 
 @CSD_INTLTOOL_PLUGIN_RULE@

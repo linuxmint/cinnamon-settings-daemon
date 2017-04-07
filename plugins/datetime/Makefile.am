@@ -52,6 +52,8 @@ $(dbus_services_DATA): $(dbus_services_in_files)
 dbus_conf_DATA = org.cinnamon.SettingsDaemon.DateTimeMechanism.conf
 
 @INTLTOOL_POLICY_RULE@
+polkit_dir = $(datadir)/polkit-1/actions
+polkit_in_files = org.cinnamon.settingsdaemon.datetimemechanism.policy.in
 polkit_DATA = $(polkit_in_files:.policy.in=.policy)
 
 else
