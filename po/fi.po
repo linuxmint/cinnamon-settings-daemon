@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "settings-daemon&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-09-22 18:02+0000\n"
-"PO-Revision-Date: 2012-09-25 14:38+0300\n"
+"PO-Revision-Date: 2017-04-14 18:05+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -30,11 +30,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-03-05 15:06:08+0000\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../data/cinnamon-settings-daemon.desktop.in.in.h:1
 msgid "Cinnamon Settings Daemon"
-msgstr "Cinnamonen asetuspalvelin"
+msgstr "Cinnamonin asetuspalvelin"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:1
 msgid "Smartcard removal action"
@@ -42,8 +42,8 @@ msgstr "Älykortin irrottamistoiminto"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:2
 msgid ""
-"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The "
-"action will get performed when the smartcard used for log in is removed."
+"Set this to one of \"none\", \"lock-screen\", or \"force-logout\". The action "
+"will get performed when the smartcard used for log in is removed."
 msgstr ""
 "Aseta tämä arvoon \"none\" (ei mitään), \"lock-screen\" (lukitse näyttö) tai "
 "\"force-logout\" (kirjaudu ulos). Toiminto suoritetaan, jos kirjautumiseen "
@@ -58,8 +58,8 @@ msgid ""
 "Set this to TRUE if you have problems with accidentally hitting the touchpad "
 "while typing."
 msgstr ""
-"Aseta tämä todeksi jos sinulla on ongelmia osuessasi vahingossa "
-"kosketuslevyyn kirjoitettaessa."
+"Aseta tämä todeksi jos sinulla on ongelmia osuessasi vahingossa kosketuslevyyn "
+"kirjoitettaessa."
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:5
 msgid "Enable horizontal scrolling"
@@ -70,8 +70,8 @@ msgid ""
 "Set this to TRUE to allow horizontal scrolling by the same method selected "
 "with the scroll_method key."
 msgstr ""
-"Aseta tämä todeksi salliaksesi vaakasuuntaisen vierityksen samalla tavoin "
-"kuin on valittu avaimella scroll_method."
+"Aseta tämä todeksi salliaksesi vaakasuuntaisen vierityksen samalla tavoin kuin "
+"on valittu avaimella scroll_method."
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:7
 msgid "Select the touchpad scroll method"
@@ -79,12 +79,12 @@ msgstr "Valitse kosketuslevyn vieritystapa"
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:8
 msgid ""
-"Select the touchpad scroll method. Supported values are: \"disabled\", "
-"\"edge-scrolling\", \"two-finger-scrolling\"."
+"Select the touchpad scroll method. Supported values are: \"disabled\", \"edge-"
+"scrolling\", \"two-finger-scrolling\"."
 msgstr ""
-"Valitse kosketusalustan vieritystila. Tuetut arvot ovat: \"disabled"
-"\" (poissa käytöstä), \"edge-scrolling\" (reunavieritys), \"two-finger-"
-"scrolling\" (kahden sormen vieritys)."
+"Valitse kosketusalustan vieritystila. Tuetut arvot ovat: \"disabled\" (poissa "
+"käytöstä), \"edge-scrolling\" (reunavieritys), \"two-finger-scrolling"
+"\" (kahden sormen vieritys)."
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:9
 msgid "Enable mouse clicks with touchpad"
@@ -107,8 +107,8 @@ msgstr "Aseta tämä todeksi jos haluat ottaa kaikki kosketuslevyt käyttöön."
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in.h:13
 msgid ""
-"Highlights the current location of the pointer when the Control key is "
-"pressed and released."
+"Highlights the current location of the pointer when the Control key is pressed "
+"and released."
 msgstr ""
 "Korostaa osoittimen nykyisen sijainnin, kun control-näppäintä painetaan ja "
 "vapautetaan."
@@ -235,8 +235,8 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:10
 msgid ""
-"Enable this to restrict the Wacom tablet area to match the aspect ratio of "
-"the output."
+"Enable this to restrict the Wacom tablet area to match the aspect ratio of the "
+"output."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:11
@@ -337,8 +337,7 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:33
 msgid ""
-"The keyboard shortcut generated when the button is pressed for custom "
-"actions."
+"The keyboard shortcut generated when the button is pressed for custom actions."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in.in.h:34
@@ -357,8 +356,8 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:6
 msgid ""
-"This is the number of days after which the display color profile is "
-"considered invalid."
+"This is the number of days after which the display color profile is considered "
+"invalid."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:7
@@ -367,8 +366,8 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in.h:8
 msgid ""
-"This is the number of days after which the printer color profile is "
-"considered invalid."
+"This is the number of days after which the printer color profile is considered "
+"invalid."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:3
@@ -387,8 +386,8 @@ msgstr "Vapaan prosenttimäärän huomautusraja"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:6
 msgid ""
-"Percentage free space threshold for initial warning of low disk space. If "
-"the percentage free space drops below this, a warning will be shown."
+"Percentage free space threshold for initial warning of low disk space. If the "
+"percentage free space drops below this, a warning will be shown."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in.h:7
@@ -607,8 +606,7 @@ msgstr "Kopioi ikkunasta otettu kuvankaappaus leikepöydälle"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:50
 msgid "Binding to copy a screenshot of a window to clipboard."
-msgstr ""
-"Pikanäppäin ikkunasta otetun kuvankaappauksen kopioimiseen leikepöydälle"
+msgstr "Pikanäppäin ikkunasta otetun kuvankaappauksen kopioimiseen leikepöydälle"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:51
 msgid "Copy a screenshot of an area to clipboard"
@@ -616,8 +614,7 @@ msgstr "Kopioi alueesta otettu kuvankaappaus leikepöydälle"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:52
 msgid "Binding to copy a screenshot of an area to clipboard."
-msgstr ""
-"Pikanäppäin alueesta otetun kuvankaappauksen kopioimiseen leikepöydälle"
+msgstr "Pikanäppäin alueesta otetun kuvankaappauksen kopioimiseen leikepöydälle"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in.h:53
 msgid "Launch web browser"
@@ -751,8 +748,8 @@ msgstr "Prosenttiosuus, jonka jälkeen lataus on kriittinen"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:8
 msgid ""
-"The percentage of the battery when it is considered critical. Only valid "
-"when use-time-for-policy is false."
+"The percentage of the battery when it is considered critical. Only valid when "
+"use-time-for-policy is false."
 msgstr ""
 "Prosenttimäärä täyden akun varauksesta, jolloin akun varaus katsotaan "
 "kriittiseksi. Vaikuttaa vain, jos use-time-for-policy on epätosi."
@@ -815,9 +812,9 @@ msgid ""
 "If time based notifications should be used. If set to false, then the "
 "percentage change is used instead, which may fix a broken ACPI BIOS."
 msgstr ""
-"Käytetäänkö aikaan perustuvia huomautuksia. Jos tämä on asetettu arvoon "
-"false käytetään prosentteihin perustuvia muutoksia, jotka saattavat auttaa "
-"joihinkin rikkinäisiin ACPI BIOS -toteutuksiin."
+"Käytetäänkö aikaan perustuvia huomautuksia. Jos tämä on asetettu arvoon false "
+"käytetään prosentteihin perustuvia muutoksia, jotka saattavat auttaa joihinkin "
+"rikkinäisiin ACPI BIOS -toteutuksiin."
 
 #: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:19
 msgid "If we should show the recalled battery warning for a broken battery"
@@ -825,8 +822,8 @@ msgstr "Näytetäänkö akun korvausvaroitus rikkinäisille akuille"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in.h:20
 msgid ""
-"If we should show the recalled battery warning for a broken battery. Set "
-"this to false only if you know your battery is okay."
+"If we should show the recalled battery warning for a broken battery. Set this "
+"to false only if you know your battery is okay."
 msgstr ""
 "Näytetäänkö viesti rikkinäisten akkujen palautuspyynnöstä. Aseta tämä "
 "epätodeksi vain jos tiedät, että akkusi ei ole viallinen."
@@ -844,25 +841,24 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:7
 msgid "Automatically download updates in the background without confirmation"
-msgstr ""
-"Lataa päivitykset automaattisesti taustalla ilman käyttäjän vahvistusta"
+msgstr "Lataa päivitykset automaattisesti taustalla ilman käyttäjän vahvistusta"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:8
 #, fuzzy
 #| msgid ""
 #| "Automatically download updates in the background without confirmation. "
-#| "Updates will be auto-downloaded when using wired network connnections, "
-#| "and also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
+#| "Updates will be auto-downloaded when using wired network connnections, and "
+#| "also WiFi if 'connection-use-wifi' is enabled and mobile broadband if "
 #| "'connection-use-mobile' is enabled."
 msgid ""
-"Automatically download updates in the background without confirmation. "
-"Updates will be auto-downloaded when using wired network connnections, and "
-"mobile broadband if 'connection-use-mobile' is enabled."
+"Automatically download updates in the background without confirmation. Updates "
+"will be auto-downloaded when using wired network connnections, and mobile "
+"broadband if 'connection-use-mobile' is enabled."
 msgstr ""
 "Lataa päivitykset automaattisesti taustalla ilman vahvistusta. Päivitykset "
 "ladataan automaattisesti, kun kiinteä verkkoyhteys on käytössä. Jos "
-"\"connection-use-wifi\" tai \"connection-use-mobile\" on käytössä, "
-"päivitykset ladataan myös näillä yhteysmuodoilla."
+"\"connection-use-wifi\" tai \"connection-use-mobile\" on käytössä, päivitykset "
+"ladataan myös näillä yhteysmuodoilla."
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:9
 msgid "How often to check for updates"
@@ -870,9 +866,9 @@ msgstr "Kuinka usein päivitykset tarkistetaan"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:10
 msgid ""
-"How often to check for updates. Value is in seconds. This is a maximum "
-"amount of time that can pass between a security update being published, and "
-"the update being automatically installed or the user notified."
+"How often to check for updates. Value is in seconds. This is a maximum amount "
+"of time that can pass between a security update being published, and the "
+"update being automatically installed or the user notified."
 msgstr ""
 "Kuinka usein päivitykset tarkistetaan. Arvo sekunteina. Tämän asetuksen arvo "
 "määrittää maksimiajan, joka voi kulua turvallisuuspäivitysten julkaisun ja "
@@ -888,12 +884,11 @@ msgstr ""
 msgid ""
 "How often to tell the user there are non-critical updates. Value is in "
 "seconds. Security update notifications are always shown after the check for "
-"updates, but non-critical notifications should be shown a lot less "
-"frequently."
+"updates, but non-critical notifications should be shown a lot less frequently."
 msgstr ""
 "Kuinka usein käyttäjälle ilmoitetaan, että kiireettömiä päivityksiä on "
-"saatavilla. Arvo sekunteina. Ilmoitus turvallisuuspäivityksistä annetaan "
-"aina päivitysten tarkastamisen yhteydessä mutta ilmoitus kiireettömistä "
+"saatavilla. Arvo sekunteina. Ilmoitus turvallisuuspäivityksistä annetaan aina "
+"päivitysten tarkastamisen yhteydessä mutta ilmoitus kiireettömistä "
 "päivityksistä näytetään harvemmin."
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:13
@@ -954,8 +949,8 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:26
 msgid ""
-"Firmware files that should not be searched for, separated by commas. These "
-"can include '*' and '?' characters."
+"Firmware files that should not be searched for, separated by commas. These can "
+"include '*' and '?' characters."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:27
@@ -964,8 +959,8 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:28
 msgid ""
-"Devices that should be ignored, separated by commas. These can include '*' "
-"and '?' characters."
+"Devices that should be ignored, separated by commas. These can include '*' and "
+"'?' characters."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.updates.gschema.xml.in.in.h:29
@@ -986,11 +981,11 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:4
 msgid ""
-"The XRandR plugin will look for a default configuration in the file "
-"specified by this key. This is similar to the ~/.config/monitors.xml that "
-"normally gets stored in users' home directories. If a user does not have "
-"such a file, or has one that does not match the user's setup of monitors, "
-"then the file specified by this key will be used instead."
+"The XRandR plugin will look for a default configuration in the file specified "
+"by this key. This is similar to the ~/.config/monitors.xml that normally gets "
+"stored in users' home directories. If a user does not have such a file, or has "
+"one that does not match the user's setup of monitors, then the file specified "
+"by this key will be used instead."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:7
@@ -1000,8 +995,8 @@ msgstr ""
 #: ../data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in.h:8
 msgid ""
 "'clone' will display the same thing on all monitors, 'dock' will switch off "
-"the internal monitor, 'do-nothing' will use the default Xorg behaviour "
-"(extend the desktop in recent versions)"
+"the internal monitor, 'do-nothing' will use the default Xorg behaviour (extend "
+"the desktop in recent versions)"
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:3
@@ -1014,8 +1009,8 @@ msgid ""
 "\"none\" for no antialiasing, \"grayscale\" for standard grayscale "
 "antialiasing, and \"rgba\" for subpixel antialiasing (LCD screens only)."
 msgstr ""
-"Kirjasinten piirtoon käytetyn antialiasoinnin tyyppi. Mahdolliset arvot "
-"ovat: \"none\" (ei antialiasointia), \"grayscale (tavallinen harmaasävyihin "
+"Kirjasinten piirtoon käytetyn antialiasoinnin tyyppi. Mahdolliset arvot ovat: "
+"\"none\" (ei antialiasointia), \"grayscale (tavallinen harmaasävyihin "
 "perustuva) ja \"rgba\" (alipisteiden antialiasointi, vain LCD-näytöt)."
 
 #: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:5
@@ -1024,9 +1019,9 @@ msgstr "Vihjeistys"
 
 #: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:6
 msgid ""
-"The type of hinting to use when rendering fonts. Possible values are: \"none"
-"\" for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full"
-"\" for maximum hinting (may cause distortion of letter forms)."
+"The type of hinting to use when rendering fonts. Possible values are: \"none\" "
+"for no hinting, \"slight\" for basic, \"medium\" for moderate, and \"full\" "
+"for maximum hinting (may cause distortion of letter forms)."
 msgstr ""
 "Kirjasimia piirrettäessä käytettävä vihjeistystapa. Mahdolliset arvot ovat: "
 "\"none\" (ei vihjeistystä), \"slight\" (kevyt vihjeistys), \"medium"
@@ -1055,8 +1050,8 @@ msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:12
 msgid ""
-"A list of strings representing the GTK+ modules that will not be loaded, "
-"even if enabled by default in their configuration."
+"A list of strings representing the GTK+ modules that will not be loaded, even "
+"if enabled by default in their configuration."
 msgstr ""
 
 #: ../data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in.h:13
@@ -1103,8 +1098,8 @@ msgstr "Hitaat näppäimet pois käytöstä"
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:509
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:572
 msgid ""
-"You just held down the Shift key for 8 seconds.  This is the shortcut for "
-"the Slow Keys feature, which affects the way your keyboard works."
+"You just held down the Shift key for 8 seconds.  This is the shortcut for the "
+"Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Pidit juuri vaihtonäppäintä painettuna 8 sekuntia. Tämä on hitaat näppäimet -"
 "ominaisuuden pikanäppäily, ja muuttaa tapaa, jolla näppäimistö toimii."
@@ -1168,8 +1163,8 @@ msgstr "Pohjaan jäävät näppäimet pois käytöstä"
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:642
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:708
 msgid ""
-"You just pressed the Shift key 5 times in a row.  This is the shortcut for "
-"the Sticky Keys feature, which affects the way your keyboard works."
+"You just pressed the Shift key 5 times in a row.  This is the shortcut for the "
+"Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
 "Painoit juuri vaihtonäppäintä 5 kertaa peräkkäin. Tämä on pohjaan jäävät "
 "näppäimet -ominaisuuden pikanäppäily, ja muuttaa tapaa, jolla näppäimistö "
@@ -1178,13 +1173,13 @@ msgstr ""
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:644
 #: ../plugins/a11y-keyboard/gsd-a11y-keyboard-manager.c:710
 msgid ""
-"You just pressed two keys at once, or pressed the Shift key 5 times in a "
-"row.  This turns off the Sticky Keys feature, which affects the way your "
-"keyboard works."
+"You just pressed two keys at once, or pressed the Shift key 5 times in a row.  "
+"This turns off the Sticky Keys feature, which affects the way your keyboard "
+"works."
 msgstr ""
-"Painoit juuri kahta näppäintä samalla tai vaihtonäppäintä 5 kertaa "
-"peräkkäin. Tämä on pohjaan jäävät näppäimet -ominaisuuden pikanäppäily, ja "
-"muuttaa tapaa, jolla näppäimistö toimii."
+"Painoit juuri kahta näppäintä samalla tai vaihtonäppäintä 5 kertaa peräkkäin. "
+"Tämä on pohjaan jäävät näppäimet -ominaisuuden pikanäppäily, ja muuttaa tapaa, "
+"jolla näppäimistö toimii."
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.c:412
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:1
@@ -1213,8 +1208,7 @@ msgstr "Tee _tekstistä suurempaa ja helppolukuisempaa"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:7
 msgid "_Press keyboard shortcuts one key at a time (Sticky Keys)"
-msgstr ""
-"Syötä _pikanäppäimet yksi näppäin kerrallaan (pohjaan jäävät näppäimet)"
+msgstr "Syötä _pikanäppäimet yksi näppäin kerrallaan (pohjaan jäävät näppäimet)"
 
 #: ../plugins/a11y-keyboard/gsd-a11y-preferences-dialog.ui.h:8
 msgid "_Ignore duplicate keypresses (Bounce Keys)"
@@ -1330,8 +1324,8 @@ msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr ""
-"Liitit tietokoneeseen median, joka sisältää automaattisesti "
-"käynnistettäväksi tarkoitetun ohjelman."
+"Liitit tietokoneeseen median, joka sisältää automaattisesti käynnistettäväksi "
+"tarkoitetun ohjelman."
 
 #. fallback to generic greeting
 #: ../plugins/automount/gsd-autorun.c:731
@@ -1345,8 +1339,8 @@ msgstr "Valitse käynnistettävä ohjelma."
 #: ../plugins/automount/gsd-autorun.c:742
 #, c-format
 msgid ""
-"Select how to open \"%s\" and whether to perform this action in the future "
-"for other media of type \"%s\"."
+"Select how to open \"%s\" and whether to perform this action in the future for "
+"other media of type \"%s\"."
 msgstr ""
 "Valitse, kuinka kohde ”%s” avataan ja suoritetaanko sama toiminto aina "
 "havaittaessa ”%s”-tyyppisiä asemia."
@@ -1462,8 +1456,8 @@ msgstr "Levytila vähissä"
 #: ../plugins/housekeeping/gsd-disk-space.c:346
 #, c-format
 msgid ""
-"This computer has only %s disk space remaining.  You may free up some space "
-"by emptying the trash."
+"This computer has only %s disk space remaining.  You may free up some space by "
+"emptying the trash."
 msgstr ""
 "Tietokoneella on enää %s vapaata levytilaa. Voit vapauttaa levytilaa "
 "tyhjentämällä roskakorin."
@@ -1502,37 +1496,36 @@ msgstr "Älä näytä tätä varoitusta uudestaan"
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:100
 msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to another disk or partition."
+"You can free up disk space by emptying the Trash, removing unused programs or "
+"files, or moving files to another disk or partition."
 msgstr ""
-"Voit vapauttaa levytilaa tyhjentämällä roskakorin, poistamalla "
-"käyttämättömiä ohjelmia ja tiedostoja tai siirtämällä tiedostoja toisille "
-"levyille tai osioille."
+"Voit vapauttaa levytilaa tyhjentämällä roskakorin, poistamalla käyttämättömiä "
+"ohjelmia ja tiedostoja tai siirtämällä tiedostoja toisille levyille tai "
+"osioille."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:103
 msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to another disk or partition."
+"You can free up disk space by removing unused programs or files, or by moving "
+"files to another disk or partition."
 msgstr ""
-"Voit vapauttaa levytilaa poistamalla käyttämättömiä ohjelmia ja tiedostoja "
-"tai siirtämällä tiedostoja toisille levyille tai osioille."
+"Voit vapauttaa levytilaa poistamalla käyttämättömiä ohjelmia ja tiedostoja tai "
+"siirtämällä tiedostoja toisille levyille tai osioille."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:108
 msgid ""
-"You can free up disk space by emptying the Trash, removing unused programs "
-"or files, or moving files to an external disk."
+"You can free up disk space by emptying the Trash, removing unused programs or "
+"files, or moving files to an external disk."
 msgstr ""
-"Voit vapauttaa levytilaa tyhjentämällä roskakorin, poistamalla "
-"käyttämättömiä ohjelmia ja tiedostoja tai siirtämällä tiedostoja ulkoiselle "
-"levylle."
+"Voit vapauttaa levytilaa tyhjentämällä roskakorin, poistamalla käyttämättömiä "
+"ohjelmia ja tiedostoja tai siirtämällä tiedostoja ulkoiselle levylle."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:111
 msgid ""
-"You can free up disk space by removing unused programs or files, or by "
-"moving files to an external disk."
+"You can free up disk space by removing unused programs or files, or by moving "
+"files to an external disk."
 msgstr ""
-"Voit vapauttaa levytilaa poistamalla käyttämättömiä ohjelmia ja tiedostoja "
-"tai siirtämällä tiedostoja ulkoiselle levylle."
+"Voit vapauttaa levytilaa poistamalla käyttämättömiä ohjelmia ja tiedostoja tai "
+"siirtämällä tiedostoja ulkoiselle levylle."
 
 #: ../plugins/housekeeping/gsd-ldsm-dialog.c:445
 msgid "Examine…"
@@ -1591,8 +1584,7 @@ msgid "Could not enable mouse accessibility features"
 msgstr "Hiiren esteettömyystoimintoja ei voitu ottaa käyttöön"
 
 #: ../plugins/mouse/gsd-mouse-manager.c:918
-msgid ""
-"Mouse accessibility requires Mousetweaks to be installed on your system."
+msgid "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
 "Hiiren esteettämyysasetukset vaativat Mousetweak-ohjelmiston asennuksen "
 "tietokoneelle."
@@ -2100,8 +2092,7 @@ msgstr "Akku saattaa olla viallinen"
 #: ../plugins/power/gsd-power-manager.c:1000
 #, c-format
 msgid ""
-"A battery in your computer may have been recalled by %s and you may be at "
-"risk."
+"A battery in your computer may have been recalled by %s and you may be at risk."
 msgstr ""
 "%s on pyytänyt palauttamaan tietokoneessasi olevan akun. Tietokoneen akku "
 "saattaa aiheuttaa vaaran."
@@ -2349,8 +2340,8 @@ msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Matkapuhelimen virta on melkein loppu (%.0f%%). Laite sammuu pian, ellei "
-"sitä aseteta lataukseen."
+"Matkapuhelimen virta on melkein loppu (%.0f%%). Laite sammuu pian, ellei sitä "
+"aseteta lataukseen."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1603
@@ -2359,8 +2350,8 @@ msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
-"Mediasoittimen virta on melkein loppu (%.0f%%). Laite sammuu pian, ellei "
-"sitä aseteta lataukseen."
+"Mediasoittimen virta on melkein loppu (%.0f%%). Laite sammuu pian, ellei sitä "
+"aseteta lataukseen."
 
 #. TRANSLATORS: the device is just going to stop working
 #: ../plugins/power/gsd-power-manager.c:1612
@@ -2376,11 +2367,11 @@ msgstr ""
 #: ../plugins/power/gsd-power-manager.c:1621
 #, c-format
 msgid ""
-"Attached computer is very low in power (%.0f%%). The device will soon "
-"shutdown if not charged."
+"Attached computer is very low in power (%.0f%%). The device will soon shutdown "
+"if not charged."
 msgstr ""
-"Liitetyn tietokoneen virta on melkein loppu (%.0f%%). Laite sammuu pian, "
-"ellei sitä aseteta lataukseen."
+"Liitetyn tietokoneen virta on melkein loppu (%.0f%%). Laite sammuu pian, ellei "
+"sitä aseteta lataukseen."
 
 #. TRANSLATORS: this is the sound description
 #: ../plugins/power/gsd-power-manager.c:1659
@@ -2407,22 +2398,20 @@ msgid ""
 "suspended state."
 msgstr ""
 "Akun lataus on alle kriittisen arvon ja tietokone asetetaan valmiustilaan. \n"
-"<br><b>HUOMAUTUS:</b> Tietokoneen pitäminen valmiustilassa vaatii myös "
-"hieman sähköä."
+"<br><b>HUOMAUTUS:</b> Tietokoneen pitäminen valmiustilassa vaatii myös hieman "
+"sähköä."
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1727
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
-msgstr ""
-"Akun lataus on alle kriittisen arvon ja tietokone asetetaan lepotilaan."
+msgstr "Akun lataus on alle kriittisen arvon ja tietokone asetetaan lepotilaan."
 
 #. TRANSLATORS: computer will just shutdown
 #: ../plugins/power/gsd-power-manager.c:1732
 msgid ""
-"The battery is below the critical level and this computer is about to "
-"shutdown."
+"The battery is below the critical level and this computer is about to shutdown."
 msgstr "Akun lataus on alle kriittisen arvon ja siksi tietokone sammutetaan."
 
 #. TRANSLATORS: computer will shutdown without saving data
@@ -2436,8 +2425,7 @@ msgstr ""
 
 #. TRANSLATORS: computer will hibernate
 #: ../plugins/power/gsd-power-manager.c:1756
-msgid ""
-"UPS is below the critical level and this computer is about to hibernate."
+msgid "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 "UPS on alle kriittisen arvon, ja tietokone on siirtymäisillään lepotilaan."
 
@@ -2747,10 +2735,8 @@ msgstr ""
 #. TRANSLATORS: we need to restart so the new hardware can re-request the firmware
 #: ../plugins/updates/gsd-updates-firmware.c:250
 msgid ""
-"You will need to restart this computer before the hardware will work "
-"correctly."
-msgstr ""
-"Tietokone on käynnistettävä uudelleen, jotta laitteisto toimii kunnolla."
+"You will need to restart this computer before the hardware will work correctly."
+msgstr "Tietokone on käynnistettävä uudelleen, jotta laitteisto toimii kunnolla."
 
 #. TRANSLATORS: title of libnotify bubble
 #: ../plugins/updates/gsd-updates-firmware.c:253
@@ -3121,14 +3107,13 @@ msgstr "Hallitse X-asetuksia"
 #~ msgstr "Käytä WiFi-yhteyksiä"
 
 #~ msgid ""
-#~ "Use WiFi (wireless LAN) connections to check for updates. It may be "
-#~ "faster to download packages when on a wired connection, and the VPN or "
-#~ "proxy required may also only be available on wired connections."
+#~ "Use WiFi (wireless LAN) connections to check for updates. It may be faster "
+#~ "to download packages when on a wired connection, and the VPN or proxy "
+#~ "required may also only be available on wired connections."
 #~ msgstr ""
 #~ "Käytä WiFI-yhteyksiä (langaton lähiverkko) päivitysten tarkistamiseen. "
-#~ "Pakettien lataaminen kiinteällä verkkoyhteydellä voi olla nopeampaa ja "
-#~ "VPN-yhteys tai välityspalvelin voi toimia vain kiinteällä "
-#~ "verkkoyhteydellä."
+#~ "Pakettien lataaminen kiinteällä verkkoyhteydellä voi olla nopeampaa ja VPN-"
+#~ "yhteys tai välityspalvelin voi toimia vain kiinteällä verkkoyhteydellä."
 
 #~ msgid "Automatically install these types of updates"
 #~ msgstr "Asenna automaattisesti seuraavanlaiset päivitykset"
@@ -3139,22 +3124,20 @@ msgstr "Hallitse X-asetuksia"
 #~ msgid "Get the update list when the session starts"
 #~ msgstr "Hae päivityslista istunnon alussa"
 
-#~ msgid ""
-#~ "Get the update list when the session starts, even if not scheduled to."
+#~ msgid "Get the update list when the session starts, even if not scheduled to."
 #~ msgstr ""
 #~ "Hae päivitykset istunnon alussa vaikka sitä ei ole etukäteen määritelty."
 
 #~ msgid ""
-#~ "The number of seconds at session startup to wait before checking for "
-#~ "updates"
+#~ "The number of seconds at session startup to wait before checking for updates"
 #~ msgstr "Aika sekunteina istunnon alusta ennen kuin päivitykset tarkastetaan"
 
 #~ msgid ""
 #~ "The number of seconds at session startup to wait before checking for "
 #~ "updates. Value is in seconds."
 #~ msgstr ""
-#~ "Kuinka kauan odotetaan istunnon alusta ennen kuin päivitykset "
-#~ "tarkistetaan. Arvo sekunteina."
+#~ "Kuinka kauan odotetaan istunnon alusta ennen kuin päivitykset tarkistetaan. "
+#~ "Arvo sekunteina."
 
 #~ msgid "Notify the user for completed updates"
 #~ msgstr "Ilmoita käyttäjälle valmistuneista päivityksistä"
@@ -3163,11 +3146,10 @@ msgstr "Hallitse X-asetuksia"
 #~ "Notify the user for completed updates. This may be a useful notification "
 #~ "for some users as installing updates prevents shutdown."
 #~ msgstr ""
-#~ "Ilmoita käyttäjälle valmistuneista päivityksistä. Tämä voi olla "
-#~ "hyödyllinen ilmoitus, sillä päivitysten asentaminen estää sammuttamisen."
+#~ "Ilmoita käyttäjälle valmistuneista päivityksistä. Tämä voi olla hyödyllinen "
+#~ "ilmoitus, sillä päivitysten asentaminen estää sammuttamisen."
 
-#~ msgid ""
-#~ "Notify the user for completed updates where the user needs to restart"
+#~ msgid "Notify the user for completed updates where the user needs to restart"
 #~ msgstr ""
 #~ "Ilmoita käyttäjälle valmistuneista päivityksistä, jos uudelleenkäynnistys "
 #~ "vaaditaan."
