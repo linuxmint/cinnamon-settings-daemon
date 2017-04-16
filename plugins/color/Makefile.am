@@ -84,7 +84,7 @@ csd_test_color_SOURCES =		\
 
 csd_test_color_CFLAGS = $(libcolor_la_CFLAGS)
 csd_test_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
-csd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la
+csd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la -lm
 
 plugin_in_files = 			\
 	color.cinnamon-settings-plugin.in
