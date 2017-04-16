@@ -28,6 +28,18 @@ libdummy_la_LDFLAGS = 		\
 libdummy_la_LIBADD  = 		\
 	$(SETTINGS_PLUGIN_LIBS)
 
+libexec_PROGRAMS = csd-test-dummy
+csd_test_dummy_SOURCES =		\
+	test-dummy.c			\
+	csd-dummy-manager.c		\
+	csd-dummy-manager.h
+
+csd_test_dummy_CFLAGS = $(libdummy_la_CFLAGS)
+csd_test_dummy_CPPFLAGS =		\
+	-I$(top_srcdir)/plugins/common	\
+	$(libdummy_la_CPPFLAGS)
+csd_test_dummy_LDADD = $(libdummy_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la
+
 plugin_in_files = 		\
 	dummy.cinnamon-settings-plugin.in
 
