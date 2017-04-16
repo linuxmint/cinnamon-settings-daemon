@@ -1,15 +1,5 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.media-keys" path="/org/cinnamon/settings-daemon/plugins/media-keys/">
-     <key name="active" type="b">
-      <default>true</default>
-      <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
-    </key>
-    <key name="priority" type="i">
-      <default>98</default>
-      <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
-    </key>
     <key name="calculator" type="s">
       <default>''</default>
       <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>

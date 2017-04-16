@@ -512,17 +512,13 @@ data/cinnamon-settings-daemon.pc
 data/cinnamon-settings-daemon-uninstalled.pc
 data/org.cinnamon.settings-daemon.plugins.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.background.gschema.xml.in
 po/Makefile.in
 man/Makefile
 ])

@@ -52,12 +52,10 @@ GType            cinnamon_settings_plugin_info_get_type           (void) G_GNUC_
 
 CinnamonSettingsPluginInfo *cinnamon_settings_plugin_info_new_from_file (const char *filename);
 
-void             cinnamon_settings_plugin_info_set_settings_prefix (CinnamonSettingsPluginInfo *info, const char *settings_prefix);
 gboolean         cinnamon_settings_plugin_info_activate        (CinnamonSettingsPluginInfo *info);
 gboolean         cinnamon_settings_plugin_info_deactivate      (CinnamonSettingsPluginInfo *info);
 
 gboolean         cinnamon_settings_plugin_info_is_active       (CinnamonSettingsPluginInfo *info);
-gboolean         cinnamon_settings_plugin_info_get_enabled     (CinnamonSettingsPluginInfo *info);
 gboolean         cinnamon_settings_plugin_info_is_available    (CinnamonSettingsPluginInfo *info);
 
 const char      *cinnamon_settings_plugin_info_get_name        (CinnamonSettingsPluginInfo *info);
@@ -67,9 +65,6 @@ const char      *cinnamon_settings_plugin_info_get_website     (CinnamonSettings
 const char      *cinnamon_settings_plugin_info_get_copyright   (CinnamonSettingsPluginInfo *info);
 const char      *cinnamon_settings_plugin_info_get_location    (CinnamonSettingsPluginInfo *info);
 int              cinnamon_settings_plugin_info_get_priority    (CinnamonSettingsPluginInfo *info);
-
-void             cinnamon_settings_plugin_info_set_priority    (CinnamonSettingsPluginInfo *info,
-                                                             int                      priority);
 
 G_END_DECLS
 

@@ -89,18 +89,14 @@ cinnamon_settings_manager_error_quark (void)
 }
 
 static void
-maybe_activate_plugin (CinnamonSettingsPluginInfo *info, gpointer user_data)
+activate_plugin (CinnamonSettingsPluginInfo *info, gpointer user_data)
 {
-        if (cinnamon_settings_plugin_info_get_enabled (info)) {
-                gboolean res;
-                res = cinnamon_settings_plugin_info_activate (info);
-                if (res) {
-                        g_debug ("Plugin %s: active", cinnamon_settings_plugin_info_get_location (info));
-                } else {
-                        g_debug ("Plugin %s: activation failed", cinnamon_settings_plugin_info_get_location (info));
-                }
+        gboolean res;
+        res = cinnamon_settings_plugin_info_activate (info);
+        if (res) {
+                g_debug ("Plugin %s: active", cinnamon_settings_plugin_info_get_location (info));
         } else {
-                g_debug ("Plugin %s: inactive", cinnamon_settings_plugin_info_get_location (info));
+                g_debug ("Plugin %s: activation failed", cinnamon_settings_plugin_info_get_location (info));
         }
 }
 
@@ -181,23 +177,6 @@ on_plugin_deactivated (CinnamonSettingsPluginInfo *info,
         emit_signal (manager, "PluginDeactivated", name);
 }
 
-static gboolean
-is_schema (const char *schema)
-{
-        GSettingsSchemaSource *source = NULL;
-        GSettingsSchema *test = NULL;
-
-        source = g_settings_schema_source_get_default ();
-        if (!source)
-                return FALSE;
-
-        test = g_settings_schema_source_lookup (source, schema, TRUE);
-        if (test != NULL)
-                return TRUE;
-        else
-                return FALSE;
-}
-
 static void
 _load_file (CinnamonSettingsManager *manager,
             const char           *filename)
@@ -225,22 +204,14 @@ _load_file (CinnamonSettingsManager *manager,
                                     DEFAULT_SETTINGS_PREFIX,
                                     cinnamon_settings_plugin_info_get_location (info));
 
-        /* Ignore unknown schemas or else we'll assert */
-        if (is_schema (key_name)) {
-                manager->priv->plugins = g_slist_prepend (manager->priv->plugins,
-                                                          g_object_ref (info));
+        manager->priv->plugins = g_slist_prepend (manager->priv->plugins,
+                                                  g_object_ref (info));
 
-                g_signal_connect (info, "activated",
-                                  G_CALLBACK (on_plugin_activated), manager);
-                g_signal_connect (info, "deactivated",
-                                  G_CALLBACK (on_plugin_deactivated), manager);
+        g_signal_connect (info, "activated",
+                          G_CALLBACK (on_plugin_activated), manager);
+        g_signal_connect (info, "deactivated",
+                          G_CALLBACK (on_plugin_deactivated), manager);
 
-                cinnamon_settings_plugin_info_set_settings_prefix (info, key_name);
-        } else {
-                g_warning ("Ignoring unknown module '%s'", key_name);
-        }
-
-        /* Priority is set in the call above */
         g_free (key_name);
 
  out:
@@ -298,16 +269,14 @@ _load_all (CinnamonSettingsManager *manager)
         _load_dir (manager, CINNAMON_SETTINGS_PLUGINDIR G_DIR_SEPARATOR_S);
 
         manager->priv->plugins = g_slist_sort (manager->priv->plugins, (GCompareFunc) compare_priority);
-        g_slist_foreach (manager->priv->plugins, (GFunc) maybe_activate_plugin, NULL);
+        g_slist_foreach (manager->priv->plugins, (GFunc) activate_plugin, NULL);
         cinnamon_settings_profile_end (NULL);
 }
 
 static void
 _unload_plugin (CinnamonSettingsPluginInfo *info, gpointer user_data)
 {
-        if (cinnamon_settings_plugin_info_get_enabled (info)) {
-                cinnamon_settings_plugin_info_deactivate (info);
-        }
+        cinnamon_settings_plugin_info_deactivate (info);
         g_object_unref (info);
 }
 

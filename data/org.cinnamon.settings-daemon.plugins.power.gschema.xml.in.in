@@ -1,15 +1,5 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.power" path="/org/cinnamon/settings-daemon/plugins/power/">
-    <key name="active" type="b">
-      <default>true</default>
-      <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
-    </key>
-    <key name="priority" type="i">
-      <default>1</default>
-      <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
-    </key>
     <key name="idle-brightness" type="i">
       <default>30</default>
       <summary>The brightness of the screen when idle</summary>

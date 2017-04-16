@@ -1,10 +1,5 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.housekeeping" path="/org/cinnamon/settings-daemon/plugins/housekeeping/">
-    <key name="active" type="b">
-      <default>true</default>
-      <_summary>Activation of this plugin</_summary>
-      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
-    </key>
     <key name="ignore-paths" type="as">
       <default>[]</default>
       <_summary>Mount paths to ignore</_summary>
@@ -29,11 +24,6 @@
       <default>10</default>
       <_summary>Minimum notify period for repeated warnings</_summary>
       <_description>Specify a time in minutes. Subsequent warnings for a volume will not appear more often than this period.</_description>
-    </key>
-    <key name="priority" type="i">
-      <default>300</default>
-      <_summary>Priority to use for this plugin</_summary>
-      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
     </key>
   </schema>
 </schemalist>

@@ -55,7 +55,6 @@ struct CinnamonSettingsPluginInfoPrivate
 
         CinnamonSettingsPlugin     *plugin;
 
-        int                      enabled : 1;
         int                      active : 1;
 
         /* A plugin is unavailable if it is not possible to activate it
@@ -284,38 +283,6 @@ cinnamon_settings_plugin_info_new_from_file (const char *filename)
 }
 
 static void
-plugin_enabled_cb (GSettings               *settings,
-                   const gchar             *key,
-                   CinnamonSettingsPluginInfo *info)
-{
-        if (g_strcmp0 (key, "active") == 0) {
-                if (g_settings_get_boolean (settings, "active"))
-                        cinnamon_settings_plugin_info_activate (info);
-                else
-                        cinnamon_settings_plugin_info_deactivate (info);
-        }
-}
-
-void
-cinnamon_settings_plugin_info_set_settings_prefix (CinnamonSettingsPluginInfo *info,
-                                                const char              *settings_prefix)
-{
-        int priority;
-
-        info->priv->settings = g_settings_new (settings_prefix);
-        info->priv->enabled = g_settings_get_boolean (info->priv->settings, "active");
-
-        priority = g_settings_get_int (info->priv->settings, "priority");
-        if (priority > 0)
-                info->priv->priority = priority;
-
-        g_signal_connect (G_OBJECT (info->priv->settings),
-                          "changed",
-                          G_CALLBACK (plugin_enabled_cb),
-                          info);
-}
-
-static void
 _deactivate_plugin (CinnamonSettingsPluginInfo *info)
 {
         cinnamon_settings_plugin_deactivate (info->priv->plugin);
@@ -445,14 +412,6 @@ cinnamon_settings_plugin_info_is_active (CinnamonSettingsPluginInfo *info)
 }
 
 gboolean
-cinnamon_settings_plugin_info_get_enabled (CinnamonSettingsPluginInfo *info)
-{
-        g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
-
-        return (info->priv->enabled);
-}
-
-gboolean
 cinnamon_settings_plugin_info_is_available (CinnamonSettingsPluginInfo *info)
 {
         g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), FALSE);
@@ -515,13 +474,4 @@ cinnamon_settings_plugin_info_get_priority (CinnamonSettingsPluginInfo *info)
         g_return_val_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info), PLUGIN_PRIORITY_DEFAULT);
 
         return info->priv->priority;
-}
-
-void
-cinnamon_settings_plugin_info_set_priority (CinnamonSettingsPluginInfo *info,
-                                         int                      priority)
-{
-        g_return_if_fail (CINNAMON_IS_SETTINGS_PLUGIN_INFO (info));
-
-        info->priv->priority = priority;
 }
