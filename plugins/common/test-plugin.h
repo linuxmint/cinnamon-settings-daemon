@@ -26,6 +26,14 @@
 #endif /* !PLUGIN_NAME */
 
 static MANAGER *manager = NULL;
+static int timeout = -1;
+static gboolean verbose = FALSE;
+
+static GOptionEntry entries[] = {
+         { "exit-time", 0, 0, G_OPTION_ARG_INT, &timeout, "Exit after n seconds time", NULL },
+         { "verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose, "Verbose", NULL },
+         {NULL}
+};
 
 static gboolean
 has_settings (void)
@@ -52,13 +60,20 @@ main (int argc, char **argv)
         textdomain (GETTEXT_PACKAGE);
         notify_init ("cinnamon-settings-daemon");
 
-	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
-
         error = NULL;
-        if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
+        if (! gtk_init_with_args (&argc, &argv, SCHEMA_NAME, entries, NULL, &error)) {
                 fprintf (stderr, "%s\n", error->message);
                 g_error_free (error);
                 exit (1);
+        }
+
+        if (verbose)
+                g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
+
+        if (timeout > 0) {
+                guint id;
+                id = g_timeout_add_seconds (timeout, (GSourceFunc) gtk_main_quit, NULL);
+                g_source_set_name_by_id (id, "[cinnamon-settings-daemon] gtk_main_quit");
         }
 
 	if (has_settings () == FALSE) {
