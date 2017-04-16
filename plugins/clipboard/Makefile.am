@@ -22,6 +22,7 @@ libclipboard_la_SOURCES = 	\
 libclipboard_la_CPPFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	$(AM_CPPFLAGS)
 
@@ -37,6 +38,21 @@ libclipboard_la_LDFLAGS = 	\
 libclipboard_la_LIBADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
+
+libexec_PROGRAMS = csd-test-clipboard
+csd_test_clipboard_SOURCES =	\
+	test-clipboard.c	\
+	csd-clipboard-manager.h	\
+	csd-clipboard-manager.c	\
+	xutils.h		\
+	xutils.c		\
+	list.h			\
+	list.c			\
+	$(NULL)
+
+csd_test_clipboard_CFLAGS = $(libclipboard_la_CFLAGS)
+csd_test_clipboard_CPPFLAGS = $(libclipboard_la_CPPFLAGS)
+csd_test_clipboard_LDADD = $(libclipboard_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la
 
 plugin_in_files = 		\
 	clipboard.cinnamon-settings-plugin.in	\
