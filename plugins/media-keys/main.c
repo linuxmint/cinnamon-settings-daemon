@@ -4,4 +4,4 @@
 #define MANAGER CsdMediaKeysManager
 #include "csd-media-keys-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

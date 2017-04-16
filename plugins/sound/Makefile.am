@@ -7,7 +7,7 @@ libexec_PROGRAMS = csd-sound
 csd_sound_SOURCES =	\
 	csd-sound-manager.h	\
 	csd-sound-manager.c	\
-	test-sound.c
+	main.c
 
 csd_sound_CFLAGS =						\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\

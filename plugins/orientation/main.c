@@ -4,4 +4,4 @@
 #define MANAGER CsdOrientationManager
 #include "csd-orientation-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

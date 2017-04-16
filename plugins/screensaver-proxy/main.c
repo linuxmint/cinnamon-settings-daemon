@@ -4,4 +4,4 @@
 #define MANAGER CsdScreensaverProxyManager
 #include "csd-screensaver-proxy-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

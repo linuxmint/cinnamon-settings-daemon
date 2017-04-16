@@ -4,4 +4,4 @@
 #define MANAGER CsdA11ySettingsManager
 #include "csd-a11y-settings-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

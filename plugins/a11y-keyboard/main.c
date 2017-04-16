@@ -4,4 +4,4 @@
 #define MANAGER CsdA11yKeyboardManager
 #include "csd-a11y-keyboard-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

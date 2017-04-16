@@ -18,7 +18,7 @@ csd_a11y_keyboard_SOURCES =		\
 	csd-a11y-keyboard-manager.c		\
 	csd-a11y-preferences-dialog.c		\
 	csd-a11y-preferences-dialog.h		\
-	test-a11y-keyboard.c
+	main.c
 
 csd_a11y_keyboard_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\

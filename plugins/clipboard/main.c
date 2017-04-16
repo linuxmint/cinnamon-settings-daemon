@@ -4,4 +4,4 @@
 #define MANAGER CsdClipboardManager
 #include "csd-clipboard-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

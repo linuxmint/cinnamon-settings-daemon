@@ -4,4 +4,4 @@
 #define MANAGER CsdMouseManager
 #include "csd-mouse-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

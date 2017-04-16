@@ -7,7 +7,7 @@ libexec_PROGRAMS = csd-automount
 AM_CFLAGS = $(WARN_CFLAGS)
 
 csd_automount_SOURCES = 		\
-	test-automount.c		\
+	main.c		\
 	csd-automount-manager.h		\
 	csd-automount-manager.c		\
 	csd-autorun.c		\

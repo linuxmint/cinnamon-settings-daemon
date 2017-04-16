@@ -4,4 +4,4 @@
 #define MANAGER CinnamonSettingsXSettingsManager
 #include "csd-xsettings-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

@@ -5,7 +5,7 @@ libexec_PROGRAMS = csd-a11y-settings
 csd_a11y_settings_SOURCES =	\
 	csd-a11y-settings-manager.h	\
 	csd-a11y-settings-manager.c	\
-	test-a11y-settings.c
+	main.c
 
 csd_a11y_settings_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\

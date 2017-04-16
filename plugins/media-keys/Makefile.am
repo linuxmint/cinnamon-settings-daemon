@@ -73,7 +73,7 @@ csd_media_keys_SOURCES =			\
 	bus-watch-namespace.h			\
 	mpris-controller.c		        \
 	mpris-controller.h	        	\
-	test-media-keys.c			\
+	main.c			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
 

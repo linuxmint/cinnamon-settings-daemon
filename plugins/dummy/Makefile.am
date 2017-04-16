@@ -30,7 +30,7 @@ libdummy_la_LIBADD  = 		\
 
 libexec_PROGRAMS = csd-dummy
 csd_dummy_SOURCES =		\
-	test-dummy.c			\
+	main.c			\
 	csd-dummy-manager.c		\
 	csd-dummy-manager.h
 

@@ -4,4 +4,4 @@
 #define MANAGER CsdBackgroundManager
 #include "csd-background-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

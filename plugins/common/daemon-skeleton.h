@@ -6,7 +6,7 @@
  * #define MANAGER CsdMediaKeysManager
  * #include "csd-media-keys-manager.h"
  *
- * #include "test-plugin.h"
+ * #include "daemon-skeleton.h"
  */
 
 #include "config.h"
@@ -22,7 +22,7 @@
 #endif
 
 #ifndef PLUGIN_NAME
-#error Include PLUGIN_CFLAGS in the test application s CFLAGS
+#error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
 
 static MANAGER *manager = NULL;

@@ -70,7 +70,7 @@ csd_power_SOURCES =				\
 	gpm-idletime.h					\
 	csd-power-manager.c				\
 	csd-power-manager.h				\
-	test-power.c
+	main.c
 
 csd_power_CFLAGS = $(libpower_la_CFLAGS)
 csd_power_CPPFLAGS = $(libpower_la_CPPFLAGS)

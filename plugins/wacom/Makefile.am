@@ -76,7 +76,7 @@ EXTRA_DIST += org.cinnamon.settings-daemon.plugins.wacom.policy.in.in
 libexec_PROGRAMS += csd-wacom csd-list-wacom csd-wacom-osd
 
 csd_wacom_SOURCES =	\
-	test-wacom.c		\
+	main.c		\
 	csd-wacom-manager.c	\
 	csd-wacom-manager.h	\
 	csd-wacom-osd-window.h	\

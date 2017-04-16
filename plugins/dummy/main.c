@@ -4,4 +4,4 @@
 #define MANAGER CsdDummyManager
 #include "csd-dummy-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

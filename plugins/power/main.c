@@ -4,4 +4,4 @@
 #define MANAGER CsdPowerManager
 #include "csd-power-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

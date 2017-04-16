@@ -41,7 +41,7 @@ csd_xsettings_SOURCES =	\
 	xsettings-manager.h	\
 	fontconfig-monitor.c	\
 	fontconfig-monitor.h	\
-	test-xsettings.c
+	main.c
 
 csd_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
 csd_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common

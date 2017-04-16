@@ -9,7 +9,7 @@ csd_smartcard_SOURCES =	\
 	csd-smartcard-manager.c	\
 	csd-smartcard.h         \
 	csd-smartcard.c         \
-	test-smartcard.c
+	main.c
 
 csd_smartcard_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\

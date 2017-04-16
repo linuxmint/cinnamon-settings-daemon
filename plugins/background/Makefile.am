@@ -7,7 +7,7 @@ libexec_PROGRAMS = csd-background
 AM_CFLAGS = $(WARN_CFLAGS)
 
 csd_background_SOURCES =       \
-    test-background.c       \
+    main.c       \
     csd-background-manager.h    \
     csd-background-manager.c    \
     $(NULL)

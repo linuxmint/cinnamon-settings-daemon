@@ -4,4 +4,4 @@
 #define MANAGER CsdSmartcardManager
 #include "csd-smartcard-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

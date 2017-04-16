@@ -4,4 +4,4 @@
 #define MANAGER CsdColorManager
 #include "csd-color-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

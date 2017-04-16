@@ -4,4 +4,4 @@
 #define MANAGER CsdPrintNotificationsManager
 #include "csd-print-notifications-manager.h"
 
-#include "test-plugin.h"
+#include "daemon-skeleton.h"

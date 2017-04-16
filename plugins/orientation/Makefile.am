@@ -7,7 +7,7 @@ AM_CFLAGS = $(WARN_CFLAGS)
 csd_orientation_SOURCES =		\
 	csd-orientation-manager.h	\
 	csd-orientation-manager.c	\
-	test-orientation.c
+	main.c
 
 csd_orientation_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\

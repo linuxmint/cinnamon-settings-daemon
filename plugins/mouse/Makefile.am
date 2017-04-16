@@ -58,7 +58,7 @@ csd_locate_pointer_LDADD  = 		\
 libexec_PROGRAMS += csd-mouse
 
 csd_mouse_SOURCES =		\
-	test-mouse.c			\
+	main.c			\
 	csd-mouse-manager.c		\
 	csd-mouse-manager.h
 

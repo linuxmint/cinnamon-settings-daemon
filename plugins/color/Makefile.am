@@ -80,7 +80,7 @@ csd_color_SOURCES =		\
 	gcm-edid.h			\
 	csd-color-manager.c		\
 	csd-color-manager.h		\
-	test-color.c
+	main.c
 
 csd_color_CFLAGS = $(libcolor_la_CFLAGS)
 csd_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)

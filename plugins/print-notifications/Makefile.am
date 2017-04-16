@@ -56,7 +56,7 @@ libexec_PROGRAMS += csd-print-notifications
 csd_print_notifications_SOURCES =		\
 	csd-print-notifications-manager.c	\
 	csd-print-notifications-manager.h	\
-	test-print-notifications.c
+	main.c
 
 csd_print_notifications_CPPFLAGS =				\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\

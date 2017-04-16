@@ -38,4 +38,4 @@ csd_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
 scriptsdir = $(datadir)/cinnamon-settings-daemon-@CSD_API_VERSION@
 scripts_DATA = input-device-example.sh
 
-EXTRA_DIST = $(scripts_DATA) test-plugin.h
+EXTRA_DIST = $(scripts_DATA) daemon-skeleton.h
