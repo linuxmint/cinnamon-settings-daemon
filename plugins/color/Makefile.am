@@ -19,6 +19,7 @@ libcolor_la_SOURCES = 			\
 
 libcolor_la_CPPFLAGS = \
 	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DBINDIR=\"$(bindir)\"				\
 	$(AM_CPPFLAGS)
@@ -68,6 +69,22 @@ gcm_self_test_LDADD =			\
 	-lm
 
 TESTS = gcm-self-test
+
+libexec_PROGRAMS = csd-test-color
+csd_test_color_SOURCES =		\
+	gcm-profile-store.c		\
+	gcm-profile-store.h		\
+	gcm-dmi.c			\
+	gcm-dmi.h			\
+	gcm-edid.c			\
+	gcm-edid.h			\
+	csd-color-manager.c		\
+	csd-color-manager.h		\
+	test-color.c
+
+csd_test_color_CFLAGS = $(libcolor_la_CFLAGS)
+csd_test_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
+csd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la
 
 plugin_in_files = 			\
 	color.cinnamon-settings-plugin.in
