@@ -60,8 +60,8 @@ polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 csd_backlight_helper_SOURCES =				\
 	csd-backlight-helper.c
 
-libexec_PROGRAMS = csd-test-power
-csd_test_power_SOURCES =				\
+libexec_PROGRAMS = csd-power
+csd_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
 	gpm-phone.c					\
@@ -72,9 +72,9 @@ csd_test_power_SOURCES =				\
 	csd-power-manager.h				\
 	test-power.c
 
-csd_test_power_CFLAGS = $(libpower_la_CFLAGS)
-csd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
-csd_test_power_LDADD =					\
+csd_power_CFLAGS = $(libpower_la_CFLAGS)
+csd_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
+csd_power_LDADD =					\
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \

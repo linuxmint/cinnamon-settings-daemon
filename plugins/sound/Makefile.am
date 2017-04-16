@@ -2,14 +2,14 @@ plugin_name = sound
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-libexec_PROGRAMS = csd-test-sound
+libexec_PROGRAMS = csd-sound
 
-csd_test_sound_SOURCES =	\
+csd_sound_SOURCES =	\
 	csd-sound-manager.h	\
 	csd-sound-manager.c	\
 	test-sound.c
 
-csd_test_sound_CFLAGS =						\
+csd_sound_CFLAGS =						\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -18,7 +18,7 @@ csd_test_sound_CFLAGS =						\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-csd_test_sound_LDADD =						\
+csd_sound_LDADD =						\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SOUND_LIBS)						\

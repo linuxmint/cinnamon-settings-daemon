@@ -2,29 +2,29 @@ NULL =
 
 plugin_name = background
 
-libexec_PROGRAMS = csd-test-background
+libexec_PROGRAMS = csd-background
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-csd_test_background_SOURCES =       \
+csd_background_SOURCES =       \
     test-background.c       \
     csd-background-manager.h    \
     csd-background-manager.c    \
     $(NULL)
 
-csd_test_background_CPPFLAGS =              \
+csd_background_CPPFLAGS =              \
     -I$(top_srcdir)/cinnamon-settings-daemon        \
     -I$(top_srcdir)/plugins/common          \
     -DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
     $(AM_CPPFLAGS)
 
-csd_test_background_CFLAGS = \
+csd_background_CFLAGS = \
     $(PLUGIN_CFLAGS)        \
     $(SETTINGS_PLUGIN_CFLAGS)   \
     $(BACKGROUND_CFLAGS)        \
     $(AM_CFLAGS)
 
-csd_test_background_LDADD =             \
+csd_background_LDADD =             \
     $(top_builddir)/cinnamon-settings-daemon/libcsd.la  \
     $(SETTINGS_PLUGIN_LIBS)             \
     $(BACKGROUND_LIBS)              \

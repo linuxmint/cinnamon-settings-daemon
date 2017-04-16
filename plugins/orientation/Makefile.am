@@ -1,15 +1,15 @@
 plugin_name = orientation
 
-libexec_PROGRAMS = csd-test-orientation
+libexec_PROGRAMS = csd-orientation
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-csd_test_orientation_SOURCES =		\
+csd_orientation_SOURCES =		\
 	csd-orientation-manager.h	\
 	csd-orientation-manager.c	\
 	test-orientation.c
 
-csd_test_orientation_CFLAGS =					\
+csd_orientation_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -18,7 +18,7 @@ csd_test_orientation_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-csd_test_orientation_LDADD =					\
+csd_orientation_LDADD =					\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(ORIENTATION_LIBS)					\

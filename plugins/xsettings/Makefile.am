@@ -28,9 +28,9 @@ test_gtk_modules_CPPFLAGS =				\
 	-DGTK_MODULES_DIRECTORY=\""$(libdir)/cinnamon-settings-daemon-@CSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
-libexec_PROGRAMS = csd-test-xsettings
+libexec_PROGRAMS = csd-xsettings
 
-csd_test_xsettings_SOURCES =	\
+csd_xsettings_SOURCES =	\
 	csd-xsettings-gtk.c	\
 	csd-xsettings-gtk.h	\
 	csd-xsettings-manager.c	\
@@ -43,9 +43,9 @@ csd_test_xsettings_SOURCES =	\
 	fontconfig-monitor.h	\
 	test-xsettings.c
 
-csd_test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
-csd_test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
-csd_test_xsettings_LDADD = $(test_gtk_modules_LDADD)
+csd_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
+csd_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
+csd_xsettings_LDADD = $(test_gtk_modules_LDADD)
 
 plugin_LTLIBRARIES = \
 	libxsettings.la		\

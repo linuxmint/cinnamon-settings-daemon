@@ -2,16 +2,16 @@ plugin_name = smartcard
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-libexec_PROGRAMS = csd-test-smartcard
+libexec_PROGRAMS = csd-smartcard
 
-csd_test_smartcard_SOURCES =	\
+csd_smartcard_SOURCES =	\
 	csd-smartcard-manager.h	\
 	csd-smartcard-manager.c	\
 	csd-smartcard.h         \
 	csd-smartcard.c         \
 	test-smartcard.c
 
-csd_test_smartcard_CFLAGS =					\
+csd_smartcard_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
@@ -22,7 +22,7 @@ csd_test_smartcard_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-csd_test_smartcard_LDADD =					\
+csd_smartcard_LDADD =					\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(NSS_LIBS)						\

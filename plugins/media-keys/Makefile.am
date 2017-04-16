@@ -64,9 +64,9 @@ plugin_in_files = 		\
 
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
-libexec_PROGRAMS = csd-test-media-keys
+libexec_PROGRAMS = csd-media-keys
 
-csd_test_media_keys_SOURCES =			\
+csd_media_keys_SOURCES =			\
 	csd-media-keys-manager.c		\
 	csd-media-keys-manager.h		\
 	bus-watch-namespace.c			\
@@ -77,7 +77,7 @@ csd_test_media_keys_SOURCES =			\
 	$(BUILT_SOURCES)			\
 	$(NULL)
 
-csd_test_media_keys_CPPFLAGS = \
+csd_media_keys_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -87,13 +87,13 @@ csd_test_media_keys_CPPFLAGS = \
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-csd_test_media_keys_CFLAGS = \
+csd_media_keys_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MEDIA_KEYS_CFLAGS)		\
 	$(AM_CFLAGS)
 
-csd_test_media_keys_LDADD = \
+csd_media_keys_LDADD = \
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la			\
 	$(SETTINGS_DAEMON_LIBS)			\

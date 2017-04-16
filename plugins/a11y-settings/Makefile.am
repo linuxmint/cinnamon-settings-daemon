@@ -1,13 +1,13 @@
 plugin_name = a11y-settings
 
-libexec_PROGRAMS = csd-test-a11y-settings
+libexec_PROGRAMS = csd-a11y-settings
 
-csd_test_a11y_settings_SOURCES =	\
+csd_a11y_settings_SOURCES =	\
 	csd-a11y-settings-manager.h	\
 	csd-a11y-settings-manager.c	\
 	test-a11y-settings.c
 
-csd_test_a11y_settings_CFLAGS =					\
+csd_a11y_settings_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -15,7 +15,7 @@ csd_test_a11y_settings_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-csd_test_a11y_settings_LDADD =					\
+csd_a11y_settings_LDADD =					\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_PLUGIN_LIBS)

@@ -39,8 +39,8 @@ libclipboard_la_LIBADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
 	$(NULL)
 
-libexec_PROGRAMS = csd-test-clipboard
-csd_test_clipboard_SOURCES =	\
+libexec_PROGRAMS = csd-clipboard
+csd_clipboard_SOURCES =	\
 	test-clipboard.c	\
 	csd-clipboard-manager.h	\
 	csd-clipboard-manager.c	\
@@ -50,9 +50,9 @@ csd_test_clipboard_SOURCES =	\
 	list.c			\
 	$(NULL)
 
-csd_test_clipboard_CFLAGS = $(libclipboard_la_CFLAGS)
-csd_test_clipboard_CPPFLAGS = $(libclipboard_la_CPPFLAGS)
-csd_test_clipboard_LDADD = $(libclipboard_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la
+csd_clipboard_CFLAGS = $(libclipboard_la_CFLAGS)
+csd_clipboard_CPPFLAGS = $(libclipboard_la_CPPFLAGS)
+csd_clipboard_LDADD = $(libclipboard_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la
 
 plugin_in_files = 		\
 	clipboard.cinnamon-settings-plugin.in	\

@@ -51,26 +51,26 @@ csd_printer_LDADD  = 		\
 	$(CUPS_LIBS)		\
 	$(LIBNOTIFY_LIBS)
 
-libexec_PROGRAMS += csd-test-print-notifications
+libexec_PROGRAMS += csd-print-notifications
 
-csd_test_print_notifications_SOURCES =		\
+csd_print_notifications_SOURCES =		\
 	csd-print-notifications-manager.c	\
 	csd-print-notifications-manager.h	\
 	test-print-notifications.c
 
-csd_test_print_notifications_CPPFLAGS =				\
+csd_print_notifications_CPPFLAGS =				\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-csd_test_print_notifications_CFLAGS =	\
+csd_print_notifications_CFLAGS =	\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-csd_test_print_notifications_LDADD =				\
+csd_print_notifications_LDADD =				\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\

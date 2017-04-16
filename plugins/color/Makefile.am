@@ -70,8 +70,8 @@ gcm_self_test_LDADD =			\
 
 TESTS = gcm-self-test
 
-libexec_PROGRAMS = csd-test-color
-csd_test_color_SOURCES =		\
+libexec_PROGRAMS = csd-color
+csd_color_SOURCES =		\
 	gcm-profile-store.c		\
 	gcm-profile-store.h		\
 	gcm-dmi.c			\
@@ -82,9 +82,9 @@ csd_test_color_SOURCES =		\
 	csd-color-manager.h		\
 	test-color.c
 
-csd_test_color_CFLAGS = $(libcolor_la_CFLAGS)
-csd_test_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
-csd_test_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la -lm
+csd_color_CFLAGS = $(libcolor_la_CFLAGS)
+csd_color_CPPFLAGS = $(libcolor_la_CPPFLAGS)
+csd_color_LDADD = $(libcolor_la_LIBADD) $(top_builddir)/cinnamon-settings-daemon/libcsd.la -lm
 
 plugin_in_files = 			\
 	color.cinnamon-settings-plugin.in

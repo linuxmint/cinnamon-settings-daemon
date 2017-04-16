@@ -29,11 +29,11 @@ libcommon_la_LIBADD  = \
 	$(SETTINGS_PLUGIN_LIBS)		\
 	$(COMMON_LIBS)
 
-libexec_PROGRAMS = csd-test-input-helper
+libexec_PROGRAMS = csd-input-helper
 
-csd_test_input_helper_SOURCES = test-input-helper.c
-csd_test_input_helper_LDADD = libcommon.la
-csd_test_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
+csd_input_helper_SOURCES = test-input-helper.c
+csd_input_helper_LDADD = libcommon.la
+csd_input_helper_CFLAGS = $(libcommon_la_CFLAGS)
 
 scriptsdir = $(datadir)/cinnamon-settings-daemon-@CSD_API_VERSION@
 scripts_DATA = input-device-example.sh

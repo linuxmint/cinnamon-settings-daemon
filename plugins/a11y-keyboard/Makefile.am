@@ -11,16 +11,16 @@ gtkbuilder_DATA = 			\
 
 noinst_PROGRAMS = test-a11y-preferences-dialog
 
-libexec_PROGRAMS = csd-test-a11y-keyboard
+libexec_PROGRAMS = csd-a11y-keyboard
 
-csd_test_a11y_keyboard_SOURCES =		\
+csd_a11y_keyboard_SOURCES =		\
 	csd-a11y-keyboard-manager.h		\
 	csd-a11y-keyboard-manager.c		\
 	csd-a11y-preferences-dialog.c		\
 	csd-a11y-preferences-dialog.h		\
 	test-a11y-keyboard.c
 
-csd_test_a11y_keyboard_CFLAGS =					\
+csd_a11y_keyboard_CFLAGS =					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
@@ -31,7 +31,7 @@ csd_test_a11y_keyboard_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(AM_CFLAGS)
 
-csd_test_a11y_keyboard_LDADD =					\
+csd_a11y_keyboard_LDADD =					\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(LIBNOTIFY_LIBS)					\

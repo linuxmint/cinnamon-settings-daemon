@@ -73,9 +73,9 @@ endif
 
 EXTRA_DIST += org.cinnamon.settings-daemon.plugins.wacom.policy.in.in
 
-libexec_PROGRAMS += csd-test-wacom csd-list-wacom csd-test-wacom-osd
+libexec_PROGRAMS += csd-wacom csd-list-wacom csd-wacom-osd
 
-csd_test_wacom_SOURCES =	\
+csd_wacom_SOURCES =	\
 	test-wacom.c		\
 	csd-wacom-manager.c	\
 	csd-wacom-manager.h	\
@@ -85,7 +85,7 @@ csd_test_wacom_SOURCES =	\
 	csd-wacom-device.h	\
 	csd-wacom-resources.c
 
-csd_test_wacom_CPPFLAGS = \
+csd_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -97,13 +97,13 @@ csd_test_wacom_CPPFLAGS = \
 	-DSCHEMA_NAME=\""csdwacom"\"				\
 	$(AM_CPPFLAGS)
 
-csd_test_wacom_CFLAGS =			\
+csd_wacom_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-csd_test_wacom_LDADD =						\
+csd_wacom_LDADD =						\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
@@ -139,7 +139,7 @@ csd_list_wacom_LDADD =						\
 	$(WACOM_LIBS)						\
 	-lm
 
-csd_test_wacom_osd_SOURCES =					\
+csd_wacom_osd_SOURCES =					\
 	test-osd-window.c					\
 	csd-wacom-osd-window.h					\
 	csd-wacom-osd-window.c					\
@@ -147,7 +147,7 @@ csd_test_wacom_osd_SOURCES =					\
 	csd-wacom-device.h					\
 	csd-wacom-resources.c
 
-csd_test_wacom_osd_CPPFLAGS = \
+csd_wacom_osd_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -158,12 +158,12 @@ csd_test_wacom_osd_CPPFLAGS = \
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-csd_test_wacom_osd_CFLAGS =					\
+csd_wacom_osd_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(WACOM_CFLAGS)						\
 	$(AM_CFLAGS)
 
-csd_test_wacom_osd_LDADD = \
+csd_wacom_osd_LDADD = \
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\

@@ -55,14 +55,14 @@ csd_locate_pointer_LDADD  = 		\
 	$(MOUSE_LIBS)			\
 	-lm
 
-libexec_PROGRAMS += csd-test-mouse
+libexec_PROGRAMS += csd-mouse
 
-csd_test_mouse_SOURCES =		\
+csd_mouse_SOURCES =		\
 	test-mouse.c			\
 	csd-mouse-manager.c		\
 	csd-mouse-manager.h
 
-csd_test_mouse_CPPFLAGS =					\
+csd_mouse_CPPFLAGS =					\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -70,13 +70,13 @@ csd_test_mouse_CPPFLAGS =					\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-csd_test_mouse_CFLAGS =			\
+csd_mouse_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(MOUSE_CFLAGS)		\
 	$(AM_CFLAGS)
 
-csd_test_mouse_LDADD =						\
+csd_mouse_LDADD =						\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)			\
