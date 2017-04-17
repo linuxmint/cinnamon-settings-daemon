@@ -59,7 +59,9 @@
 
 /* Keys for both touchpad and mouse */
 #define KEY_LEFT_HANDED         "left-handed"                /* a boolean for mouse, an enum for touchpad */
+#define KEY_CUSTOM_ACCELERATION "custom-acceleration"
 #define KEY_MOTION_ACCELERATION "motion-acceleration"
+#define KEY_CUSTOM_THRESHOLD    "custom-threshold"
 #define KEY_MOTION_THRESHOLD    "motion-threshold"
 
 /* Touchpad settings */
@@ -549,7 +551,9 @@ set_motion_legacy_driver (CsdMouseManager *manager,
         int num_feedbacks;
         int numerator, denominator;
         gfloat motion_acceleration;
+        gboolean custom_acceleration;
         int motion_threshold;
+        gboolean custom_threshold;
         GSettings *settings;
         guint i;
 
@@ -566,34 +570,46 @@ set_motion_legacy_driver (CsdMouseManager *manager,
 
         /* Calculate acceleration */
         motion_acceleration = g_settings_get_double (settings, KEY_MOTION_ACCELERATION);
+        custom_acceleration = g_settings_get_boolean (settings, KEY_CUSTOM_ACCELERATION);
 
-        if (motion_acceleration >= 1.0) {
-                /* we want to get the acceleration, with a resolution of 0.5
-                 */
-                if ((motion_acceleration - floor (motion_acceleration)) < 0.25) {
-                        numerator = floor (motion_acceleration);
-                        denominator = 1;
-                } else if ((motion_acceleration - floor (motion_acceleration)) < 0.5) {
-                        numerator = ceil (2.0 * motion_acceleration);
-                        denominator = 2;
-                } else if ((motion_acceleration - floor (motion_acceleration)) < 0.75) {
-                        numerator = floor (2.0 *motion_acceleration);
-                        denominator = 2;
+        if (custom_acceleration) {
+                if (motion_acceleration >= 1.0) {
+                        /* we want to get the acceleration, with a resolution of 0.5
+                         */
+                        if ((motion_acceleration - floor (motion_acceleration)) < 0.25) {
+                                numerator = floor (motion_acceleration);
+                                denominator = 1;
+                        } else if ((motion_acceleration - floor (motion_acceleration)) < 0.5) {
+                                numerator = ceil (2.0 * motion_acceleration);
+                                denominator = 2;
+                        } else if ((motion_acceleration - floor (motion_acceleration)) < 0.75) {
+                                numerator = floor (2.0 *motion_acceleration);
+                                denominator = 2;
+                        } else {
+                                numerator = ceil (motion_acceleration);
+                                denominator = 1;
+                        }
+                } else if (motion_acceleration < 1.0 && motion_acceleration > 0) {
+                        /* This we do to 1/10ths */
+                        numerator = floor (motion_acceleration * 10) + 1;
+                        denominator= 10;
                 } else {
-                        numerator = ceil (motion_acceleration);
-                        denominator = 1;
+                        numerator = -1;
+                        denominator = -1;
                 }
-        } else if (motion_acceleration < 1.0 && motion_acceleration > 0) {
-                /* This we do to 1/10ths */
-                numerator = floor (motion_acceleration * 10) + 1;
-                denominator= 10;
         } else {
                 numerator = -1;
                 denominator = -1;
         }
 
         /* And threshold */
-        motion_threshold = g_settings_get_int (settings, KEY_MOTION_THRESHOLD);
+        custom_threshold = g_settings_get_boolean (settings, KEY_CUSTOM_THRESHOLD);
+
+        if (custom_threshold) {
+                motion_threshold = g_settings_get_int (settings, KEY_MOTION_THRESHOLD);
+        } else {
+                motion_threshold = -1;
+        }
 
         /* Get the list of feedbacks for the device */
         states = XGetFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, &num_feedbacks);
@@ -646,6 +662,7 @@ set_motion_libinput (CsdMouseManager *manager,
         } data;
         gfloat accel;
         gfloat motion_acceleration;
+        gboolean custom_acceleration;
 
         xdevice = open_gdk_device (device);
         if (xdevice == NULL)
@@ -661,6 +678,7 @@ set_motion_libinput (CsdMouseManager *manager,
 
         /* Calculate acceleration */
         motion_acceleration = g_settings_get_double (settings, KEY_MOTION_ACCELERATION);
+        custom_acceleration = g_settings_get_boolean (settings, KEY_CUSTOM_ACCELERATION);
 
         /* panel gives us a range of 1.0-10.0, map to libinput's -1, 1
 
@@ -670,7 +688,7 @@ set_motion_libinput (CsdMouseManager *manager,
            mapped = (value - oldmin) * newrange / oldrange + oldmin
          */
 
-        if (motion_acceleration == -1.0) /* unset */
+        if (motion_acceleration == -1.0 || !custom_acceleration) /* unset */
                 accel = 0.0;
         else
                 accel = (motion_acceleration - 1.0) * 2.0 / 9.0 - 1;
@@ -1471,7 +1489,9 @@ mouse_callback (GSettings       *settings,
                         mouse_left_handed = g_settings_get_boolean (settings, KEY_LEFT_HANDED);
                         set_left_handed (manager, device, mouse_left_handed, get_touchpad_handedness (manager, mouse_left_handed));
                 } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
-                           g_str_equal (key, KEY_MOTION_THRESHOLD)) {
+                           g_str_equal (key, KEY_CUSTOM_ACCELERATION) ||
+                           g_str_equal (key, KEY_MOTION_THRESHOLD) ||
+                           g_str_equal (key, KEY_CUSTOM_THRESHOLD)) {
                         set_motion (manager, device);
                 } else if (g_str_equal (key, KEY_MIDDLE_BUTTON_EMULATION)) {
                         set_middle_button (manager, device, g_settings_get_boolean (settings, KEY_MIDDLE_BUTTON_EMULATION));
@@ -1516,7 +1536,9 @@ touchpad_callback (GSettings       *settings,
                         else
                                 set_touchpad_enabled (gdk_x11_device_get_id (device));
                 } else if (g_str_equal (key, KEY_MOTION_ACCELERATION) ||
-                           g_str_equal (key, KEY_MOTION_THRESHOLD)) {
+                           g_str_equal (key, KEY_CUSTOM_ACCELERATION) ||
+                           g_str_equal (key, KEY_MOTION_THRESHOLD) ||
+                           g_str_equal (key, KEY_CUSTOM_THRESHOLD)) {
                         set_motion (manager, device);
                 } else if (g_str_equal (key, KEY_LEFT_HANDED)) {
                         gboolean mouse_left_handed;

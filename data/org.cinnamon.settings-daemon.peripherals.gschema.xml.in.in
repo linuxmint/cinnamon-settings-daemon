@@ -65,10 +65,20 @@
       <summary>Touchpad button orientation</summary>
       <description>Swap left and right mouse buttons for left-handed mice with 'left', 'right' for right-handed, 'mouse' to follow the mouse setting.</description>
     </key>
+    <key name="custom-acceleration" type="b">
+      <default>false</default>
+      <summary>Custom Motion Acceleration</summary>
+      <description>Wheather or not to use a custom motion acceleration value.</description>
+    </key>
     <key name="motion-acceleration" type="d">
       <default>-1</default>
-      <summary>Single Click</summary>
+      <summary>Motion Acceleration</summary>
       <description>Acceleration multiplier for mouse motion. A value of -1 is the system default.</description>
+    </key>
+    <key name="custom-threshold" type="b">
+      <default>false</default>
+      <summary>Custom Motion Threshold</summary>
+      <description>Wheather or not to use a custom motion threshold value.</description>
     </key>
     <key name="motion-threshold" type="i">
       <default>-1</default>
@@ -141,10 +151,20 @@
       <summary>Mouse button orientation</summary>
       <description>Swap left and right mouse buttons for left-handed mice.</description>
     </key>
+    <key name="custom-acceleration" type="b">
+      <default>false</default>
+      <summary>Custom Motion Acceleration</summary>
+      <description>Wheather or not to use a custom motion acceleration value.</description>
+    </key>
     <key name="motion-acceleration" type="d">
       <default>-1</default>
       <summary>Motion Acceleration</summary>
       <description>Acceleration multiplier for mouse motion. A value of -1 is the system default.</description>
+    </key>
+    <key name="custom-threshold" type="b">
+      <default>false</default>
+      <summary>Custom Motion Threshold</summary>
+      <description>Wheather or not to use a custom motion threshold value.</description>
     </key>
     <key name="motion-threshold" type="i">
       <default>-1</default>
