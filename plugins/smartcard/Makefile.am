@@ -68,11 +68,21 @@ plugin_in_files = \
 
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-smartcard.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-smartcard.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = \
-	$(plugin_in_files)
+	$(plugin_in_files) \
+	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA)
+	$(plugin_DATA) \
+	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA)
+	$(plugin_DATA) \
+	$(desktop_DATA)

@@ -81,8 +81,16 @@ csd_power_LDADD =					\
 	$(POWER_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-power.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-power.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = 						\
 	$(plugin_in_files)				\
+	$(desktop_in_files)				\
 	$(csd_backlight_helper_SOURCES)
 
 if HAVE_GUDEV
@@ -106,6 +114,7 @@ clean-local:
 
 CLEANFILES = 						\
 	$(plugin_DATA)					\
+	$(desktop_DATA)					\
 	org.cinnamon.settings-daemon.plugins.power.policy	\
 	org.cinnamon.settings-daemon.plugins.power.policy.in
 

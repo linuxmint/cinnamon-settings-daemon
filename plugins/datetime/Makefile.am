@@ -60,13 +60,23 @@ dbus_conf_DATA =
 polkit_DATA =
 endif
 
+
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-datetime.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-datetime.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST =						\
+	$(desktop_in_files)				\
 	$(dbus_services_in_files)			\
 	org.cinnamon.SettingsDaemon.DateTimeMechanism.conf	\
 	$(polkit_in_files)				\
 	csd-datetime-mechanism.xml
 
 CLEANFILES = 		\
+	$(desktop_DATA)											\
 	org.cinnamon.SettingsDaemon.DateTimeMechanism.service	\
 	org.cinnamon.settingsdaemon.datetimemechanism.policy	\
 	$(BUILT_SOURCES)

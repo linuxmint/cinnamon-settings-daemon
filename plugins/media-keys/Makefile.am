@@ -101,16 +101,26 @@ csd_media_keys_LDADD = \
 	$(MEDIA_KEYS_LIBS)			\
 	-lm
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-media-keys.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-media-keys.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = 				\
 	csd-marshal.list		\
 	README.media-keys-API		\
-	$(plugin_in_files)
+	$(plugin_in_files)	\
+	$(desktop_in_files)
 
 CLEANFILES = 			\
 	$(BUILT_SOURCES)	\
-	$(plugin_DATA)
+	$(plugin_DATA) \
+	$(desktop_DATA)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)
+	$(plugin_DATA)	\
+	$(desktop_DATA)
 
 @CSD_INTLTOOL_PLUGIN_RULE@

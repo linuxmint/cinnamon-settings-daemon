@@ -175,9 +175,18 @@ plugin_in_files = wacom.cinnamon-settings-plugin.in
 
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
-EXTRA_DIST += $(plugin_in_files) README.config-storage
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-wacom.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-wacom.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST += README.config-storage $(plugin_in_files) $(desktop_in_files)
+
 CLEANFILES =						\
 	$(plugin_DATA)					\
+	$(desktop_DATA)					\
 	csd-wacom-resources.c				\
 	org.cinnamon.settings-daemon.plugins.wacom.policy	\
 	org.cinnamon.settings-daemon.plugins.wacom.policy.in

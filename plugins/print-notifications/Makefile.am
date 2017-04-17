@@ -77,13 +77,23 @@ csd_print_notifications_LDADD =				\
 	$(CUPS_LIBS)						\
 	$(LIBNOTIFY_LIBS)
 
-EXTRA_DIST = 			\
-	$(plugin_in_files)
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-print-notifications.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-CLEANFILES = 			\
-	$(plugin_DATA)
+cinnamon-settings-daemon-print-notifications.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-DISTCLEANFILES =		\
-	$(plugin_DATA)
+EXTRA_DIST = \
+	$(plugin_in_files) \
+	$(desktop_in_files)
+
+CLEANFILES = \
+	$(plugin_DATA) \
+	$(desktop_DATA)
+
+DISTCLEANFILES = \
+	$(plugin_DATA) \
+	$(desktop_DATA)
 
 @CSD_INTLTOOL_PLUGIN_RULE@

@@ -84,8 +84,23 @@ csd_mouse_LDADD =						\
 	$(MOUSE_LIBS)			\
 	-lm
 
-EXTRA_DIST = $(plugin_in_files)
-CLEANFILES = $(plugin_DATA)
-DISTCLEANFILES = $(plugin_DATA)
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-mouse.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-mouse.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST = \
+	$(plugin_in_files) \
+	$(desktop_in_files)
+
+CLEANFILES = \
+	$(plugin_DATA) \
+	$(desktop_DATA)
+
+DISTCLEANFILES = \
+	$(plugin_DATA) \
+	$(desktop_DATA)
 
 @CSD_INTLTOOL_PLUGIN_RULE@

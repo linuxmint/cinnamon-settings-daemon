@@ -71,8 +71,15 @@ plugin_in_files =			\
 
 plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
-EXTRA_DIST = $(plugin_in_files) $(ICON_FILES)
-CLEANFILES = $(plugin_DATA)
-DISTCLEANFILES = $(plugin_DATA)
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-xrandr.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-xrandr.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+EXTRA_DIST = $(desktop_in_files) $(plugin_in_files) $(ICON_FILES)
+CLEANFILES = $(desktop_DATA) $(plugin_DATA)
+DISTCLEANFILES = $(desktop_DATA) $(plugin_DATA)
 
 @CSD_INTLTOOL_PLUGIN_RULE@
