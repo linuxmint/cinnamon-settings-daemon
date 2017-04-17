@@ -34,47 +34,6 @@ csd_automount_LDADD =			\
 	$(AUTOMOUNT_LIBS)		\
 	$(NULL)
 
-plugin_LTLIBRARIES = \
-	libautomount.la		\
-	$(NULL)
-
-libautomount_la_SOURCES =		\
-	csd-automount-plugin.h		\
-	csd-automount-plugin.c		\
-	csd-automount-manager.h		\
-	csd-automount-manager.c		\
-	csd-autorun.c		\
-	csd-autorun.h		\
-	$(NULL)
-
-libautomount_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	$(AM_CPPFLAGS)
-
-libautomount_la_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(LOGIND_CFLAGS)		\
-	$(AUTOMOUNT_CFLAGS)		\
-	$(AM_CFLAGS)
-
-libautomount_la_LDFLAGS =		\
-	$(WARN_LDFLAGS)			\
-	$(CSD_PLUGIN_LDFLAGS)		\
-	$(NULL)
-
-libautomount_la_LIBADD  =		\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(LOGIND_LIBS)			\
-	$(AUTOMOUNT_LIBS)		\
-	$(NULL)
-
-plugin_in_files =		\
-	automount.cinnamon-settings-plugin.in	\
-	$(NULL)
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = cinnamon-settings-daemon-automount.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -83,18 +42,13 @@ cinnamon-settings-daemon-automount.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(plugin_in_files)	\
 	$(desktop_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(plugin_DATA)		\
 	$(desktop_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
 	$(desktop_DATA)		\
 	$(NULL)
-
-@CSD_INTLTOOL_PLUGIN_RULE@

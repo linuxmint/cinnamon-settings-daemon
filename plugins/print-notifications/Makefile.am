@@ -2,39 +2,6 @@ plugin_name = print-notifications
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-plugin_LTLIBRARIES = \
-	libprint-notifications.la
-
-libprint_notifications_la_SOURCES = 		\
-	csd-print-notifications-manager.c	\
-	csd-print-notifications-manager.h	\
-	csd-print-notifications-plugin.c	\
-	csd-print-notifications-plugin.h
-
-libprint_notifications_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" \
-	$(AM_CPPFLAGS)
-
-libprint_notifications_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-libprint_notifications_la_LDFLAGS = 		\
-	$(WARN_LDFLAGS)				\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libprint_notifications_la_LIBADD  = 		\
-	$(CUPS_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = 		\
-	print-notifications.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
 libexec_PROGRAMS = csd-printer
 
 csd_printer_SOURCES = 	\
@@ -85,15 +52,10 @@ cinnamon-settings-daemon-print-notifications.desktop: $(desktop_in_files) Makefi
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
 	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@

@@ -2,28 +2,6 @@ plugin_name = screensaver-proxy
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-plugin_LTLIBRARIES = libscreensaver-proxy.la
-
-libscreensaver_proxy_la_SOURCES =	\
-	csd-screensaver-proxy-manager.c	\
-	csd-screensaver-proxy-manager.h	\
-	csd-screensaver-proxy-plugin.c	\
-	csd-screensaver-proxy-plugin.h
-
-libscreensaver_proxy_la_CPPFLAGS =				\
-	-I$(top_srcdir)/cinnamon-settings-daemon			\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
-
-libscreensaver_proxy_la_CFLAGS =	\
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-libscreensaver_proxy_la_LDFLAGS = $(WARN_LDFLAGS) $(CSD_PLUGIN_LDFLAGS)
-
-libscreensaver_proxy_la_LIBADD  = $(SETTINGS_PLUGIN_LIBS)
-
 libexec_PROGRAMS = csd-screensaver-proxy
 
 csd_screensaver_proxy_SOURCES =		\
@@ -50,10 +28,6 @@ csd_screensaver_proxy_LDADD =						\
 	$(SETTINGS_DAEMON_LIBS)			\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_in_files = screensaver-proxy.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = cinnamon-settings-daemon-screensaver-proxy.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -62,14 +36,10 @@ cinnamon-settings-daemon-screensaver-proxy.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
 	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
-@CSD_INTLTOOL_PLUGIN_RULE@

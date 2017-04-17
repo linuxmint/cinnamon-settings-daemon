@@ -24,42 +24,6 @@ csd_orientation_LDADD =					\
 	$(ORIENTATION_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_LTLIBRARIES = liborientation.la
-
-liborientation_la_SOURCES = 		\
-	csd-orientation-plugin.h	\
-	csd-orientation-plugin.c	\
-	csd-orientation-manager.h	\
-	csd-orientation-manager.c
-
-liborientation_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-I$(top_srcdir)/plugins/common/			\
-	-I$(top_srcdir)/data/				\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
-	$(AM_CPPFLAGS)
-
-liborientation_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(ORIENTATION_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(AM_CFLAGS)
-
-liborientation_la_LDFLAGS = 		\
-	$(WARN_LDFLAGS) \
-	$(CSD_PLUGIN_LDFLAGS)
-
-liborientation_la_LIBADD  =						\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
-	$(ORIENTATION_LIBS)						\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = orientation.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = cinnamon-settings-daemon-orientation.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -68,15 +32,10 @@ cinnamon-settings-daemon-orientation.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
 	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@

@@ -1,41 +1,6 @@
 plugin_name = mouse
 
-plugin_LTLIBRARIES = libmouse.la
-
 AM_CFLAGS = $(WARN_CFLAGS)
-
-libmouse_la_SOURCES = 		\
-	csd-mouse-plugin.h	\
-	csd-mouse-plugin.c	\
-	csd-mouse-manager.h	\
-	csd-mouse-manager.c
-
-libmouse_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-I$(top_srcdir)/plugins/common/			\
-	-I$(top_srcdir)/data/				\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" \
-	$(AM_CPPFLAGS)
-
-libmouse_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(MOUSE_CFLAGS)			\
-	$(AM_CFLAGS)
-
-libmouse_la_LDFLAGS = 		\
-	$(WARN_LDFLAGS)		\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libmouse_la_LIBADD  =							\
-	$(MOUSE_LIBS)							\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = mouse.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
 
 libexec_PROGRAMS = csd-locate-pointer
 
@@ -92,15 +57,10 @@ cinnamon-settings-daemon-mouse.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
 	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@

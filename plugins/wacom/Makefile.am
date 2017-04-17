@@ -1,40 +1,5 @@
 plugin_name = wacom
 
-plugin_LTLIBRARIES = libcsdwacom.la
-
-libcsdwacom_la_SOURCES =	\
-	csd-wacom-plugin.c	\
-	csd-wacom-manager.h	\
-	csd-wacom-manager.c	\
-	csd-wacom-osd-window.h	\
-	csd-wacom-osd-window.c	\
-	csd-wacom-device.c	\
-	csd-wacom-device.h	\
-	csd-wacom-resources.c
-
-libcsdwacom_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-I$(top_srcdir)/plugins/common/			\
-	-I$(top_srcdir)/data/				\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
-	$(AM_CPPFLAGS)
-
-libcsdwacom_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(WACOM_CFLAGS)			\
-	$(AM_CFLAGS)
-
-libcsdwacom_la_LDFLAGS =		\
-	$(WARN_LDFLAGS)			\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libcsdwacom_la_LIBADD  =						\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_PLUGIN_LIBS)						\
-	$(WACOM_LIBS)
-
 org.cinnamon.settings-daemon.plugins.wacom.policy.in: org.cinnamon.settings-daemon.plugins.wacom.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
@@ -171,10 +136,6 @@ csd_wacom_osd_LDADD = \
 	$(WACOM_LIBS)						\
 	-lm
 
-plugin_in_files = wacom.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = cinnamon-settings-daemon-wacom.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -182,13 +143,10 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 cinnamon-settings-daemon-wacom.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST += README.config-storage $(plugin_in_files) $(desktop_in_files)
+EXTRA_DIST += README.config-storage $(desktop_in_files)
 
 CLEANFILES =						\
-	$(plugin_DATA)					\
 	$(desktop_DATA)					\
 	csd-wacom-resources.c				\
 	org.cinnamon.settings-daemon.plugins.wacom.policy	\
 	org.cinnamon.settings-daemon.plugins.wacom.policy.in
-
-@CSD_INTLTOOL_PLUGIN_RULE@

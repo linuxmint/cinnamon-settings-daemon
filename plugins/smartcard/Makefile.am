@@ -28,46 +28,6 @@ csd_smartcard_LDADD =					\
 	$(NSS_LIBS)						\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_LTLIBRARIES = \
-	libsmartcard.la
-
-libsmartcard_la_SOURCES = \
-	csd-smartcard-plugin.h  \
-	csd-smartcard-plugin.c  \
-	csd-smartcard.h         \
-	csd-smartcard.c         \
-	csd-smartcard-manager.h \
-	csd-smartcard-manager.c
-
-libsmartcard_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon \
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DCSD_SMARTCARD_MANAGER_NSS_DB=\""$(NSS_DATABASE)"\" \
-	$(AM_CPPFLAGS)
-
-libsmartcard_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)	\
-	$(SETTINGS_PLUGIN_CFLAGS) \
-	$(NSS_CFLAGS)	\
-	$(AM_CFLAGS)
-
-libsmartcard_la_LDFLAGS = \
-	$(WARN_LDFLAGS)		\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libsmartcard_la_LIBADD = \
-	$(SETTINGS_PLUGIN_LIBS)	\
-	$(NSS_LIBS)
-
-@CSD_INTLTOOL_PLUGIN_RULE@
-
-plugin_in_files = \
-	smartcard.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = cinnamon-settings-daemon-smartcard.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -76,13 +36,10 @@ cinnamon-settings-daemon-smartcard.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = \
-	$(plugin_in_files) \
 	$(desktop_in_files)
 
 CLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)
 
 DISTCLEANFILES = \
-	$(plugin_DATA) \
 	$(desktop_DATA)

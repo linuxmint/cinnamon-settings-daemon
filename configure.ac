@@ -39,9 +39,6 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext
 
 AM_GLIB_GNU_GETTEXT
 
-CSD_INTLTOOL_PLUGIN_RULE='%.cinnamon-settings-plugin:   %.cinnamon-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
-AC_SUBST([CSD_INTLTOOL_PLUGIN_RULE])
-
 m4_ifdef([AX_COMPILER_FLAGS],
          [AX_COMPILER_FLAGS([WARN_CFLAGS],[WARN_LDFLAGS])])
 

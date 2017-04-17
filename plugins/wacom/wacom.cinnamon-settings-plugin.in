@@ -1,9 +1,0 @@
-[Cinnamon Settings Plugin]
-Module=csdwacom
-IAge=0
-Priority=6
-_Name=Digitizer
-_Description=Digitizer plugin
-Authors=Peter Hutterer
-Copyright=Copyright © 2010
-Website=
