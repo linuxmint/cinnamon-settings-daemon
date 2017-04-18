@@ -60,7 +60,11 @@ main (int argc, char **argv)
         manager = NEW ();
 
         error = NULL;
-        START (manager, &error);
+        if (!START (manager, &error)) {
+                fprintf (stderr, "Failed to start: %s\n", error->message);
+                g_error_free (error);
+                exit (1);
+        }
 
         gtk_main ();
 
