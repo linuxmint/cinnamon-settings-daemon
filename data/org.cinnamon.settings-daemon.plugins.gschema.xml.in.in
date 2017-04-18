@@ -1,19 +1,9 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins" path="/org/cinnamon/settings-daemon/plugins/">
-    <child name="a11y-keyboard" schema="org.cinnamon.settings-daemon.plugins.a11y-keyboard"/>
-    <child name="a11y-settings" schema="org.cinnamon.settings-daemon.plugins.a11y-settings"/>
-    <child name="automount" schema="org.cinnamon.settings-daemon.plugins.automount"/>
-    <child name="clipboard" schema="org.cinnamon.settings-daemon.plugins.clipboard"/>
     <child name="color" schema="org.cinnamon.settings-daemon.plugins.color"/>
-    <child name="cursor" schema="org.cinnamon.settings-daemon.plugins.cursor"/>
-    <child name="font" schema="org.cinnamon.settings-daemon.plugins.font"/>
     <child name="housekeeping" schema="org.cinnamon.settings-daemon.plugins.housekeeping"/>
     <child name="media-keys" schema="org.cinnamon.settings-daemon.plugins.media-keys"/>
-    <child name="mouse" schema="org.cinnamon.settings-daemon.plugins.mouse"/>
     <child name="power" schema="org.cinnamon.settings-daemon.plugins.power"/>
-    <child name="screensaver-proxy" schema="org.cinnamon.settings-daemon.plugins.screensaver-proxy"/>
-    <child name="smartcard" schema="org.cinnamon.settings-daemon.plugins.smartcard"/>
-    <child name="sound" schema="org.cinnamon.settings-daemon.plugins.sound"/>
     <child name="xrandr" schema="org.cinnamon.settings-daemon.plugins.xrandr"/>
     <child name="xsettings" schema="org.cinnamon.settings-daemon.plugins.xsettings"/>
   </schema>

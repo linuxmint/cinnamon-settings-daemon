@@ -5,6 +5,7 @@ plugin_name = clipboard
 AM_CFLAGS = $(WARN_CFLAGS)
 
 libexec_PROGRAMS = csd-clipboard
+
 csd_clipboard_SOURCES =	\
 	main.c	\
 	csd-clipboard-manager.h	\
