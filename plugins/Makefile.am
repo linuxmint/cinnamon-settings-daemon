@@ -17,6 +17,7 @@ enabled_plugins =	\
 	mouse		\
 	orientation	\
 	screensaver-proxy \
+	sharing		\
 	sound		\
 	xrandr		\
 	xsettings	\
