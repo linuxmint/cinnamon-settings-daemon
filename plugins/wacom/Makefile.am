@@ -59,7 +59,6 @@ csd_wacom_CPPFLAGS = \
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	-DSCHEMA_NAME=\""csdwacom"\"				\
 	$(AM_CPPFLAGS)
 
 csd_wacom_CFLAGS =			\
