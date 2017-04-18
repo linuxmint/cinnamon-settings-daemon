@@ -494,7 +494,6 @@ plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
 data/cinnamon-settings-daemon.pc
-data/cinnamon-settings-daemon-uninstalled.pc
 data/org.cinnamon.settings-daemon.plugins.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in
