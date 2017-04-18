@@ -71,8 +71,8 @@
 /* name of the icon files (csd-xrandr.svg, etc.) */
 #define CSD_XRANDR_ICON_NAME "csd-xrandr"
 
-#define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
-#define CSD_XRANDR_DBUS_PATH CSD_DBUS_PATH "/XRANDR"
+#define CSD_XRANDR_DBUS_NAME "org.cinnamon.SettingsDaemon.XRANDR_2"
+#define CSD_XRANDR_DBUS_PATH "/org/cinnamon/SettingsDaemon/XRANDR"
 
 static const gchar introspection_xml[] =
 "<node name='/org/cinnamon/SettingsDaemon/XRANDR'>"
@@ -106,6 +106,7 @@ static const gchar introspection_xml[] =
 struct CsdXrandrManagerPrivate
 {
         GnomeRRScreen *rw_screen;
+        guint            name_id;
         gboolean running;
 
         UpClient *upower_client;
@@ -2079,6 +2080,8 @@ csd_xrandr_manager_start (CsdXrandrManager *manager,
 
         cinnamon_settings_profile_end (NULL);
 
+        register_manager_dbus (manager);
+
         return TRUE;
 }
 
@@ -2110,6 +2113,9 @@ csd_xrandr_manager_stop (CsdXrandrManager *manager)
                 g_object_unref (manager->priv->upower_client);
                 manager->priv->upower_client = NULL;
         }
+
+        if (manager->priv->name_id != 0)
+                g_bus_unown_name (manager->priv->name_id);
 
         if (manager->priv->introspection_data) {
                 g_dbus_node_info_unref (manager->priv->introspection_data);
@@ -2279,9 +2285,17 @@ on_bus_gotten (GObject             *source_object,
                                                    NULL,
                                                    NULL);
         }
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               CSD_XRANDR_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
 }
 
-static void
+void
 register_manager_dbus (CsdXrandrManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
@@ -2303,8 +2317,6 @@ csd_xrandr_manager_new (void)
                 manager_object = g_object_new (CSD_TYPE_XRANDR_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
-
-                register_manager_dbus (manager_object);
         }
 
         return CSD_XRANDR_MANAGER (manager_object);
