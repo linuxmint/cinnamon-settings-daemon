@@ -61,7 +61,7 @@ main (int argc, char **argv)
 
         error = NULL;
         if (!START (manager, &error)) {
-                fprintf (stderr, "Failed to start: %s\n", error->message);
+                fprintf (stderr, "[cinnamon-settings-daemon-%s] Failed to start: %s\n", PLUGIN_NAME, error->message);
                 g_error_free (error);
                 exit (1);
         }
