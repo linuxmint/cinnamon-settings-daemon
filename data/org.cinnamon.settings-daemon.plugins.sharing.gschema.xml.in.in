@@ -1,0 +1,22 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.sharing" path="/org/cinnamon/settings-daemon/plugins/sharing/">
+    <key name="active" type="b">
+      <default>true</default>
+      <_summary>Activation of this plugin</_summary>
+      <_description>Whether this plugin would be activated by cinnamon-settings-daemon or not</_description>
+    </key>
+    <key name="priority" type="i">
+      <default>100</default>
+      <_summary>Priority to use for this plugin</_summary>
+      <_description>Priority to use for this plugin in cinnamon-settings-daemon startup queue</_description>
+    </key>
+  </schema>
+
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.sharing.service">
+    <key name="enabled-connections" type="as">
+      <default>[]</default>
+      <_summary>On which connections the service is enabled</_summary>
+      <_description>The list of NetworkManager connections (each one represented with its UUID) on which this service is enabled and started.</_description>
+    </key>
+  </schema>
+</schemalist>
