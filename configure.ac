@@ -463,6 +463,7 @@ AC_SUBST(DEBUG_CFLAGS)
 AC_OUTPUT([
 Makefile
 cinnamon-settings-daemon/Makefile
+files/Makefile
 plugins/Makefile
 plugins/a11y-keyboard/Makefile
 plugins/a11y-settings/Makefile

@@ -2,6 +2,7 @@ NULL =
 
 SUBDIRS = 			\
 	cinnamon-settings-daemon	\
+	files			\
 	plugins			\
 	data			\
 	po 			\
