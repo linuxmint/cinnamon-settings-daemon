@@ -1484,7 +1484,6 @@ main (int   argc,
         g_log_set_always_fatal (G_LOG_LEVEL_ERROR
                                 | G_LOG_LEVEL_CRITICAL | G_LOG_LEVEL_WARNING);
 
-        g_type_init ();
 
         g_message ("creating instance of 'smartcard manager' object...");
         manager = csd_smartcard_manager_new (NULL);
