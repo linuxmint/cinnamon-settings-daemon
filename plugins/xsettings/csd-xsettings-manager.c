@@ -261,8 +261,6 @@ enum {
         CSD_XSETTINGS_ERROR_INIT
 };
 
-static void     cinnamon_xsettings_manager_class_init  (CinnamonSettingsXSettingsManagerClass *klass);
-static void     cinnamon_xsettings_manager_init        (CinnamonSettingsXSettingsManager      *xsettings_manager);
 static void     cinnamon_xsettings_manager_finalize    (GObject                  *object);
 
 G_DEFINE_TYPE (CinnamonSettingsXSettingsManager, cinnamon_xsettings_manager, G_TYPE_OBJECT)

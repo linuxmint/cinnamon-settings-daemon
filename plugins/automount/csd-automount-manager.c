@@ -51,8 +51,6 @@ struct CsdAutomountManagerPrivate
         GList *volume_queue;
 };
 
-static void     csd_automount_manager_class_init  (CsdAutomountManagerClass *klass);
-static void     csd_automount_manager_init        (CsdAutomountManager      *csd_automount_manager);
 
 G_DEFINE_TYPE (CsdAutomountManager, csd_automount_manager, G_TYPE_OBJECT)
 

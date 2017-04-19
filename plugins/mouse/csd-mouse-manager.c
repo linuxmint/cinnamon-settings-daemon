@@ -100,8 +100,6 @@ struct CsdMouseManagerPrivate
         GPid locate_pointer_pid;
 };
 
-static void     csd_mouse_manager_class_init  (CsdMouseManagerClass *klass);
-static void     csd_mouse_manager_init        (CsdMouseManager      *mouse_manager);
 static void     csd_mouse_manager_finalize    (GObject             *object);
 static void     set_tap_to_click              (GdkDevice           *device,
                                                gboolean             state,

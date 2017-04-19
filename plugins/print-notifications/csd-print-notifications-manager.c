@@ -81,8 +81,6 @@ enum {
         PROP_0,
 };
 
-static void     csd_print_notifications_manager_class_init  (CsdPrintNotificationsManagerClass *klass);
-static void     csd_print_notifications_manager_init        (CsdPrintNotificationsManager      *print_notifications_manager);
 static void     csd_print_notifications_manager_finalize    (GObject                           *object);
 static gboolean cups_connection_test                        (gpointer                           user_data);
 

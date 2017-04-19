@@ -50,8 +50,6 @@ enum {
         PROP_0,
 };
 
-static void     csd_dummy_manager_class_init  (CsdDummyManagerClass *klass);
-static void     csd_dummy_manager_init        (CsdDummyManager      *dummy_manager);
 static void     csd_dummy_manager_finalize    (GObject             *object);
 
 G_DEFINE_TYPE (CsdDummyManager, csd_dummy_manager, G_TYPE_OBJECT)

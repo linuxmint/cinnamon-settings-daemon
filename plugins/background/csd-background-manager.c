@@ -58,8 +58,6 @@ struct CsdBackgroundManagerPrivate
         guint        proxy_signal_id;
 };
 
-static void     csd_background_manager_class_init  (CsdBackgroundManagerClass *klass);
-static void     csd_background_manager_init        (CsdBackgroundManager      *background_manager);
 static void     csd_background_manager_finalize    (GObject             *object);
 
 static void setup_bg (CsdBackgroundManager *manager);

@@ -241,8 +241,6 @@ enum {
         PROP_0,
 };
 
-static void     csd_power_manager_class_init  (CsdPowerManagerClass *klass);
-static void     csd_power_manager_init        (CsdPowerManager      *power_manager);
 static void     csd_power_manager_finalize    (GObject              *object);
 
 static UpDevice *engine_get_composite_device (CsdPowerManager *manager, UpDevice *original_device);

@@ -145,8 +145,6 @@ struct CsdScreensaverProxyManagerPrivate
         GHashTable              *cookie_ht; /* key = cookie, value = sender */
 };
 
-static void     csd_screensaver_proxy_manager_class_init  (CsdScreensaverProxyManagerClass *klass);
-static void     csd_screensaver_proxy_manager_init        (CsdScreensaverProxyManager      *screensaver_proxy_manager);
 static void     csd_screensaver_proxy_manager_finalize    (GObject             *object);
 
 G_DEFINE_TYPE (CsdScreensaverProxyManager, csd_screensaver_proxy_manager, G_TYPE_OBJECT)

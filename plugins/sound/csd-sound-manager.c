@@ -94,8 +94,6 @@ struct CsdSoundManagerPrivate
         GList *onetime_sounds;
 };
 
-static void csd_sound_manager_class_init (CsdSoundManagerClass *klass);
-static void csd_sound_manager_init (CsdSoundManager *sound_manager);
 static void csd_sound_manager_finalize (GObject *object);
 
 G_DEFINE_TYPE (CsdSoundManager, csd_sound_manager, G_TYPE_OBJECT)

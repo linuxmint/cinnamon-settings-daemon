@@ -69,8 +69,6 @@ struct CsdA11yKeyboardManagerPrivate
         NotifyNotification *notification;
 };
 
-static void     csd_a11y_keyboard_manager_class_init  (CsdA11yKeyboardManagerClass *klass);
-static void     csd_a11y_keyboard_manager_init        (CsdA11yKeyboardManager      *a11y_keyboard_manager);
 static void     csd_a11y_keyboard_manager_finalize    (GObject             *object);
 static void     csd_a11y_keyboard_manager_ensure_status_icon (CsdA11yKeyboardManager *manager);
 static void     set_server_from_gsettings (CsdA11yKeyboardManager *manager);

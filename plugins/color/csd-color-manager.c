@@ -63,8 +63,6 @@ enum {
         PROP_0,
 };
 
-static void     csd_color_manager_class_init  (CsdColorManagerClass *klass);
-static void     csd_color_manager_init        (CsdColorManager      *color_manager);
 static void     csd_color_manager_finalize    (GObject             *object);
 
 G_DEFINE_TYPE (CsdColorManager, csd_color_manager, G_TYPE_OBJECT)

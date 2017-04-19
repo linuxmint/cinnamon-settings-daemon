@@ -76,8 +76,6 @@ struct CsdKeyboardManagerPrivate
         CsdNumLockState old_state;
 };
 
-static void     csd_keyboard_manager_class_init  (CsdKeyboardManagerClass *klass);
-static void     csd_keyboard_manager_init        (CsdKeyboardManager      *keyboard_manager);
 static void     csd_keyboard_manager_finalize    (GObject                 *object);
 
 G_DEFINE_TYPE (CsdKeyboardManager, csd_keyboard_manager, G_TYPE_OBJECT)
