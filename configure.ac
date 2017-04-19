@@ -99,11 +99,6 @@ dnl ================================================================
 GLIB_GSETTINGS
 
 dnl ---------------------------------------------------------------------------
-dnl - Check for gnome-desktop
-dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(CINNAMON_DESKTOP, cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
-
-dnl ---------------------------------------------------------------------------
 dnl - Check for LCMS2
 dnl ---------------------------------------------------------------------------
 PKG_CHECK_MODULES(LCMS, lcms2 >= 2.2, have_new_lcms=yes, have_new_lcms=no)
