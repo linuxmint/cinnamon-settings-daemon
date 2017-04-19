@@ -28,9 +28,9 @@ test_gtk_modules_CPPFLAGS =				\
 	-DGTK_MODULES_DIRECTORY=\""$(libdir)/cinnamon-settings-daemon-@CSD_API_VERSION@/gtk-modules/"\" \
 	$(AM_CPPFLAGS)
 
-libexec_PROGRAMS = csd-test-xsettings
+libexec_PROGRAMS = csd-xsettings
 
-csd_test_xsettings_SOURCES =	\
+csd_xsettings_SOURCES =	\
 	csd-xsettings-gtk.c	\
 	csd-xsettings-gtk.h	\
 	csd-xsettings-manager.c	\
@@ -41,71 +41,28 @@ csd_test_xsettings_SOURCES =	\
 	xsettings-manager.h	\
 	fontconfig-monitor.c	\
 	fontconfig-monitor.h	\
-	test-xsettings.c
+	main.c
 
-csd_test_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
-csd_test_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
-csd_test_xsettings_LDADD = $(test_gtk_modules_LDADD)
+csd_xsettings_CFLAGS = $(test_gtk_modules_CFLAGS)
+csd_xsettings_CPPFLAGS = $(test_gtk_modules_CPPFLAGS) -I$(top_srcdir)/plugins/common
+csd_xsettings_LDADD = $(test_gtk_modules_LDADD)
 
-plugin_LTLIBRARIES = \
-	libxsettings.la		\
-	$(NULL)
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-xsettings.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-libxsettings_la_SOURCES = 	\
-	csd-xsettings-plugin.h	\
-	csd-xsettings-plugin.c	\
-	csd-xsettings-manager.h	\
-	csd-xsettings-manager.c	\
-	csd-xsettings-gtk.c	\
-	csd-xsettings-gtk.h	\
-	xsettings-common.h	\
-	xsettings-common.c	\
-	xsettings-manager.h	\
-	xsettings-manager.c	\
-	fontconfig-monitor.h	\
-	fontconfig-monitor.c	\
-	$(NULL)
-
-libxsettings_la_CPPFLAGS =					\
-	-I$(top_srcdir)/cinnamon-settings-daemon			\
-	-I$(top_srcdir)/data/					\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	-DGTK_MODULES_DIRECTORY=\""$(libdir)/cinnamon-settings-daemon-@CSD_API_VERSION@/gtk-modules/"\" \
-	$(AM_CPPFLAGS)
-
-libxsettings_la_CFLAGS = \
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(XSETTINGS_CFLAGS)		\
-	$(AM_CFLAGS)
-
-libxsettings_la_LDFLAGS = 	\
-	$(WARN_CFLAGS)		\
-	$(CSD_PLUGIN_LDFLAGS)	\
-	$(NULL)
-
-libxsettings_la_LIBADD  =					\
-	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
-	$(SETTINGS_PLUGIN_LIBS)					\
-	$(XSETTINGS_LIBS)					\
-	$(NULL)
-
-plugin_in_files = 		\
-	xsettings.cinnamon-settings-plugin.in	\
-	$(NULL)
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+cinnamon-settings-daemon-xsettings.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
 	README.xsettings	\
-	$(plugin_in_files)	\
+	$(desktop_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(plugin_DATA)		\
+	$(desktop_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
+	$(desktop_DATA)		\
 	$(NULL)
-
-@CSD_INTLTOOL_PLUGIN_RULE@

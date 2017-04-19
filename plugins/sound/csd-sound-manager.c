@@ -43,7 +43,7 @@
 #define CSD_SOUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_SOUND_MANAGER, CsdSoundManagerPrivate))
 
 #define SOUND_HANDLER_DBUS_PATH "/org/cinnamon/SettingsDaemon/Sound"
-#define SOUND_HANDLER_DBUS_NAME "org.cinnamon.SettingsDaemon.Sound" 
+#define SOUND_HANDLER_DBUS_NAME "org.cinnamon.SettingsDaemon.Sound"
 
 #define PLAY_ONCE_FLAG 8675309
 
@@ -78,6 +78,7 @@ static const gchar introspection_xml[] =
 struct CsdSoundManagerPrivate
 {
         GSettings *settings;
+        guint      name_id;
         GList     *monitors;
         guint      timeout;
         GDBusNodeInfo   *idata;
@@ -280,7 +281,7 @@ flush_cache (void)
 
         pa_proplist_sets (pl, PA_PROP_APPLICATION_NAME, PACKAGE_NAME);
         pa_proplist_sets (pl, PA_PROP_APPLICATION_VERSION, PACKAGE_VERSION);
-        pa_proplist_sets (pl, PA_PROP_APPLICATION_ID, "org.cinnamon.SettingsDaemon");
+        pa_proplist_sets (pl, PA_PROP_APPLICATION_ID, "org.cinnamon.SettingsDaemon.Sound");
 
         if (!(c = pa_context_new_with_proplist (pa_mainloop_get_api (ml), PACKAGE_NAME, pl))) {
                 g_debug ("Failed to allocate pa_context");
@@ -456,6 +457,14 @@ on_bus_gotten (GObject             *source_object,
                                            manager,
                                            NULL,
                                            NULL);
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               SOUND_HANDLER_DBUS_NAME,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
 }
 
 gboolean
@@ -626,6 +635,9 @@ csd_sound_manager_finalize (GObject *object)
         sound_manager = CSD_SOUND_MANAGER (object);
 
         g_return_if_fail (sound_manager->priv);
+
+        if (sound_manager->priv->name_id != 0)
+                g_bus_unown_name (sound_manager->priv->name_id);
 
         G_OBJECT_CLASS (csd_sound_manager_parent_class)->finalize (object);
 }

@@ -1,18 +1,13 @@
 # Files with translatable strings.
 # Please keep this file in alphabetical order.
-data/cinnamon-settings-daemon.desktop.in.in
 data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in.in
-data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in.in
-data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in.in
-data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in.in
 data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in.in
-cinnamon-settings-daemon/main.c
 [type: gettext/ini]plugins/a11y-keyboard/a11y-keyboard.cinnamon-settings-plugin.in
 plugins/a11y-keyboard/csd-a11y-keyboard-manager.c
 plugins/a11y-keyboard/csd-a11y-preferences-dialog.c

@@ -1,9 +1,8 @@
 debian/source_cinnamon-settings-daemon.py /usr/share/apport/package-hooks
 etc/dbus-1/system.d/org.cinnamon.SettingsDaemon.DateTimeMechanism.conf
-usr/lib/*/cinnamon-settings-daemon*/*.cinnamon-settings-plugin
+etc/xdg/autostart/*
 usr/lib/*/cinnamon-settings-daemon*/*.so
 usr/lib/*/cinnamon-settings-daemon/
-usr/share/applications/cinnamon-settings-daemon.desktop
 usr/share/cinnamon-settings-daemon
 usr/share/dbus-1/*/org.cinnamon.SettingsDaemon.*
 usr/share/glib-2.0/*/org.cinnamon.settings-daemon.*

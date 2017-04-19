@@ -1,40 +1,5 @@
 plugin_name = wacom
 
-plugin_LTLIBRARIES = libcsdwacom.la
-
-libcsdwacom_la_SOURCES =	\
-	csd-wacom-plugin.c	\
-	csd-wacom-manager.h	\
-	csd-wacom-manager.c	\
-	csd-wacom-osd-window.h	\
-	csd-wacom-osd-window.c	\
-	csd-wacom-device.c	\
-	csd-wacom-device.h	\
-	csd-wacom-resources.c
-
-libcsdwacom_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-I$(top_srcdir)/plugins/common/			\
-	-I$(top_srcdir)/data/				\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
-	$(AM_CPPFLAGS)
-
-libcsdwacom_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(WACOM_CFLAGS)			\
-	$(AM_CFLAGS)
-
-libcsdwacom_la_LDFLAGS =		\
-	$(WARN_LDFLAGS)			\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libcsdwacom_la_LIBADD  =						\
-	$(top_builddir)/plugins/common/libcommon.la			\
-	$(SETTINGS_PLUGIN_LIBS)						\
-	$(WACOM_LIBS)
-
 org.cinnamon.settings-daemon.plugins.wacom.policy.in: org.cinnamon.settings-daemon.plugins.wacom.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
@@ -73,10 +38,10 @@ endif
 
 EXTRA_DIST += org.cinnamon.settings-daemon.plugins.wacom.policy.in.in
 
-libexec_PROGRAMS += csd-test-wacom csd-list-wacom csd-test-wacom-osd
+libexec_PROGRAMS += csd-wacom csd-list-wacom csd-wacom-osd
 
-csd_test_wacom_SOURCES =	\
-	test-wacom.c		\
+csd_wacom_SOURCES =	\
+	main.c		\
 	csd-wacom-manager.c	\
 	csd-wacom-manager.h	\
 	csd-wacom-osd-window.h	\
@@ -85,7 +50,7 @@ csd_test_wacom_SOURCES =	\
 	csd-wacom-device.h	\
 	csd-wacom-resources.c
 
-csd_test_wacom_CPPFLAGS = \
+csd_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -94,16 +59,15 @@ csd_test_wacom_CPPFLAGS = \
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
-	-DSCHEMA_NAME=\""csdwacom"\"				\
 	$(AM_CPPFLAGS)
 
-csd_test_wacom_CFLAGS =			\
+csd_wacom_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-csd_test_wacom_LDADD =						\
+csd_wacom_LDADD =						\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
@@ -139,7 +103,7 @@ csd_list_wacom_LDADD =						\
 	$(WACOM_LIBS)						\
 	-lm
 
-csd_test_wacom_osd_SOURCES =					\
+csd_wacom_osd_SOURCES =					\
 	test-osd-window.c					\
 	csd-wacom-osd-window.h					\
 	csd-wacom-osd-window.c					\
@@ -147,7 +111,7 @@ csd_test_wacom_osd_SOURCES =					\
 	csd-wacom-device.h					\
 	csd-wacom-resources.c
 
-csd_test_wacom_osd_CPPFLAGS = \
+csd_wacom_osd_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
@@ -158,12 +122,12 @@ csd_test_wacom_osd_CPPFLAGS = \
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
-csd_test_wacom_osd_CFLAGS =					\
+csd_wacom_osd_CFLAGS =					\
 	$(SETTINGS_PLUGIN_CFLAGS)				\
 	$(WACOM_CFLAGS)						\
 	$(AM_CFLAGS)
 
-csd_test_wacom_osd_LDADD = \
+csd_wacom_osd_LDADD = \
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
@@ -171,15 +135,17 @@ csd_test_wacom_osd_LDADD = \
 	$(WACOM_LIBS)						\
 	-lm
 
-plugin_in_files = wacom.cinnamon-settings-plugin.in
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-wacom.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+cinnamon-settings-daemon-wacom.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST += $(plugin_in_files) README.config-storage
+EXTRA_DIST += README.config-storage $(desktop_in_files)
+
 CLEANFILES =						\
-	$(plugin_DATA)					\
+	$(desktop_DATA)					\
 	csd-wacom-resources.c				\
 	org.cinnamon.settings-daemon.plugins.wacom.policy	\
 	org.cinnamon.settings-daemon.plugins.wacom.policy.in
-
-@CSD_INTLTOOL_PLUGIN_RULE@

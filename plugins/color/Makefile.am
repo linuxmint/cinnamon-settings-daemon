@@ -1,45 +1,6 @@
 plugin_name = color
 
-plugin_LTLIBRARIES = \
-	libcolor.la
-
 AM_CFLAGS = $(WARN_CFLAGS)
-
-libcolor_la_SOURCES = 			\
-	gcm-profile-store.c		\
-	gcm-profile-store.h		\
-	gcm-dmi.c			\
-	gcm-dmi.h			\
-	gcm-edid.c			\
-	gcm-edid.h			\
-	csd-color-manager.c		\
-	csd-color-manager.h		\
-	csd-color-plugin.c		\
-	csd-color-plugin.h
-
-libcolor_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DBINDIR=\"$(bindir)\"				\
-	$(AM_CPPFLAGS)
-
-libcolor_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	$(COLOR_CFLAGS)		\
-	$(LCMS_CFLAGS)			\
-	$(SETTINGS_PLUGIN_CFLAGS)	\
-	$(LIBNOTIFY_CFLAGS)		\
-	$(AM_CFLAGS)
-
-libcolor_la_LDFLAGS = 			\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libcolor_la_LIBADD  = 			\
-	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
-	$(COLOR_LIBS)			\
-	$(LCMS_LIBS)			\
-	$(SETTINGS_PLUGIN_LIBS)		\
-	$(LIBNOTIFY_LIBS)
 
 check_PROGRAMS =			\
 	gcm-self-test
@@ -69,20 +30,56 @@ gcm_self_test_LDADD =			\
 
 TESTS = gcm-self-test
 
-plugin_in_files = 			\
-	color.cinnamon-settings-plugin.in
+libexec_PROGRAMS = csd-color
+csd_color_SOURCES =		\
+	gcm-profile-store.c		\
+	gcm-profile-store.h		\
+	gcm-dmi.c			\
+	gcm-dmi.h			\
+	gcm-edid.c			\
+	gcm-edid.h			\
+	csd-color-manager.c		\
+	csd-color-manager.h		\
+	main.c
 
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+csd_color_CFLAGS = \
+	$(PLUGIN_CFLAGS)		\
+	$(COLOR_CFLAGS)		\
+	$(LCMS_CFLAGS)			\
+	$(SETTINGS_PLUGIN_CFLAGS)	\
+	$(LIBNOTIFY_CFLAGS)		\
+	$(AM_CFLAGS)
+
+csd_color_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DBINDIR=\"$(bindir)\"				\
+	$(AM_CPPFLAGS)
+
+csd_color_LDADD  = 			\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
+	$(COLOR_LIBS)			\
+	$(LCMS_LIBS)			\
+	$(SETTINGS_PLUGIN_LIBS)		\
+	$(LIBNOTIFY_LIBS)		\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la -lm
+
+
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-color.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-color.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 					\
-	$(plugin_in_files)			\
+	$(desktop_in_files)			\
 	test-data/Lenovo-T61-Internal.bin	\
 	test-data/LG-L225W-External.bin
 
 CLEANFILES = 				\
-	$(plugin_DATA)
+	$(desktop_DATA)
 
 DISTCLEANFILES =			\
-	$(plugin_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@
+	$(desktop_DATA)

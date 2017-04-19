@@ -2,52 +2,6 @@ plugin_name = power
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-plugin_LTLIBRARIES =					\
-	libpower.la
-
-libpower_la_SOURCES = 					\
-	gpm-common.c					\
-	gpm-common.h					\
-	gpm-phone.c					\
-	gpm-phone.h					\
-	gpm-idletime.c					\
-	gpm-idletime.h					\
-	csd-power-manager.c				\
-	csd-power-manager.h				\
-	csd-power-plugin.c				\
-	csd-power-plugin.h
-
-libpower_la_CPPFLAGS = \
-	-I$(top_srcdir)/data/				\
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-I$(top_srcdir)/plugins/common			\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"		\
-	-DSBINDIR=\"$(sbindir)\"			\
-	-DLIBEXECDIR=\"$(libexecdir)\"			\
-	$(AM_CPPFLAGS)
-
-libpower_la_CFLAGS = \
-	$(PLUGIN_CFLAGS)				\
-	$(POWER_CFLAGS)					\
-	$(SETTINGS_PLUGIN_CFLAGS)			\
-	$(AM_CFLAGS)
-
-libpower_la_LDFLAGS = 					\
-	$(WARN_LDFLAGS)					\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libpower_la_LIBADD  = 					\
-	$(top_builddir)/plugins/common/libcommon.la	\
-	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
-	$(POWER_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = 					\
-	power.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
 org.cinnamon.settings-daemon.plugins.power.policy.in: org.cinnamon.settings-daemon.plugins.power.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
@@ -60,8 +14,8 @@ polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 csd_backlight_helper_SOURCES =				\
 	csd-backlight-helper.c
 
-libexec_PROGRAMS = csd-test-power
-csd_test_power_SOURCES =				\
+libexec_PROGRAMS = csd-power
+csd_power_SOURCES =				\
 	gpm-common.c					\
 	gpm-common.h					\
 	gpm-phone.c					\
@@ -70,19 +24,40 @@ csd_test_power_SOURCES =				\
 	gpm-idletime.h					\
 	csd-power-manager.c				\
 	csd-power-manager.h				\
-	test-power.c
+	main.c
 
-csd_test_power_CFLAGS = $(libpower_la_CFLAGS)
-csd_test_power_CPPFLAGS = $(libpower_la_CPPFLAGS)
-csd_test_power_LDADD =					\
+csd_power_CFLAGS = \
+	$(PLUGIN_CFLAGS)				\
+	$(POWER_CFLAGS)					\
+	$(SETTINGS_PLUGIN_CFLAGS)			\
+	$(AM_CFLAGS)
+
+csd_power_CPPFLAGS = \
+	-I$(top_srcdir)/data/				\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"		\
+	-DSBINDIR=\"$(sbindir)\"			\
+	-DLIBEXECDIR=\"$(libexecdir)\"			\
+	$(AM_CPPFLAGS)
+
+csd_power_LDADD =					\
 	-lm						\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(top_builddir)/cinnamon-settings-daemon/libcsd.la \
 	$(POWER_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-power.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
+cinnamon-settings-daemon-power.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
 EXTRA_DIST = 						\
-	$(plugin_in_files)				\
+	$(desktop_in_files)				\
 	$(csd_backlight_helper_SOURCES)
 
 if HAVE_GUDEV
@@ -105,8 +80,6 @@ clean-local:
 	rm -f *~
 
 CLEANFILES = 						\
-	$(plugin_DATA)					\
+	$(desktop_DATA)					\
 	org.cinnamon.settings-daemon.plugins.power.policy	\
 	org.cinnamon.settings-daemon.plugins.power.policy.in
-
-@CSD_INTLTOOL_PLUGIN_RULE@

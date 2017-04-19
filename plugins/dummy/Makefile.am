@@ -1,50 +1,22 @@
 plugin_name = dummy
 
-plugin_LTLIBRARIES = \
-	libdummy.la
-
 AM_CFLAGS = $(WARN_CFLAGS)
 
-libdummy_la_SOURCES = 		\
-	csd-dummy-manager.c	\
-	csd-dummy-manager.h	\
-	csd-dummy-plugin.c	\
-	csd-dummy-plugin.h
+libexec_PROGRAMS = csd-dummy
+csd_dummy_SOURCES =		\
+	main.c			\
+	csd-dummy-manager.c		\
+	csd-dummy-manager.h
 
-libdummy_la_CPPFLAGS = \
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	$(AM_CPPFLAGS)
-
-libdummy_la_CFLAGS = \
+csd_dummy_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-libdummy_la_LDFLAGS = 		\
-	$(WARN_CFLAGS)		\
-	$(CSD_PLUGIN_LDFLAGS)
+csd_dummy_CPPFLAGS =		\
+	-I$(top_srcdir)/plugins/common	\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
 
-libdummy_la_LIBADD  = 		\
-	$(SETTINGS_PLUGIN_LIBS)
-
-plugin_in_files = 		\
-	dummy.cinnamon-settings-plugin.in
-
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
-
-EXTRA_DIST = 			\
-	$(plugin_in_files)
-
-CLEANFILES = 			\
-	$(plugin_DATA)
-
-DISTCLEANFILES =		\
-	$(plugin_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@
-
-# override to _not_ install the test plugin
-# do not copy into your plugin
-install-pluginDATA:
-install-pluginLTLIBRARIES:
+csd_dummy_LDADD = $(SETTINGS_PLUGIN_LIBS) $(top_builddir)/cinnamon-settings-daemon/libcsd.la

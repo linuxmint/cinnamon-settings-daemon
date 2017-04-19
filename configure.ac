@@ -5,7 +5,7 @@ AC_INIT([cinnamon-settings-daemon],
         [https://github.com/linuxmint/cinnamon-settings-daemon/issues])
 
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR([cinnamon-settings-daemon/cinnamon-settings-manager.c])
+AC_CONFIG_SRCDIR([cinnamon-settings-daemon/cinnamon-settings-session.c])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-xz no-dist-gzip check-news])
 AM_MAINTAINER_MODE([enable])
@@ -38,9 +38,6 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext domain])
 
 AM_GLIB_GNU_GETTEXT
-
-CSD_INTLTOOL_PLUGIN_RULE='%.cinnamon-settings-plugin:   %.cinnamon-settings-plugin.in   $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< [$]@'
-AC_SUBST([CSD_INTLTOOL_PLUGIN_RULE])
 
 m4_ifdef([AX_COMPILER_FLAGS],
          [AX_COMPILER_FLAGS([WARN_CFLAGS],[WARN_LDFLAGS])])
@@ -100,11 +97,6 @@ dnl GSettings stuff
 dnl ================================================================
 
 GLIB_GSETTINGS
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for gnome-desktop
-dnl ---------------------------------------------------------------------------
-PKG_CHECK_MODULES(CINNAMON_DESKTOP, cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for LCMS2
@@ -446,18 +438,6 @@ AC_SUBST([plugindir])
 PLUGIN_CFLAGS="-DG_LOG_DOMAIN=\"\\\"\$(plugin_name)-plugin\\\"\" -DPLUGIN_NAME=\"\\\"\$(plugin_name)\\\"\" "
 AC_SUBST(PLUGIN_CFLAGS)
 
-AC_ARG_ENABLE(man,
-              [AS_HELP_STRING([--enable-man],
-                              [generate man pages [default=yes]])],,
-              enable_man=yes)
-if test "$enable_man" != no; then
-  AC_PATH_PROG([XSLTPROC], [xsltproc])
-  if test -z "$XSLTPROC"; then
-    AC_MSG_ERROR([xsltproc is required for --enable-man])
-  fi
-fi
-AM_CONDITIONAL(ENABLE_MAN, test "$enable_man" != no)
-
 dnl ---------------------------------------------------------------------------
 dnl - Finish
 dnl ---------------------------------------------------------------------------
@@ -509,22 +489,16 @@ plugins/xrandr/Makefile
 plugins/xsettings/Makefile
 data/Makefile
 data/cinnamon-settings-daemon.pc
-data/cinnamon-settings-daemon-uninstalled.pc
 data/org.cinnamon.settings-daemon.plugins.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.keyboard.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.power.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.color.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.orientation.gschema.xml.in
 data/org.cinnamon.settings-daemon.peripherals.wacom.gschema.xml.in
 data/org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.print-notifications.gschema.xml.in
-data/org.cinnamon.settings-daemon.plugins.background.gschema.xml.in
 po/Makefile.in
-man/Makefile
 ])
 
 dnl ---------------------------------------------------------------------------

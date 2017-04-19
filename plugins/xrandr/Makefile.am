@@ -2,6 +2,8 @@ plugin_name = xrandr
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
+libexec_PROGRAMS = csd-xrandr
+
 icondir = $(datadir)/icons/hicolor
 context = apps
 
@@ -32,16 +34,12 @@ uninstall-local:
 	rm -f $(DESTDIR)$(icondir)/32x32/$(context)/csd-xrandr.png
 	rm -f $(DESTDIR)$(icondir)/scalable/$(context)/csd-xrandr.svg
 
-plugin_LTLIBRARIES = \
-	libxrandr.la
-
-libxrandr_la_SOURCES = 		\
-	csd-xrandr-plugin.h	\
-	csd-xrandr-plugin.c	\
+csd_xrandr_SOURCES = 		\
+	main.c	\
 	csd-xrandr-manager.h	\
 	csd-xrandr-manager.c
 
-libxrandr_la_CPPFLAGS =						\
+csd_xrandr_CPPFLAGS =						\
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/data/					\
 	-I$(top_srcdir)/plugins/common/				\
@@ -49,30 +47,27 @@ libxrandr_la_CPPFLAGS =						\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-libxrandr_la_CFLAGS =			\
+csd_xrandr_CFLAGS =			\
 	$(PLUGIN_CFLAGS)		\
 	$(XRANDR_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(WACOM_CFLAGS)			\
 	$(AM_CFLAGS)
 
-libxrandr_la_LDFLAGS = 			\
-	$(WARN_LDFLAGS)			\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libxrandr_la_LIBADD  =					\
+csd_xrandr_LDADD  =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la	\
 	$(XRANDR_LIBS)					\
 	$(WACOM_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)
 
-plugin_in_files =			\
-	xrandr.cinnamon-settings-plugin.in
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-xrandr.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+cinnamon-settings-daemon-xrandr.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(plugin_in_files) $(ICON_FILES)
-CLEANFILES = $(plugin_DATA)
-DISTCLEANFILES = $(plugin_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@
+EXTRA_DIST = $(desktop_in_files) $(ICON_FILES)
+CLEANFILES = $(desktop_DATA)
+DISTCLEANFILES = $(desktop_DATA)

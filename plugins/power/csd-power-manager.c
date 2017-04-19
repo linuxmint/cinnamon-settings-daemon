@@ -180,6 +180,7 @@ typedef enum {
 struct CsdPowerManagerPrivate
 {
         CinnamonSettingsSession    *session;
+        guint                    name_id;
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
@@ -4519,6 +4520,9 @@ csd_power_manager_finalize (GObject *object)
 
         g_return_if_fail (manager->priv != NULL);
 
+        if (manager->priv->name_id != 0)
+                g_bus_unown_name (manager->priv->name_id);
+
 
         G_OBJECT_CLASS (csd_power_manager_parent_class)->finalize (object);
 }
@@ -4859,6 +4863,14 @@ on_bus_gotten (GObject             *source_object,
                                                    NULL,
                                                    NULL);
         }
+
+        manager->priv->name_id = g_bus_own_name_on_connection (connection,
+                                                               CSD_POWER_DBUS_INTERFACE,
+                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL,
+                                                               NULL);
 }
 
 static void

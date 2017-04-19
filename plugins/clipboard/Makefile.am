@@ -4,13 +4,10 @@ plugin_name = clipboard
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-plugin_LTLIBRARIES = \
-	libclipboard.la		\
-	$(NULL)
+libexec_PROGRAMS = csd-clipboard
 
-libclipboard_la_SOURCES = 	\
-	csd-clipboard-plugin.h	\
-	csd-clipboard-plugin.c	\
+csd_clipboard_SOURCES =	\
+	main.c	\
 	csd-clipboard-manager.h	\
 	csd-clipboard-manager.c	\
 	xutils.h		\
@@ -19,41 +16,37 @@ libclipboard_la_SOURCES = 	\
 	list.c			\
 	$(NULL)
 
-libclipboard_la_CPPFLAGS = \
-	$(PLUGIN_CFLAGS)		\
-	-I$(top_srcdir)/cinnamon-settings-daemon		\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
-	$(AM_CPPFLAGS)
-
-libclipboard_la_CFLAGS = \
+csd_clipboard_CFLAGS = \
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-libclipboard_la_LDFLAGS = 	\
-	$(WARN_LDFLAGS)		\
-	$(CSD_PLUGIN_LDFLAGS)	\
-	$(NULL)
+csd_clipboard_CPPFLAGS = \
+	$(PLUGIN_CFLAGS)		\
+	-I$(top_srcdir)/cinnamon-settings-daemon		\
+	-I$(top_srcdir)/plugins/common			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	$(AM_CPPFLAGS)
 
-libclipboard_la_LIBADD  = 	\
+csd_clipboard_LDADD  = 	\
 	$(SETTINGS_PLUGIN_LIBS)	\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
 	$(NULL)
 
-plugin_in_files = 		\
-	clipboard.cinnamon-settings-plugin.in	\
-	$(NULL)
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-clipboard.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+cinnamon-settings-daemon-clipboard.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(plugin_in_files)	\
+	$(desktop_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
-	$(plugin_DATA)		\
+	$(desktop_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
-	$(plugin_DATA)		\
+	$(desktop_DATA)		\
 	$(NULL)
-
-@CSD_INTLTOOL_PLUGIN_RULE@

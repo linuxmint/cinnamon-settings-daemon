@@ -32,39 +32,45 @@ csd_empty_trash_test_CFLAGS =		\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-plugin_LTLIBRARIES = libhousekeeping.la
+libexec_PROGRAMS = csd-housekeeping
 
-libhousekeeping_la_SOURCES =		\
+csd_housekeeping_SOURCES =	\
+	main.c	\
 	$(COMMON_FILES)			\
 	csd-housekeeping-manager.c	\
-	csd-housekeeping-manager.h	\
-	csd-housekeeping-plugin.c	\
-	csd-housekeeping-plugin.h
+	csd-housekeeping-manager.h
 
-libhousekeeping_la_CPPFLAGS = 					\
-	-I$(top_srcdir)/cinnamon-settings-daemon			\
-	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
-	$(AM_CPPFLAGS)
-
-libhousekeeping_la_CFLAGS = 		\
+csd_housekeeping_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(GIOUNIX_CFLAGS)		\
 	$(LIBNOTIFY_CFLAGS)		\
 	$(AM_CFLAGS)
 
-libhousekeeping_la_LDFLAGS = $(WARN_LDFLAGS) $(CSD_PLUGIN_LDFLAGS)
+csd_housekeeping_CPPFLAGS = \
+	-I$(top_srcdir)/cinnamon-settings-daemon			\
+	-I$(top_srcdir)/plugins/common			\
+	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	$(AM_CPPFLAGS)
 
-libhousekeeping_la_LIBADD = $(SETTINGS_PLUGIN_LIBS) $(GIOUNIX_LIBS) $(LIBNOTIFY_LIBS)
+csd_housekeeping_LDADD  = 	\
+	$(SETTINGS_PLUGIN_LIBS)	\
+	$(GIOUNIX_LIBS)			\
+	$(LIBNOTIFY_LIBS)		\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
 
-plugin_in_files = housekeeping.cinnamon-settings-plugin.in
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-housekeeping.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+cinnamon-settings-daemon-housekeeping.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = $(plugin_in_files)
+EXTRA_DIST = 	\
+	$(desktop_in_files)
 
-CLEANFILES = $(plugin_DATA)
+CLEANFILES = 	\
+	$(desktop_DATA)
 
-DISTCLEANFILES = $(plugin_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@
+DISTCLEANFILES = \
+	$(desktop_DATA)

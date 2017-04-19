@@ -1,50 +1,44 @@
 plugin_name = cursor
 
-plugin_LTLIBRARIES = \
-	libcursor.la
-
 AM_CFLAGS = $(WARN_CFLAGS)
 
-libcursor_la_SOURCES =		\
-	csd-cursor-manager.c	\
-	csd-cursor-manager.h	\
-	csd-cursor-plugin.c	\
-	csd-cursor-plugin.h
+libexec_PROGRAMS = csd-cursor
 
-libcursor_la_CPPFLAGS = \
+csd_cursor_SOURCES =		\
+	main.c					\
+	csd-cursor-manager.c	\
+	csd-cursor-manager.h
+
+csd_cursor_CPPFLAGS = \
 	-I$(top_srcdir)/cinnamon-settings-daemon			\
 	-I$(top_srcdir)/plugins/common/				\
 	-DCINNAMON_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
-libcursor_la_CFLAGS = \
+csd_cursor_CFLAGS = \
 	$(PLUGIN_CFLAGS)		\
 	$(CURSOR_CFLAGS)		\
 	$(SETTINGS_PLUGIN_CFLAGS)	\
 	$(AM_CFLAGS)
 
-libcursor_la_LDFLAGS =		\
-	$(WARN_LDFLAGS)		\
-	$(CSD_PLUGIN_LDFLAGS)
-
-libcursor_la_LIBADD  =					\
+csd_cursor_LDADD  =					\
 	$(top_builddir)/plugins/common/libcommon.la	\
 	$(CURSOR_LIBS)					\
-	$(SETTINGS_PLUGIN_LIBS)
+	$(SETTINGS_PLUGIN_LIBS)			\
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
 
-plugin_in_files = 		\
-	cursor.cinnamon-settings-plugin.in
+desktopdir = $(sysconfdir)/xdg/autostart
+desktop_in_files = cinnamon-settings-daemon-cursor.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-plugin_DATA = $(plugin_in_files:.cinnamon-settings-plugin.in=.cinnamon-settings-plugin)
+cinnamon-settings-daemon-cursor.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
-EXTRA_DIST = 			\
-	$(plugin_in_files)
+EXTRA_DIST = \
+	$(desktop_in_files)
 
-CLEANFILES = 			\
-	$(plugin_DATA)
+CLEANFILES = \
+	$(desktop_DATA)
 
-DISTCLEANFILES =		\
-	$(plugin_DATA)
-
-@CSD_INTLTOOL_PLUGIN_RULE@
-
+DISTCLEANFILES = \
+	$(desktop_DATA)
