@@ -50,10 +50,4 @@ libcsd_la_LDFLAGS =		\
 	-no-undefined		\
 	$(NULL)
 
-apidir   = $(includedir)/cinnamon-settings-daemon-$(CSD_API_VERSION)/cinnamon-settings-daemon
-api_DATA = 				\
-	cinnamon-settings-plugin.h
-
-EXTRA_DIST = $(api_DATA)
-
 # vim: ts=8
