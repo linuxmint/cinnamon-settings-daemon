@@ -18,7 +18,6 @@ int main (int argc, char **argv)
 	GMainLoop *loop;
 	CsdXSettingsGtk *gtk;
 
-	g_type_init ();
 
 	gtk = csd_xsettings_gtk_new ();
         g_signal_connect (G_OBJECT (gtk), "notify::gtk-modules",

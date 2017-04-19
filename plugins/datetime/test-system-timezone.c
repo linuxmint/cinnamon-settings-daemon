@@ -66,7 +66,6 @@ main (int    argc,
 
 	retval = 0;
 
-	g_type_init ();
 
 	context = g_option_context_new ("");
 	g_option_context_add_main_entries (context, options, NULL);

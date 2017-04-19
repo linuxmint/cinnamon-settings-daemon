@@ -183,7 +183,6 @@ main (void)
 {
         GMainLoop *loop;
 
-        g_type_init ();
 
         fontconfig_monitor_start ((GFunc) yay, NULL);
 

@@ -1322,7 +1322,6 @@ main (int argc, char *argv[])
   npn_owner_id = 0;
   pdi_owner_id = 0;
 
-  g_type_init ();
 
   notify_init ("cinnamon-settings-daemon-printer");
 

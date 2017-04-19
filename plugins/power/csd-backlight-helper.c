@@ -154,8 +154,6 @@ main (int argc, char *argv[])
 		{ NULL}
 	};
 
-	/* setup type system */
-	g_type_init ();
 
 	context = g_option_context_new (NULL);
 	g_option_context_set_summary (context, "Cinnamon Settings Daemon Backlight Helper");
