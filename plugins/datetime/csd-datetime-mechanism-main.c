@@ -134,7 +134,6 @@ main (int argc, char **argv)
                 g_thread_init (NULL);
         }
         dbus_g_thread_init ();
-        g_type_init ();
 
         connection = get_system_bus ();
         if (connection == NULL) {
