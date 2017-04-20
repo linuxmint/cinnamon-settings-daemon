@@ -136,8 +136,6 @@ static const GnomeRRRotation possible_rotations[] = {
         /* We don't allow REFLECT_X or REFLECT_Y for now, as gnome-display-properties doesn't allow them, either */
 };
 
-static void     csd_xrandr_manager_class_init  (CsdXrandrManagerClass *klass);
-static void     csd_xrandr_manager_init        (CsdXrandrManager      *xrandr_manager);
 static void     csd_xrandr_manager_finalize    (GObject             *object);
 
 static void error_message (CsdXrandrManager *mgr, const char *primary_text, GError *error_to_display, const char *secondary_text);

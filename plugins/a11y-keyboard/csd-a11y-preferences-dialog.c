@@ -79,8 +79,6 @@ enum {
         PROP_0,
 };
 
-static void     csd_a11y_preferences_dialog_class_init  (CsdA11yPreferencesDialogClass *klass);
-static void     csd_a11y_preferences_dialog_init        (CsdA11yPreferencesDialog      *a11y_preferences_dialog);
 static void     csd_a11y_preferences_dialog_finalize    (GObject                       *object);
 
 G_DEFINE_TYPE (CsdA11yPreferencesDialog, csd_a11y_preferences_dialog, GTK_TYPE_DIALOG)

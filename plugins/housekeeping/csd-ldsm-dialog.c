@@ -52,9 +52,6 @@ struct CsdLdsmDialogPrivate
 
 #define CSD_LDSM_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_LDSM_DIALOG, CsdLdsmDialogPrivate))
 
-static void     csd_ldsm_dialog_class_init  (CsdLdsmDialogClass *klass);
-static void     csd_ldsm_dialog_init        (CsdLdsmDialog      *dialog);
-
 G_DEFINE_TYPE (CsdLdsmDialog, csd_ldsm_dialog, GTK_TYPE_DIALOG);
 
 static const gchar*

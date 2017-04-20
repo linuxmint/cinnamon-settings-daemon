@@ -195,8 +195,6 @@ struct CsdMediaKeysManagerPrivate
         NotifyNotification *kb_backlight_notification;
 };
 
-static void     csd_media_keys_manager_class_init  (CsdMediaKeysManagerClass *klass);
-static void     csd_media_keys_manager_init        (CsdMediaKeysManager      *media_keys_manager);
 static void     csd_media_keys_manager_finalize    (GObject                  *object);
 static void     register_manager                   (CsdMediaKeysManager      *manager);
 static gboolean do_action (CsdMediaKeysManager *manager,

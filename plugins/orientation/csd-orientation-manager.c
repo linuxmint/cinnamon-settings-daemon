@@ -70,8 +70,6 @@ struct CsdOrientationManagerPrivate
 #define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
 #define CSD_DBUS_BASE_INTERFACE "org.cinnamon.SettingsDaemon"
 
-static void     csd_orientation_manager_class_init  (CsdOrientationManagerClass *klass);
-static void     csd_orientation_manager_init        (CsdOrientationManager      *orientation_manager);
 static void     csd_orientation_manager_finalize    (GObject                    *object);
 
 G_DEFINE_TYPE (CsdOrientationManager, csd_orientation_manager, G_TYPE_OBJECT)

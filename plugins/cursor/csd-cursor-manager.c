@@ -58,8 +58,6 @@ enum {
         PROP_0,
 };
 
-static void     csd_cursor_manager_class_init  (CsdCursorManagerClass *klass);
-static void     csd_cursor_manager_init        (CsdCursorManager      *cursor_manager);
 static void     csd_cursor_manager_finalize    (GObject               *object);
 
 G_DEFINE_TYPE (CsdCursorManager, csd_cursor_manager, G_TYPE_OBJECT)
