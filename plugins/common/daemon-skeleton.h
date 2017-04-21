@@ -159,12 +159,16 @@ main (int argc, char **argv)
         textdomain (GETTEXT_PACKAGE);
         notify_init ("cinnamon-settings-daemon");
 
+        g_setenv ("GDK_SCALE", "1", TRUE);
+
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
                 fprintf (stderr, "%s\n", error->message);
                 g_error_free (error);
                 exit (1);
         }
+
+        g_unsetenv ("GDK_SCALE");
 
         if (verbose)
                 g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
