@@ -46,12 +46,6 @@ respond_to_end_session (GDBusProxy *proxy)
 }
 
 static void
-do_stop (void)
-{
-        gtk_main_quit ();
-}
-
-static void
 client_proxy_signal_cb (GDBusProxy *proxy,
                         gchar *sender_name,
                         gchar *signal_name,
@@ -66,7 +60,14 @@ client_proxy_signal_cb (GDBusProxy *proxy,
                 respond_to_end_session (proxy);
         } else if (g_strcmp0 (signal_name, "Stop") == 0) {
                 g_debug ("Got Stop signal");
-                do_stop ();
+                /* Ideally, we would call gtk_main_quit (); here.
+                   Instead, do nothing.
+                   cinnamon-session-manager doesn't wait in this STOP PHASE.
+                   so we're not delaying the logout/shutdown sequence.
+                   Also, if another process is lagging and delaying previous
+                   phases, we don't want to lose CSD in the background.
+                   We want CSD plugins to run until the very very end of the session.
+                */
         }
 }
 
