@@ -183,6 +183,7 @@ dnl - background
 dnl ---------------------------------------------------------------------------
 
 PKG_CHECK_MODULES(BACKGROUND, x11 cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
+AC_SEARCH_LIBS(gnome_bg_set_accountsservice_background, cinnamon-desktop, AC_DEFINE([ACCOUNTSERVICE_BG],1, [Build with accountsservice background support]))
 
 dnl ---------------------------------------------------------------------------
 dnl - mouse
