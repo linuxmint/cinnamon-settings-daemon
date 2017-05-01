@@ -375,9 +375,11 @@ got_manager_proxy_cb (GObject *source_object, GAsyncResult *res, gpointer user_d
 static void
 cinnamon_settings_session_init (CinnamonSettingsSession *session)
 {
+        GSettings *session_settings;
+
 	session->priv = CINNAMON_SETTINGS_SESSION_GET_PRIVATE (session);
 
-	GSettings *session_settings = g_settings_new ("org.cinnamon.desktop.session");
+	session_settings = g_settings_new ("org.cinnamon.desktop.session");
 	gboolean use_logind = g_settings_get_boolean (session_settings, "settings-daemon-uses-logind");
 	g_object_unref (session_settings);
 
