@@ -115,6 +115,8 @@ static void
 register_with_cinnamon_session (void)
 {
     const char *startup_id;
+    GError *error = NULL;
+    GDBusProxy *proxy;
 
     GDBusConnection *bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
     if (!bus) {
@@ -122,15 +124,14 @@ register_with_cinnamon_session (void)
         return;
     }
 
-    GError *error = NULL;
-    GDBusProxy *proxy = g_dbus_proxy_new_sync (bus,
-                                               G_DBUS_PROXY_FLAGS_NONE,
-                                               NULL,
-                                               GNOME_SESSION_DBUS_NAME,
-                                               GNOME_SESSION_DBUS_PATH,
-                                               GNOME_SESSION_DBUS_NAME,
-                                               NULL,
-                                               &error);
+    proxy = g_dbus_proxy_new_sync (bus,
+                                   G_DBUS_PROXY_FLAGS_NONE,
+                                   NULL,
+                                   GNOME_SESSION_DBUS_NAME,
+                                   GNOME_SESSION_DBUS_PATH,
+                                   GNOME_SESSION_DBUS_NAME,
+                                   NULL,
+                                   &error);
     g_object_unref (bus);
 
     if (proxy == NULL) {
