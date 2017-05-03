@@ -56,8 +56,7 @@ int main (int argc, char **argv)
 	gboolean supports_xinput;
 	gboolean has_touchpad, has_touchscreen;
         XDeviceInfo *device_info;
-        gint n_devices, opcode;
-        guint i;
+        gint n_devices, opcode, i;
 
 	gtk_init (&argc, &argv);
 
