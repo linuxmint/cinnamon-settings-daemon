@@ -511,7 +511,7 @@ utf8_to_wchar_t (const char *src)
         len += 1;
         buf = g_malloc (sizeof (wchar_t) * len);
         converted = mbstowcs (buf, src, len - 1);
-        g_assert (converted != -1);
+        g_assert (converted != (size_t)-1);
         buf[converted] = '\0';
 out:
         return buf;
@@ -2141,10 +2141,10 @@ gcm_session_profile_store_added_cb (GcmProfileStore *profile_store,
         profile_props = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                NULL, NULL);
         g_hash_table_insert (profile_props,
-                             CD_PROFILE_PROPERTY_FILENAME,
+                             (gpointer) CD_PROFILE_PROPERTY_FILENAME,
                              (gpointer) filename);
         g_hash_table_insert (profile_props,
-                             CD_PROFILE_METADATA_FILE_CHECKSUM,
+                             (gpointer) CD_PROFILE_METADATA_FILE_CHECKSUM,
                              (gpointer) checksum);
         cd_client_create_profile (priv->client,
                                   profile_id,
