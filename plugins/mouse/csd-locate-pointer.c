@@ -442,15 +442,15 @@ set_locate_pointer (void)
                                                        &n_keys);
       if (has_entries)
         {
-          gint i, j;
+          gint i, k;
           for (i = 0; i < n_keys; i++)
             {
-              for (j = 0; j < n_screens; j++)
+              for (k = 0; k < n_screens; k++)
                 {
                   GdkScreen *screen;
                   Window xroot;
 
-                  screen = gdk_display_get_screen (display, j);
+                  screen = gdk_display_get_screen (display, k);
                   xroot = gdk_x11_window_get_xid (gdk_screen_get_root_window (screen));
 
                   gdk_x11_display_error_trap_push (display);
