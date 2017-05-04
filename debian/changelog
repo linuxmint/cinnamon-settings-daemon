@@ -1,3 +1,76 @@
+cinnamon-settings-daemon (3.4.0) sonya; urgency=medium
+
+  [ monsta ]
+  * mouse: add missing device closing
+
+  [ leigh123linux ]
+  * Increase cinnamon-desktop required version
+  * power: Fix typo in UPower keyboard GDBus proxy name
+  * Remove redundant aclocal as autoreconf calls it
+  * fix Wmissing-include-dirs warning
+
+  [ Elias Ojala ]
+  * Fix typo in Finnish translation
+
+  [ Clement Lefebvre ]
+  * clipboard: Add test application
+  * color: Add test application
+  * common: Remove obsolete key parsing test program
+  * color: Fix csd-test-color linkage
+  * dummy: Add test application
+  * main: Remove ability to start/stop individual plugins
+  * plugins: Remove "test" from the stand-alone program names
+  * common: Add verbose option to test-plugin.h
+  * plugins: Rename sources of all test applications
+
+  [ JosephMcc ]
+  * mouse-plugin: Add new settings for mouse/touchpad
+
+  [ Clement Lefebvre ]
+  * sound: Rename the sound plugin for PulseAudio
+  * plugins: Add desktop files for all the plugins
+  * plugins: Stop building helpers as plugins
+  * Remove refs to obsolete schemas
+  * common: Remove use of SCHEMA_NAME
+  * common: Report errors on startup in the helper skeleton
+  * Fixed a couple of issues in previous commits
+  * Use unique dbus names
+  * common: Register plugins with the session manager
+  * main: Remove gnome-settings-daemon binary
+  * data: Adapt pkg-config file for API removal
+  * build: Remove separate check for cinnamon-desktop
+  * main: Remove cinnamon-settings-plugin.h
+  * Add CSD plugin icons
+
+  [ leigh123linux ]
+  * Remove calls to g_type_init(), bump GLib required version
+  * Fix redundant redeclarations
+  * add makefile
+  * add m4 to aclocal flags
+  * fix fsf address
+
+  [ Clement Lefebvre ]
+  * Fix backgrounds in HiDPI
+  * Don't kill plugins during CSM stop PHASE
+
+  [ Leigh Scott ]
+  * remove deprecated g_thread_init
+
+  [ leigh123linux ]
+  * Add detection for accountsservice background as it's ubuntu only
+
+  [ brownsr ]
+  * cinnamon-settings-session: remove an ISO C warning
+  * csd-input-helper: remove compiler warnings
+
+  [ Simon Brown ]
+  * daemon-skeleton: remove ISO C compiler warnings (#170)
+  * csd-color-manager: avoid compiler warnings (#172)
+  * csd-locate-pointer: change a shadowed variable causing compiler warnings (#173)
+  * csd-clipboard-manager: remove compiler warnings (#171)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 04 May 2017 13:35:21 +0100
+
 cinnamon-settings-daemon (3.2.1) serena; urgency=medium
 
   [ leigh123linux ]
