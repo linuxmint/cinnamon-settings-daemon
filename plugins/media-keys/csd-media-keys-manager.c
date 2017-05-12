@@ -1340,7 +1340,7 @@ do_video_rotate_lock_action (CsdMediaKeysManager *manager,
         g_object_unref (settings);
 
         show_osd (manager, locked ? "rotation-locked-symbolic"
-                                  : "rotation-allowed-symbolic", NULL, -1);
+                                  : "rotation-allowed-symbolic", -1, OSD_ALL_OUTPUTS);
 }
 
 static void
