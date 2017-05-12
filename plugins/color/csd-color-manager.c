@@ -1036,7 +1036,7 @@ gcm_session_use_output_profile_for_screen (CsdColorManager *manager,
 #define CD_PROFILE_METADATA_SCREEN_BRIGHTNESS		"SCREEN_brightness"
 #endif
 
-#define CSD_DBUS_SERVICE		"org.cinnamon.SettingsDaemon"
+#define CSD_DBUS_SERVICE		"org.cinnamon.SettingsDaemon.Power"
 #define CSD_DBUS_INTERFACE_POWER_SCREEN	"org.cinnamon.SettingsDaemon.Power.Screen"
 #define CSD_DBUS_PATH_POWER		"/org/cinnamon/SettingsDaemon/Power"
 

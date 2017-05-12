@@ -64,9 +64,8 @@
 #define CSD_XRANDR_SETTINGS_SCHEMA              "org.cinnamon.settings-daemon.plugins.xrandr"
 #define CSD_SESSION_SETTINGS_SCHEMA             "org.cinnamon.desktop.session"
 
-#define CSD_DBUS_SERVICE                        "org.cinnamon.SettingsDaemon"
-#define CSD_DBUS_PATH                           "/org/cinnamon/SettingsDaemon"
-#define CSD_POWER_DBUS_PATH                     CSD_DBUS_PATH "/Power"
+#define CSD_POWER_DBUS_SERVICE                  "org.cinnamon.SettingsDaemon.Power"
+#define CSD_POWER_DBUS_PATH                     "/org/cinnamon/SettingsDaemon/Power"
 #define CSD_POWER_DBUS_INTERFACE                "org.cinnamon.SettingsDaemon.Power"
 #define CSD_POWER_DBUS_INTERFACE_SCREEN         "org.cinnamon.SettingsDaemon.Power.Screen"
 #define CSD_POWER_DBUS_INTERFACE_KEYBOARD       "org.cinnamon.SettingsDaemon.Power.Keyboard"
@@ -2054,7 +2053,7 @@ upower_kbd_emit_changed (CsdPowerManager *manager)
         if (manager->priv->connection == NULL)
                 return;
         ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             CSD_DBUS_SERVICE,
+                                             CSD_POWER_DBUS_SERVICE,
                                              CSD_POWER_DBUS_PATH,
                                              CSD_POWER_DBUS_INTERFACE_KEYBOARD,
                                              "Changed",
@@ -2846,7 +2845,7 @@ backlight_emit_changed (CsdPowerManager *manager)
         if (manager->priv->connection == NULL)
                 return;
         ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             CSD_DBUS_SERVICE,
+                                             CSD_POWER_DBUS_SERVICE,
                                              CSD_POWER_DBUS_PATH,
                                              CSD_POWER_DBUS_INTERFACE_SCREEN,
                                              "Changed",
@@ -4679,7 +4678,7 @@ device_to_variant_blob (UpDevice *device)
         /* get an object path, even for the composite device */
         object_path = up_device_get_object_path (device);
         if (object_path == NULL)
-                object_path = CSD_DBUS_PATH;
+                object_path = CSD_POWER_DBUS_PATH;
 
         /* format complex object */
         value = g_variant_new ("(sssusdut)",

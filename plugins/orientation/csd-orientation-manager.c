@@ -66,10 +66,6 @@ struct CsdOrientationManagerPrivate
 #define CONF_SCHEMA "org.cinnamon.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
 
-#define CSD_DBUS_NAME "org.cinnamon.SettingsDaemon"
-#define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
-#define CSD_DBUS_BASE_INTERFACE "org.cinnamon.SettingsDaemon"
-
 static void     csd_orientation_manager_finalize    (GObject                    *object);
 
 G_DEFINE_TYPE (CsdOrientationManager, csd_orientation_manager, G_TYPE_OBJECT)
@@ -442,9 +438,9 @@ csd_orientation_manager_start (CsdOrientationManager *manager,
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   G_DBUS_PROXY_FLAGS_NONE,
                                   NULL,
-                                  CSD_DBUS_NAME,
-                                  CSD_DBUS_PATH "/XRANDR",
-                                  CSD_DBUS_BASE_INTERFACE ".XRANDR_2",
+                                  "org.cinnamon.SettingsDaemon.XRANDR_2",
+                                  "/org/cinnamon/SettingsDaemon/XRANDR",
+                                  "org.cinnamon.SettingsDaemon.XRANDR_2",
                                   NULL,
                                   (GAsyncReadyCallback) xrandr_ready_cb,
                                   manager);
