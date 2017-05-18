@@ -155,6 +155,7 @@ int
 main (int argc, char **argv)
 {
         GError  *error;
+        gboolean started;
 
         bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -183,10 +184,18 @@ main (int argc, char **argv)
 
         manager = NEW ();
 
-        register_with_cinnamon_session ();
-
         error = NULL;
-        if (!START (manager, &error)) {
+
+        if (REGISTER_BEFORE_STARTING) {
+          register_with_cinnamon_session ();
+          started = START (manager, &error);
+        }
+        else {
+          started = START (manager, &error);
+          register_with_cinnamon_session ();
+        }
+
+        if (!started) {
                 fprintf (stderr, "[cinnamon-settings-daemon-%s] Failed to start: %s\n", PLUGIN_NAME, error->message);
                 g_error_free (error);
                 exit (1);
