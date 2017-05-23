@@ -1,3 +1,16 @@
+cinnamon-settings-daemon (3.4.1) sonya; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Fix incorrect DBUS names
+
+  [ JosephMcc ]
+  * media-keys: Don't show the level in the screen lock OSD (#174)
+
+  [ Clement Lefebvre ]
+  * Make CSM wait for xsettings to be fully started before starting the WindowManager phase.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 23 May 2017 15:32:55 +0100
+
 cinnamon-settings-daemon (3.4.0) sonya; urgency=medium
 
   [ monsta ]
