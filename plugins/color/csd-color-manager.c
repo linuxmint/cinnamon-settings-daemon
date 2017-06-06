@@ -1196,7 +1196,7 @@ gcm_session_device_assign_connect_cb (GObject *object,
         /* get properties */
         ret = cd_device_connect_finish (device, res, &error);
         if (!ret) {
-                g_warning ("failed to connect to device: %s",
+                g_debug ("failed to connect to device: %s",
                            error->message);
                 g_error_free (error);
                 goto out;
