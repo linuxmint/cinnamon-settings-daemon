@@ -83,9 +83,12 @@ on_client_registered (GObject             *source_object,
 
         variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
         if (!variant) {
+            if (error != NULL) {
                 g_warning ("Unable to register client: %s", error->message);
                 g_error_free (error);
-                return;
+            }
+
+            return;
         }
 
         g_variant_get (variant, "(o)", &object_path);
@@ -99,9 +102,12 @@ on_client_registered (GObject             *source_object,
                                                       NULL,
                                                       &error);
         if (!client_proxy) {
+            if (error != NULL) {
                 g_warning ("Unable to get the session client proxy: %s", error->message);
                 g_error_free (error);
-                return;
+            }
+
+            return;
         }
 
         g_signal_connect (client_proxy, "g-signal",
@@ -135,9 +141,12 @@ register_with_cinnamon_session (void)
     g_object_unref (bus);
 
     if (proxy == NULL) {
+        if (error != NULL) {
             g_debug ("Could not connect to the Session manager: %s", error->message);
             g_error_free (error);
-            return;
+        }
+
+        return;
     }
 
    startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
@@ -160,15 +169,25 @@ main (int argc, char **argv)
         bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
+
+        /* Work around https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
+        g_type_ensure (G_TYPE_DBUS_CONNECTION);
+        g_type_ensure (G_TYPE_DBUS_PROXY);
+
+        gdk_set_allowed_backends ("x11");
+
         notify_init ("cinnamon-settings-daemon");
 
         g_setenv ("GDK_SCALE", "1", TRUE);
 
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
+            if (error != NULL) {
                 fprintf (stderr, "%s\n", error->message);
                 g_error_free (error);
-                exit (1);
+            }
+
+            exit (1);
         }
 
         g_unsetenv ("GDK_SCALE");
@@ -196,9 +215,12 @@ main (int argc, char **argv)
         }
 
         if (!started) {
+            if (error != NULL) {
                 fprintf (stderr, "[cinnamon-settings-daemon-%s] Failed to start: %s\n", PLUGIN_NAME, error->message);
                 g_error_free (error);
-                exit (1);
+            }
+
+            exit (1);
         }
 
         gtk_main ();
