@@ -1,3 +1,11 @@
+cinnamon-settings-daemon (3.4.2) sonya; urgency=medium
+
+  [ Michael Webster ]
+  * csd-color-manager.c: Make a device connect warning a debug message instead to reduce .xsession-errors clutter. 
+  * daemon-skeleton: Add a few upstream fixes for startup issues.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 20 Jun 2017 15:49:57 +0200
+
 cinnamon-settings-daemon (3.4.1) sonya; urgency=medium
 
   [ Clement Lefebvre ]
