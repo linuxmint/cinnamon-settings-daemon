@@ -3316,7 +3316,7 @@ idle_is_session_inhibited (CsdPowerManager *manager, guint mask)
 
         /* not yet connected to cinnamon-session */
         if (manager->priv->session_proxy == NULL) {
-                g_warning ("session inhibition not available, cinnamon-session is not available");
+                g_debug ("session inhibition not available, cinnamon-session is not available");
                 return FALSE;
         }
 
