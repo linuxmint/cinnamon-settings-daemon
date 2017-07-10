@@ -185,23 +185,23 @@ strcmp0(const void *a, const void *b)
         return g_strcmp0 (*((gchar **) a), *((gchar **) b));
 }
 
-struct
+typedef struct
 {
         gchar *printer_name;
         gchar *primary_text;
         gchar *secondary_text;
         guint  timeout_id;
         CsdPrintNotificationsManager *manager;
-} typedef TimeoutData;
+} TimeoutData;
 
-struct
+typedef struct
 {
         gchar *printer_name;
         gchar *reason;
         NotifyNotification *notification;
         gulong notification_close_id;
         CsdPrintNotificationsManager *manager;
-} typedef ReasonData;
+} ReasonData;
 
 static void
 free_timeout_data (gpointer user_data)
