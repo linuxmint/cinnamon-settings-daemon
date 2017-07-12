@@ -67,8 +67,6 @@
 /* Touchpad settings */
 #define KEY_TOUCHPAD_DISABLE_W_TYPING    "disable-while-typing"
 #define KEY_TAP_TO_CLICK                 "tap-to-click"
-#define KEY_TWO_FINGER_CLICK             "two-finger-click"
-#define KEY_THREE_FINGER_CLICK           "three-finger-click"
 #define KEY_CLICKPAD_CLICK               "clickpad-click"
 
 #define KEY_VERT_EDGE_SCROLL             "vertical-edge-scrolling"
@@ -108,9 +106,8 @@ static void     set_tap_to_click              (GdkDevice           *device,
                                                gboolean             state,
                                                gboolean             left_handed);
 static void     set_click_actions             (GdkDevice           *device,
-                                               gint                 enable_two_finger_click,
-                                               gint                 enable_three_finger_click,
-                                               gint                 clickpad_click);
+                                               gint                 clickpad_click,
+                                               gboolean             left_handed);
 static void     set_natural_scroll            (CsdMouseManager *manager,
                                                GdkDevice       *device,
                                                gboolean         natural_scroll);
@@ -1011,14 +1008,16 @@ set_tap_to_click (GdkDevice *device,
 
 static void
 set_click_actions_synaptics (GdkDevice *device,
-                             gint   enable_two_finger_click,
-                             gint   enable_three_finger_click)
+                             gint       clickpad_click,
+                             gboolean   left_handed)
+
 {
         int format, rc;
         unsigned long nitems, bytes_after;
         XDevice *xdevice;
         unsigned char* data;
         Atom prop, type;
+        gboolean state;
 
         prop = property_from_name ("Synaptics Click Action");
         if (!prop)
@@ -1040,10 +1039,11 @@ set_click_actions_synaptics (GdkDevice *device,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
 
+        state = (clickpad_click == 2);
         if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3) {
             data[0] = 1;
-            data[1] = enable_two_finger_click;
-            data[2] = enable_three_finger_click;
+            data[1] = (state)? ((left_handed) ? 1 : 3) : 0;
+            data[2] = (state)? 2 : 0;
             XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                    prop, XA_INTEGER, 8, PropModeReplace, data, nitems);
         }
@@ -1108,12 +1108,11 @@ set_click_actions_libinput (GdkDevice *device,
 
 static void
 set_click_actions (GdkDevice *device,
-                   gint   enable_two_finger_click,
-                   gint   enable_three_finger_click,
-                   gint   clickpad_click)
+                   gint       clickpad_click,
+                   gboolean   left_handed)
 {
         if (property_from_name ("Synaptics Click Action"))
-                set_click_actions_synaptics (device, enable_two_finger_click, enable_three_finger_click);
+                set_click_actions_synaptics (device, clickpad_click, left_handed);
 
         if (property_from_name ("libinput Click Method Enabled"))
                 set_click_actions_libinput (device, clickpad_click);
@@ -1367,8 +1366,7 @@ set_mouse_settings (CsdMouseManager *manager,
         set_middle_button (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_MIDDLE_BUTTON_EMULATION));
 
         set_tap_to_click (device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TAP_TO_CLICK), touchpad_left_handed);
-        set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_TWO_FINGER_CLICK), g_settings_get_int (manager->priv->touchpad_settings, KEY_THREE_FINGER_CLICK),
-                g_settings_get_int (manager->priv->touchpad_settings, KEY_CLICKPAD_CLICK));
+        set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_CLICKPAD_CLICK), touchpad_left_handed);
         set_scrolling (device, manager->priv->touchpad_settings);
         set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
@@ -1527,9 +1525,10 @@ touchpad_callback (GSettings       *settings,
                         set_tap_to_click (device, g_settings_get_boolean (settings, key),
                                           get_touchpad_handedness (manager, mouse_left_handed));
                 }
-                else if (g_str_equal (key, KEY_TWO_FINGER_CLICK) || g_str_equal (key, KEY_THREE_FINGER_CLICK) || g_str_equal(key, KEY_CLICKPAD_CLICK)) {
-                        set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_TWO_FINGER_CLICK), g_settings_get_int (manager->priv->touchpad_settings, KEY_THREE_FINGER_CLICK),
-                                g_settings_get_int (manager->priv->touchpad_settings, KEY_CLICKPAD_CLICK));
+                else if (g_str_equal(key, KEY_CLICKPAD_CLICK)) {
+                        gboolean mouse_left_handed;
+                        mouse_left_handed = g_settings_get_boolean (manager->priv->mouse_settings, KEY_LEFT_HANDED);
+                        set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_CLICKPAD_CLICK), get_touchpad_handedness(manager, mouse_left_handed));
                 } else if (g_str_equal (key, KEY_VERT_EDGE_SCROLL) || g_str_equal (key, KEY_HORIZ_EDGE_SCROLL) || g_str_equal (key, KEY_VERT_TWO_FINGER_SCROLL) || g_str_equal (key, KEY_HORIZ_TWO_FINGER_SCROLL)) {
                         set_scrolling (device, settings);
                 } else if (g_str_equal (key, KEY_TOUCHPAD_ENABLED)) {
