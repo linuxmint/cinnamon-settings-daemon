@@ -20,22 +20,12 @@
       <_summary>Disable touchpad while typing</_summary>
       <_description>Set this to TRUE if you have problems with accidentally hitting the touchpad while typing.</_description>
     </key>
-    <key name="vertical-edge-scrolling" type="b">
-      <default>true</default>
-      <_summary></_summary>
-      <_description></_description>
+    <key name="scrolling-method" type="i">
+      <default>1</default>
+      <_summary>Set scrolling mode on touchpad</_summary>
+      <_description>0 to 2, 0 is disabled, 1 is two-finger scrolling, 2 is edge scrolling</_description>
     </key>
-    <key name="horizontal-edge-scrolling" type="b">
-      <default>false</default>
-      <_summary></_summary>
-      <_description></_description>
-    </key>
-    <key name="vertical-two-finger-scrolling" type="b">
-      <default>true</default>
-      <_summary></_summary>
-      <_description></_description>
-    </key>
-    <key name="horizontal-two-finger-scrolling" type="b">
+    <key name="horizontal-scrolling" type="b">
       <default>false</default>
       <_summary></_summary>
       <_description></_description>
