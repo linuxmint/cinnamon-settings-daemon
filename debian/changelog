@@ -1,3 +1,15 @@
+cinnamon-settings-daemon (3.4.3) sonya; urgency=medium
+
+  [ Michael Webster ]
+  * Add an issue template
+
+  [ leigh123linux ]
+  * Make xrandr plugin visible in 'startup apps'
+  * power: Remove spam from log
+  * xrandr: explicitly set clone state variable when generating monitor configs
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 08 Aug 2017 13:11:43 +0200
+
 cinnamon-settings-daemon (3.4.2) sonya; urgency=medium
 
   [ Michael Webster ]
