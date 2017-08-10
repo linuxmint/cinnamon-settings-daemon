@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (3.4.4) sonya; urgency=medium
+
+  [ leigh123linux ]
+  * Revert "xrandr: explicitly set clone state variable when generating monitor configs" (#186)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 10 Aug 2017 16:38:11 +0200
+
 cinnamon-settings-daemon (3.4.3) sonya; urgency=medium
 
   [ Michael Webster ]
