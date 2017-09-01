@@ -4,14 +4,11 @@
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-# To avoid running configure twice (because gnome-autogen.sh)
-export NOCONFIGURE=yes
-
 %:
 	dh $@ --parallel --with=autoreconf
 
 override_dh_autoreconf:
-	dh_autoreconf --as-needed ./autogen.sh
+	NOCONFIGURE=1 dh_autoreconf --as-needed ./autogen.sh
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
