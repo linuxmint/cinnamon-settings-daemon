@@ -38,17 +38,27 @@ desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = cinnamon-settings-daemon-automount.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
+applicationsdir       = $(datadir)/applications
+applications_in_files = csd-automount.desktop.in
+applications_DATA     = $(applications_in_files:.desktop.in=.desktop)
+
 cinnamon-settings-daemon-automount.desktop: $(desktop_in_files) Makefile
+	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+
+csd-automount.desktop: $(applications_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
 	$(desktop_in_files)	\
+	$(applications_in_files)	\
 	$(NULL)
 
 CLEANFILES = 			\
 	$(desktop_DATA)		\
+	$(applications_DATA)		\
 	$(NULL)
 
 DISTCLEANFILES =		\
 	$(desktop_DATA)		\
+	$(applications_DATA)		\
 	$(NULL)
