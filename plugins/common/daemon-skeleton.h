@@ -178,7 +178,9 @@ main (int argc, char **argv)
 
         notify_init ("cinnamon-settings-daemon");
 
-        g_setenv ("GDK_SCALE", "1", TRUE);
+        if (FORCE_GDK_SCALE) {
+          g_setenv ("GDK_SCALE", "1", TRUE);
+        }
 
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
@@ -190,7 +192,9 @@ main (int argc, char **argv)
             exit (1);
         }
 
-        g_unsetenv ("GDK_SCALE");
+        if (FORCE_GDK_SCALE) {
+          g_unsetenv ("GDK_SCALE");
+        }
 
         if (verbose)
                 g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);

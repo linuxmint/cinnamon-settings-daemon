@@ -9,6 +9,9 @@
 // before initializing the next phase.
 #define REGISTER_BEFORE_STARTING TRUE
 
+// Setting this to TRUE makes the plugin force GDK_SCALE=1
+#define FORCE_GDK_SCALE TRUE
+
 #include "csd-media-keys-manager.h"
 
 #include "daemon-skeleton.h"
