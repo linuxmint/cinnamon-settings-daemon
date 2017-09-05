@@ -2,55 +2,57 @@ Source: cinnamon-settings-daemon
 Section: x11
 Priority: optional
 Maintainer: Linux Mint <root@linuxmint.com>
-Build-Depends: autoconf-archive,
-               autotools-dev,
-               debhelper (>= 9),
-               dh-autoreconf,
-               gtk-doc-tools,
-               intltool (>= 0.37.1),
-               libcanberra-gtk3-dev,
-               libcinnamon-desktop-dev (>= 2.8.0),
-               libcvc-dev (>=2.8.0),
-               libcolord-dev (>= 0.1.27),
-               libcups2-dev,
-               libdbus-glib-1-dev (>= 0.88),
-               libfontconfig1-dev,
-               libglib2.0-dev (>= 2.37.3),
-               libgnomekbd-dev (>= 3.6.0),
-               libgtk-3-dev (>= 3.9.10),
-               libgudev-1.0-dev [linux-any],
-               liblcms2-dev,
-               libnotify-dev (>= 0.7.0),
-               libnss3-dev,
-               libpolkit-gobject-1-dev,
-               libpulse-dev (>= 0.9.16),
-               librsvg2-dev,
-               libsystemd-login-dev [linux-any] | libsystemd-dev [linux-any],
-               libupower-glib-dev (>= 0.9.11),
-               libwacom-dev (>= 0.4) [linux-any],
-               libx11-dev,
-               libxext-dev,
-               libxi-dev,
-               libxklavier-dev,
-               libxtst-dev,
-               xserver-xorg-input-wacom [!s390x !hurd-any !kfreebsd-any]
-Standards-Version: 3.9.6
+Build-Depends:
+ autoconf-archive,
+ automake,
+ autotools-dev,
+ debhelper (>= 9),
+ dh-autoreconf,
+ docbook-xsl,
+ intltool (>= 0.37.1),
+ libcanberra-gtk3-dev,
+ libcinnamon-desktop-dev (>= 3.4~),
+ libcvc-dev (>= 3.4~),
+ libcolord-dev (>= 0.1.27),
+ libcups2-dev,
+ libdbus-glib-1-dev (>= 0.88),
+ libfontconfig1-dev,
+ libglib2.0-dev (>= 2.37.3),
+ libgnomekbd-dev (>= 3.6.0),
+ libgtk-3-dev (>= 3.9.10),
+ libgudev-1.0-dev [linux-any],
+ liblcms2-dev,
+ libnotify-dev (>= 0.7.0),
+ libnss3-dev,
+ libpolkit-gobject-1-dev,
+ libpulse-dev (>= 0.9.16),
+ librsvg2-dev,
+ libsystemd-login-dev [linux-any] | libsystemd-dev [linux-any],
+ libupower-glib-dev (>= 0.9.11),
+ libwacom-dev (>= 0.4) [linux-any],
+ libx11-dev,
+ libxext-dev,
+ libxi-dev,
+ libxklavier-dev,
+ libxtst-dev,
+ xserver-xorg-input-wacom [!s390x !hurd-any !kfreebsd-any],
+ xsltproc,
+Standards-Version: 3.9.8
 Homepage: http://cinnamon.linuxmint.com
 
 Package: cinnamon-settings-daemon
 Architecture: any
-Depends: cinnamon-desktop-data (>= 2.6.3),
-         ${misc:Depends},
-         ${shlibs:Depends}
+Depends: cinnamon-desktop-data (>= 2.6.3), ${misc:Depends}, ${shlibs:Depends}
 Recommends: pulseaudio
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: banshee (<< 0.13.2+dfsg-7),
-        gnome-color-manager (<< 3.0),
-        gnome-screensaver (<< 2.28.0),
-        gnome-session (<< 2.24),
-        rhythmbox (<< 0.11.5),
-        totem (<< 2.22.0),
-        unity-greeter (<< 0.2.1-0ubuntu1)
+Breaks:
+ banshee (<< 0.13.2+dfsg-7),
+ gnome-color-manager (<< 3.0),
+ gnome-screensaver (<< 2.28.0),
+ gnome-session (<< 2.24),
+ rhythmbox (<< 0.11.5),
+ totem (<< 2.22.0),
+ unity-greeter (<< 0.2.1-0ubuntu1)
 Suggests: cinnamon-screensaver, muffin | x-window-manager, x11-xserver-utils
 Description: daemon handling the Cinnamon session settings
  This package contains the daemon which is responsible for setting the
@@ -70,10 +72,11 @@ Description: daemon handling the Cinnamon session settings
 
 Package: cinnamon-settings-daemon-dev
 Architecture: any
-Depends: libdbus-glib-1-dev (>= 0.74),
-         libglib2.0-dev (>= 2.26.0),
-         ${misc:Depends},
-         ${shlibs:Depends}
+Depends:
+ libdbus-glib-1-dev (>= 0.74),
+ libglib2.0-dev (>= 2.26.0),
+ ${misc:Depends},
+ ${shlibs:Depends}
 Description: Headers for building applications communicating with cinnamon-settings-daemon
  This package contains header files required to build applications that
  communicate with the Cinnamon settings daemon over D-Bus.
