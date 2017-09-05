@@ -1,0 +1,2 @@
+#!/bin/bash
+xgettext --language=C --keyword=_ --keyword=N_ --output=cinnamon-settings-daemon.pot cinnamon-settings-daemon/*.c cinnamon-settings-daemon/*.h plugins/*/*.c plugins/*/*.h

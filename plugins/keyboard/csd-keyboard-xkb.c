@@ -89,10 +89,10 @@ activation_error (void)
 						     ("Error activating XKB configuration.\n"
 						      "There can be various reasons for that.\n\n"
 						      "If you report this situation as a bug, include the results of\n"
-						      " • <b>%s</b>\n"
-						      " • <b>%s</b>\n"
-						      " • <b>%s</b>\n"
-						      " • <b>%s</b>"),
+						      " <b>%s</b>\n"
+						      " <b>%s</b>\n"
+						      " <b>%s</b>\n"
+						      " <b>%s</b>"),
 						     "xprop -root | grep XKB",
 						     "gsettings get org.gnome.libgnomekbd.keyboard model",
 						     "gsettings get org.gnome.libgnomekbd.keyboard layouts",

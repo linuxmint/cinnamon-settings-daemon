@@ -889,7 +889,7 @@ handle_method_call (GDBusConnection       *connection,
                 /* Translators: We are configuring new printer */
                 primary_text = g_strdup (_("Configuring new printer"));
                 /* Translators: Just wait */
-                secondary_text = g_strdup (_("Please wait…"));
+                secondary_text = g_strdup (_("Please wait..."));
 
                 g_dbus_method_invocation_return_value (invocation,
                                                        NULL);

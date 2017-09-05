@@ -341,52 +341,52 @@ get_statuses_second (guint i,
         switch (i) {
                 case 0:
                         /* Translators: The printer is low on toner (same as in system-config-printer) */
-                        status = g_strdup_printf (_("Printer “%s” is low on toner."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' is low on toner."), printer_name);
                         break;
                 case 1:
                         /* Translators: The printer has no toner left (same as in system-config-printer) */
-                        status = g_strdup_printf (_("Printer “%s” has no toner left."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' has no toner left."), printer_name);
                         break;
                 case 2:
                         /* Translators: The printer is in the process of connecting to a shared network output device (same as in system-config-printer) */
-                        status = g_strdup_printf (_("Printer “%s” may not be connected."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' may not be connected."), printer_name);
                         break;
                 case 3:
                         /* Translators: One or more covers on the printer are open (same as in system-config-printer) */
-                        status = g_strdup_printf (_("The cover is open on printer “%s”."), printer_name);
+                        status = g_strdup_printf (_("The cover is open on printer '%s'."), printer_name);
                         break;
                 case 4:
                         /* Translators: A filter or backend is not installed (same as in system-config-printer) */
                         status = g_strdup_printf (_("There is a missing print filter for "
-                                                    "printer “%s”."), printer_name);
+                                                    "printer '%s'."), printer_name);
                         break;
                 case 5:
                         /* Translators: One or more doors on the printer are open (same as in system-config-printer) */
-                        status = g_strdup_printf (_("The door is open on printer “%s”."), printer_name);
+                        status = g_strdup_printf (_("The door is open on printer '%s'."), printer_name);
                         break;
                 case 6:
                         /* Translators: "marker" is one color bin of the printer */
-                        status = g_strdup_printf (_("Printer “%s” is low on a marker supply."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' is low on a marker supply."), printer_name);
                         break;
                 case 7:
                         /* Translators: "marker" is one color bin of the printer */
-                        status = g_strdup_printf (_("Printer “%s” is out of a marker supply."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' is out of a marker supply."), printer_name);
                         break;
                 case 8:
                         /* Translators: At least one input tray is low on media (same as in system-config-printer) */
-                        status = g_strdup_printf (_("Printer “%s” is low on paper."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' is low on paper."), printer_name);
                         break;
                 case 9:
                         /* Translators: At least one input tray is empty (same as in system-config-printer) */
-                        status = g_strdup_printf (_("Printer “%s” is out of paper."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' is out of paper."), printer_name);
                         break;
                 case 10:
                         /* Translators: The printer is offline (same as in system-config-printer) */
-                        status = g_strdup_printf (_("Printer “%s” is currently off-line."), printer_name);
+                        status = g_strdup_printf (_("Printer '%s' is currently off-line."), printer_name);
                         break;
                 case 11:
                         /* Translators: The printer has detected an error (same as in system-config-printer) */
-                        status = g_strdup_printf (_("There is a problem on printer “%s”."), printer_name);
+                        status = g_strdup_printf (_("There is a problem on printer '%s'."), printer_name);
                         break;
                 default:
                         g_assert_not_reached ();
@@ -523,25 +523,25 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                 /* Translators: A print job has been stopped */
                                 primary_text = g_strdup (C_("print job state", "Printing stopped"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_CANCELED:
                                 /* Translators: A print job has been canceled */
                                 primary_text = g_strdup (C_("print job state", "Printing canceled"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_ABORTED:
                                 /* Translators: A print job has been aborted */
                                 primary_text = g_strdup (C_("print job state", "Printing aborted"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_COMPLETED:
                                 /* Translators: A print job has been completed */
                                 primary_text = g_strdup (C_("print job state", "Printing completed"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "job-state-changed") == 0 && my_job) {
@@ -553,7 +553,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                 /* Translators: A job is printing */
                                 primary_text = g_strdup (C_("print job state", "Printing"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_STOPPED:
                                 g_hash_table_remove (manager->priv->printing_printers,
@@ -561,7 +561,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                 /* Translators: A print job has been stopped */
                                 primary_text = g_strdup (C_("print job state", "Printing stopped"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_CANCELED:
                                 g_hash_table_remove (manager->priv->printing_printers,
@@ -569,7 +569,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                 /* Translators: A print job has been canceled */
                                 primary_text = g_strdup (C_("print job state", "Printing canceled"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_ABORTED:
                                 g_hash_table_remove (manager->priv->printing_printers,
@@ -577,7 +577,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                 /* Translators: A print job has been aborted */
                                 primary_text = g_strdup (C_("print job state", "Printing aborted"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         case IPP_JOB_COMPLETED:
                                 g_hash_table_remove (manager->priv->printing_printers,
@@ -585,7 +585,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                 /* Translators: A print job has been completed */
                                 primary_text = g_strdup (C_("print job state", "Printing completed"));
                                 /* Translators: "print-job xy" on a printer */
-                                secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                                secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                                 break;
                         default:
                                 break;
@@ -598,7 +598,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                         /* Translators: A job is printing */
                         primary_text = g_strdup (C_("print job state", "Printing"));
                         /* Translators: "print-job xy" on a printer */
-                        secondary_text = g_strdup_printf (C_("print job", "“%s” on %s"), job_name, printer_name);
+                        secondary_text = g_strdup_printf (C_("print job", "'%s' on %s"), job_name, printer_name);
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "printer-state-changed") == 0) {
                 cups_dest_t  *dest = NULL;
@@ -826,7 +826,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                                 text = g_strdup (data);
 
                                         /* Translators: "Printer 'MyPrinterName': 'Description of the report/warning/error from a PPD file'." */
-                                        second_row = g_strdup_printf (_("Printer “%s”: “%s”."), printer_name, text);
+                                        second_row = g_strdup_printf (_("Printer '%s': '%s'."), printer_name, text);
                                         g_free (text);
 
 
