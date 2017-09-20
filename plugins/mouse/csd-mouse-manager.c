@@ -1120,8 +1120,8 @@ static void
 set_scrolling_synaptics (GdkDevice *device, gint scrolling_method, gboolean horizontal_scroll)
 {
         gboolean want_edge, want_2fg;
-        want_2fg = (scrolling_method == 1);
-        want_edge = (scrolling_method == 2);
+        want_2fg = (scrolling_method == 1 || scrolling_method == 3);
+        want_edge = (scrolling_method == 2 || scrolling_method == 3);
         touchpad_set_bool (device, "Synaptics Edge Scrolling", 0, want_edge);
         touchpad_set_bool (device, "Synaptics Edge Scrolling", 1, want_edge && horizontal_scroll);
         touchpad_set_bool (device, "Synaptics Two-Finger Scrolling", 0, want_2fg);
@@ -1131,14 +1131,17 @@ set_scrolling_synaptics (GdkDevice *device, gint scrolling_method, gboolean hori
 static void
 set_scrolling_libinput (GdkDevice *device, gint scrolling_method, gboolean horizontal_scroll)
 {
-        int format, rc;
+        int format, rc, rc_default;
         unsigned long nitems, bytes_after;
         XDevice *xdevice;
-        unsigned char* data;
-        Atom prop, type;
+        unsigned char* data, * data_default;
+        Atom prop, prop_default, type;
 
         prop = property_from_name ("libinput Scroll Method Enabled");
         if (!prop)
+                return;
+        prop_default = property_from_name("libinput Scroll Method Enabled Default");
+        if (!prop_default && scrolling_method == 3)
                 return;
 
         xdevice = open_gdk_device (device);
@@ -1157,16 +1160,25 @@ set_scrolling_libinput (GdkDevice *device, gint scrolling_method, gboolean horiz
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
 
-        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3) {
-                data[0] = (scrolling_method == 1);
-                data[1] = (scrolling_method == 2);
-                data[2] = 0;
+        if (scrolling_method == 3) {
+                rc_default = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop_default, 0, 2,
+                                                False, XA_INTEGER, &type, &format, &nitems,
+                                                &bytes_after, &data_default);
+        }
+
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3
+                        && (rc_default == Success || scrolling_method != 3)) {
+                data[0] = (scrolling_method == 1) || (scrolling_method == 3 && data_default[0]);
+                data[1] = (scrolling_method == 2) || (scrolling_method == 3 && data_default[1]);
+                data[2] = 0 || (scrolling_method == 3 && data_default[2]);
                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                        prop, XA_INTEGER, 8, PropModeReplace, data, nitems);
         }
 
         if (rc == Success)
                 XFree (data);
+        if (rc_default == Success)
+                XFree (data_default);
 
         if (gdk_error_trap_pop ())
                 g_warning ("Error in setting scroll method on \"%s\"", gdk_device_get_name (device));
