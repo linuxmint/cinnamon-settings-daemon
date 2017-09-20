@@ -1037,7 +1037,7 @@ set_click_actions_synaptics (GdkDevice *device,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
 
-        state = (clickpad_click == 2);
+        state = (clickpad_click == 2) || (clickpad_click == 3);
         if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 3) {
             data[0] = 1;
             data[1] = (state)? ((left_handed) ? 1 : 3) : 0;
@@ -1059,15 +1059,17 @@ static void
 set_click_actions_libinput (GdkDevice *device,
                             gint   clickpad_click)
 {
-        int format, rc;
+        int format, rc, rc_default;
         unsigned long nitems, bytes_after;
         XDevice *xdevice;
-        unsigned char* data;
-        Atom prop, type;
-        gboolean want_softwarebuttons, want_clickfinger;
+        unsigned char* data, * data_default;
+        Atom prop, prop_default, type;
 
         prop = property_from_name ("libinput Click Method Enabled");
         if (!prop)
+                return;
+        prop_default = property_from_name("libinput Click Method Enabled Default");
+        if (!prop_default && clickpad_click == 3)
                 return;
 
         xdevice = open_gdk_device (device);
@@ -1081,22 +1083,27 @@ set_click_actions_libinput (GdkDevice *device,
 
         g_debug ("setting click action to click on %s", gdk_device_get_name (device));
 
-        want_clickfinger = (clickpad_click == 2);
-        want_softwarebuttons = (clickpad_click == 1);
-
         gdk_error_trap_push ();
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
+        if (clickpad_click == 3) {
+                rc_default = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop_default, 0, 2,
+                                                False, XA_INTEGER, &type, &format, &nitems,
+                                                &bytes_after, &data_default);
+        }
 
-        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 2) {
-                data[0] = want_softwarebuttons;
-                data[1] = want_clickfinger;
+        if (rc == Success && type == XA_INTEGER && format == 8 && nitems >= 2
+                        && (rc_default == Success || clickpad_click != 3)) {
+                data[0] = (clickpad_click == 1) || (clickpad_click == 3 && data_default[0]);
+                data[1] = (clickpad_click == 2) || (clickpad_click == 3 && data_default[1]);
                 XChangeDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, XA_INTEGER, 8, PropModeReplace, data, nitems);
         }
 
         if (rc == Success)
                 XFree (data);
+        if (clickpad_click == 3 && rc_default == Success)
+                XFree (data_default);
 
         if (gdk_error_trap_pop ())
                 g_warning ("Error in setting click actions on \"%s\"", gdk_device_get_name (device));
@@ -1177,7 +1184,7 @@ set_scrolling_libinput (GdkDevice *device, gint scrolling_method, gboolean horiz
 
         if (rc == Success)
                 XFree (data);
-        if (rc_default == Success)
+        if (scrolling_method == 3 && rc_default == Success)
                 XFree (data_default);
 
         if (gdk_error_trap_pop ())
