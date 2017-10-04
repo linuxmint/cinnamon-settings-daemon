@@ -20,22 +20,12 @@
       <_summary>Disable touchpad while typing</_summary>
       <_description>Set this to TRUE if you have problems with accidentally hitting the touchpad while typing.</_description>
     </key>
-    <key name="vertical-edge-scrolling" type="b">
-      <default>true</default>
-      <_summary></_summary>
-      <_description></_description>
+    <key name="scrolling-method" type="i">
+      <default>3</default>
+      <_summary>Set scrolling mode on touchpad</_summary>
+      <_description>0 to 2, 0 is disabled, 1 is two-finger scrolling, 2 is edge scrolling, 3 is automatic selection</_description>
     </key>
-    <key name="horizontal-edge-scrolling" type="b">
-      <default>false</default>
-      <_summary></_summary>
-      <_description></_description>
-    </key>
-    <key name="vertical-two-finger-scrolling" type="b">
-      <default>true</default>
-      <_summary></_summary>
-      <_description></_description>
-    </key>
-    <key name="horizontal-two-finger-scrolling" type="b">
+    <key name="horizontal-scrolling" type="b">
       <default>false</default>
       <_summary></_summary>
       <_description></_description>
@@ -45,15 +35,10 @@
       <_summary>Enable mouse clicks with touchpad</_summary>
       <_description>Set this to TRUE to be able to send mouse clicks by tapping on the touchpad.</_description>
     </key>
-    <key name="two-finger-click" type="i">
+    <key name="clickpad-click" type="i">
       <default>3</default>
-      <_summary>Enabled two-finger button-click emulation</_summary>
-      <_description>0 through 3, 0 is inactive, 1-3 is button for two-finger click to emulate.</_description>
-    </key>
-    <key name="three-finger-click" type="i">
-      <default>2</default>
-      <_summary>Enable three-finger button-click emulation</_summary>
-      <_description>0 through 3, 0 is inactive, 1-3 is button for three-finger click to emulate.</_description>
+      <_summary>Click action on clickpads</_summary>
+      <_description>0 through 2, 0 is single click action, 1 emulates mouse buttons in bottom corners, 2 is multi-finger click, 3 is automatic selection</_description>
     </key>
     <key name="touchpad-enabled" type="b">
       <default>true</default>
