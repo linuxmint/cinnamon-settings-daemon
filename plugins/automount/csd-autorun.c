@@ -678,6 +678,7 @@ show_dialog:
 	mount_name = g_mount_get_name (mount);
 
 	dialog = gtk_dialog_new ();
+        gtk_window_set_default_size (GTK_WINDOW (dialog), 450, -1);
 
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, TRUE, TRUE, 0);
