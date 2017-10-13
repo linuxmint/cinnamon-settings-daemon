@@ -341,13 +341,13 @@ prepare_combo_box (GtkWidget *combo_box,
                 g_object_unref (info);
         }
 
-        icon = g_themed_icon_new (GTK_STOCK_DIALOG_QUESTION);
+        icon = g_themed_icon_new ("dialog-question");
         gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_ASK,
                                                    _("Ask what to do"),
                                                    icon);
         g_object_unref (icon);
 
-        icon = g_themed_icon_new (GTK_STOCK_CLOSE);
+        icon = g_themed_icon_new ("window-close");
         gtk_app_chooser_button_append_custom_item (app_chooser, CUSTOM_ITEM_DO_NOTHING,
                                                    _("Do Nothing"),
                                                    icon);
@@ -678,8 +678,9 @@ show_dialog:
 	mount_name = g_mount_get_name (mount);
 
 	dialog = gtk_dialog_new ();
+        gtk_window_set_default_size (GTK_WINDOW (dialog), 450, -1);
 
-	hbox = gtk_hbox_new (FALSE, 12);
+        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
 	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), hbox, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 12);
 
@@ -687,7 +688,8 @@ show_dialog:
 	icon_size = get_icon_size_for_stock_size (GTK_ICON_SIZE_DIALOG);
 	image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_DIALOG);
 	pixbuf = render_icon (icon, icon_size);
-	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
+        gtk_widget_set_halign (image, GTK_ALIGN_CENTER);
+        gtk_widget_set_valign (image, GTK_ALIGN_START);
 	gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
 	/* also use the icon on the dialog */
 	gtk_window_set_title (GTK_WINDOW (dialog), mount_name);
@@ -697,7 +699,7 @@ show_dialog:
 	if (pixbuf) {
 		g_object_unref (pixbuf);
 	}
-	vbox = gtk_vbox_new (FALSE, 12);
+        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
 	gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 	label = gtk_label_new (NULL);
@@ -740,7 +742,8 @@ show_dialog:
 	gtk_label_set_markup (GTK_LABEL (label), markup);
 	g_free (markup);
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+        gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+        gtk_label_set_yalign (GTK_LABEL (label), 0.5);
 	gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
 	label = gtk_label_new (NULL);
@@ -750,7 +753,8 @@ show_dialog:
 	gtk_label_set_markup (GTK_LABEL (label), markup);
 	g_free (markup);
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+        gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+        gtk_label_set_yalign (GTK_LABEL (label), 0.5);
 	gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 	
 	data = g_new0 (AutorunDialogData, 1);
@@ -781,16 +785,13 @@ show_dialog:
 	gtk_box_pack_start (GTK_BOX (vbox), always_check_button, TRUE, TRUE, 0);
 
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog), 
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_OK, GTK_RESPONSE_OK,
+				_("_Cancel"), GTK_RESPONSE_CANCEL,
+				_("_Ok"), GTK_RESPONSE_OK,
 				NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-	
+
 	if (g_mount_can_eject (mount)) {
-		GtkWidget *eject_image;
 		eject_button = gtk_button_new_with_mnemonic (_("_Eject"));
-		eject_image = gtk_image_new_from_icon_name ("media-eject", GTK_ICON_SIZE_BUTTON);
-		gtk_button_set_image (GTK_BUTTON (eject_button), eject_image);
 		data->should_eject = TRUE;
 	} else {
 		eject_button = gtk_button_new_with_mnemonic (_("_Unmount"));
