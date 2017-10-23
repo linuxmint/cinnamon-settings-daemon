@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-05 16:13+0100\n"
+"POT-Creation-Date: 2017-10-23 13:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 
 #: plugins/a11y-keyboard/csd-a11y-keyboard-manager.c:521
 #: plugins/a11y-keyboard/csd-a11y-keyboard-manager.c:656
-#: plugins/mouse/csd-mouse-manager.c:1328
+#: plugins/mouse/csd-mouse-manager.c:1333
 msgid "Universal Access"
 msgstr ""
 
@@ -159,88 +159,96 @@ msgstr ""
 msgid "Unable to unmount %p"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:708
+#: plugins/automount/csd-autorun.c:710
 msgid "You have just inserted an Audio CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:710
+#: plugins/automount/csd-autorun.c:712
 msgid "You have just inserted an Audio DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:712
+#: plugins/automount/csd-autorun.c:714
 msgid "You have just inserted a Video DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:714
+#: plugins/automount/csd-autorun.c:716
 msgid "You have just inserted a Video CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:716
+#: plugins/automount/csd-autorun.c:718
 msgid "You have just inserted a Super Video CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:718
+#: plugins/automount/csd-autorun.c:720
 msgid "You have just inserted a blank CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:720
+#: plugins/automount/csd-autorun.c:722
 msgid "You have just inserted a blank DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:722
+#: plugins/automount/csd-autorun.c:724
 msgid "You have just inserted a blank Blu-Ray disc."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:724
+#: plugins/automount/csd-autorun.c:726
 msgid "You have just inserted a blank HD DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:726
+#: plugins/automount/csd-autorun.c:728
 msgid "You have just inserted a Photo CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:728
+#: plugins/automount/csd-autorun.c:730
 msgid "You have just inserted a Picture CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:730
+#: plugins/automount/csd-autorun.c:732
 msgid "You have just inserted a medium with digital photos."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:732
+#: plugins/automount/csd-autorun.c:734
 msgid "You have just inserted a digital audio player."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:734
+#: plugins/automount/csd-autorun.c:736
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:737
+#: plugins/automount/csd-autorun.c:739
 msgid "You have just inserted a medium."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:739
+#: plugins/automount/csd-autorun.c:741
 msgid "Choose what application to launch."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:748
+#: plugins/automount/csd-autorun.c:751
 #, c-format
 msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
 "for other media of type \"%s\"."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:775
+#: plugins/automount/csd-autorun.c:779
 msgid "_Always perform this action"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:791
+#: plugins/automount/csd-autorun.c:788
+msgid "_Cancel"
+msgstr ""
+
+#: plugins/automount/csd-autorun.c:789
+msgid "_Ok"
+msgstr ""
+
+#: plugins/automount/csd-autorun.c:794
 msgid "_Eject"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:796
+#: plugins/automount/csd-autorun.c:797
 msgid "_Unmount"
 msgstr ""
 
@@ -394,11 +402,11 @@ msgstr ""
 msgid "Region and Language Settings"
 msgstr ""
 
-#: plugins/mouse/csd-mouse-manager.c:1324
+#: plugins/mouse/csd-mouse-manager.c:1329
 msgid "Could not enable mouse accessibility features"
 msgstr ""
 
-#: plugins/mouse/csd-mouse-manager.c:1326
+#: plugins/mouse/csd-mouse-manager.c:1331
 msgid ""
 "Mouse accessibility requires Mousetweaks to be installed on your system."
 msgstr ""
