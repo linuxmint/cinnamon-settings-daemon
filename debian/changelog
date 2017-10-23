@@ -1,3 +1,22 @@
+cinnamon-settings-daemon (3.6.0) sylvia; urgency=medium
+
+  [ Albert Pool ]
+  * Make touchpad settings compatible with libinput (#181)
+
+  [ JosephMcc ]
+  * Clean up the autorun dialog a bit (#194)
+
+  [ Clement Lefebvre ]
+  * Xrandr: Hold the session start while the plugin is loaded.
+
+  [ Simon Brown ]
+  * csd-xsettings-gtk: Avoid a potential GFile leak (#195)
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT file
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 23 Oct 2017 13:59:35 +0100
+
 cinnamon-settings-daemon (3.5.0) sylvia; urgency=medium
 
   * Bump version number (unstable)
