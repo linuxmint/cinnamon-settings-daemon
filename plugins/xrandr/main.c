@@ -7,7 +7,7 @@
 // with CSM before starting.
 // Setting this to FALSE makes CSM wait for the plugin to be started
 // before initializing the next phase.
-#define REGISTER_BEFORE_STARTING TRUE
+#define REGISTER_BEFORE_STARTING FALSE
 
 // Setting this to TRUE makes the plugin force GDK_SCALE=1
 #define FORCE_GDK_SCALE TRUE
