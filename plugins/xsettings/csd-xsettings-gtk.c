@@ -198,12 +198,13 @@ get_gtk_modules_from_dir (CsdXSettingsGtk *gtk)
 
                         gtk->priv->dir_modules = ht;
                 }
-                g_object_unref (info);
         } else {
                 empty_cond_settings_list (gtk);
         }
 
 bail:
+        if (info != NULL)
+                g_object_unref (info);
         g_object_unref (file);
 }
 
