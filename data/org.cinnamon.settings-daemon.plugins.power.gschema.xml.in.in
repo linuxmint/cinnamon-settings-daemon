@@ -21,12 +21,12 @@
       <description>The default amount of time to dim the screen after idle.</description>
     </key>
     <key name="sleep-display-ac" type="i">
-      <default>600</default>
+      <default>1800</default>
       <summary>Sleep timeout display when on AC</summary>
       <description>The amount of time in seconds before the display turns off when the computer is on AC power.</description>
     </key>
     <key name="sleep-display-battery" type="i">
-      <default>600</default>
+      <default>1800</default>
       <summary>Sleep timeout display when on battery</summary>
       <description>The amount of time in seconds before the display turns off when the computer is on battery power.</description>
     </key>
