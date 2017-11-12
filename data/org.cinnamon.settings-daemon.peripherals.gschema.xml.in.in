@@ -174,7 +174,7 @@
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org/cinnamon/settings-daemon/peripherals/touchscreen/">
     <key name="orientation-lock" type="b">
-      <default>false</default>
+      <default>true</default>
       <_summary>Whether the tablet's orientation is locked, or rotated automatically.</_summary>
     </key>
   </schema>
