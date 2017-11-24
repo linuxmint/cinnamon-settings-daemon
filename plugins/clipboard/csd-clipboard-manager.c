@@ -180,7 +180,7 @@ finish_selection_request (CsdClipboardManager *manager,
         gdk_error_trap_pop_ignored ();
 }
 
-static int
+static gsize
 clipboard_bytes_per_item (int format)
 {
         switch (format) {
@@ -366,6 +366,7 @@ send_incrementally (CsdClipboardManager *manager,
         unsigned long   length;
         unsigned long   items;
         unsigned char  *data;
+        gsize           bytes_per_item;
 
         list = list_find (manager->priv->conversions,
                           (ListFindFunc) find_conversion_requestor, xev);
@@ -374,6 +375,10 @@ send_incrementally (CsdClipboardManager *manager,
 
         rdata = (IncrConversion *) list->data;
 
+        bytes_per_item = clipboard_bytes_per_item (rdata->data->format);
+        if (bytes_per_item == 0)
+                return False;
+
         data = rdata->data->data + rdata->offset;
         length = rdata->data->length - rdata->offset;
         if (length > SELECTION_MAX_SIZE)
@@ -381,7 +386,7 @@ send_incrementally (CsdClipboardManager *manager,
 
         rdata->offset += length;
 
-        items = length / clipboard_bytes_per_item (rdata->data->format);
+        items = length / bytes_per_item;
         XChangeProperty (manager->priv->display, rdata->requestor,
                          rdata->property, rdata->data->type,
                          rdata->data->format, PropModeAppend,
@@ -520,6 +525,8 @@ convert_clipboard_target (IncrConversion      *rdata,
                                  (unsigned char *) targets, n_targets);
                 free (targets);
         } else  {
+                gsize bytes_per_item;
+
                 /* Convert from stored CLIPBOARD data */
                 list = list_find (manager->priv->contents,
                                   (ListFindFunc) find_content_target, (void *) rdata->target);
@@ -535,8 +542,12 @@ convert_clipboard_target (IncrConversion      *rdata,
                         return;
                 }
 
+                bytes_per_item = clipboard_bytes_per_item (tdata->format);
+                if (bytes_per_item == 0)
+                        return;
+
                 rdata->data = target_data_ref (tdata);
-                items = tdata->length / clipboard_bytes_per_item (tdata->format);
+                items = tdata->length / bytes_per_item;
                 if (tdata->length <= SELECTION_MAX_SIZE)
                         XChangeProperty (manager->priv->display, rdata->requestor,
                                          rdata->property,
