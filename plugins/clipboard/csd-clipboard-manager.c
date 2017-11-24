@@ -794,6 +794,7 @@ clipboard_manager_process_event (CsdClipboardManager *manager,
                         }
                         else if (xev->xselection.property == None) {
                                 send_selection_notify (manager, False);
+                                free_contents (manager);
                                 clipboard_manager_watch_cb (manager,
                                                             manager->priv->requestor,
                                                             False,
