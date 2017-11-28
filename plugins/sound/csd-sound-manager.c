@@ -31,9 +31,8 @@
 
 #include <locale.h>
 
-#include <glib.h>
 #include <glib/gi18n.h>
-#include <gtk/gtk.h>
+#include <gio/gio.h>
 #include <pulse/pulseaudio.h>
 #include <canberra.h>
 
