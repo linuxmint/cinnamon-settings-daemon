@@ -734,12 +734,11 @@ csd_ldsm_get_config (void)
 
         settings_list = g_settings_get_strv (settings, SETTINGS_IGNORE_PATHS);
         if (settings_list != NULL) {
-                gint i;
+                guint i;
 
-                for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
-                        if (settings_list[i] != NULL)
-                                ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
-                }
+                for (i = 0; settings_list[i] != NULL; i++)
+                        ignore_paths = g_slist_prepend (ignore_paths,
+                                                        g_strdup (settings_list[i]));
 
                 /* Make sure we don't leave stale entries in ldsm_notified_hash */
                 g_hash_table_foreach_remove (ldsm_notified_hash,
