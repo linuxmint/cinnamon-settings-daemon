@@ -445,7 +445,7 @@ ldsm_mount_has_space (LdsmMountInfo *mount)
         /* enough free space, nothing to do */
         if (free_space > free_percent_notify)
                 return TRUE;
-                
+
         if (((gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail) > ((gint64) free_size_gb_no_notify * GIGABYTE))
                 return TRUE;
 
@@ -478,7 +478,7 @@ ldsm_mount_is_user_ignore (const gchar *path)
                 return TRUE;
         else
                 return FALSE;
-}                
+}
 
 
 static void
@@ -729,8 +729,7 @@ csd_ldsm_get_config (void)
 
         if (ignore_paths != NULL) {
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
-                g_slist_free (ignore_paths);
-                ignore_paths = NULL;
+                g_clear_pointer (&ignore_paths, g_slist_free);
         }
 
         settings_list = g_settings_get_strv (settings, SETTINGS_IGNORE_PATHS);
@@ -793,7 +792,7 @@ csd_ldsm_clean (void)
         if (ldsm_timeout_id) {
             g_source_remove (ldsm_timeout_id);
             ldsm_timeout_id = 0;
-        }        
+        }
 
         if (ldsm_notified_hash)
                 g_hash_table_destroy (ldsm_notified_hash);
