@@ -181,16 +181,6 @@ numlock_install_xkb_callback (CsdKeyboardManager *manager)
                                manager);
 }
 
-static guint
-_csd_settings_get_uint (GSettings  *settings,
-			const char *key)
-{
-	guint value;
-
-	g_settings_get (settings, key, "u", &value);
-	return value;
-}
-
 static void
 apply_settings (GSettings          *settings,
                 const char         *key,
@@ -213,8 +203,8 @@ apply_settings (GSettings          *settings,
 
         repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
-        interval      = _csd_settings_get_uint  (settings, KEY_INTERVAL);
-        delay         = _csd_settings_get_uint  (settings, KEY_DELAY);
+        interval      = g_settings_get_uint  (settings, KEY_INTERVAL);
+        delay         = g_settings_get_uint  (settings, KEY_DELAY);
         click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
         bell_pitch    = g_settings_get_int   (settings, KEY_BELL_PITCH);
         bell_duration = g_settings_get_int   (settings, KEY_BELL_DURATION);
