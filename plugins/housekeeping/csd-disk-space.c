@@ -600,7 +600,7 @@ ldsm_check_all_mounts (gpointer data)
                         continue;
                 }
 
-                if (ldsm_mount_is_user_ignore (g_unix_mount_get_mount_path (mount))) {
+                if (ldsm_mount_is_user_ignore (path)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
