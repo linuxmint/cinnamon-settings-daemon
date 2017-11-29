@@ -44,7 +44,7 @@
 
 static CsdKeyboardManager *manager = NULL;
 
-static XklEngine *xkl_engine;
+static XklEngine *xkl_engine = NULL;
 static XklConfigRegistry *xkl_registry = NULL;
 
 static GkbdDesktopConfig current_config;
@@ -52,8 +52,6 @@ static GkbdKeyboardConfig current_kbd_config;
 
 /* never terminated */
 static GkbdKeyboardConfig initial_sys_kbd_config;
-
-static gboolean inited_ok = FALSE;
 
 static GSettings *settings_desktop = NULL;
 static GSettings *settings_keyboard = NULL;
@@ -120,7 +118,7 @@ ensure_xkl_registry (void)
 static void
 apply_desktop_settings (void)
 {
-	if (!inited_ok)
+	if (xkl_engine == NULL)
 		return;
 
 	csd_keyboard_manager_apply_settings (manager);
@@ -389,7 +387,7 @@ apply_xkb_settings (void)
 {
 	GkbdKeyboardConfig current_sys_kbd_config;
 
-	if (!inited_ok)
+	if (xkl_engine == NULL)
 		return;
 
 	gkbd_keyboard_config_init (&current_sys_kbd_config, xkl_engine);
@@ -424,7 +422,7 @@ apply_xkb_settings (void)
 static void
 csd_keyboard_xkb_analyze_sysconfig (void)
 {
-	if (!inited_ok)
+	if (xkl_engine == NULL)
 		return;
 
 	gkbd_keyboard_config_init (&initial_sys_kbd_config, xkl_engine);
@@ -472,7 +470,6 @@ csd_keyboard_xkb_init (CsdKeyboardManager * kbd_manager)
 	xkl_engine = xkl_engine_get_instance (display);
 	cinnamon_settings_profile_end ("xkl_engine_get_instance");
 	if (xkl_engine) {
-		inited_ok = TRUE;
 
 		gkbd_desktop_config_init (&current_config, xkl_engine);
 		gkbd_keyboard_config_init (&current_kbd_config,
@@ -518,7 +515,7 @@ csd_keyboard_xkb_init (CsdKeyboardManager * kbd_manager)
 void
 csd_keyboard_xkb_shutdown (void)
 {
-	if (!inited_ok)
+	if (xkl_engine == NULL)
 		return;
 
 	pa_callback = NULL;
@@ -527,9 +524,6 @@ csd_keyboard_xkb_shutdown (void)
 
 	if (preview_dialogs != NULL)
 		g_hash_table_destroy (preview_dialogs);
-
-	if (!inited_ok)
-		return;
 
 	xkl_engine_stop_listen (xkl_engine,
 				XKLL_MANAGE_LAYOUTS |
@@ -550,6 +544,4 @@ csd_keyboard_xkb_shutdown (void)
 	g_object_unref (xkl_engine);
 
 	xkl_engine = NULL;
-
-	inited_ok = FALSE;
 }
