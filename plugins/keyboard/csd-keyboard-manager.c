@@ -49,10 +49,6 @@
 
 #define CSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerPrivate))
 
-#ifndef HOST_NAME_MAX
-#  define HOST_NAME_MAX 255
-#endif
-
 #define CSD_KEYBOARD_DIR "org.cinnamon.settings-daemon.peripherals.keyboard"
 
 #define KEY_REPEAT         "repeat"
