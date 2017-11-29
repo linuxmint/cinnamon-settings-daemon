@@ -167,41 +167,16 @@ show_layout_destroy (GtkWidget * dialog, gint group)
 static void
 popup_menu_show_layout ()
 {
-	GtkWidget *dialog;
-	XklEngine *engine =
-	    xkl_engine_get_instance (GDK_DISPLAY_XDISPLAY
-				     (gdk_display_get_default ()));
-	XklState *xkl_state = xkl_engine_get_current_state (engine);
+        XklState *xkl_state;
+	char *command;
 
-	gchar **group_names = gkbd_status_get_group_names ();
-
-	gpointer p = g_hash_table_lookup (preview_dialogs,
-					  GINT_TO_POINTER
-					  (xkl_state->group));
-
-	if (xkl_state->group < 0
-	    || xkl_state->group >= g_strv_length (group_names)) {
-		return;
-	}
-
-	if (p != NULL) {
-		/* existing window */
-		gtk_window_present (GTK_WINDOW (p));
-		return;
-	}
-
-	if (!ensure_xkl_registry ())
+	xkl_state = xkl_engine_get_current_state (xkl_engine);
+	if (xkl_state->group < 0)
 		return;
 
-	dialog = gkbd_keyboard_drawing_dialog_new ();
-	gkbd_keyboard_drawing_dialog_set_group (dialog, xkl_registry, xkl_state->group);
-
-	g_signal_connect (dialog, "destroy",
-			  G_CALLBACK (show_layout_destroy),
-			  GINT_TO_POINTER (xkl_state->group));
-	g_hash_table_insert (preview_dialogs,
-			     GINT_TO_POINTER (xkl_state->group), dialog);
-	gtk_widget_show_all (dialog);
+	command = g_strdup_printf ("gkbd-keyboard-display -g %d", xkl_state->group+1);
+	g_spawn_command_line_async (command, NULL);
+	g_free (command);
 }
 
 static void
