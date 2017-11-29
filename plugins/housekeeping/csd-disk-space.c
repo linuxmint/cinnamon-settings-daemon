@@ -445,7 +445,7 @@ ldsm_mount_has_space (LdsmMountInfo *mount)
         /* enough free space, nothing to do */
         if (free_space > free_percent_notify)
                 return TRUE;
-                
+
         if (((gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail) > ((gint64) free_size_gb_no_notify * GIGABYTE))
                 return TRUE;
 
@@ -478,7 +478,7 @@ ldsm_mount_is_user_ignore (const gchar *path)
                 return TRUE;
         else
                 return FALSE;
-}                
+}
 
 
 static void
@@ -775,8 +775,7 @@ csd_ldsm_setup (gboolean check_now)
         g_signal_connect (G_OBJECT (settings), "changed",
                           G_CALLBACK (csd_ldsm_update_config), NULL);
 
-        ldsm_monitor = g_unix_mount_monitor_new ();
-        g_unix_mount_monitor_set_rate_limit (ldsm_monitor, 1000);
+        ldsm_monitor = g_unix_mount_monitor_get ();
         g_signal_connect (ldsm_monitor, "mounts-changed",
                           G_CALLBACK (ldsm_mounts_changed), NULL);
 
@@ -793,7 +792,7 @@ csd_ldsm_clean (void)
         if (ldsm_timeout_id) {
             g_source_remove (ldsm_timeout_id);
             ldsm_timeout_id = 0;
-        }        
+        }
 
         if (ldsm_notified_hash)
                 g_hash_table_destroy (ldsm_notified_hash);
