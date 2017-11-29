@@ -91,32 +91,38 @@ xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
                                      interval);
 }
 
+static gboolean
+check_xkb_extension (CsdKeyboardManager *manager)
+{
+         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+         int opcode, error_base, major, minor;
+
+         manager->priv->have_xkb = XkbQueryExtension (dpy,
+                                       &opcode,
+                                       &manager->priv->xkb_event_base,
+                                       &error_base,
+                                       &major,
+                                       &minor)
+                 && XkbUseExtension (dpy, &major, &minor);
+
+         return manager->priv->have_xkb;
+}
+
 static void
 numlock_xkb_init (CsdKeyboardManager *manager)
 {
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        gboolean have_xkb;
-        int opcode, error_base, major, minor;
+        Display *dpy;
 
-        have_xkb = XkbQueryExtension (dpy,
-                                      &opcode,
-                                      &manager->priv->xkb_event_base,
-                                      &error_base,
-                                      &major,
-                                      &minor)
-                && XkbUseExtension (dpy, &major, &minor);
+        if (manager->priv->have_xkb == FALSE)
+	        return;
 
-        if (have_xkb) {
-                XkbSelectEventDetails (dpy,
-                                       XkbUseCoreKbd,
-                                       XkbStateNotifyMask,
-                                       XkbModifierLockMask,
-                                       XkbModifierLockMask);
-        } else {
-                g_warning ("XKB extension not available");
-        }
+        dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 
-        manager->priv->have_xkb = have_xkb;
+        XkbSelectEventDetails (dpy,
+                               XkbUseCoreKbd,
+                               XkbStateNotifyMask,
+                               XkbModifierLockMask,
+                               XkbModifierLockMask);
 }
 
 static unsigned
@@ -179,6 +185,17 @@ numlock_install_xkb_callback (CsdKeyboardManager *manager)
         gdk_window_add_filter (NULL,
                                numlock_xkb_callback,
                                manager);
+}
+
+static void
+numlock_remove_xkb_callback (CsdKeyboardManager *manager)
+{
+        if (!manager->priv->have_xkb)
+                return;
+
+        gdk_window_remove_filter (NULL,
+                                  numlock_xkb_callback,
+                                  manager);
 }
 
 static void
@@ -267,13 +284,13 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         g_debug ("Starting keyboard manager");
 
-        manager->priv->have_xkb = 0;
+        check_xkb_extension (manager);
         manager->priv->settings = g_settings_new (CSD_KEYBOARD_DIR);
 
-        /* Essential - xkb initialization should happen before */
-        csd_keyboard_xkb_init (manager);
-
-        numlock_xkb_init (manager);
+        if (manager->priv->have_xkb) {
+                csd_keyboard_xkb_init (manager);
+                numlock_xkb_init (manager);
+        }
 
         /* apply current settings before we install the callback */
         csd_keyboard_manager_apply_settings (manager);
@@ -315,12 +332,7 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
                 p->settings = NULL;
         }
 
-        if (p->have_xkb) {
-                gdk_window_remove_filter (NULL,
-                                          numlock_xkb_callback,
-                                          manager);
-        }
-
+        numlock_remove_xkb_callback (manager);
         csd_keyboard_xkb_shutdown ();
 }
 
