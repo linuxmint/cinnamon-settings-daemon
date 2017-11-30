@@ -432,6 +432,22 @@ apply_xkb_settings (CsdKeyboardManager *manager)
 	gkbd_keyboard_config_term (&current_sys_kbd_config);
 }
 
+static void
+desktop_settings_changed (GSettings          *settings,
+			  gchar              *key,
+			  CsdKeyboardManager *manager)
+{
+	apply_desktop_settings (manager);
+}
+
+static void
+xkb_settings_changed (GSettings          *settings,
+		      gchar              *key,
+		      CsdKeyboardManager *manager)
+{
+	apply_xkb_settings (manager);
+}
+
 void
 csd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
 					       void *user_data)
@@ -464,13 +480,6 @@ csd_keyboard_xkb_init (CsdKeyboardManager * manager)
 	                                   manager->priv->xkl_engine);
 	        gkbd_keyboard_config_load_from_x_initial (&manager->priv->initial_sys_kbd_config,
 						          NULL);
-		manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
-		manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
-		g_signal_connect (manager->priv->settings_desktop, "changed",
-				  (GCallback) apply_desktop_settings,
-				  manager);
-		g_signal_connect (manager->priv->settings_keyboard, "changed",
-				  (GCallback) apply_xkb_settings, manager);
 
 		cinnamon_settings_profile_start ("xkl_engine_start_listen");
 		xkl_engine_start_listen (manager->priv->xkl_engine,
@@ -729,8 +738,9 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         g_debug ("Starting keyboard manager");
 
-        check_xkb_extension (manager);
         manager->priv->settings = g_settings_new (CSD_KEYBOARD_DIR);
+        manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
+        manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
 
         if (manager->priv->have_xkb) {
                 csd_keyboard_xkb_init (manager);
@@ -744,7 +754,10 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (apply_settings), manager);
-
+        g_signal_connect (manager->priv->settings_desktop, "changed",
+			  (GCallback) desktop_settings_changed, manager);
+        g_signal_connect (manager->priv->settings_keyboard, "changed",
+			  (GCallback) xkb_settings_changed, manager);
         if (manager->priv->have_xkb)
 		install_xkb_filter (manager);
 
