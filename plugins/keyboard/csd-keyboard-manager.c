@@ -105,7 +105,6 @@ static gboolean try_activating_xkb_config_if_new (CsdKeyboardManager *manager,
 static gboolean filter_xkb_config (CsdKeyboardManager *manager);
 
 void csd_keyboard_xkb_init (CsdKeyboardManager *manager);
-void csd_keyboard_xkb_shutdown (CsdKeyboardManager *manager);
 
 typedef void (*PostActivationCallback) (void *userData);
 
@@ -499,34 +498,6 @@ csd_keyboard_xkb_init (CsdKeyboardManager * manager)
 	cinnamon_settings_profile_end (NULL);
 }
 
-void
-csd_keyboard_xkb_shutdown (CsdKeyboardManager *manager)
-{
-	if (manager->priv->xkl_engine == NULL)
-		return;
-
-	pa_callback = NULL;
-	pa_callback_user_data = NULL;
-	manager = NULL;
-
-	xkl_engine_stop_listen (manager->priv->xkl_engine,
-				XKLL_MANAGE_LAYOUTS |
-				XKLL_MANAGE_WINDOW_STATES);
-
-	g_object_unref (manager->priv->settings_desktop);
-	manager->priv->settings_desktop = NULL;
-	g_object_unref (manager->priv->settings_keyboard);
-	manager->priv->settings_keyboard = NULL;
-
-	if (manager->priv->xkl_registry) {
-		g_object_unref (manager->priv->xkl_registry);
-	}
-
-	g_object_unref (manager->priv->xkl_engine);
-
-	manager->priv->xkl_engine = NULL;
-}
-
 static gboolean
 xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
 {
@@ -817,16 +788,33 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
                 g_object_unref (p->settings);
                 p->settings = NULL;
         }
-
+        if (p->settings_desktop != NULL) {
+		g_object_unref (p->settings_desktop);
+		p->settings_desktop = NULL;
+	}
+	if (p->settings_keyboard != NULL) {
+		g_object_unref (p->settings_keyboard);
+		p->settings_keyboard = NULL;
+	}
         if (p->device_manager != NULL) {
                 g_signal_handler_disconnect (p->device_manager, p->device_added_id);
                 g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
                 p->device_manager = NULL;
         }
 
-        if (manager->priv->have_xkb)
+        if (p->have_xkb)
 		remove_xkb_filter (manager);
-        csd_keyboard_xkb_shutdown (manager);
+	if (p->xkl_registry != NULL) {
+		g_object_unref (p->xkl_registry);
+		p->xkl_registry = NULL;
+	}
+
+	if (p->xkl_engine != NULL) {
+		xkl_engine_stop_listen (p->xkl_engine,
+					XKLL_MANAGE_LAYOUTS | XKLL_MANAGE_WINDOW_STATES);
+		g_object_unref (p->xkl_engine);
+		p->xkl_engine = NULL;
+	}
 }
 
 static GObject *
