@@ -50,6 +50,7 @@
 
 #include "cinnamon-settings-profile.h"
 #include "csd-keyboard-manager.h"
+#include "csd-input-helper.h"
 #include "csd-enums.h"
 #include "delayed-dialog.h"
 
@@ -76,6 +77,9 @@ struct CsdKeyboardManagerPrivate
         gboolean   have_xkb;
         gint       xkb_event_base;
         CsdNumLockState old_state;
+        GdkDeviceManager *device_manager;
+        guint device_added_id;
+        guint device_removed_id;
         /* XKB */
 	XklEngine *xkl_engine;
 	XklConfigRegistry *xkl_registry;
@@ -463,15 +467,6 @@ static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
 }
 
-/* When new Keyboard is plugged in - reload the settings */
-static void
-csd_keyboard_new_device (XklEngine * engine,
-                         CsdKeyboardManager *manager)
-{
-	apply_desktop_settings (manager);
-	apply_xkb_settings (manager);
-}
-
 void
 csd_keyboard_xkb_init (CsdKeyboardManager * manager)
 {
@@ -504,12 +499,6 @@ csd_keyboard_xkb_init (CsdKeyboardManager * manager)
 
 		gdk_window_add_filter (NULL, (GdkFilterFunc)
 				       csd_keyboard_xkb_evt_filter, manager);
-
-		if (xkl_engine_get_features (manager->priv->xkl_engine) &
-		    XKLF_DEVICE_DISCOVERY)
-			g_signal_connect (manager->priv->xkl_engine, "X-new-device",
-					  G_CALLBACK
-					  (csd_keyboard_new_device), manager);
 
 		cinnamon_settings_profile_start ("xkl_engine_start_listen");
 		xkl_engine_start_listen (manager->priv->xkl_engine,
@@ -754,6 +743,49 @@ csd_keyboard_manager_apply_settings (CsdKeyboardManager *manager)
         apply_settings (manager->priv->settings, NULL, manager);
 }
 
+static void
+device_added_cb (GdkDeviceManager   *device_manager,
+                 GdkDevice          *device,
+                 CsdKeyboardManager *manager)
+{
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_KEYBOARD) {
+                apply_desktop_settings (manager);
+                apply_xkb_settings (manager);
+                run_custom_command (device, COMMAND_DEVICE_ADDED);
+        }
+}
+
+static void
+device_removed_cb (GdkDeviceManager   *device_manager,
+                   GdkDevice          *device,
+                   CsdKeyboardManager *manager)
+{
+         GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_KEYBOARD) {
+                run_custom_command (device, COMMAND_DEVICE_REMOVED);
+        }
+}
+
+static void
+set_devicepresence_handler (CsdKeyboardManager *manager)
+{
+        GdkDeviceManager *device_manager;
+
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+
+        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+                                                             G_CALLBACK (device_removed_cb), manager);
+        manager->priv->device_manager = device_manager;
+}
+
+
 static gboolean
 start_keyboard_idle_cb (CsdKeyboardManager *manager)
 {
@@ -768,6 +800,8 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
                 csd_keyboard_xkb_init (manager);
                 numlock_xkb_init (manager);
         }
+
+        set_devicepresence_handler (manager);
 
         /* apply current settings before we install the callback */
         csd_keyboard_manager_apply_settings (manager);
@@ -807,6 +841,12 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
+        }
+
+        if (p->device_manager != NULL) {
+                g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
+                p->device_manager = NULL;
         }
 
         numlock_remove_xkb_callback (manager);

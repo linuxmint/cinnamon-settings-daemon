@@ -45,7 +45,8 @@ csd_keyboard_LDADD  = 	\
 	$(XF86MISC_LIBS)	\
 	$(KEYBOARD_LIBS)	\
 	$(APPINDICATOR_LIBS)	\
-	$(top_builddir)/cinnamon-settings-daemon/libcsd.la
+	$(top_builddir)/cinnamon-settings-daemon/libcsd.la  \
+	$(top_builddir)/plugins/common/libcommon.la
 	$(NULL)
 
 desktopdir = $(sysconfdir)/xdg/autostart
