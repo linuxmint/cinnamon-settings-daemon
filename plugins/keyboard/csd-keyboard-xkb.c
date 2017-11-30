@@ -133,27 +133,32 @@ popup_menu_launch_capplet ()
 	GdkAppLaunchContext *ctx;
 	GError *error = NULL;
 
-	info =
-	    g_app_info_create_from_commandline
+	info = g_app_info_create_from_commandline
 	    ("cinnamon-settings region", NULL, 0, &error);
 
-	if (info != NULL) {
-		ctx =
-		    gdk_display_get_app_launch_context
-		    (gdk_display_get_default ());
+        if (info == NULL) {
+                if (error) {
+                        g_warning ("cinnamon-settings region failed: %s\n",
+                                   error->message);
+                        g_error_free (error);
+                }
+                return;
+        }
 
-		if (g_app_info_launch (info, NULL,
-				   G_APP_LAUNCH_CONTEXT (ctx), &error) == FALSE) {
-			g_warning
-				("Could not execute keyboard properties capplet: [%s]\n",
-				 error->message);
-			g_error_free (error);
-		}
+	ctx = gdk_display_get_app_launch_context
+	        (gdk_display_get_default ());
 
-		g_object_unref (info);
-		g_object_unref (ctx);
+	if (g_app_info_launch (info,
+	                       NULL,
+                               G_APP_LAUNCH_CONTEXT (ctx),
+                               &error) == FALSE) {
+		g_warning ("Could not execute keyboard properties capplet: [%s]\n",
+			   error->message);
+		g_error_free (error);
 	}
 
+	g_object_unref (info);
+	g_object_unref (ctx);
 }
 
 static void
