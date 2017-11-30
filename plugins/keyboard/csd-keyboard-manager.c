@@ -455,14 +455,6 @@ csd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
 	pa_callback_user_data = user_data;
 }
 
-static GdkFilterReturn
-csd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event, CsdKeyboardManager *manager)
-{
-	XEvent *xevent = (XEvent *) xev;
-	xkl_engine_filter_events (manager->priv->xkl_engine, xevent);
-	return GDK_FILTER_CONTINUE;
-}
-
 void
 csd_keyboard_xkb_init (CsdKeyboardManager * manager)
 {
@@ -492,9 +484,6 @@ csd_keyboard_xkb_init (CsdKeyboardManager * manager)
 				  manager);
 		g_signal_connect (manager->priv->settings_keyboard, "changed",
 				  (GCallback) apply_xkb_settings, manager);
-
-		gdk_window_add_filter (NULL, (GdkFilterFunc)
-				       csd_keyboard_xkb_evt_filter, manager);
 
 		cinnamon_settings_profile_start ("xkl_engine_start_listen");
 		xkl_engine_start_listen (manager->priv->xkl_engine,
@@ -526,9 +515,6 @@ csd_keyboard_xkb_shutdown (CsdKeyboardManager *manager)
 	xkl_engine_stop_listen (manager->priv->xkl_engine,
 				XKLL_MANAGE_LAYOUTS |
 				XKLL_MANAGE_WINDOW_STATES);
-
-	gdk_window_remove_filter (NULL, (GdkFilterFunc)
-				  csd_keyboard_xkb_evt_filter, manager);
 
 	g_object_unref (manager->priv->settings_desktop);
 	manager->priv->settings_desktop = NULL;
@@ -606,14 +592,18 @@ numlock_set_xkb_state (CsdNumLockState new_state)
 }
 
 static GdkFilterReturn
-numlock_xkb_callback (GdkXEvent *xev_,
-                      GdkEvent  *gdkev_,
-                      gpointer   user_data)
+xkb_events_filter (GdkXEvent *xev_,
+                   GdkEvent  *gdkev_,
+                   gpointer   user_data)
 {
         XEvent *xev = (XEvent *) xev_;
 	XkbEvent *xkbev = (XkbEvent *) xev;
         CsdKeyboardManager *manager = (CsdKeyboardManager *) user_data;
+/* libxklavier's events first */
+	if (manager->priv->xkl_engine != NULL)
+		xkl_engine_filter_events (manager->priv->xkl_engine, xev);
 
+	/* Then XKB specific events */
         if (xev->type != manager->priv->xkb_event_base)
 		return GDK_FILTER_CONTINUE;
 
@@ -639,24 +629,18 @@ numlock_xkb_callback (GdkXEvent *xev_,
 }
 
 static void
-numlock_install_xkb_callback (CsdKeyboardManager *manager)
+install_xkb_filter (CsdKeyboardManager *manager)
 {
-        if (!manager->priv->have_xkb)
-                return;
-
         gdk_window_add_filter (NULL,
-                               numlock_xkb_callback,
+                               xkb_events_filter,
                                manager);
 }
 
 static void
-numlock_remove_xkb_callback (CsdKeyboardManager *manager)
+remove_xkb_filter (CsdKeyboardManager *manager)
 {
-        if (!manager->priv->have_xkb)
-                return;
-
         gdk_window_remove_filter (NULL,
-                                  numlock_xkb_callback,
+                                  xkb_events_filter,
                                   manager);
 }
 
@@ -805,7 +789,8 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (apply_settings), manager);
 
-        numlock_install_xkb_callback (manager);
+        if (manager->priv->have_xkb)
+		install_xkb_filter (manager);
 
         cinnamon_settings_profile_end (NULL);
 
@@ -845,7 +830,8 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
                 p->device_manager = NULL;
         }
 
-        numlock_remove_xkb_callback (manager);
+        if (manager->priv->have_xkb)
+		remove_xkb_filter (manager);
         csd_keyboard_xkb_shutdown (manager);
 }
 
