@@ -382,8 +382,6 @@ filter_xkb_config (CsdKeyboardManager *manager)
 					    vname);
 				if (!xkl_config_registry_find_variant
 				    (manager->priv->xkl_registry, lname, item)) {
-static PostActivationCallback pa_callback = NULL;
-static void *pa_callback_user_data = NULL;
 					xkl_debug (100,
 						   "Bad variant [%s(%s)]\n",
 						   lname, vname);
@@ -463,8 +461,6 @@ csd_keyboard_xkb_evt_filter (GdkXEvent * xev, GdkEvent * event, CsdKeyboardManag
 	XEvent *xevent = (XEvent *) xev;
 	xkl_engine_filter_events (manager->priv->xkl_engine, xevent);
 	return GDK_FILTER_CONTINUE;
-static PostActivationCallback pa_callback = NULL;
-static void *pa_callback_user_data = NULL;
 }
 
 void
