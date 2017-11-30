@@ -19,8 +19,6 @@ csd_keyboard_SOURCES = 	\
 	main.c	\
 	csd-keyboard-manager.h	\
 	csd-keyboard-manager.c	\
-	csd-keyboard-xkb.h	\
-	csd-keyboard-xkb.c	\
 	delayed-dialog.h	\
 	delayed-dialog.c	\
 	gkbd-configuration.c	\
