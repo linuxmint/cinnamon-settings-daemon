@@ -243,7 +243,7 @@ popup_menu_set_group (gint group_number, gboolean only_menu)
 	xkl_engine_allow_one_switch_to_secondary_group (engine);
 	cur = xkl_engine_get_current_window (engine);
 	if (cur != (Window) NULL) {
-		xkl_debug (150, "Enforcing the state %d for window %lx\n",
+		g_debug ("Enforcing the state %d for window %lx\n",
 			   st->group, cur);
 
 		xkl_engine_save_state (engine,
@@ -251,9 +251,8 @@ popup_menu_set_group (gint group_number, gboolean only_menu)
 				       (engine), st);
 /*    XSetInputFocus( GDK_DISPLAY(), cur, RevertToNone, CurrentTime );*/
 	} else {
-		xkl_debug (150,
-			   "??? Enforcing the state %d for unknown window\n",
-			   st->group);
+		g_debug ("??? Enforcing the state %d for unknown window\n",
+			 st->group);
 		/* strange situation - bad things can happen */
 	}
         if (!only_menu)
@@ -359,22 +358,22 @@ filter_xkb_config (CsdKeyboardManager *manager)
 	gchar **lv;
 	gboolean any_change = FALSE;
 
-	xkl_debug (100, "Filtering configuration against the registry\n");
+	g_debug ("Filtering configuration against the registry\n");
 	if (!ensure_xkl_registry (manager))
 		return FALSE;
 
 	lv = manager->priv->current_kbd_config.layouts_variants;
 	item = xkl_config_item_new ();
 	while (*lv) {
-		xkl_debug (100, "Checking [%s]\n", *lv);
+		g_debug ("Checking [%s]\n", *lv);
 		if (gkbd_keyboard_config_split_items (*lv, &lname, &vname)) {
 			gboolean should_be_dropped = FALSE;
 			g_snprintf (item->name, sizeof (item->name), "%s",
 				    lname);
 			if (!xkl_config_registry_find_layout
 			    (manager->priv->xkl_registry, item)) {
-				xkl_debug (100, "Bad layout [%s]\n",
-					   lname);
+				g_debug ("Bad layout [%s]\n",
+					 lname);
 				should_be_dropped = TRUE;
 			} else if (vname) {
 				g_snprintf (item->name,
@@ -382,9 +381,8 @@ filter_xkb_config (CsdKeyboardManager *manager)
 					    vname);
 				if (!xkl_config_registry_find_variant
 				    (manager->priv->xkl_registry, lname, item)) {
-					xkl_debug (100,
-						   "Bad variant [%s(%s)]\n",
-						   lname, vname);
+					g_debug ("Bad variant [%s(%s)]\n",
+						 lname, vname);
 					should_be_dropped = TRUE;
 				}
 			}
@@ -430,8 +428,7 @@ apply_xkb_settings (CsdKeyboardManager *manager)
 			activation_error ();
 		}
 	} else
-		xkl_debug (100,
-			   "Actual KBD configuration was not changed: redundant notification\n");
+		g_debug ("Actual KBD configuration was not changed: redundant notification\n");
 
 	gkbd_keyboard_config_term (&current_sys_kbd_config);
 }
