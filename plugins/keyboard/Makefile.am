@@ -2,15 +2,6 @@ NULL =
 
 plugin_name = keyboard
 
-themedir = $(pkgdatadir)/icons/hicolor
-size = 64x64
-context = devices
-
-iconsdir = $(themedir)/$(size)/$(context)
-icons_DATA = \
-	  kbd-capslock-off.png kbd-numlock-off.png kbd-scrolllock-off.png \
-	  kbd-capslock-on.png kbd-numlock-on.png kbd-scrolllock-on.png
-
 AM_CFLAGS = $(WARN_CFLAGS)
 
 libexec_PROGRAMS = csd-keyboard
@@ -57,9 +48,7 @@ cinnamon-settings-daemon-keyboard.desktop: $(desktop_in_files) Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 EXTRA_DIST = 			\
-	$(icons_DATA)		\
 	$(desktop_in_files)	\
-	$(ui_DATA)		\
 	$(NULL)
 
 CLEANFILES = 			\
