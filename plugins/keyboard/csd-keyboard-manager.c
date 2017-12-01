@@ -518,8 +518,7 @@ check_xkb_extension (CsdKeyboardManager *manager)
                                        &manager->priv->xkb_event_base,
                                        &error_base,
                                        &major,
-                                       &minor)
-                 && XkbUseExtension (dpy, &major, &minor);
+                                       &minor);
 
          return have_xkb;
 }
