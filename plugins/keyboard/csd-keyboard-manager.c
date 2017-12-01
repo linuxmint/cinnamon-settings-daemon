@@ -180,7 +180,7 @@ apply_desktop_settings (CsdKeyboardManager *manager)
 }
 
 static void
-popup_menu_launch_capplet ()
+popup_menu_launch_capplet (void)
 {
 	GAppInfo *info;
 	GdkAppLaunchContext *ctx;
@@ -265,7 +265,6 @@ popup_menu_set_group_cb (GtkMenuItem * item, gpointer param)
 	popup_menu_set_group(group_number, FALSE);
 }
 
-
 static GtkMenu *
 create_status_menu (CsdKeyboardManager *manager)
 {
@@ -283,14 +282,14 @@ create_status_menu (CsdKeyboardManager *manager)
 
 	item = gtk_menu_item_new_with_mnemonic (_("Show _Keyboard Layout..."));
 	gtk_widget_show (item);
-	g_signal_connect (item, "activate", popup_menu_show_layout, manager);
+	g_signal_connect (item, "activate", G_CALLBACK (popup_menu_show_layout), manager);
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
 
 	/* translators note:
 	 * This is the name of the cinnamon-settings "region" panel */
 	item = gtk_menu_item_new_with_mnemonic (_("Region and Language Settings"));
 	gtk_widget_show (item);
-	g_signal_connect (item, "activate", popup_menu_launch_capplet, NULL);
+	g_signal_connect (item, "activate", G_CALLBACK(popup_menu_launch_capplet), NULL);
 	gtk_menu_shell_append (GTK_MENU_SHELL (popup_menu), item);
 
 	for (i = 0; current_name && *current_name; i++, current_name++) {
