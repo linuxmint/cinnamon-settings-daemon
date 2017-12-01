@@ -532,7 +532,7 @@ numlock_xkb_init (CsdKeyboardManager *manager)
 
         XkbSelectEventDetails (dpy,
                                XkbUseCoreKbd,
-                               XkbStateNotifyMask,
+                               XkbStateNotify,
                                XkbModifierLockMask,
                                XkbModifierLockMask);
 }
