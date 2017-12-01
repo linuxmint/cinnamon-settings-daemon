@@ -74,7 +74,6 @@ struct CsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
-        gboolean   have_xkb;
         gint       xkb_event_base;
         CsdNumLockState old_state;
         GdkDeviceManager *device_manager;
@@ -675,7 +674,7 @@ apply_settings (GSettings          *settings,
 
 		manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
 
-		if (manager->priv->have_xkb && rnumlock)
+		if (rnumlock)
 			numlock_set_xkb_state (manager->priv->old_state);
 	}
 
@@ -743,10 +742,8 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
         manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
         manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
 
-        if (manager->priv->have_xkb) {
-                csd_keyboard_xkb_init (manager);
-                numlock_xkb_init (manager);
-        }
+        csd_keyboard_xkb_init (manager);
+        numlock_xkb_init (manager);
 
         set_devicepresence_handler (manager);
 
@@ -759,8 +756,7 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 			  (GCallback) desktop_settings_changed, manager);
         g_signal_connect (manager->priv->settings_keyboard, "changed",
 			  (GCallback) xkb_settings_changed, manager);
-        if (manager->priv->have_xkb)
-		install_xkb_filter (manager);
+	install_xkb_filter (manager);
 
         cinnamon_settings_profile_end (NULL);
 
@@ -775,8 +771,7 @@ csd_keyboard_manager_start (CsdKeyboardManager *manager,
 {
         cinnamon_settings_profile_start (NULL);
 
-        manager->priv->have_xkb = check_xkb_extension (manager);
-        if (manager->priv->have_xkb == FALSE) {
+        if (check_xkb_extension (manager) == FALSE) {
 		g_debug ("XKB is not supported, not applying any settings");
 		return TRUE;
 	}
@@ -813,8 +808,7 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
                 p->device_manager = NULL;
         }
 
-        if (p->have_xkb)
-		remove_xkb_filter (manager);
+	remove_xkb_filter (manager);
 	if (p->xkl_registry != NULL) {
 		g_object_unref (p->xkl_registry);
 		p->xkl_registry = NULL;
