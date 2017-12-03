@@ -1313,8 +1313,6 @@ set_mousetweaks_daemon (CsdMouseManager *manager,
 
         if (! g_spawn_command_line_async (comm, &error)) {
                 if (error->code == G_SPAWN_ERROR_NOENT && run_daemon) {
-                        GtkWidget *dialog;
-
                         if (dwell_click_enabled) {
                                 g_settings_set_boolean (manager->priv->mouse_a11y_settings,
                                                         KEY_DWELL_CLICK_ENABLED, FALSE);
@@ -1322,19 +1320,7 @@ set_mousetweaks_daemon (CsdMouseManager *manager,
                                 g_settings_set_boolean (manager->priv->mouse_a11y_settings,
                                                         KEY_SECONDARY_CLICK_ENABLED, FALSE);
                         }
-
-                        dialog = gtk_message_dialog_new (NULL, 0,
-                                                         GTK_MESSAGE_WARNING,
-                                                         GTK_BUTTONS_OK,
-                                                         _("Could not enable mouse accessibility features"));
-                        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                                                  _("Mouse accessibility requires Mousetweaks "
-                                                                    "to be installed on your system."));
-                        gtk_window_set_title (GTK_WINDOW (dialog), _("Universal Access"));
-                        gtk_window_set_icon_name (GTK_WINDOW (dialog),
-                                                  "preferences-desktop-accessibility");
-                        gtk_dialog_run (GTK_DIALOG (dialog));
-                        gtk_widget_destroy (dialog);
+                        g_warning("Error enabling mouse accessibility features (mousetweaks is not installed)");
                 }
                 g_error_free (error);
         }
