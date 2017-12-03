@@ -160,6 +160,7 @@ timeline_frame_cb (CsdTimeline *timeline,
 {
   CsdLocatePointerData *data = (CsdLocatePointerData *) user_data;
   GdkScreen *screen;
+  GdkDeviceManager *device_manager;
   gint cursor_x, cursor_y;
 
   if (gtk_widget_is_composited (data->widget))
@@ -176,8 +177,10 @@ timeline_frame_cb (CsdTimeline *timeline,
     }
 
   screen = gdk_window_get_screen (data->window);
-  gdk_window_get_pointer (gdk_screen_get_root_window (screen),
-                          &cursor_x, &cursor_y, NULL);
+  device_manager = gdk_display_get_device_manager (gdk_window_get_display (data->window));
+  gdk_window_get_device_position (gdk_screen_get_root_window (screen),
+                                  gdk_device_manager_get_client_pointer (device_manager),
+                                  &cursor_x, &cursor_y, NULL);
   gdk_window_move (data->window,
                    cursor_x - WINDOW_SIZE / 2,
                    cursor_y - WINDOW_SIZE / 2);
@@ -287,10 +290,14 @@ static void
 move_locate_pointer_window (CsdLocatePointerData *data,
                             GdkScreen            *screen)
 {
+  GdkDeviceManager *device_manager;
   cairo_region_t *region;
   gint cursor_x, cursor_y;
 
-  gdk_window_get_pointer (gdk_screen_get_root_window (screen), &cursor_x, &cursor_y, NULL);
+  device_manager = gdk_display_get_device_manager (gdk_window_get_display (data->window));
+  gdk_window_get_device_position (gdk_screen_get_root_window (screen),
+                                  gdk_device_manager_get_client_pointer (device_manager),
+                                  &cursor_x, &cursor_y, NULL);
 
   gdk_window_move_resize (data->window,
                           cursor_x - WINDOW_SIZE / 2,
