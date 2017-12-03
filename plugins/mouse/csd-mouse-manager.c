@@ -457,6 +457,7 @@ set_left_handed_legacy_driver (CsdMouseManager *manager,
                 left_handed = mouse_left_handed;
         }
 
+        gdk_error_trap_push ();
         n_buttons = XGetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                              buttons,
                                              buttons_capacity);
@@ -473,7 +474,6 @@ set_left_handed_legacy_driver (CsdMouseManager *manager,
 
         configure_button_layout (buttons, n_buttons, left_handed);
 
-        gdk_error_trap_push ();
         XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, buttons, n_buttons);
         gdk_error_trap_pop_ignored ();
 
