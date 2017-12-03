@@ -42,7 +42,7 @@ typedef struct CsdLocatePointerData CsdLocatePointerData;
 struct CsdLocatePointerData
 {
   CsdTimeline *timeline;
-  GtkWidget *widget; 
+  GtkWidget *widget;
   GdkWindow *window;
 
   gdouble progress;
@@ -425,14 +425,16 @@ set_locate_pointer (void)
 {
   GdkKeymapKey *keys;
   GdkDisplay *display;
-  int n_screens;
+  GdkScreen *screen;
+  Window xroot;
   int n_keys;
   gboolean has_entries;
   static const guint keyvals[] = { GDK_KEY_Control_L, GDK_KEY_Control_R };
-  unsigned j;
+  unsigned i,j;
 
   display = gdk_display_get_default ();
-  n_screens = gdk_display_get_n_screens (display);
+  screen = gdk_screen_get_default ();
+  xroot = gdk_x11_window_get_xid (gdk_screen_get_root_window (screen));
 
   for (j = 0 ; j < G_N_ELEMENTS (keyvals) ; j++)
     {
@@ -442,63 +444,47 @@ set_locate_pointer (void)
                                                        &n_keys);
       if (has_entries)
         {
-          gint i, k;
           for (i = 0; i < n_keys; i++)
             {
-              for (k = 0; k < n_screens; k++)
-                {
-                  GdkScreen *screen;
-                  Window xroot;
+              gdk_x11_display_error_trap_push (display);
 
-                  screen = gdk_display_get_screen (display, k);
-                  xroot = gdk_x11_window_get_xid (gdk_screen_get_root_window (screen));
+               XGrabKey (GDK_DISPLAY_XDISPLAY (display),
+                         keys[i].keycode,
+                         0,
+                         xroot,
+                         False,
+                         GrabModeAsync,
+                         GrabModeSync);
+               XGrabKey (GDK_DISPLAY_XDISPLAY (display),
+                         keys[i].keycode,
+                         LockMask,
+                         xroot,
+                         False,
+                         GrabModeAsync,
+                         GrabModeSync);
+               XGrabKey (GDK_DISPLAY_XDISPLAY (display),
+                         keys[i].keycode,
+                         Mod2Mask,
+                         xroot,
+                         False,
+                         GrabModeAsync,
+                         GrabModeSync);
+               XGrabKey (GDK_DISPLAY_XDISPLAY (display),
+                         keys[i].keycode,
+                         Mod4Mask,
+                         xroot,
+                         False,
+                         GrabModeAsync,
+                         GrabModeSync);
 
-                  gdk_x11_display_error_trap_push (display);
-
-                  XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                            keys[i].keycode,
-                            0,
-                            xroot,
-                            False,
-                            GrabModeAsync,
-                            GrabModeSync);
-                  XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                            keys[i].keycode,
-                            LockMask,
-                            xroot,
-                            False,
-                            GrabModeAsync,
-                            GrabModeSync);
-                  XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                            keys[i].keycode,
-                            Mod2Mask,
-                            xroot,
-                            False,
-                            GrabModeAsync,
-                            GrabModeSync);
-                  XGrabKey (GDK_DISPLAY_XDISPLAY (display),
-                            keys[i].keycode,
-                            Mod4Mask,
-                            xroot,
-                            False,
-                            GrabModeAsync,
-                            GrabModeSync);
-
-                  gdk_x11_display_error_trap_pop_ignored (display);
-                }
+               gdk_x11_display_error_trap_pop_ignored (display);
             }
 
           g_free (keys);
 
-          for (i = 0; i < n_screens; i++)
-            {
-              GdkScreen *screen;
-
-              screen = gdk_display_get_screen (display, i);
-              gdk_window_add_filter (gdk_screen_get_root_window (screen),
-                                     filter,
-                                     screen);
-            }
+          gdk_window_add_filter (gdk_screen_get_root_window (screen),
+                                 filter,
+                                 screen);
         }
     }
 }
