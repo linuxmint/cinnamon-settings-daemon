@@ -1774,27 +1774,7 @@ csd_mouse_manager_finalize (GObject *object)
 
         g_return_if_fail (mouse_manager->priv != NULL);
 
-        if (mouse_manager->priv->blacklist != NULL)
-                g_hash_table_destroy (mouse_manager->priv->blacklist);
-
-        if (mouse_manager->priv->start_idle_id != 0) {
-            g_source_remove (mouse_manager->priv->start_idle_id);
-            mouse_manager->priv->start_idle_id = 0;
-        }
-
-        if (mouse_manager->priv->device_manager != NULL) {
-                g_signal_handler_disconnect (mouse_manager->priv->device_manager, mouse_manager->priv->device_added_id);
-                g_signal_handler_disconnect (mouse_manager->priv->device_manager, mouse_manager->priv->device_removed_id);
-        }
-
-        if (mouse_manager->priv->mouse_settings != NULL)
-                g_object_unref (mouse_manager->priv->mouse_settings);
-
-        if (mouse_manager->priv->mouse_a11y_settings != NULL)
-                g_object_unref (mouse_manager->priv->mouse_a11y_settings);
-
-        if (mouse_manager->priv->touchpad_settings != NULL)
-                g_object_unref (mouse_manager->priv->touchpad_settings);
+        csd_mouse_manager_stop (mouse_manager);
 
         G_OBJECT_CLASS (csd_mouse_manager_parent_class)->finalize (object);
 }
