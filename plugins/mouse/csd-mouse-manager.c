@@ -1744,20 +1744,9 @@ csd_mouse_manager_stop (CsdMouseManager *manager)
                 p->device_manager = NULL;
         }
 
-        if (p->mouse_a11y_settings != NULL) {
-                g_object_unref (p->mouse_a11y_settings);
-                p->mouse_a11y_settings = NULL;
-        }
-
-        if (p->mouse_settings != NULL) {
-                g_object_unref (p->mouse_settings);
-                p->mouse_settings = NULL;
-        }
-
-        if (p->touchpad_settings != NULL) {
-                g_object_unref (p->touchpad_settings);
-                p->touchpad_settings = NULL;
-        }
+        g_clear_object (&p->mouse_a11y_settings);
+        g_clear_object (&p->mouse_settings);
+        g_clear_object (&p->touchpad_settings);
 
         set_locate_pointer (manager, FALSE);
 }
