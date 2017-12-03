@@ -1504,6 +1504,14 @@ mouse_callback (GSettings       *settings,
         g_list_free (devices);
 }
 
+/* Re-enable touchpad when any other pointing device isn't present. */
+static void
+ensure_touchpad_active (CsdMouseManager *manager)
+{
+        if (mouse_is_present () == FALSE && touchscreen_is_present () == FALSE && touchpad_is_present ())
+                g_settings_set_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED, TRUE);
+}
+
 static void
 touchpad_callback (GSettings       *settings,
                    const gchar     *key,
@@ -1608,6 +1616,7 @@ device_removed_cb (GdkDeviceManager *device_manager,
 
                 /* If a touchpad was to disappear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
+                ensure_touchpad_active (manager);
         }
 }
 
@@ -1679,9 +1688,11 @@ csd_mouse_manager_idle_cb (CsdMouseManager *manager)
         }
         g_list_free (devices);
 
+        ensure_touchpad_active (manager);
+
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED)) {
                 devices = get_disabled_devices (manager->priv->device_manager);
-                for (l = devices; l != NULL; l = l->next) {
+               for (l = devices; l != NULL; l = l->next) {
                         int device_id;
 
                         device_id = GPOINTER_TO_INT (l->data);
