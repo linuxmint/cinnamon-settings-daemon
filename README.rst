@@ -70,7 +70,7 @@ print-notifications
 
 This plugin shows printer notifications.
 
-On DBUS, it listens to events on ``org.cups.cupsd.Notifier``. 
+On DBUS, it listens to events on ``org.cups.cupsd.Notifier``.
 
 Libnotify is used to show the notifications.
 
@@ -82,6 +82,12 @@ smartcard
 
 sound
 -----
+
+This plugin is use to play sound files or theme sounds via PulseAudio.
+
+It's available via dbus at ``org.cinnamon.SettingsDaemon.Sound``.
+
+Its configuration is ``org.cinnamon.desktop.sound``.
 
 wacom
 -----
