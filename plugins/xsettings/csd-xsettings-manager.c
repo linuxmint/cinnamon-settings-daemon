@@ -371,10 +371,10 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
         { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int },
         { "org.cinnamon.desktop.privacy", "recent-files-max-age", "Gtk/RecentFilesMaxAge", translate_int_int },
-        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int }
+        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int },
         { "org.cinnamon.desktop.wm.preferences", "action-double-click-titlebar", "Gtk/TitlebarDoubleClick", translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "action-middle-click-titlebar", "Gtk/TitlebarMiddleClick", translate_string_string },
-        { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar", "Gtk/TitlebarRightClick", translate_string_string },
+        { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar", "Gtk/TitlebarRightClick", translate_string_string }
 };
 
 static gboolean
