@@ -50,6 +50,18 @@ This is a dummy plugin. It doesn't do anything.
 housekeeping
 ------------
 
+**thumbnail cache**
+
+The thumbnail cache is cleaned up according to the settings stored in ``org.cinnamon.desktop.thumbnail-cache``.
+
+This is done 2 minutes after login and then once a day.
+
+**low disk space**
+
+Every minute, the plugin checks the mounted volume to see if they have low disk space, according to the settings stored in ``org.cinnamon.settings-daemon.plugins.housekeeping``.
+
+The plugin shows a notification when a volume is full.
+
 keyboard
 --------
 
