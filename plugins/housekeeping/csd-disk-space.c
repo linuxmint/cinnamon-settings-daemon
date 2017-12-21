@@ -600,7 +600,7 @@ ldsm_check_all_mounts (gpointer data)
                         continue;
                 }
 
-                if (ldsm_mount_is_user_ignore (g_unix_mount_get_mount_path (mount))) {
+                if (ldsm_mount_is_user_ignore (path)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
@@ -773,8 +773,7 @@ csd_ldsm_setup (gboolean check_now)
         g_signal_connect (G_OBJECT (settings), "changed",
                           G_CALLBACK (csd_ldsm_update_config), NULL);
 
-        ldsm_monitor = g_unix_mount_monitor_new ();
-        g_unix_mount_monitor_set_rate_limit (ldsm_monitor, 1000);
+        ldsm_monitor = g_unix_mount_monitor_get ();
         g_signal_connect (ldsm_monitor, "mounts-changed",
                           G_CALLBACK (ldsm_mounts_changed), NULL);
 
