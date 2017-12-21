@@ -322,8 +322,7 @@ csd_housekeeping_manager_stop (CsdHousekeepingManager *manager)
                         do_cleanup (manager);
                 }
 
-                g_object_unref (p->settings);
-                p->settings = NULL;
+                g_clear_object (&p->settings);
         }
 
         csd_ldsm_clean ();
