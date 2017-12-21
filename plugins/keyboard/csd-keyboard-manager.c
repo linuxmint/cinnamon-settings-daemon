@@ -41,17 +41,20 @@
 #include <X11/XKBlib.h>
 #include <X11/keysym.h>
 
+#include <libxklavier/xklavier.h>
+#include <libgnomekbd/gkbd-status.h>
+#include <libgnomekbd/gkbd-keyboard-drawing.h>
+#include <libgnomekbd/gkbd-desktop-config.h>
+#include <libgnomekbd/gkbd-keyboard-config.h>
+#include <libgnomekbd/gkbd-util.h>
+
 #include "cinnamon-settings-profile.h"
 #include "csd-keyboard-manager.h"
+#include "csd-input-helper.h"
 #include "csd-enums.h"
-
-#include "csd-keyboard-xkb.h"
+#include "delayed-dialog.h"
 
 #define CSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerPrivate))
-
-#ifndef HOST_NAME_MAX
-#  define HOST_NAME_MAX 255
-#endif
 
 #define CSD_KEYBOARD_DIR "org.cinnamon.settings-daemon.peripherals.keyboard"
 
@@ -71,9 +74,23 @@ struct CsdKeyboardManagerPrivate
 {
 	guint      start_idle_id;
         GSettings *settings;
-        gboolean   have_xkb;
         gint       xkb_event_base;
         CsdNumLockState old_state;
+        GdkDeviceManager *device_manager;
+        guint device_added_id;
+        guint device_removed_id;
+        /* XKB */
+	XklEngine *xkl_engine;
+	XklConfigRegistry *xkl_registry;
+
+	GkbdDesktopConfig current_config;
+	GkbdKeyboardConfig current_kbd_config;
+
+	GkbdKeyboardConfig initial_sys_kbd_config;
+	GSettings *settings_desktop;
+	GSettings *settings_keyboard;
+
+	GtkStatusIcon *icon;
 };
 
 static void     csd_keyboard_manager_finalize    (GObject                 *object);
@@ -81,6 +98,256 @@ static void     csd_keyboard_manager_finalize    (GObject                 *objec
 G_DEFINE_TYPE (CsdKeyboardManager, csd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
+
+static gboolean try_activating_xkb_config_if_new (CsdKeyboardManager *manager,
+						  GkbdKeyboardConfig *current_sys_kbd_config);
+static gboolean filter_xkb_config (CsdKeyboardManager *manager);
+
+void csd_keyboard_xkb_init (CsdKeyboardManager *manager);
+
+typedef void (*PostActivationCallback) (void *userData);
+
+void
+csd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
+                                               void                  *userData);
+
+static PostActivationCallback pa_callback = NULL;
+static void *pa_callback_user_data = NULL;
+
+static void
+activation_error (void)
+{
+	char const *vendor;
+	GtkWidget *dialog;
+
+	vendor =
+	    ServerVendor (GDK_DISPLAY_XDISPLAY
+			  (gdk_display_get_default ()));
+
+	/* VNC viewers will not work, do not barrage them with warnings */
+	if (NULL != vendor && NULL != strstr (vendor, "VNC"))
+		return;
+
+	dialog = gtk_message_dialog_new_with_markup (NULL,
+						     0,
+						     GTK_MESSAGE_ERROR,
+						     GTK_BUTTONS_CLOSE,
+						     _
+						     ("Error activating XKB configuration.\n"
+						      "There can be various reasons for that.\n\n"
+						      "If you report this situation as a bug, include the results of\n"
+						      " <b>%s</b>\n"
+						      " <b>%s</b>\n"
+						      " <b>%s</b>\n"
+						      " <b>%s</b>"),
+						     "xprop -root | grep XKB",
+						     "gsettings get org.gnome.libgnomekbd.keyboard model",
+						     "gsettings get org.gnome.libgnomekbd.keyboard layouts",
+						     "gsettings get org.gnome.libgnomekbd.keyboard options");
+	g_signal_connect (dialog, "response",
+			  G_CALLBACK (gtk_widget_destroy), NULL);
+	csd_delayed_show_dialog (dialog);
+}
+
+static gboolean
+ensure_xkl_registry (CsdKeyboardManager *manager)
+{
+	if (!manager->priv->xkl_registry) {
+		manager->priv->xkl_registry =
+		    xkl_config_registry_get_instance (manager->priv->xkl_engine);
+		/* load all materials, unconditionally! */
+		if (!xkl_config_registry_load (manager->priv->xkl_registry, TRUE)) {
+			g_object_unref (manager->priv->xkl_registry);
+			manager->priv->xkl_registry = NULL;
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+static void
+apply_desktop_settings (CsdKeyboardManager *manager)
+{
+	if (manager->priv->xkl_engine == NULL)
+		return;
+
+	csd_keyboard_manager_apply_settings (manager);
+	gkbd_desktop_config_load (&manager->priv->current_config);
+	/* again, probably it would be nice to compare things
+	   before activating them */
+	gkbd_desktop_config_activate (&manager->priv->current_config);
+}
+
+static gboolean
+try_activating_xkb_config_if_new (CsdKeyboardManager *manager,
+                                  GkbdKeyboardConfig *
+				  current_sys_kbd_config)
+{
+	/* Activate - only if different! */
+	if (!gkbd_keyboard_config_equals
+	    (&manager->priv->current_kbd_config, current_sys_kbd_config)) {
+		if (gkbd_keyboard_config_activate (&manager->priv->current_kbd_config)) {
+			if (pa_callback != NULL) {
+				(*pa_callback) (pa_callback_user_data);
+				return TRUE;
+			}
+		} else {
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+static gboolean
+filter_xkb_config (CsdKeyboardManager *manager)
+{
+	XklConfigItem *item;
+	gchar *lname;
+	gchar *vname;
+	gchar **lv;
+	gboolean any_change = FALSE;
+
+	g_debug ("Filtering configuration against the registry\n");
+	if (!ensure_xkl_registry (manager))
+		return FALSE;
+
+	lv = manager->priv->current_kbd_config.layouts_variants;
+	item = xkl_config_item_new ();
+	while (*lv) {
+		g_debug ("Checking [%s]\n", *lv);
+		if (gkbd_keyboard_config_split_items (*lv, &lname, &vname)) {
+			gboolean should_be_dropped = FALSE;
+			g_snprintf (item->name, sizeof (item->name), "%s",
+				    lname);
+			if (!xkl_config_registry_find_layout
+			    (manager->priv->xkl_registry, item)) {
+				g_debug ("Bad layout [%s]\n",
+					 lname);
+				should_be_dropped = TRUE;
+			} else if (vname) {
+				g_snprintf (item->name,
+					    sizeof (item->name), "%s",
+					    vname);
+				if (!xkl_config_registry_find_variant
+				    (manager->priv->xkl_registry, lname, item)) {
+					g_debug ("Bad variant [%s(%s)]\n",
+						 lname, vname);
+					should_be_dropped = TRUE;
+				}
+			}
+			if (should_be_dropped) {
+				gkbd_strv_behead (lv);
+				any_change = TRUE;
+				continue;
+			}
+		}
+		lv++;
+	}
+	g_object_unref (item);
+	return any_change;
+}
+
+static void
+apply_xkb_settings (CsdKeyboardManager *manager)
+{
+	GkbdKeyboardConfig current_sys_kbd_config;
+
+	if (manager->priv->xkl_engine == NULL)
+		return;
+
+	gkbd_keyboard_config_init (&current_sys_kbd_config, manager->priv->xkl_engine);
+
+	gkbd_keyboard_config_load (&manager->priv->current_kbd_config,
+				   &manager->priv->initial_sys_kbd_config);
+
+	gkbd_keyboard_config_load_from_x_current (&current_sys_kbd_config,
+						  NULL);
+
+	if (!try_activating_xkb_config_if_new (manager, &current_sys_kbd_config)) {
+		if (filter_xkb_config (manager)) {
+			if (!try_activating_xkb_config_if_new
+			    (manager,&current_sys_kbd_config)) {
+				g_warning
+				    ("Could not activate the filtered XKB configuration");
+				activation_error ();
+			}
+		} else {
+			g_warning
+			    ("Could not activate the XKB configuration");
+			activation_error ();
+		}
+	} else
+		g_debug ("Actual KBD configuration was not changed: redundant notification\n");
+
+	gkbd_keyboard_config_term (&current_sys_kbd_config);
+}
+
+static void
+desktop_settings_changed (GSettings          *settings,
+			  gchar              *key,
+			  CsdKeyboardManager *manager)
+{
+	apply_desktop_settings (manager);
+}
+
+static void
+xkb_settings_changed (GSettings          *settings,
+		      gchar              *key,
+		      CsdKeyboardManager *manager)
+{
+	apply_xkb_settings (manager);
+}
+
+void
+csd_keyboard_xkb_set_post_activation_callback (PostActivationCallback fun,
+					       void *user_data)
+{
+	pa_callback = fun;
+	pa_callback_user_data = user_data;
+}
+
+void
+csd_keyboard_xkb_init (CsdKeyboardManager * manager)
+{
+	Display *dpy =
+	    GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+	cinnamon_settings_profile_start (NULL);
+
+	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
+					   DATADIR G_DIR_SEPARATOR_S
+					   "icons");
+
+	cinnamon_settings_profile_start ("xkl_engine_get_instance");
+	manager->priv->xkl_engine = xkl_engine_get_instance (dpy);
+	cinnamon_settings_profile_end ("xkl_engine_get_instance");
+	if (manager->priv->xkl_engine) {
+
+		gkbd_desktop_config_init (&manager->priv->current_config, manager->priv->xkl_engine);
+		gkbd_keyboard_config_init (&manager->priv->current_kbd_config,
+					   manager->priv->xkl_engine);
+		xkl_engine_backup_names_prop (manager->priv->xkl_engine);
+	        gkbd_keyboard_config_init (&manager->priv->initial_sys_kbd_config,
+	                                   manager->priv->xkl_engine);
+	        gkbd_keyboard_config_load_from_x_initial (&manager->priv->initial_sys_kbd_config,
+						          NULL);
+
+		cinnamon_settings_profile_start ("xkl_engine_start_listen");
+		xkl_engine_start_listen (manager->priv->xkl_engine,
+					 XKLL_MANAGE_LAYOUTS |
+					 XKLL_MANAGE_WINDOW_STATES);
+		cinnamon_settings_profile_end ("xkl_engine_start_listen");
+
+		cinnamon_settings_profile_start ("apply_desktop_settings");
+		apply_desktop_settings (manager);
+		cinnamon_settings_profile_end ("apply_desktop_settings");
+		cinnamon_settings_profile_start ("apply_xkb_settings");
+		apply_xkb_settings (manager);
+		cinnamon_settings_profile_end ("apply_xkb_settings");
+	}
+
+	cinnamon_settings_profile_end (NULL);
+}
 
 static gboolean
 xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
@@ -91,32 +358,35 @@ xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
                                      interval);
 }
 
+static gboolean
+check_xkb_extension (CsdKeyboardManager *manager)
+{
+         Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+         int opcode, error_base, major, minor;
+         gboolean have_xkb;
+
+         have_xkb = XkbQueryExtension (dpy,
+                                       &opcode,
+                                       &manager->priv->xkb_event_base,
+                                       &error_base,
+                                       &major,
+                                       &minor);
+
+         return have_xkb;
+}
+
 static void
 numlock_xkb_init (CsdKeyboardManager *manager)
 {
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        gboolean have_xkb;
-        int opcode, error_base, major, minor;
+        Display *dpy;
 
-        have_xkb = XkbQueryExtension (dpy,
-                                      &opcode,
-                                      &manager->priv->xkb_event_base,
-                                      &error_base,
-                                      &major,
-                                      &minor)
-                && XkbUseExtension (dpy, &major, &minor);
+        dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
 
-        if (have_xkb) {
-                XkbSelectEventDetails (dpy,
-                                       XkbUseCoreKbd,
-                                       XkbStateNotifyMask,
-                                       XkbModifierLockMask,
-                                       XkbModifierLockMask);
-        } else {
-                g_warning ("XKB extension not available");
-        }
-
-        manager->priv->have_xkb = have_xkb;
+        XkbSelectEventDetails (dpy,
+                               XkbUseCoreKbd,
+                               XkbStateNotify,
+                               XkbModifierLockMask,
+                               XkbModifierLockMask);
 }
 
 static unsigned
@@ -138,14 +408,18 @@ numlock_set_xkb_state (CsdNumLockState new_state)
 }
 
 static GdkFilterReturn
-numlock_xkb_callback (GdkXEvent *xev_,
-                      GdkEvent  *gdkev_,
-                      gpointer   user_data)
+xkb_events_filter (GdkXEvent *xev_,
+                   GdkEvent  *gdkev_,
+                   gpointer   user_data)
 {
         XEvent *xev = (XEvent *) xev_;
 	XkbEvent *xkbev = (XkbEvent *) xev;
         CsdKeyboardManager *manager = (CsdKeyboardManager *) user_data;
+/* libxklavier's events first */
+	if (manager->priv->xkl_engine != NULL)
+		xkl_engine_filter_events (manager->priv->xkl_engine, xev);
 
+	/* Then XKB specific events */
         if (xev->type != manager->priv->xkb_event_base)
 		return GDK_FILTER_CONTINUE;
 
@@ -171,24 +445,19 @@ numlock_xkb_callback (GdkXEvent *xev_,
 }
 
 static void
-numlock_install_xkb_callback (CsdKeyboardManager *manager)
+install_xkb_filter (CsdKeyboardManager *manager)
 {
-        if (!manager->priv->have_xkb)
-                return;
-
         gdk_window_add_filter (NULL,
-                               numlock_xkb_callback,
+                               xkb_events_filter,
                                manager);
 }
 
-static guint
-_csd_settings_get_uint (GSettings  *settings,
-			const char *key)
+static void
+remove_xkb_filter (CsdKeyboardManager *manager)
 {
-	guint value;
-
-	g_settings_get (settings, key, "u", &value);
-	return value;
+        gdk_window_remove_filter (NULL,
+                                  xkb_events_filter,
+                                  manager);
 }
 
 static void
@@ -213,8 +482,8 @@ apply_settings (GSettings          *settings,
 
         repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
-        interval      = _csd_settings_get_uint  (settings, KEY_INTERVAL);
-        delay         = _csd_settings_get_uint  (settings, KEY_DELAY);
+        interval      = g_settings_get_uint  (settings, KEY_INTERVAL);
+        delay         = g_settings_get_uint  (settings, KEY_DELAY);
         click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
         bell_pitch    = g_settings_get_int   (settings, KEY_BELL_PITCH);
         bell_duration = g_settings_get_int   (settings, KEY_BELL_DURATION);
@@ -256,7 +525,7 @@ apply_settings (GSettings          *settings,
 
 		manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
 
-		if (manager->priv->have_xkb && rnumlock)
+		if (rnumlock)
 			numlock_set_xkb_state (manager->priv->old_state);
 	}
 
@@ -270,6 +539,49 @@ csd_keyboard_manager_apply_settings (CsdKeyboardManager *manager)
         apply_settings (manager->priv->settings, NULL, manager);
 }
 
+static void
+device_added_cb (GdkDeviceManager   *device_manager,
+                 GdkDevice          *device,
+                 CsdKeyboardManager *manager)
+{
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_KEYBOARD) {
+                apply_desktop_settings (manager);
+                apply_xkb_settings (manager);
+                run_custom_command (device, COMMAND_DEVICE_ADDED);
+        }
+}
+
+static void
+device_removed_cb (GdkDeviceManager   *device_manager,
+                   GdkDevice          *device,
+                   CsdKeyboardManager *manager)
+{
+         GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_KEYBOARD) {
+                run_custom_command (device, COMMAND_DEVICE_REMOVED);
+        }
+}
+
+static void
+set_devicepresence_handler (CsdKeyboardManager *manager)
+{
+        GdkDeviceManager *device_manager;
+
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+
+        manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
+        manager->priv->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+                                                             G_CALLBACK (device_removed_cb), manager);
+        manager->priv->device_manager = device_manager;
+}
+
+
 static gboolean
 start_keyboard_idle_cb (CsdKeyboardManager *manager)
 {
@@ -277,21 +589,25 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         g_debug ("Starting keyboard manager");
 
-        manager->priv->have_xkb = 0;
         manager->priv->settings = g_settings_new (CSD_KEYBOARD_DIR);
+        manager->priv->settings_desktop = g_settings_new (GKBD_DESKTOP_SCHEMA);
+        manager->priv->settings_keyboard = g_settings_new (GKBD_KEYBOARD_SCHEMA);
 
-        /* Essential - xkb initialization should happen before */
         csd_keyboard_xkb_init (manager);
-
         numlock_xkb_init (manager);
+
+        set_devicepresence_handler (manager);
 
         /* apply current settings before we install the callback */
         csd_keyboard_manager_apply_settings (manager);
 
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
                           G_CALLBACK (apply_settings), manager);
-
-        numlock_install_xkb_callback (manager);
+        g_signal_connect (manager->priv->settings_desktop, "changed",
+			  (GCallback) desktop_settings_changed, manager);
+        g_signal_connect (manager->priv->settings_keyboard, "changed",
+			  (GCallback) xkb_settings_changed, manager);
+	install_xkb_filter (manager);
 
         cinnamon_settings_profile_end (NULL);
 
@@ -305,6 +621,11 @@ csd_keyboard_manager_start (CsdKeyboardManager *manager,
                             GError            **error)
 {
         cinnamon_settings_profile_start (NULL);
+
+        if (check_xkb_extension (manager) == FALSE) {
+		g_debug ("XKB is not supported, not applying any settings");
+		return TRUE;
+	}
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
 
@@ -324,28 +645,32 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
                 g_object_unref (p->settings);
                 p->settings = NULL;
         }
-
-        if (p->have_xkb) {
-                gdk_window_remove_filter (NULL,
-                                          numlock_xkb_callback,
-                                          manager);
+        if (p->settings_desktop != NULL) {
+		g_object_unref (p->settings_desktop);
+		p->settings_desktop = NULL;
+	}
+	if (p->settings_keyboard != NULL) {
+		g_object_unref (p->settings_keyboard);
+		p->settings_keyboard = NULL;
+	}
+        if (p->device_manager != NULL) {
+                g_signal_handler_disconnect (p->device_manager, p->device_added_id);
+                g_signal_handler_disconnect (p->device_manager, p->device_removed_id);
+                p->device_manager = NULL;
         }
 
-        csd_keyboard_xkb_shutdown ();
-}
+	remove_xkb_filter (manager);
+	if (p->xkl_registry != NULL) {
+		g_object_unref (p->xkl_registry);
+		p->xkl_registry = NULL;
+	}
 
-static GObject *
-csd_keyboard_manager_constructor (GType                  type,
-                                  guint                  n_construct_properties,
-                                  GObjectConstructParam *construct_properties)
-{
-        CsdKeyboardManager      *keyboard_manager;
-
-        keyboard_manager = CSD_KEYBOARD_MANAGER (G_OBJECT_CLASS (csd_keyboard_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (keyboard_manager);
+	if (p->xkl_engine != NULL) {
+		xkl_engine_stop_listen (p->xkl_engine,
+					XKLL_MANAGE_LAYOUTS | XKLL_MANAGE_WINDOW_STATES);
+		g_object_unref (p->xkl_engine);
+		p->xkl_engine = NULL;
+	}
 }
 
 static void
@@ -353,7 +678,6 @@ csd_keyboard_manager_class_init (CsdKeyboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = csd_keyboard_manager_constructor;
         object_class->finalize = csd_keyboard_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (CsdKeyboardManagerPrivate));
