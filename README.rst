@@ -53,6 +53,14 @@ housekeeping
 keyboard
 --------
 
+This plugin handles the keyboard.
+
+It reads and listens to the ``org.cinnamon.settings-daemon.peripherals.keyboard`` settings and applies the configuration.
+
+It also listens to the state of the numlock key and saves it in the settings to ensure the state is remembered and preserved for the next session.
+
+The layout selection is done in cinnamon-control-center's region plugin (which is presented to the user in cinnamon-settings' keyboard module). That configuration is set directly via gkbd (libgnomekbd) and xkl (libxklavier). This plugin reads and listens to that configuration and assigns to the keyboard.
+
 media-keys
 ----------
 
