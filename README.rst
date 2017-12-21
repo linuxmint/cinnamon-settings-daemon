@@ -24,6 +24,12 @@ background
 clipboard
 ---------
 
+Xorg features two ways of copying and pasting content. The first one is ``X-clipboard``, which is commonly used in edit menus and using ``Ctrl+C`` and ``Ctrl+V``. The second one is ``X-selection`` which is used by selecting content with the mouse and pasting it with a middle-click.
+
+When you copy content from a window, that content is available either in ``X-clipboard`` or ``X-selection`` until the application which owns that window is terminated.
+
+This plugin keeps the content of ``X-clipboard`` in memory, so that even if the owner application exits the content continues to be available.
+
 color
 -----
 
@@ -101,6 +107,21 @@ xrandr
 
 xsettings
 ---------
+
+TESTING
+=======
+
+To test a plugin:
+
+1. Kill the running CSD plugin
+2. Build the project
+3. Run the built plugin in verbose mode
+
+For instance:
+
+* ``killall csd-sound`` (you might have to kill it twice, if CSM tries to restart it)
+* ``dpkg-buildpackage``
+* ``plugins/sound/csd-sound --verbose``
 
 
 TODO:
