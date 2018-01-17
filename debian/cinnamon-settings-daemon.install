@@ -8,5 +8,4 @@ usr/share/cinnamon-settings-daemon
 usr/share/dbus-1/*/org.cinnamon.SettingsDaemon.*
 usr/share/glib-2.0/*/org.cinnamon.settings-daemon.*
 usr/share/icons/*/*/*/csd*
-usr/share/man/man1/cinnamon-settings-daemon.1
 usr/share/polkit-1/*/org.cinnamon.settings*

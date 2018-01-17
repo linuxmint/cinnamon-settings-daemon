@@ -26,8 +26,6 @@ pkgconfig_DATA = cinnamon-settings-daemon.pc
 
 @INTLTOOL_XML_NOMERGE_RULE@
 
-man_MANS = cinnamon-settings-daemon.1
-
 dbusservice_in_files = org.freedesktop.IBus.service.in
 
 EXTRA_DIST = 					\
@@ -48,4 +46,3 @@ MAINTAINERCLEANFILES =			\
 	*~				\
 	Makefile.in			\
 	$(gsettings_SCHEMAS:.xml=.valid)
-
