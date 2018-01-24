@@ -364,7 +364,9 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
         { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "button-layout",  "Gtk/DecorationLayout",    translate_string_string },
-
+        { "org.cinnamon.desktop.wm.preferences", "action-double-click-titlebar",  "Gtk/TitlebarDoubleClick",    translate_string_string },
+        { "org.cinnamon.desktop.wm.preferences", "action-middle-click-titlebar",  "Gtk/TitlebarMiddleClick",    translate_string_string },
+        { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar",  "Gtk/TitlebarRightClick",    translate_string_string },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
         { "org.cinnamon.settings-daemon.plugins.xsettings", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
