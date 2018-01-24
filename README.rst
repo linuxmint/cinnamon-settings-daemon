@@ -140,6 +140,8 @@ xrandr
 xsettings
 ---------
 
+This plugin sets the settings for GTK and Xft.
+
 TESTING
 =======
 
