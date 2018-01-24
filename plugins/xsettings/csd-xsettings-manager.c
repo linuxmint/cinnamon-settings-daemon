@@ -52,6 +52,7 @@
 #define INTERFACE_WM_SETTINGS_SCHEMA "org.cinnamon.desktop.wm.preferences"
 #define SOUND_SETTINGS_SCHEMA     "org.cinnamon.desktop.sound"
 #define PRIVACY_SETTINGS_SCHEMA   "org.cinnamon.desktop.privacy"
+#define WM_SETTINGS_SCHEMA     "org.cinnamon.desktop.wm.preferences"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.cinnamon.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
@@ -374,7 +375,10 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
         { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int },
         { "org.cinnamon.desktop.privacy", "recent-files-max-age", "Gtk/RecentFilesMaxAge", translate_int_int },
-        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int }
+        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int },
+        { "org.cinnamon.desktop.wm.preferences", "action-double-click-titlebar", "Gtk/TitlebarDoubleClick", translate_string_string },
+        { "org.cinnamon.desktop.wm.preferences", "action-middle-click-titlebar", "Gtk/TitlebarMiddleClick", translate_string_string },
+        { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar", "Gtk/TitlebarRightClick", translate_string_string }
 };
 
 static gboolean
@@ -943,6 +947,8 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                              XSETTINGS_PLUGIN_SCHEMA, g_settings_new (XSETTINGS_PLUGIN_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             WM_SETTINGS_SCHEMA, g_settings_new (WM_SETTINGS_SCHEMA));
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GVariant *val;
