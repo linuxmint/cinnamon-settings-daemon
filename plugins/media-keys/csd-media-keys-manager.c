@@ -116,7 +116,6 @@ static const gchar kb_introspection_xml[] =
 #define HIGH_CONTRAST "HighContrast"
 
 #define VOLUME_STEP 5           /* percents for one volume button press */
-#define MAX_VOLUME 65536.0
 
 #define LOGIND_DBUS_NAME                       "org.freedesktop.login1"
 #define LOGIND_DBUS_PATH                       "/org/freedesktop/login1"
@@ -693,16 +692,17 @@ do_touchpad_action (CsdMediaKeysManager *manager)
 }
 
 static void
-update_dialog (CsdMediaKeysManager *manager,
+show_sound_osd (CsdMediaKeysManager *manager,
                GvcMixerStream      *stream,
                gboolean             is_mic,
                gint                 vol,
+               gint                 max_vol,
                gboolean             muted,
                gboolean             sound_changed,
                gboolean             quiet)
 {
     const char *icon;
-    vol = CLAMP (vol, 0, 100);
+    vol = CLAMP (vol, 0, max_vol);
     icon = get_icon_name_for_volume (muted, vol, is_mic);
     show_osd (manager, icon, vol, OSD_ALL_OUTPUTS);
     if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
@@ -834,8 +834,9 @@ do_sound_action (CsdMediaKeysManager *manager,
 {
 	GvcMixerStream *stream;
         gboolean old_muted, new_muted;
-        guint old_vol, new_vol, norm_vol_step, osd_vol;
+        guint old_vol, new_vol, norm_vol_step, osd_vol, osd_max_vol;
         gboolean sound_changed;
+        GSettings *settings;
 
         /* Find the stream that corresponds to the device, if any */
         gboolean is_source_stream =
@@ -855,6 +856,10 @@ do_sound_action (CsdMediaKeysManager *manager,
                 return;
 
         norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP / 100;
+
+        settings = g_settings_new ("org.cinnamon.desktop.sound");
+        osd_max_vol = PA_VOLUME_NORM * g_settings_get_int (settings, "maximum-volume") / 100;
+        g_object_unref (settings);
 
         /* FIXME: this is racy */
         new_vol = old_vol = gvc_mixer_stream_get_volume (stream);
@@ -878,7 +883,7 @@ do_sound_action (CsdMediaKeysManager *manager,
                 new_muted = FALSE;
                 /* When coming out of mute only increase the volume if it was 0 */
                 if (!old_muted || old_vol == 0)
-                        new_vol = MIN (old_vol + norm_vol_step, MAX_VOLUME);
+                        new_vol = MIN (old_vol + norm_vol_step, osd_max_vol);
                 break;
         }
 
@@ -896,13 +901,13 @@ do_sound_action (CsdMediaKeysManager *manager,
 
         if (type == C_DESKTOP_MEDIA_KEY_VOLUME_DOWN && old_vol == 0 && old_muted)
                 osd_vol = -1;
-        else if (type == C_DESKTOP_MEDIA_KEY_VOLUME_UP && old_vol == PA_VOLUME_NORM && !old_muted)
+        else if (type == C_DESKTOP_MEDIA_KEY_VOLUME_UP && old_vol == osd_max_vol && !old_muted)
                 osd_vol = 101;
         else if (!new_muted)
-                osd_vol = (int) (100 * (double) new_vol / PA_VOLUME_NORM);
+                osd_vol = (int) (100 * (double) new_vol / osd_max_vol);
         else
                 osd_vol = 0;
-        update_dialog (manager, stream, is_source_stream, osd_vol, new_muted, sound_changed, quiet);
+        show_sound_osd (manager, stream, is_source_stream, osd_vol, osd_max_vol, new_muted, sound_changed, quiet);
 }
 
 static void
