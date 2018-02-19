@@ -31,9 +31,8 @@
 
 #include <locale.h>
 
-#include <glib.h>
 #include <glib/gi18n.h>
-#include <gtk/gtk.h>
+#include <gio/gio.h>
 #include <pulse/pulseaudio.h>
 #include <canberra.h>
 
@@ -576,22 +575,6 @@ csd_sound_manager_stop (CsdSoundManager *manager)
         }
 }
 
-static GObject *
-csd_sound_manager_constructor (
-                GType type,
-                guint n_construct_properties,
-                GObjectConstructParam *construct_properties)
-{
-        CsdSoundManager *m;
-
-        m = CSD_SOUND_MANAGER (G_OBJECT_CLASS (csd_sound_manager_parent_class)->constructor (
-                                                           type,
-                                                           n_construct_properties,
-                                                           construct_properties));
-
-        return G_OBJECT (m);
-}
-
 static void
 csd_sound_manager_dispose (GObject *object)
 {
@@ -609,7 +592,6 @@ csd_sound_manager_class_init (CsdSoundManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = csd_sound_manager_constructor;
         object_class->dispose = csd_sound_manager_dispose;
         object_class->finalize = csd_sound_manager_finalize;
 

@@ -135,9 +135,9 @@ settings_change_event_cb (GSettings            *settings,
 {
         gnome_bg_load_from_preferences (manager->priv->bg,
                                         manager->priv->settings);
-#if ACCOUNTSERVICE_BG
-        gnome_bg_set_accountsservice_background(gnome_bg_get_filename(manager->priv->bg));
-#endif
+
+        gnome_bg_set_accountsservice_background (gnome_bg_get_filename (manager->priv->bg));
+
         return FALSE;
 }
 
@@ -186,6 +186,8 @@ setup_bg (CsdBackgroundManager *manager)
         watch_bg_preferences (manager);
         gnome_bg_load_from_preferences (manager->priv->bg,
                                         manager->priv->settings);
+
+        gnome_bg_set_accountsservice_background (gnome_bg_get_filename (manager->priv->bg));
 }
 
 static void

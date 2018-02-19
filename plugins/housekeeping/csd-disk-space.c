@@ -445,7 +445,7 @@ ldsm_mount_has_space (LdsmMountInfo *mount)
         /* enough free space, nothing to do */
         if (free_space > free_percent_notify)
                 return TRUE;
-                
+
         if (((gint64) mount->buf.f_frsize * (gint64) mount->buf.f_bavail) > ((gint64) free_size_gb_no_notify * GIGABYTE))
                 return TRUE;
 
@@ -478,7 +478,7 @@ ldsm_mount_is_user_ignore (const gchar *path)
                 return TRUE;
         else
                 return FALSE;
-}                
+}
 
 
 static void
@@ -600,7 +600,7 @@ ldsm_check_all_mounts (gpointer data)
                         continue;
                 }
 
-                if (ldsm_mount_is_user_ignore (g_unix_mount_get_mount_path (mount))) {
+                if (ldsm_mount_is_user_ignore (path)) {
                         ldsm_free_mount_info (mount_info);
                         continue;
                 }
@@ -729,18 +729,16 @@ csd_ldsm_get_config (void)
 
         if (ignore_paths != NULL) {
                 g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
-                g_slist_free (ignore_paths);
-                ignore_paths = NULL;
+                g_clear_pointer (&ignore_paths, g_slist_free);
         }
 
         settings_list = g_settings_get_strv (settings, SETTINGS_IGNORE_PATHS);
         if (settings_list != NULL) {
-                gint i;
+                guint i;
 
-                for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
-                        if (settings_list[i] != NULL)
-                                ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
-                }
+                for (i = 0; settings_list[i] != NULL; i++)
+                        ignore_paths = g_slist_prepend (ignore_paths,
+                                                        g_strdup (settings_list[i]));
 
                 /* Make sure we don't leave stale entries in ldsm_notified_hash */
                 g_hash_table_foreach_remove (ldsm_notified_hash,
@@ -775,8 +773,7 @@ csd_ldsm_setup (gboolean check_now)
         g_signal_connect (G_OBJECT (settings), "changed",
                           G_CALLBACK (csd_ldsm_update_config), NULL);
 
-        ldsm_monitor = g_unix_mount_monitor_new ();
-        g_unix_mount_monitor_set_rate_limit (ldsm_monitor, 1000);
+        ldsm_monitor = g_unix_mount_monitor_get ();
         g_signal_connect (ldsm_monitor, "mounts-changed",
                           G_CALLBACK (ldsm_mounts_changed), NULL);
 
@@ -793,33 +790,14 @@ csd_ldsm_clean (void)
         if (ldsm_timeout_id) {
             g_source_remove (ldsm_timeout_id);
             ldsm_timeout_id = 0;
-        }        
-
-        if (ldsm_notified_hash)
-                g_hash_table_destroy (ldsm_notified_hash);
-        ldsm_notified_hash = NULL;
-
-        if (ldsm_monitor)
-                g_object_unref (ldsm_monitor);
-        ldsm_monitor = NULL;
-
-        if (settings != NULL) {
-                g_object_unref (settings);
         }
 
-        if (dialog) {
-                gtk_widget_destroy (GTK_WIDGET (dialog));
-                dialog = NULL;
-        }
-
-        if (notification != NULL) {
-                notify_notification_close (notification, NULL);
-                notification = NULL;
-        }
-
-        if (ignore_paths) {
-                g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
-                g_slist_free (ignore_paths);
-        }
+        g_clear_pointer (&ldsm_notified_hash, g_hash_table_destroy);
+        g_clear_object (&ldsm_monitor);
+        g_clear_object (&settings);
+        g_clear_object (&dialog);
+        g_clear_pointer (&notification, notify_notification_close);
+        g_slist_free_full (ignore_paths, g_free);
+        ignore_paths = NULL;
 }
 

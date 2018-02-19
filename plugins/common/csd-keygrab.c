@@ -169,6 +169,8 @@ grab_key_internal (Key             *key,
             !IN_RANGE(key->keysym, FKEYS_RANGE_MIN, FKEYS_RANGE_MAX) &&
              key->keysym != GDK_KEY_Pause &&
              key->keysym != GDK_KEY_Print &&
+             key->keysym != GDK_KEY_Scroll_Lock &&
+             key->keysym != GDK_KEY_Break &&
              key->keysym != GDK_KEY_Menu) {
                 GString *keycodes;
 

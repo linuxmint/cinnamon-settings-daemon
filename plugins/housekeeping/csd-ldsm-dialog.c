@@ -58,7 +58,7 @@ static const gchar*
 csd_ldsm_dialog_get_checkbutton_text (CsdLdsmDialog *dialog)
 {
         g_return_val_if_fail (CSD_IS_LDSM_DIALOG (dialog), NULL);
-        
+
         if (dialog->priv->other_partitions)
                 return _("Don't show any warnings again for this file system");
         else
@@ -69,11 +69,11 @@ static gchar*
 csd_ldsm_dialog_get_primary_text (CsdLdsmDialog *dialog)
 {
         gchar *primary_text, *free_space;
-	
+
         g_return_val_if_fail (CSD_IS_LDSM_DIALOG (dialog), NULL);
-	
+
         free_space = g_format_size (dialog->priv->space_remaining);
-	
+
         if (dialog->priv->other_partitions) {
                 primary_text = g_strdup_printf (_("The volume \"%s\" has only %s disk space remaining."),
                                                 dialog->priv->partition_name, free_space);
@@ -81,17 +81,17 @@ csd_ldsm_dialog_get_primary_text (CsdLdsmDialog *dialog)
                 primary_text = g_strdup_printf (_("This computer has only %s disk space remaining."),
                                                 free_space);
         }
-	
+
         g_free (free_space);
-	
-        return primary_text;	
+
+        return primary_text;
 }
 
 static const gchar*
 csd_ldsm_dialog_get_secondary_text (CsdLdsmDialog *dialog)
 {
         g_return_val_if_fail (CSD_IS_LDSM_DIALOG (dialog), NULL);
-	
+
         if (dialog->priv->other_usable_partitions) {
                 if (dialog->priv->has_trash) {
                         return _("You can free up disk space by emptying the Trash, removing " \
@@ -125,21 +125,21 @@ update_ignore_paths (GSList **ignore_paths,
 {
         GSList *found;
         gchar *path_to_remove;
-        
+
         found = g_slist_find_custom (*ignore_paths, mount_path, (GCompareFunc) ignore_path_compare);
-        
+
         if (ignore && (found == NULL)) {
                 *ignore_paths = g_slist_prepend (*ignore_paths, g_strdup (mount_path));
                 return TRUE;
         }
-        
+
         if (!ignore && (found != NULL)) {
                 path_to_remove = found->data;
                 *ignore_paths = g_slist_remove (*ignore_paths, path_to_remove);
                 g_free (path_to_remove);
                 return TRUE;
         }
-                
+
         return FALSE;
 }
 
@@ -193,15 +193,15 @@ csd_ldsm_dialog_init (CsdLdsmDialog *dialog)
 {
         GtkWidget *main_vbox, *text_vbox, *hbox;
         GtkWidget *image;
-	
+
         dialog->priv = CSD_LDSM_DIALOG_GET_PRIVATE (dialog);
-        
+
         main_vbox = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
         /* Set up all the window stuff here */
         gtk_window_set_title (GTK_WINDOW (dialog), _("Low Disk Space"));
-        gtk_window_set_icon_name (GTK_WINDOW (dialog), 
-                                  GTK_STOCK_DIALOG_WARNING);
+        gtk_window_set_icon_name (GTK_WINDOW (dialog),
+                                  "dialog-warning");
         gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
         gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
         gtk_window_set_urgency_hint (GTK_WINDOW (dialog), TRUE);
@@ -209,15 +209,15 @@ csd_ldsm_dialog_init (CsdLdsmDialog *dialog)
         gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
 
         /* Create the image */
-        image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
+        image = gtk_image_new_from_icon_name ("dialog-warning", GTK_ICON_SIZE_DIALOG);
         gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 
         /* Create the labels */
-        dialog->priv->primary_label = gtk_label_new (NULL);	
+        dialog->priv->primary_label = gtk_label_new (NULL);
         gtk_label_set_line_wrap (GTK_LABEL (dialog->priv->primary_label), TRUE);
         gtk_label_set_single_line_mode (GTK_LABEL (dialog->priv->primary_label), FALSE);
         gtk_misc_set_alignment (GTK_MISC (dialog->priv->primary_label), 0.0, 0.0);
-	
+
         dialog->priv->secondary_label = gtk_label_new (NULL);
         gtk_label_set_line_wrap (GTK_LABEL (dialog->priv->secondary_label), TRUE);
         gtk_label_set_single_line_mode (GTK_LABEL (dialog->priv->secondary_label), FALSE);
@@ -232,26 +232,26 @@ csd_ldsm_dialog_init (CsdLdsmDialog *dialog)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->ignore_check_button), FALSE);
         g_signal_connect (dialog->priv->ignore_check_button, "toggled",
                           G_CALLBACK (ignore_check_button_toggled_cb), dialog);
-        
+
         /* Now set up the dialog's GtkBox's' */
         gtk_box_set_spacing (GTK_BOX (main_vbox), 14);
-	
-        hbox = gtk_hbox_new (FALSE, 12);
+
+        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
         gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-	
-        text_vbox = gtk_vbox_new (FALSE, 12);
-        
+
+        text_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
+
         gtk_box_pack_start (GTK_BOX (text_vbox), dialog->priv->primary_label, FALSE, FALSE, 0);
         gtk_box_pack_start (GTK_BOX (text_vbox), dialog->priv->secondary_label, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (text_vbox), dialog->priv->ignore_check_button, FALSE, FALSE, 0);
         gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
-        gtk_box_pack_start (GTK_BOX (hbox), text_vbox, TRUE, TRUE, 0);	
+        gtk_box_pack_start (GTK_BOX (hbox), text_vbox, TRUE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (main_vbox), hbox, FALSE, FALSE, 0);
-						
+
         /* Set up the action area */
         gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog))), 6);
         gtk_container_set_border_width (GTK_CONTAINER (gtk_dialog_get_action_area (GTK_DIALOG (dialog))), 5);
-	
+
         gtk_widget_show_all (hbox);
 }
 
@@ -259,18 +259,18 @@ static void
 csd_ldsm_dialog_finalize (GObject *object)
 {
         CsdLdsmDialog *self;
-	
+
         g_return_if_fail (object != NULL);
         g_return_if_fail (CSD_IS_LDSM_DIALOG (object));
 
         self = CSD_LDSM_DIALOG (object);
-	
+
         if (self->priv->partition_name)
                 g_free (self->priv->partition_name);
-	
+
         if (self->priv->mount_path)
                 g_free (self->priv->mount_path);
-	
+
         G_OBJECT_CLASS (csd_ldsm_dialog_parent_class)->finalize (object);
 }
 
@@ -278,9 +278,9 @@ static void
 csd_ldsm_dialog_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
         CsdLdsmDialog *self;
-	
+
         g_return_if_fail (CSD_IS_LDSM_DIALOG (object));
-	
+
         self = CSD_LDSM_DIALOG (object);
 
         switch (prop_id)
@@ -313,9 +313,9 @@ static void
 csd_ldsm_dialog_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
         CsdLdsmDialog *self;
-	
+
         g_return_if_fail (CSD_IS_LDSM_DIALOG (object));
-	
+
         self = CSD_LDSM_DIALOG (object);
 
         switch (prop_id)
@@ -376,7 +376,7 @@ csd_ldsm_dialog_class_init (CsdLdsmDialogClass *klass)
                                                                "Set to TRUE if the partition has files in it's trash folder that can be deleted",
                                                                FALSE,
                                                                G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
-	                                                       	                                                       
+
         g_object_class_install_property (object_class,
                                          PROP_SPACE_REMAINING,
                                          g_param_spec_int64 ("space-remaining",
@@ -384,7 +384,7 @@ csd_ldsm_dialog_class_init (CsdLdsmDialogClass *klass)
                                                              "Specify how much space is remaining in bytes",
                                                              G_MININT64, G_MAXINT64, 0,
                                                              G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
-	                                                   
+
         g_object_class_install_property (object_class,
                                          PROP_PARTITION_NAME,
                                          g_param_spec_string ("partition-name",
@@ -392,7 +392,7 @@ csd_ldsm_dialog_class_init (CsdLdsmDialogClass *klass)
                                                               "Specify the name of the partition",
                                                               "Unknown",
                                                               G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
-	                                                      
+
         g_object_class_install_property (object_class,
                                          PROP_MOUNT_PATH,
                                          g_param_spec_string ("mount-path",
@@ -418,7 +418,7 @@ csd_ldsm_dialog_new (gboolean     other_usable_partitions,
         GtkWidget *empty_trash_image, *analyze_image, *ignore_image;
         gchar *primary_text, *primary_text_markup;
         const gchar *secondary_text, *checkbutton_text;
-	
+
         dialog = CSD_LDSM_DIALOG (g_object_new (CSD_TYPE_LDSM_DIALOG,
                                                 "other-usable-partitions", other_usable_partitions,
                                                 "other-partitions", other_partitions,
@@ -427,16 +427,16 @@ csd_ldsm_dialog_new (gboolean     other_usable_partitions,
                                                 "partition-name", partition_name,
                                                 "mount-path", mount_path,
                                                 NULL));
-	
+
         /* Add some buttons */
         if (dialog->priv->has_trash) {
                 button_empty_trash = gtk_dialog_add_button (GTK_DIALOG (dialog),
                                                             _("Empty Trash"),
                                                             CSD_LDSM_DIALOG_RESPONSE_EMPTY_TRASH);
-                empty_trash_image = gtk_image_new_from_stock (GTK_STOCK_CLEAR, GTK_ICON_SIZE_BUTTON);
+                empty_trash_image = gtk_image_new_from_icon_name ("edit-clear", GTK_ICON_SIZE_BUTTON);
                 gtk_button_set_image (GTK_BUTTON (button_empty_trash), empty_trash_image);
         }
-	
+
         if (display_baobab) {
                 button_analyze = gtk_dialog_add_button (GTK_DIALOG (dialog),
                                                         _("Examine..."),
@@ -444,28 +444,28 @@ csd_ldsm_dialog_new (gboolean     other_usable_partitions,
                 analyze_image = gtk_image_new_from_icon_name ("baobab", GTK_ICON_SIZE_BUTTON);
                 gtk_button_set_image (GTK_BUTTON (button_analyze), analyze_image);
         }
-			
-        button_ignore = gtk_dialog_add_button (GTK_DIALOG (dialog), 
-                                               _("Ignore"), 
+
+        button_ignore = gtk_dialog_add_button (GTK_DIALOG (dialog),
+                                               _("Ignore"),
                                                GTK_RESPONSE_CANCEL);
         ignore_image = gtk_image_new_from_stock (GTK_STOCK_CANCEL, GTK_ICON_SIZE_BUTTON);
         gtk_button_set_image (GTK_BUTTON (button_ignore), ignore_image);
-	
+
         gtk_widget_grab_default (button_ignore);
-	
-        /* Set the label text */	
+
+        /* Set the label text */
         primary_text = csd_ldsm_dialog_get_primary_text (dialog);
         primary_text_markup = g_markup_printf_escaped ("<big><b>%s</b></big>", primary_text);
         gtk_label_set_markup (GTK_LABEL (dialog->priv->primary_label), primary_text_markup);
 
         secondary_text = csd_ldsm_dialog_get_secondary_text (dialog);
         gtk_label_set_text (GTK_LABEL (dialog->priv->secondary_label), secondary_text);
-        
+
         checkbutton_text = csd_ldsm_dialog_get_checkbutton_text (dialog);
         gtk_button_set_label (GTK_BUTTON (dialog->priv->ignore_check_button), checkbutton_text);
-        
+
         g_free (primary_text);
         g_free (primary_text_markup);
-	
+
         return dialog;
-} 
+}

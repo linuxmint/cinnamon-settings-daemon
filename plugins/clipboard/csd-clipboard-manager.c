@@ -180,7 +180,7 @@ finish_selection_request (CsdClipboardManager *manager,
         gdk_error_trap_pop_ignored ();
 }
 
-static int
+static gsize
 clipboard_bytes_per_item (int format)
 {
         switch (format) {
@@ -191,6 +191,14 @@ clipboard_bytes_per_item (int format)
         }
 
         return 0;
+}
+
+static void
+free_contents (CsdClipboardManager *manager)
+{
+        list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
+        list_free (manager->priv->contents);
+        manager->priv->contents = NULL;
 }
 
 static void
@@ -366,6 +374,7 @@ send_incrementally (CsdClipboardManager *manager,
         unsigned long   length;
         unsigned long   items;
         unsigned char  *data;
+        gsize           bytes_per_item;
 
         list = list_find (manager->priv->conversions,
                           (ListFindFunc) find_conversion_requestor, xev);
@@ -374,6 +383,10 @@ send_incrementally (CsdClipboardManager *manager,
 
         rdata = (IncrConversion *) list->data;
 
+        bytes_per_item = clipboard_bytes_per_item (rdata->data->format);
+        if (bytes_per_item == 0)
+                return False;
+
         data = rdata->data->data + rdata->offset;
         length = rdata->data->length - rdata->offset;
         if (length > SELECTION_MAX_SIZE)
@@ -381,7 +394,7 @@ send_incrementally (CsdClipboardManager *manager,
 
         rdata->offset += length;
 
-        items = length / clipboard_bytes_per_item (rdata->data->format);
+        items = length / bytes_per_item;
         XChangeProperty (manager->priv->display, rdata->requestor,
                          rdata->property, rdata->data->type,
                          rdata->data->format, PropModeAppend,
@@ -520,6 +533,8 @@ convert_clipboard_target (IncrConversion      *rdata,
                                  (unsigned char *) targets, n_targets);
                 free (targets);
         } else  {
+                gsize bytes_per_item;
+
                 /* Convert from stored CLIPBOARD data */
                 list = list_find (manager->priv->contents,
                                   (ListFindFunc) find_content_target, (void *) rdata->target);
@@ -535,8 +550,12 @@ convert_clipboard_target (IncrConversion      *rdata,
                         return;
                 }
 
+                bytes_per_item = clipboard_bytes_per_item (tdata->format);
+                if (bytes_per_item == 0)
+                        return;
+
                 rdata->data = target_data_ref (tdata);
-                items = tdata->length / clipboard_bytes_per_item (tdata->format);
+                items = tdata->length / bytes_per_item;
                 if (tdata->length <= SELECTION_MAX_SIZE)
                         XChangeProperty (manager->priv->display, rdata->requestor,
                                          rdata->property,
@@ -681,9 +700,7 @@ clipboard_manager_process_event (CsdClipboardManager *manager,
         switch (xev->xany.type) {
         case DestroyNotify:
                 if (xev->xdestroywindow.window == manager->priv->requestor) {
-                        list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
-                        list_free (manager->priv->contents);
-                        manager->priv->contents = NULL;
+                        free_contents (manager);
 
                         clipboard_manager_watch_cb (manager,
                                                     manager->priv->requestor,
@@ -707,9 +724,7 @@ clipboard_manager_process_event (CsdClipboardManager *manager,
                 if (xev->xselectionclear.selection == XA_CLIPBOARD_MANAGER) {
                         /* We lost the manager selection */
                         if (manager->priv->contents) {
-                                list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
-                                list_free (manager->priv->contents);
-                                manager->priv->contents = NULL;
+                                free_contents(manager);
 
                                 XSetSelectionOwner (manager->priv->display,
                                                     XA_CLIPBOARD,
@@ -720,9 +735,7 @@ clipboard_manager_process_event (CsdClipboardManager *manager,
                 }
                 if (xev->xselectionclear.selection == XA_CLIPBOARD) {
                         /* We lost the clipboard selection */
-                        list_foreach (manager->priv->contents, (Callback)target_data_unref, NULL);
-                        list_free (manager->priv->contents);
-                        manager->priv->contents = NULL;
+                        free_contents(manager);
                         clipboard_manager_watch_cb (manager,
                                                     manager->priv->requestor,
                                                     False,
@@ -781,6 +794,7 @@ clipboard_manager_process_event (CsdClipboardManager *manager,
                         }
                         else if (xev->xselection.property == None) {
                                 send_selection_notify (manager, False);
+                                free_contents (manager);
                                 clipboard_manager_watch_cb (manager,
                                                             manager->priv->requestor,
                                                             False,
@@ -971,24 +985,8 @@ csd_clipboard_manager_stop (CsdClipboardManager *manager)
         }
 
         if (manager->priv->contents != NULL) {
-                list_foreach (manager->priv->contents, (Callback) target_data_unref, NULL);
-                list_free (manager->priv->contents);
-                manager->priv->contents = NULL;
+                free_contents (manager);
         }
-}
-
-static GObject *
-csd_clipboard_manager_constructor (GType                  type,
-                                   guint                  n_construct_properties,
-                                   GObjectConstructParam *construct_properties)
-{
-        CsdClipboardManager      *clipboard_manager;
-
-        clipboard_manager = CSD_CLIPBOARD_MANAGER (G_OBJECT_CLASS (csd_clipboard_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (clipboard_manager);
 }
 
 static void
@@ -996,7 +994,6 @@ csd_clipboard_manager_class_init (CsdClipboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = csd_clipboard_manager_constructor;
         object_class->finalize = csd_clipboard_manager_finalize;
 
         g_type_class_add_private (klass, sizeof (CsdClipboardManagerPrivate));
@@ -1022,6 +1019,8 @@ csd_clipboard_manager_finalize (GObject *object)
         clipboard_manager = CSD_CLIPBOARD_MANAGER (object);
 
         g_return_if_fail (clipboard_manager->priv != NULL);
+
+        csd_clipboard_manager_stop(clipboard_manager);
 
         if (clipboard_manager->priv->start_idle_id !=0) {
             g_source_remove (clipboard_manager->priv->start_idle_id);
