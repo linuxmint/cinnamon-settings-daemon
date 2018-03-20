@@ -3516,29 +3516,21 @@ csd_power_manager_class_init (CsdPowerManagerClass *klass)
 }
 
 static void
-sleep_cb_screensaver_proxy_ready_cb (GObject *source_object,
-                            GAsyncResult *res,
-                            gpointer user_data)
+lock_screensaver (CsdPowerManager *manager)
 {
-        GError *error = NULL;
-        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+    GError *error;
+    gboolean ret;
 
-        manager->priv->screensaver_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->screensaver_proxy == NULL) {
-                g_warning ("Could not connect to cinnamon-screensaver: %s",
-                           error->message);
-                g_error_free (error);
-                return;
-        }
+    g_debug ("Locking screen before sleep/hibernate");
 
-        /* Finish the upower_notify_sleep_cb() call by locking the screen */
-        g_debug ("cinnamon-screensaver activated, doing cinnamon-screensaver lock");
-        g_dbus_proxy_call (manager->priv->screensaver_proxy,
-                           "Lock",
-                           g_variant_new("(s)", ""),
-                           G_DBUS_CALL_FLAGS_NONE, -1,
-                           NULL, NULL, NULL);
+    /* do this sync to ensure it's on the screen when we start suspending */
+    error = NULL;
+    ret = g_spawn_command_line_sync ("cinnamon-screensaver-command --lock", NULL, NULL, NULL, &error);
 
+    if (!ret) {
+        g_warning ("Couldn't lock screen: %s", error->message);
+        g_error_free (error);
+    }
 }
 
 static void
@@ -3694,28 +3686,6 @@ out:
                 g_variant_unref (k_now);
         if (k_max != NULL)
                 g_variant_unref (k_max);
-}
-
-static void
-lock_screensaver (CsdPowerManager *manager)
-{
-        gboolean do_lock;
-
-        do_lock = g_settings_get_boolean (manager->priv->settings_screensaver,
-                                          "lock-enabled");
-        if (!do_lock)
-                return;
-
-        /* connect to the screensaver first */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                  NULL,
-                                  GS_DBUS_NAME,
-                                  GS_DBUS_PATH,
-                                  GS_DBUS_INTERFACE,
-                                  NULL,
-                                  sleep_cb_screensaver_proxy_ready_cb,
-                                  manager);
 }
 
 static void
@@ -4004,16 +3974,10 @@ handle_suspend_actions (CsdPowerManager *manager)
 
         do_lock = g_settings_get_boolean (manager->priv->settings,
                                           "lock-on-suspend");
-        if (do_lock)
-                g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
-                                          G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                          NULL,
-                                          GS_DBUS_NAME,
-                                          GS_DBUS_PATH,
-                                          GS_DBUS_INTERFACE,
-                                          NULL,
-                                          sleep_cb_screensaver_proxy_ready_cb,
-                                          manager);
+
+        if (do_lock) {
+            lock_screensaver (manager);
+        }
 
         /* lift the delay inhibit, so logind can proceed */
         uninhibit_suspend (manager);
