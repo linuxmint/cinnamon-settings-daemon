@@ -6,8 +6,7 @@ Build-Depends:
  autoconf-archive,
  automake,
  autotools-dev,
- debhelper (>= 9),
- dh-autoreconf,
+ debhelper (>= 10),
  docbook-xsl,
  intltool (>= 0.37.1),
  libcanberra-gtk3-dev,
@@ -27,7 +26,7 @@ Build-Depends:
  libpolkit-gobject-1-dev,
  libpulse-dev (>= 0.9.16),
  librsvg2-dev,
- libsystemd-login-dev [linux-any] | libsystemd-dev [linux-any],
+ libsystemd-dev [linux-any],
  libupower-glib-dev (>= 0.9.11),
  libwacom-dev (>= 0.4) [linux-any],
  libx11-dev,
@@ -43,7 +42,15 @@ Homepage: http://cinnamon.linuxmint.com
 Package: cinnamon-settings-daemon
 Architecture: any
 Depends: cinnamon-desktop-data (>= 2.6.3), ${misc:Depends}, ${shlibs:Depends}
-Recommends: pulseaudio
+Recommends: cinnamon-l10n, pulseaudio
+Suggests:
+ cinnamon-screensaver,
+ gnome-calculator | galculator | mate-calc,
+ gnome-power-manager,
+ gnome-screenshot,
+ muffin | x-window-manager,
+ tracker-gui | gnome-search-tool,
+ x11-xserver-utils,
 Pre-Depends: ${misc:Pre-Depends}
 Breaks:
  banshee (<< 0.13.2+dfsg-7),
@@ -53,7 +60,6 @@ Breaks:
  rhythmbox (<< 0.11.5),
  totem (<< 2.22.0),
  unity-greeter (<< 0.2.1-0ubuntu1),
-Suggests: cinnamon-screensaver, muffin | x-window-manager, x11-xserver-utils
 Description: daemon handling the Cinnamon session settings
  This package contains the daemon which is responsible for setting the
  various parameters of a Cinnamon session and the applications that run

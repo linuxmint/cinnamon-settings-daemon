@@ -5,7 +5,7 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 %:
-	dh $@ --parallel --with=autoreconf
+	dh $@
 
 override_dh_autoreconf:
 	NOCONFIGURE=1 dh_autoreconf --as-needed ./autogen.sh
