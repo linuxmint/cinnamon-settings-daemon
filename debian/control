@@ -12,9 +12,9 @@ Build-Depends:
  intltool (>= 0.37.1),
  libcanberra-gtk3-dev,
  libcinnamon-desktop-dev (>= 3.4~),
- libcvc-dev (>= 3.4~),
  libcolord-dev (>= 0.1.27),
  libcups2-dev,
+ libcvc-dev (>= 3.4~),
  libdbus-glib-1-dev (>= 0.88),
  libfontconfig1-dev,
  libglib2.0-dev (>= 2.37.3),
@@ -52,7 +52,7 @@ Breaks:
  gnome-session (<< 2.24),
  rhythmbox (<< 0.11.5),
  totem (<< 2.22.0),
- unity-greeter (<< 0.2.1-0ubuntu1)
+ unity-greeter (<< 0.2.1-0ubuntu1),
 Suggests: cinnamon-screensaver, muffin | x-window-manager, x11-xserver-utils
 Description: daemon handling the Cinnamon session settings
  This package contains the daemon which is responsible for setting the
@@ -76,7 +76,7 @@ Depends:
  libdbus-glib-1-dev (>= 0.74),
  libglib2.0-dev (>= 2.26.0),
  ${misc:Depends},
- ${shlibs:Depends}
+ ${shlibs:Depends},
 Description: Headers for building applications communicating with cinnamon-settings-daemon
  This package contains header files required to build applications that
  communicate with the Cinnamon settings daemon over D-Bus.
