@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: cinnamon-settings-daemon
 Upstream-Contact: Linux Mint Project <root@linuxmint.com>
 Source: https://github.com/linuxmint/cinnamon-settings-daemon.git
@@ -104,10 +104,7 @@ Files: plugins/keyboard/gkbd-configuration.c
        plugins/keyboard/gkbd-configuration.h
        plugins/media-keys/bus-watch-namespace.c
        plugins/media-keys/bus-watch-namespace.h
-       plugins/media-keys/csd-osd-window-private.h
-       plugins/media-keys/csd-osd-window.c
-       plugins/media-keys/csd-osd-window.h
-Copyright: 2010, Canonical Ltd
+Copyright: 2010-2013, Canonical Ltd
            2009, Novell, Inc
            2006-2007, William Jon McCann <mccann@jhu.edu>
 License: LGPL-2+
