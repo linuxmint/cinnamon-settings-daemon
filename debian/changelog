@@ -1,3 +1,79 @@
+cinnamon-settings-daemon (3.8.0) tara; urgency=medium
+
+  [ brownsr ]
+  * housekeeping: replace gtk_stock items https://github.com/GNOME/gnome-settings-daemon/commit/92fc1c2f605561126e37dc9a69459d5ac66c1e90#diff-35dd745f84c1c68f9626401cda5ee45d
+  * housekeeping: Fix deprecated GUnixMountMonitor calls https://github.com/GNOME/gnome-settings-daemon/commit/a7b82826bd716e50fae6668561117dfedc8873ec#diff-35dd745f84c1c68f9626401cda5ee45d
+  * housekeeping: remove duplicated call https://github.com/GNOME/gnome-settings-daemon/commit/5ad0ff07b016cd920dbb84fbe6b2858aede725f7#diff-35dd745f84c1c68f9626401cda5ee45d
+
+  [ Clement Lefebvre ]
+  * README: Start describing plugins
+  * Add more info to readme
+
+  [ Simon Brown ]
+  * sound: Remove empty constructor function (#200)
+  * sound: Don't include unused GTK+ (#199)
+  * Clipboard: various minor upstream fixes / cleanups (#198)
+
+  [ Clement Lefebvre ]
+  * Add more info to README
+
+  [ Simon Brown ]
+  * common: add break and scroll lock to whitelist (#201)
+
+  [ Clement Lefebvre ]
+  * Add more info to README
+  * Add more info to README
+  * Add more info to README
+
+  [ Simon Brown ]
+  * Housekeeping: various upstream fixes and cleanups (#202)
+
+  [ Clement Lefebvre ]
+  * Add CI configuration
+  * Fix button layout for CSD windows
+  * Fix titlebar click actions for CSD windows
+  * README: Add info about xsettings
+  * media-keys: Play volume_changed sound and display sound OSD according to the max sound volume. (#215)
+  * Provide symlinks in /usr/bin to start the various CSD plugins.
+
+  [ Michael Webster ]
+  * csd-background-manager.c: Remove build conditional for AccountsService background support.  GnomeBG will now determine during runtime whether to handle it or not.
+  * csd-background-manager.c: Set the AccountsService user background at startup.
+
+  [ brownsr ]
+  * mouse: re-enable touchpad when no other pointing devices present https://github.com/GNOME/gnome-settings-daemon/commit/72b8df16a626cd6b638f3953b69f28e08bc39e59#diff-3144fcd94741d0a8ad93771b1f108efdR1138
+  * mouse: Stop idle start when stop() is called https://github.com/GNOME/gnome-settings-daemon/commit/9d6e80924ff9011dc2d8caa8a49a588ff4a318bd#diff-f3eb78dbfdd1699b6580551f271aba41
+  * mouse: simplify finalize call https://github.com/GNOME/gnome-settings-daemon/commit/7c268ddf2c0fea89ed053e55002fba65c523904a#diff-f3eb78dbfdd1699b6580551f271aba41
+  * mouse: simplify stop call https://github.com/GNOME/gnome-settings-daemon/commit/9e4e46a47fd385807f9cbae9d42ebcc312680a1e#diff-f3eb78dbfdd1699b6580551f271aba41
+  * mouse: replace dialogue by warning https://github.com/GNOME/gnome-settings-daemon/commit/3e337371249dace2613d4698d91f587621188c19#diff-f3eb78dbfdd1699b6580551f271aba41
+  * mouse: remove empty contructor and dispose functions https://github.com/GNOME/gnome-settings-daemon/commit/98df44761b4f0c70078df635aaa68adff6454380#diff-f3eb78dbfdd1699b6580551f271aba41
+  * mouse: wrap device button mapping into gdk_error_trap_push/pop https://github.com/GNOME/gnome-settings-daemon/commit/7a07cd12b862fa40ab5c38fee3dc264bb483a494#diff-f3eb78dbfdd1699b6580551f271aba41
+  * mouse: wrap pointer acceleration changes into a gdk_error_trap https://github.com/GNOME/gnome-settings-daemon/commit/8b78228a7e0abfc2c1561a275214da5d77cc7a93#diff-f3eb78dbfdd1699b6580551f271aba41
+  * locate-pointer: Remove support for multiple X screens https://github.com/GNOME/gnome-settings-daemon/commit/cf677a9c47d868b0bdae026b9d0db36df75f9dac#diff-f3eb78dbfdd1699b6580551f271aba41 gdk_display_get_n_screens is now hardcoded just to return 1, so take out the loop using it
+  * locate-pointer: Replace deprecated gdk_window_get_pointer https://github.com/GNOME/gnome-settings-daemon/commit/41a023e58df6864e947849e558a4edb0c4057e20#diff-f3eb78dbfdd1699b6580551f271aba41
+
+  [ Michael Webster ]
+  * Remove .pc folder (quilt-related)
+  * csd-power: Lock the screensaver synchronously prior to suspending.
+
+  [ Maximiliano Curia ]
+  * Update gnome-power-manager's stats desktop name (#225)
+
+  [ Fabio Fantoni ]
+  * debian: wrap-and-sort -bst
+  * update debian/copyright
+  * Bump debhelper build-dep and compat to 10 and other small improvements
+
+  [ Marcin Mielniczuk ]
+  * Add an option to prevent handle-lid-switch from being inhibited. Closes (#219)
+
+  [ Clement Lefebvre ]
+  * Rename inhibit-lid-switch setting
+  * Fix getting gsettings key from the wrong schema
+  * l10n: Update POT file
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 17 Apr 2018 13:13:39 +0100
+
 cinnamon-settings-daemon (3.6.2) sylvia; urgency=medium
 
   [ JosephMcc ]
