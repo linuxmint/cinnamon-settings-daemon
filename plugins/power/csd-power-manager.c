@@ -4167,7 +4167,7 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->settings_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
         manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_session, "settings-daemon-uses-logind");
         manager->priv->inhibit_lid_switch_enabled =
-                          g_settings_get_boolean (manager->priv->settings_session, "inhibit-lid-switch-enabled");
+                          g_settings_get_boolean (manager->priv->settings_session, "inhibit-lid-switch");
 
         manager->priv->up_client = up_client_new ();
 #if ! UP_CHECK_VERSION(0,99,0)

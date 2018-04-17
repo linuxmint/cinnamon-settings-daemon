@@ -146,10 +146,10 @@
 	This can be useful for working around systems with broken default backlight control behavior which provide
 	multiple interfaces. If you are having problems, try setting 'raw' to a higher priority.</_description>
     </key>
-    <key name="inhibit-lid-switch-enabled" type="b">
+    <key name="inhibit-lid-switch" type="b">
       <default>true</default>
       <_summary>Whether or not cinnamon-settings-daemon inhibits logind's handling of lid switch</_summary>
-      <_description>If set to false, you should not rely on Cinnamon's lid actions and use the logind ones instead</_description>
+      <_description>This setting should be true in all distributions and for all users. Only set it to false, if you want to prevent Cinnamon from handling lid switch events. In this case, you should not rely on Cinnamon's lid actions and use the logind ones instead.</_description>
     </key>
   </schema>
 </schemalist>
