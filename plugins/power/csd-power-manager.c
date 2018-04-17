@@ -229,6 +229,7 @@ struct CsdPowerManagerPrivate
 
         /* logind stuff */
         GDBusProxy              *logind_proxy;
+        gboolean                 inhibit_lid_switch_enabled;
         gint                     inhibit_lid_switch_fd;
         gboolean                 inhibit_lid_switch_taken;
         gint                     inhibit_suspend_fd;
@@ -3858,6 +3859,13 @@ inhibit_lid_switch_done (GObject      *source,
 static void
 inhibit_lid_switch (CsdPowerManager *manager)
 {
+        if (!manager->priv->inhibit_lid_switch_enabled)  {
+                // The users asks us not to interfere with what logind does
+                // w.r.t. handling the lid switch
+                g_debug ("inhibiting lid-switch disabled");
+                return;
+        }
+
         GVariant *params;
 
         if (manager->priv->inhibit_lid_switch_taken) {
@@ -4158,6 +4166,8 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->settings_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
         manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_session, "settings-daemon-uses-logind");
+        manager->priv->inhibit_lid_switch_enabled =
+                          g_settings_get_boolean (manager->priv->settings_session, "inhibit-lid-switch-enabled");
 
         manager->priv->up_client = up_client_new ();
 #if ! UP_CHECK_VERSION(0,99,0)
