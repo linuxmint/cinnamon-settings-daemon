@@ -1783,7 +1783,7 @@ do_action (CsdMediaKeysManager *manager,
                 do_keyboard_brightness_action (manager, type);
                 break;
         case C_DESKTOP_MEDIA_KEY_BATTERY:
-                do_execute_desktop (manager, "gnome-power-statistics.desktop", timestamp);
+                do_execute_desktop (manager, "org.gnome.PowerStats.desktop", timestamp);
                 break;
         /* Note, no default so compiler catches missing keys */
         case C_DESKTOP_MEDIA_KEY_SEPARATOR:
