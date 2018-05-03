@@ -4147,9 +4147,6 @@ csd_power_manager_start (CsdPowerManager *manager,
         /* Set up a delay inhibitor to be informed about suspend attempts */
         inhibit_suspend (manager);
 
-        /* Disable logind's lid handling while g-s-d is active */
-        inhibit_lid_switch (manager);
-
         /* track the active session */
         manager->priv->session = cinnamon_settings_session_new ();
         g_signal_connect (manager->priv->session, "notify::state",
@@ -4168,6 +4165,9 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_session, "settings-daemon-uses-logind");
         manager->priv->inhibit_lid_switch_enabled =
                           g_settings_get_boolean (manager->priv->settings, "inhibit-lid-switch");
+
+        /* Disable logind's lid handling while g-s-d is active */
+        inhibit_lid_switch (manager);
 
         manager->priv->up_client = up_client_new ();
 #if ! UP_CHECK_VERSION(0,99,0)
