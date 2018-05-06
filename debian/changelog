@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (3.8.1) tara; urgency=medium
+
+  [ Eli Schwartz ]
+  * Remove vestigial manpage (#229)
+
+  [ Marcin Mielniczuk ]
+  * Fix the inhibit_lid_switch_enabled option being uninitialized while calling inhibit_lid_switch. (#231)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 06 May 2018 15:17:10 +0100
+
 cinnamon-settings-daemon (3.8.0) tara; urgency=medium
 
   [ brownsr ]
