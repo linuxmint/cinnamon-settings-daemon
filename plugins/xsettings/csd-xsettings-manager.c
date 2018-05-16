@@ -337,6 +337,30 @@ translate_string_string_toolbar (CinnamonSettingsXSettingsManager *manager,
         }
 }
 
+static void
+translate_string_string_window_buttons (CinnamonSettingsXSettingsManager *manager,
+                                 TranslationEntry      *trans,
+                                 GVariant              *value)
+{
+        int         i;
+        const char *tmp;
+
+        /* This is kind of a workaround. "menu" is useless in metacity titlebars
+         * it duplicates the same features as the right-click menu.
+         * In CSD windows on the hand it is required to show unique featues.
+         */
+        tmp = g_variant_get_string (value, NULL);
+        if (tmp && strcmp (tmp, ":minimize,maximize,close") == 0) {
+                tmp = "menu:minimize,maximize,close";
+        }
+
+        for (i = 0; manager->priv->managers [i]; i++) {
+                xsettings_manager_set_string (manager->priv->managers [i],
+                                              trans->xsetting_name,
+                                              tmp);
+        }
+}
+
 static TranslationEntry translations [] = {
         { "org.cinnamon.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
         { "org.cinnamon.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
@@ -363,7 +387,7 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
         { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
         { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
-        { "org.cinnamon.desktop.wm.preferences", "button-layout",  "Gtk/DecorationLayout",    translate_string_string },
+        { "org.cinnamon.desktop.wm.preferences", "button-layout",  "Gtk/DecorationLayout",    translate_string_string_window_buttons },
         { "org.cinnamon.desktop.wm.preferences", "action-double-click-titlebar",  "Gtk/TitlebarDoubleClick",    translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "action-middle-click-titlebar",  "Gtk/TitlebarMiddleClick",    translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar",  "Gtk/TitlebarRightClick",    translate_string_string },
