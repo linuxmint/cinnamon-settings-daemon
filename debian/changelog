@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (3.8.2) tara; urgency=medium
+
+  * CSD: Add menu to CSD windows when the layout is :minimize,maximize,close
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 16 May 2018 18:40:48 +0100
+
 cinnamon-settings-daemon (3.8.1) tara; urgency=medium
 
   [ Eli Schwartz ]
