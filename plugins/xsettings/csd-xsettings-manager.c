@@ -344,21 +344,53 @@ translate_string_string_window_buttons (CinnamonSettingsXSettingsManager *manage
 {
         int         i;
         const char *tmp;
+        gchar *ptr, *final_str;
 
         /* This is kind of a workaround. "menu" is useless in metacity titlebars
          * it duplicates the same features as the right-click menu.
          * In CSD windows on the hand it is required to show unique featues.
          */
+
         tmp = g_variant_get_string (value, NULL);
-        if (tmp && strcmp (tmp, ":minimize,maximize,close") == 0) {
-                tmp = "menu:minimize,maximize,close";
+
+        /* Check if menu is in the setting string already */
+        ptr = g_strstr_len (tmp, -1, "menu");
+
+        if (!ptr) {
+            /* If it wasn't there already, we add it... */
+
+            /* Simple cases, :* - all items on right, just prepend menu on left side*/
+            if (g_str_has_prefix (tmp, ":")) {
+                final_str = g_strdup_printf ("menu%s", tmp);
+            }
+            else
+            /* All items on left... * (no :), append menu - we want actual window
+               controls on the outside */
+            if (!g_strstr_len (tmp, -1, ":")) {
+                final_str = g_strdup_printf ("%s,menu", tmp);
+            }
+            else {
+                /* Items on both sides, split it, append menu to the lefthand, and re-
+                 * construct the string with the : separator */
+
+                gchar **split = g_strsplit (tmp, ":", 2);
+
+                final_str = g_strdup_printf ("%s,menu:%s", split[0], split[1]);
+
+                g_strfreev (split);
+            }
+        } else {
+            /* If menu was already included, just copy the original string */
+            final_str = g_strdup (tmp);
         }
 
         for (i = 0; manager->priv->managers [i]; i++) {
                 xsettings_manager_set_string (manager->priv->managers [i],
                                               trans->xsetting_name,
-                                              tmp);
+                                              final_str);
         }
+
+        g_free (final_str);
 }
 
 static TranslationEntry translations [] = {
