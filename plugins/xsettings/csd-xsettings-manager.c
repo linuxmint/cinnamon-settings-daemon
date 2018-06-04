@@ -614,6 +614,71 @@ xft_settings_get (CinnamonSettingsXSettingsManager *manager,
         }
 }
 
+/* Set environment variable.
+ * This should only work during the initialization phase. */
+static gboolean
+update_user_env_variable (const gchar  *variable,
+                          const gchar  *value,
+                          GError      **error)
+{
+    GDBusConnection *connection;
+    gboolean         environment_updated;
+    GVariant        *reply;
+    GError          *bus_error = NULL;
+
+    g_setenv (variable, value, TRUE);
+
+    environment_updated = FALSE;
+    connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, error);
+
+    if (connection == NULL) {
+        return FALSE;
+    }
+
+    reply = g_dbus_connection_call_sync (connection,
+                                         "org.gnome.SessionManager",
+                                         "/org/gnome/SessionManager",
+                                         "org.gnome.SessionManager",
+                                         "Setenv",
+                                         g_variant_new ("(ss)", variable, value),
+                                         NULL,
+                                         G_DBUS_CALL_FLAGS_NONE,
+                                         -1, NULL, &bus_error);
+
+    if (bus_error != NULL) {
+        g_propagate_error (error, bus_error);
+    } else {
+        environment_updated = TRUE;
+        g_variant_unref (reply);
+    }
+
+    g_clear_object (&connection);
+
+    return environment_updated;
+}
+
+static void
+update_qt_scale_vars (CinnamonSettingsXSettingsManager *manager,
+                      gint                              scale_factor)
+{
+    static gsize one_time = 0;
+
+    if (g_once_init_enter (&one_time)) {
+        GError *error = NULL;
+
+        if (!update_user_env_variable ("QT_AUTO_SCREEN_SCALE_FACTOR", "0", &error)) {
+            g_warning ("There was a problem when setting QT_AUTO_SCREEN_SCALE_FACTOR=0: %s", error->message);
+            g_clear_error (&error);
+        }
+        if (!update_user_env_variable ("QT_SCALE_FACTOR", scale_factor == 2 ? "2" : "1", &error)) {
+            g_warning ("There was a problem when setting QT_SCALE_FACTOR=%d: %s", scale_factor, error->message);
+            g_clear_error (&error);
+        }
+
+        g_once_init_leave (&one_time, 1);
+    }
+}
+
 static void
 xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
                             CinnamonSettingsXftSettings      *settings)
@@ -632,6 +697,9 @@ xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/CursorThemeSize", settings->cursor_size);
         }
+
+        update_qt_scale_vars (manager, settings->window_scale);
+
         cinnamon_settings_profile_end (NULL);
 }
 
