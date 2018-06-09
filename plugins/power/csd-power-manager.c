@@ -106,10 +106,10 @@ static const gchar introspection_xml[] =
     "<property name='Tooltip' type='s' access='read'>"
     "</property>"
     "<method name='GetPrimaryDevice'>"
-      "<arg name='device' type='(sssusdut)' direction='out' />"
+      "<arg name='device' type='(sssusduut)' direction='out' />"
     "</method>"
     "<method name='GetDevices'>"
-      "<arg name='devices' type='a(sssusdut)' direction='out' />"
+      "<arg name='devices' type='a(sssusduut)' direction='out' />"
     "</method>"
   "</interface>"
 "  <interface name='org.cinnamon.SettingsDaemon.Power.Screen'>"
@@ -4677,6 +4677,7 @@ device_to_variant_blob (UpDevice *device)
         GVariant *value;
         UpDeviceKind kind;
         UpDeviceState state;
+        UpDeviceLevel battery_level;
 
         icon = gpm_upower_get_device_icon (device, TRUE);
         device_icon = g_icon_to_string (icon);
@@ -4685,6 +4686,7 @@ device_to_variant_blob (UpDevice *device)
                       "model", &model,
                       "kind", &kind,
                       "percentage", &percentage,
+                      "battery-level", &battery_level,
                       "state", &state,
                       "time-to-empty", &time_empty,
                       "time-to-full", &time_full,
@@ -4702,7 +4704,7 @@ device_to_variant_blob (UpDevice *device)
                 object_path = CSD_POWER_DBUS_PATH;
 
         /* format complex object */
-        value = g_variant_new ("(sssusdut)",
+        value = g_variant_new ("(sssusduut)",
                                object_path,
                                vendor,
                                model,
@@ -4710,6 +4712,7 @@ device_to_variant_blob (UpDevice *device)
                                device_icon,
                                percentage,
                                state,
+                               battery_level,
                                time_state);
         g_free (device_icon);
         g_object_unref (icon);
@@ -4753,7 +4756,7 @@ handle_method_call_main (CsdPowerManager *manager,
         if (g_strcmp0 (method_name, "GetDevices") == 0) {
 
                 /* create builder */
-                builder = g_variant_builder_new (G_VARIANT_TYPE("a(sssusdut)"));
+                builder = g_variant_builder_new (G_VARIANT_TYPE("a(sssusduut)"));
 
                 /* add each tuple to the array */
                 array = manager->priv->devices_array;
