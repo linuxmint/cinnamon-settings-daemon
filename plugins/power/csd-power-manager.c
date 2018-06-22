@@ -3507,6 +3507,14 @@ idle_configure (CsdPowerManager *manager)
 }
 
 static void
+up_client_on_battery_cb (UpClient *client,
+                         GParamSpec *pspec,
+                         CsdPowerManager *manager)
+{
+        idle_configure (manager);
+}
+
+static void
 csd_power_manager_class_init (CsdPowerManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
@@ -4184,6 +4192,9 @@ csd_power_manager_start (CsdPowerManager *manager,
 #if UP_CHECK_VERSION(0,99,0)
         g_signal_connect_after (manager->priv->up_client, "notify::lid-is-closed",
                                 G_CALLBACK (lid_state_changed_cb), manager);
+
+        g_signal_connect (manager->priv->up_client, "notify::on-battery",
+                          G_CALLBACK (up_client_on_battery_cb), manager);
 #else
         g_signal_connect (manager->priv->up_client, "device-changed",
                           G_CALLBACK (engine_device_changed_cb), manager);
