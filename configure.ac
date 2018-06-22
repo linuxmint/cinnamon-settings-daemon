@@ -1,7 +1,7 @@
 AC_PREREQ([2.60])
 
 AC_INIT([cinnamon-settings-daemon],
-        [3.8.3],
+        [3.8.4],
         [https://github.com/linuxmint/cinnamon-settings-daemon/issues])
 
 AC_CONFIG_MACRO_DIR([m4])

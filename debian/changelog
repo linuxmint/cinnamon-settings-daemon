@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (3.8.4) tara; urgency=medium
+
+  * Power: Reconfigure idle timers when upower state changes
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 22 Jun 2018 20:57:51 +0200
+
 cinnamon-settings-daemon (3.8.3) tara; urgency=medium
 
   [ Michael Webster ]
