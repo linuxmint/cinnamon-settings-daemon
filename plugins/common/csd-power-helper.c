@@ -63,6 +63,65 @@ logind_suspend (void)
 }
 
 static void
+logind_hybrid_suspend (void)
+{
+        GDBusConnection *bus;
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+        g_dbus_connection_call (bus,
+                                LOGIND_DBUS_NAME,
+                                LOGIND_DBUS_PATH,
+                                LOGIND_DBUS_INTERFACE,
+                                "HybridSleep",
+                                g_variant_new ("(b)", TRUE),
+                                NULL, 0, G_MAXINT, NULL, NULL, NULL);
+        g_object_unref (bus);
+}
+
+static gboolean
+can_hybrid_sleep (void)
+{
+        GDBusConnection *bus;
+        GVariant *res;
+        gchar *rv;
+        gboolean can_hybrid;
+        GError *error = NULL;
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+        res = g_dbus_connection_call_sync (bus,
+                                           LOGIND_DBUS_NAME,
+                                           LOGIND_DBUS_PATH,
+                                           LOGIND_DBUS_INTERFACE,
+                                           "CanHybridSleep",
+                                           NULL,
+                                           G_VARIANT_TYPE_TUPLE,
+                                           0, G_MAXINT, NULL, &error);
+
+        g_object_unref (bus);
+
+        if (error) {
+          g_warning ("Calling CanHybridSleep failed: %s", error->message);
+          g_clear_error (&error);
+
+          return FALSE;
+        }
+
+        g_variant_get (res, "(s)", &rv);
+        g_variant_unref (res);
+
+        can_hybrid = g_strcmp0 (rv, "yes") == 0 ||
+                     g_strcmp0 (rv, "challenge") == 0;
+
+        if (!can_hybrid) {
+          g_warning ("logind does not support hybrid sleep");
+        }
+
+        g_free (rv);
+
+        return can_hybrid;
+}
+
+static void
 logind_hibernate (void)
 {
         GDBusConnection *bus;
@@ -169,10 +228,17 @@ upower_hibernate (GDBusProxy *upower_proxy)
 }
 
 void
-csd_power_suspend (gboolean use_logind, GDBusProxy *upower_proxy)
+csd_power_suspend (gboolean    use_logind,
+                   GDBusProxy *upower_proxy,
+                   gboolean    try_hybrid)
 {
   if (use_logind) {
-    logind_suspend ();
+    if (try_hybrid && can_hybrid_sleep ()) {
+      logind_hybrid_suspend ();
+    }
+    else {
+      logind_suspend ();
+    }
   }
   else {
     upower_suspend (upower_proxy);

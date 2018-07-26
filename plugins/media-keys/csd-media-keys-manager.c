@@ -167,7 +167,8 @@ struct CsdMediaKeysManagerPrivate
         /* logind stuff */
         GDBusProxy      *logind_proxy;
         gint             inhibit_keys_fd;
-        GSettings        *session_settings;
+        GSettings        *desktop_session_settings;
+        GSettings        *cinnamon_session_settings;
         gboolean         use_logind;
 
         /* Multihead stuff */
@@ -1458,7 +1459,10 @@ do_config_power_action (CsdMediaKeysManager *manager,
                                            config_key);
         switch (action_type) {
         case CSD_POWER_ACTION_SUSPEND:
-                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy);
+                ;
+                gboolean hybrid = g_settings_get_boolean (manager->priv->cinnamon_session_settings,
+                                                          "prefer-hybrid-sleep");
+                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy, hybrid);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown (manager);
@@ -1829,9 +1833,10 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
                                  CA_PROP_APPLICATION_ID, "org.gnome.VolumeControl",
                                  NULL);
 
-        manager->priv->session_settings = g_settings_new("org.cinnamon.desktop.session");
-        manager->priv->use_logind = g_settings_get_boolean (manager->priv->session_settings, "settings-daemon-uses-logind");
+        manager->priv->desktop_session_settings = g_settings_new("org.cinnamon.desktop.session");
+        manager->priv->use_logind = g_settings_get_boolean (manager->priv->desktop_session_settings, "settings-daemon-uses-logind");
 
+        manager->priv->cinnamon_session_settings = g_settings_new("org.cinnamon.SessionManager");
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
 
@@ -1949,6 +1954,21 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         if (priv->power_settings) {
                 g_object_unref (priv->power_settings);
                 priv->power_settings = NULL;
+        }
+
+        if (priv->desktop_session_settings) {
+                g_object_unref (priv->desktop_session_settings);
+                priv->desktop_session_settings = NULL;
+        }
+
+        if (priv->cinnamon_session_settings) {
+                g_object_unref (priv->cinnamon_session_settings);
+                priv->cinnamon_session_settings = NULL;
+        }
+
+        if (priv->interface_settings) {
+                g_object_unref (priv->interface_settings);
+                priv->interface_settings = NULL;
         }
 
         if (priv->power_screen_proxy) {

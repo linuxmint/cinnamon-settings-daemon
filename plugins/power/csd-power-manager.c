@@ -63,6 +63,7 @@
 #define CSD_POWER_SETTINGS_SCHEMA               "org.cinnamon.settings-daemon.plugins.power"
 #define CSD_XRANDR_SETTINGS_SCHEMA              "org.cinnamon.settings-daemon.plugins.xrandr"
 #define CSD_SESSION_SETTINGS_SCHEMA             "org.cinnamon.desktop.session"
+#define CSD_CINNAMON_SESSION_SCHEMA             "org.cinnamon.SessionManager"
 
 #define CSD_POWER_DBUS_SERVICE                  "org.cinnamon.SettingsDaemon.Power"
 #define CSD_POWER_DBUS_PATH                     "/org/cinnamon/SettingsDaemon/Power"
@@ -184,7 +185,8 @@ struct CsdPowerManagerPrivate
         GSettings               *settings;
         GSettings               *settings_screensaver;
         GSettings               *settings_xrandr;
-        GSettings               *settings_session;
+        GSettings               *settings_desktop_session;
+        GSettings               *settings_cinnamon_session;
         gboolean                use_logind;
         UpClient                *up_client;
         GDBusNodeInfo           *introspection_data;
@@ -1994,7 +1996,10 @@ do_power_action_type (CsdPowerManager *manager,
 
         switch (action_type) {
         case CSD_POWER_ACTION_SUSPEND:
-                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy);
+                ;
+                gboolean hybrid = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
+                                                          "prefer-hybrid-sleep");
+                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy, hybrid);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown ();
@@ -4169,8 +4174,9 @@ csd_power_manager_start (CsdPowerManager *manager,
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
         manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
-        manager->priv->settings_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
-        manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_session, "settings-daemon-uses-logind");
+        manager->priv->settings_desktop_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
+        manager->priv->settings_cinnamon_session = g_settings_new (CSD_CINNAMON_SESSION_SCHEMA);
+        manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_desktop_session, "settings-daemon-uses-logind");
         manager->priv->inhibit_lid_switch_enabled =
                           g_settings_get_boolean (manager->priv->settings, "inhibit-lid-switch");
 
@@ -4388,9 +4394,14 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 manager->priv->settings_xrandr = NULL;
         }
 
-        if (manager->priv->settings_session != NULL) {
-                g_object_unref (manager->priv->settings_session);
-                manager->priv->settings_session = NULL;
+        if (manager->priv->settings_desktop_session != NULL) {
+                g_object_unref (manager->priv->settings_desktop_session);
+                manager->priv->settings_desktop_session = NULL;
+        }
+
+        if (manager->priv->settings_cinnamon_session != NULL) {
+                g_object_unref (manager->priv->settings_cinnamon_session);
+                manager->priv->settings_cinnamon_session = NULL;
         }
 
         if (manager->priv->up_client != NULL) {
