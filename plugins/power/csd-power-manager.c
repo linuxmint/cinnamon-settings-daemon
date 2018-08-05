@@ -350,6 +350,17 @@ play_loop_start (CsdPowerManager *manager,
         return TRUE;
 }
 
+static gboolean
+should_lock_on_suspend (CsdPowerManager *manager)
+{
+    gboolean lock;
+
+    lock = g_settings_get_boolean (manager->priv->settings,
+                                   "lock-on-suspend");
+
+    return lock;
+}
+
 static void
 notify_close_if_showing (NotifyNotification *notification)
 {
@@ -1076,7 +1087,7 @@ engine_device_added_cb (UpClient *client, UpDevice *device, CsdPowerManager *man
 static void
 #if UP_CHECK_VERSION(0,99,0)
 engine_device_removed_cb (UpClient *client, const char *object_path, CsdPowerManager *manager)
- {
+{
         guint i;
 
         for (i = 0; i < manager->priv->devices_array->len; i++) {
@@ -1088,7 +1099,10 @@ engine_device_removed_cb (UpClient *client, const char *object_path, CsdPowerMan
                 }
         }
         engine_recalculate_state (manager);
+}
+
 #else
+
 engine_device_removed_cb (UpClient *client, UpDevice *device, CsdPowerManager *manager)
 {
         gboolean ret;
@@ -1096,8 +1110,8 @@ engine_device_removed_cb (UpClient *client, UpDevice *device, CsdPowerManager *m
         if (!ret)
                 return;
         engine_recalculate_state (manager);
-#endif
 }
+#endif
 
 static void
 on_notification_closed (NotifyNotification *notification, gpointer data)
@@ -2390,6 +2404,10 @@ suspend_with_lid_closed (CsdPowerManager *manager)
 #else
                 lock_screensaver (manager);
 #endif
+        }
+
+        if (should_lock_on_suspend (manager)) {
+                lock_screensaver (manager);
         }
 
         /* ensure we turn the panel back on after resume */
@@ -3991,12 +4009,7 @@ uninhibit_suspend (CsdPowerManager *manager)
 static void
 handle_suspend_actions (CsdPowerManager *manager)
 {
-        gboolean do_lock;
-
-        do_lock = g_settings_get_boolean (manager->priv->settings,
-                                          "lock-on-suspend");
-
-        if (do_lock) {
+        if (should_lock_on_suspend (manager)) {
             lock_screensaver (manager);
         }
 
