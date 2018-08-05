@@ -2153,10 +2153,21 @@ upower_kbd_handle_changed (GDBusProxy *proxy,
 
         g_debug("keyboard changed signal");
 
-        g_variant_get (parameters, "(i)", &manager->priv->kbd_brightness_now);
-        g_variant_unref (parameters);
+        if (g_strcmp0 (signal_name, "BrightnessChangedWithSource") == 0) {
+                g_debug ("Received upower kbdbacklight BrightnessChangedWithSource");
+                const gchar *source;
+                gint brightness;
 
-        upower_kbd_emit_changed(manager);
+                g_variant_get (parameters, "(i&s)", &brightness, &source);
+                g_printerr ("source: '%s'\n", source);
+                if (g_strcmp0 (source, "external") == 0) {
+                    return;
+                }
+
+                manager->priv->kbd_brightness_now = brightness;
+                upower_kbd_emit_changed(manager);
+        }
+
 }
 
 static gboolean
@@ -4555,8 +4566,10 @@ handle_method_call_keyboard (CsdPowerManager *manager,
                 g_debug ("keyboard set percentage");
 
                 guint value_tmp;
-                g_variant_get (parameters, "(u)", &value_tmp);
-                ret = upower_kbd_set_brightness (manager, PERCENTAGE_TO_ABS(0, manager->priv->kbd_brightness_max, value_tmp), &error);
+                g_variant_get (parameters, "(u)", &percentage);
+                value_tmp = PERCENTAGE_TO_ABS (0, manager->priv->kbd_brightness_max, percentage);
+
+                ret = upower_kbd_set_brightness (manager, value_tmp, &error);
                 if (ret)
                         value = value_tmp;
 
@@ -4589,8 +4602,7 @@ handle_method_call_keyboard (CsdPowerManager *manager,
                                                 manager->priv->kbd_brightness_max,
                                                 value);
                 g_dbus_method_invocation_return_value (invocation,
-                                                       g_variant_new ("(u)",
-                                                                      percentage));
+                                                       g_variant_new ("(u)", percentage));
         }
 }
 
