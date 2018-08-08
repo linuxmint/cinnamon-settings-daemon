@@ -796,7 +796,8 @@ csd_ldsm_clean (void)
         g_clear_object (&ldsm_monitor);
         g_clear_object (&settings);
         g_clear_object (&dialog);
-        g_clear_pointer (&notification, notify_notification_close);
+        if (notification != NULL)
+                notify_notification_close (notification, NULL);
         g_slist_free_full (ignore_paths, g_free);
         ignore_paths = NULL;
 }
