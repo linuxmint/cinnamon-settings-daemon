@@ -14,6 +14,33 @@ polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 csd_backlight_helper_SOURCES =				\
 	csd-backlight-helper.c
 
+csd-power-proxy.h : Makefile.am org.cinnamon.SettingsDaemon.Power.xml
+	gdbus-codegen                                       \
+		--c-namespace Csd                      \
+		--annotate "org.cinnamon.SettingsDaemon.Power" org.gtk.GDBus.C.Name "Power"    \
+		--generate-c-code csd-power-proxy \
+		org.cinnamon.SettingsDaemon.Power.xml                          \
+		$(NULL)
+csd-power-proxy.c : csd-power-proxy.h
+
+csd-power-screen-proxy.h : Makefile.am org.cinnamon.SettingsDaemon.Power.Screen.xml
+	gdbus-codegen                                       \
+		--c-namespace Csd                      \
+		--annotate "org.cinnamon.SettingsDaemon.Power.Screen" org.gtk.GDBus.C.Name "Screen"    \
+		--generate-c-code csd-power-screen-proxy \
+		org.cinnamon.SettingsDaemon.Power.Screen.xml                          \
+		$(NULL)
+csd-power-screen-proxy.c : csd-power-screen-proxy.h
+
+csd-power-keyboard-proxy.h : Makefile.am org.cinnamon.SettingsDaemon.Power.Keyboard.xml
+	gdbus-codegen                                       \
+		--c-namespace Csd                      \
+		--annotate "org.cinnamon.SettingsDaemon.Power.Keyboard" org.gtk.GDBus.C.Name "Keyboard"    \
+		--generate-c-code csd-power-keyboard-proxy \
+		org.cinnamon.SettingsDaemon.Power.Keyboard.xml                          \
+		$(NULL)
+csd-power-keyboard-proxy.c : csd-power-keyboard-proxy.h
+
 libexec_PROGRAMS = csd-power
 csd_power_SOURCES =				\
 	gpm-common.c					\
@@ -22,6 +49,12 @@ csd_power_SOURCES =				\
 	gpm-phone.h					\
 	gpm-idletime.c					\
 	gpm-idletime.h					\
+	csd-power-proxy.c \
+	csd-power-proxy.h  \
+	csd-power-screen-proxy.c \
+	csd-power-screen-proxy.h \
+	csd-power-keyboard-proxy.c \
+	csd-power-keyboard-proxy.h \
 	csd-power-manager.c				\
 	csd-power-manager.h				\
 	main.c

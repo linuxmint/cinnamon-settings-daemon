@@ -1,0 +1,25 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+                      "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!-- GDBus 2.48.1 -->
+
+<node>
+  <interface name='org.cinnamon.SettingsDaemon.Power.Screen'>
+    <method name='StepUp'>
+      <arg type='u' name='new_percentage' direction='out'/>
+      <arg type='i' name='output_id' direction='out'/>
+    </method>
+    <method name='StepDown'>
+      <arg type='u' name='new_percentage' direction='out'/>
+      <arg type='i' name='output_id' direction='out'/>
+    </method>
+    <method name='GetPercentage'>
+      <arg type='u' name='percentage' direction='out'/>
+    </method>
+    <method name='SetPercentage'>
+      <arg type='u' name='percentage' direction='in'/>
+      <arg type='u' name='new_percentage' direction='out'/>
+    </method>
+    <signal name='Changed'>
+    </signal>
+  </interface>
+</node>

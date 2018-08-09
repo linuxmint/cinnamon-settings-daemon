@@ -47,6 +47,9 @@
 #include "csd-enums.h"
 #include "csd-power-manager.h"
 #include "csd-power-helper.h"
+#include "csd-power-proxy.h"
+#include "csd-power-screen-proxy.h"
+#include "csd-power-keyboard-proxy.h"
 
 #define GNOME_SESSION_DBUS_NAME                 "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH                 "/org/gnome/SessionManager"
@@ -65,7 +68,6 @@
 #define CSD_SESSION_SETTINGS_SCHEMA             "org.cinnamon.desktop.session"
 #define CSD_CINNAMON_SESSION_SCHEMA             "org.cinnamon.SessionManager"
 
-#define CSD_POWER_DBUS_SERVICE                  "org.cinnamon.SettingsDaemon.Power"
 #define CSD_POWER_DBUS_PATH                     "/org/cinnamon/SettingsDaemon/Power"
 #define CSD_POWER_DBUS_INTERFACE                "org.cinnamon.SettingsDaemon.Power"
 #define CSD_POWER_DBUS_INTERFACE_SCREEN         "org.cinnamon.SettingsDaemon.Power.Screen"
@@ -98,61 +100,6 @@ enum {
         CSD_POWER_IDLETIME_SLEEP_ID
 };
 
-static const gchar introspection_xml[] =
-"<node>"
-  "<interface name='org.cinnamon.SettingsDaemon.Power'>"
-    "<property name='Icon' type='s' access='read'>"
-    "</property>"
-    "<property name='Tooltip' type='s' access='read'>"
-    "</property>"
-    "<method name='GetPrimaryDevice'>"
-      "<arg name='device' type='(sssusduut)' direction='out' />"
-    "</method>"
-    "<method name='GetDevices'>"
-      "<arg name='devices' type='a(sssusduut)' direction='out' />"
-    "</method>"
-  "</interface>"
-"  <interface name='org.cinnamon.SettingsDaemon.Power.Screen'>"
-"    <method name='StepUp'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"      <arg type='i' name='output_id' direction='out'/>"
-"    </method>"
-"    <method name='StepDown'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"      <arg type='i' name='output_id' direction='out'/>"
-"    </method>"
-"    <method name='GetPercentage'>"
-"      <arg type='u' name='percentage' direction='out'/>"
-"    </method>"
-"    <method name='SetPercentage'>"
-"      <arg type='u' name='percentage' direction='in'/>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"    </method>"
-"    <signal name='Changed'>"
-"    </signal>"
-"  </interface>"
-"  <interface name='org.cinnamon.SettingsDaemon.Power.Keyboard'>"
-"    <method name='StepUp'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"    </method>"
-"    <method name='StepDown'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"    </method>"
-"    <method name='Toggle'>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"    </method>"
-"    <method name='GetPercentage'>"
-"      <arg type='u' name='percentage' direction='out'/>"
-"    </method>"
-"    <method name='SetPercentage'>"
-"      <arg type='u' name='percentage' direction='in'/>"
-"      <arg type='u' name='new_percentage' direction='out'/>"
-"    </method>"
-"    <signal name='Changed'>"
-"    </signal>"
-"  </interface>"
-"</node>";
-
 /* on ACPI machines we have 4-16 levels, on others it's ~150 */
 #define BRIGHTNESS_STEP_AMOUNT(max) ((max) < 20 ? 1 : (max) / 20)
 
@@ -180,7 +127,12 @@ typedef enum {
 struct CsdPowerManagerPrivate
 {
         CinnamonSettingsSession    *session;
-        guint                    name_id;
+        guint                    p_name_id;
+        guint                    s_name_id;
+        guint                    k_name_id;
+        CsdPower                 *power_iface;
+        CsdScreen                *screen_iface;
+        CsdKeyboard              *keyboard_iface;
         gboolean                 lid_is_closed;
         GSettings               *settings;
         GSettings               *settings_screensaver;
@@ -189,7 +141,6 @@ struct CsdPowerManagerPrivate
         GSettings               *settings_cinnamon_session;
         gboolean                use_logind;
         UpClient                *up_client;
-        GDBusNodeInfo           *introspection_data;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusProxy              *upower_proxy;
@@ -403,81 +354,37 @@ typedef enum {
         WARNING_ACTION          = 4
 } CsdPowerManagerWarning;
 
-static GVariant *
-engine_get_icon_property_variant (CsdPowerManager  *manager)
-{
-        GIcon *icon;
-        GVariant *retval;
-
-        icon = engine_get_icon (manager);
-        if (icon != NULL) {
-                char *str;
-                str = g_icon_to_string (icon);
-                g_object_unref (icon);
-                retval = g_variant_new_string (str);
-                g_free (str);
-        } else {
-                retval = g_variant_new_string ("");
-        }
-        return retval;
-}
-
-static GVariant *
-engine_get_tooltip_property_variant (CsdPowerManager  *manager)
-{
-        char *tooltip;
-        GVariant *retval;
-
-        tooltip = engine_get_summary (manager);
-        retval = g_variant_new_string (tooltip != NULL ? tooltip : "");
-        g_free (tooltip);
-
-        return retval;
-}
-
 static void
 engine_emit_changed (CsdPowerManager *manager,
                      gboolean         icon_changed,
                      gboolean         state_changed)
 {
-        GVariantBuilder props_builder;
-        GVariant *props_changed = NULL;
-        GError *error = NULL;
-
         /* not yet connected to the bus */
-        if (manager->priv->connection == NULL)
+        if (manager->priv->power_iface == NULL)
                 return;
 
-        g_variant_builder_init (&props_builder, G_VARIANT_TYPE ("a{sv}"));
+        if (icon_changed) {
+                GIcon *gicon;
+                gchar *gicon_str;
 
-        if (icon_changed)
-                g_variant_builder_add (&props_builder, "{sv}", "Icon",
-                                       engine_get_icon_property_variant (manager));
-        if (state_changed)
-                g_variant_builder_add (&props_builder, "{sv}", "Tooltip",
-                                       engine_get_tooltip_property_variant (manager));
+                gicon = engine_get_icon (manager);
+                gicon_str = g_icon_to_string (gicon);
 
-        props_changed = g_variant_new ("(s@a{sv}@as)", CSD_POWER_DBUS_INTERFACE,
-                                       g_variant_builder_end (&props_builder),
-                                       g_variant_new_strv (NULL, 0));
-        g_variant_ref_sink (props_changed);
+                csd_power_set_icon (manager->priv->power_iface, gicon_str);
 
-        if (!g_dbus_connection_emit_signal (manager->priv->connection,
-                                            NULL,
-                                            CSD_POWER_DBUS_PATH,
-                                            "org.freedesktop.DBus.Properties",
-                                            "PropertiesChanged",
-                                            props_changed,
-                                            &error))
-                goto out;
-
- out:
-        if (error) {
-                g_warning ("%s", error->message);
-                g_clear_error (&error);
+                g_free (gicon_str);
+                g_object_unref (gicon);
         }
-        if (props_changed)
-                g_variant_unref (props_changed);
+
+        if (state_changed) {
+                gchar *tooltip;
+
+                tooltip = engine_get_summary (manager);
+
+                csd_power_set_tooltip (manager->priv->power_iface, tooltip);
+
+                g_free (tooltip);
+        }
 }
 
 static CsdPowerManagerWarning
@@ -2066,23 +1973,11 @@ upower_kbd_get_percentage (CsdPowerManager *manager, GError **error)
 static void
 upower_kbd_emit_changed (CsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         /* not yet connected to the bus */
-        if (manager->priv->connection == NULL)
+        if (manager->priv->keyboard_iface == NULL)
                 return;
-        ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             CSD_POWER_DBUS_SERVICE,
-                                             CSD_POWER_DBUS_PATH,
-                                             CSD_POWER_DBUS_INTERFACE_KEYBOARD,
-                                             "Changed",
-                                             NULL,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to emit Changed: %s", error->message);
-                g_error_free (error);
-        }
+
+        csd_keyboard_emit_changed (manager->priv->keyboard_iface);
 }
 
 static gboolean
@@ -2159,7 +2054,7 @@ upower_kbd_handle_changed (GDBusProxy *proxy,
                 gint brightness;
 
                 g_variant_get (parameters, "(i&s)", &brightness, &source);
-                g_printerr ("source: '%s'\n", source);
+
                 if (g_strcmp0 (source, "external") == 0) {
                     return;
                 }
@@ -2873,23 +2768,11 @@ backlight_get_max (CsdPowerManager *manager, GError **error)
 static void
 backlight_emit_changed (CsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         /* not yet connected to the bus */
-        if (manager->priv->connection == NULL)
+        if (manager->priv->screen_iface == NULL)
                 return;
-        ret = g_dbus_connection_emit_signal (manager->priv->connection,
-                                             CSD_POWER_DBUS_SERVICE,
-                                             CSD_POWER_DBUS_PATH,
-                                             CSD_POWER_DBUS_INTERFACE_SCREEN,
-                                             "Changed",
-                                             NULL,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to emit Changed: %s", error->message);
-                g_error_free (error);
-        }
+
+        csd_screen_emit_changed (manager->priv->screen_iface);
 }
 
 static gboolean
@@ -4384,11 +4267,6 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 manager->priv->bus_cancellable = NULL;
         }
 
-        if (manager->priv->introspection_data) {
-                g_dbus_node_info_unref (manager->priv->introspection_data);
-                manager->priv->introspection_data = NULL;
-        }
-
         kill_lid_close_safety_timer (manager);
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
@@ -4518,6 +4396,10 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 g_source_remove (manager->priv->xscreensaver_watchdog_timer_id);
                 manager->priv->xscreensaver_watchdog_timer_id = 0;
         }
+
+        g_clear_object (&manager->priv->power_iface);
+        g_clear_object (&manager->priv->screen_iface);
+        g_clear_object (&manager->priv->keyboard_iface);
 }
 
 static void
@@ -4537,11 +4419,70 @@ csd_power_manager_finalize (GObject *object)
 
         g_return_if_fail (manager->priv != NULL);
 
-        if (manager->priv->name_id != 0)
-                g_bus_unown_name (manager->priv->name_id);
+        if (manager->priv->p_name_id != 0)
+                g_bus_unown_name (manager->priv->p_name_id);
 
+        if (manager->priv->s_name_id != 0)
+                g_bus_unown_name (manager->priv->s_name_id);
+
+        if (manager->priv->k_name_id != 0)
+                g_bus_unown_name (manager->priv->k_name_id);
 
         G_OBJECT_CLASS (csd_power_manager_parent_class)->finalize (object);
+}
+
+static GVariant *
+device_to_variant_blob (UpDevice *device)
+{
+        const gchar *object_path, *vendor, *model;
+        gchar *device_icon;
+        gdouble percentage;
+        GIcon *icon;
+        guint64 time_empty, time_full;
+        guint64 time_state = 0;
+        GVariant *value;
+        UpDeviceKind kind;
+        UpDeviceState state;
+        UpDeviceLevel battery_level;
+
+        icon = gpm_upower_get_device_icon (device, TRUE);
+        device_icon = g_icon_to_string (icon);
+        g_object_get (device,
+                      "vendor", &vendor,
+                      "model", &model,
+                      "kind", &kind,
+                      "percentage", &percentage,
+                      "battery-level", &battery_level,
+                      "state", &state,
+                      "time-to-empty", &time_empty,
+                      "time-to-full", &time_full,
+                      NULL);
+
+        /* only return time for these simple states */
+        if (state == UP_DEVICE_STATE_DISCHARGING)
+                time_state = time_empty;
+        else if (state == UP_DEVICE_STATE_CHARGING)
+                time_state = time_full;
+
+        /* get an object path, even for the composite device */
+        object_path = up_device_get_object_path (device);
+        if (object_path == NULL)
+                object_path = CSD_POWER_DBUS_PATH;
+
+        /* format complex object */
+        value = g_variant_new ("(sssusduut)",
+                               object_path,
+                               vendor,
+                               model,
+                               kind,
+                               device_icon,
+                               percentage,
+                               state,
+                               battery_level,
+                               time_state);
+        g_free (device_icon);
+        g_object_unref (icon);
+        return value;
 }
 
 /* returns new level */
@@ -4588,6 +4529,7 @@ handle_method_call_keyboard (CsdPowerManager *manager,
 
         } else if (g_strcmp0 (method_name, "Toggle") == 0) {
                 ret = upower_kbd_toggle (manager, &error);
+                value = manager->priv->kbd_brightness_now;
         } else {
                 g_assert_not_reached ();
         }
@@ -4665,191 +4607,241 @@ handle_method_call_screen (CsdPowerManager *manager,
         }
 }
 
-static GVariant *
-device_to_variant_blob (UpDevice *device)
+static gboolean
+screen_iface_method_cb (CsdScreen              *object,
+                        GDBusMethodInvocation *invocation,
+                        gpointer               user_data)
 {
-        const gchar *object_path, *vendor, *model;
-        gchar *device_icon;
-        gdouble percentage;
-        GIcon *icon;
-        guint64 time_empty, time_full;
-        guint64 time_state = 0;
-        GVariant *value;
-        UpDeviceKind kind;
-        UpDeviceState state;
-        UpDeviceLevel battery_level;
+    CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
 
-        icon = gpm_upower_get_device_icon (device, TRUE);
-        device_icon = g_icon_to_string (icon);
-        g_object_get (device,
-                      "vendor", &vendor,
-                      "model", &model,
-                      "kind", &kind,
-                      "percentage", &percentage,
-                      "battery-level", &battery_level,
-                      "state", &state,
-                      "time-to-empty", &time_empty,
-                      "time-to-full", &time_full,
-                      NULL);
+    handle_method_call_screen (manager,
+                               g_dbus_method_invocation_get_method_name (invocation),
+                               g_dbus_method_invocation_get_parameters (invocation),
+                               invocation);
 
-        /* only return time for these simple states */
-        if (state == UP_DEVICE_STATE_DISCHARGING)
-                time_state = time_empty;
-        else if (state == UP_DEVICE_STATE_CHARGING)
-                time_state = time_full;
-
-        /* get an object path, even for the composite device */
-        object_path = up_device_get_object_path (device);
-        if (object_path == NULL)
-                object_path = CSD_POWER_DBUS_PATH;
-
-        /* format complex object */
-        value = g_variant_new ("(sssusduut)",
-                               object_path,
-                               vendor,
-                               model,
-                               kind,
-                               device_icon,
-                               percentage,
-                               state,
-                               battery_level,
-                               time_state);
-        g_free (device_icon);
-        g_object_unref (icon);
-        return value;
+    return TRUE;
 }
 
-static void
-handle_method_call_main (CsdPowerManager *manager,
-                         const gchar *method_name,
-                         GVariant *parameters,
-                         GDBusMethodInvocation *invocation)
+static gboolean
+screen_iface_set_method_cb (CsdScreen              *object,
+                            GDBusMethodInvocation *invocation,
+                            guint                  percent,
+                            gpointer               user_data)
 {
+    CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+    handle_method_call_screen (manager,
+                               g_dbus_method_invocation_get_method_name (invocation),
+                               g_dbus_method_invocation_get_parameters (invocation),
+                               invocation);
+
+    return TRUE;
+}
+
+static gboolean
+keyboard_iface_method_cb (CsdScreen              *object,
+                           GDBusMethodInvocation *invocation,
+                           gpointer               user_data)
+{
+    CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+    handle_method_call_keyboard (manager,
+                                 g_dbus_method_invocation_get_method_name (invocation),
+                                 g_dbus_method_invocation_get_parameters (invocation),
+                                 invocation);
+
+    return TRUE;
+}
+
+static gboolean
+keyboard_iface_set_method_cb (CsdScreen              *object,
+                              GDBusMethodInvocation *invocation,
+                              guint                  percent,
+                              gpointer               user_data)
+{
+    CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+    handle_method_call_keyboard (manager,
+                                 g_dbus_method_invocation_get_method_name (invocation),
+                                 g_dbus_method_invocation_get_parameters (invocation),
+                                 invocation);
+
+    return TRUE;
+}
+
+static gboolean
+power_iface_handle_get_primary_device (CsdPower              *object,
+                                       GDBusMethodInvocation *invocation,
+                                       gpointer               user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+        UpDevice *device;
+        GVariant *tuple = NULL;
+        GVariant *value = NULL;
+
+        g_debug ("Handling Power interface method GetPrimaryDevice");
+
+        /* get the virtual device */
+        device = engine_get_primary_device (manager);
+        if (device == NULL) {
+                g_dbus_method_invocation_return_dbus_error (invocation,
+                                                            "org.cinnamon.SettingsDaemon.Power.Failed",
+                                                            "There is no primary device.");
+                return TRUE;
+        }
+
+        /* return the value */
+        value = device_to_variant_blob (device);
+        tuple = g_variant_new_tuple (&value, 1);
+        g_dbus_method_invocation_return_value (invocation, tuple);
+        g_object_unref (device);
+
+        return TRUE;
+}
+
+static gboolean
+power_iface_handle_get_devices (CsdPower              *object,
+                                GDBusMethodInvocation *invocation,
+                                gpointer               user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+        UpDevice *device;
         GPtrArray *array;
         guint i;
         GVariantBuilder *builder;
         GVariant *tuple = NULL;
         GVariant *value = NULL;
-        UpDevice *device;
 
-        /* return object */
-        if (g_strcmp0 (method_name, "GetPrimaryDevice") == 0) {
+        g_debug ("Handling Power interface method GetDevices");
 
-                /* get the virtual device */
-                device = engine_get_primary_device (manager);
-                if (device == NULL) {
-                        g_dbus_method_invocation_return_dbus_error (invocation,
-                                                                    "org.cinnamon.SettingsDaemon.Power.Failed",
-                                                                    "There is no primary device.");
-                        return;
-                }
+        /* create builder */
+        builder = g_variant_builder_new (G_VARIANT_TYPE("a(sssusduut)"));
 
-                /* return the value */
+        /* add each tuple to the array */
+        array = manager->priv->devices_array;
+        for (i=0; i<array->len; i++) {
+                device = g_ptr_array_index (array, i);
                 value = device_to_variant_blob (device);
-                tuple = g_variant_new_tuple (&value, 1);
-                g_dbus_method_invocation_return_value (invocation, tuple);
-                g_object_unref (device);
-                return;
+                g_variant_builder_add_value (builder, value);
         }
 
-        /* return array */
-        if (g_strcmp0 (method_name, "GetDevices") == 0) {
+        /* return the value */
+        value = g_variant_builder_end (builder);
+        tuple = g_variant_new_tuple (&value, 1);
+        g_dbus_method_invocation_return_value (invocation, tuple);
+        g_variant_builder_unref (builder);
 
-                /* create builder */
-                builder = g_variant_builder_new (G_VARIANT_TYPE("a(sssusduut)"));
-
-                /* add each tuple to the array */
-                array = manager->priv->devices_array;
-                for (i=0; i<array->len; i++) {
-                        device = g_ptr_array_index (array, i);
-                        value = device_to_variant_blob (device);
-                        g_variant_builder_add_value (builder, value);
-                }
-
-                /* return the value */
-                value = g_variant_builder_end (builder);
-                tuple = g_variant_new_tuple (&value, 1);
-                g_dbus_method_invocation_return_value (invocation, tuple);
-                g_variant_builder_unref (builder);
-                return;
-        }
-
-        g_assert_not_reached ();
+        return TRUE;
 }
 
 static void
-handle_method_call (GDBusConnection       *connection,
-                    const gchar           *sender,
-                    const gchar           *object_path,
-                    const gchar           *interface_name,
-                    const gchar           *method_name,
-                    GVariant              *parameters,
-                    GDBusMethodInvocation *invocation,
-                    gpointer               user_data)
+power_name_acquired (GDBusConnection *connection,
+                     const gchar     *name,
+                     gpointer         user_data)
 {
+        CsdPower *iface;
         CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
 
-        /* Check session pointer as a proxy for whether the manager is in the
-           start or stop state */
-        if (manager->priv->session == NULL) {
-                return;
-        }
+        iface = csd_power_skeleton_new ();
 
-        g_debug ("Calling method '%s.%s' for Power",
-                 interface_name, method_name);
+        g_signal_connect (iface,
+                          "handle-get-primary-device",
+                          G_CALLBACK (power_iface_handle_get_primary_device),
+                          manager);
 
-        if (g_strcmp0 (interface_name, CSD_POWER_DBUS_INTERFACE) == 0) {
-                handle_method_call_main (manager,
-                                         method_name,
-                                         parameters,
-                                         invocation);
-        } else if (g_strcmp0 (interface_name, CSD_POWER_DBUS_INTERFACE_SCREEN) == 0) {
-                handle_method_call_screen (manager,
-                                           method_name,
-                                           parameters,
-                                           invocation);
-        } else if (g_strcmp0 (interface_name, CSD_POWER_DBUS_INTERFACE_KEYBOARD) == 0) {
-                handle_method_call_keyboard (manager,
-                                             method_name,
-                                             parameters,
-                                             invocation);
-        } else {
-                g_warning ("not recognised interface: %s", interface_name);
-        }
+        g_signal_connect (iface,
+                          "handle-get-devices",
+                          G_CALLBACK (power_iface_handle_get_devices),
+                          manager);
+
+        g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (iface),
+                                          connection,
+                                          CSD_POWER_DBUS_PATH,
+                                          NULL);
+
+        manager->priv->power_iface = iface;
 }
 
-static GVariant *
-handle_get_property (GDBusConnection *connection,
-                     const gchar *sender,
-                     const gchar *object_path,
-                     const gchar *interface_name,
-                     const gchar *property_name,
-                     GError **error, gpointer user_data)
+static void
+screen_name_acquired (GDBusConnection *connection,
+                     const gchar     *name,
+                     gpointer         user_data)
 {
+        CsdScreen *iface;
         CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
-        GVariant *retval = NULL;
 
-        /* Check session pointer as a proxy for whether the manager is in the
-           start or stop state */
-        if (manager->priv->session == NULL) {
-                return NULL;
-        }
+        iface = csd_screen_skeleton_new ();
 
-        if (g_strcmp0 (property_name, "Icon") == 0) {
-                retval = engine_get_icon_property_variant (manager);
-        } else if (g_strcmp0 (property_name, "Tooltip") == 0) {
-                retval = engine_get_tooltip_property_variant (manager);
-        }
+        g_signal_connect (iface,
+                          "handle-get-percentage",
+                          G_CALLBACK (screen_iface_method_cb),
+                          manager);
 
-        return retval;
+        g_signal_connect (iface,
+                          "handle-set-percentage",
+                          G_CALLBACK (screen_iface_set_method_cb),
+                          manager);
+
+        g_signal_connect (iface,
+                          "handle-step-down",
+                          G_CALLBACK (screen_iface_method_cb),
+                          manager);
+
+        g_signal_connect (iface,
+                          "handle-step-up",
+                          G_CALLBACK (screen_iface_method_cb),
+                          manager);
+
+        g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (iface),
+                                          connection,
+                                          CSD_POWER_DBUS_PATH,
+                                          NULL);
+
+        manager->priv->screen_iface = iface;
 }
 
-static const GDBusInterfaceVTable interface_vtable =
+static void
+keyboard_name_acquired (GDBusConnection *connection,
+                        const gchar     *name,
+                        gpointer         user_data)
 {
-        handle_method_call,
-        handle_get_property,
-        NULL, /* SetProperty */
-};
+        CsdKeyboard *iface;
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+        iface = csd_keyboard_skeleton_new ();
+
+        g_signal_connect (iface,
+                          "handle-get-percentage",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (iface,
+                          "handle-set-percentage",
+                          G_CALLBACK (keyboard_iface_set_method_cb),
+                          manager);
+
+        g_signal_connect (iface,
+                          "handle-step-down",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (iface,
+                          "handle-step-up",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (iface,
+                          "handle-toggle",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (iface),
+                                          connection,
+                                          CSD_POWER_DBUS_PATH,
+                                          NULL);
+
+        manager->priv->keyboard_iface = iface;
+}
 
 static void
 on_bus_gotten (GObject             *source_object,
@@ -4857,9 +4849,7 @@ on_bus_gotten (GObject             *source_object,
                CsdPowerManager     *manager)
 {
         GDBusConnection *connection;
-        GDBusInterfaceInfo **infos;
         GError *error = NULL;
-        guint i;
 
         if (manager->priv->bus_cancellable == NULL ||
             g_cancellable_is_cancelled (manager->priv->bus_cancellable)) {
@@ -4873,33 +4863,36 @@ on_bus_gotten (GObject             *source_object,
                 g_error_free (error);
                 return;
         }
-        manager->priv->connection = connection;
-        infos = manager->priv->introspection_data->interfaces;
-        for (i = 0; infos[i] != NULL; i++) {
-                g_dbus_connection_register_object (connection,
-                                                   CSD_POWER_DBUS_PATH,
-                                                   infos[i],
-                                                   &interface_vtable,
-                                                   manager,
-                                                   NULL,
-                                                   NULL);
-        }
 
-        manager->priv->name_id = g_bus_own_name_on_connection (connection,
-                                                               CSD_POWER_DBUS_INTERFACE,
-                                                               G_BUS_NAME_OWNER_FLAGS_NONE,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL,
-                                                               NULL);
+        manager->priv->connection = connection;
+
+        manager->priv->p_name_id = g_bus_own_name_on_connection (connection,
+                                                                 CSD_POWER_DBUS_INTERFACE,
+                                                                 G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                                 power_name_acquired,
+                                                                 NULL,
+                                                                 manager,
+                                                                 NULL);
+        manager->priv->s_name_id = g_bus_own_name_on_connection (connection,
+                                                                 CSD_POWER_DBUS_INTERFACE_SCREEN,
+                                                                 G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                                 screen_name_acquired,
+                                                                 NULL,
+                                                                 manager,
+                                                                 NULL);
+        manager->priv->k_name_id = g_bus_own_name_on_connection (connection,
+                                                                 CSD_POWER_DBUS_INTERFACE_KEYBOARD,
+                                                                 G_BUS_NAME_OWNER_FLAGS_NONE,
+                                                                 keyboard_name_acquired,
+                                                                 NULL,
+                                                                 manager,
+                                                                 NULL);
 }
 
 static void
 register_manager_dbus (CsdPowerManager *manager)
 {
-        manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
         manager->priv->bus_cancellable = g_cancellable_new ();
-        g_assert (manager->priv->introspection_data != NULL);
 
         g_bus_get (G_BUS_TYPE_SESSION,
                    manager->priv->bus_cancellable,
