@@ -4760,6 +4760,8 @@ power_name_acquired (GDBusConnection *connection,
                                           NULL);
 
         manager->priv->power_iface = iface;
+
+        engine_recalculate_state (manager);
 }
 
 static void
@@ -4798,6 +4800,8 @@ screen_name_acquired (GDBusConnection *connection,
                                           NULL);
 
         manager->priv->screen_iface = iface;
+
+        backlight_emit_changed (manager);
 }
 
 static void
@@ -4841,6 +4845,8 @@ keyboard_name_acquired (GDBusConnection *connection,
                                           NULL);
 
         manager->priv->keyboard_iface = iface;
+
+        upower_kbd_emit_changed (manager);
 }
 
 static void
