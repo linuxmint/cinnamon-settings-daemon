@@ -4526,7 +4526,10 @@ handle_method_call_keyboard (CsdPowerManager *manager,
                 step = BRIGHTNESS_STEP_AMOUNT (manager->priv->kbd_brightness_max);
                 value = MAX (manager->priv->kbd_brightness_now - step, 0);
                 ret = upower_kbd_set_brightness (manager, value, &error);
-
+        } else if (g_strcmp0 (method_name, "GetStep") == 0) {
+                g_debug ("keyboard get step");
+                value = BRIGHTNESS_STEP_AMOUNT (manager->priv->kbd_brightness_max);
+                ret = (value > 0);
         } else if (g_strcmp0 (method_name, "Toggle") == 0) {
                 ret = upower_kbd_toggle (manager, &error);
                 value = manager->priv->kbd_brightness_now;
@@ -4831,6 +4834,11 @@ keyboard_name_acquired (GDBusConnection *connection,
 
         g_signal_connect (iface,
                           "handle-step-up",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (iface,
+                          "handle-get-step",
                           G_CALLBACK (keyboard_iface_method_cb),
                           manager);
 
