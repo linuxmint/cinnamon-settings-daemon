@@ -1,3 +1,11 @@
+cinnamon-settings-daemon (3.8.5) tara; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-helper: Implement optional hybrid-sleep for power and media-key plugins.
+  * csd-power-manager.c: Lock the screensaver if demanded by settings prior to turning off the monitor and initiating suspend.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 11 Sep 2018 14:45:31 +0100
+
 cinnamon-settings-daemon (3.8.4) tara; urgency=medium
 
   * Power: Reconfigure idle timers when upower state changes
