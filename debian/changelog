@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (3.8.6) tara; urgency=medium
+
+  [ Jeremy Bicha ]
+  * housekeeping: fix improper notify_notification_close() usage (#234)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 20 Sep 2018 11:21:33 +0100
+
 cinnamon-settings-daemon (3.8.5) tara; urgency=medium
 
   [ Michael Webster ]
