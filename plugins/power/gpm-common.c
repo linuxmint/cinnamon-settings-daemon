@@ -29,6 +29,9 @@
 
 #define GPM_UP_TIME_PRECISION                   5*60
 #define GPM_UP_TEXT_MIN_TIME                    120
+#if !UP_CHECK_VERSION(0,99,6)
+#define UP_DEVICE_KIND_GAMING_INPUT 12
+#endif
 
 /**
  * Return value: The time string, e.g. "2 hours 3 minutes"
@@ -603,6 +606,10 @@ gpm_device_kind_to_localised_string (UpDeviceKind kind, guint number)
         case UP_DEVICE_KIND_COMPUTER:
                 /* TRANSLATORS: tablet device */
                 text = ngettext ("Computer", "Computers", number);
+                break;
+        case UP_DEVICE_KIND_GAMING_INPUT:
+                /* TRANSLATORS: gaming peripherals */
+                text = ngettext ("Game controller", "Game controllers", number);
                 break;
         default:
                 g_warning ("enum unrecognised: %i", kind);
