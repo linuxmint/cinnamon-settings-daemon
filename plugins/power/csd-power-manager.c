@@ -2002,15 +2002,33 @@ cinnamon_session_shutdown (void)
 }
 
 static void
+turn_monitors_off (CsdPowerManager *manager)
+{
+    gboolean ret;
+    GError *error = NULL;
+
+    ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                         GNOME_RR_DPMS_OFF,
+                                         &error);
+    if (!ret) {
+            g_warning ("failed to turn the panel off for policy action: %s",
+                       error->message);
+            g_error_free (error);
+    }
+}
+
+static void
 do_power_action_type (CsdPowerManager *manager,
                       CsdPowerActionType action_type)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         switch (action_type) {
         case CSD_POWER_ACTION_SUSPEND:
-                ;
+                if (should_lock_on_suspend (manager)) {
+                        lock_screensaver (manager);
+                }
+
+                turn_monitors_off (manager);
+
                 gboolean hybrid = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
                                                           "prefer-hybrid-sleep");
                 csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy, hybrid);
@@ -2019,6 +2037,12 @@ do_power_action_type (CsdPowerManager *manager,
                 cinnamon_session_shutdown ();
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
+                if (should_lock_on_suspend (manager)) {
+                        lock_screensaver (manager);
+                }
+
+                turn_monitors_off (manager);
+
                 csd_power_hibernate (manager->priv->use_logind, manager->priv->upower_proxy);
                 break;
         case CSD_POWER_ACTION_SHUTDOWN:
@@ -2028,14 +2052,10 @@ do_power_action_type (CsdPowerManager *manager,
                 csd_power_poweroff (manager->priv->use_logind);
                 break;
         case CSD_POWER_ACTION_BLANK:
-                ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                                     GNOME_RR_DPMS_OFF,
-                                                     &error);
-                if (!ret) {
-                        g_warning ("failed to turn the panel off for policy action: %s",
-                                   error->message);
-                        g_error_free (error);
-                }
+                /* Lock first or else xrandr might reconfigure stuff and the ss's coverage
+                 * may be incorrect upon return. */
+                lock_screensaver (manager);
+                turn_monitors_off (manager);
                 break;
         case CSD_POWER_ACTION_NOTHING:
                 break;
@@ -2397,27 +2417,8 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                         g_warning ("to prevent damage, now forcing suspend");
                         do_power_action_type (manager, CSD_POWER_ACTION_SUSPEND);
                         return;
-                } else {
-                        /* maybe lock the screen if the lid is closed */
-                        lock_screensaver (manager);
                 }
-#else
-                lock_screensaver (manager);
 #endif
-        }
-
-        if (should_lock_on_suspend (manager)) {
-                lock_screensaver (manager);
-        }
-
-        /* ensure we turn the panel back on after resume */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                             GNOME_RR_DPMS_OFF,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel off after lid close: %s",
-                           error->message);
-                g_clear_error (&error);
         }
 
         /* only toggle keyboard if present and not already toggled */
@@ -4009,6 +4010,13 @@ uninhibit_suspend (CsdPowerManager *manager)
 static void
 handle_suspend_actions (CsdPowerManager *manager)
 {
+        /* Is this even necessary? We lock ahead of the suspend initiation,
+         * during do_power_action_type().  This is a signal from logind or
+         * upower that we're about to suspend.  That may have originated in
+         * this module, or elsewhere (cinnamon-session via menu or user
+         * applet.  Lock is handled there as well... but just in case I
+         * suppose.)
+         */
         if (should_lock_on_suspend (manager)) {
             lock_screensaver (manager);
         }
