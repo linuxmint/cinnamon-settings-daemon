@@ -630,7 +630,7 @@ csd_datetime_mechanism_set_hardware_clock_using_utc (CsdDatetimeMechanism  *mech
                         return FALSE;
                 }
 
-                if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) { /* Fedora */
+                if (g_file_test ("/etc/redhat-release", G_FILE_TEST_EXISTS)) { /* Fedora */
                         if (!_update_etc_sysconfig_clock_fedora (context, "UTC=", using_utc ? "true" : "false"))
                                 return FALSE;
 		} else if (g_file_test ("/etc/SuSE-release", G_FILE_TEST_EXISTS)) { /* SUSE variant */
@@ -649,7 +649,7 @@ csd_datetime_mechanism_get_using_ntp  (CsdDatetimeMechanism    *mechanism,
         GError *error = NULL;
         gboolean ret;
 
-        if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) /* Fedora */
+        if (g_file_test ("/etc/redhat-release", G_FILE_TEST_EXISTS)) /* Fedora */
                 ret = _get_using_ntp_fedora (context);
         else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
                 ret = _get_using_ntp_debian (context);
@@ -680,7 +680,7 @@ csd_datetime_mechanism_set_using_ntp  (CsdDatetimeMechanism    *mechanism,
         if (!_check_polkit_for_action (mechanism, context))
                 return FALSE;
 
-        if (g_file_test ("/etc/fedora-release", G_FILE_TEST_EXISTS)) /* Fedora */
+        if (g_file_test ("/etc/redhat-release", G_FILE_TEST_EXISTS)) /* Fedora */
                 ret = _set_using_ntp_fedora (context, using_ntp);
         else if (g_file_test ("/usr/sbin/update-rc.d", G_FILE_TEST_EXISTS)) /* Debian */
                 ret = _set_using_ntp_debian (context, using_ntp);
