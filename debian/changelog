@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (3.8.7) tara; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-manager.c: During lid action, only lock the screen if 'blank' is the selected action.  If 'do nothing' is selected, then actually do nothing.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 16 Oct 2018 16:39:01 +0100
+
 cinnamon-settings-daemon (3.8.6) tara; urgency=medium
 
   [ Jeremy Bicha ]
