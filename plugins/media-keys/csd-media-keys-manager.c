@@ -526,6 +526,22 @@ do_terminal_action (CsdMediaKeysManager *manager)
 }
 
 static void
+do_calculator_action (CsdMediaKeysManager *manager)
+{
+        GSettings *settings;
+        char *calc;
+
+        settings = g_settings_new ("org.cinnamon.desktop.default-applications.calculator");
+        calc = g_settings_get_string (settings, "exec");
+
+        if (calc)
+        execute (manager, calc, FALSE);
+
+        g_free (calc);
+        g_object_unref (settings);
+}
+
+static void
 cinnamon_session_shutdown (CsdMediaKeysManager *manager)
 {
 	GError *error = NULL;
@@ -1718,15 +1734,7 @@ do_action (CsdMediaKeysManager *manager,
                 do_media_action (manager, timestamp);
                 break;
         case C_DESKTOP_MEDIA_KEY_CALCULATOR:
-                if ((cmd = g_find_program_in_path ("gnome-calculator"))) {
-                execute (manager, "gnome-calculator", FALSE);
-                } else if ((cmd = g_find_program_in_path ("galculator"))) {
-                execute (manager, "galculator", FALSE);
-                } else {
-                execute (manager, "mate-calc", FALSE);
-                }
-
-                g_free (cmd);
+		do_calculator_action (manager);
                 break;
         case C_DESKTOP_MEDIA_KEY_PLAY:
                 return do_multimedia_player_action (manager, NULL, "Play");
