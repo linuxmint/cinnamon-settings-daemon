@@ -1,3 +1,37 @@
+cinnamon-settings-daemon (4.0.0) tessa; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-helper: Implement optional hybrid-sleep for power and media-key plugins.
+  * csd-power-manager.c: Lock the screensaver if demanded by settings prior to turning off the monitor and initiating suspend.
+  * csd-power-manager.c: Fix conversion of absolute keyboard brightness back to percent, and fix signal handling of the keyboard backlight proxy.
+
+  [ Jeremy Bicha ]
+  * housekeeping: fix improper notify_notification_close() usage (#234)
+
+  [ Michael Webster ]
+  * csd-power-manager.c: Provide the BatteryLevel property over our Power interface (for showing course level when a device doesn't support percentages.)
+  * power: Use generated interfaces for power, keyboard and screen services.  This simplifies the code a bit, and more importantly, allows the proxies used in cinnamon to work properly with g-signal, etc.. for updates.
+  * csd-power-manager.c: signal updates after each proxy initializes.
+  * csd-power-manager: Add a GetStep method for the keyboard interface. This will allow our setting module and applet to better represent valid increments for the backlight level.
+
+  [ Jason Hicks ]
+  * Prevent log flooding when game controllers are detected
+
+  [ Michael Webster ]
+  * csd-power-manager.c: During lid action, only lock the screen if 'blank' is the selected action.  If 'do nothing' is selected, then actually do nothing.
+
+  [ cranes-bill ]
+  * This will make NTP works on any Red Hat based system. (#238)
+
+  [ Jackson Dearnley ]
+  * csd-media-keys-manager.c: Execute default calculator application defined by schema (#240)
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+  * CI: Remove Mint 18
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 30 Oct 2018 14:51:25 +0000
+
 cinnamon-settings-daemon (3.8.4) tara; urgency=medium
 
   * Power: Reconfigure idle timers when upower state changes
