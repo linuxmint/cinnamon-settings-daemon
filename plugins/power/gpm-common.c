@@ -29,9 +29,6 @@
 
 #define GPM_UP_TIME_PRECISION                   5*60
 #define GPM_UP_TEXT_MIN_TIME                    120
-#if !UP_CHECK_VERSION(0,99,6)
-#define UP_DEVICE_KIND_GAMING_INPUT 12
-#endif
 
 /**
  * Return value: The time string, e.g. "2 hours 3 minutes"
@@ -193,6 +190,8 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 g_string_append_printf (filename, "gpm-%s-%s;", kind_str, index_str);
                                 g_string_append_printf (filename, "battery-%s;", suffix_str);
                                 break;
+                        case UP_DEVICE_STATE_UNKNOWN:
+                        case UP_DEVICE_STATE_LAST:
                         default:
                                 if (use_symbolic)
                                         g_string_append (filename, "battery-missing-symbolic;");
@@ -607,10 +606,16 @@ gpm_device_kind_to_localised_string (UpDeviceKind kind, guint number)
                 /* TRANSLATORS: tablet device */
                 text = ngettext ("Computer", "Computers", number);
                 break;
+#if UP_CHECK_VERSION(0,99,6)
         case UP_DEVICE_KIND_GAMING_INPUT:
                 /* TRANSLATORS: gaming peripherals */
                 text = ngettext ("Game controller", "Game controllers", number);
                 break;
+#endif
+        case UP_DEVICE_KIND_UNKNOWN:
+                text = ngettext ("Unknown device", "Unknown devices", number);
+                break;
+        case UP_DEVICE_KIND_LAST:
         default:
                 g_warning ("enum unrecognised: %i", kind);
                 text = up_device_kind_to_string (kind);
@@ -656,6 +661,15 @@ gpm_device_kind_to_icon (UpDeviceKind kind)
         case UP_DEVICE_KIND_COMPUTER:
                 icon = "computer-apple-ipad";
                 break;
+#if UP_CHECK_VERSION(0,99,6)
+        case UP_DEVICE_KIND_GAMING_INPUT:
+                icon = "input-gaming";
+                break;
+#endif
+        case UP_DEVICE_KIND_UNKNOWN:
+                icon = "gtk-help";
+                break;
+        case UP_DEVICE_KIND_LAST:
         default:
                 g_warning ("enum unrecognised: %i", kind);
                 icon = "gtk-help";
@@ -696,6 +710,7 @@ gpm_device_technology_to_localised_string (UpDeviceTechnology technology_enum)
                 /* TRANSLATORS: battery technology */
                 technology = _("Unknown technology");
                 break;
+        case UP_DEVICE_TECHNOLOGY_LAST:
         default:
                 g_assert_not_reached ();
                 break;
@@ -733,6 +748,11 @@ gpm_device_state_to_localised_string (UpDeviceState state)
                 /* TRANSLATORS: battery state */
                 state_string = _("Waiting to discharge");
                 break;
+        case UP_DEVICE_STATE_UNKNOWN:
+                /* TRANSLATORS: battery state */
+                state_string = _("Unknown");
+                break;
+        case UP_DEVICE_STATE_LAST:
         default:
                 g_assert_not_reached ();
                 break;
@@ -954,6 +974,29 @@ gpm_device_to_localised_string (UpDevice *device)
                         return _("Computer is charged");
                 }
         }
+
+#if UP_CHECK_VERSION(0,99,6)
+        /* computer */
+        if (kind == UP_DEVICE_KIND_GAMING_INPUT) {
+
+                if (state == UP_DEVICE_STATE_CHARGING) {
+                        /* TRANSLATORS: battery state */
+                        return _("Game controller is charging");
+                }
+                if (state == UP_DEVICE_STATE_DISCHARGING) {
+                        /* TRANSLATORS: battery state */
+                        return _("Game controller is discharging");
+                }
+                if (state == UP_DEVICE_STATE_EMPTY) {
+                        /* TRANSLATORS: battery state */
+                        return _("Game controller is empty");
+                }
+                if (state == UP_DEVICE_STATE_FULLY_CHARGED) {
+                        /* TRANSLATORS: battery state */
+                        return _("Game controller is charged");
+                }
+        }
+#endif
 
         return gpm_device_kind_to_localised_string (kind, 1);
 }
