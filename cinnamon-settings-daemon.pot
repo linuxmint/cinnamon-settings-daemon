@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 14:49+0000\n"
+"POT-Creation-Date: 2018-11-12 15:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -658,211 +658,211 @@ msgstr ""
 msgid "Power Manager"
 msgstr ""
 
-#: plugins/power/gpm-common.c:50
+#: plugins/power/gpm-common.c:47
 msgid "Unknown time"
 msgstr ""
 
-#: plugins/power/gpm-common.c:55
+#: plugins/power/gpm-common.c:52
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:65
+#: plugins/power/gpm-common.c:62
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:71
+#: plugins/power/gpm-common.c:68
 #, c-format
 msgid "%i %s %i %s"
 msgstr ""
 
-#: plugins/power/gpm-common.c:72
+#: plugins/power/gpm-common.c:69
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:73
+#: plugins/power/gpm-common.c:70
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:320
+#: plugins/power/gpm-common.c:319
 #, c-format
 msgid "provides %s laptop runtime"
 msgstr ""
 
-#: plugins/power/gpm-common.c:331
+#: plugins/power/gpm-common.c:330
 #, c-format
 msgid "%s %s remaining"
 msgstr ""
 
-#: plugins/power/gpm-common.c:352 plugins/power/gpm-common.c:369
+#: plugins/power/gpm-common.c:351 plugins/power/gpm-common.c:368
 #, c-format
 msgid "%s %s until charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:359
+#: plugins/power/gpm-common.c:358
 #, c-format
 msgid "provides %s battery runtime"
 msgstr ""
 
-#: plugins/power/gpm-common.c:450
+#: plugins/power/gpm-common.c:449
 msgid "Product:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:454 plugins/power/gpm-common.c:457
-#: plugins/power/gpm-common.c:460 plugins/power/gpm-common.c:463
+#: plugins/power/gpm-common.c:453 plugins/power/gpm-common.c:456
+#: plugins/power/gpm-common.c:459 plugins/power/gpm-common.c:462
 msgid "Status:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:454
+#: plugins/power/gpm-common.c:453
 msgid "Missing"
 msgstr ""
 
-#: plugins/power/gpm-common.c:457 plugins/power/gpm-common.c:726
+#: plugins/power/gpm-common.c:456 plugins/power/gpm-common.c:741
 msgid "Charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:460 plugins/power/gpm-common.c:714
+#: plugins/power/gpm-common.c:459 plugins/power/gpm-common.c:729
 msgid "Charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:463 plugins/power/gpm-common.c:718
+#: plugins/power/gpm-common.c:462 plugins/power/gpm-common.c:733
 msgid "Discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:468
+#: plugins/power/gpm-common.c:467
 msgid "Percentage charge:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:472
+#: plugins/power/gpm-common.c:471
 msgid "Vendor:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:477
+#: plugins/power/gpm-common.c:476
 msgid "Technology:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:481
+#: plugins/power/gpm-common.c:480
 msgid "Serial number:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:485
+#: plugins/power/gpm-common.c:484
 msgid "Model:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:490
+#: plugins/power/gpm-common.c:489
 msgid "Charge time:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:496
+#: plugins/power/gpm-common.c:495
 msgid "Discharge time:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:503
+#: plugins/power/gpm-common.c:502
 msgid "Excellent"
 msgstr ""
 
-#: plugins/power/gpm-common.c:505
+#: plugins/power/gpm-common.c:504
 msgid "Good"
 msgstr ""
 
-#: plugins/power/gpm-common.c:507
+#: plugins/power/gpm-common.c:506
 msgid "Fair"
 msgstr ""
 
-#: plugins/power/gpm-common.c:509
+#: plugins/power/gpm-common.c:508
 msgid "Poor"
 msgstr ""
 
-#: plugins/power/gpm-common.c:513
+#: plugins/power/gpm-common.c:512
 msgid "Capacity:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:519 plugins/power/gpm-common.c:544
+#: plugins/power/gpm-common.c:518 plugins/power/gpm-common.c:543
 msgid "Current charge:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:525
+#: plugins/power/gpm-common.c:524
 msgid "Last full charge:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:531 plugins/power/gpm-common.c:549
+#: plugins/power/gpm-common.c:530 plugins/power/gpm-common.c:548
 msgid "Design charge:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:536
+#: plugins/power/gpm-common.c:535
 msgid "Charge rate:"
 msgstr ""
 
-#: plugins/power/gpm-common.c:568
+#: plugins/power/gpm-common.c:567
 msgid "AC adapter"
 msgid_plural "AC adapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:572
+#: plugins/power/gpm-common.c:571
 msgid "Laptop battery"
 msgid_plural "Laptop batteries"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:576
+#: plugins/power/gpm-common.c:575
 msgid "UPS"
 msgid_plural "UPSs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:580
+#: plugins/power/gpm-common.c:579
 msgid "Monitor"
 msgid_plural "Monitors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:584
+#: plugins/power/gpm-common.c:583
 msgid "Mouse"
 msgid_plural "Mice"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:588
+#: plugins/power/gpm-common.c:587
 msgid "Keyboard"
 msgid_plural "Keyboards"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:592
+#: plugins/power/gpm-common.c:591
 msgid "PDA"
 msgid_plural "PDAs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:596
+#: plugins/power/gpm-common.c:595
 msgid "Cell phone"
 msgid_plural "Cell phones"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:600
+#: plugins/power/gpm-common.c:599
 msgid "Media player"
 msgid_plural "Media players"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:604
+#: plugins/power/gpm-common.c:603
 msgid "Tablet"
 msgid_plural "Tablets"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:608
+#: plugins/power/gpm-common.c:607
 msgid "Computer"
 msgid_plural "Computers"
 msgstr[0] ""
@@ -874,200 +874,226 @@ msgid_plural "Game controllers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/power/gpm-common.c:673
+#: plugins/power/gpm-common.c:616
+msgid "Unknown device"
+msgid_plural "Unknown devices"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugins/power/gpm-common.c:687
 msgid "Lithium Ion"
 msgstr ""
 
-#: plugins/power/gpm-common.c:677
+#: plugins/power/gpm-common.c:691
 msgid "Lithium Polymer"
 msgstr ""
 
-#: plugins/power/gpm-common.c:681
+#: plugins/power/gpm-common.c:695
 msgid "Lithium Iron Phosphate"
 msgstr ""
 
-#: plugins/power/gpm-common.c:685
+#: plugins/power/gpm-common.c:699
 msgid "Lead acid"
 msgstr ""
 
-#: plugins/power/gpm-common.c:689
+#: plugins/power/gpm-common.c:703
 msgid "Nickel Cadmium"
 msgstr ""
 
-#: plugins/power/gpm-common.c:693
+#: plugins/power/gpm-common.c:707
 msgid "Nickel metal hydride"
 msgstr ""
 
-#: plugins/power/gpm-common.c:697
+#: plugins/power/gpm-common.c:711
 msgid "Unknown technology"
 msgstr ""
 
-#: plugins/power/gpm-common.c:722
+#: plugins/power/gpm-common.c:737
 msgid "Empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:730
+#: plugins/power/gpm-common.c:745
 msgid "Waiting to charge"
 msgstr ""
 
-#: plugins/power/gpm-common.c:734
+#: plugins/power/gpm-common.c:749
 msgid "Waiting to discharge"
 msgstr ""
 
-#: plugins/power/gpm-common.c:762
-msgid "Laptop battery not present"
-msgstr ""
-
-#: plugins/power/gpm-common.c:766
-msgid "Laptop battery is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:770
-msgid "Laptop battery is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:774
-msgid "Laptop battery is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:778
-msgid "Laptop battery is charged"
+#: plugins/power/gpm-common.c:753
+msgid "Unknown"
 msgstr ""
 
 #: plugins/power/gpm-common.c:782
-msgid "Laptop battery is waiting to charge"
+msgid "Laptop battery not present"
 msgstr ""
 
 #: plugins/power/gpm-common.c:786
+msgid "Laptop battery is charging"
+msgstr ""
+
+#: plugins/power/gpm-common.c:790
+msgid "Laptop battery is discharging"
+msgstr ""
+
+#: plugins/power/gpm-common.c:794
+msgid "Laptop battery is empty"
+msgstr ""
+
+#: plugins/power/gpm-common.c:798
+msgid "Laptop battery is charged"
+msgstr ""
+
+#: plugins/power/gpm-common.c:802
+msgid "Laptop battery is waiting to charge"
+msgstr ""
+
+#: plugins/power/gpm-common.c:806
 msgid "Laptop battery is waiting to discharge"
 msgstr ""
 
-#: plugins/power/gpm-common.c:795
+#: plugins/power/gpm-common.c:815
 msgid "UPS is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:799
+#: plugins/power/gpm-common.c:819
 msgid "UPS is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:803
+#: plugins/power/gpm-common.c:823
 msgid "UPS is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:807
+#: plugins/power/gpm-common.c:827
 msgid "UPS is charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:816
+#: plugins/power/gpm-common.c:836
 msgid "Mouse is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:820
+#: plugins/power/gpm-common.c:840
 msgid "Mouse is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:824
+#: plugins/power/gpm-common.c:844
 msgid "Mouse is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:828
+#: plugins/power/gpm-common.c:848
 msgid "Mouse is charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:837
+#: plugins/power/gpm-common.c:857
 msgid "Keyboard is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:841
+#: plugins/power/gpm-common.c:861
 msgid "Keyboard is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:845
+#: plugins/power/gpm-common.c:865
 msgid "Keyboard is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:849
+#: plugins/power/gpm-common.c:869
 msgid "Keyboard is charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:858
+#: plugins/power/gpm-common.c:878
 msgid "PDA is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:862
+#: plugins/power/gpm-common.c:882
 msgid "PDA is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:866
+#: plugins/power/gpm-common.c:886
 msgid "PDA is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:870
+#: plugins/power/gpm-common.c:890
 msgid "PDA is charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:879
+#: plugins/power/gpm-common.c:899
 msgid "Cell phone is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:883
+#: plugins/power/gpm-common.c:903
 msgid "Cell phone is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:887
+#: plugins/power/gpm-common.c:907
 msgid "Cell phone is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:891
+#: plugins/power/gpm-common.c:911
 msgid "Cell phone is charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:900
+#: plugins/power/gpm-common.c:920
 msgid "Media player is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:904
+#: plugins/power/gpm-common.c:924
 msgid "Media player is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:908
+#: plugins/power/gpm-common.c:928
 msgid "Media player is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:912
+#: plugins/power/gpm-common.c:932
 msgid "Media player is charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:921
+#: plugins/power/gpm-common.c:941
 msgid "Tablet is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:925
+#: plugins/power/gpm-common.c:945
 msgid "Tablet is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:929
+#: plugins/power/gpm-common.c:949
 msgid "Tablet is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:933
+#: plugins/power/gpm-common.c:953
 msgid "Tablet is charged"
 msgstr ""
 
-#: plugins/power/gpm-common.c:942
+#: plugins/power/gpm-common.c:962
 msgid "Computer is charging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:946
+#: plugins/power/gpm-common.c:966
 msgid "Computer is discharging"
 msgstr ""
 
-#: plugins/power/gpm-common.c:950
+#: plugins/power/gpm-common.c:970
 msgid "Computer is empty"
 msgstr ""
 
-#: plugins/power/gpm-common.c:954
+#: plugins/power/gpm-common.c:974
 msgid "Computer is charged"
+msgstr ""
+
+#: plugins/power/gpm-common.c:984
+msgid "Game controller is charging"
+msgstr ""
+
+#: plugins/power/gpm-common.c:988
+msgid "Game controller is discharging"
+msgstr ""
+
+#: plugins/power/gpm-common.c:992
+msgid "Game controller is empty"
+msgstr ""
+
+#: plugins/power/gpm-common.c:996
+msgid "Game controller is charged"
 msgstr ""
 
 #: plugins/print-notifications/csd-printer.c:890
