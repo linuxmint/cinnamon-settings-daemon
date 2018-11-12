@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (4.0.1) tessa; urgency=medium
+
+  [ Michael Webster ]
+  * power/gpm-common.c:  Don't fake a UPower enum in lesser upower versions, instead make an "unknown" device ok to display without a warning. Provide more support for gaming controllers as well when providing device state strings.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 12 Nov 2018 15:16:13 +0000
+
 cinnamon-settings-daemon (4.0.0) tessa; urgency=medium
 
   [ Michael Webster ]
