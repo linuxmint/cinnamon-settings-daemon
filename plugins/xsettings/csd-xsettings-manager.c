@@ -632,13 +632,6 @@ xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/CursorThemeSize", settings->cursor_size);
         }
-
-        // GTK's print-previewer defaults to Evince, which is a GNOME app.
-        // Prefer the cross-DE XAPP Xreader instead.
-        if (g_file_test ("/usr/bin/xreader-previewer", G_FILE_TEST_EXISTS)) {
-                g_object_set (gtk_settings_get_default (), "gtk-print-preview-command", "xreader-previewer --unlink-tempfile --print-settings %s %f", NULL);
-        }
-
         cinnamon_settings_profile_end (NULL);
 }
 
