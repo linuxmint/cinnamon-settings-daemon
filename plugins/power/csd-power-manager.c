@@ -3431,6 +3431,7 @@ idle_configure (CsdPowerManager *manager)
         refresh_idle_dim_settings (manager);
 }
 
+#if UP_CHECK_VERSION(0,99,0)
 static void
 up_client_on_battery_cb (UpClient *client,
                          GParamSpec *pspec,
@@ -3439,6 +3440,7 @@ up_client_on_battery_cb (UpClient *client,
         idle_configure (manager);
         lid_state_changed_cb(client, pspec, manager);
 }
+#endif
 
 static void
 csd_power_manager_class_init (CsdPowerManagerClass *klass)
