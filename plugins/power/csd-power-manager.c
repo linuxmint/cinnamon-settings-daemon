@@ -134,6 +134,7 @@ struct CsdPowerManagerPrivate
         CsdScreen                *screen_iface;
         CsdKeyboard              *keyboard_iface;
         gboolean                 lid_is_closed;
+        gboolean                 on_battery;
         GSettings               *settings;
         GSettings               *settings_screensaver;
         GSettings               *settings_xrandr;
@@ -2373,9 +2374,11 @@ lid_state_changed_cb (UpClient *client, GParamSpec *pspec, CsdPowerManager *mana
 up_client_changed_cb (UpClient *client, CsdPowerManager *manager)
 #endif
 {
-        gboolean tmp;
-
-        if (!up_client_get_on_battery (client)) {
+        gboolean lid_is_closed;
+        gboolean on_battery;
+        
+        on_battery = up_client_get_on_battery(client);
+        if (!on_battery) {
             /* if we are playing a critical charge sound loop on AC, stop it */
             if (manager->priv->critical_alert_timeout_id > 0) {
                  g_debug ("stopping alert loop due to ac being present");
@@ -2385,13 +2388,17 @@ up_client_changed_cb (UpClient *client, CsdPowerManager *manager)
         }
 
         /* same state */
-        tmp = up_client_get_lid_is_closed (manager->priv->up_client);
-        if (manager->priv->lid_is_closed == tmp)
+        lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
+
+        if (manager->priv->lid_is_closed == lid_is_closed &&
+                manager->priv->on_battery == on_battery)
                 return;
-        manager->priv->lid_is_closed = tmp;
+
+        manager->priv->lid_is_closed = lid_is_closed;
+        manager->priv->on_battery = on_battery;
 
         /* fake a keypress */
-        if (tmp)
+        if (lid_is_closed)
                 do_lid_closed_action (manager);
         else
                 do_lid_open_action (manager);
@@ -3424,13 +3431,16 @@ idle_configure (CsdPowerManager *manager)
         refresh_idle_dim_settings (manager);
 }
 
+#if UP_CHECK_VERSION(0,99,0)
 static void
 up_client_on_battery_cb (UpClient *client,
                          GParamSpec *pspec,
                          CsdPowerManager *manager)
 {
         idle_configure (manager);
+        lid_state_changed_cb(client, pspec, manager);
 }
+#endif
 
 static void
 csd_power_manager_class_init (CsdPowerManagerClass *klass)
@@ -4106,6 +4116,7 @@ csd_power_manager_start (CsdPowerManager *manager,
                           G_CALLBACK (upower_notify_resume_cb), manager);
 #endif
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
+        manager->priv->on_battery = up_client_get_on_battery(manager->priv->up_client);
         g_signal_connect (manager->priv->up_client, "device-added",
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-removed",
