@@ -1,3 +1,14 @@
+cinnamon-settings-daemon (4.0.2) tessa; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Set the GTK print preview to xreader
+  * Revert "Set the GTK print preview to xreader"
+
+  [ Alexander Drozdov ]
+  * Handle AC remove while LID is closed (#244)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 19 Nov 2018 09:50:28 +0000
+
 cinnamon-settings-daemon (4.0.1) tessa; urgency=medium
 
   [ Michael Webster ]
