@@ -22,7 +22,7 @@
       <_description>Enable this to restrict the Wacom tablet area to match the aspect ratio of the output.</_description>
     </key>
     <key name="keep-rotation" type="b">
-      <default>false</default>
+      <default>true</default>
       <_summary>Wacom tablet automatic rotation</_summary>
       <_description>Enable this to automatically rotate the Wacom tablet area to match the rotation of the output.</_description>
     </key>
