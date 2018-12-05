@@ -147,6 +147,7 @@ static void get_allowed_rotations_for_output (GnomeRRConfig *config,
                                               GnomeRRRotation *out_rotations);
 static void handle_fn_f7 (CsdXrandrManager *mgr, guint32 timestamp);
 static void handle_rotate_windows (CsdXrandrManager *mgr, GnomeRRRotation rotation, guint32 timestamp);
+static void rotate_touchscreens (CsdXrandrManager *mgr, GnomeRRRotation rotation);
 
 G_DEFINE_TYPE (CsdXrandrManager, csd_xrandr_manager, G_TYPE_OBJECT)
 
@@ -439,6 +440,8 @@ apply_configuration_from_filename (CsdXrandrManager *manager,
         GError *my_error;
         gboolean success;
         char *str;
+        GnomeRROutputInfo *output_info;
+        GnomeRRRotation rotation;
 
         str = g_strdup_printf ("Applying %s with timestamp %d", filename, timestamp);
         show_timestamps_dialog (manager, str);
@@ -471,7 +474,12 @@ apply_configuration_from_filename (CsdXrandrManager *manager,
                 turn_off_laptop_display_in_configuration (priv->rw_screen, config);
 
         gnome_rr_config_ensure_primary (config);
-	success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, error);
+        success = gnome_rr_config_apply_with_time (config, priv->rw_screen, timestamp, error);
+
+        // Get the screen rotation and apply it to touchscreens
+        output_info = get_laptop_output_info (priv->rw_screen, config);
+        rotation = gnome_rr_output_info_get_rotation (output_info);
+        rotate_touchscreens (manager, rotation);
 
         g_object_unref (config);
 
@@ -1650,7 +1658,6 @@ handle_rotate_windows (CsdXrandrManager *mgr,
         }
 
         /* Rotate */
-
         gnome_rr_output_info_set_rotation (rotatable_output_info, next_rotation);
 
         success = apply_configuration (mgr, current, timestamp, FALSE);
