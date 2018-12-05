@@ -58,6 +58,7 @@
 #define KEY_AREA                "area"
 #define KEY_DISPLAY             "display"
 #define KEY_KEEP_ASPECT         "keep-aspect"
+#define KEY_KEEP_ROTATION       "keep-rotation"
 
 /* Stylus and Eraser settings */
 #define KEY_BUTTON_MAPPING      "buttonmapping"
@@ -277,8 +278,8 @@ set_display (CsdWacomDevice  *device,
              GVariant        *value)
 {
         CsdWacomRotation  device_rotation;
-	CsdWacomRotation  output_rotation;
-	GSettings        *settings;
+        CsdWacomRotation  output_rotation;
+        GSettings        *settings;
         float matrix[NUM_ELEMS_MATRIX];
         PropertyHelper property = {
                 .name   = "Coordinate Transformation Matrix",
@@ -293,13 +294,13 @@ set_display (CsdWacomDevice  *device,
         g_debug ("Applying matrix to device...");
         wacom_set_property (device, &property);
 
-        /* Compute rotation to apply relative to the output */
-	settings = csd_wacom_device_get_settings (device);
-	device_rotation = g_settings_get_enum (settings, KEY_ROTATION);
-	output_rotation = csd_wacom_device_get_display_rotation (device);
-
         /* Apply display rotation to device */
-        set_rotation (device, get_relative_rotation (device_rotation, output_rotation));
+        settings = csd_wacom_device_get_settings (device);
+        if (g_settings_get_boolean (settings, KEY_KEEP_ROTATION)) {
+            device_rotation = g_settings_get_enum (settings, KEY_ROTATION);
+            output_rotation = csd_wacom_device_get_display_rotation (device);
+            set_rotation (device, get_relative_rotation (device_rotation, output_rotation));
+        }
 
         g_variant_unref (value);
 }
