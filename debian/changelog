@@ -1,3 +1,11 @@
+cinnamon-settings-daemon (4.0.3) tessa; urgency=medium
+
+  * Xrandr: Rotate touchscreens when applying a new configuration
+  * Wacom: Disable automatic rotation by default and make it configurable
+  * Wacom: Re-enable automatic rotation by default
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 06 Dec 2018 13:21:34 +0000
+
 cinnamon-settings-daemon (4.0.2) tessa; urgency=medium
 
   [ Clement Lefebvre ]
