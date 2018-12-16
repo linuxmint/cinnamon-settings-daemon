@@ -136,6 +136,11 @@
       <summary>Mouse button orientation</summary>
       <description>Swap left and right mouse buttons for left-handed mice.</description>
     </key>
+    <key name="natural-scroll" type="b">
+      <default>true</default>
+      <summary>Natural scrolling</summary>
+      <description>Set this to TRUE to enable natural (reverse) scrolling for touchpads.</description>
+    </key>
     <key name="custom-acceleration" type="b">
       <default>false</default>
       <summary>Custom Motion Acceleration</summary>

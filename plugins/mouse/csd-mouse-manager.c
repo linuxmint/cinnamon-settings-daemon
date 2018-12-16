@@ -1342,7 +1342,11 @@ set_mouse_settings (CsdMouseManager *manager,
         set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_CLICKPAD_CLICK), touchpad_left_handed);
         set_scrolling (device, g_settings_get_int (manager->priv->touchpad_settings, KEY_SCROLL_METHOD),
                 g_settings_get_boolean (manager->priv->touchpad_settings, KEY_HORIZ_SCROLL));
-        set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
+        if (device_is_touchpad(device)){
+          set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
+        }else{
+          set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_NATURAL_SCROLL_ENABLED));
+        }
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
                 set_touchpad_disabled (device);
 }
@@ -1416,7 +1420,15 @@ set_natural_scroll_libinput (CsdMouseManager *manager,
                  natural_scroll ? "natural (reverse) scroll" : "normal scroll",
                  gdk_device_get_name (device));
 
-        touchpad_set_bool (device, "libinput Natural Scrolling Enabled", 0, natural_scroll);
+        XDevice *xdevice;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return;
+
+        property_set_bool (device, xdevice, "libinput Natural Scrolling Enabled", 0, natural_scroll);
+
+        xdevice_close (xdevice);
 }
 
 static void
