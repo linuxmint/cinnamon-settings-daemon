@@ -1,5 +1,4 @@
 debian/source_cinnamon-settings-daemon.py /usr/share/apport/package-hooks
-etc/dbus-1/system.d/org.cinnamon.SettingsDaemon.DateTimeMechanism.conf
 etc/xdg/autostart/*
 usr/lib/*/cinnamon-settings-daemon*/*.so
 usr/lib/*/cinnamon-settings-daemon/

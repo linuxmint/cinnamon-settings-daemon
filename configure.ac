@@ -136,15 +136,22 @@ dnl - Are we specifying a different dbus root ?
 AC_ARG_WITH(dbus-sys,
         [AC_HELP_STRING([--with-dbus-sys=<dir>],
         [where D-BUS system.d directory is])])
-AC_ARG_WITH(dbus-services,
-        [AC_HELP_STRING([--with-dbus-services=<dir>],
-        [where D-BUS services directory is])])
 if ! test -z "$with_dbus_sys" ; then
         DBUS_SYS_DIR="$with_dbus_sys"
 else
-        DBUS_SYS_DIR='${sysconfdir}/dbus-1/system.d'
+        DBUS_SYS_DIR='${datadir}/dbus-1/system.d'
 fi
 AC_SUBST(DBUS_SYS_DIR)
+
+AC_ARG_WITH(dbus-services,
+        [AC_HELP_STRING([--with-dbus-services=<dir>],
+        [where D-BUS services directory is])])
+if ! test -z "$with_dbus_services" ; then
+        DBUS_SERVICES_DIR="$with_dbus_services"
+else
+        DBUS_SERVICES_DIR='${datadir}/dbus-1/system-services'
+fi
+AC_SUBST(DBUS_SERVICES_DIR)
 
 dnl ---------------------------------------------------------------------------
 dnl - GUdev integration (default enabled)
@@ -310,24 +317,6 @@ else
 fi
 
 AC_SUBST(NSS_DATABASE)
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for D-Bus
-dnl ---------------------------------------------------------------------------
-
-dnl - Are we specifying a different dbus root ?
-AC_ARG_WITH(dbus-sys,
-        [AC_HELP_STRING([--with-dbus-sys=<dir>],
-        [where D-BUS system.d directory is])])
-AC_ARG_WITH(dbus-services,
-        [AC_HELP_STRING([--with-dbus-services=<dir>],
-        [where D-BUS services directory is])])
-if ! test -z "$with_dbus_sys" ; then
-        DBUS_SYS_DIR="$with_dbus_sys"
-else
-        DBUS_SYS_DIR='${sysconfdir}/dbus-1/system.d'
-fi
-AC_SUBST(DBUS_SYS_DIR)
 
 # ---------------------------------------------------------------------------
 # PolicyKit for the date & time mechanism

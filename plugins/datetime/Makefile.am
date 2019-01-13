@@ -1,7 +1,7 @@
 plugin_name = datetime
 
-dbus_servicesdir = $(datadir)/dbus-1/system-services
-dbus_confdir = $(sysconfdir)/dbus-1/system.d
+dbus_servicesdir = @DBUS_SERVICES_DIR@
+dbus_confdir = @DBUS_SYS_DIR@
 polkitdir = $(datadir)/polkit-1/actions
 
 dbus_services_in_files = org.cinnamon.SettingsDaemon.DateTimeMechanism.service.in
