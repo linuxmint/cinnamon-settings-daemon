@@ -26,8 +26,6 @@ pkgconfig_DATA = cinnamon-settings-daemon.pc
 
 @INTLTOOL_XML_NOMERGE_RULE@
 
-dbusservice_in_files = org.freedesktop.IBus.service.in
-
 EXTRA_DIST = 					\
 	$(man_MANS)				\
 	$(convert_DATA)				\
