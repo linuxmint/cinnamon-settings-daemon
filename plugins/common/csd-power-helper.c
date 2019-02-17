@@ -264,6 +264,34 @@ consolekit_hibernate (void)
         g_object_unref (proxy);
 }
 
+static void
+consolekit_hybrid_suspend (void)
+{
+        GError *error = NULL;
+        GDBusProxy *proxy;
+        
+        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                               NULL,
+                                               CONSOLEKIT_DBUS_NAME,
+                                               CONSOLEKIT_DBUS_PATH_MANAGER,
+                                               CONSOLEKIT_DBUS_INTERFACE_MANAGER,
+                                               NULL, &error);
+        if (proxy == NULL) {
+                g_warning ("cannot connect to ConsoleKit: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+        g_dbus_proxy_call (proxy,
+                           "HybridSleep",
+                           g_variant_new("(b)", TRUE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL,
+                           consolekit_sleep_cb, NULL);
+        g_object_unref (proxy);
+}
+
 void
 csd_power_suspend (gboolean    use_logind,
                    gboolean    try_hybrid)
@@ -277,7 +305,12 @@ csd_power_suspend (gboolean    use_logind,
     }
   }
   else {
-    consolekit_suspend ();
+    if (try_hybrid && can_hybrid_sleep ()) {
+      consolekit_hybrid_suspend ();
+    }
+    else {
+      consolekit_suspend ();
+    }
   }
 }
 
