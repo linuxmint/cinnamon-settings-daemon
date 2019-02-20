@@ -58,9 +58,7 @@
 #define GNOME_SESSION_DBUS_INTERFACE_PRESENCE   "org.gnome.SessionManager.Presence"
 
 #define UPOWER_DBUS_NAME                        "org.freedesktop.UPower"
-#define UPOWER_DBUS_PATH                        "/org/freedesktop/UPower"
 #define UPOWER_DBUS_PATH_KBDBACKLIGHT           "/org/freedesktop/UPower/KbdBacklight"
-#define UPOWER_DBUS_INTERFACE                   "org.freedesktop.UPower"
 #define UPOWER_DBUS_INTERFACE_KBDBACKLIGHT      "org.freedesktop.UPower.KbdBacklight"
 
 #define CSD_POWER_SETTINGS_SCHEMA               "org.cinnamon.settings-daemon.plugins.power"
@@ -144,7 +142,6 @@ struct CsdPowerManagerPrivate
         UpClient                *up_client;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
-        GDBusProxy              *upower_proxy;
         GDBusProxy              *upower_kbd_proxy;
         gboolean				backlight_helper_force;
         gchar*                  backlight_helper_preference_args;
@@ -3535,22 +3532,6 @@ session_presence_proxy_ready_cb (GObject *source_object,
 }
 
 static void
-power_proxy_ready_cb (GObject             *source_object,
-                      GAsyncResult        *res,
-                      gpointer             user_data)
-{
-        GError *error = NULL;
-        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
-
-        manager->priv->upower_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
-        if (manager->priv->upower_proxy == NULL) {
-                g_warning ("Could not connect to UPower: %s",
-                           error->message);
-                g_error_free (error);
-        }
-}
-
-static void
 power_keyboard_proxy_ready_cb (GObject             *source_object,
                                GAsyncResult        *res,
                                gpointer             user_data)
@@ -4143,17 +4124,6 @@ csd_power_manager_start (CsdPowerManager *manager,
         gtk_status_icon_set_title (manager->priv->status_icon, _("Power Manager"));
         gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
 
-        /* connect to UPower for async power operations */
-        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
-                                  G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                  NULL,
-                                  UPOWER_DBUS_NAME,
-                                  UPOWER_DBUS_PATH,
-                                  UPOWER_DBUS_INTERFACE,
-                                  NULL,
-                                  power_proxy_ready_cb,
-                                  manager);
-
         /* connect to UPower for keyboard backlight control */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -4373,11 +4343,6 @@ csd_power_manager_stop (CsdPowerManager *manager)
 
         g_free (manager->priv->previous_summary);
         manager->priv->previous_summary = NULL;
-
-        if (manager->priv->upower_proxy != NULL) {
-                g_object_unref (manager->priv->upower_proxy);
-                manager->priv->upower_proxy = NULL;
-        }
 
         if (manager->priv->session_proxy != NULL) {
                 g_object_unref (manager->priv->session_proxy);
