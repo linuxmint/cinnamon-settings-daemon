@@ -1939,7 +1939,7 @@ do_power_action_type (CsdPowerManager *manager,
 
                 gboolean hybrid = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
                                                           "prefer-hybrid-sleep");
-                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy, hybrid);
+                csd_power_suspend (manager->priv->use_logind, hybrid);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown ();
@@ -1950,8 +1950,7 @@ do_power_action_type (CsdPowerManager *manager,
                 }
 
                 turn_monitors_off (manager);
-
-                csd_power_hibernate (manager->priv->use_logind, manager->priv->upower_proxy);
+                csd_power_hibernate (manager->priv->use_logind);
                 break;
         case CSD_POWER_ACTION_SHUTDOWN:
                 /* this is only used on critically low battery where

@@ -18,6 +18,8 @@
  *
  */
 
+#include <gio/gio.h>
+
 #include "config.h"
 
 #include "csd-power-helper.h"
@@ -185,10 +187,11 @@ consolekit_stop (void)
                            consolekit_stop_cb, NULL);
         g_object_unref (proxy);
 }
+
 static void
-upower_sleep_cb (GObject *source_object,
-                 GAsyncResult *res,
-                 gpointer user_data)
+consolekit_sleep_cb (GObject *source_object,
+                     GAsyncResult *res,
+                     gpointer user_data) 
 {
         GVariant *result;
         GError *error = NULL;
@@ -197,7 +200,7 @@ upower_sleep_cb (GObject *source_object,
                                            res,
                                            &error);
         if (result == NULL) {
-                g_warning ("couldn't sleep using UPower: %s",
+                g_warning ("couldn't sleep using ConsoleKit: %s",
                            error->message);
                 g_error_free (error);
         } else {
@@ -206,30 +209,91 @@ upower_sleep_cb (GObject *source_object,
 }
 
 static void
-upower_suspend (GDBusProxy *upower_proxy)
+consolekit_suspend (void)
 {
-        g_dbus_proxy_call (upower_proxy,
+        GError *error = NULL;
+        GDBusProxy *proxy;
+        
+        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                               NULL,
+                                               CONSOLEKIT_DBUS_NAME,
+                                               CONSOLEKIT_DBUS_PATH_MANAGER,
+                                               CONSOLEKIT_DBUS_INTERFACE_MANAGER,
+                                               NULL, &error);
+        if (proxy == NULL) {
+                g_warning ("cannot connect to ConsoleKit: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+        g_dbus_proxy_call (proxy,
                            "Suspend",
-                           NULL,
+                           g_variant_new("(b)", TRUE),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1, NULL,
-                           upower_sleep_cb, NULL);
+                           consolekit_sleep_cb, NULL);
+        g_object_unref (proxy);
 }
 
 static void
-upower_hibernate (GDBusProxy *upower_proxy)
+consolekit_hibernate (void)
 {
-        g_dbus_proxy_call (upower_proxy,
+        GError *error = NULL;
+        GDBusProxy *proxy;
+        
+        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                               NULL,
+                                               CONSOLEKIT_DBUS_NAME,
+                                               CONSOLEKIT_DBUS_PATH_MANAGER,
+                                               CONSOLEKIT_DBUS_INTERFACE_MANAGER,
+                                               NULL, &error);
+        if (proxy == NULL) {
+                g_warning ("cannot connect to ConsoleKit: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+        g_dbus_proxy_call (proxy,
                            "Hibernate",
-                           NULL,
+                           g_variant_new("(b)", TRUE),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1, NULL,
-                           upower_sleep_cb, NULL);
+                           consolekit_sleep_cb, NULL);
+        g_object_unref (proxy);
+}
+
+static void
+consolekit_hybrid_suspend (void)
+{
+        GError *error = NULL;
+        GDBusProxy *proxy;
+        
+        proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                               NULL,
+                                               CONSOLEKIT_DBUS_NAME,
+                                               CONSOLEKIT_DBUS_PATH_MANAGER,
+                                               CONSOLEKIT_DBUS_INTERFACE_MANAGER,
+                                               NULL, &error);
+        if (proxy == NULL) {
+                g_warning ("cannot connect to ConsoleKit: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+        g_dbus_proxy_call (proxy,
+                           "HybridSleep",
+                           g_variant_new("(b)", TRUE),
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1, NULL,
+                           consolekit_sleep_cb, NULL);
+        g_object_unref (proxy);
 }
 
 void
 csd_power_suspend (gboolean    use_logind,
-                   GDBusProxy *upower_proxy,
                    gboolean    try_hybrid)
 {
   if (use_logind) {
@@ -241,7 +305,12 @@ csd_power_suspend (gboolean    use_logind,
     }
   }
   else {
-    upower_suspend (upower_proxy);
+    if (try_hybrid && can_hybrid_sleep ()) {
+      consolekit_hybrid_suspend ();
+    }
+    else {
+      consolekit_suspend ();
+    }
   }
 }
 
@@ -257,12 +326,12 @@ csd_power_poweroff (gboolean use_logind)
 }
 
 void
-csd_power_hibernate (gboolean use_logind, GDBusProxy *upower_proxy)
+csd_power_hibernate (gboolean use_logind)
 {
   if (use_logind) {
     logind_hibernate ();
   }
   else {
-    upower_hibernate (upower_proxy);
+    consolekit_hibernate ();
   }
 }

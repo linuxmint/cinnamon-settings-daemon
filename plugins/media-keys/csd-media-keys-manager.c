@@ -1470,7 +1470,6 @@ do_config_power_action (CsdMediaKeysManager *manager,
                         const gchar *config_key)
 {
         CsdPowerActionType action_type;
-
         action_type = g_settings_get_enum (manager->priv->power_settings,
                                            config_key);
         switch (action_type) {
@@ -1478,7 +1477,7 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 ;
                 gboolean hybrid = g_settings_get_boolean (manager->priv->cinnamon_session_settings,
                                                           "prefer-hybrid-sleep");
-                csd_power_suspend (manager->priv->use_logind, manager->priv->upower_proxy, hybrid);
+                csd_power_suspend (manager->priv->use_logind, hybrid);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown (manager);
@@ -1488,7 +1487,7 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 execute (manager, "dbus-send --dest=org.gnome.SessionManager /org/gnome/SessionManager org.gnome.SessionManager.RequestShutdown", FALSE);
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
-                csd_power_hibernate (manager->priv->use_logind, manager->priv->upower_proxy);
+                csd_power_hibernate (manager->priv->use_logind);
                 break;
         case CSD_POWER_ACTION_BLANK:
                 execute (manager, "cinnamon-screensaver-command --lock", FALSE);
