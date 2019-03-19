@@ -1480,6 +1480,8 @@ mouse_callback (GSettings       *settings,
                         set_motion (manager, device);
                 } else if (g_str_equal (key, KEY_MIDDLE_BUTTON_EMULATION)) {
                         set_middle_button (manager, device, g_settings_get_boolean (settings, KEY_MIDDLE_BUTTON_EMULATION));
+                } else if (g_str_equal (key, KEY_NATURAL_SCROLL_ENABLED)) {
+                        set_natural_scroll (manager, device, g_settings_get_boolean (settings, key));
                 }
         }
         g_list_free (devices);
