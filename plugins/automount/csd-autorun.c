@@ -386,10 +386,10 @@ is_shift_pressed (void)
 
 	ret = FALSE;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 	status = XkbGetState (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
 			      XkbUseCoreKbd, &state);
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
 	if (status == Success) {
 		ret = state.mods & ShiftMask;

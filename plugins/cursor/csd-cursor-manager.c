@@ -76,15 +76,15 @@ device_is_xtest (XDevice *xdevice)
         if (!prop)
                 return FALSE;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         if ((XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 1, False,
                                 XA_INTEGER, &realtype, &realformat, &nitems,
                                 &bytes_after, &data) == Success) && (realtype != None)) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 XFree (data);
                 return TRUE;
         }
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         return FALSE;
 }
@@ -104,7 +104,7 @@ set_cursor_visibility (CsdCursorManager *manager,
         {
                 xdisplay = GDK_DISPLAY_XDISPLAY (display);
 
-                gdk_error_trap_push ();
+                gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
                 screen = gdk_display_get_screen (display, 0);
 
@@ -113,7 +113,7 @@ set_cursor_visibility (CsdCursorManager *manager,
                 else
                         XFixesHideCursor (xdisplay, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)));
 
-                if (gdk_error_trap_pop ()) {
+                if (gdk_x11_display_error_trap_pop (gdk_display_get_default ())) {
                         g_warning ("An error occurred trying to %s the cursor",
                                    visible ? "show" : "hide");
                 }
@@ -159,9 +159,9 @@ update_cursor_for_current (CsdCursorManager *manager)
                 if (device_info_is_ps2_mouse (&device_info[i]))
                         continue;
 
-                gdk_error_trap_push ();
+                gdk_x11_display_error_trap_push (gdk_display_get_default ());
                 device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-                if (gdk_error_trap_pop () || (device == NULL))
+                if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || (device == NULL))
                         continue;
 
                 if (device_is_xtest (device)) {
@@ -230,18 +230,18 @@ supports_cursor_xfixes (void)
         int major = XFIXES_CURSOR_HIDING_MAJOR;
         int minor = 0;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         if (!supports_xfixes ()) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 return FALSE;
         }
 
         if (!XFixesQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor)) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 return FALSE;
         }
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         if (major >= XFIXES_CURSOR_HIDING_MAJOR)
                 return TRUE;

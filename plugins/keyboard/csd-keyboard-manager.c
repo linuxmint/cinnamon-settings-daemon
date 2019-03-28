@@ -222,7 +222,7 @@ apply_settings (GSettings          *settings,
         bell_mode = g_settings_get_enum (settings, KEY_BELL_MODE);
         bell_volume   = (bell_mode == CSD_BELL_MODE_ON) ? 50 : 0;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         if (repeat) {
                 gboolean rate_set = FALSE;
 
@@ -261,7 +261,7 @@ apply_settings (GSettings          *settings,
 	}
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 }
 
 void

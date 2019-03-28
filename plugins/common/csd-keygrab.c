@@ -120,12 +120,12 @@ grab_key_real (guint      keycode,
  *
  * This may generate X errors.  The correct way to use this is like:
  *
- *        gdk_error_trap_push ();
+ *        gdk_x11_display_error_trap_push (gdk_display_get_default ());
  *
  *        grab_key_unsafe (key, grab, screens);
  *
  *        gdk_flush ();
- *        if (gdk_error_trap_pop ())
+ *        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
  *                g_warning ("Grab failed, another application may already have access to key '%u'",
  *                           key->keycode);
  *

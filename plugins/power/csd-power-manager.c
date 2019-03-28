@@ -4227,12 +4227,12 @@ csd_power_manager_start (CsdPowerManager *manager,
          * being "0" by default to being "600" by default 
          * https://bugzilla.gnome.org/show_bug.cgi?id=709114
          */
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         int dummy;
         if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy)) {
             DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), 0, 0, 0);
         }
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         manager->priv->xscreensaver_watchdog_timer_id = g_timeout_add_seconds (XSCREENSAVER_WATCHDOG_TIMEOUT,
                                                                                disable_builtin_screensaver,

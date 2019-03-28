@@ -125,13 +125,13 @@ get_xkb_desc_rec (CsdA11yKeyboardManager *manager)
         XkbDescRec *desc;
         Status      status = Success;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         desc = XkbGetMap (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XkbAllMapComponentsMask, XkbUseCoreKbd);
         if (desc != NULL) {
                 desc->ctrls = NULL;
                 status = XkbGetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XkbAllControlsMask, desc);
         }
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         g_return_val_if_fail (desc != NULL, NULL);
         g_return_val_if_fail (desc->ctrls != NULL, NULL);
@@ -305,7 +305,7 @@ set_server_from_gsettings (CsdA11yKeyboardManager *manager)
         g_debug ("CHANGE to : 0x%x (2)", desc->ctrls->ax_options);
         */
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         XkbSetControls (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                         XkbSlowKeysMask         |
                         XkbBounceKeysMask       |
@@ -321,7 +321,7 @@ set_server_from_gsettings (CsdA11yKeyboardManager *manager)
         XkbFreeKeyboard (desc, XkbAllComponentsMask, True);
 
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         cinnamon_settings_profile_end (NULL);
 }

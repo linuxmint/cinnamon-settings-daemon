@@ -153,9 +153,9 @@ open_device (CsdWacomDevice *device)
 	if (id < 0)
 		return NULL;
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 	xdev = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
-	if (gdk_error_trap_pop () || (xdev == NULL))
+	if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || (xdev == NULL))
 		return NULL;
 
 	return xdev;
@@ -312,9 +312,9 @@ set_absolute (CsdWacomDevice  *device,
 	XDevice *xdev;
 
 	xdev = open_device (device);
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 	XSetDeviceMode (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdev, is_absolute ? Absolute : Relative);
-	if (gdk_error_trap_pop ())
+	if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
 		g_error ("Failed to set mode \"%s\" for \"%s\".",
 			 is_absolute ? "Absolute" : "Relative", csd_wacom_device_get_tool_name (device));
 	xdevice_close (xdev);
@@ -447,7 +447,7 @@ set_device_buttonmap (CsdWacomDevice *device,
 		map[i] = intmap[i];
         g_variant_unref (value);
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
 	/* X refuses to change the mapping while buttons are engaged,
 	 * so if this is the case we'll retry a few times
@@ -458,7 +458,7 @@ set_device_buttonmap (CsdWacomDevice *device,
 		g_usleep (300);
 	}
 
-	if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
+	if ((gdk_x11_display_error_trap_pop (gdk_display_get_default ()) && rc != MappingSuccess) ||
 	    rc != MappingSuccess)
 		g_warning ("Error in setting button mapping for \"%s\"", csd_wacom_device_get_tool_name (device));
 
@@ -664,7 +664,7 @@ reset_pad_buttons (CsdWacomDevice *device)
 	/* Normal buttons */
 	xdev = open_device (device);
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
 	nmap = 256;
 	map = g_new0 (unsigned char, nmap);
@@ -679,16 +679,16 @@ reset_pad_buttons (CsdWacomDevice *device)
 		g_usleep (300);
 	}
 
-	if ((gdk_error_trap_pop () && rc != MappingSuccess) ||
+	if ((gdk_x11_display_error_trap_pop (gdk_display_get_default ()) && rc != MappingSuccess) ||
 	    rc != MappingSuccess)
 		g_warning ("Error in resetting button mapping for \"%s\" (rc=%d)", csd_wacom_device_get_tool_name (device), rc);
 
 	g_free (map);
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 	reset_touch_buttons (xdev, def_touchrings_buttons, "Wacom Wheel Buttons");
 	reset_touch_buttons (xdev, def_touchstrip_buttons, "Wacom Strip Buttons");
-	gdk_error_trap_pop_ignored ();
+	gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
 	xdevice_close (xdev);
 
@@ -1158,14 +1158,14 @@ generate_key (CsdWacomTabletButton *wbutton,
 	}
 
 	/* And send out the keys! */
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 	if (is_press)
 		send_modifiers (display, mods, TRUE);
 	XTestFakeKeyEvent (display, keycode,
 			   is_press ? True : False, 0);
 	if (is_press == FALSE)
 		send_modifiers (display, mods, FALSE);
-	if (gdk_error_trap_pop ())
+	if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
 		g_warning ("Failed to generate fake key event '%s'", str);
 
 	g_free (str);

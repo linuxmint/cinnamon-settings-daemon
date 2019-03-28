@@ -1587,9 +1587,9 @@ rotate_touchscreens (CsdXrandrManager *mgr,
 
                         g_debug ("About to rotate '%s'", device_info[i].name);
 
-                        gdk_error_trap_push ();
+                        gdk_x11_display_error_trap_push (gdk_display_get_default ());
                         device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-                        if (gdk_error_trap_pop () || (device == NULL))
+                        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || (device == NULL))
                                 continue;
 
                         if (device_set_property (device, device_info[i].name, &matrix) != FALSE) {

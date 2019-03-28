@@ -488,12 +488,12 @@ get_device_type (XDeviceInfo *dev)
          * other than checking for a driver-specific property.
          * Wacom Tool Type exists on all tools
          */
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), dev->id);
-        if (gdk_error_trap_pop () || (device == NULL))
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || (device == NULL))
                 return ret;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                  device, prop, 0, 1, False,
@@ -501,7 +501,7 @@ get_device_type (XDeviceInfo *dev)
                                  &bytes_after, &data);
         xdevice_close (device);
 
-        if (gdk_error_trap_pop () || rc != Success || realtype == None)
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || rc != Success || realtype == None)
                 ret = WACOM_TYPE_INVALID;
 
         XFree (data);
@@ -1885,17 +1885,17 @@ csd_wacom_device_get_area (CsdWacomDevice *device)
 
 	area = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), "Wacom Tablet Area", False);
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 	xdevice = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
-	if (gdk_error_trap_pop () || (device == NULL))
+	if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || (device == NULL))
 		return NULL;
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default ());
 	rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
 				 xdevice, area, 0, 4, False,
 				 XA_INTEGER, &realtype, &realformat, &nitems,
 				 &bytes_after, &data);
-	if (gdk_error_trap_pop () || rc != Success || realtype == None || bytes_after != 0 || nitems != 4) {
+	if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || rc != Success || realtype == None || bytes_after != 0 || nitems != 4) {
 		xdevice_close (xdevice);
 		return NULL;
 	}

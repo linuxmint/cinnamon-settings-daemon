@@ -53,7 +53,7 @@ device_set_property (XDevice        *xdevice,
         if (!prop)
                 return FALSE;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                  xdevice, prop, 0, property->nitems, False,
@@ -64,7 +64,7 @@ device_set_property (XDevice        *xdevice,
             realtype != (Atom)property->type ||
             realformat != property->format ||
             nitems < (unsigned long)property->nitems) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 g_warning ("Error reading property \"%s\" for \"%s\"", property->name, device_name);
                 return FALSE;
         }
@@ -89,7 +89,7 @@ device_set_property (XDevice        *xdevice,
 
         XFree (data);
 
-        if (gdk_error_trap_pop ()) {
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ())) {
                 g_warning ("Error in setting \"%s\" for \"%s\"", property->name, device_name);
                 return FALSE;
         }
@@ -143,7 +143,7 @@ supports_xinput2_devices (int *opcode)
         if (supports_xinput_devices_with_opcode (opcode) == FALSE)
                 return FALSE;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         major = 2;
 #ifdef XI_23
@@ -152,21 +152,21 @@ supports_xinput2_devices (int *opcode)
         minor = 0;
 #endif
         if (XIQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor) != Success) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 #ifndef XI_23
                 /* try for 2.2, maybe gtk has already announced 2.2 support */
-                gdk_error_trap_push ();
+                gdk_x11_display_error_trap_push (gdk_display_get_default ());
                 major = 2;
                 minor = 2;
                 if (XIQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor) != Success) {
-                    gdk_error_trap_pop_ignored ();
+                    gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                     return FALSE;
                 }
 #else
             return FALSE;
 #endif
         }
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         if ((major * 1000 + minor) < (2000))
                 return FALSE;
@@ -193,16 +193,16 @@ device_is_touchpad (XDevice *xdevice)
         do {
                 prop = XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), *name, True);
                 if (prop) {
-                        gdk_error_trap_push ();
+                        gdk_x11_display_error_trap_push (gdk_display_get_default ());
                         if ((XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                                  xdevice, prop, 0, 1, False,
                                                  XA_INTEGER, &realtype, &realformat, &nitems,
                                                  &bytes_after, &data) == Success) && (realtype != None)) {
-                                gdk_error_trap_pop_ignored ();
+                                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                                 XFree (data);
                                 return TRUE;
                         }
-                        gdk_error_trap_pop_ignored ();
+                        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 }
 
                 name++;
@@ -265,9 +265,9 @@ device_type_is_present (InfoIdentifyFunc info_func,
                 if (device_func == NULL)
                         break;
 
-                gdk_error_trap_push ();
+                gdk_x11_display_error_trap_push (gdk_display_get_default ());
                 device = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device_info[i].id);
-                if (gdk_error_trap_pop () || (device == NULL))
+                if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) || (device == NULL))
                         continue;
 
                 retval = (device_func) (device);
@@ -320,16 +320,16 @@ xdevice_get_device_node (int deviceid)
         if (!prop)
                 return NULL;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         if (!XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             deviceid, prop, 0, 1000, False,
                             AnyPropertyType, &act_type, &act_format,
                             &nitems, &bytes_after, &data) == Success) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 return NULL;
         }
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 goto out;
 
         if (nitems == 0)
@@ -393,17 +393,17 @@ xdevice_get_last_tool_id (int  deviceid)
 
         data = NULL;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         if (XIGetProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             deviceid, prop, 0, 1000, False,
                             AnyPropertyType, &act_type, &act_format,
                             &nitems, &bytes_after, &data) != Success) {
-                gdk_error_trap_pop_ignored ();
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
                 goto out;
         }
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 goto out;
 
 	if (nitems != 4 && nitems != 5)
@@ -450,13 +450,13 @@ set_device_enabled (int device_id,
         if (!prop)
                 return FALSE;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         value = enabled ? 1 : 0;
         XIChangeProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                           device_id, prop, XA_INTEGER, 8, PropModeReplace, &value, 1);
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 return FALSE;
 
         return TRUE;
@@ -575,7 +575,7 @@ get_disabled_devices (GdkDeviceManager *manager)
 void
 xdevice_close (XDevice *xdevice)
 {
-    gdk_error_trap_push ();
+    gdk_x11_display_error_trap_push (gdk_display_get_default ());
     XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
     gdk_error_trap_pop_ignored();
 }

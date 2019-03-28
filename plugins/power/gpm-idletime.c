@@ -90,11 +90,11 @@ gpm_idletime_get_time (GpmIdletime *idletime)
                 return 0;
 
         /* NX explodes if you query the counter */
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         XSyncQueryCounter (idletime->priv->dpy,
                            idletime->priv->idle_counter,
                            &value);
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 return 0;
         return gpm_idletime_xsyncvalue_to_int64 (value);
 }

@@ -132,11 +132,11 @@ open_gdk_device (GdkDevice *device)
 
         g_object_get (G_OBJECT (device), "device-id", &id, NULL);
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         xdevice = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
 
-        if (gdk_error_trap_pop () != 0)
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) != 0)
                 return NULL;
 
         return xdevice;
@@ -327,7 +327,7 @@ touchpad_has_single_button (XDevice *device)
         if (!prop)
                 return FALSE;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), device, prop, 0, 1, False,
                                 XA_INTEGER, &type, &format, &nitems,
                                 &bytes_after, &data);
@@ -337,7 +337,7 @@ touchpad_has_single_button (XDevice *device)
         if (rc == Success)
                 XFree (data);
 
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         return is_single_button;
 }
@@ -360,7 +360,7 @@ property_exists_on_device (GdkDevice *device, const char * property_name)
         if (xdevice == NULL)
                 return FALSE;
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                  property, 0, 1, False,
                                  XA_INTEGER, &act_type, &act_format, &nitems,
@@ -368,7 +368,7 @@ property_exists_on_device (GdkDevice *device, const char * property_name)
         if (rc == Success)
             XFree(data);
 
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         xdevice_close (xdevice);
         return rc == Success;
@@ -399,7 +399,7 @@ property_set_bool (GdkDevice *device,
 
         g_debug ("Setting %s on %s to %d", property_name, gdk_device_get_name (device), value);
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                  property, 0, 1, False,
                                  XA_INTEGER, &act_type, &act_format, &nitems,
@@ -415,7 +415,7 @@ property_set_bool (GdkDevice *device,
                 XFree (data);
         }
 
-        if (gdk_error_trap_pop ()) {
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ())) {
                 g_warning ("Error while setting %s on \"%s\"", property_name, gdk_device_get_name (device));
         }
 }
@@ -475,7 +475,7 @@ set_left_handed_legacy_driver (CsdMouseManager *manager,
                 left_handed = mouse_left_handed;
         }
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         n_buttons = XGetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                              buttons,
                                              buttons_capacity);
@@ -493,7 +493,7 @@ set_left_handed_legacy_driver (CsdMouseManager *manager,
         configure_button_layout (buttons, n_buttons, left_handed);
 
         XSetDeviceButtonMapping (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, buttons, n_buttons);
-        gdk_error_trap_pop_ignored ();
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
 out:
         xdevice_close (xdevice);
@@ -601,7 +601,7 @@ set_motion_legacy_driver (CsdMouseManager *manager,
                 motion_threshold = -1;
         }
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         /* Get the list of feedbacks for the device */
         states = XGetFeedbackControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, &num_feedbacks);
@@ -631,7 +631,7 @@ set_motion_legacy_driver (CsdMouseManager *manager,
                 state = (XFeedbackState *) ((char *) state + state->length);
         }
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 g_warning ("Error setting acceleration on \"%s\"",
                            gdk_device_get_name (device));
 
@@ -699,7 +699,7 @@ set_motion_libinput (CsdMouseManager *manager,
                 return;
         }
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                  property, 0, 1, False,
                                  float_type, &act_type, &act_format, &nitems,
@@ -715,7 +715,7 @@ set_motion_libinput (CsdMouseManager *manager,
                 XFree (data.c);
         }
 
-        if (gdk_error_trap_pop ()) {
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ())) {
                 g_warning ("Error while setting accel speed on \"%s\"", gdk_device_get_name (device));
         }
 
@@ -756,7 +756,7 @@ set_middle_button_evdev (CsdMouseManager *manager,
 
         g_debug ("setting middle button on %s", gdk_device_get_name (device));
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                             xdevice, prop, 0, 1, False, XA_INTEGER, &type, &format,
@@ -769,7 +769,7 @@ set_middle_button_evdev (CsdMouseManager *manager,
                                        xdevice, prop, type, format, PropModeReplace, data, nitems);
         }
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 g_warning ("Error in setting middle button emulation on \"%s\"", gdk_device_get_name (device));
 
         if (rc == Success)
@@ -958,7 +958,7 @@ set_tap_to_click_synaptics (GdkDevice *device,
 
         g_debug ("setting tap to click on %s", gdk_device_get_name (device));
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
@@ -979,7 +979,7 @@ set_tap_to_click_synaptics (GdkDevice *device,
         if (rc == Success)
                 XFree (data);
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 g_warning ("Error in setting tap to click on \"%s\"", gdk_device_get_name (device));
 
         xdevice_close (xdevice);
@@ -1033,7 +1033,7 @@ set_click_actions_synaptics (GdkDevice *device,
 
         g_debug ("setting click action to click on %s", gdk_device_get_name (device));
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
@@ -1050,7 +1050,7 @@ set_click_actions_synaptics (GdkDevice *device,
         if (rc == Success)
                 XFree (data);
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 g_warning ("Error in setting click actions on \"%s\"", gdk_device_get_name (device));
 
         xdevice_close (xdevice);
@@ -1084,7 +1084,7 @@ set_click_actions_libinput (GdkDevice *device,
 
         g_debug ("setting click action to click on %s", gdk_device_get_name (device));
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
@@ -1106,7 +1106,7 @@ set_click_actions_libinput (GdkDevice *device,
         if (clickpad_click == 3 && rc_default == Success)
                 XFree (data_default);
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 g_warning ("Error in setting click actions on \"%s\"", gdk_device_get_name (device));
 
         xdevice_close (xdevice);
@@ -1163,7 +1163,7 @@ set_scrolling_libinput (GdkDevice *device, gint scrolling_method, gboolean horiz
 
         g_debug ("setting scroll method on %s", gdk_device_get_name (device));
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice, prop, 0, 2,
                                  False, XA_INTEGER, &type, &format, &nitems,
                                  &bytes_after, &data);
@@ -1188,7 +1188,7 @@ set_scrolling_libinput (GdkDevice *device, gint scrolling_method, gboolean horiz
         if (scrolling_method == 3 && rc_default == Success)
                 XFree (data_default);
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 g_warning ("Error in setting scroll method on \"%s\"", gdk_device_get_name (device));
 
         xdevice_close (xdevice);
@@ -1244,9 +1244,9 @@ set_touchpad_enabled (int id)
 
         g_debug ("Trying to set device enabled for %d", id);
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         xdevice = XOpenDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), id);
-        if (gdk_error_trap_pop () != 0)
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()) != 0)
                 return;
 
         if (!device_is_touchpad (xdevice)) {
@@ -1396,7 +1396,7 @@ set_natural_scroll_synaptics (CsdMouseManager *manager,
 
         scrolling_distance = property_from_name ("Synaptics Scrolling Distance");
 
-        gdk_error_trap_push ();
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
         rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
                                  scrolling_distance, 0, 2, False,
                                  XA_INTEGER, &act_type, &act_format, &nitems,
@@ -1418,7 +1418,7 @@ set_natural_scroll_synaptics (CsdMouseManager *manager,
                                        PropModeReplace, data, nitems);
         }
 
-        if (gdk_error_trap_pop ())
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ()))
                 g_warning ("Error setting %s for \"%s\"",
                            natural_scroll ? "natural (reverse) scroll" : "normal scroll",
                            gdk_device_get_name (device));
