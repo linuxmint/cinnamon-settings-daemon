@@ -143,6 +143,24 @@ open_gdk_device (GdkDevice *device)
 }
 
 static gboolean
+gdkdevice_is_touchpad (GdkDevice *device)
+{
+        XDevice *xdevice;
+        gboolean ret = FALSE;
+
+        xdevice = open_gdk_device (device);
+
+        if (xdevice == NULL)
+                return ret;
+
+        ret = device_is_touchpad (xdevice);
+
+        xdevice_close (xdevice);
+
+        return ret;
+}
+
+static gboolean
 device_is_blacklisted (CsdMouseManager *manager,
                        GdkDevice       *device)
 {
@@ -1342,10 +1360,10 @@ set_mouse_settings (CsdMouseManager *manager,
         set_click_actions( device, g_settings_get_int (manager->priv->touchpad_settings, KEY_CLICKPAD_CLICK), touchpad_left_handed);
         set_scrolling (device, g_settings_get_int (manager->priv->touchpad_settings, KEY_SCROLL_METHOD),
                 g_settings_get_boolean (manager->priv->touchpad_settings, KEY_HORIZ_SCROLL));
-        if (device_is_touchpad(device)){
-          set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
-        }else{
-          set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_NATURAL_SCROLL_ENABLED));
+        if (gdkdevice_is_touchpad (device)) {
+                set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_NATURAL_SCROLL_ENABLED));
+        } else {
+                set_natural_scroll (manager, device, g_settings_get_boolean (manager->priv->mouse_settings, KEY_NATURAL_SCROLL_ENABLED));
         }
         if (g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_ENABLED) == FALSE)
                 set_touchpad_disabled (device);
@@ -1469,6 +1487,9 @@ mouse_callback (GSettings       *settings,
                 if (device_is_ignored (manager, device))
                         continue;
 
+                if (gdkdevice_is_touchpad (device))
+                        continue;
+
                 if (g_str_equal (key, KEY_LEFT_HANDED)) {
                         gboolean mouse_left_handed;
                         mouse_left_handed = g_settings_get_boolean (settings, KEY_LEFT_HANDED);
@@ -1513,6 +1534,9 @@ touchpad_callback (GSettings       *settings,
                 GdkDevice *device = l->data;
 
                 if (device_is_ignored (manager, device))
+                        continue;
+
+                if (!gdkdevice_is_touchpad (device))
                         continue;
 
                 if (g_str_equal (key, KEY_TAP_TO_CLICK)) {
