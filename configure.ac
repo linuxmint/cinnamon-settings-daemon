@@ -460,6 +460,8 @@ else
 fi
 AC_SUBST(DEBUG_CFLAGS)
 
+CFLAGS="$CFLAGS -Wno-deprecated-declarations -Wno-deprecated -Wno-declaration-after-statement"
+
 AC_OUTPUT([
 Makefile
 cinnamon-settings-daemon/Makefile
