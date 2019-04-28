@@ -4435,11 +4435,19 @@ device_to_variant_blob (UpDevice *device)
                       "model", &model,
                       "kind", &kind,
                       "percentage", &percentage,
-                      "battery-level", &battery_level,
                       "state", &state,
                       "time-to-empty", &time_empty,
                       "time-to-full", &time_full,
                       NULL);
+
+        /* upower < 0.99.5 compatibility */
+        if (g_object_class_find_property (G_OBJECT_GET_CLASS (device), "battery-level")) {
+                g_object_get (device,
+                              "battery-level", &battery_level,
+                              NULL);
+        } else {
+                battery_level = UP_DEVICE_LEVEL_NONE;
+        }
 
         /* only return time for these simple states */
         if (state == UP_DEVICE_STATE_DISCHARGING)
