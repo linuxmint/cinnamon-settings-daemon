@@ -66,10 +66,12 @@ csd_backlight_helper_get_best_backlight (gchar** preference_list)
 		goto out;
 
 	/* setup our gsettings interface */
-	if (preference_list[0] == NULL)
+	if (preference_list == NULL || preference_list[0] == NULL) {
 		g_print("%s\n%s\n",
 		"Warning: no backlight sources have been configured.",
 		"Check " CSD_POWER_SETTINGS_SCHEMA " to configure some.");
+		goto out;
+	}
 
 	int i = 0;
 	for (i=0; preference_list[i] != NULL; i++) {
