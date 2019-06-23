@@ -1,3 +1,28 @@
+cinnamon-settings-daemon (4.2.0) tina; urgency=medium
+
+  [ montagdude ]
+  * Implement suspend/hibernate with ConsoleKit (#252)
+
+  [ Clement Lefebvre ]
+  * Power: Clean up unused code
+
+  [ Mirko Girgenti ]
+  * https://github.com/linuxmint/cinnamon-settings-daemon/issues/192 (#246)
+
+  [ Clement Lefebvre ]
+  * Disable natural-scroll by default for mice
+
+  [ Michael Webster ]
+  * csd-mouse-manager.c: Fix issues from bfa99478e0d996fe (Natural mouse scrolling).
+  * misc: Use gdk_x11_display_error_trap_* instead of deprecated gdk_error_trap_*.
+  * configure.ac: disable deprecation warnings entirely.
+  * csd-power-manager.c: Check for a device battery-level property before attempting to access it.
+
+  [ William Poetra Yoga ]
+  * Prevent Segmentation Fault (#255)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 23 Jun 2019 15:37:44 +0200
+
 cinnamon-settings-daemon (4.0.3) tessa; urgency=medium
 
   * Xrandr: Rotate touchscreens when applying a new configuration
