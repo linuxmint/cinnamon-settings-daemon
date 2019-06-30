@@ -4414,6 +4414,10 @@ csd_power_manager_finalize (GObject *object)
         G_OBJECT_CLASS (csd_power_manager_parent_class)->finalize (object);
 }
 
+#if !UP_CHECK_VERSION(0,99,0)
+#define UP_DEVICE_LEVEL_NONE 1
+#endif
+
 static GVariant *
 device_to_variant_blob (UpDevice *device)
 {
