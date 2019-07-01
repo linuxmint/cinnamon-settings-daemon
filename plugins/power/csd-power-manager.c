@@ -4430,7 +4430,7 @@ device_to_variant_blob (UpDevice *device)
         GVariant *value;
         UpDeviceKind kind;
         UpDeviceState state;
-        UpDeviceLevel battery_level;
+        gint battery_level;
 
         icon = gpm_upower_get_device_icon (device, TRUE);
         device_icon = g_icon_to_string (icon);
