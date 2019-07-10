@@ -1,3 +1,11 @@
+cinnamon-settings-daemon (4.2.1) tina; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-manager.c: Define UP_DEVICE_LEVEL_NONE for ourselves if it's missing.  UpDeviceLevel was new in 0.99.0.
+  * csd-power-manager.c: Use gint instead of an enum type for compatibility with < 0.99.0 upower.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 10 Jul 2019 11:53:38 +0200
+
 cinnamon-settings-daemon (4.2.0) tina; urgency=medium
 
   [ montagdude ]
