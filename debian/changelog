@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (4.2.2) tina; urgency=medium
+
+  [ Corbin Auriti ]
+  *  Fix Shutdown immediately not working - the easy way (#260)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 25 Jul 2019 10:22:37 +0200
+
 cinnamon-settings-daemon (4.2.1) tina; urgency=medium
 
   [ Michael Webster ]
