@@ -115,8 +115,6 @@ static const gchar kb_introspection_xml[] =
 #define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
 #define HIGH_CONTRAST "HighContrast"
 
-#define VOLUME_STEP 5           /* percents for one volume button press */
-
 #define LOGIND_DBUS_NAME                       "org.freedesktop.login1"
 #define LOGIND_DBUS_PATH                       "/org/freedesktop/login1"
 #define LOGIND_DBUS_INTERFACE                  "org.freedesktop.login1.Manager"
@@ -872,7 +870,9 @@ do_sound_action (CsdMediaKeysManager *manager,
         if (stream == NULL)
                 return;
 
-        norm_vol_step = PA_VOLUME_NORM * VOLUME_STEP / 100;
+        settings = g_settings_new ("org.cinnamon.desktop.keybindings.media-keys");
+        norm_vol_step = PA_VOLUME_NORM * g_settings_get_int (settings, "volume-step") / 100;
+        g_object_unref (settings);
 
         settings = g_settings_new ("org.cinnamon.desktop.sound");
         osd_max_vol = PA_VOLUME_NORM * g_settings_get_int (settings, "maximum-volume") / 100;
