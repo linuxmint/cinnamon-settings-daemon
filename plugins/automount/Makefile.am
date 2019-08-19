@@ -34,6 +34,22 @@ csd_automount_LDADD =			\
 	$(AUTOMOUNT_LIBS)		\
 	$(NULL)
 
+
+
+test_automount_dialog_SOURCES = test-automount-dialog.c \
+                                csd-autorun.c \
+                                $(NULL)
+test_automount_dialog_LDADD = $(AUTOMOUNT_LIBS) \
+                              $(SETTINGS_PLUGIN_LIBS)     \
+                              $(NULL)
+test_automount_dialog_CFLAGS = $(AUTOMOUNT_CFLAGS) \
+                               $(SETTINGS_PLUGIN_CFLAGS)	\
+                               $(NULL)
+
+
+noinst_PROGRAMS=test-automount-dialog
+
+
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = cinnamon-settings-daemon-automount.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
