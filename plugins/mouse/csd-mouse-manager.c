@@ -1021,10 +1021,8 @@ set_disable_w_mouse_attached_libinput (CsdMouseManager *manager, gboolean state)
 static void
 set_disable_w_mouse_attached (CsdMouseManager *manager, gboolean state)
 {
-        if (property_from_name ("libinput Send Events Modes Available") &&
-            property_from_name ("libinput Send Events Mode Enabled")) {
-                set_disable_w_mouse_attached_libinput (manager, state);
-        }
+
+        set_disable_w_mouse_attached_libinput (manager, state);
 }
 
 static void
