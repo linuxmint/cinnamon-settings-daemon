@@ -74,6 +74,7 @@
 
 #define KEY_TOUCHPAD_ENABLED             "touchpad-enabled"
 #define KEY_NATURAL_SCROLL_ENABLED       "natural-scroll"
+#define KEY_TOUCHPAD_DISABLE_WITH_MOUSE  "disable-with-external-mouse"
 
 /* Mouse settings */
 #define KEY_LOCATE_POINTER               "locate-pointer"
@@ -420,6 +421,47 @@ property_set_bool (GdkDevice *device,
         }
 }
 
+static gboolean
+property_get_bool (GdkDevice *device,
+                   XDevice *xdevice,
+                   const char * property_name,
+                   int property_index)
+{
+        int rc;
+        Atom act_type, property;
+        int act_format;
+        unsigned long nitems, bytes_after;
+        unsigned char *data;
+
+        gboolean ret = FALSE;
+
+        property = property_from_name (property_name);
+        if (!property) {
+                return FALSE;
+        }
+
+        g_debug ("Getting %s on %s", property_name, gdk_device_get_name (device));
+
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
+        rc = XGetDeviceProperty (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice,
+                                 property, 0, 1, False,
+                                 XA_INTEGER, &act_type, &act_format, &nitems,
+                                 &bytes_after, &data);
+        if (rc == Success && act_type == XA_INTEGER && act_format == 8 && nitems > property_index) {
+                ret = data[property_index];
+        }
+
+        if (rc == Success) {
+                XFree (data);
+        }
+
+        if (gdk_x11_display_error_trap_pop (gdk_display_get_default ())) {
+                g_warning ("Error while getting %s on \"%s\"", property_name, gdk_device_get_name (device));
+        }
+
+        return ret;
+}
+
 static void
 touchpad_set_bool (GdkDevice *device, const char * property_name, int property_index, gboolean enable)
 {
@@ -433,6 +475,24 @@ touchpad_set_bool (GdkDevice *device, const char * property_name, int property_i
                 property_set_bool (device, xdevice, property_name, property_index, enable);
 
         xdevice_close (xdevice);
+}
+
+static gboolean
+touchpad_get_bool (GdkDevice *device, const char * property_name, int property_index)
+{
+        XDevice *xdevice;
+        gboolean ret = FALSE;
+
+        xdevice = open_gdk_device (device);
+        if (xdevice == NULL)
+                return ret;
+
+        if (device_is_touchpad (xdevice))
+                ret = property_get_bool (device, xdevice, property_name, property_index);
+
+        xdevice_close (xdevice);
+
+        return ret;
 }
 
 static void
@@ -930,6 +990,41 @@ set_disable_w_typing (CsdMouseManager *manager, gboolean state)
                 set_disable_w_typing_libinput (manager, state);
 
         return 0;
+}
+
+static int
+set_disable_w_mouse_attached_libinput (CsdMouseManager *manager, gboolean state)
+{
+        GList *devices, *l;
+
+        /* This is only called once for synaptics but for libinput we need
+         * to loop through the list of devices
+         */
+        devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
+
+        for (l = devices; l != NULL; l = l->next) {
+                GdkDevice *device = l->data;
+
+                if (device_is_ignored (manager, device))
+                        continue;
+
+                if (touchpad_get_bool (device, "libinput Send Events Modes Available", 1)) {
+                    touchpad_set_bool (device, "libinput Send Events Mode Enabled", 1, state);
+                }
+
+        }
+        g_list_free (devices);
+
+        return 0;
+}
+
+static void
+set_disable_w_mouse_attached (CsdMouseManager *manager, gboolean state)
+{
+        if (property_from_name ("libinput Send Events Modes Available") &&
+            property_from_name ("libinput Send Events Mode Enabled")) {
+                set_disable_w_mouse_attached_libinput (manager, state);
+        }
 }
 
 static void
@@ -1528,6 +1623,11 @@ touchpad_callback (GSettings       *settings,
                 return;
         }
 
+        if (g_str_equal (key, KEY_TOUCHPAD_DISABLE_WITH_MOUSE)) {
+                set_disable_w_mouse_attached (manager, g_settings_get_boolean (manager->priv->touchpad_settings, key));
+                return;
+        }
+
         devices = gdk_device_manager_list_devices (manager->priv->device_manager, GDK_DEVICE_TYPE_SLAVE);
 
         for (l = devices; l != NULL; l = l->next) {
@@ -1602,6 +1702,7 @@ device_added_cb (GdkDeviceManager *device_manager,
 
                 /* If a touchpad was to appear... */
                 set_disable_w_typing (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_W_TYPING));
+                set_disable_w_mouse_attached (manager, g_settings_get_boolean (manager->priv->touchpad_settings, KEY_TOUCHPAD_DISABLE_WITH_MOUSE));
         }
 }
 

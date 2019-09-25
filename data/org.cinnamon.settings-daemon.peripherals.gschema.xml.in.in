@@ -45,6 +45,11 @@
       <_summary>Enable touchpad</_summary>
       <_description>Set this to TRUE to enable all touchpads.</_description>
     </key>
+    <key name="disable-with-external-mouse" type="b">
+      <default>false</default>
+      <_summary>Disable the touchpad when an external mouse is connected</_summary>
+      <_description>Set this to TRUE to disable the touchpad when an external mouse is connected (only available with libinput)</_description>
+    </key>
     <key name="left-handed" enum="org.cinnamon.settings-daemon.CsdTouchpadHandedness">
       <default>'mouse'</default>
       <summary>Touchpad button orientation</summary>
