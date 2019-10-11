@@ -38,6 +38,7 @@
 struct CsdAutomountManagerPrivate
 {
         GSettings   *settings;
+        GSettings   *settings_screensaver;
 
 	GVolumeMonitor *volume_monitor;
 	unsigned int automount_idle_id;
@@ -482,7 +483,15 @@ static void
 setup_automounter (CsdAutomountManager *manager)
 {
         do_initialize_session (manager);
-        do_initialize_screensaver (manager);
+
+        gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
+                                                     "custom-screensaver-command");
+
+        /* if we fail to get the gsettings entry, or if the user did not select
+         * a custom screen saver, default to cinnamon-screensaver */
+        if (NULL == custom_saver || g_strcmp0 (custom_saver, "") == 0)
+                do_initialize_screensaver (manager);
+        g_free (custom_saver);
         
 	manager->priv->volume_monitor = g_volume_monitor_get ();
 	g_signal_connect_object (manager->priv->volume_monitor, "mount-added",
@@ -506,6 +515,7 @@ csd_automount_manager_start (CsdAutomountManager *manager,
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->settings = g_settings_new ("org.cinnamon.desktop.media-handling");
+        manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
         setup_automounter (manager);
 
         cinnamon_settings_profile_end (NULL);
@@ -533,6 +543,11 @@ csd_automount_manager_stop (CsdAutomountManager *manager)
         if (p->settings != NULL) {
                 g_object_unref (p->settings);
                 p->settings = NULL;
+        }
+
+        if (p->settings_screensaver != NULL) {
+                g_object_unref (p->settings_screensaver);
+                p->settings_screensaver = NULL;
         }
 
         if (p->ss_proxy != NULL) {

@@ -22,9 +22,11 @@
 
 #include "config.h"
 
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <sys/wait.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkx.h>
@@ -63,6 +65,7 @@
 
 #define CSD_POWER_SETTINGS_SCHEMA               "org.cinnamon.settings-daemon.plugins.power"
 #define CSD_XRANDR_SETTINGS_SCHEMA              "org.cinnamon.settings-daemon.plugins.xrandr"
+#define CSD_SAVER_SETTINGS_SCHEMA               "org.cinnamon.desktop.screensaver"
 #define CSD_SESSION_SETTINGS_SCHEMA             "org.cinnamon.desktop.session"
 #define CSD_CINNAMON_SESSION_SCHEMA             "org.cinnamon.SessionManager"
 
@@ -94,6 +97,7 @@
 enum {
         CSD_POWER_IDLETIME_NULL_ID,
         CSD_POWER_IDLETIME_DIM_ID,
+        CSD_POWER_IDLETIME_LOCK_ID,
         CSD_POWER_IDLETIME_BLANK_ID,
         CSD_POWER_IDLETIME_SLEEP_ID
 };
@@ -176,6 +180,7 @@ struct CsdPowerManagerPrivate
         GtkStatusIcon           *status_icon;
         guint                    xscreensaver_watchdog_timer_id;
         gboolean                 is_virtual_machine;
+        gint                     fd_close_loop_end;
 
         /* logind stuff */
         GDBusProxy              *logind_proxy;
@@ -203,6 +208,8 @@ static void      do_power_action_type (CsdPowerManager *manager, CsdPowerActionT
 static void      do_lid_closed_action (CsdPowerManager *manager);
 static void      inhibit_lid_switch (CsdPowerManager *manager);
 static void      uninhibit_lid_switch (CsdPowerManager *manager);
+static void      setup_locker_process (gpointer user_data);
+static void      lock_screen_with_custom_saver (CsdPowerManager *manager, gchar *custom_saver, gboolean idle_lock);
 static void      lock_screensaver (CsdPowerManager *manager);
 static void      kill_lid_close_safety_timer (CsdPowerManager *manager);
 
@@ -3358,6 +3365,7 @@ idle_configure (CsdPowerManager *manager)
 {
         gboolean is_idle_inhibited;
         guint current_idle_time;
+        guint timeout_lock;
         guint timeout_blank;
         guint timeout_sleep;
         gboolean on_battery;
@@ -3369,6 +3377,8 @@ idle_configure (CsdPowerManager *manager)
                 g_debug ("inhibited, so using normal state");
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_NORMAL);
 
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           CSD_POWER_IDLETIME_LOCK_ID);
                 gpm_idletime_alarm_remove (manager->priv->idletime,
                                            CSD_POWER_IDLETIME_BLANK_ID);
                 gpm_idletime_alarm_remove (manager->priv->idletime,
@@ -3390,6 +3400,25 @@ idle_configure (CsdPowerManager *manager)
                 timeout_blank = g_settings_get_int (manager->priv->settings,
                                                     "sleep-display-ac");
         }
+
+        /* set up custom screensaver lock after idle time trigger */
+        timeout_lock = g_settings_get_uint (manager->priv->settings_desktop_session,
+                                            "idle-delay");
+        if (timeout_lock != 0) {
+                if (timeout_blank != 0 && timeout_lock > timeout_blank) {
+                        g_debug ("reducing lock timeout to match blank timeout");
+                        timeout_lock = timeout_blank;
+                }
+                g_debug ("setting up lock callback for %is", timeout_lock);
+
+                gpm_idletime_alarm_set (manager->priv->idletime,
+                                        CSD_POWER_IDLETIME_LOCK_ID,
+                                        idle_adjust_timeout (current_idle_time, timeout_lock) * 1000);
+        } else {
+                gpm_idletime_alarm_remove (manager->priv->idletime,
+                                           CSD_POWER_IDLETIME_LOCK_ID);
+        }
+
         if (timeout_blank != 0) {
                 g_debug ("setting up blank callback for %is", timeout_blank);
 
@@ -3448,13 +3477,113 @@ csd_power_manager_class_init (CsdPowerManagerClass *klass)
 }
 
 static void
+setup_locker_process (gpointer user_data)
+{
+        /* This function should only contain signal safe code, as it is invoked
+         * between fork and exec. See signal-safety(7) for more information. */
+        CsdPowerManager *manager = user_data;
+
+        /* close all FDs except stdin, stdout, stderr and the inhibition fd */
+        for (gint fd = 3; fd < manager->priv->fd_close_loop_end; fd++)
+                if (fd != manager->priv->inhibit_suspend_fd)
+                        close (fd);
+
+        /* make sure the inhibit fd does not get closed on exec, as it's options
+         * are not specified in the logind inhibitor interface documentation. */
+        if (-1 != manager->priv->inhibit_suspend_fd)
+                fcntl (manager->priv->inhibit_suspend_fd,
+                       F_SETFD,
+                       ~FD_CLOEXEC & fcntl (manager->priv->inhibit_suspend_fd, F_GETFD));
+}
+
+static void
+lock_screen_with_custom_saver (CsdPowerManager *manager,
+                               gchar *custom_saver,
+                               gboolean idle_lock)
+{
+        gboolean res;
+        gchar *fd = NULL;
+        gchar **argv = NULL;
+        gchar **env = NULL;
+        GError *error = NULL;
+
+        /* environment setup */
+        fd = g_strdup_printf ("%d", manager->priv->inhibit_suspend_fd);
+        if (!fd) {
+                g_warning ("failed to printf inhibit_suspend_fd");
+                goto quit;
+        }
+        if (!(env = g_get_environ ())) {
+                g_warning ("failed to get environment");
+                goto quit;
+        }
+        env = g_environ_setenv (env, "XSS_SLEEP_LOCK_FD", fd, FALSE);
+        if (!env) {
+                g_warning ("failed to set XSS_SLEEP_LOCK_FD");
+                goto quit;
+        }
+        env = g_environ_setenv (env,
+                                "LOCKED_BY_SESSION_IDLE",
+                                idle_lock ? "true" : "false",
+                                TRUE);
+        if (!env) {
+                g_warning ("failed to set LOCKED_BY_SESSION_IDLE");
+                goto quit;
+        }
+
+        /* argv setup */
+        res = g_shell_parse_argv (custom_saver, NULL, &argv, &error);
+        if (!res) {
+                g_warning ("failed to parse custom saver cmd '%s': %s",
+                           custom_saver,
+                           error->message);
+                goto quit;
+        }
+
+        /* get the max number of open file descriptors */
+        manager->priv->fd_close_loop_end = sysconf (_SC_OPEN_MAX);
+        if (-1 == manager->priv->fd_close_loop_end)
+                /* use some sane default */
+                manager->priv->fd_close_loop_end = 32768;
+
+        /* spawn the custom screen locker */
+        res = g_spawn_async (NULL,
+                             argv,
+                             env,
+                             G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_SEARCH_PATH,
+                             &setup_locker_process,
+                             manager,
+                             NULL,
+                             &error);
+        if (!res)
+                g_warning ("failed to run custom screensaver '%s': %s",
+                           custom_saver,
+                           error->message);
+
+quit:
+        g_free (fd);
+        g_strfreev (argv);
+        g_strfreev (env);
+        g_clear_error (&error);
+}
+
+static void
 lock_screensaver (CsdPowerManager *manager)
 {
     GError *error;
     gboolean ret;
+    gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
+                                                 "custom-screensaver-command");
 
     g_debug ("Locking screen before sleep/hibernate");
 
+    if (custom_saver && g_strcmp0 (custom_saver, "") != 0) {
+            lock_screen_with_custom_saver (manager, custom_saver, FALSE);
+            goto quit;
+    }
+
+    /* if we fail to get the gsettings entry, or if the user did not select
+     * a custom screen saver, default to invoking cinnamon-screensaver */
     /* do this sync to ensure it's on the screen when we start suspending */
     error = NULL;
     ret = g_spawn_command_line_sync ("cinnamon-screensaver-command --lock", NULL, NULL, NULL, &error);
@@ -3463,6 +3592,9 @@ lock_screensaver (CsdPowerManager *manager)
         g_warning ("Couldn't lock screen: %s", error->message);
         g_error_free (error);
     }
+
+quit:
+    g_free (custom_saver);
 }
 
 static void
@@ -3614,6 +3746,22 @@ idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
         switch (alarm_id) {
         case CSD_POWER_IDLETIME_DIM_ID:
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_DIM);
+                break;
+        case CSD_POWER_IDLETIME_LOCK_ID:
+                /* cinnamon-screensaver has its own lock after some idle delay.
+                 * If we have a custom screensaver configured, we have to use
+                 * the idle delay from cinnamon-settings-daemon to trigger the
+                 * screen lock after the idle timeout */
+                ; /* empty statement, because C does not allow a declaration to
+                   * follow a label */
+                gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
+                                                             "custom-screensaver-command");
+                if (custom_saver && g_strcmp0 (custom_saver, "") != 0)
+                        lock_screen_with_custom_saver (manager,
+                                                       custom_saver,
+                                                       TRUE);
+                g_free (custom_saver);
+
                 break;
         case CSD_POWER_IDLETIME_BLANK_ID:
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_BLANK);
@@ -4076,7 +4224,7 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->settings = g_settings_new (CSD_POWER_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
-        manager->priv->settings_screensaver = g_settings_new ("org.cinnamon.desktop.screensaver");
+        manager->priv->settings_screensaver = g_settings_new (CSD_SAVER_SETTINGS_SCHEMA);
         manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->settings_desktop_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
         manager->priv->settings_cinnamon_session = g_settings_new (CSD_CINNAMON_SESSION_SCHEMA);
