@@ -4211,7 +4211,17 @@ csd_power_manager_start (CsdPowerManager *manager,
         g_signal_connect (manager->priv->x11_screen, "changed", G_CALLBACK (on_randr_event), manager);
         on_randr_event (manager->priv->x11_screen, manager);
 
-        /* ensure the default dpms timeouts are cleared */
+        /* store Xorg DPMS settings */
+        CARD16 t_standby, t_suspend, t_off;
+        int dummy;
+
+        gdk_x11_display_error_trap_push (gdk_display_get_default ());
+        if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy)) {
+            DPMSGetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &t_standby, &t_suspend, &t_off);
+        }
+        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
+
+        /* turn screen on */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                              GNOME_RR_DPMS_ON,
                                              error);
@@ -4223,14 +4233,31 @@ csd_power_manager_start (CsdPowerManager *manager,
         /* coldplug the engine */
         engine_coldplug (manager);
 
-        /* Make sure that Xorg's DPMS extension never gets in our way. The defaults seem to have changed in Xorg 1.14
+        /* only if user has requested turning screen off in power settings
+         * make sure that Xorg's DPMS extension never gets in our way;
+         * otherwise let Xorg manage DPMS settings (if any were set)
+         *
+         * the defaults seem to have changed in Xorg 1.14
          * being "0" by default to being "600" by default 
          * https://bugzilla.gnome.org/show_bug.cgi?id=709114
          */
+        guint timeout_blank;
+
+        if (manager->priv->on_battery) {
+            timeout_blank = g_settings_get_int (manager->priv->settings, "sleep-display-battery");
+        } else {
+            timeout_blank = g_settings_get_int (manager->priv->settings, "sleep-display-ac");
+        }
+
+        if (timeout_blank != 0) {
+            t_standby = 0;
+            t_suspend = 0;
+            t_off = 0;
+        }
+
         gdk_x11_display_error_trap_push (gdk_display_get_default ());
-        int dummy;
         if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy)) {
-            DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), 0, 0, 0);
+            DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), t_standby, t_suspend, t_off);
         }
         gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
