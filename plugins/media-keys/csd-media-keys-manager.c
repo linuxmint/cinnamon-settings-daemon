@@ -870,7 +870,7 @@ do_sound_action (CsdMediaKeysManager *manager,
         if (stream == NULL)
                 return;
 
-        settings = g_settings_new ("org.cinnamon.desktop.keybindings.media-keys");
+        settings = g_settings_new ("org.cinnamon.desktop.sound");
         norm_vol_step = PA_VOLUME_NORM * g_settings_get_int (settings, "volume-step") / 100;
         g_object_unref (settings);
 
