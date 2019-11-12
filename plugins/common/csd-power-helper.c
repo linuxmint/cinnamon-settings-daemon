@@ -32,6 +32,33 @@
 #define CONSOLEKIT_DBUS_PATH_MANAGER            "/org/freedesktop/ConsoleKit/Manager"
 #define CONSOLEKIT_DBUS_INTERFACE_MANAGER       "org.freedesktop.ConsoleKit.Manager"
 
+#ifdef HAVE_LOGIND
+
+static gboolean
+use_logind (void)
+{
+    static gboolean should_use_logind = FALSE;
+    static gsize once_init_value = 0;
+
+    if (g_once_init_enter (&once_init_value)) {
+        should_use_logind = access("/run/systemd/system/", F_OK) == 0; // sd_booted ()
+
+        g_once_init_leave (&once_init_value, 1);
+    }
+
+    return should_use_logind;
+}
+
+#else /* HAVE_LOGIND */
+
+static gboolean
+use_logind (void)
+{
+    return FALSE;
+}
+
+#endif /* HAVE_LOGIND */
+
 static void
 logind_stop (void)
 {
@@ -293,10 +320,9 @@ consolekit_hybrid_suspend (void)
 }
 
 void
-csd_power_suspend (gboolean    use_logind,
-                   gboolean    try_hybrid)
+csd_power_suspend (gboolean try_hybrid)
 {
-  if (use_logind) {
+  if (use_logind ()) {
     if (try_hybrid && can_hybrid_sleep ()) {
       logind_hybrid_suspend ();
     }
@@ -315,9 +341,9 @@ csd_power_suspend (gboolean    use_logind,
 }
 
 void
-csd_power_poweroff (gboolean use_logind)
+csd_power_poweroff (void)
 {
-  if (use_logind) {
+  if (use_logind ()) {
     logind_stop ();
   }
   else {
@@ -326,9 +352,9 @@ csd_power_poweroff (gboolean use_logind)
 }
 
 void
-csd_power_hibernate (gboolean use_logind)
+csd_power_hibernate (void)
 {
-  if (use_logind) {
+  if (use_logind ()) {
     logind_hibernate ();
   }
   else {

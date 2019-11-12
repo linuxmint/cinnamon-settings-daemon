@@ -169,7 +169,6 @@ struct CsdMediaKeysManagerPrivate
         gint             inhibit_keys_fd;
         GSettings        *desktop_session_settings;
         GSettings        *cinnamon_session_settings;
-        gboolean         use_logind;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -1477,16 +1476,16 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 ;
                 gboolean hybrid = g_settings_get_boolean (manager->priv->cinnamon_session_settings,
                                                           "prefer-hybrid-sleep");
-                csd_power_suspend (manager->priv->use_logind, hybrid);
+                csd_power_suspend (hybrid);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown (manager);
                 break;
         case CSD_POWER_ACTION_SHUTDOWN:
-                csd_power_poweroff (manager->priv->use_logind);
+                csd_power_poweroff ();
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
-                csd_power_hibernate (manager->priv->use_logind);
+                csd_power_hibernate ();
                 break;
         case CSD_POWER_ACTION_BLANK:
                 execute (manager, "cinnamon-screensaver-command --lock", FALSE);
@@ -1840,8 +1839,6 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
                                  NULL);
 
         manager->priv->desktop_session_settings = g_settings_new("org.cinnamon.desktop.session");
-        manager->priv->use_logind = g_settings_get_boolean (manager->priv->desktop_session_settings, "settings-daemon-uses-logind");
-
         manager->priv->cinnamon_session_settings = g_settings_new("org.cinnamon.SessionManager");
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);

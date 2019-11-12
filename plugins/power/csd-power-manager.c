@@ -138,7 +138,6 @@ struct CsdPowerManagerPrivate
         GSettings               *settings_xrandr;
         GSettings               *settings_desktop_session;
         GSettings               *settings_cinnamon_session;
-        gboolean                use_logind;
         UpClient                *up_client;
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
@@ -1936,7 +1935,7 @@ do_power_action_type (CsdPowerManager *manager,
 
                 gboolean hybrid = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
                                                           "prefer-hybrid-sleep");
-                csd_power_suspend (manager->priv->use_logind, hybrid);
+                csd_power_suspend (hybrid);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown ();
@@ -1947,13 +1946,13 @@ do_power_action_type (CsdPowerManager *manager,
                 }
 
                 turn_monitors_off (manager);
-                csd_power_hibernate (manager->priv->use_logind);
+                csd_power_hibernate ();
                 break;
         case CSD_POWER_ACTION_SHUTDOWN:
                 /* this is only used on critically low battery where
                  * hibernate is not available and is marginally better
                  * than just powering down the computer mid-write */
-                csd_power_poweroff (manager->priv->use_logind);
+                csd_power_poweroff ();
                 break;
         case CSD_POWER_ACTION_BLANK:
                 /* Lock first or else xrandr might reconfigure stuff and the ss's coverage
@@ -4081,7 +4080,6 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->settings_desktop_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
         manager->priv->settings_cinnamon_session = g_settings_new (CSD_CINNAMON_SESSION_SCHEMA);
-        manager->priv->use_logind = g_settings_get_boolean (manager->priv->settings_desktop_session, "settings-daemon-uses-logind");
         manager->priv->inhibit_lid_switch_enabled =
                           g_settings_get_boolean (manager->priv->settings, "inhibit-lid-switch");
 
