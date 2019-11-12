@@ -24,9 +24,9 @@
 
 G_BEGIN_DECLS
 
-void csd_power_suspend   (gboolean use_logind, gboolean try_hybrid);
-void csd_power_hibernate (gboolean use_logind);
-void csd_power_poweroff  (gboolean use_logind);
+void csd_power_suspend   (gboolean try_hybrid);
+void csd_power_hibernate (void);
+void csd_power_poweroff  (void);
 
 G_END_DECLS
 

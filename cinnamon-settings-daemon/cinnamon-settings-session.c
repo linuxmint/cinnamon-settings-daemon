@@ -375,24 +375,24 @@ got_manager_proxy_cb (GObject *source_object, GAsyncResult *res, gpointer user_d
 static void
 cinnamon_settings_session_init (CinnamonSettingsSession *session)
 {
-        GSettings *session_settings;
-
 	session->priv = CINNAMON_SETTINGS_SESSION_GET_PRIVATE (session);
 
-	session_settings = g_settings_new ("org.cinnamon.desktop.session");
-	gboolean use_logind = g_settings_get_boolean (session_settings, "settings-daemon-uses-logind");
-	g_object_unref (session_settings);
-
-	if (use_logind) {
 #ifdef HAVE_LOGIND
+    if (access("/run/systemd/system/", F_OK) == 0) {    // sd_booted ()
         sd_pid_get_session (getpid(), &session->priv->session_id);
         session->priv->sd_source = sd_source_new ();
         g_source_set_callback (session->priv->sd_source, sessions_changed, session, NULL);
         g_source_attach (session->priv->sd_source, NULL);
         sessions_changed (session);
-#endif
+
+        g_debug ("Using logind");
     }
-	else {
+    else
+#endif /* HAVE_LOGIND */
+
+    {
+        g_debug ("Using consolekit");
+
 		session->priv->cancellable = g_cancellable_new ();
 
 		/* connect to ConsoleKit */
