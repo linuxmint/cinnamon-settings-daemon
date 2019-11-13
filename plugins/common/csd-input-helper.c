@@ -577,5 +577,5 @@ xdevice_close (XDevice *xdevice)
 {
     gdk_x11_display_error_trap_push (gdk_display_get_default ());
     XCloseDevice (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), xdevice);
-    gdk_error_trap_pop_ignored();
+    gdk_x11_display_error_trap_pop_ignored(gdk_display_get_default ());
 }
