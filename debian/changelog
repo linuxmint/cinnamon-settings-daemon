@@ -1,3 +1,15 @@
+cinnamon-settings-daemon (4.4.0) tricia; urgency=medium
+
+  [ Michael Webster ]
+  * automount: Add autorun dialog tester. (#263)
+  * mouse manager: Expose libinput option to disable the touchpad when an external mouse is attached.
+  * mouse manager: Simplify previous commit - get/set properties here already check for support, there's no need to pre-check.
+  * mouse manager: set the 'disable touchpad with mouse' on devices at startup.
+  * csd-input-helper.c: Use correct error_trap_pop function.
+  * power helper - Try to use logind, then fallback to using consolekit, instead of using a gsettings key to decide.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 16 Nov 2019 16:37:55 +0100
+
 cinnamon-settings-daemon (4.2.2) tina; urgency=medium
 
   [ Corbin Auriti ]
