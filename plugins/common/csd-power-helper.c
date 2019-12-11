@@ -41,7 +41,7 @@ use_logind (void)
     static gsize once_init_value = 0;
 
     if (g_once_init_enter (&once_init_value)) {
-        should_use_logind = access("/run/systemd/system/", F_OK) == 0; // sd_booted ()
+        should_use_logind = access("/run/systemd/seats/", F_OK) == 0; // sd_booted ()
 
         g_once_init_leave (&once_init_value, 1);
     }
