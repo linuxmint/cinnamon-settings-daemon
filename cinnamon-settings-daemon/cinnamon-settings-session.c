@@ -378,7 +378,7 @@ cinnamon_settings_session_init (CinnamonSettingsSession *session)
 	session->priv = CINNAMON_SETTINGS_SESSION_GET_PRIVATE (session);
 
 #ifdef HAVE_LOGIND
-    if (access("/run/systemd/system/", F_OK) == 0) {    // sd_booted ()
+    if (access("/run/systemd/seats/", F_OK) == 0) {    // sd_booted ()
         sd_pid_get_session (getpid(), &session->priv->session_id);
         session->priv->sd_source = sd_source_new ();
         g_source_set_callback (session->priv->sd_source, sessions_changed, session, NULL);
