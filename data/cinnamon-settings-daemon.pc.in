@@ -1,8 +1,0 @@
-prefix=@prefix@
-includedir=@includedir@
-
-Name: cinnamon-settings-daemon
-Description: cinnamon-settings-daemon specific enumarations
-Requires: glib-2.0
-Version: @VERSION@
-Cflags: -I${includedir}/cinnamon-settings-daemon-@CSD_API_VERSION@

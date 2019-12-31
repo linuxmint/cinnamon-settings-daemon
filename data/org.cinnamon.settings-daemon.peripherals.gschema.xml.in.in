@@ -10,45 +10,45 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.smartcard" path="/org/cinnamon/settings-daemon/peripherals/smartcard/">
     <key name="removal-action" enum="org.cinnamon.settings-daemon.CsdSmartcardRemovalAction">
       <default>'none'</default>
-      <_summary>Smartcard removal action</_summary>
-      <_description>Set this to one of "none", "lock-screen", or "force-logout". The action will get performed when the smartcard used for log in is removed.</_description>
+      <summary>Smartcard removal action</summary>
+      <description>Set this to one of "none", "lock-screen", or "force-logout". The action will get performed when the smartcard used for log in is removed.</description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchpad" path="/org/cinnamon/settings-daemon/peripherals/touchpad/">
     <key name="disable-while-typing" type="b">
       <default>true</default>
-      <_summary>Disable touchpad while typing</_summary>
-      <_description>Set this to TRUE if you have problems with accidentally hitting the touchpad while typing.</_description>
+      <summary>Disable touchpad while typing</summary>
+      <description>Set this to TRUE if you have problems with accidentally hitting the touchpad while typing.</description>
     </key>
     <key name="scrolling-method" type="i">
       <default>3</default>
-      <_summary>Set scrolling mode on touchpad</_summary>
-      <_description>0 to 2, 0 is disabled, 1 is two-finger scrolling, 2 is edge scrolling, 3 is automatic selection</_description>
+      <summary>Set scrolling mode on touchpad</summary>
+      <description>0 to 2, 0 is disabled, 1 is two-finger scrolling, 2 is edge scrolling, 3 is automatic selection</description>
     </key>
     <key name="horizontal-scrolling" type="b">
       <default>false</default>
-      <_summary></_summary>
-      <_description></_description>
+      <summary></summary>
+      <description></description>
     </key>
     <key name="tap-to-click" type="b">
       <default>true</default>
-      <_summary>Enable mouse clicks with touchpad</_summary>
-      <_description>Set this to TRUE to be able to send mouse clicks by tapping on the touchpad.</_description>
+      <summary>Enable mouse clicks with touchpad</summary>
+      <description>Set this to TRUE to be able to send mouse clicks by tapping on the touchpad.</description>
     </key>
     <key name="clickpad-click" type="i">
       <default>3</default>
-      <_summary>Click action on clickpads</_summary>
-      <_description>0 through 2, 0 is single click action, 1 emulates mouse buttons in bottom corners, 2 is multi-finger click, 3 is automatic selection</_description>
+      <summary>Click action on clickpads</summary>
+      <description>0 through 2, 0 is single click action, 1 emulates mouse buttons in bottom corners, 2 is multi-finger click, 3 is automatic selection</description>
     </key>
     <key name="touchpad-enabled" type="b">
       <default>true</default>
-      <_summary>Enable touchpad</_summary>
-      <_description>Set this to TRUE to enable all touchpads.</_description>
+      <summary>Enable touchpad</summary>
+      <description>Set this to TRUE to enable all touchpads.</description>
     </key>
     <key name="disable-with-external-mouse" type="b">
       <default>false</default>
-      <_summary>Disable the touchpad when an external mouse is connected</_summary>
-      <_description>Set this to TRUE to disable the touchpad when an external mouse is connected (only available with libinput)</_description>
+      <summary>Disable the touchpad when an external mouse is connected</summary>
+      <description>Set this to TRUE to disable the touchpad when an external mouse is connected (only available with libinput)</description>
     </key>
     <key name="left-handed" enum="org.cinnamon.settings-daemon.CsdTouchpadHandedness">
       <default>'mouse'</default>
@@ -134,7 +134,7 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.mouse" path="/org/cinnamon/settings-daemon/peripherals/mouse/">
     <key name="locate-pointer" type="b">
       <default>false</default>
-      <_summary>Highlights the current location of the pointer when the Control key is pressed and released.</_summary>
+      <summary>Highlights the current location of the pointer when the Control key is pressed and released.</summary>
     </key>
     <key name="left-handed" type="b">
       <default>false</default>
@@ -168,31 +168,31 @@
     </key>
     <key name="double-click" type="i">
       <default>400</default>
-      <_summary>Double click time</_summary>
-      <_description> Length of a double click in milliseconds.</_description>
+      <summary>Double click time</summary>
+      <description> Length of a double click in milliseconds.</description>
     </key>
     <key name="drag-threshold" type="i">
       <default>8</default>
-      <_summary>Drag threshold</_summary>
-      <_description>Distance before a drag is started.</_description>
+      <summary>Drag threshold</summary>
+      <description>Distance before a drag is started.</description>
     </key>
     <key name="middle-button-enabled" type="b">
       <default>true</default>
-      <_summary>Middle button emulation</_summary>
-      <_description>Enables middle mouse button emulation through simultaneous left and right button click.</_description>
+      <summary>Middle button emulation</summary>
+      <description>Enables middle mouse button emulation through simultaneous left and right button click.</description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org/cinnamon/settings-daemon/peripherals/touchscreen/">
     <key name="orientation-lock" type="b">
       <default>true</default>
-      <_summary>Whether the tablet's orientation is locked, or rotated automatically.</_summary>
+      <summary>Whether the tablet's orientation is locked, or rotated automatically.</summary>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.input-devices" path="/org/cinnamon/settings-daemon/peripherals/input-devices/">
     <key name="hotplug-command" type="s">
       <default>''</default>
-      <_summary>Device hotplug custom command</_summary>
-      <_description>Command to be run when a device is added or removed.</_description>
+      <summary>Device hotplug custom command</summary>
+      <description>Command to be run when a device is added or removed.</description>
     </key>
   </schema>
 </schemalist>

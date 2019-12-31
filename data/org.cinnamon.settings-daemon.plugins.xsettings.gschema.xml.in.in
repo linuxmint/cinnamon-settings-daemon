@@ -2,28 +2,28 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.xsettings" path="/org/cinnamon/settings-daemon/plugins/xsettings/">
     <key name="antialiasing" enum="org.cinnamon.settings-daemon.CsdFontAntialiasingMode">
       <default>'rgba'</default>
-      <_summary>Antialiasing</_summary>
-      <_description>The type of antialiasing to use when rendering fonts. Possible values are: "none" for no antialiasing, "grayscale" for standard grayscale antialiasing, and "rgba" for subpixel antialiasing (LCD screens only).</_description>
+      <summary>Antialiasing</summary>
+      <description>The type of antialiasing to use when rendering fonts. Possible values are: "none" for no antialiasing, "grayscale" for standard grayscale antialiasing, and "rgba" for subpixel antialiasing (LCD screens only).</description>
     </key>
     <key name="hinting" enum="org.cinnamon.settings-daemon.CsdFontHinting">
       <default>'slight'</default>
-      <_summary>Hinting</_summary>
-      <_description>The type of hinting to use when rendering fonts. Possible values are: "none" for no hinting, "slight" for basic, "medium" for moderate, and "full" for maximum hinting (may cause distortion of letter forms).</_description>
+      <summary>Hinting</summary>
+      <description>The type of hinting to use when rendering fonts. Possible values are: "none" for no hinting, "slight" for basic, "medium" for moderate, and "full" for maximum hinting (may cause distortion of letter forms).</description>
     </key>
     <key name="rgba-order" enum="org.cinnamon.settings-daemon.CsdFontRgbaOrder">
       <default>'rgb'</default>
-      <_summary>RGBA order</_summary>
-      <_description>The order of subpixel elements on an LCD screen; only used when antialiasing is set to "rgba". Possible values are: "rgb" for red on left (most common), "bgr" for blue on left, "vrgb" for red on top, "vbgr" for red on bottom.</_description>
+      <summary>RGBA order</summary>
+      <description>The order of subpixel elements on an LCD screen; only used when antialiasing is set to "rgba". Possible values are: "rgb" for red on left (most common), "bgr" for blue on left, "vrgb" for red on top, "vbgr" for red on bottom.</description>
     </key>
     <key name="disabled-gtk-modules" type="as">
       <default>[]</default>
-      <_summary>List of explicitly disabled GTK+ modules</_summary>
-      <_description>A list of strings representing the GTK+ modules that will not be loaded, even if enabled by default in their configuration.</_description>
+      <summary>List of explicitly disabled GTK+ modules</summary>
+      <description>A list of strings representing the GTK+ modules that will not be loaded, even if enabled by default in their configuration.</description>
     </key>
     <key name="enabled-gtk-modules" type="as">
       <default>[]</default>
-      <_summary>List of explicitly enabled GTK+ modules</_summary>
-      <_description>A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones.</_description>
+      <summary>List of explicitly enabled GTK+ modules</summary>
+      <description>A list of strings representing the GTK+ modules that will be loaded, usually in addition to conditional and forcibly disabled ones.</description>
     </key>
     <key type="a{sv}" name="overrides">
       <default>{}</default>
@@ -32,41 +32,41 @@
     </key>
     <key name="menus-have-icons" type="b">
       <default>false</default>
-      <_summary>Menus Have Icons</_summary>
-      <_description>
+      <summary>Menus Have Icons</summary>
+      <description>
         Whether menus may display an icon next to a menu entry.
-      </_description>
+      </description>
     </key>
     <key name="buttons-have-icons" type="b">
       <default>false</default>
-      <_summary>Buttons Have Icons</_summary>
-      <_description>
+      <summary>Buttons Have Icons</summary>
+      <description>
         Whether buttons may display an icon in addition to the button text.
-      </_description>
+      </description>
     </key>
     <key name="show-input-method-menu" type="b">
       <default>true</default>
-      <_summary>Show the 'Input Methods' menu</_summary>
-      <_description>
+      <summary>Show the 'Input Methods' menu</summary>
+      <description>
         Whether the context menus of entries and text views should offer to
         change the input method.
-      </_description>
+      </description>
     </key>
     <key name="show-unicode-menu" type="b">
       <default>true</default>
-      <_summary>Show the 'Unicode Control Character' menu</_summary>
-      <_description>
+      <summary>Show the 'Unicode Control Character' menu</summary>
+      <description>
         Whether the context menus of entries and text views should offer to
         insert control characters.
-      </_description>
+      </description>
     </key>
     <key name="automatic-mnemonics" type="b">
       <default>true</default>
-      <_summary>Only show mnemonics on when the Alt key is pressed</_summary>
-      <_description>
+      <summary>Only show mnemonics on when the Alt key is pressed</summary>
+      <description>
         Whether mnemonics should be automatically shown and hidden when the user
         presses the Alt key.
-      </_description>
+      </description>
     </key>
   </schema>
 </schemalist>

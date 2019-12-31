@@ -2,139 +2,139 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.media-keys" path="/org/cinnamon/settings-daemon/plugins/media-keys/">
     <key name="calculator" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="email" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="eject" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="help" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="home" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="media" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="next" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="pause" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="play" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="logout" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="shutdown" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="previous" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="screensaver" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="search" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="stop" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="volume-down" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="volume-mute" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="volume-up" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="screenshot" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="window-screenshot" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="area-screenshot" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="screenshot-clip" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="window-screenshot-clip" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="area-screenshot-clip" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="terminal" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="www" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="magnifier" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="screenreader" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="on-screen-keyboard" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="increase-text-size" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="decrease-text-size" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="toggle-contrast" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="magnifier-zoom-in" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
     <key name="magnifier-zoom-out" type="s">
       <default>''</default>
-      <_summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</_summary>
+      <summary>deprecated - moved to org.cinnamon.desktop.keybindings.media-keys</summary>
     </key>
   </schema>
 
