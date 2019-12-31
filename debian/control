@@ -3,10 +3,8 @@ Section: x11
 Priority: optional
 Maintainer: Linux Mint <root@linuxmint.com>
 Build-Depends:
- autoconf-archive,
- automake,
- autotools-dev,
- debhelper (>= 10),
+ meson (>= 0.47),
+ debhelper (>= 11.1~),
  docbook-xsl,
  intltool (>= 0.37.1),
  libcanberra-gtk3-dev,

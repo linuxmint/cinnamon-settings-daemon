@@ -93,63 +93,63 @@
     </key>
     <key name="percentage-low" type="i">
       <default>10</default>
-      <_summary>Percentage considered low</_summary>
-      <_description>The percentage of the battery when it is considered low. Only valid when use-time-for-policy is false.</_description>
+      <summary>Percentage considered low</summary>
+      <description>The percentage of the battery when it is considered low. Only valid when use-time-for-policy is false.</description>
     </key>
     <key name="percentage-critical" type="i">
       <default>3</default>
-      <_summary>Percentage considered critical</_summary>
-      <_description>The percentage of the battery when it is considered critical. Only valid when use-time-for-policy is false.</_description>
+      <summary>Percentage considered critical</summary>
+      <description>The percentage of the battery when it is considered critical. Only valid when use-time-for-policy is false.</description>
     </key>
     <key name="percentage-action" type="i">
       <default>2</default>
-      <_summary>Percentage action is taken</_summary>
-      <_description>The percentage of the battery when the critical action is performed. Only valid when use-time-for-policy is false.</_description>
+      <summary>Percentage action is taken</summary>
+      <description>The percentage of the battery when the critical action is performed. Only valid when use-time-for-policy is false.</description>
     </key>
     <key name="time-low" type="i">
       <default>1200</default>
-      <_summary>The time remaining when low</_summary>
-      <_description>The time remaining in seconds of the battery when it is considered low. Only valid when use-time-for-policy is true.</_description>
+      <summary>The time remaining when low</summary>
+      <description>The time remaining in seconds of the battery when it is considered low. Only valid when use-time-for-policy is true.</description>
     </key>
     <key name="time-critical" type="i">
       <default>300</default>
-      <_summary>The time remaining when critical</_summary>
-      <_description>The time remaining in seconds of the battery when it is considered critical. Only valid when use-time-for-policy is true.</_description>
+      <summary>The time remaining when critical</summary>
+      <description>The time remaining in seconds of the battery when it is considered critical. Only valid when use-time-for-policy is true.</description>
     </key>
     <key name="time-action" type="i">
       <default>120</default>
-      <_summary>The time remaining when action is taken</_summary>
-      <_description>The time remaining in seconds of the battery when critical action is taken. Only valid when use-time-for-policy is true.</_description>
+      <summary>The time remaining when action is taken</summary>
+      <description>The time remaining in seconds of the battery when critical action is taken. Only valid when use-time-for-policy is true.</description>
     </key>
     <key name="use-time-for-policy" type="b">
       <default>true</default>
-      <_summary>Whether to use time-based notifications</_summary>
-      <_description>If time based notifications should be used. If set to false, then the percentage change is used instead, which may fix a broken ACPI BIOS.</_description>
+      <summary>Whether to use time-based notifications</summary>
+      <description>If time based notifications should be used. If set to false, then the percentage change is used instead, which may fix a broken ACPI BIOS.</description>
     </key>
     <key name="lock-on-suspend" type="b">
       <default>false</default>
-      <_summary>If the computer should lock when entering suspend mode</_summary>
-      <_description>If the computer should lock during suspend - replaces ubuntu-lock-on-suspend</_description>
+      <summary>If the computer should lock when entering suspend mode</summary>
+      <description>If the computer should lock during suspend - replaces ubuntu-lock-on-suspend</description>
     </key>
     <key name="backlight-helper-force" type="b">
 	  <default>false</default>
-	  <_summary>Use the backlight helper application by default</_summary>
-	  <_description>Setting this to true forces cinnamon-settings-daemon to use the backlight helper application
+	  <summary>Use the backlight helper application by default</summary>
+	  <description>Setting this to true forces cinnamon-settings-daemon to use the backlight helper application
 	  to provide backlight control. This will usually fix backlight control problems on laptops where X11 picks
 	  the wrong interface, or uses an interface incorrectly. Adjust backlight-preference-order if the default
-	  selection logic still chooses the wrong interface.</_description>
+	  selection logic still chooses the wrong interface.</description>
 	</key>
     <key name="backlight-helper-preference-order" type="as">
       <default>['firmware','platform','raw']</default>
-      <_summary>Search order for backlight control interfaces</_summary>
-      <_description>Controls the type of interfaces the backlight-helper will search for to control the backlight.
+      <summary>Search order for backlight control interfaces</summary>
+      <description>Controls the type of interfaces the backlight-helper will search for to control the backlight.
 	This can be useful for working around systems with broken default backlight control behavior which provide
-	multiple interfaces. If you are having problems, try setting 'raw' to a higher priority.</_description>
+	multiple interfaces. If you are having problems, try setting 'raw' to a higher priority.</description>
     </key>
     <key name="inhibit-lid-switch" type="b">
       <default>true</default>
-      <_summary>Whether or not cinnamon-settings-daemon inhibits logind's handling of lid switch</_summary>
-      <_description>This setting should be true in all distributions and for all users. Only set it to false, if you want to prevent Cinnamon from handling lid switch events. In this case, you should not rely on Cinnamon's lid actions and use the logind ones instead.</_description>
+      <summary>Whether or not cinnamon-settings-daemon inhibits logind's handling of lid switch</summary>
+      <description>This setting should be true in all distributions and for all users. Only set it to false, if you want to prevent Cinnamon from handling lid switch events. In this case, you should not rely on Cinnamon's lid actions and use the logind ones instead.</description>
     </key>
   </schema>
 </schemalist>

@@ -1,0 +1,54 @@
+option(
+    'dbus_service_dir',
+    type: 'string',
+    value: '',
+    description: 'Used to specify the dbus service dir'
+)
+option(
+    'dbus_system_dir',
+    type: 'string',
+    value: '',
+    description: 'Used to specify the dbus system dir'
+)
+option(
+    'use_polkit',
+    type: 'feature',
+    value: 'auto',
+    description: 'Whether to use polkit in the build'
+)
+option(
+    'use_logind',
+    type: 'feature',
+    value: 'auto',
+    description: 'Whether to use logind in the build'
+)
+option(
+    'use_gudev',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Whether GUdev support should be enabled (not optional on Linux platforms)'
+)
+option(
+    'use_cups',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Whether cups (and therefore the print notifications plugin) support should be enabled'
+)
+option(
+    'enable_smartcard',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Set to false to disable smartcard support'
+)
+option(
+    'use_color',
+    type: 'boolean',
+    value: true,
+    description: 'Whether the color plugin should be enabled'
+)
+option(
+    'enable_debug',
+    type: 'boolean',
+    value: false,
+    description: 'Show build warnings for deprecations'
+)
