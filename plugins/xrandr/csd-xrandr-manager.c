@@ -478,8 +478,11 @@ apply_configuration_from_filename (CsdXrandrManager *manager,
 
         // Get the screen rotation and apply it to touchscreens
         output_info = get_laptop_output_info (priv->rw_screen, config);
-        rotation = gnome_rr_output_info_get_rotation (output_info);
-        rotate_touchscreens (manager, rotation);
+
+        if (output_info) {
+            rotation = gnome_rr_output_info_get_rotation (output_info);
+            rotate_touchscreens (manager, rotation);
+        }
 
         g_object_unref (config);
 
