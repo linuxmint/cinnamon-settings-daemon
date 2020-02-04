@@ -1723,15 +1723,24 @@ static void
 use_stored_configuration_or_auto_configure_outputs (CsdXrandrManager *manager, guint32 timestamp)
 {
         CsdXrandrManagerPrivate *priv = manager->priv;
-        char *intended_filename;
+        char *intended_filename, *legacy_filename;
         GError *error;
         gboolean success;
 
         intended_filename = gnome_rr_config_get_intended_filename ();
+        legacy_filename = gnome_rr_config_get_legacy_filename ();
 
         error = NULL;
         success = apply_configuration_from_filename (manager, intended_filename, TRUE, timestamp, &error);
+
+        if (!success) {
+            g_clear_error (&error);
+            g_message ("Existing monitor config (%s) not found during hotplug or laptop lid event."
+                       " Looking for legacy configuration (monitors.xml)", intended_filename);
+            success = apply_configuration_from_filename (manager, legacy_filename, TRUE, timestamp, &error);
+        }
         g_free (intended_filename);
+        g_free (legacy_filename);
 
         if (!success) {
                 /* We don't bother checking the error type.
@@ -1907,6 +1916,7 @@ apply_stored_configuration_at_startup (CsdXrandrManager *manager, guint32 timest
         gboolean success;
         char *backup_filename;
         char *intended_filename;
+        gchar *legacy_filename;
         GnomePnpIds *pnp_ids;
 
         /* This avoids the GnomePnpIds object being created multiple times.
@@ -1914,6 +1924,7 @@ apply_stored_configuration_at_startup (CsdXrandrManager *manager, guint32 timest
         pnp_ids = gnome_pnp_ids_new ();
         backup_filename = gnome_rr_config_get_backup_filename ();
         intended_filename = gnome_rr_config_get_intended_filename ();
+        legacy_filename = gnome_rr_config_get_legacy_filename ();
 
         /* 1. See if there was a "saved" configuration.  If there is one, it means
          * that the user had selected to change the display configuration, but the
@@ -1950,6 +1961,11 @@ apply_stored_configuration_at_startup (CsdXrandrManager *manager, guint32 timest
 
         success = apply_intended_configuration (manager, intended_filename, timestamp);
 
+        if (!success) {
+            g_message ("Existing monitor config (%s) not found at startup. Looking for legacy configuration (monitors.xml)", intended_filename);
+
+            success = apply_intended_configuration (manager, legacy_filename, timestamp);
+        }
 out:
         g_object_unref (pnp_ids);
 
@@ -1958,6 +1974,9 @@ out:
 
         g_free (backup_filename);
         g_free (intended_filename);
+        g_free (legacy_filename);
+
+        g_debug ("Successfully loaded existing monitor configuration\n", success);
 
         return success;
 }
