@@ -37,7 +37,6 @@ Build-Depends:
  xserver-xorg-input-wacom [!s390x !hurd-any !kfreebsd-any],
  xsltproc,
 Standards-Version: 3.9.8
-Homepage: http://cinnamon.linuxmint.com
 
 Package: cinnamon-settings-daemon
 Architecture: any

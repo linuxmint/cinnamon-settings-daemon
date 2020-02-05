@@ -5,7 +5,7 @@
 
 <policyconfig>
   <vendor>Cinnamon</vendor>
-  <vendor_url>http://cinnamon.linuxmint.com/</vendor_url>
+  <vendor_url>https://projects.linuxmint.com/cinnamon/</vendor_url>
   <icon_name>gnome-panel-clock</icon_name>
 
   <action id="org.cinnamon.settingsdaemon.datetimemechanism.configure">
