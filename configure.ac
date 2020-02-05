@@ -207,7 +207,7 @@ dnl ---------------------------------------------------------------------------
 dnl - xsettings
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(XSETTINGS, fontconfig)
+PKG_CHECK_MODULES(XSETTINGS, fontconfig cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION)
 
 dnl ---------------------------------------------------------------------------
 dnl - Keyboard plugin stuff

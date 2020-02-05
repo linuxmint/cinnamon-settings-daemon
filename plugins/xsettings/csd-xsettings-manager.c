@@ -45,6 +45,9 @@
 #include "xsettings-manager.h"
 #include "fontconfig-monitor.h"
 
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#include <libcinnamon-desktop/gnome-rr.h>
+
 #define CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerPrivate))
 
 #define MOUSE_SETTINGS_SCHEMA     "org.cinnamon.settings-daemon.peripherals.mouse"
@@ -220,14 +223,6 @@
  * 
  */
 #define DPI_FALLBACK 96
-
-/* The minimum resolution at which we turn on a window-scale of 2 */
-#define HIDPI_LIMIT (DPI_FALLBACK * 2)
-
-/* The minimum screen height at which we turn on a window-scale of 2;
- * below this there just isn't enough vertical real estate for GNOME
- * apps to work, and it's better to just be tiny */
-#define HIDPI_MIN_HEIGHT 1500
 
 typedef struct _TranslationEntry TranslationEntry;
 typedef void (* TranslationFunc) (CinnamonSettingsXSettingsManager *manager,
@@ -473,52 +468,25 @@ static int
 get_window_scale (CinnamonSettingsXSettingsManager *manager)
 {
     GSettings  *interface_settings;
+    GError *error = NULL;
     int window_scale;
-    GdkRectangle rect;
-    GdkDisplay *display;
-    GdkScreen *screen;
-    int width_mm, height_mm;
-    int monitor_scale;
-    double dpi_x, dpi_y;
 
     interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
     window_scale = g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
-        if (window_scale == 0) {
-                int primary;
 
-                display = gdk_display_get_default ();
-                screen = gdk_display_get_default_screen (display);
-                primary = gdk_screen_get_primary_monitor (screen);
-                gdk_screen_get_monitor_geometry (screen, primary, &rect);
-                width_mm = gdk_screen_get_monitor_width_mm (screen, primary);
-                height_mm = gdk_screen_get_monitor_height_mm (screen, primary);
-                monitor_scale = gdk_screen_get_monitor_scale_factor (screen, primary);
+    if (window_scale == 0) {
+            GnomeRRScreen *screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
 
-                window_scale = 1;
+            if (!error) {
+                window_scale = gnome_rr_screen_calculate_best_global_scale (screen, -1);
+                g_object_unref (screen);
+            } else {
+                g_warning ("Could not get/create GnomeRRScreen instance: %s", error->message);
+                g_error_free (error);
+            }
+    }
 
-                if (rect.height < HIDPI_MIN_HEIGHT)
-                    goto out;
-
-                /* Some monitors/TV encode the aspect ratio (16/9 or 16/10) instead of the physical size */
-                if ((width_mm == 160 && height_mm == 90) ||
-                    (width_mm == 160 && height_mm == 100) ||
-                    (width_mm == 16 && height_mm == 9) ||
-                    (width_mm == 16 && height_mm == 10))
-                    goto out;
-
-                if (width_mm > 0 && height_mm > 0) {
-                        dpi_x = (double)rect.width * monitor_scale / (width_mm / 25.4);
-                        dpi_y = (double)rect.height * monitor_scale / (height_mm / 25.4);
-                        /* We don't completely trust these values so both
-                           must be high, and never pick higher ratio than
-                          2 automatically */
-                        if (dpi_x > HIDPI_LIMIT && dpi_y > HIDPI_LIMIT)
-                                window_scale = 2;
-                }
-        }
-
-out:
-        return window_scale;
+    return window_scale;
 }
 
 typedef struct {
