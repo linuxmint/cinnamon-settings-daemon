@@ -2051,7 +2051,9 @@ out:
         g_free (intended_filename);
         g_free (legacy_filename);
 
-        g_debug ("Successfully loaded existing monitor configuration\n", success);
+        if (success) {
+            g_debug ("Successfully loaded existing monitor configuration\n", success);
+        }
 
         return success;
 }
