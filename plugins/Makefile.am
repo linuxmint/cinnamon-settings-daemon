@@ -6,7 +6,6 @@ enabled_plugins =	\
 	automount	\
 	background  \
 	clipboard	\
-	color		\
 	cursor		\
 	dummy		\
     datetime    \
@@ -23,6 +22,12 @@ enabled_plugins =	\
 	$(NULL)
 
 disabled_plugins = $(NULL)
+
+if BUILD_COLOR
+enabled_plugins += color
+else
+disabled_plugins += color
+endif
 
 if BUILD_WACOM
 enabled_plugins += wacom

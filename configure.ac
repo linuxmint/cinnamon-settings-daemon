@@ -262,14 +262,34 @@ dnl ---------------------------------------------------------------------------
 dnl - color
 dnl ---------------------------------------------------------------------------
 
-PKG_CHECK_MODULES(COLOR, [colord >= 0.1.27 cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
+AC_ARG_ENABLE(color,
+              AS_HELP_STRING([--disable-color], [disable Colord support (default: enabled)]),,
+              enable_color=yes)
+build_color=false
+if test x"$enable_color" != x"no" ; then
+  PKG_CHECK_MODULES(COLOR, [colord >= 0.1.27 cinnamon-desktop >= $CINNAMON_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
+  build_color=true
+fi
+
+AM_CONDITIONAL(BUILD_COLOR, [test "x$build_color" = "xtrue"])
 
 dnl ---------------------------------------------------------------------------
 dnl - wacom
 dnl ---------------------------------------------------------------------------
+AC_ARG_ENABLE(wacom,
+              AS_HELP_STRING([--disable-wacom], [disable Wacom support (default: auto)]),,
+              enable_wacom=auto)
 build_wacom=false
-PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 cinnamon-desktop xorg-wacom librsvg-2.0 >= $LIBRSVG_REQUIRED_VERSION gtk+-3.0 >= 3.8.0],
-                  [build_wacom="true" AC_DEFINE(HAVE_WACOM, 1, [Define if wacom is being build])], [build_wacom="false"])
+if test x"$enable_wacom" != x"no" ; then
+  PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi xtst gudev-1.0 cinnamon-desktop xorg-wacom librsvg-2.0 >= $LIBRSVG_REQUIRED_VERSION gtk+-3.0 >= 3.8.0],
+                    [build_wacom="true" AC_DEFINE(HAVE_WACOM, 1, [Define if wacom is being build])], [build_wacom="false"])
+fi
+
+if test x$enable_wacom = xyes; then
+  if test x$build_wacom = xfalse; then
+    AC_MSG_ERROR(Wacom support requested but required dependencies not found)
+  fi
+fi
 
 AM_CONDITIONAL(BUILD_WACOM, test "x$build_wacom" = "xtrue")
 
@@ -287,12 +307,12 @@ AC_ARG_ENABLE(smartcard-support,
        esac],
        [WANT_SMARTCARD_SUPPORT=yes])
 
+have_smartcard_support=false
 if test x$WANT_SMARTCARD_SUPPORT = xyes ; then
        NSS_REQUIRED_VERSION=3.11.2
-       PKG_CHECK_MODULES(NSS, nss >= $NSS_REQUIRED_VERSION,
-             [have_smartcard_support=true
-              AC_DEFINE(SMARTCARD_SUPPORT, 1, [Define if smartcard support should be enabled])],
-             [have_smartcard_support=false])
+       PKG_CHECK_MODULES(NSS, [nss >= $NSS_REQUIRED_VERSION])
+       have_smartcard_support=true
+       AC_DEFINE(SMARTCARD_SUPPORT, 1, [Define if smartcard support should be enabled])
 fi
 AM_CONDITIONAL(SMARTCARD_SUPPORT, test "x$have_smartcard_support" = "xtrue")
 
@@ -357,9 +377,15 @@ dnl ====================================================================
 dnl Check for logind
 dnl ====================================================================
 
-PKG_CHECK_MODULES(LOGIND, [libsystemd-login], [have_logind=yes], [
- PKG_CHECK_MODULES(LOGIND, [libsystemd], [have_logind=yes], [have_logind=no])
-])
+AC_ARG_ENABLE([logind],
+              AS_HELP_STRING([--disable-logind], [Do not check for logind]),
+              [enable_logind=$enableval],
+              [enable_logind=auto])
+
+have_logind=no
+if test x$enable_logind != xno ; then
+    PKG_CHECK_MODULES(LOGIND, [libsystemd-login], [have_logind=yes], [have_logind=no])
+fi
 
 if test x$have_logind = xyes; then
     AC_DEFINE(HAVE_LOGIND, 1, [Define if logind is supported])
@@ -523,6 +549,7 @@ echo "
         LCMS DICT support:        ${have_new_lcms}
         Libnotify support:        ${have_libnotify}
 
+        Colord support:           ${build_color}
         Wacom support:            ${build_wacom}
 
         Smartcard support:        ${have_smartcard_support}
