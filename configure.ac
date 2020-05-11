@@ -384,11 +384,19 @@ AC_ARG_ENABLE([logind],
 
 have_logind=no
 if test x$enable_logind != xno ; then
-    PKG_CHECK_MODULES(LOGIND, [libsystemd-login], [have_logind=yes], [have_logind=no])
+    PKG_CHECK_MODULES(LOGIND, [libsystemd-login], [have_logind=yes], [
+        PKG_CHECK_MODULES(LOGIND, [libsystemd], [have_logind=yes], [
+            PKG_CHECK_MODULES(LOGIND, [libelogind], [have_logind=yes], [have_logind=no])
+	])
+    ])
 fi
 
 if test x$have_logind = xyes; then
     AC_DEFINE(HAVE_LOGIND, 1, [Define if logind is supported])
+else
+    if test x$enable_logind = xyes; then
+        AC_MSG_ERROR([logind support requested but neither systemd or elogind were not found])
+    fi
 fi
 
 AC_SUBST(LOGIND_CFLAGS)
