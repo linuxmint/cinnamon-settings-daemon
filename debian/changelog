@@ -1,3 +1,31 @@
+cinnamon-settings-daemon (4.6.0) ulyana; urgency=medium
+
+  [ Leigh Scott ]
+  * Restore old check for logind
+
+  [ Markus Teich ]
+  * Handle a custom screensaver command
+
+  [ Eli Schwartz ]
+  * Fix up the configure check for dbus directories.
+  * Remove old ibus files from the tree.
+
+  [ Michael Webster ]
+  * csd-xrandr-manager.c: Check if we were given laptop info before trying to use it (fixes a warning usually at startup).
+
+  [ Clement Lefebvre ]
+  * Update project URL
+
+  [ Michael Webster ]
+  * csd-xrandr-manager.c: Update for new cinnamon-desktop api to use legacy monitor.xml files.
+  * xrandr/xsettings: Make global scale factor a monitor-configuration value.
+  * csd-xrandr: Fix misleading message when no existing configurations are found.
+
+  [ Garry Filakhtov ]
+  * Modify build system to make some dependencies optional and fix some required dependencies (#285)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 12 May 2020 14:42:34 +0100
+
 cinnamon-settings-daemon (4.4.0) tricia; urgency=medium
 
   [ Michael Webster ]
