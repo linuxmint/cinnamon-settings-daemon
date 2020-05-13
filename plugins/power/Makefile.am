@@ -41,6 +41,8 @@ csd-power-keyboard-proxy.h : Makefile.am org.cinnamon.SettingsDaemon.Power.Keybo
 		$(NULL)
 csd-power-keyboard-proxy.c : csd-power-keyboard-proxy.h
 
+csd-power-manager.c : csd-power-proxy.h csd-power-screen-proxy.h csd-power-keyboard-proxy.h
+
 libexec_PROGRAMS = csd-power
 csd_power_SOURCES =				\
 	gpm-common.c					\
