@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (4.6.1) ulyana; urgency=medium
+
+  [ Garry Filakhtov ]
+  * Fix the build in highly-concurrent scenarios
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 27 May 2020 12:39:02 +0100
+
 cinnamon-settings-daemon (4.6.0) ulyana; urgency=medium
 
   [ Leigh Scott ]
