@@ -1,4 +1,4 @@
-usr/lib/@DEB_HOST_MULTIARCH@/cinnamon-settings-daemon/csd-a11y-keyboard usr/bin/csd-a11-keyboard
+usr/lib/@DEB_HOST_MULTIARCH@/cinnamon-settings-daemon/csd-a11y-keyboard usr/bin/csd-a11y-keyboard
 usr/lib/@DEB_HOST_MULTIARCH@/cinnamon-settings-daemon/csd-a11y-settings usr/bin/csd-a11y-settings
 usr/lib/@DEB_HOST_MULTIARCH@/cinnamon-settings-daemon/csd-automount usr/bin/csd-automount
 usr/lib/@DEB_HOST_MULTIARCH@/cinnamon-settings-daemon/csd-background usr/bin/csd-background
