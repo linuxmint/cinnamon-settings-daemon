@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (4.6.3) ulyana; urgency=medium
+
+  * l10n: Fix missing i18n in wacom and print-notifications plugins
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 17 Jun 2020 15:37:00 +0100
+
 cinnamon-settings-daemon (4.6.2) ulyana; urgency=medium
 
   [ Michael Webster ]
