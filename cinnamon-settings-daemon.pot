@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 15:15+0000\n"
+"POT-Creation-Date: 2020-06-17 15:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,12 +126,12 @@ msgstr ""
 msgid "Open accessibility settings"
 msgstr ""
 
-#: plugins/automount/csd-automount-manager.c:149
+#: plugins/automount/csd-automount-manager.c:150
 #, c-format
 msgid "Unable to mount %s"
 msgstr ""
 
-#: plugins/automount/csd-automount-manager.c:277
+#: plugins/automount/csd-automount-manager.c:278
 #, c-format
 msgid "Unable to open a folder for %s"
 msgstr ""
@@ -140,7 +140,9 @@ msgstr ""
 msgid "Ask what to do"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:352
+#: plugins/automount/csd-autorun.c:352 plugins/wacom/csd-wacom-osd-window.c:952
+#: plugins/wacom/csd-wacom-osd-window.c:972
+#: plugins/wacom/csd-wacom-osd-window.c:983
 msgid "Do Nothing"
 msgstr ""
 
@@ -401,217 +403,217 @@ msgstr ""
 msgid "Region and Language Settings"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1073
+#: plugins/power/csd-power-manager.c:1077
 msgid "UPS Discharging"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1078
+#: plugins/power/csd-power-manager.c:1082
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1099
-#: plugins/power/csd-power-manager.c:1319
-#: plugins/power/csd-power-manager.c:1499
-#: plugins/power/csd-power-manager.c:1648
+#: plugins/power/csd-power-manager.c:1103
+#: plugins/power/csd-power-manager.c:1323
+#: plugins/power/csd-power-manager.c:1503
+#: plugins/power/csd-power-manager.c:1652
 msgid "Power"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1231
+#: plugins/power/csd-power-manager.c:1235
 msgid "Battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1234
+#: plugins/power/csd-power-manager.c:1238
 msgid "Laptop battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1241
+#: plugins/power/csd-power-manager.c:1245
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1246
+#: plugins/power/csd-power-manager.c:1250
 msgid "UPS low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1252
+#: plugins/power/csd-power-manager.c:1256
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1257
-#: plugins/power/csd-power-manager.c:1422
+#: plugins/power/csd-power-manager.c:1261
+#: plugins/power/csd-power-manager.c:1426
 msgid "Mouse battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1260
+#: plugins/power/csd-power-manager.c:1264
 #, c-format
 msgid "Wireless mouse is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1264
-#: plugins/power/csd-power-manager.c:1430
+#: plugins/power/csd-power-manager.c:1268
+#: plugins/power/csd-power-manager.c:1434
 msgid "Keyboard battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1267
+#: plugins/power/csd-power-manager.c:1271
 #, c-format
 msgid "Wireless keyboard is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1271
-#: plugins/power/csd-power-manager.c:1439
+#: plugins/power/csd-power-manager.c:1275
+#: plugins/power/csd-power-manager.c:1443
 msgid "PDA battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1274
+#: plugins/power/csd-power-manager.c:1278
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1278
-#: plugins/power/csd-power-manager.c:1449
-#: plugins/power/csd-power-manager.c:1459
+#: plugins/power/csd-power-manager.c:1282
+#: plugins/power/csd-power-manager.c:1453
+#: plugins/power/csd-power-manager.c:1463
 msgid "Cell phone battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1281
+#: plugins/power/csd-power-manager.c:1285
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1285
+#: plugins/power/csd-power-manager.c:1289
 msgid "Media player battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1288
+#: plugins/power/csd-power-manager.c:1292
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1292
-#: plugins/power/csd-power-manager.c:1468
+#: plugins/power/csd-power-manager.c:1296
+#: plugins/power/csd-power-manager.c:1472
 msgid "Tablet battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1295
+#: plugins/power/csd-power-manager.c:1299
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1299
-#: plugins/power/csd-power-manager.c:1477
+#: plugins/power/csd-power-manager.c:1303
+#: plugins/power/csd-power-manager.c:1481
 msgid "Attached computer battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1302
+#: plugins/power/csd-power-manager.c:1306
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1336
+#: plugins/power/csd-power-manager.c:1340
 msgid "Battery is low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1378
+#: plugins/power/csd-power-manager.c:1382
 msgid "Battery critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1381
-#: plugins/power/csd-power-manager.c:1564
+#: plugins/power/csd-power-manager.c:1385
+#: plugins/power/csd-power-manager.c:1568
 msgid "Laptop battery critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1390
+#: plugins/power/csd-power-manager.c:1394
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1394
+#: plugins/power/csd-power-manager.c:1398
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1398
+#: plugins/power/csd-power-manager.c:1402
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1402
+#: plugins/power/csd-power-manager.c:1406
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1410
-#: plugins/power/csd-power-manager.c:1600
+#: plugins/power/csd-power-manager.c:1414
+#: plugins/power/csd-power-manager.c:1604
 msgid "UPS critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1416
+#: plugins/power/csd-power-manager.c:1420
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1425
+#: plugins/power/csd-power-manager.c:1429
 #, c-format
 msgid ""
 "Wireless mouse is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1433
+#: plugins/power/csd-power-manager.c:1437
 #, c-format
 msgid ""
 "Wireless keyboard is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1442
+#: plugins/power/csd-power-manager.c:1446
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1452
+#: plugins/power/csd-power-manager.c:1456
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1462
+#: plugins/power/csd-power-manager.c:1466
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1471
+#: plugins/power/csd-power-manager.c:1475
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1480
+#: plugins/power/csd-power-manager.c:1484
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1517
-#: plugins/power/csd-power-manager.c:1527
-#: plugins/power/csd-power-manager.c:1663
+#: plugins/power/csd-power-manager.c:1521
+#: plugins/power/csd-power-manager.c:1531
+#: plugins/power/csd-power-manager.c:1667
 msgid "Battery is critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1572
+#: plugins/power/csd-power-manager.c:1576
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1578
+#: plugins/power/csd-power-manager.c:1582
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -619,42 +621,42 @@ msgid ""
 "suspended state."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1585
+#: plugins/power/csd-power-manager.c:1589
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1590
+#: plugins/power/csd-power-manager.c:1594
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1608
+#: plugins/power/csd-power-manager.c:1612
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1614
+#: plugins/power/csd-power-manager.c:1618
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1619
+#: plugins/power/csd-power-manager.c:1623
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:2206
+#: plugins/power/csd-power-manager.c:2209
 msgid "Lid has been opened"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:2351
+#: plugins/power/csd-power-manager.c:2354
 msgid "Lid has been closed"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:4133
+#: plugins/power/csd-power-manager.c:4270
 msgid "Power Manager"
 msgstr ""
 
@@ -1238,6 +1240,45 @@ msgstr ""
 msgid "Printer added"
 msgstr ""
 
+#: plugins/print-notifications/csd-print-notifications-manager.c:524
+#: plugins/print-notifications/csd-print-notifications-manager.c:562
+msgid "Printing stopped"
+msgstr ""
+
+#: plugins/print-notifications/csd-print-notifications-manager.c:526
+#: plugins/print-notifications/csd-print-notifications-manager.c:532
+#: plugins/print-notifications/csd-print-notifications-manager.c:538
+#: plugins/print-notifications/csd-print-notifications-manager.c:544
+#: plugins/print-notifications/csd-print-notifications-manager.c:556
+#: plugins/print-notifications/csd-print-notifications-manager.c:564
+#: plugins/print-notifications/csd-print-notifications-manager.c:572
+#: plugins/print-notifications/csd-print-notifications-manager.c:580
+#: plugins/print-notifications/csd-print-notifications-manager.c:588
+#: plugins/print-notifications/csd-print-notifications-manager.c:601
+#, c-format
+msgid "'%s' on %s"
+msgstr ""
+
+#: plugins/print-notifications/csd-print-notifications-manager.c:530
+#: plugins/print-notifications/csd-print-notifications-manager.c:570
+msgid "Printing canceled"
+msgstr ""
+
+#: plugins/print-notifications/csd-print-notifications-manager.c:536
+#: plugins/print-notifications/csd-print-notifications-manager.c:578
+msgid "Printing aborted"
+msgstr ""
+
+#: plugins/print-notifications/csd-print-notifications-manager.c:542
+#: plugins/print-notifications/csd-print-notifications-manager.c:586
+msgid "Printing completed"
+msgstr ""
+
+#: plugins/print-notifications/csd-print-notifications-manager.c:554
+#: plugins/print-notifications/csd-print-notifications-manager.c:599
+msgid "Printing"
+msgstr ""
+
 #: plugins/print-notifications/csd-print-notifications-manager.c:816
 msgid "Printer report"
 msgstr ""
@@ -1354,20 +1395,33 @@ msgstr ""
 msgid "Bottom Button #%d"
 msgstr ""
 
+#: plugins/wacom/csd-wacom-osd-window.c:957
+#, c-format
+msgid "Send Keystroke %s"
+msgstr ""
+
+#: plugins/wacom/csd-wacom-osd-window.c:975
+msgid "Show On-Screen Help"
+msgstr ""
+
+#: plugins/wacom/csd-wacom-osd-window.c:978
+msgid "Switch Monitor"
+msgstr ""
+
 #: plugins/wacom/csd-wacom-osd-window.c:1016
 #, c-format
 msgid "Mode %d: %s"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:528
+#: plugins/xrandr/csd-xrandr-manager.c:539
 msgid "Could not restore the display's configuration"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:553
+#: plugins/xrandr/csd-xrandr-manager.c:564
 msgid "Could not restore the display's configuration from a backup"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:574
+#: plugins/xrandr/csd-xrandr-manager.c:585
 #, c-format
 msgid "The display will be reset to its previous configuration in %d second"
 msgid_plural ""
@@ -1375,35 +1429,35 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:623
+#: plugins/xrandr/csd-xrandr-manager.c:634
 msgid "Does the display look OK?"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:629
+#: plugins/xrandr/csd-xrandr-manager.c:640
 msgid "Confirm New Configuration"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:631
+#: plugins/xrandr/csd-xrandr-manager.c:642
 msgid "_Restore Previous Configuration"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:632
+#: plugins/xrandr/csd-xrandr-manager.c:643
 msgid "_Keep This Configuration"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:713
+#: plugins/xrandr/csd-xrandr-manager.c:724
 msgid "The selected configuration for displays could not be applied"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:1364
+#: plugins/xrandr/csd-xrandr-manager.c:1450
 #, c-format
 msgid "Could not refresh the screen information: %s"
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:1368
+#: plugins/xrandr/csd-xrandr-manager.c:1454
 msgid "Trying to switch the monitor configuration anyway."
 msgstr ""
 
-#: plugins/xrandr/csd-xrandr-manager.c:1862
+#: plugins/xrandr/csd-xrandr-manager.c:1956
 msgid "Could not apply the stored configuration for monitors"
 msgstr ""

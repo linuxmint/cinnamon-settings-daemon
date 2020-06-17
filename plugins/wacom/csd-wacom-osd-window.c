@@ -949,12 +949,12 @@ get_escaped_accel_shortcut (const gchar *accel)
 	gchar *str, *label;
 
 	if (accel == NULL || accel[0] == '\0')
-		return g_strdup (C_("Action type", "None"));
+		return g_strdup (_("Do Nothing"));
 
 	gtk_accelerator_parse (accel, &keyval, &mask);
 
 	str = gtk_accelerator_get_label (keyval, mask);
-	label = g_markup_printf_escaped (C_("Action type", "Send Keystroke %s"), str);
+	label = g_markup_printf_escaped (_("Send Keystroke %s"), str);
 	g_free (str);
 
 	return label;
@@ -969,18 +969,18 @@ get_tablet_button_label_normal (CsdWacomDevice       *device,
 
 	type = g_settings_get_enum (button->settings, ACTION_TYPE_KEY);
 	if (type == CSD_WACOM_ACTION_TYPE_NONE)
-		return g_strdup (C_("Action type", "None"));
+		return g_strdup (_("Do Nothing"));
 
 	if (type == CSD_WACOM_ACTION_TYPE_HELP)
-		return g_strdup (C_("Action type", "Show On-Screen Help"));
+		return g_strdup (_("Show On-Screen Help"));
 
 	if (type == CSD_WACOM_ACTION_TYPE_SWITCH_MONITOR)
-		return g_strdup (C_("Action type", "Switch Monitor"));
+		return g_strdup (_("Switch Monitor"));
 
 	str = g_settings_get_string (button->settings, CUSTOM_ACTION_KEY);
 	if (str == NULL || *str == '\0') {
 		g_free (str);
-		return g_strdup (C_("Action type", "None"));
+		return g_strdup (_("Do Nothing"));
 	}
 
 	name = get_escaped_accel_shortcut (str);
