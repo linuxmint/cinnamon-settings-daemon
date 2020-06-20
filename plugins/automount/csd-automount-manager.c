@@ -244,9 +244,11 @@ volume_added_callback (GVolumeMonitor *monitor,
 	}
 }
 
-static void
-autorun_show_window (GMount *mount, gpointer user_data)
+static gboolean
+delayed_show_window (gpointer data)
 {
+    GMount *mount = G_MOUNT (data);
+
 	GFile *location;
         char *uri;
         GError *error;
@@ -285,6 +287,14 @@ autorun_show_window (GMount *mount, gpointer user_data)
 
   g_free (uri);
 	g_object_unref (location);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+autorun_show_window (GMount *mount, gpointer user_data)
+{
+    g_timeout_add_seconds (1, (GSourceFunc) delayed_show_window, mount);
 }
 
 static void
