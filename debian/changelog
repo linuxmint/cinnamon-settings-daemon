@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (4.6.4) ulyana; urgency=medium
+
+  [ Michael Webster ]
+  * csd-automount-manager.c: Add a small delay to folder opening after (#290)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 21 Jun 2020 13:36:11 +0100
+
 cinnamon-settings-daemon (4.6.3) ulyana; urgency=medium
 
   * l10n: Fix missing i18n in wacom and print-notifications plugins
