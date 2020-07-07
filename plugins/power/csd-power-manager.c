@@ -1942,7 +1942,10 @@ do_power_action_type (CsdPowerManager *manager,
 
                 gboolean hybrid = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
                                                           "prefer-hybrid-sleep");
-                csd_power_suspend (hybrid);
+                gboolean suspend_then_hibernate = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
+                                                          "suspend-then-hibernate");
+
+                csd_power_suspend (hybrid, suspend_then_hibernate);
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown ();

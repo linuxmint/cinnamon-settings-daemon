@@ -24,7 +24,7 @@
 
 G_BEGIN_DECLS
 
-void csd_power_suspend   (gboolean try_hybrid);
+void csd_power_suspend   (gboolean try_hybrid, gboolean suspend_then_hibernate);
 void csd_power_hibernate (void);
 void csd_power_poweroff  (void);
 
