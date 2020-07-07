@@ -125,7 +125,7 @@ logind_suspend (gboolean suspend_then_hibernate)
 	gchar *method_name = "Suspend";
 
 	if (suspend_then_hibernate && can_power_action("CanHibernate")) {
-		method_name = "SuspendTheHibernate";		
+		method_name = "SuspendThenHibernate";		
 	}
 
         GDBusConnection *bus;
