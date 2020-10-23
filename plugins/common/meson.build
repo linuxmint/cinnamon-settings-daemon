@@ -36,7 +36,7 @@ executable(
     helper_sources,
     dependencies: common_dep,
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 install_data(

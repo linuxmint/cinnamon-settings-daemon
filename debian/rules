@@ -11,6 +11,7 @@ override_dh_autoreconf:
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
+		--libexecdir=/usr/libexec \
 		-D docs=true \
 		-D deprecated_warnings=false
 

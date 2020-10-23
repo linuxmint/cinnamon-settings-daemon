@@ -58,7 +58,7 @@ executable(
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
     ],
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 if gudev.found()
@@ -68,7 +68,7 @@ if gudev.found()
         include_directories: [include_dirs, common_inc, include_enums],
         dependencies: wacom_deps,
         install: true,
-        install_dir: pkglibdir,
+        install_dir: libexecdir,
     )
 endif
 
@@ -78,7 +78,7 @@ executable(
     include_directories: [include_dirs, common_inc, include_enums],
     dependencies: wacom_deps,
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 executable(
@@ -87,7 +87,7 @@ executable(
     include_directories: [include_dirs, common_inc, include_enums],
     dependencies: wacom_deps,
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 configure_file(

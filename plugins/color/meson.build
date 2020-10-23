@@ -30,7 +30,7 @@ executable(
     ],
     install_rpath: join_paths(prefix, apilibdir),
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 test_color_sources = [

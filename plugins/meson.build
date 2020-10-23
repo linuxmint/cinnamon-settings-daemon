@@ -1,5 +1,5 @@
 desktop_conf = configuration_data()
-desktop_conf.set('libexecdir', join_paths(prefix, pkglibdir))
+desktop_conf.set('libexecdir', join_paths(prefix, libexecdir))
 
 subdir('common')
 subdir('a11y-keyboard')

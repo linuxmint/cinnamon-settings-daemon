@@ -63,7 +63,7 @@ executable(
     ],
     install_rpath: join_paths(prefix, apilibdir),
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 if gudev.found()
@@ -76,7 +76,7 @@ if gudev.found()
             # '-DPLUGIN_NAME="@0@"'.format(plugin_name),
         ],
         install: true,
-        install_dir: pkglibdir,
+        install_dir: libexecdir,
     )
 endif
 

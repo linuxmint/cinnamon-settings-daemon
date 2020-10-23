@@ -21,7 +21,7 @@ executable(
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
     ],
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 configure_file(

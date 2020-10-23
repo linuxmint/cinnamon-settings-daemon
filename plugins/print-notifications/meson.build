@@ -26,7 +26,7 @@ executable(
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
     ],
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 executable(
@@ -35,7 +35,7 @@ executable(
     include_directories: [include_dirs, common_inc],
     dependencies: print_notifications_deps,
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 configure_file(

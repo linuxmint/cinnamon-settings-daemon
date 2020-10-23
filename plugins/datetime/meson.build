@@ -57,7 +57,7 @@ if polkit.found()
             '-DPLUGIN_NAME="@0@"'.format(plugin_name),
         ],
         install: true,
-        install_dir: pkglibdir,
+        install_dir: libexecdir,
     )
 
     executable(
@@ -69,7 +69,7 @@ if polkit.found()
 endif
 
 datetime_conf = configuration_data()
-datetime_conf.set('LIBEXECDIR', join_paths(prefix, pkglibdir))
+datetime_conf.set('LIBEXECDIR', join_paths(prefix, libexecdir))
 configure_file(
     input: 'org.cinnamon.SettingsDaemon.DateTimeMechanism.service.in',
     output: 'org.cinnamon.SettingsDaemon.DateTimeMechanism.service',

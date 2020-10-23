@@ -22,7 +22,7 @@ executable(
     ],
     install_rpath: join_paths(prefix, apilibdir),
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 test_automount_dialog_sources = [

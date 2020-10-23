@@ -1,7 +1,7 @@
 debian/source_cinnamon-settings-daemon.py /usr/share/apport/package-hooks
 etc/xdg/autostart/*
 usr/lib/*/cinnamon-settings-daemon*/*.so
-usr/lib/*/cinnamon-settings-daemon/
+usr/libexec
 usr/share/applications/*
 usr/share/cinnamon-settings-daemon
 usr/share/dbus-1/*/org.cinnamon.SettingsDaemon.*

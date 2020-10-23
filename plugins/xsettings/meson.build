@@ -36,7 +36,7 @@ executable(
         '-DGTK_MODULES_DIRECTORY="@0@/cinnamon-settings-daemon-@1@/gtk-modules/"'.format(libdir, meson.project_version()),
     ],
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 executable(

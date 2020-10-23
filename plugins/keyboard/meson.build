@@ -27,7 +27,7 @@ executable(
         '-DDATADIR="@0@"'.format(datadir),
     ],
     install: true,
-    install_dir: pkglibdir,
+    install_dir: libexecdir,
 )
 
 configure_file(
