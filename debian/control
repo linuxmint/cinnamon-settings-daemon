@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Linux Mint <root@linuxmint.com>
 Build-Depends:
  meson (>= 0.47),
- debhelper (>= 11.1~),
+ debhelper-compat (= 12),
  docbook-xsl,
  intltool (>= 0.37.1),
  libcanberra-gtk3-dev,
