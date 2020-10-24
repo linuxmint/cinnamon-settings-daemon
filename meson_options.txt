@@ -52,3 +52,9 @@ option(
     value: false,
     description: 'Show build warnings for deprecations'
 )
+option(
+    'install_binfiles',
+    type: 'boolean',
+    value: true,
+    description: 'Add symbolic links to the plugin executables into the bin folder'
+)

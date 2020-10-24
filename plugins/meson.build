@@ -1,6 +1,11 @@
 desktop_conf = configuration_data()
 desktop_conf.set('libexecdir', join_paths(prefix, libexecdir))
 
+install_binfiles = get_option('install_binfiles')
+ln_script = join_paths(meson.source_root(), 'install-scripts', 'meson_link_binfiles.py')
+
+# subdir('dummy')
+
 subdir('common')
 subdir('a11y-keyboard')
 subdir('a11y-settings')
@@ -9,7 +14,6 @@ subdir('background')
 subdir('clipboard')
 subdir('cursor')
 subdir('datetime')
-subdir('dummy')
 subdir('housekeeping')
 subdir('keyboard')
 subdir('media-keys')
