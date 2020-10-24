@@ -2,6 +2,7 @@
 # -*- makefile -*-
 
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 %:
