@@ -275,7 +275,7 @@ delayed_show_window (gpointer data)
     g_free(command);
   }
   else {
-    if (! gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, &error)) {
+    if (! gtk_show_uri_on_window (NULL, uri, GDK_CURRENT_TIME, &error)) {
   		name = g_mount_get_name (mount);
   		primary = g_strdup_printf (_("Unable to open a folder for %s"), name);
   		g_free (name);

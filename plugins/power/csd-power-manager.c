@@ -973,7 +973,7 @@ engine_coldplug (CsdPowerManager *manager)
         engine_recalculate_state (manager);
 
         /* add to database */
-        array = up_client_get_devices (manager->priv->up_client);
+        array = up_client_get_devices2 (manager->priv->up_client);
         for (i = 0; array != NULL && i < array->len; i++) {
                 device = g_ptr_array_index (array, i);
                 engine_device_add (manager, device);
@@ -2670,7 +2670,7 @@ backlight_get_output_id (CsdPowerManager *manager)
         gdk_screen = gdk_screen_get_default ();
         gnome_rr_crtc_get_position (crtc, &x, &y);
 
-        return gdk_screen_get_monitor_at_point (gdk_screen, x, y);
+        return gdk_display_get_monitor_at_point (gdk_screen, x, y);
 }
 
 static gint

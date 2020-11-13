@@ -36,7 +36,7 @@ search_pad_device (void)
 	GdkDeviceManager *mgr;
 	GList *list, *l;
 
-	mgr = gdk_display_get_device_manager (gdk_display_get_default ());
+	mgr = gdk_display_get_default_seat (gdk_display_get_default ());
 	list = gdk_device_manager_list_devices (mgr, GDK_DEVICE_TYPE_SLAVE);
 	for (l = list; l ; l = l->next) {
 		CsdWacomDevice *device;

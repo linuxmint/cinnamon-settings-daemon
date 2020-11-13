@@ -22,7 +22,7 @@
  * Authors: David Zeuthen <davidz@redhat.com>
  *          Cosimo Cecchi <cosimoc@redhat.com>
  */
- 
+
 #include <config.h>
 #include <string.h>
 #include <glib/gi18n.h>
@@ -126,7 +126,7 @@ render_icon (GIcon *icon, gint icon_size)
 		icon_file = g_file_icon_get_file (G_FILE_ICON (icon));
 		path = g_file_get_path (icon_file);
 		pixbuf = gdk_pixbuf_new_from_file_at_size (path,
-							   icon_size, icon_size, 
+							   icon_size, icon_size,
 							   NULL);
 		g_free (path);
 		g_object_unref (G_OBJECT (icon_file));
@@ -291,7 +291,7 @@ custom_item_activated_cb (GtkAppChooserButton *button,
         g_free (content_type);
 }
 
-static void 
+static void
 combo_box_changed_cb (GtkComboBox *combo_box,
                       gpointer user_data)
 {
@@ -431,7 +431,7 @@ csd_autorun_launch_for_mount (GMount *mount, GAppInfo *app_info)
 		    error->code == G_IO_ERROR_NOT_SUPPORTED) {
 			uri = g_file_get_uri (root);
 			uri_scheme = g_uri_parse_scheme (uri);
-			
+
 			/* FIXME: Present user a dialog to choose another app when the last one failed to handle a file */
 			g_warning ("Cannot open location: %s\n", error->message);
 
@@ -494,7 +494,7 @@ unmount_mount_callback (GObject *source_object,
 		unmounted = g_mount_unmount_with_operation_finish (G_MOUNT (source_object),
 								   res, &error);
 	}
-	
+
 	if (! unmounted) {
 		if (error->code != G_IO_ERROR_FAILED_HANDLED) {
 			if (should_eject) {
@@ -512,7 +512,7 @@ unmount_mount_callback (GObject *source_object,
 			gtk_message_dialog_format_secondary_markup (GTK_MESSAGE_DIALOG (dialog),
 								    "%s",
 								    error->message);
-			
+
 			gtk_widget_show (GTK_WIDGET (dialog));
 			g_signal_connect (dialog, "response",
 					  G_CALLBACK (gtk_widget_destroy), NULL);
@@ -756,7 +756,7 @@ show_dialog:
         gtk_label_set_xalign (GTK_LABEL (label), 0.0);
         gtk_label_set_yalign (GTK_LABEL (label), 0.5);
 	gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
-	
+
 	data = g_new0 (AutorunDialogData, 1);
 	data->dialog = dialog;
 	data->mount = g_object_ref (mount);
@@ -784,7 +784,7 @@ show_dialog:
 			  data);
 	gtk_box_pack_start (GTK_BOX (vbox), always_check_button, TRUE, TRUE, 0);
 
-	gtk_dialog_add_buttons (GTK_DIALOG (dialog), 
+	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 				_("_Cancel"), GTK_RESPONSE_CANCEL,
 				_("_Ok"), GTK_RESPONSE_OK,
 				NULL);
@@ -850,7 +850,7 @@ autorun_guessed_content_type_callback (GObject *source_object,
 		if (guessed_content_type != NULL && g_strv_length (guessed_content_type) > 0) {
 			int n;
 			for (n = 0; guessed_content_type[n] != NULL; n++) {
-				if (do_autorun_for_content_type (data->mount, guessed_content_type[n], 
+				if (do_autorun_for_content_type (data->mount, guessed_content_type[n],
 								 data->open_window_func, data->user_data)) {
 					open_folder = TRUE;
 				}
@@ -964,12 +964,12 @@ should_autorun_mount (GMount *mount)
 		}
 		return FALSE;
 	}
-	
+
 	root = g_mount_get_root (mount);
 
 	/* only do autorun on local files or files where g_volume_should_automount() returns TRUE */
 	ignore_autorun = TRUE;
-	if ((g_file_is_native (root) && !should_skip_native_mount_root (root)) || 
+	if ((g_file_is_native (root) && !should_skip_native_mount_root (root)) ||
 	    (enclosing_volume != NULL && g_volume_should_automount (enclosing_volume))) {
 		ignore_autorun = FALSE;
 	}

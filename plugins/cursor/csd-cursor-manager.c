@@ -276,7 +276,7 @@ csd_cursor_manager_idle_cb (CsdCursorManager *manager)
 
         update_cursor_for_current (manager);
 
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        device_manager = gdk_display_get_default_seat (gdk_display_get_default ());
         manager->priv->added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                     G_CALLBACK (devices_added_cb), manager);
         manager->priv->removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
@@ -308,7 +308,7 @@ csd_cursor_manager_stop (CsdCursorManager *manager)
 
         g_debug ("Stopping cursor manager");
 
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        device_manager = gdk_display_get_default_seat (gdk_display_get_default ());
 
         if (manager->priv->added_id > 0) {
                 g_signal_handler_disconnect (G_OBJECT (device_manager), manager->priv->added_id);

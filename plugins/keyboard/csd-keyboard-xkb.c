@@ -288,7 +288,7 @@ create_status_menu (void)
 			GtkWidget *img =
 			    gtk_image_new_from_pixbuf (pixbuf);
 			item =
-			    gtk_image_menu_item_new_with_label
+			    gtk_menu_item_new_with_label
 			    (*current_name);
 			gtk_widget_show (img);
 			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM

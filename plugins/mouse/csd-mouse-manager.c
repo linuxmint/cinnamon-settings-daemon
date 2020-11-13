@@ -1731,7 +1731,7 @@ set_devicepresence_handler (CsdMouseManager *manager)
 {
         GdkDeviceManager *device_manager;
 
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        device_manager = gdk_display_get_default_seat (gdk_display_get_default ());
 
         manager->priv->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
                                                            G_CALLBACK (device_added_cb), manager);

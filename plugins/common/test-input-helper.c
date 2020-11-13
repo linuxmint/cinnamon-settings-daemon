@@ -35,7 +35,7 @@ print_disabled_devices (void)
 	GList *devices, *l;
 	GdkDeviceManager *manager;
 
-	manager = gdk_display_get_device_manager (gdk_display_get_default ());
+	manager = gdk_display_get_default_seat (gdk_display_get_default ());
 
 	devices = get_disabled_devices (manager);
 	g_print ("Disabled devices:\t\t\t");

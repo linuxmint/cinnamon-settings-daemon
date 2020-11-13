@@ -91,7 +91,7 @@ set_devicepresence_handler (CsdA11yKeyboardManager *manager)
 {
         GdkDeviceManager *device_manager;
 
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+        device_manager = gdk_display_get_default_seat (gdk_display_get_default ());
         if (device_manager == NULL)
                 return;
 
@@ -366,7 +366,7 @@ ax_response_callback (CsdA11yKeyboardManager *manager,
                         screen = gtk_widget_get_screen (GTK_WIDGET (parent));
 
                 err = NULL;
-                if (!gtk_show_uri (screen,
+                if (!gtk_show_uri_on_window (screen,
                                    "help:gnome-help/a11y",
                                    gtk_get_current_event_time(),
                                    &err)) {

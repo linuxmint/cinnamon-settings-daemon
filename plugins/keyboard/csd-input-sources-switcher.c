@@ -502,7 +502,7 @@ grab_key (Key        *key,
   GArray *keycodes;
   gint n, i;
 
-  has_entries = gdk_keymap_get_entries_for_keyval (gdk_keymap_get_default (),
+  has_entries = gdk_keymap_get_entries_for_keyval (gdk_keymap_get_for_display (),
                                                    key->keysym,
                                                    &keys,
                                                    &n);
