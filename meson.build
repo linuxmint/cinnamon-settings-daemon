@@ -51,7 +51,7 @@ glib = dependency('glib-2.0', version: '>= 2.40.0')
 gnomekbd_required = '>= 3.6.0'
 gnomekbd = dependency('libgnomekbd', version: gnomekbd_required)
 gnomekbdui = dependency('libgnomekbdui', version: gnomekbd_required)
-gtk = dependency('gtk+-3.0', version: '>= 3.14.0')
+gtk = dependency('gtk+-3.0', version: '>= 3.22.0')
 gudev = dependency('gudev-1.0', required: get_option('use_gudev'))
 libnotify = dependency('libnotify', version: '>= 0.7.3')
 kbproto = dependency('kbproto')
@@ -60,7 +60,7 @@ polkit = dependency('polkit-gobject-1', version: '>= 0.97', required: get_option
 pulse_required = '>= 0.9.16'
 pulse = dependency('libpulse', version: pulse_required)
 pulse_glib = dependency('libpulse-mainloop-glib', version: pulse_required)
-upower_glib = dependency('upower-glib', version: '>= 0.9.11')
+upower_glib = dependency('upower-glib', version: '>= 0.99.8')
 wacom = dependency('libwacom', version: '>= 0.7', required: false)
 x11 = dependency('x11')
 xext = dependency('xext')
