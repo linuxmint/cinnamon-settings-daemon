@@ -1,3 +1,27 @@
+cinnamon-settings-daemon (4.8.0) ulyssa; urgency=medium
+
+  [ miniskipper ]
+  * implement suspend-then-hibernate (issue #237)
+  * typo
+
+  [ Stephen Collins ]
+  * Port to meson
+
+  [ Michael Webster ]
+  * debian/compat: 11
+  * Use libexec dir for plugins.
+  * Make bin links part of the meson build.
+  * Clean up some files.
+
+  [ Fabio Fantoni ]
+  * debian/control: remove very old breaks
+  * debian/rules: enable hardening bindnow
+
+  [ Michael Webster ]
+  * Revert "csd-automount-manager.c: Add a small delay to folder opening after (#290)"
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 25 Nov 2020 14:13:30 +0000
+
 cinnamon-settings-daemon (4.6.4) ulyana; urgency=medium
 
   [ Michael Webster ]
