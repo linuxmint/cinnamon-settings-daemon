@@ -124,6 +124,15 @@ if gudev.found()
     cargs += '-DHAVE_GUDEV'
 endif
 
+if not get_option('enable_debug')
+    cargs += [
+          '-Wno-deprecated-declarations',
+          '-Wno-deprecated',
+          '-Wno-declaration-after-statement',
+          '-DGLIB_DISABLE_DEPRECATION_WARNINGS',
+    ]
+endif
+
 add_global_arguments(
     cargs,
     language: 'c'
