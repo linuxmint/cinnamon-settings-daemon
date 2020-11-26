@@ -1,3 +1,11 @@
+cinnamon-settings-daemon (4.8.1) ulyssa; urgency=medium
+
+  [ Michael Webster ]
+  * meson.build: Disable deprecated warnings (you can enable with a build flag).
+  * csd-media-keys: Check for the availability of a mouse/keyboard grab when running screenshot commands.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 26 Nov 2020 13:48:10 +0000
+
 cinnamon-settings-daemon (4.8.0) ulyssa; urgency=medium
 
   [ miniskipper ]
