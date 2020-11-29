@@ -279,15 +279,11 @@ got_bus (GObject      *object,
   watcher->connection = connection;
   g_signal_connect (watcher->connection, "closed", G_CALLBACK (connection_closed), watcher);
 
-
-#ifdef HAVE_NEW_GLIB
-  // G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE is only available since Glib 2.38, LMDE uses 2.36 so we test the version of Glib here.
   watcher->subscription_id =
     g_dbus_connection_signal_subscribe (watcher->connection, "org.freedesktop.DBus",
                                         "org.freedesktop.DBus", "NameOwnerChanged", "/org/freedesktop/DBus",
                                         watcher->name_space, G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE,
                                         name_owner_changed, watcher, NULL);
-#endif /* HAVE_NEW_GLIB */
 
   g_dbus_connection_call (watcher->connection, "org.freedesktop.DBus", "/",
                           "org.freedesktop.DBus", "ListNames", NULL, G_VARIANT_TYPE ("(as)"),
