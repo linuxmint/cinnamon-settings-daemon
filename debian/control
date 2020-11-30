@@ -8,7 +8,7 @@ Build-Depends:
  docbook-xsl,
  intltool (>= 0.37.1),
  libcanberra-gtk3-dev,
- libcinnamon-desktop-dev (>= 3.4~),
+ libcinnamon-desktop-dev (>= 4.8.0),
  libcolord-dev (>= 0.1.27),
  libcups2-dev,
  libcvc-dev (>= 3.4~),
