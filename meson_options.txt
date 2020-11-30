@@ -50,7 +50,7 @@ option(
     'enable_debug',
     type: 'boolean',
     value: false,
-    description: 'Show build warnings for deprecations'
+    description: 'Show additional build warnings'
 )
 option(
     'install_binfiles',
