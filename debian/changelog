@@ -1,3 +1,12 @@
+cinnamon-settings-daemon (4.8.2) ulyssa; urgency=medium
+
+  [ Michael Webster ]
+  * media-keys/bus-watch-namespace.c: Fix media player shortcuts.
+  * debian/rules: Remove invalid flags.
+  * build: Bump cinnamon-desktop version.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 02 Dec 2020 16:47:59 +0000
+
 cinnamon-settings-daemon (4.8.1) ulyssa; urgency=medium
 
   [ Michael Webster ]
