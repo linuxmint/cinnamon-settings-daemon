@@ -11,6 +11,7 @@ xrandr_deps = [
     csd_dep,
     libnotify,
     upower_glib,
+    wacom,
     xfixes,
 ]
 
