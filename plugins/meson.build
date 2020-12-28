@@ -24,7 +24,7 @@ subdir('sound')
 subdir('xrandr')
 subdir('xsettings')
 
-if get_option('use_color')
+if colord.found()
     subdir('color')
 endif
 

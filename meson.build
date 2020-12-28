@@ -9,6 +9,7 @@ pkgname = meson.project_name().to_lower()
 api_version = '3.0'
 
 cc = meson.get_compiler('c')
+cargs = []
 
 # directories
 prefix = get_option('prefix')
@@ -43,7 +44,7 @@ endif
 cinnamon_desktop_required = '>= 4.8.0'
 canberra = dependency('libcanberra-gtk3')
 cinnamon_desktop = dependency('cinnamon-desktop', version: cinnamon_desktop_required)
-colord = dependency('colord', version: '>= 0.1.27')
+colord = dependency('colord', version: '>= 0.1.27', required: get_option('use_color'))
 cups = dependency('cups', version: '>= 1.4', required: get_option('use_cups'))
 cvc = dependency('cvc', version: cinnamon_desktop_required)
 fontconfig = dependency('fontconfig')
@@ -56,13 +57,13 @@ gtk = dependency('gtk+-3.0', version: '>= 3.14.0')
 gudev = dependency('gudev-1.0', required: get_option('use_gudev'))
 libnotify = dependency('libnotify', version: '>= 0.7.3')
 kbproto = dependency('kbproto')
-nss = dependency('nss', version: '>= 3.11.2', required: get_option('enable_smartcard'))
+nss = dependency('nss', version: '>= 3.11.2', required: get_option('use_smartcard'))
 polkit = dependency('polkit-gobject-1', version: '>= 0.97', required: get_option('use_polkit'))
 pulse_required = '>= 0.9.16'
 pulse = dependency('libpulse', version: pulse_required)
 pulse_glib = dependency('libpulse-mainloop-glib', version: pulse_required)
 upower_glib = dependency('upower-glib', version: '>= 0.9.11')
-wacom = dependency('libwacom', version: '>= 0.7', required: false)
+wacom = dependency('libwacom', version: '>= 0.7', required: get_option('use_wacom'))
 x11 = dependency('x11')
 xext = dependency('xext')
 xfixes = dependency('xfixes')
@@ -80,12 +81,11 @@ librsvg = dependency('librsvg-2.0', version: '>= 2.36.2', required: wacom.found(
 xorg_wacom = dependency('xorg-wacom', required: wacom.found())
 
 lcms = dependency('lcms2', version: '>= 2.2', required: false)
-has_new_lcms = lcms.found()
-if not has_new_lcms
-    lcms = dependency('lcms2')
+if lcms.found()
+    cargs += '-DHAVE_NEW_LCMS'
+else
+    lcms = dependency('lcms2', required: colord.found())
 endif
-
-cargs = []
 
 using_logind = false
 if not get_option('use_logind').disabled()
@@ -123,6 +123,10 @@ csd_conf.set_quoted('LIBDIR', libdir)
 
 if gudev.found()
     cargs += '-DHAVE_GUDEV'
+endif
+
+if wacom.found()
+    cargs += '-DHAVE_WACOM'
 endif
 
 if not get_option('enable_debug')
