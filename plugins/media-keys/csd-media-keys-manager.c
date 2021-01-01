@@ -1850,7 +1850,7 @@ do_action (CsdMediaKeysManager *manager,
                 do_url_action (manager, "ghelp", timestamp);
                 break;
         case C_DESKTOP_MEDIA_KEY_SCREENSHOT:
-                execute (manager, "gnome-screenshot", FALSE, TRUE);
+                execute (manager, "gnome-screenshot", FALSE, FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_WINDOW_SCREENSHOT:
                 execute (manager, "gnome-screenshot --window", FALSE, TRUE);
@@ -1859,7 +1859,7 @@ do_action (CsdMediaKeysManager *manager,
                 execute (manager, "gnome-screenshot --area", FALSE, TRUE);
                 break;
         case C_DESKTOP_MEDIA_KEY_SCREENSHOT_CLIP:
-                execute (manager, "gnome-screenshot --clipboard", FALSE, TRUE);
+                execute (manager, "gnome-screenshot --clipboard", FALSE, FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_WINDOW_SCREENSHOT_CLIP:
                 execute (manager, "gnome-screenshot --window --clipboard", FALSE, TRUE);
