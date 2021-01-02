@@ -33,7 +33,7 @@ executable(
     dependencies: xsettings_deps,
     c_args: [
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
-        '-DGTK_MODULES_DIRECTORY="@0@/@1@/cinnamon-settings-daemon/gtk-modules/"'.format(prefix, libdir),
+        '-DGTK_MODULES_DIRECTORY="@0@/@1@/cinnamon-settings-daemon-@2@/gtk-modules/"'.format(prefix, libdir, api_version),
     ],
     install: true,
     install_dir: libexecdir,
@@ -48,7 +48,7 @@ executable(
     include_directories: [include_dirs, common_inc],
     dependencies: xsettings_deps,
     c_args: [
-        '-DGTK_MODULES_DIRECTORY="@0@/@1@/cinnamon-settings-daemon/gtk-modules/"'.format(prefix, libdir),
+        '-DGTK_MODULES_DIRECTORY="@0@/@1@/cinnamon-settings-daemon-@2@/gtk-modules/"'.format(prefix, libdir, api_version),
     ],
 )
 
