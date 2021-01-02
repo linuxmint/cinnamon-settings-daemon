@@ -1,3 +1,20 @@
+cinnamon-settings-daemon (4.8.3) ulyssa; urgency=medium
+
+  [ Michael Webster ]
+  * csd-media-keys-manager.c: Keep the volume inside 0 - 100% and keep it divisible by VOLUME_STEP (5).
+  * csd-mediakeys: Remove grab requirement for full screenshots.
+
+  [ Clement Lefebvre ]
+  * meson: Fix incorrect path for system locale
+  * meson: Fix incorrect path for UI file
+  * meson: Fix incorrect path in xsettings plugin
+  * xsettings: Use a unified gtk-modules path for all versions of CSD
+
+  [ Michael Webster ]
+  * xsettings: Go back to looking for the gtk-modules folder in the same place as libcsd.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 02 Jan 2021 18:28:17 +0000
+
 cinnamon-settings-daemon (4.8.2) ulyssa; urgency=medium
 
   [ Michael Webster ]
