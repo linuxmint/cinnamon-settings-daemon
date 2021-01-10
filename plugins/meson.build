@@ -22,6 +22,7 @@ subdir('orientation')
 subdir('power')
 subdir('screensaver-proxy')
 subdir('sound')
+subdir('usb-protection')
 subdir('xrandr')
 subdir('xsettings')
 
