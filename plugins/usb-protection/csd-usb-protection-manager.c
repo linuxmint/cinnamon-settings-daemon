@@ -32,8 +32,6 @@
 #include "cinnamon-desktop/libcinnamon-desktop/cdesktop-enums.h"
 #include "csd-usb-protection-manager.h"
 
-#include "../screensaver-proxy/csd-screensaver-proxy-manager.h"
-
 #define PRIVACY_SETTINGS "org.cinnamon.desktop.privacy"
 #define USB_PROTECTION "usb-protection"
 #define USB_PROTECTION_LEVEL "usb-protection-level"
@@ -81,8 +79,6 @@ struct _CsdUsbProtectionManager
         GDBusProxy                     *usb_protection_devices;
         GDBusProxy                     *usb_protection_policy;
         GCancellable                   *cancellable;
-        CsdScreensaverProxyManager     *screensaver_proxy;
-        gboolean            screensaver_active;
         NotifyNotification *notification;
 };
 
@@ -519,15 +515,6 @@ on_usbguard_signal (GDBusProxy *proxy,
             return;
         }
 
-        /* We would like to show a notification for an inserted device that
-         * *has not been blocked*.  But USBGuard is not providing that information.
-         * So we have to work around that limitation and assume that any device plugged in
-         * during screensaver shall be blocked.
-         * https://github.com/USBGuard/usbguard/issues/353
-
-           g_variant_get_child (parameters, POLICY_TARGET_NEW, "u", &target);
-        */
-
         /* If the device is already authorized we do nothing */
         if (target == TARGET_ALLOW) {
                 g_debug ("Device will be allowed, we return");
@@ -554,58 +541,23 @@ on_usbguard_signal (GDBusProxy *proxy,
 
         protection_level = g_settings_get_enum (manager->settings, USB_PROTECTION_LEVEL);
 
-        g_debug ("Screensaver active: %d", manager->screensaver_active);
         hid_or_hub = is_hid_or_hub (parameters, &has_other_classes);
-        if (manager->screensaver_active) {
-                /* If the session is locked we check if the inserted device is a HID,
-                 * e.g. a keyboard or a mouse, or an HUB.
-                 * If that is the case we authorize the newly inserted device as an
-                 * antilockout policy.
-                 *
-                 * If this device advertises also interfaces outside the HID class, or the
-                 * HUB class, it is suspect. It could be a false positive because this could
-                 * be a "smart" keyboard for example, but at this stage is better be safe. */
-                if (hid_or_hub && !has_other_classes) {
-                        show_notification (manager,
-                                           _("New device detected"),
-                                           _("Either one of your existing devices has been reconnected or a new one has been plugged in. "
-                                             "If you did not do it, check your system for any suspicious device."));
-                        auth_device (manager, parameters);
-                } else {
-                    if (protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
-                            show_notification (manager,
-                                               _("Reconnect USB device"),
-                                               _("New device has been detected while you were away. "
-                                                 "Please disconnect and reconnect the device to start using it."));
-                    } else {
-                            const char* name_for_notification = device_name ? device_name : "unknown name";
-                            g_debug ("Showing notification for %s", name_for_notification);
-                            show_notification (manager,
-                                               _("USB device blocked"),
-                                               _("New device has been detected while you were away. "
-                                                 "It has been blocked because the USB protection is active."));
-                    }
-                }
-        } else {
-                /* If the protection level is "lockscreen" the device will be automatically
-                 * authorized by usbguard. */
-                if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
-                        /* We authorize the device if this is a HID,
-                         * e.g. a keyboard or a mouse, or an HUB.
-                         * We also lock the screen to prevent an attacker to plug malicious
-                         * devices if the legitimate user forgot to lock his session.
-                         *
-                         * If this device advertises also interfaces outside the HID class, or the
-                         * HUB class, it is suspect. It could be a false positive because this could
-                         * be a "smart" keyboard for example, but at this stage is better be safe. */
-                        if (hid_or_hub && !has_other_classes) {
-                                auth_device (manager, parameters);
-                        } else {
-                                show_notification (manager,
-                                                   _("USB device blocked"),
-                                                   _("The new inserted device has been blocked because the USB protection is active."));
-                        }
-                }
+        if (protection_level == G_DESKTOP_USB_PROTECTION_ALWAYS) {
+            /* We authorize the device if this is a HID,
+            * e.g. a keyboard or a mouse, or an HUB.
+            * We also lock the screen to prevent an attacker to plug malicious
+            * devices if the legitimate user forgot to lock his session.
+            *
+            * If this device advertises also interfaces outside the HID class, or the
+            * HUB class, it is suspect. It could be a false positive because this could
+            * be a "smart" keyboard for example, but at this stage is better be safe. */
+            if (hid_or_hub && !has_other_classes) {
+                    auth_device (manager, parameters);
+            } else {
+                    show_notification (manager,
+                                      _("USB device blocked"),
+                                      _("The new inserted device has been blocked because the USB protection is active."));
+                   }
             }
 }
 
@@ -781,58 +733,6 @@ on_usb_protection_owner_changed_cb (GObject    *object,
 }
 
 static void
-handle_screensaver_active (CsdUsbProtectionManager *manager,
-                           GVariant                *parameters)
-{
-        gboolean active;
-        gchar *value_usbguard;
-        gboolean usbguard_controlled;
-        GVariant *params;
-        GDesktopUsbProtection protection_level;
-        GSettings *settings = manager->settings;
-
-        usbguard_controlled = g_settings_get_boolean (settings, USB_PROTECTION);
-        protection_level = g_settings_get_enum (settings, USB_PROTECTION_LEVEL);
-
-        g_variant_get (parameters, "(b)", &active);
-        g_debug ("Received screensaver ActiveChanged signal: %d (old: %d)", active, manager->screensaver_active);
-        if (manager->screensaver_active != active) {
-                manager->screensaver_active = active;
-                if (usbguard_controlled && protection_level == G_DESKTOP_USB_PROTECTION_LOCKSCREEN) {
-                        /* If we are in the "lockscreen protection" level we change
-                         * the usbguard config with apply-policy or block if the session
-                         * is unlocked or locked, respectively. */
-                        value_usbguard = active ? BLOCK : APPLY_POLICY;
-                        params = g_variant_new ("(ss)",
-                                                INSERTED_DEVICE_POLICY,
-                                                value_usbguard);
-                        if (manager->usb_protection != NULL) {
-                                g_dbus_proxy_call (manager->usb_protection,
-                                                   "setParameter",
-                                                   params,
-                                                   G_DBUS_CALL_FLAGS_NONE,
-                                                   -1,
-                                                   manager->cancellable,
-                                                   dbus_call_log_error,
-                                                   "Error calling USBGuard DBus to change the protection after a screensaver event");
-                        }
-                }
-        }
-}
-
-static void
-screensaver_signal_cb (GDBusProxy  *proxy,
-                       const gchar *sender_name,
-                       const gchar *signal_name,
-                       GVariant    *parameters,
-                       gpointer     user_data)
-{
-        g_debug ("ScreenSaver Signal: %s", signal_name);
-        if (g_strcmp0 (signal_name, "ActiveChanged") == 0)
-                handle_screensaver_active (CSD_USB_PROTECTION_MANAGER (user_data), parameters);
-}
-
-static void
 usb_protection_policy_proxy_ready (GObject      *source_object,
                                    GAsyncResult *res,
                                    gpointer      user_data)
@@ -884,27 +784,6 @@ usb_protection_devices_proxy_ready (GObject      *source_object,
 }
 
 static void
-get_current_screen_saver_status (CsdUsbProtectionManager *manager)
-{
-        g_autoptr(GVariant) ret = NULL;
-        g_autoptr(GError) error = NULL;
-
-        ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (manager->screensaver_proxy),
-                                      "GetActive",
-                                      NULL,
-                                      G_DBUS_CALL_FLAGS_NONE,
-                                      -1,
-                                      manager->cancellable,
-                                      &error);
-        if (ret == NULL) {
-                if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-                        g_warning ("Failed to get screen saver status: %s", error->message);
-                return;
-        }
-        handle_screensaver_active (manager, ret);
-}
-
-static void
 usb_protection_proxy_ready (GObject      *source_object,
                             GAsyncResult *res,
                             gpointer      user_data)
@@ -925,11 +804,6 @@ usb_protection_proxy_ready (GObject      *source_object,
 
         g_signal_connect (G_OBJECT (manager->settings), "changed",
                           G_CALLBACK (settings_changed_callback), manager);
-
-        get_current_screen_saver_status (manager);
-
-        g_signal_connect (manager->screensaver_proxy, "g-signal",
-                          G_CALLBACK (screensaver_signal_cb), manager);
 
         name_owner = g_dbus_proxy_get_name_owner (G_DBUS_PROXY (proxy));
 
@@ -1111,7 +985,6 @@ csd_usb_protection_manager_stop (CsdUsbProtectionManager *manager)
         g_clear_object (&manager->usb_protection);
         g_clear_object (&manager->usb_protection_devices);
         g_clear_object (&manager->usb_protection_policy);
-        g_clear_object (&manager->screensaver_proxy);
 }
 
 static void
