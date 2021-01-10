@@ -4,6 +4,7 @@
     <child name="housekeeping" schema="org.cinnamon.settings-daemon.plugins.housekeeping"/>
     <child name="media-keys" schema="org.cinnamon.settings-daemon.plugins.media-keys"/>
     <child name="power" schema="org.cinnamon.settings-daemon.plugins.power"/>
+    <child name="usb-protection" schema="org.cinnamon.settings-daemon.plugins.usb-protection"/>
     <child name="xrandr" schema="org.cinnamon.settings-daemon.plugins.xrandr"/>
     <child name="xsettings" schema="org.cinnamon.settings-daemon.plugins.xsettings"/>
   </schema>

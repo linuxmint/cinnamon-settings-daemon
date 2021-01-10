@@ -32,6 +32,7 @@ schemas = [
     'org.cinnamon.settings-daemon.plugins.power.gschema.xml',
     'org.cinnamon.settings-daemon.plugins.color.gschema.xml',
     'org.cinnamon.settings-daemon.plugins.media-keys.gschema.xml',
+    'org.cinnamon.settings-daemon.plugins.usb-protection.gschema.xml',
     'org.cinnamon.settings-daemon.plugins.xsettings.gschema.xml',
     'org.cinnamon.settings-daemon.plugins.housekeeping.gschema.xml',
     'org.cinnamon.settings-daemon.plugins.xrandr.gschema.xml',

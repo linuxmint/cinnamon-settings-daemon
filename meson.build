@@ -52,7 +52,6 @@ glib = dependency('glib-2.0', version: '>= 2.40.0')
 gnomekbd_required = '>= 3.6.0'
 gnomekbd = dependency('libgnomekbd', version: gnomekbd_required)
 gnomekbdui = dependency('libgnomekbdui', version: gnomekbd_required)
-gsettings_desktop_dep = dependency('gsettings-desktop-schemas', version: '>= 3.35.91')
 gtk = dependency('gtk+-3.0', version: '>= 3.14.0')
 gudev = dependency('gudev-1.0', required: get_option('use_gudev'))
 libnotify = dependency('libnotify', version: '>= 0.7.3')

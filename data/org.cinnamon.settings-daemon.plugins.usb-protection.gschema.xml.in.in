@@ -1,0 +1,18 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.usb-protection" path="/org/cinnamon/settings-daemon/plugins/usb-protection/">
+    <key name="usb-protection" type="b">
+      <default>false</default>
+      <summary>Whether to protect USB devices</summary>
+      <description>If TRUE, USB devices will be protected as configured in
+        the key usb-protection-level.
+      </description>
+    </key>
+    <key name="usb-protection-level" enum="org.cinnamon.settings-daemon.CsdUsbProtectionLevel">
+      <default>'never'</default>
+      <summary>When USB devices should be rejected</summary>
+      <description>
+        If set to "always", by default all USB devices will be rejected.
+      </description>
+    </key>
+  </schema>
+</schemalist>

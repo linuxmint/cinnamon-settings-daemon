@@ -8,14 +8,13 @@ usb_protection_sources = files(
 usb_protection_deps = [
   common_dep,
   csd_dep,
-  gsettings_desktop_dep,
   libnotify
 ]
 
 executable(
     'csd-usb-protection',
     usb_protection_sources,
-    include_directories: [include_dirs, common_inc],
+    include_directories: [include_dirs, include_enums, common_inc],
     dependencies: usb_protection_deps,
     c_args: [
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
