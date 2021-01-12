@@ -2,7 +2,7 @@ desktop_conf = configuration_data()
 desktop_conf.set('libexecdir', join_paths(prefix, libexecdir))
 
 install_binfiles = get_option('install_binfiles')
-ln_script = join_paths(meson.source_root(), 'install-scripts', 'meson_link_binfiles.py')
+ln_script = join_paths(meson.source_root(), 'install-scripts', 'meson_mk_symlink.py')
 
 # subdir('dummy')
 

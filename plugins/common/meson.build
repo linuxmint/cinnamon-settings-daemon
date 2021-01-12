@@ -42,6 +42,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-input-helper')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-input-helper')
+
 install_data(
     'input-device-example.sh',
     install_dir: join_paths(datadir, '@0@-@1@'.format(pkgname, api_version)),

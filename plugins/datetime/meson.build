@@ -63,6 +63,8 @@ if polkit.found()
         meson.add_install_script(ln_script, libexecdir, bindir, 'csd-datetime-mechanism')
     endif
 
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-datetime-mechanism')
+
     executable(
         'test-datetime',
         test_timezone_sources,

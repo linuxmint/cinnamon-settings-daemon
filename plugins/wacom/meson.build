@@ -64,6 +64,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom')
+
 if gudev.found()
     executable(
         'csd-wacom-led-helper',
@@ -76,6 +78,8 @@ if gudev.found()
     if install_binfiles
         meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-led-helper')
     endif
+
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom-led-helper')
 endif
 
 executable(
@@ -90,6 +94,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-list-wacom')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-list-wacom')
+
 executable(
     'csd-wacom-osd',
     wacom_osd_sources,
@@ -101,6 +107,8 @@ executable(
 if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-osd')
 endif
+
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom-osd')
 
 configure_file(
     input: 'cinnamon-settings-daemon-wacom.desktop.in',

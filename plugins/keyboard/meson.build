@@ -33,6 +33,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-keyboard')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-keyboard')
+
 configure_file(
     input: 'cinnamon-settings-daemon-keyboard.desktop.in',
     output: 'cinnamon-settings-daemon-keyboard.desktop',

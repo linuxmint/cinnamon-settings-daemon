@@ -27,6 +27,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-cursor')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-cursor')
+
 configure_file(
     input: 'cinnamon-settings-daemon-cursor.desktop.in',
     output: 'cinnamon-settings-daemon-cursor.desktop',
