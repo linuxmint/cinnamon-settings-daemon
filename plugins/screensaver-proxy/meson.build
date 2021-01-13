@@ -26,6 +26,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-screensaver-proxy')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-screensaver-proxy')
+
 configure_file(
     input: 'cinnamon-settings-daemon-screensaver-proxy.desktop.in',
     output: 'cinnamon-settings-daemon-screensaver-proxy.desktop',

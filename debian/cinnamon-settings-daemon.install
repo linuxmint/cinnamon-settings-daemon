@@ -1,6 +1,7 @@
 etc/xdg/autostart/*
 usr/lib/*/cinnamon-settings-daemon*/*.so
 usr/libexec
+usr/lib/*/cinnamon-settings-daemon/
 usr/share/applications/*
 usr/share/cinnamon-settings-daemon
 usr/share/dbus-1/*/org.cinnamon.SettingsDaemon.*

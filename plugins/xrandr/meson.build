@@ -29,6 +29,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-xrandr')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-xrandr')
+
 configure_file(
     input: 'cinnamon-settings-daemon-xrandr.desktop.in',
     output: 'cinnamon-settings-daemon-xrandr.desktop',

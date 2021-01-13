@@ -42,6 +42,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-xsettings')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-xsettings')
+
 executable(
     'test-gtk-modules',
     test_xsettings_sources,

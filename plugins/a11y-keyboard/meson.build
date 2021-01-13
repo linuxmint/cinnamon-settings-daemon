@@ -27,6 +27,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-a11y-keyboard')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-a11y-keyboard')
+
 test_a11y_prefs_dialog_sources = [
     'csd-a11y-preferences-dialog.c',
     'test-a11y-preferences-dialog.c',

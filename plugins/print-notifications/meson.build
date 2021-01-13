@@ -32,6 +32,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-print-notifications')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-print-notifications')
+
 executable(
     'csd-printer',
     printer_sources,
@@ -43,6 +45,8 @@ executable(
 if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-printer')
 endif
+
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-printer')
 
 configure_file(
     input: 'cinnamon-settings-daemon-print-notifications.desktop.in',

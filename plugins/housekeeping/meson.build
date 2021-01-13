@@ -33,6 +33,8 @@ if install_binfiles
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-housekeeping')
 endif
 
+meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-housekeeping')
+
 test_disk_space_sources = [
     'csd-disk-space-test.c',
     housekeeping_common_sources,
