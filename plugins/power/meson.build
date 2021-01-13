@@ -67,7 +67,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-power')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-power')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-power')
+endif
 
 if gudev.found()
     executable(
@@ -83,7 +85,9 @@ if gudev.found()
     )
 
     meson.add_install_script(ln_script, libexecdir, bindir, 'csd-backlight-helper')
-    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-backlight-helper')
+    if libexecdir != pkglibdir
+        meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-backlight-helper')
+    endif
 endif
 
 configure_file(

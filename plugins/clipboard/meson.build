@@ -26,7 +26,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-clipboard')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-clipboard')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-clipboard')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-clipboard.desktop.in',

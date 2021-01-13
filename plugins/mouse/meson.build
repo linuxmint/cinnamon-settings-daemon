@@ -30,7 +30,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-mouse')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-mouse')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-mouse')
+endif
 
 executable(
     'csd-locate-pointer',
@@ -42,7 +44,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-locate-pointer')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-locate-pointer')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-locate-pointer')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-mouse.desktop.in',

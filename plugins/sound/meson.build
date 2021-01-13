@@ -28,7 +28,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-sound')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-sound')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-sound')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-sound.desktop.in',

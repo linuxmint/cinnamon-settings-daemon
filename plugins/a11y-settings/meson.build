@@ -24,7 +24,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-a11y-settings')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-a11y-settings')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-a11y-settings')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-a11y-settings.desktop.in',

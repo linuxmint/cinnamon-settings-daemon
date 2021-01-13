@@ -25,7 +25,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-background')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-background')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-background')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-background.desktop.in',
