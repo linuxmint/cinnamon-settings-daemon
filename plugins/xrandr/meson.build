@@ -27,7 +27,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-xrandr')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-xrandr')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-xrandr')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-xrandr.desktop.in',

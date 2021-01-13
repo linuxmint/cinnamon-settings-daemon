@@ -25,7 +25,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-orientation')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-orientation')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-orientation')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-orientation.desktop.in',

@@ -34,7 +34,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-color')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-color')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-color')
+endif
 
 test_color_sources = [
     'gcm-dmi.c',

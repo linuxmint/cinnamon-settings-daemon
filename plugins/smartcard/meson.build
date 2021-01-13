@@ -26,7 +26,9 @@ executable(
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-smartcard')
-meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-smartcard')
+if libexecdir != pkglibdir
+    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-smartcard')
+endif
 
 configure_file(
     input: 'cinnamon-settings-daemon-smartcard.desktop.in',
