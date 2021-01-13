@@ -28,10 +28,8 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-mouse')
-endif
 
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-mouse')
 meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-mouse')
 
 executable(
@@ -42,10 +40,8 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-locate-pointer')
-endif
 
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-locate-pointer')
 meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-locate-pointer')
 
 configure_file(

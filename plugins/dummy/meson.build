@@ -23,6 +23,5 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-dummy')
-endif
+
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-dummy')

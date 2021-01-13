@@ -60,10 +60,8 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom')
-endif
 
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom')
 meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom')
 
 if gudev.found()
@@ -75,10 +73,8 @@ if gudev.found()
         install: true,
         install_dir: libexecdir,
     )
-    if install_binfiles
-        meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-led-helper')
-    endif
 
+    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-led-helper')
     meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom-led-helper')
 endif
 
@@ -90,10 +86,8 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-list-wacom')
-endif
 
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-list-wacom')
 meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-list-wacom')
 
 executable(
@@ -104,10 +98,8 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-osd')
-endif
 
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-osd')
 meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom-osd')
 
 configure_file(

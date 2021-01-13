@@ -29,10 +29,8 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-media-keys')
-endif
 
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-media-keys')
 meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-media-keys')
 
 configure_file(

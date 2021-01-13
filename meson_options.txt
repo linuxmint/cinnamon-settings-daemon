@@ -52,9 +52,3 @@ option(
     value: false,
     description: 'Show additional build warnings'
 )
-option(
-    'install_binfiles',
-    type: 'boolean',
-    value: true,
-    description: 'Add symbolic links to the plugin executables into the bin folder'
-)

@@ -22,10 +22,8 @@ executable(
     install: true,
     install_dir: libexecdir,
 )
-if install_binfiles
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-a11y-settings')
-endif
 
+meson.add_install_script(ln_script, libexecdir, bindir, 'csd-a11y-settings')
 meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-a11y-settings')
 
 configure_file(
