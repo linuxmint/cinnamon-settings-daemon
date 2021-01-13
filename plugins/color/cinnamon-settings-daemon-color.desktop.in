@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Cinnamon Settings Daemon - color
-Exec=@libexecdir@/csd-color
+Exec=csd-color
 OnlyShowIn=X-Cinnamon;
 NoDisplay=true
 X-GNOME-Autostart-Phase=Initialization

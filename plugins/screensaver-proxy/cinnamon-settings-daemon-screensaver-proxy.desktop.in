@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Cinnamon Settings Daemon - screensaver-proxy
-Exec=@libexecdir@/csd-screensaver-proxy
+Exec=csd-screensaver-proxy
 OnlyShowIn=X-Cinnamon;
 NoDisplay=true
 X-GNOME-Autostart-Phase=Initialization

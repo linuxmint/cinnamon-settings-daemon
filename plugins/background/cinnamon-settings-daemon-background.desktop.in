@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Cinnamon Settings Daemon - background
-Exec=@libexecdir@/csd-background
+Exec=csd-background
 OnlyShowIn=X-Cinnamon;
 NoDisplay=true
 X-GNOME-Autostart-Phase=Initialization

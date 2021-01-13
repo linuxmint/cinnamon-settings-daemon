@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Cinnamon Settings Daemon - clipboard
-Exec=@libexecdir@/csd-clipboard
+Exec=csd-clipboard
 OnlyShowIn=X-Cinnamon;
 NoDisplay=true
 X-GNOME-Autostart-Phase=Initialization

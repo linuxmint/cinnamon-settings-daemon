@@ -26,6 +26,6 @@ Name[uk]=Файли
 Name[zh_CN]=文件
 Name[zh_HK]=檔案
 Icon=folder
-Exec=@libexecdir@/csd-automount
+Exec=csd-automount
 OnlyShowIn=X-Cinnamon;
 NoDisplay=true
