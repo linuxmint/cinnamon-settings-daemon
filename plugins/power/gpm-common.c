@@ -105,6 +105,37 @@ gpm_upower_get_device_icon_suffix (UpDevice *device)
         return "full";
 }
 
+static const gchar *
+gpm_upower_get_precise_icon_index (UpDevice *device)
+{
+        gdouble percentage;
+        /* get device properties */
+        g_object_get (device, "percentage", &percentage, NULL);
+
+        if (percentage < 5)
+                return "0";
+        else if (percentage < 15)
+                return "10";
+        else if (percentage < 25)
+                return "20";
+        else if (percentage < 35)
+                return "30";
+        else if (percentage < 45)
+                return "40";
+        else if (percentage < 55)
+                return "50";
+        else if (percentage < 65)
+                return "60";
+        else if (percentage < 75)
+                return "70";
+        else if (percentage < 85)
+                return "80";
+        else if (percentage < 95)
+                return "90";
+
+        return "100";
+}
+
 GIcon *
 gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
 {
@@ -113,6 +144,7 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
         const gchar *kind_str;
         const gchar *suffix_str;
         const gchar *index_str;
+        const gchar *precise_str;
         UpDeviceKind kind;
         UpDeviceState state;
         gboolean is_present;
@@ -164,6 +196,7 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 break;
                         case UP_DEVICE_STATE_FULLY_CHARGED:
                                 if (use_symbolic) {
+                                        g_string_append (filename, "battery-level-100-charged-symbolic;");
                                         g_string_append (filename, "battery-full-charged-symbolic;");
                                         g_string_append (filename, "battery-full-charging-symbolic;");
                                 }
@@ -176,7 +209,9 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                         case UP_DEVICE_STATE_PENDING_CHARGE:
                                 suffix_str = gpm_upower_get_device_icon_suffix (device);
                                 index_str = gpm_upower_get_device_icon_index (device);
+                                precise_str = gpm_upower_get_precise_icon_index (device);
                                 if (use_symbolic)
+                                        g_string_append_printf (filename, "battery-level-%s-charging-symbolic;", precise_str);
                                         g_string_append_printf (filename, "battery-%s-charging-symbolic;", suffix_str);
                                 g_string_append_printf (filename, "gpm-%s-%s-charging;", kind_str, index_str);
                                 g_string_append_printf (filename, "battery-%s-charging;", suffix_str);
@@ -185,7 +220,9 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                         case UP_DEVICE_STATE_PENDING_DISCHARGE:
                                 suffix_str = gpm_upower_get_device_icon_suffix (device);
                                 index_str = gpm_upower_get_device_icon_index (device);
+                                precise_str = gpm_upower_get_precise_icon_index (device);
                                 if (use_symbolic)
+                                        g_string_append_printf (filename, "battery-level-%s-symbolic;", precise_str);
                                         g_string_append_printf (filename, "battery-%s-symbolic;", suffix_str);
                                 g_string_append_printf (filename, "gpm-%s-%s;", kind_str, index_str);
                                 g_string_append_printf (filename, "battery-%s;", suffix_str);
