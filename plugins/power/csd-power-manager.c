@@ -367,6 +367,8 @@ engine_emit_changed (CsdPowerManager *manager,
         if (manager->priv->power_iface == NULL)
                 return;
 
+        gboolean need_flush = FALSE;
+
         if (icon_changed) {
                 GIcon *gicon;
                 gchar *gicon_str;
@@ -375,6 +377,7 @@ engine_emit_changed (CsdPowerManager *manager,
                 gicon_str = g_icon_to_string (gicon);
 
                 csd_power_set_icon (manager->priv->power_iface, gicon_str);
+                need_flush = TRUE;
 
                 g_free (gicon_str);
                 g_object_unref (gicon);
@@ -386,8 +389,13 @@ engine_emit_changed (CsdPowerManager *manager,
                 tooltip = engine_get_summary (manager);
 
                 csd_power_set_tooltip (manager->priv->power_iface, tooltip);
+                need_flush = TRUE;
 
                 g_free (tooltip);
+        }
+
+        if (need_flush) {
+                g_dbus_interface_skeleton_flush (G_DBUS_INTERFACE_SKELETON (manager->priv->power_iface));
         }
 }
 
