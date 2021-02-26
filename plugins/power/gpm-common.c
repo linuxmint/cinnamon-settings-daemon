@@ -112,25 +112,25 @@ gpm_upower_get_precise_icon_index (UpDevice *device)
         /* get device properties */
         g_object_get (device, "percentage", &percentage, NULL);
 
-        if (percentage < 5)
+        if (percentage < 10)
                 return "0";
-        else if (percentage < 15)
+        else if (percentage < 20)
                 return "10";
-        else if (percentage < 25)
+        else if (percentage < 30)
                 return "20";
-        else if (percentage < 35)
+        else if (percentage < 40)
                 return "30";
-        else if (percentage < 45)
+        else if (percentage < 50)
                 return "40";
-        else if (percentage < 55)
+        else if (percentage < 60)
                 return "50";
-        else if (percentage < 65)
+        else if (percentage < 70)
                 return "60";
-        else if (percentage < 75)
+        else if (percentage < 80)
                 return "70";
-        else if (percentage < 85)
+        else if (percentage < 90)
                 return "80";
-        else if (percentage < 95)
+        else if (percentage < 99)
                 return "90";
 
         return "100";
