@@ -210,9 +210,10 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 suffix_str = gpm_upower_get_device_icon_suffix (device);
                                 index_str = gpm_upower_get_device_icon_index (device);
                                 precise_str = gpm_upower_get_precise_icon_index (device);
-                                if (use_symbolic)
+                                if (use_symbolic) {
                                         g_string_append_printf (filename, "battery-level-%s-charging-symbolic;", precise_str);
                                         g_string_append_printf (filename, "battery-%s-charging-symbolic;", suffix_str);
+                                }
                                 g_string_append_printf (filename, "gpm-%s-%s-charging;", kind_str, index_str);
                                 g_string_append_printf (filename, "battery-%s-charging;", suffix_str);
                                 break;
@@ -221,9 +222,10 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 suffix_str = gpm_upower_get_device_icon_suffix (device);
                                 index_str = gpm_upower_get_device_icon_index (device);
                                 precise_str = gpm_upower_get_precise_icon_index (device);
-                                if (use_symbolic)
+                                if (use_symbolic) {
                                         g_string_append_printf (filename, "battery-level-%s-symbolic;", precise_str);
                                         g_string_append_printf (filename, "battery-%s-symbolic;", suffix_str);
+                                }
                                 g_string_append_printf (filename, "gpm-%s-%s;", kind_str, index_str);
                                 g_string_append_printf (filename, "battery-%s;", suffix_str);
                                 break;
