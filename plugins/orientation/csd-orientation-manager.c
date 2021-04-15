@@ -191,7 +191,7 @@ do_xrandr_action (CsdOrientationManager *manager,
                   GnomeRRRotation        rotation)
 {
         CsdOrientationManagerPrivate *priv = manager->priv;
-        GTimeVal tv;
+        GDateTime *time;
         gint64 timestamp;
 
         if (priv->xrandr_proxy == NULL) {
@@ -204,8 +204,9 @@ do_xrandr_action (CsdOrientationManager *manager,
                 return;
         }
 
-        g_get_current_time (&tv);
-        timestamp = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+        time = (GDateTime *) g_get_real_time ();
+        timestamp = g_date_time_get_seconds (time) * 1000 +
+		    g_date_time_get_microsecond (time) / 1000;
 
         priv->cancellable = g_cancellable_new ();
 

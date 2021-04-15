@@ -103,17 +103,17 @@ read_dir_for_purge (const char *path, GList *files)
                                 ThumbData *td;
                                 GFile     *entry;
                                 char      *entry_path;
-                                GTimeVal   mod_time;
+                                GDateTime *mod_time;
 
                                 entry = g_file_get_child (read_path, name);
                                 entry_path = g_file_get_path (entry);
                                 g_object_unref (entry);
 
-                                g_file_info_get_modification_time (info, &mod_time);
+                                mod_time = g_file_info_get_modification_date_time (info);
 
                                 td = g_new0 (ThumbData, 1);
                                 td->path = entry_path;
-                                td->mtime = mod_time.tv_sec;
+                                td->mtime = g_date_time_get_seconds (mod_time);
                                 td->size = g_file_info_get_size (info);
 
                                 files = g_list_prepend (files, td);
@@ -204,7 +204,7 @@ purge_thumbnail_cache (CsdHousekeepingManager *manager)
         char     **paths;
         GList     *files;
         PurgeData  purge_data;
-        GTimeVal   current_time;
+        GDateTime *current_time;
         guint      i;
 
         g_debug ("housekeeping: checking thumbnail cache size and freshness");
@@ -215,9 +215,9 @@ purge_thumbnail_cache (CsdHousekeepingManager *manager)
                 files = read_dir_for_purge (paths[i], files);
         g_strfreev (paths);
 
-        g_get_current_time (&current_time);
+        current_time = (GDateTime *) g_get_real_time ();
 
-        purge_data.now = current_time.tv_sec;
+        purge_data.now = g_date_time_get_seconds (current_time);
         purge_data.max_age = g_settings_get_int (manager->priv->settings, THUMB_AGE_KEY) * 24 * 60 * 60;
         purge_data.max_size = g_settings_get_int (manager->priv->settings, THUMB_SIZE_KEY) * 1024 * 1024;
         purge_data.total_size = 0;

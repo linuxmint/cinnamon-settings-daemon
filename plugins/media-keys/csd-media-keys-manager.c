@@ -1245,10 +1245,11 @@ csd_media_keys_manager_grab_media_player_keys (CsdMediaKeysManager *manager,
         guint        watch_id;
 
         if (time == GDK_CURRENT_TIME) {
-                GTimeVal tv;
+                GDateTime *time;
 
-                g_get_current_time (&tv);
-                time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+                time = (GDateTime *) g_get_real_time ();
+                time = g_date_time_get_second (time) * 1000 +
+                       g_date_time_get_microsecond (time) / 1000;
         }
 
         iter = g_list_find_custom (manager->priv->media_players,
