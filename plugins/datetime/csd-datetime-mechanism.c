@@ -326,7 +326,7 @@ _set_time (CsdDatetimeMechanism  *mechanism,
         if (settimeofday (tv, NULL) != 0) {
                 error = g_error_new (CSD_DATETIME_MECHANISM_ERROR,
                                      CSD_DATETIME_MECHANISM_ERROR_GENERAL,
-                                     "Error calling settimeofday({%lld,%lld}): %s",
+                                     "Error calling settimeofday({%ld,%ld}): %s",
                                      (gint64) tv->tv_sec, (gint64) tv->tv_usec,
                                      strerror (errno));
                 dbus_g_method_return_error (context, error);

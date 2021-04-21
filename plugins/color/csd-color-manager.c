@@ -1756,9 +1756,10 @@ csd_color_manager_stop (CsdColorManager *manager)
         g_hash_table_destroy (manager->priv->device_assign_hash);
         manager->priv->device_assign_hash = NULL;
     }
-    if (manager->priv->x11_screen != NULL)
+    if (manager->priv->x11_screen != NULL) {
         g_object_unref (manager->priv->x11_screen);
         manager->priv->x11_screen = NULL;
+    }
 }
 
 static void

@@ -984,7 +984,7 @@ should_autorun_mount (GMount *mount)
 void
 csd_autorun_for_content_type (GMount               *mount,
                               const gchar          *content_type,
-                              CsdAutorunOpenWindow *callback,
+                              CsdAutorunOpenWindow  callback,
                               gpointer              user_data)
 {
     do_autorun_for_content_type (mount, content_type, callback, user_data);

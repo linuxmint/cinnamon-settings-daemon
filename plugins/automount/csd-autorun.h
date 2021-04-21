@@ -49,7 +49,7 @@ void csd_autorun (GMount *mount,
 
 void csd_autorun_for_content_type (GMount               *mount,
                                    const gchar          *content_type,
-                                   CsdAutorunOpenWindow *callback,
+                                   CsdAutorunOpenWindow  callback,
                                    gpointer              user_data);
 
 void csd_allow_autorun_for_volume (GVolume *volume);

@@ -42,8 +42,7 @@ main (int argc, char *argv[])
 {
         GVolumeMonitor *monitor;
         GError *error;
-        GList *mounts, *l;
-        int     conflicting_options;
+        GList *mounts;
 
         error = NULL;
         if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {

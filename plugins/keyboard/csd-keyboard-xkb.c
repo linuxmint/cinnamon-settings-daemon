@@ -63,8 +63,6 @@ static GSettings *settings_keyboard = NULL;
 static PostActivationCallback pa_callback = NULL;
 static void *pa_callback_user_data = NULL;
 
-static GtkStatusIcon *icon = NULL;
-
 static GHashTable *preview_dialogs = NULL;
 
 static void
