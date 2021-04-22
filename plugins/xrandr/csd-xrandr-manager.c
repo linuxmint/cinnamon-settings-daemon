@@ -205,8 +205,8 @@ log_msg (const char *format, ...)
 static void
 log_output (GnomeRROutputInfo *output)
 {
-        gchar *name = gnome_rr_output_info_get_name (output);
-        gchar *display_name = gnome_rr_output_info_get_display_name (output);
+        const gchar *name = gnome_rr_output_info_get_name (output);
+        const gchar *display_name = gnome_rr_output_info_get_display_name (output);
 
         log_msg ("        %s: ", name ? name : "unknown");
 
@@ -2052,7 +2052,7 @@ out:
         g_free (legacy_filename);
 
         if (success) {
-            g_debug ("Successfully loaded existing monitor configuration\n", success);
+            g_debug ("Successfully loaded existing monitor configuration\n");
         }
 
         return success;
@@ -2133,6 +2133,8 @@ power_client_changed_cb (UpClient *client, gpointer data)
                 use_stored_configuration_or_auto_configure_outputs (manager, GDK_CURRENT_TIME);
         }
 }
+
+static void register_manager_dbus (CsdXrandrManager *manager);
 
 gboolean
 csd_xrandr_manager_start (CsdXrandrManager *manager,
@@ -2399,7 +2401,7 @@ on_bus_gotten (GObject             *source_object,
                                                                NULL);
 }
 
-void
+static void
 register_manager_dbus (CsdXrandrManager *manager)
 {
         manager->priv->introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);
