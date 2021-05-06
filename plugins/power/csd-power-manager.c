@@ -210,7 +210,7 @@ static void      inhibit_lid_switch (CsdPowerManager *manager);
 static void      uninhibit_lid_switch (CsdPowerManager *manager);
 static void      setup_locker_process (gpointer user_data);
 static void      lock_screen_with_custom_saver (CsdPowerManager *manager, gchar *custom_saver, gboolean idle_lock);
-static void      lock_screensaver (CsdPowerManager *manager);
+static void      activate_screensaver (CsdPowerManager *manager, gboolean force_lock);
 static void      kill_lid_close_safety_timer (CsdPowerManager *manager);
 
 int             backlight_get_output_id (CsdPowerManager *manager);
@@ -1943,7 +1943,7 @@ do_power_action_type (CsdPowerManager *manager,
         switch (action_type) {
         case CSD_POWER_ACTION_SUSPEND:
                 if (should_lock_on_suspend (manager)) {
-                        lock_screensaver (manager);
+                        activate_screensaver (manager, TRUE);
                 }
 
                 turn_monitors_off (manager);
@@ -1960,7 +1960,7 @@ do_power_action_type (CsdPowerManager *manager,
                 break;
         case CSD_POWER_ACTION_HIBERNATE:
                 if (should_lock_on_suspend (manager)) {
-                        lock_screensaver (manager);
+                        activate_screensaver (manager, TRUE);
                 }
 
                 turn_monitors_off (manager);
@@ -1975,7 +1975,7 @@ do_power_action_type (CsdPowerManager *manager,
         case CSD_POWER_ACTION_BLANK:
                 /* Lock first or else xrandr might reconfigure stuff and the ss's coverage
                  * may be incorrect upon return. */
-                lock_screensaver (manager);
+                activate_screensaver (manager, FALSE);
                 turn_monitors_off (manager);
                 break;
         case CSD_POWER_ACTION_NOTHING:
@@ -3579,7 +3579,7 @@ quit:
 }
 
 static void
-lock_screensaver (CsdPowerManager *manager)
+activate_screensaver (CsdPowerManager *manager, gboolean force_lock)
 {
     GError *error;
     gboolean ret;
@@ -3597,7 +3597,12 @@ lock_screensaver (CsdPowerManager *manager)
      * a custom screen saver, default to invoking cinnamon-screensaver */
     /* do this sync to ensure it's on the screen when we start suspending */
     error = NULL;
-    ret = g_spawn_command_line_sync ("cinnamon-screensaver-command --lock", NULL, NULL, NULL, &error);
+
+    if (force_lock) {
+        ret = g_spawn_command_line_sync ("cinnamon-screensaver-command --lock", NULL, NULL, NULL, &error);
+    } else {
+        ret = g_spawn_command_line_sync ("cinnamon-screensaver-command -a", NULL, NULL, NULL, &error);
+    }
 
     if (!ret) {
         g_warning ("Couldn't lock screen: %s", error->message);
@@ -3759,18 +3764,18 @@ idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_DIM);
                 break;
         case CSD_POWER_IDLETIME_LOCK_ID:
-                /* cinnamon-screensaver has its own lock after some idle delay.
-                 * If we have a custom screensaver configured, we have to use
-                 * the idle delay from cinnamon-settings-daemon to trigger the
-                 * screen lock after the idle timeout */
                 ; /* empty statement, because C does not allow a declaration to
                    * follow a label */
                 gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
                                                              "custom-screensaver-command");
-                if (custom_saver && g_strcmp0 (custom_saver, "") != 0)
+                if (custom_saver && g_strcmp0 (custom_saver, "") != 0) {
                         lock_screen_with_custom_saver (manager,
                                                        custom_saver,
                                                        TRUE);
+                } else {
+                    activate_screensaver (manager, FALSE);
+                }
+
                 g_free (custom_saver);
 
                 break;
@@ -4060,7 +4065,7 @@ handle_suspend_actions (CsdPowerManager *manager)
          * suppose.)
          */
         if (should_lock_on_suspend (manager)) {
-            lock_screensaver (manager);
+            activate_screensaver (manager, TRUE);
         }
 
         /* lift the delay inhibit, so logind can proceed */
