@@ -1854,7 +1854,7 @@ csd_wacom_device_set_current_stylus (CsdWacomDevice *device,
 		   stylus_id, device->priv->name);
 
 	/* Setting the default stylus to be the first one */
-	g_assert (device->priv->styli);
+	g_return_if_fail (device->priv->styli != NULL);
 
 	stylus = device->priv->styli->data;
 	g_object_set (device, "last-stylus", stylus, NULL);
