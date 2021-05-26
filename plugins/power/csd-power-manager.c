@@ -1434,26 +1434,23 @@ engine_charge_critical (CsdPowerManager *manager, UpDevice *device)
                 title = _("Mouse battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Wireless mouse is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                message = g_strdup_printf (_("Wireless mouse is very low in power. "
+                                             "This device will soon stop functioning if not charged."));
         } else if (kind == UP_DEVICE_KIND_KEYBOARD) {
                 /* TRANSLATORS: the keyboard battery is very low */
                 title = _("Keyboard battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Wireless keyboard is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                message = g_strdup_printf (_("Wireless keyboard is very low in power. "
+                                             "This device will soon stop functioning if not charged."));
         } else if (kind == UP_DEVICE_KIND_PDA) {
 
                 /* TRANSLATORS: the PDA battery is very low */
                 title = _("PDA battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("PDA is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                message = g_strdup_printf (_("PDA is very low in power. "
+                                             "This device will soon stop functioning if not charged."));
 
         } else if (kind == UP_DEVICE_KIND_PHONE) {
 
@@ -1461,9 +1458,8 @@ engine_charge_critical (CsdPowerManager *manager, UpDevice *device)
                 title = _("Cell phone battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Cell phone is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                message = g_strdup_printf (_("Cell phone is very low in power. "
+                                             "This device will soon stop functioning if not charged."));
 
         } else if (kind == UP_DEVICE_KIND_MEDIA_PLAYER) {
 
@@ -1471,18 +1467,16 @@ engine_charge_critical (CsdPowerManager *manager, UpDevice *device)
                 title = _("Cell phone battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Media player is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                message = g_strdup_printf (_("Media player is very low in power. "
+                                             "This device will soon stop functioning if not charged."));
         } else if (kind == UP_DEVICE_KIND_TABLET) {
 
                 /* TRANSLATORS: the cell battery is very low */
                 title = _("Tablet battery low");
 
                 /* TRANSLATORS: the device is just going to stop working */
-                message = g_strdup_printf (_("Tablet is very low in power (%.0f%%). "
-                                             "This device will soon stop functioning if not charged."),
-                                           percentage);
+                message = g_strdup_printf (_("Tablet is very low in power. "
+                                             "This device will soon stop functioning if not charged."));
         } else if (kind == UP_DEVICE_KIND_COMPUTER) {
 
                 /* TRANSLATORS: the cell battery is very low */
