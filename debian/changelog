@@ -1,3 +1,31 @@
+cinnamon-settings-daemon (5.0.0) uma; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-manager.c: Make sure to propagate the icon and/or state properties immediately when they change.
+  * power/gpm-common.c: Prefer more specific battery level icons if they're available in the theme.
+  * gpm-common.c: Adjust thresholds for battery-level icon changes.
+
+  [ Mike Gerow ]
+  * datetime: use full path for d-bus service Exec
+
+  [ Sparky Bluefang ]
+  * build: Add missing defines. Fix optional wacom build. Make build options behave consistently.
+
+  [ Joshua Peisach ]
+  * Shush compiler warnings (#329)
+
+  [ Michael Webster ]
+  * csd-xrandr-manager.c: Fix some build warnings.
+  * csd-power-manager.c: Manage idle activation of cinnamon-screensaver instead of making the screensaver itself handle it.
+
+  [ Joshua Peisach ]
+  * wacom: Fix a crash from assertion failures
+
+  [ Michael Webster ]
+  * csd-power-manager.c: Remove percentage from non-battery critical notifications.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 31 May 2021 13:42:46 +0100
+
 cinnamon-settings-daemon (4.8.5) ulyssa; urgency=medium
 
   [ Eli Schwartz ]
