@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 13:43+0100\n"
+"POT-Creation-Date: 2021-06-02 15:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -414,8 +414,8 @@ msgstr ""
 
 #: plugins/power/csd-power-manager.c:1111
 #: plugins/power/csd-power-manager.c:1331
-#: plugins/power/csd-power-manager.c:1505
-#: plugins/power/csd-power-manager.c:1654
+#: plugins/power/csd-power-manager.c:1509
+#: plugins/power/csd-power-manager.c:1658
 msgid "Power"
 msgstr ""
 
@@ -447,8 +447,7 @@ msgid "Mouse battery low"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1272
-#, c-format
-msgid "Wireless mouse is low in power (%.0f%%)"
+msgid "Wireless mouse is low in power"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1276
@@ -457,8 +456,7 @@ msgid "Keyboard battery low"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1279
-#, c-format
-msgid "Wireless keyboard is low in power (%.0f%%)"
+msgid "Wireless keyboard is low in power"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1283
@@ -472,8 +470,8 @@ msgid "PDA is low in power (%.0f%%)"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1290
-#: plugins/power/csd-power-manager.c:1458
-#: plugins/power/csd-power-manager.c:1467
+#: plugins/power/csd-power-manager.c:1459
+#: plugins/power/csd-power-manager.c:1469
 msgid "Cell phone battery low"
 msgstr ""
 
@@ -492,7 +490,7 @@ msgid "Media player is low in power (%.0f%%)"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1304
-#: plugins/power/csd-power-manager.c:1475
+#: plugins/power/csd-power-manager.c:1478
 msgid "Tablet battery low"
 msgstr ""
 
@@ -502,7 +500,7 @@ msgid "Tablet is low in power (%.0f%%)"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1311
-#: plugins/power/csd-power-manager.c:1483
+#: plugins/power/csd-power-manager.c:1487
 msgid "Attached computer battery low"
 msgstr ""
 
@@ -520,7 +518,7 @@ msgid "Battery critically low"
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1393
-#: plugins/power/csd-power-manager.c:1570
+#: plugins/power/csd-power-manager.c:1574
 msgid "Laptop battery critically low"
 msgstr ""
 
@@ -541,7 +539,7 @@ msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1422
-#: plugins/power/csd-power-manager.c:1606
+#: plugins/power/csd-power-manager.c:1610
 msgid "UPS critically low"
 msgstr ""
 
@@ -565,49 +563,53 @@ msgid ""
 msgstr ""
 
 #: plugins/power/csd-power-manager.c:1452
+#, c-format
 msgid ""
-"PDA is very low in power. This device will soon stop functioning if not "
-"charged."
-msgstr ""
-
-#: plugins/power/csd-power-manager.c:1461
-msgid ""
-"Cell phone is very low in power. This device will soon stop functioning if "
+"PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1470
+#: plugins/power/csd-power-manager.c:1462
+#, c-format
 msgid ""
-"Media player is very low in power. This device will soon stop functioning if "
-"not charged."
+"Cell phone is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1478
+#: plugins/power/csd-power-manager.c:1472
+#, c-format
 msgid ""
-"Tablet is very low in power. This device will soon stop functioning if not "
-"charged."
+"Media player is very low in power (%.0f%%). This device will soon stop "
+"functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1486
+#: plugins/power/csd-power-manager.c:1481
+#, c-format
+msgid ""
+"Tablet is very low in power (%.0f%%). This device will soon stop functioning "
+"if not charged."
+msgstr ""
+
+#: plugins/power/csd-power-manager.c:1490
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1523
-#: plugins/power/csd-power-manager.c:1533
-#: plugins/power/csd-power-manager.c:1669
+#: plugins/power/csd-power-manager.c:1527
+#: plugins/power/csd-power-manager.c:1537
+#: plugins/power/csd-power-manager.c:1673
 msgid "Battery is critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1578
+#: plugins/power/csd-power-manager.c:1582
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1584
+#: plugins/power/csd-power-manager.c:1588
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -615,42 +617,42 @@ msgid ""
 "suspended state."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1591
+#: plugins/power/csd-power-manager.c:1595
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1596
+#: plugins/power/csd-power-manager.c:1600
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1614
+#: plugins/power/csd-power-manager.c:1618
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1620
+#: plugins/power/csd-power-manager.c:1624
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1625
+#: plugins/power/csd-power-manager.c:1629
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:2214
+#: plugins/power/csd-power-manager.c:2218
 msgid "Lid has been opened"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:2359
+#: plugins/power/csd-power-manager.c:2363
 msgid "Lid has been closed"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:4280
+#: plugins/power/csd-power-manager.c:4284
 msgid "Power Manager"
 msgstr ""
 
