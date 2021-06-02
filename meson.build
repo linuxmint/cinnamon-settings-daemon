@@ -80,11 +80,9 @@ dbus_glib = dependency('dbus-glib-1', required: polkit.found())
 librsvg = dependency('librsvg-2.0', version: '>= 2.36.2', required: wacom.found())
 xorg_wacom = dependency('xorg-wacom', required: wacom.found())
 
-lcms = dependency('lcms2', version: '>= 2.2', required: false)
-if lcms.found()
+lcms = dependency('lcms2', required: colord.found())
+if lcms.version().version_compare('>=2.2')
     cargs += '-DHAVE_NEW_LCMS'
-else
-    lcms = dependency('lcms2', required: colord.found())
 endif
 
 using_logind = false
