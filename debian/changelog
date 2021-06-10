@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (5.0.1) uma; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-manager.c: Remove percentage from mouse and keyboard 'warning' notifications.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 10 Jun 2021 14:03:36 +0100
+
 cinnamon-settings-daemon (5.0.0) uma; urgency=medium
 
   [ Michael Webster ]
