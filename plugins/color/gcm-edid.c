@@ -341,7 +341,7 @@ gcm_edid_parse (GcmEdid *edid, const guint8 *data, gsize length, GError **error)
 
         /* get color red */
         priv->red->x = gcm_edid_decode_fraction (data[0x1b], gcm_edid_get_bits (data[0x19], 6, 7));
-        priv->red->y = gcm_edid_decode_fraction (data[0x1c], gcm_edid_get_bits (data[0x19], 5, 4));
+        priv->red->y = gcm_edid_decode_fraction (data[0x1c], gcm_edid_get_bits (data[0x19], 4, 5));
 
         /* get color green */
         priv->green->x = gcm_edid_decode_fraction (data[0x1d], gcm_edid_get_bits (data[0x19], 2, 3));
