@@ -202,6 +202,10 @@ static UpDevice *engine_get_composite_device (CsdPowerManager *manager, UpDevice
 static UpDevice *engine_update_composite_device (CsdPowerManager *manager, UpDevice *original_device);
 static GIcon    *engine_get_icon (CsdPowerManager *manager);
 static gchar    *engine_get_summary (CsdPowerManager *manager);
+static UpDevice *engine_get_primary_device (CsdPowerManager *manager);
+static void      engine_charge_low (CsdPowerManager *manager, UpDevice *device);
+static void      engine_charge_critical (CsdPowerManager *manager, UpDevice *device);
+static void      engine_charge_action (CsdPowerManager *manager, UpDevice *device);
 
 static gboolean  external_monitor_is_connected (GnomeRRScreen *screen);
 static void      do_power_action_type (CsdPowerManager *manager, CsdPowerActionType action_type);
@@ -230,6 +234,19 @@ csd_power_manager_error_quark (void)
         if (!quark)
                 quark = g_quark_from_static_string ("csd_power_manager_error");
         return quark;
+}
+
+static gboolean
+system_on_battery (CsdPowerManager *manager)
+{
+    UpDevice *primary;
+    UpDeviceState state;
+
+    // this will only return a device if it's the battery, it's present,
+    // and discharging.
+    primary = engine_get_primary_device (manager);
+
+    return primary != NULL;
 }
 
 static gboolean
@@ -932,12 +949,30 @@ engine_device_add (CsdPowerManager *manager, UpDevice *device)
                            "engine-state-old",
                            GUINT_TO_POINTER(state));
 
+#if UP_CHECK_VERSION(0,99,0)
+        g_ptr_array_add (manager->priv->devices_array, g_object_ref(device));
+
+        g_signal_connect (device, "notify",
+                          G_CALLBACK (device_properties_changed_cb), manager);
+#endif
+
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because we added a device");
                 composite = engine_update_composite_device (manager, device);
 
                 /* get the same values for the composite device */
                 warning = engine_get_warning (manager, composite);
+
+                if (warning == WARNING_LOW) {
+                        g_debug ("** EMIT: charge-low");
+                        engine_charge_low (manager, device);
+                } else if (warning == WARNING_CRITICAL) {
+                        g_debug ("** EMIT: charge-critical");
+                        engine_charge_critical (manager, device);
+                } else if (warning == WARNING_ACTION) {
+                        g_debug ("charge-action");
+                        engine_charge_action (manager, device);
+                }
                 g_object_set_data (G_OBJECT(composite),
                                    "engine-warning-old",
                                    GUINT_TO_POINTER(warning));
@@ -946,14 +981,6 @@ engine_device_add (CsdPowerManager *manager, UpDevice *device)
                                    "engine-state-old",
                                    GUINT_TO_POINTER(state));
         }
-
-#if UP_CHECK_VERSION(0,99,0)
-        g_ptr_array_add (manager->priv->devices_array, g_object_ref(device));
-
-        g_signal_connect (device, "notify",
-                          G_CALLBACK (device_properties_changed_cb), manager);
-#endif
-
 }
 
 static gboolean
@@ -1228,7 +1255,7 @@ engine_charge_low (CsdPowerManager *manager, UpDevice *device)
 
         /* check to see if the batteries have not noticed we are on AC */
         if (kind == UP_DEVICE_KIND_BATTERY) {
-                if (!up_client_get_on_battery (manager->priv->up_client)) {
+                if (!system_on_battery (manager)) {
                         g_warning ("ignoring low message as we are not on battery power");
                         goto out;
                 }
@@ -1375,7 +1402,7 @@ engine_charge_critical (CsdPowerManager *manager, UpDevice *device)
 
         /* check to see if the batteries have not noticed we are on AC */
         if (kind == UP_DEVICE_KIND_BATTERY) {
-                if (!up_client_get_on_battery (manager->priv->up_client)) {
+                if (!system_on_battery (manager)) {
                         g_warning ("ignoring critically low message as we are not on battery power");
                         goto out;
                 }
@@ -1562,7 +1589,7 @@ engine_charge_action (CsdPowerManager *manager, UpDevice *device)
 
         /* check to see if the batteries have not noticed we are on AC */
         if (kind == UP_DEVICE_KIND_BATTERY) {
-                if (!up_client_get_on_battery (manager->priv->up_client)) {
+                if (!system_on_battery (manager)) {
                         g_warning ("ignoring critically low message as we are not on battery power");
                         goto out;
                 }
@@ -2319,7 +2346,7 @@ suspend_with_lid_closed (CsdPowerManager *manager)
         CsdPowerActionType action_type;
 
         /* we have different settings depending on AC state */
-        if (up_client_get_on_battery (manager->priv->up_client)) {
+        if (system_on_battery (manager)) {
                 action_type = g_settings_get_enum (manager->priv->settings,
                                                    "lid-close-battery-action");
         } else {
@@ -2388,7 +2415,7 @@ up_client_changed_cb (UpClient *client, CsdPowerManager *manager)
         gboolean lid_is_closed;
         gboolean on_battery;
         
-        on_battery = up_client_get_on_battery(client);
+        on_battery = system_on_battery(manager);
         if (!on_battery) {
             /* if we are playing a critical charge sound loop on AC, stop it */
             if (manager->priv->critical_alert_timeout_id > 0) {
@@ -3121,7 +3148,7 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
         if (mode == CSD_POWER_IDLE_MODE_DIM) {
 
                 /* have we disabled the action */
-                if (up_client_get_on_battery (manager->priv->up_client)) {
+                if (system_on_battery (manager)) {
                         ret = g_settings_get_boolean (manager->priv->settings,
                                                       "idle-dim-battery");
                 } else {
@@ -3179,7 +3206,7 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
         /* sleep */
         } else if (mode == CSD_POWER_IDLE_MODE_SLEEP) {
 
-                if (up_client_get_on_battery (manager->priv->up_client)) {
+                if (system_on_battery (manager)) {
                         action_type = g_settings_get_enum (manager->priv->settings,
                                                            "sleep-inactive-battery-type");
                 } else {
@@ -3401,7 +3428,7 @@ idle_configure (CsdPowerManager *manager)
 
         /* set up blank callback even when session is not idle,
          * but only if we actually want to blank. */
-        on_battery = up_client_get_on_battery (manager->priv->up_client);
+        on_battery = system_on_battery (manager);
         if (on_battery) {
                 timeout_blank = g_settings_get_int (manager->priv->settings,
                                                     "sleep-display-battery");
