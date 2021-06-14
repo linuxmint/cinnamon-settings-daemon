@@ -1,3 +1,11 @@
+cinnamon-settings-daemon (5.0.2) uma; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-manager.c: Use a different method to determine whether or not the system is on battery.
+  * power: Increase the critical and action thresholds so they are higher than the upower default.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 14 Jun 2021 16:28:03 +0100
+
 cinnamon-settings-daemon (5.0.1) uma; urgency=medium
 
   [ Michael Webster ]
