@@ -1,3 +1,14 @@
+cinnamon-settings-daemon (5.0.3) uma; urgency=medium
+
+  [ Eli Schwartz ]
+  * meson: simplify version check for lcms2
+
+  [ Leigh Scott ]
+  * EDID strings can be up to 13 bytes
+  * color: Correct the transposed bits in the EDID parser
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 25 Jun 2021 16:58:02 +0100
+
 cinnamon-settings-daemon (5.0.2) uma; urgency=medium
 
   [ Michael Webster ]
