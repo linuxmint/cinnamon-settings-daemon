@@ -23,10 +23,6 @@ wacom_sources = [
     wacom_resources,
 ]
 
-wacom_led_helper_sources = [
-    'csd-wacom-led-helper.c',
-]
-
 wacom_osd_sources = [
     'test-osd-window.c',
     'csd-wacom-osd-window.c',
@@ -64,22 +60,6 @@ executable(
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom')
 if libexecdir != pkglibdir
     meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom')
-endif
-
-if gudev.found()
-    executable(
-        'csd-wacom-led-helper',
-        wacom_led_helper_sources,
-        include_directories: [include_dirs, common_inc, include_enums],
-        dependencies: wacom_deps,
-        install: true,
-        install_dir: libexecdir,
-    )
-
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-led-helper')
-    if libexecdir != pkglibdir
-        meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom-led-helper')
-    endif
 endif
 
 executable(
