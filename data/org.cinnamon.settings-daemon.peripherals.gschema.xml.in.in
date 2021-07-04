@@ -4,6 +4,7 @@
     <child name="touchpad" schema="org.cinnamon.settings-daemon.peripherals.touchpad"/>
     <child name="keyboard" schema="org.cinnamon.settings-daemon.peripherals.keyboard"/>
     <child name="mouse" schema="org.cinnamon.settings-daemon.peripherals.mouse"/>
+    <child name="trackball" schema="org.cinnamon.settings-daemon.peripherals.trackball"/>
     <child name="touchscreen" schema="org.cinnamon.settings-daemon.peripherals.touchscreen"/>
     <child name="input-devices" schema="org.cinnamon.settings-daemon.peripherals.input-devices"/>
   </schema>
@@ -186,6 +187,13 @@
     <key name="orientation-lock" type="b">
       <default>true</default>
       <summary>Whether the tablet's orientation is locked, or rotated automatically.</summary>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.trackball" path="/org/cinnamon/settings-daemon/peripherals/trackball/">
+    <key name="scroll-wheel-emulation-button" type="i">
+      <default>0</default>
+      <range min="0" max="24"/>
+      <summary>Mouse wheel emulation button. 0 to disable the feature.</summary>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.input-devices" path="/org/cinnamon/settings-daemon/peripherals/input-devices/">
