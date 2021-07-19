@@ -3839,7 +3839,8 @@ engine_settings_key_changed_cb (GSettings *settings,
                 return;
         }
         if (g_str_has_prefix (key, "sleep-inactive") ||
-            g_str_has_prefix (key, "sleep-display")) {
+            g_str_has_prefix (key, "sleep-display") ||
+            g_str_has_prefix (key, "idle-delay")) {
                 idle_configure (manager);
                 return;
         }
@@ -4268,6 +4269,8 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->settings_screensaver = g_settings_new (CSD_SAVER_SETTINGS_SCHEMA);
         manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
         manager->priv->settings_desktop_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
+        g_signal_connect (manager->priv->settings_desktop_session, "changed",
+                          G_CALLBACK (engine_settings_key_changed_cb), manager);
         manager->priv->settings_cinnamon_session = g_settings_new (CSD_CINNAMON_SESSION_SCHEMA);
         manager->priv->inhibit_lid_switch_enabled =
                           g_settings_get_boolean (manager->priv->settings, "inhibit-lid-switch");
