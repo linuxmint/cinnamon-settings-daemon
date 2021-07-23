@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (5.0.4) uma; urgency=medium
+
+  [ Michael Webster ]
+  * csd-power-manager.c: Reset the timers when the idle-delay changes.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 23 Jul 2021 12:28:14 +0100
+
 cinnamon-settings-daemon (5.0.3) uma; urgency=medium
 
   [ Eli Schwartz ]
