@@ -1,4 +1,4 @@
-project('cinnamon-settings-daemon', 'c', version: '5.2.0', meson_version: '>= 0.47')
+project('cinnamon-settings-daemon', 'c', version: '5.3.0', meson_version: '>= 0.47')
 
 gnome = import('gnome')
 i18n = import('i18n')
