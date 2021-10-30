@@ -61,7 +61,6 @@ nss = dependency('nss', version: '>= 3.11.2', required: get_option('use_smartcar
 polkit = dependency('polkit-gobject-1', version: '>= 0.97', required: get_option('use_polkit'))
 pulse_required = '>= 0.9.16'
 pulse = dependency('libpulse', version: pulse_required)
-pulse_glib = dependency('libpulse-mainloop-glib', version: pulse_required)
 upower_glib = dependency('upower-glib', version: '>= 0.9.11')
 wacom = dependency('libwacom', version: '>= 0.7', required: get_option('use_wacom'))
 x11 = dependency('x11')
