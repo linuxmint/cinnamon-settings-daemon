@@ -20,7 +20,6 @@ subdir('mouse')
 subdir('orientation')
 subdir('power')
 subdir('screensaver-proxy')
-# subdir('sound')
 subdir('xrandr')
 subdir('xsettings')
 
