@@ -44,13 +44,14 @@
 #include "csd-xsettings-gtk.h"
 #include "xsettings-manager.h"
 #include "fontconfig-monitor.h"
+#include "migrate-settings.h"
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libcinnamon-desktop/gnome-rr.h>
+#include <libcinnamon-desktop/cdesktop-enums.h>
 
 #define CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerPrivate))
 
-#define MOUSE_SETTINGS_SCHEMA     "org.cinnamon.settings-daemon.peripherals.mouse"
+#define MOUSE_SETTINGS_SCHEMA     "org.cinnamon.desktop.peripherals.mouse"
 #define INTERFACE_SETTINGS_SCHEMA "org.cinnamon.desktop.interface"
 #define INTERFACE_WM_SETTINGS_SCHEMA "org.cinnamon.desktop.wm.preferences"
 #define SOUND_SETTINGS_SCHEMA     "org.cinnamon.desktop.sound"
@@ -65,6 +66,7 @@
 #define TEXT_SCALING_FACTOR_KEY "text-scaling-factor"
 #define SCALING_FACTOR_KEY "scaling-factor"
 #define CURSOR_SIZE_KEY "cursor-size"
+#define ANIMATIONS_KEY "enable-animations"
 
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
@@ -247,6 +249,14 @@ struct CinnamonSettingsXSettingsManagerPrivate
         fontconfig_monitor_handle_t *fontconfig_handle;
 
         CsdXSettingsGtk   *gtk;
+        GDBusConnection   *dbus_connection;
+
+        guint              cinnamon_properties_changed_id;
+        guint              cinnamon_name_watch_id;
+        gboolean           enable_animations;
+
+        guint              display_config_watch_id;
+        guint              monitors_changed_id;
 
         guint              notify_idle_id;
 };
@@ -258,6 +268,7 @@ enum {
 };
 
 static void     cinnamon_xsettings_manager_finalize    (GObject                  *object);
+static void     animations_enabled_changed             (CinnamonSettingsXSettingsManager *manager);
 
 G_DEFINE_TYPE (CinnamonSettingsXSettingsManager, cinnamon_xsettings_manager, G_TYPE_OBJECT)
 
@@ -267,6 +278,41 @@ static GQuark
 csd_xsettings_error_quark (void)
 {
         return g_quark_from_static_string ("csd-xsettings-error-quark");
+}
+
+static void
+set_session_bus_id (CinnamonSettingsXSettingsManager *manager)
+{
+        const gchar *id;
+        GDBusConnection *bus;
+        GVariant *res;
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+        res = g_dbus_connection_call_sync (bus,
+                                           "org.freedesktop.DBus",
+                                           "/org/freedesktop/DBus",
+                                           "org.freedesktop.DBus",
+                                           "GetId",
+                                           NULL,
+                                           NULL,
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1,
+                                           NULL,
+                                           NULL);
+
+        if (res) {
+                g_variant_get (res, "(&s)", &id);
+
+                int i;
+
+                for (i = 0; manager->priv->managers[i]; i++) {
+                        xsettings_manager_set_string (manager->priv->managers[i], "Gtk/SessionBusId", id);
+                }
+
+                g_variant_unref (res);
+        }
+
+        g_object_unref (bus);
 }
 
 static void
@@ -388,44 +434,54 @@ translate_string_string_window_buttons (CinnamonSettingsXSettingsManager *manage
         g_free (final_str);
 }
 
-static TranslationEntry translations [] = {
-        { "org.cinnamon.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
-        { "org.cinnamon.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
+static void
+translate_enable_animations (CinnamonSettingsXSettingsManager *manager,
+                             TranslationEntry                 *trans,
+                             GVariant                         *value)
+{
+    animations_enabled_changed (manager);
+}
 
+static TranslationEntry translations [] = {
+
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "menus-have-icons", "Gtk/MenuImages",          translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "buttons-have-icons",     "Gtk/ButtonImages",        translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "dialogs-use-header",     "Gtk/DialogsUseHeader",    translate_bool_int },
         { "org.cinnamon.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
         { "org.cinnamon.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-key-theme",          "Gtk/KeyThemeName",        translate_string_string },
         { "org.cinnamon.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string_toolbar },
         { "org.cinnamon.desktop.interface", "toolbar-icons-size",     "Gtk/ToolbarIconSize",     translate_string_string },
         { "org.cinnamon.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
-        { "org.cinnamon.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
-        { "org.cinnamon.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
         { "org.cinnamon.desktop.interface", "cursor-blink-timeout",   "Gtk/CursorBlinkTimeout",  translate_int_int },
-        { "org.cinnamon.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-timeout-initial",    "Gtk/TimeoutInitial",      translate_int_int },
         { "org.cinnamon.desktop.interface", "gtk-timeout-repeat",     "Gtk/TimeoutRepeat",       translate_int_int },
         { "org.cinnamon.desktop.interface", "gtk-color-scheme",       "Gtk/ColorScheme",         translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
-        { "org.cinnamon.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "menus-have-icons", "Gtk/MenuImages",          translate_bool_int },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "buttons-have-icons",     "Gtk/ButtonImages",        translate_bool_int },
         { "org.cinnamon.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
-        { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
+        { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_enable_animations },
         { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "button-layout",  "Gtk/DecorationLayout",    translate_string_string_window_buttons },
         { "org.cinnamon.desktop.wm.preferences", "action-double-click-titlebar",  "Gtk/TitlebarDoubleClick",    translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "action-middle-click-titlebar",  "Gtk/TitlebarMiddleClick",    translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar",  "Gtk/TitlebarRightClick",    translate_string_string },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
+        { "org.cinnamon.desktop.privacy", "recent-files-max-age", "Gtk/RecentFilesMaxAge", translate_int_int },
+        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int },
+
+        { "org.cinnamon.desktop.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
+        { "org.cinnamon.desktop.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
+        { "org.cinnamon.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
+        { "org.cinnamon.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
+        { "org.cinnamon.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
+        { "org.cinnamon.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
         { "org.cinnamon.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
         { "org.cinnamon.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
-        { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int },
-        { "org.cinnamon.desktop.privacy", "recent-files-max-age", "Gtk/RecentFilesMaxAge", translate_int_int },
-        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int }
+        { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
 };
 
 static gboolean
@@ -464,29 +520,82 @@ get_dpi_from_gsettings (CinnamonSettingsXSettingsManager *manager)
         return dpi * factor;
 }
 
+
+static gboolean
+get_legacy_ui_scale (GVariantIter *properties,
+                     int          *scale)
+{
+        const char *key;
+        GVariant *value;
+
+        *scale = 0;
+
+        while (g_variant_iter_loop (properties, "{&sv}", &key, &value)) {
+                if (!g_str_equal (key, "legacy-ui-scaling-factor"))
+                        continue;
+
+                *scale = g_variant_get_int32 (value);
+                break;
+        }
+
+        if (*scale < 1) {
+                g_warning ("Failed to get current UI legacy scaling factor");
+                *scale = 1;
+                return FALSE;
+        }
+
+        return TRUE;
+}
+
+#define MODE_FORMAT "(siiddada{sv})"
+#define MODES_FORMAT "a" MODE_FORMAT
+
+#define MONITOR_SPEC_FORMAT "(ssss)"
+#define MONITOR_FORMAT "(" MONITOR_SPEC_FORMAT MODES_FORMAT "a{sv})"
+#define MONITORS_FORMAT "a" MONITOR_FORMAT
+
+#define LOGICAL_MONITOR_FORMAT "(iiduba" MONITOR_SPEC_FORMAT "a{sv})"
+#define LOGICAL_MONITORS_FORMAT "a" LOGICAL_MONITOR_FORMAT
+
+#define CURRENT_STATE_FORMAT "(u" MONITORS_FORMAT LOGICAL_MONITORS_FORMAT "a{sv})"
+
 static int
 get_window_scale (CinnamonSettingsXSettingsManager *manager)
 {
-    GSettings  *interface_settings;
-    GError *error = NULL;
-    int window_scale;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GVariant) current_state = NULL;
+        g_autoptr(GVariantIter) properties = NULL;
+        int scale = 1;
 
-    interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
-    window_scale = g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
+        current_state =
+                g_dbus_connection_call_sync (manager->priv->dbus_connection,
+                                             "org.gnome.Mutter.DisplayConfig",
+                                             "/org/gnome/Mutter/DisplayConfig",
+                                             "org.gnome.Mutter.DisplayConfig",
+                                             "GetCurrentState",
+                                             NULL,
+                                             NULL,
+                                             G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                             -1,
+                                             NULL,
+                                             &error);
+        if (!current_state) {
+                g_debug ("Failed to get current display configuration state: %s",
+                           error->message);
+                return 1;
+        }
 
-    if (window_scale == 0) {
-            GnomeRRScreen *screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
+        g_variant_get (current_state,
+                       CURRENT_STATE_FORMAT,
+                       NULL,
+                       NULL,
+                       NULL,
+                       &properties);
 
-            if (!error) {
-                window_scale = gnome_rr_screen_calculate_best_global_scale (screen, -1);
-                g_object_unref (screen);
-            } else {
-                g_warning ("Could not get/create GnomeRRScreen instance: %s", error->message);
-                g_error_free (error);
-            }
-    }
+        if (!get_legacy_ui_scale (properties, &scale))
+                g_warning ("Failed to get current UI legacy scaling factor");
 
-    return window_scale;
+        return scale;
 }
 
 typedef struct {
@@ -599,6 +708,7 @@ xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->scaled_dpi);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/CursorThemeSize", settings->cursor_size);
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", manager->priv->enable_animations);
         }
         cinnamon_settings_profile_end (NULL);
 }
@@ -934,6 +1044,111 @@ setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
         return TRUE;
 }
 
+static void
+monitors_changed (CinnamonSettingsXSettingsManager *manager)
+{
+        update_xft_settings (manager);
+        queue_notify (manager);
+}
+
+static void
+on_monitors_changed (GDBusConnection *connection,
+                     const gchar     *sender_name,
+                     const gchar     *object_path,
+                     const gchar     *interface_name,
+                     const gchar     *signal_name,
+                     GVariant        *parameters,
+                     gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        monitors_changed (manager);
+}
+
+static void
+on_display_config_name_appeared_handler (GDBusConnection *connection,
+                                         const gchar     *name,
+                                         const gchar     *name_owner,
+                                         gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        monitors_changed (manager);
+}
+
+static void
+animations_enabled_changed (CinnamonSettingsXSettingsManager *manager)
+{
+        GSettings *settings;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GVariant) res = NULL;
+        g_autoptr(GVariant) animations_enabled_variant = NULL;
+        gboolean animations_enabled;
+        gint i;
+
+        // If the interface settings key is turned off, don't bother trying to check with cinnamon -
+        // the user must have disabled it - this affects only Gtk programs. Otherwise, let Cinnamon
+        // decide (based on current conditions and cinnamon-specific settings).
+
+        settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
+        animations_enabled = g_settings_get_boolean (settings, "enable-animations");
+
+        if (animations_enabled) {
+            res = g_dbus_connection_call_sync (manager->priv->dbus_connection,
+                                               "org.Cinnamon",
+                                               "/org/Cinnamon",
+                                               "org.freedesktop.DBus.Properties",
+                                               "Get",
+                                               g_variant_new ("(ss)",
+                                                              "org.Cinnamon",
+                                                              "AnimationsEnabled"),
+                                               NULL,
+                                               G_DBUS_CALL_FLAGS_NONE,
+                                               -1,
+                                               NULL,
+                                               &error);
+            if (!res) {
+                    g_debug ("Failed to get AnimationsEnabled state from Cinnamon: %s",
+                               error->message);
+            } else {
+                g_variant_get (res, "(v)", &animations_enabled_variant);
+                g_variant_get (animations_enabled_variant, "b", &animations_enabled);
+            }
+        }
+
+        if (manager->priv->enable_animations == animations_enabled)
+                return;
+
+        manager->priv->enable_animations = animations_enabled;
+
+        for (i = 0; manager->priv->managers [i]; ++i) {
+            xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", manager->priv->enable_animations);
+        }
+
+        queue_notify (manager);
+}
+
+static void
+on_cinnamon_properties_changed (GDBusConnection *connection,
+                                  const gchar     *sender_name,
+                                  const gchar     *object_path,
+                                  const gchar     *interface_name,
+                                  const gchar     *signal_name,
+                                  GVariant        *parameters,
+                                  gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        animations_enabled_changed (manager);
+}
+
+static void
+on_cinnamon_name_appeared_handler (GDBusConnection *connection,
+                                   const gchar     *name,
+                                   const gchar     *name_owner,
+                                   gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        animations_enabled_changed (manager);
+}
+
 gboolean
 cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                                GError               **error)
@@ -951,6 +1166,48 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                              "Could not initialize xsettings manager.");
                 return FALSE;
         }
+
+        manager->priv->monitors_changed_id =
+                g_dbus_connection_signal_subscribe (manager->priv->dbus_connection,
+                                                    "org.gnome.Mutter.DisplayConfig",
+                                                    "org.gnome.Mutter.DisplayConfig",
+                                                    "MonitorsChanged",
+                                                    "/org/gnome/Mutter/DisplayConfig",
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    on_monitors_changed,
+                                                    manager,
+                                                    NULL);
+        manager->priv->display_config_watch_id =
+                g_bus_watch_name_on_connection (manager->priv->dbus_connection,
+                                                "org.gnome.Mutter.DisplayConfig",
+                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                on_display_config_name_appeared_handler,
+                                                NULL,
+                                                manager,
+                                                NULL);
+
+        manager->priv->cinnamon_properties_changed_id =
+                g_dbus_connection_signal_subscribe (manager->priv->dbus_connection,
+                                                    "org.Cinnamon",
+                                                    "org.freedesktop.DBus.Properties",
+                                                    "PropertiesChanged",
+                                                    "/org/Cinnamon",
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    on_cinnamon_properties_changed,
+                                                    manager,
+                                                    NULL);
+        manager->priv->cinnamon_name_watch_id =
+                g_bus_watch_name_on_connection (manager->priv->dbus_connection,
+                                                "org.Cinnamon",
+                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                on_cinnamon_name_appeared_handler,
+                                                NULL,
+                                                manager,
+                                                NULL);
+
+
 
         manager->priv->settings = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                          NULL, (GDestroyNotify) g_object_unref);
@@ -1002,6 +1259,7 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
 
         /* Xft settings */
         update_xft_settings (manager);
+        set_session_bus_id (manager);
 
         start_fontconfig_monitor (manager);
 
@@ -1035,6 +1293,28 @@ cinnamon_xsettings_manager_stop (CinnamonSettingsXSettingsManager *manager)
         int i;
 
         g_debug ("Stopping xsettings manager");
+
+        if (manager->priv->cinnamon_properties_changed_id) {
+                g_dbus_connection_signal_unsubscribe (manager->priv->dbus_connection,
+                                                      manager->priv->cinnamon_properties_changed_id);
+                manager->priv->cinnamon_properties_changed_id = 0;
+        }
+
+        if (manager->priv->cinnamon_name_watch_id) {
+                g_bus_unwatch_name (manager->priv->cinnamon_name_watch_id);
+                manager->priv->cinnamon_name_watch_id = 0;
+        }
+
+        if (manager->priv->monitors_changed_id) {
+                g_dbus_connection_signal_unsubscribe (manager->priv->dbus_connection,
+                                                      manager->priv->monitors_changed_id);
+                manager->priv->monitors_changed_id = 0;
+        }
+
+        if (manager->priv->display_config_watch_id) {
+                g_bus_unwatch_name (manager->priv->display_config_watch_id);
+                manager->priv->display_config_watch_id = 0;
+        }
 
         if (p->managers != NULL) {
                 for (i = 0; p->managers [i]; ++i)
@@ -1090,7 +1370,15 @@ cinnamon_xsettings_manager_class_init (CinnamonSettingsXSettingsManagerClass *kl
 static void
 cinnamon_xsettings_manager_init (CinnamonSettingsXSettingsManager *manager)
 {
+        GError *error;
         manager->priv = CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE (manager);
+
+        error = NULL;
+        manager->priv->dbus_connection = g_bus_get_sync (G_BUS_TYPE_SESSION,
+                                                         NULL, &error);
+        if (!manager->priv->dbus_connection) {
+                g_error ("Failed to get session bus: %s", error->message);
+        }
 }
 
 static void
@@ -1110,7 +1398,152 @@ cinnamon_xsettings_manager_finalize (GObject *object)
                 xsettings_manager->priv->start_idle_id = 0;
         }
 
+        g_clear_object (&xsettings_manager->priv->dbus_connection);
+
         G_OBJECT_CLASS (cinnamon_xsettings_manager_parent_class)->finalize (object);
+}
+
+static GVariant *
+map_speed (GVariant *variant,
+           GSettings *origin_settings, GSettings *dest_settings,
+           GVariant  *old_default,      GVariant *new_default)
+
+{
+        gdouble value;
+
+        value = g_variant_get_double (variant);
+
+        /* Remap from [0..10] to [-1..1] */
+        value = (value / 5) - 1;
+
+        return g_variant_new_double (value);
+}
+
+static GVariant *
+map_send_events (GVariant *variant,
+                 GSettings *origin_settings, GSettings *dest_settings,
+                 GVariant  *old_default,      GVariant *new_default)
+{
+        gboolean enabled;
+
+        enabled = g_settings_get_boolean (origin_settings, "touchpad-enabled");
+
+        if (enabled) {
+                if (g_settings_get_boolean (origin_settings, "disable-with-external-mouse")) {
+                        g_settings_set_enum (dest_settings, "send-events", C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE);
+                } else {
+                        g_settings_set_enum (dest_settings, "send-events", C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED);
+                }
+        } else {
+                g_settings_set_enum (dest_settings, "send-events", C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED);
+        }
+
+        return NULL;
+}
+
+static GVariant *
+map_scroll_method (GVariant *variant,
+                   GSettings *origin_settings, GSettings *dest_settings,
+                   GVariant  *old_default,      GVariant *new_default)
+{
+        gint old;
+
+        old = g_settings_get_int (origin_settings, "scrolling-method");
+
+        switch (old) {
+            case 0: // disabled
+                g_settings_set_boolean (dest_settings, "edge-scrolling-enabled", FALSE);
+                g_settings_set_boolean (dest_settings, "two-finger-scrolling-enabled", FALSE);
+                break;
+            case 2: // edge
+                g_settings_set_boolean (dest_settings, "edge-scrolling-enabled", TRUE);
+                g_settings_set_boolean (dest_settings, "two-finger-scrolling-enabled", FALSE);
+                break;
+            case 1: // two-finger
+            case 3: // auto, also the new default
+            default:
+                g_settings_set_boolean (dest_settings, "edge-scrolling-enabled", FALSE);
+                g_settings_set_boolean (dest_settings, "two-finger-scrolling-enabled", TRUE);
+                break;
+        }
+
+        return NULL;
+}
+
+static GVariant *
+map_click_method (GVariant *variant,
+                  GSettings *origin_settings, GSettings *dest_settings,
+                  GVariant  *old_default,      GVariant *new_default)
+{
+        gint old;
+        old = g_settings_get_int (origin_settings, "clickpad-click");
+
+        switch (old) {
+            case 0: // disabled
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_NONE);
+                break;
+            case 1: // corners
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_AREAS);
+                break;
+            case 2: // fingers
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_FINGERS);
+                break;
+            case 3: // automatic
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_DEFAULT);
+                break;
+        }
+
+        return NULL;
+}
+
+static void
+migrate_mouse_settings (void)
+{
+        CsdSettingsMigrateEntry trackball_entries[] = {
+                { "scroll-wheel-emulation-button", "scroll-wheel-emulation-button", NULL }
+        };
+        CsdSettingsMigrateEntry mouse_entries[] = {
+                { "locate-pointer",        "locate-pointer", NULL },
+                { "left-handed",           "left-handed",    NULL },
+                { "natural-scroll",        "natural-scroll", NULL },
+                { "custom-acceleration",   NULL,             NULL },
+                { "motion-acceleration",   "speed",          map_speed },
+                { "custom-threshold",      NULL,             NULL },
+                { "motion-threshold",      NULL,             NULL },
+                { "double-click",          "double-click",   NULL },
+                { "drag-threshold",        "drag-threshold", NULL },
+                { "middle-button-enabled", "middle-click-emulation", NULL },
+        };
+
+        CsdSettingsMigrateEntry touchpad_entries[] = {
+                { "disable-while-typing", "disable-while-typing", NULL },
+                { "scrolling-method",     "edge-scrolling-enabled", map_scroll_method },
+                { "tap-to-click",         "tap-to-click",    NULL },
+                { "clickpad-click",       "click-method",    map_click_method },
+                { "touchpad-enabled",     "send-events",     map_send_events },
+                { "disable-with-external-mouse", "send-events", map_send_events },
+                { "left-handed",          "left-handed",     NULL },
+                { "custom-acceleration",  NULL,              NULL },
+                { "motion-acceleration",  "speed",           map_speed },
+                { "motion-threshold",     NULL,              NULL },
+                { "natural-scroll",       "natural-scroll",  NULL }
+        };
+
+        csd_settings_migrate_check ("org.cinnamon.settings-daemon.peripherals.trackball.deprecated",
+                                    "/org/cinnamon/settings-daemon/peripherals/trackball/",
+                                    "org.cinnamon.desktop.peripherals.trackball",
+                                    "/org/cinnamon/desktop/peripherals/trackball/",
+                                    trackball_entries, G_N_ELEMENTS (trackball_entries));
+        csd_settings_migrate_check ("org.cinnamon.settings-daemon.peripherals.mouse.deprecated",
+                                    "/org/cinnamon/settings-daemon/peripherals/mouse/",
+                                    "org.cinnamon.desktop.peripherals.mouse",
+                                    "/org/cinnamon/desktop/peripherals/mouse/",
+                                    mouse_entries, G_N_ELEMENTS (mouse_entries));
+        csd_settings_migrate_check ("org.cinnamon.settings-daemon.peripherals.touchpad.deprecated",
+                                    "/org/cinnamon/settings-daemon/peripherals/touchpad/",
+                                    "org.cinnamon.desktop.peripherals.touchpad",
+                                    "/org/cinnamon/desktop/peripherals/touchpad/",
+                                    touchpad_entries, G_N_ELEMENTS (touchpad_entries));
 }
 
 CinnamonSettingsXSettingsManager *
@@ -1119,6 +1552,7 @@ cinnamon_xsettings_manager_new (void)
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
+                migrate_mouse_settings ();
                 manager_object = g_object_new (CINNAMON_TYPE_XSETTINGS_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);

@@ -111,8 +111,8 @@ static const gchar kb_introspection_xml[] =
 #define SETTINGS_INTERFACE_DIR "org.cinnamon.desktop.interface"
 #define SETTINGS_POWER_DIR "org.cinnamon.settings-daemon.plugins.power"
 #define SETTINGS_XSETTINGS_DIR "org.cinnamon.settings-daemon.plugins.xsettings"
-#define SETTINGS_TOUCHPAD_DIR "org.cinnamon.settings-daemon.peripherals.touchpad"
-#define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
+#define SETTINGS_TOUCHPAD_DIR "org.cinnamon.desktop.peripherals.touchpad"
+#define TOUCHPAD_SEND_EVENTS_KEY "send-events"
 #define HIGH_CONTRAST "HighContrast"
 
 #define VOLUME_STEP 5           /* percents for one volume button press */
@@ -182,7 +182,6 @@ struct CsdMediaKeysManagerPrivate
         GDBusNodeInfo   *kb_introspection_data;
         GDBusConnection *connection;
         GCancellable    *bus_cancellable;
-        GDBusProxy      *xrandr_proxy;
         GCancellable    *cancellable;
 
         guint            start_idle_id;
@@ -813,17 +812,20 @@ do_touchpad_action (CsdMediaKeysManager *manager)
         GSettings *settings;
         gboolean state;
 
-        if (touchpad_is_present () == FALSE) {
+        if (!touchpad_is_present ()) {
                 do_touchpad_osd_action (manager, FALSE);
                 return;
         }
 
         settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
-        state = g_settings_get_boolean (settings, TOUCHPAD_ENABLED_KEY);
+        state = g_settings_get_enum (settings, TOUCHPAD_SEND_EVENTS_KEY) ==
+            C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED ||
+            (C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE && !mouse_is_present ());
 
         do_touchpad_osd_action (manager, !state);
 
-        g_settings_set_boolean (settings, TOUCHPAD_ENABLED_KEY, !state);
+        g_settings_set_enum (settings, TOUCHPAD_SEND_EVENTS_KEY, (state) ? C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED :
+                                                                           C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED);
         g_object_unref (settings);
 }
 
@@ -1417,82 +1419,6 @@ do_multimedia_player_action (CsdMediaKeysManager *manager,
 }
 
 static void
-on_xrandr_action_call_finished (GObject             *source_object,
-                                GAsyncResult        *res,
-                                CsdMediaKeysManager *manager)
-{
-        GError *error = NULL;
-        GVariant *variant;
-        char *action;
-
-        action = g_object_get_data (G_OBJECT (source_object),
-                                    "csd-media-keys-manager-xrandr-action");
-
-        variant = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
-
-        g_object_unref (manager->priv->cancellable);
-        manager->priv->cancellable = NULL;
-
-        if (error != NULL) {
-                g_warning ("Unable to call '%s': %s", action, error->message);
-                g_error_free (error);
-        } else {
-                g_variant_unref (variant);
-        }
-
-        g_free (action);
-}
-
-static void
-do_xrandr_action (CsdMediaKeysManager *manager,
-                  const char          *action,
-                  gint64               timestamp)
-{
-        CsdMediaKeysManagerPrivate *priv = manager->priv;
-
-        if (priv->connection == NULL || priv->xrandr_proxy == NULL) {
-                g_warning ("No existing D-Bus connection trying to handle XRANDR keys");
-                return;
-        }
-
-        if (priv->cancellable != NULL) {
-                g_debug ("xrandr action already in flight");
-                return;
-        }
-
-        priv->cancellable = g_cancellable_new ();
-
-        g_object_set_data (G_OBJECT (priv->xrandr_proxy),
-                           "csd-media-keys-manager-xrandr-action",
-                           g_strdup (action));
-
-        g_dbus_proxy_call (priv->xrandr_proxy,
-                           action,
-                           g_variant_new ("(x)", timestamp),
-                           G_DBUS_CALL_FLAGS_NONE,
-                           -1,
-                           priv->cancellable,
-                           (GAsyncReadyCallback) on_xrandr_action_call_finished,
-                           manager);
-}
-
-static gboolean
-do_video_out_action (CsdMediaKeysManager *manager,
-                     gint64               timestamp)
-{
-        do_xrandr_action (manager, "VideoModeSwitch", timestamp);
-        return FALSE;
-}
-
-static gboolean
-do_video_rotate_action (CsdMediaKeysManager *manager,
-                        gint64               timestamp)
-{
-        do_xrandr_action (manager, "Rotate", timestamp);
-        return FALSE;
-}
-
-static void
 do_video_rotate_lock_action (CsdMediaKeysManager *manager,
                              gint64               timestamp)
 {
@@ -1898,12 +1824,6 @@ do_action (CsdMediaKeysManager *manager,
                 return do_multimedia_player_action (manager, NULL, "Repeat");
         case C_DESKTOP_MEDIA_KEY_RANDOM:
                 return do_multimedia_player_action (manager, NULL, "Shuffle");
-        case C_DESKTOP_MEDIA_KEY_VIDEO_OUT:
-                do_video_out_action (manager, timestamp);
-                break;
-        case C_DESKTOP_MEDIA_KEY_ROTATE_VIDEO:
-                do_video_rotate_action (manager, timestamp);
-                break;
         case C_DESKTOP_MEDIA_KEY_ROTATE_VIDEO_LOCK:
                 do_video_rotate_lock_action (manager, timestamp);
                 break;
@@ -2368,20 +2288,6 @@ csd_media_keys_manager_finalize (GObject *object)
 }
 
 static void
-xrandr_ready_cb (GObject             *source_object,
-                 GAsyncResult        *res,
-                 CsdMediaKeysManager *manager)
-{
-        GError *error = NULL;
-
-        manager->priv->xrandr_proxy = g_dbus_proxy_new_finish (res, &error);
-        if (manager->priv->xrandr_proxy == NULL) {
-                g_warning ("Failed to get proxy for XRandR operations: %s", error->message);
-                g_error_free (error);
-        }
-}
-
-static void
 upower_ready_cb (GObject             *source_object,
                  GAsyncResult        *res,
                  CsdMediaKeysManager *manager)
@@ -2493,16 +2399,6 @@ on_bus_gotten (GObject             *source_object,
                                                                NULL,
                                                                NULL,
                                                                NULL);
-
-        g_dbus_proxy_new (manager->priv->connection,
-                          G_DBUS_PROXY_FLAGS_NONE,
-                          NULL,
-                          "org.cinnamon.SettingsDaemon.XRANDR_2",
-                          "/org/cinnamon/SettingsDaemon/XRANDR",
-                          "org.cinnamon.SettingsDaemon.XRANDR_2",
-                          NULL,
-                          (GAsyncReadyCallback) xrandr_ready_cb,
-                          manager);
 
         g_dbus_proxy_new (manager->priv->connection,
                           G_DBUS_PROXY_FLAGS_NONE,
