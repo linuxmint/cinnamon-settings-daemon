@@ -44,6 +44,10 @@
         Whether buttons may display an icon in addition to the button text.
       </description>
     </key>
+    <key name="dialogs-use-header" type="b">
+      <default>false</default>
+      <summary>Use headerbar for file dialogs</summary>
+    </key>
     <key name="show-input-method-menu" type="b">
       <default>true</default>
       <summary>Show the 'Input Methods' menu</summary>
