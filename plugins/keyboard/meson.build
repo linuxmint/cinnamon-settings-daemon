@@ -2,19 +2,16 @@ plugin_name = 'keyboard'
 
 keyboard_sources = [
     'csd-keyboard-manager.c',
-    'csd-keyboard-xkb.c',
-    'delayed-dialog.c',
-    'gkbd-configuration.c',
     'main.c',
 ]
 
 keyboard_deps = [
+    accountsservice_dep,
     common_dep,
     csd_dep,
-    gnomekbd,
-    gnomekbdui,
+    gtk,
     libnotify,
-    xklavier,
+    x11
 ]
 
 executable(
@@ -42,16 +39,3 @@ configure_file(
     install_dir: autostartdir,
 )
 
-keyboard_icons = [
-    'kbd-capslock-off.png',
-    'kbd-numlock-off.png',
-    'kbd-scrolllock-off.png',
-    'kbd-capslock-on.png',
-    'kbd-numlock-on.png',
-    'kbd-scrolllock-on.png',
-]
-
-install_data(
-    keyboard_icons,
-    install_dir: join_paths(pkgdatadir, 'icons', 'hicolor', '64x64', 'devices')
-)
