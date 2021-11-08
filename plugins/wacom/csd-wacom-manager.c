@@ -545,49 +545,6 @@ apply_stylus_settings (CsdWacomDevice *device)
 	set_pressurethreshold (device, threshold);
 }
 
-static void
-set_led (CsdWacomDevice       *device,
-	 CsdWacomTabletButton *button,
-	 int                   index)
-{
-	GError *error = NULL;
-	const char *path;
-	char *command;
-	gint status_led;
-	gboolean ret;
-
-#ifndef HAVE_GUDEV
-	/* Not implemented on non-Linux systems */
-	return;
-#endif
-	g_return_if_fail (index >= 1);
-
-	path = csd_wacom_device_get_path (device);
-	status_led = button->status_led;
-
-	if (status_led == CSD_WACOM_NO_LED) {
-		g_debug ("Ignoring unhandled group ID %d for device %s",
-		         button->group_id, csd_wacom_device_get_name (device));
-		return;
-	}
-	g_debug ("Switching group ID %d to index %d for device %s", button->group_id, index, path);
-
-	command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-wacom-led-helper --path %s --group %d --led %d",
-				   path, status_led, index - 1);
-	ret = g_spawn_command_line_sync (command,
-					 NULL,
-					 NULL,
-					 NULL,
-					 &error);
-
-	if (ret == FALSE) {
-		g_debug ("Failed to launch '%s': %s", command, error->message);
-		g_error_free (error);
-	}
-
-	g_free (command);
-}
-
 struct DefaultButtons {
 	const char *button;
 	int         num;
@@ -696,10 +653,6 @@ reset_pad_buttons (CsdWacomDevice *device)
 	buttons = csd_wacom_device_get_buttons (device);
 	for (l = buttons; l != NULL; l = l->next) {
 		CsdWacomTabletButton *button = l->data;
-                if (button->type == WACOM_TABLET_BUTTON_TYPE_HARDCODED &&
-                    button->status_led != CSD_WACOM_NO_LED) {
-                        set_led (device, button, 1);
-                }
         }
         g_list_free (buttons);
 }
@@ -1280,7 +1233,6 @@ filter_button_events (XEvent          *xevent,
 			csd_wacom_osd_window_set_mode (CSD_WACOM_OSD_WINDOW(manager->priv->osd_window), wbutton->group_id, new_mode);
 			osd_window_update_viewable (manager, wbutton, dir, xiev);
                 }
-		set_led (device, wbutton, new_mode);
 		return GDK_FILTER_REMOVE;
 	}
 
