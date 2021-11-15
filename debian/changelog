@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (5.2.0) una; urgency=medium
+
+  [ Leigh Scott ]
+  * Add trackball support (#341)
+
+  [ Joshua Peisach ]
+  * wacom: Drop LED helper (#337)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 15 Nov 2021 12:51:44 +0000
+
 cinnamon-settings-daemon (5.0.4) uma; urgency=medium
 
   [ Michael Webster ]
