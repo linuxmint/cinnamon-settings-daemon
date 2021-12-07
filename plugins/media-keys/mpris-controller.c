@@ -35,6 +35,8 @@ struct _MprisControllerPrivate
 };
 
 
+static void mpris_player_try_connect (MprisController *self);
+
 static void
 mpris_controller_dispose (GObject *object)
 {
@@ -96,6 +98,23 @@ mpris_controller_key (MprisController *self, const gchar *key)
 }
 
 static void
+mpris_client_notify_name_owner_cb (GDBusProxy      *proxy,
+                                   GParamSpec      *pspec,
+                                   MprisController *self)
+{
+  g_autofree gchar *name_owner = NULL;
+
+  /* Owner changed, but the proxy is still valid. */
+  name_owner = g_dbus_proxy_get_name_owner (proxy);
+  if (name_owner)
+    return;
+
+  g_clear_object (&self->priv->mpris_client_proxy);
+
+  mpris_player_try_connect (self);
+}
+
+static void
 mpris_proxy_ready_cb (GObject      *object,
                       GAsyncResult *res,
                       gpointer      user_data)
@@ -106,11 +125,23 @@ mpris_proxy_ready_cb (GObject      *object,
   priv->mpris_client_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
 
   if (!priv->mpris_client_proxy)
-    g_warning ("Error connecting to mpris interface %s", error->message);
+  {
+	  if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+	  {
+		  g_warning ("Error connecting to mpris interface %s", error->message);
+
+		  priv->connecting = FALSE;
+
+		  mpris_player_try_connect (MPRIS_CONTROLLER (user_data));
+	  }
+	  g_clear_error (&error);
+	  return;
+  }
 
   priv->connecting = FALSE;
 
-  g_clear_error (&error);
+  g_signal_connect (priv->mpris_client_proxy, "notify::g-name-owner",
+      G_CALLBACK (mpris_client_notify_name_owner_cb), user_data);
 }
 
 static void
@@ -132,6 +163,28 @@ start_mpris_proxy (MprisController *self, const gchar *name)
 }
 
 static void
+mpris_player_try_connect (MprisController *self)
+{
+  GSList *first;
+  gchar *name;
+
+  if (self->priv->connecting || self->priv->mpris_client_proxy)
+    return;
+
+  if (!self->priv->other_players)
+    return;
+
+  first = self->priv->other_players;
+  name = first->data;
+
+  start_mpris_proxy (self, name);
+
+  self->priv->other_players = self->priv->other_players->next;
+  g_free (name);
+  g_slist_free_1 (first);
+}
+
+static void
 mpris_player_appeared (GDBusConnection *connection,
                        const gchar     *name,
                        const gchar     *name_owner,
@@ -140,10 +193,8 @@ mpris_player_appeared (GDBusConnection *connection,
   MprisController *self = user_data;
   MprisControllerPrivate *priv = MPRIS_CONTROLLER (self)->priv;
 
-  if (priv->mpris_client_proxy == NULL && !priv->connecting)
-    start_mpris_proxy (self, name);
-  else
-    self->priv->other_players = g_slist_prepend (self->priv->other_players, g_strdup (name));
+  self->priv->other_players = g_slist_prepend (self->priv->other_players, g_strdup (name));
+  mpris_player_try_connect (self);
 }
 
 static void
@@ -153,28 +204,15 @@ mpris_player_vanished (GDBusConnection *connection,
 {
   MprisController *self = user_data;
   MprisControllerPrivate *priv = MPRIS_CONTROLLER (self)->priv;
+  GSList *elem;
 
-  if (priv->mpris_client_proxy &&
-      g_strcmp0 (name, g_dbus_proxy_get_name (priv->mpris_client_proxy)) == 0)
-    {
-      g_clear_object (&priv->mpris_client_proxy);
-
-      /* take the next one if there's one */
-      if (self->priv->other_players && !priv->connecting)
-        {
-          GSList *first;
-          gchar *name;
-
-          first = self->priv->other_players;
-          name = first->data;
-
-          start_mpris_proxy (self, name);
-
-          self->priv->other_players = self->priv->other_players->next;
-          g_free (name);
-          g_slist_free_1 (first);
-        }
-    }
+  elem = g_slist_find_custom (priv->other_players, name, (GCompareFunc) g_strcmp0);
+  if (elem)
+  {
+	  priv->other_players = g_slist_remove_link (priv->other_players, elem);
+	  g_free (elem->data);
+	  g_slist_free_1 (elem);
+  }
 }
 
 static void
