@@ -41,7 +41,6 @@ if dbussystemdir == ''
 endif
 
 # dependencies
-accountsservice_dep = dependency('accountsservice')
 cinnamon_desktop_required = '>= 4.8.0'
 canberra = dependency('libcanberra-gtk3')
 cinnamon_desktop = dependency('cinnamon-desktop', version: cinnamon_desktop_required)
@@ -115,6 +114,13 @@ csd_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 csd_conf.set_quoted('LIBEXECDIR', join_paths(prefix, libexecdir))
 csd_conf.set_quoted('SYSCONFDIR', sysconfdir)
 csd_conf.set_quoted('LIBDIR', libdir)
+
+accountsservice_dep = dependency('accountsservice', required: false)
+if accountsservice_dep.found()
+    if cc.has_function('act_user_set_input_sources', dependencies: accountsservice_dep, prefix : '#include <act/act.h>')
+        csd_conf.set('CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES', 1)
+    endif
+endif
 
 if gudev.found()
     cargs += '-DHAVE_GUDEV'

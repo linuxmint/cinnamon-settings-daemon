@@ -37,7 +37,9 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
+#ifdef CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
 #include <act/act.h>
+#endif // CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
 
 #include "cinnamon-settings-profile.h"
 #include "csd-keyboard-manager.h"
@@ -357,6 +359,7 @@ set_gtk_im_module (CsdKeyboardManager *manager,
         g_free (current_module);
 }
 
+#ifdef CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
 static void
 user_notify_is_loaded_cb (GObject    *object,
                           GParamSpec *pspec,
@@ -417,6 +420,7 @@ manager_notify_is_loaded_cb (GObject    *object,
                                           user_notify_is_loaded_cb, user_data);
         }
 }
+#endif // CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
 
 
 static void
@@ -424,8 +428,12 @@ update_gtk_im_module (CsdKeyboardManager *manager)
 {
         GSettings *interface_settings;
         GVariant *sources;
+
+#ifdef CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
         ActUserManager *user_manager;
         gboolean user_manager_loaded;
+#endif // CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
+
         /* Gtk+ uses the IM module advertised in XSETTINGS so, if we
          * have IBus input sources, we want it to load that
          * module. Otherwise we can use the default "simple" module
@@ -438,6 +446,7 @@ update_gtk_im_module (CsdKeyboardManager *manager)
         g_object_unref (interface_settings);
         g_variant_unref (sources);
 
+#ifdef CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
         user_manager = act_user_manager_get_default ();
         g_object_get (user_manager, "is-loaded", &user_manager_loaded, NULL);
         if (user_manager_loaded)
@@ -449,6 +458,7 @@ update_gtk_im_module (CsdKeyboardManager *manager)
                                   "notify::is-loaded",
                                   G_CALLBACK (manager_notify_is_loaded_cb),
                                   manager->input_sources_settings);
+#endif // CAN_SET_ACCOUNTSSERVICE_INPUT_SOURCES
 }
 
 static void

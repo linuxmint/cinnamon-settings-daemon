@@ -6,13 +6,16 @@ keyboard_sources = [
 ]
 
 keyboard_deps = [
-    accountsservice_dep,
     common_dep,
     csd_dep,
     gtk,
     libnotify,
     x11
 ]
+
+if accountsservice_dep.found()
+    keyboard_deps += accountsservice_dep
+endif
 
 executable(
     'csd-keyboard',
