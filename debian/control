@@ -20,12 +20,12 @@ Build-Depends:
  liblcms2-dev,
  libnotify-dev (>= 0.7.0),
  libnss3-dev,
- libpolkit-gobject-1-dev,
+ libpolkit-gobject-1-dev [linux-any],
  libpulse-dev (>= 0.9.16),
- librsvg2-dev,
+ librsvg2-dev [!s390x !hurd-any !kfreebsd-any],
  libsystemd-dev [linux-any],
  libupower-glib-dev (>= 0.9.11),
- libwacom-dev (>= 0.4) [linux-any],
+ libwacom-dev (>= 0.4) [!s390x !hurd-any !kfreebsd-any],
  libx11-dev,
  libxext-dev,
  libxi-dev,
@@ -34,7 +34,9 @@ Build-Depends:
  meson (>= 0.47),
  xserver-xorg-input-wacom [!s390x !hurd-any !kfreebsd-any],
  xsltproc,
-Standards-Version: 3.9.8
+Build-Conflicts:
+ libwacom-dev [s390x hurd-any kfreebsd-any],
+Standards-Version: 4.1.4
 
 Package: cinnamon-settings-daemon
 Architecture: any
