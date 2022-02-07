@@ -5,22 +5,20 @@ Source: https://github.com/linuxmint/cinnamon-settings-daemon.git
 
 Files: *
 Copyright: 2007, Anders Carlsson
-           2009, Bastien Nocera
            2001-2012, Bastien Nocera <hadess@hadess.net>
            2008, Carlos Garnacho <carlos@imendio.com>
            2009, Chris Coulson <chrisccoulson@googlemail.com>
            2007, David Zeuthen <david@fubar.dk>
-           1989-1991, Free Software Foundation, Inc
+           1989-2009, Free Software Foundation, Inc
            2008, Jens Granseuer <jensgr@gmx.net>
            2006-2008, Lennart Poettering
            2008, Lennart Poettering <lennart@poettering.net>
            2007, Matthias Clasen
            2008, Michael J. Chudobiak <mjc@avtechpulse.com>
-           2006, Novell, Inc
+           2006-2010, Novell, Inc
            2002-2005, Paolo Maggi
-           2006, Ray Strode
            2006, Ray Strode <rstrode@redhat.com>
-           2008, Red Hat, Inc
+           2006-2012, Red Hat, Inc
            2005-2011, Richard Hughes <richard@hughsie.com>
            2011, Ritesh Khadgaray <khadgaray@gmail.com>
            2007, Rodrigo Moya
@@ -29,46 +27,28 @@ Copyright: 2007, Anders Carlsson
            2004, Sun Microsystems, Inc
            2001, Udaltsoft
            2011, Vincent Untz <vuntz@gnome.org>
-           2008, William Jon McCann
-           2008, William Jon McCann <jmccann@redhat.com>
-           2005-2007, William Jon McCann <mccann@jhu.edu>
+           2005-2008, William Jon McCann <jmccann@redhat.com>
            2001, Ximian, Inc
-           2007, AUTHOR
            2004-2006, Adam Weinberger and the GNOME Foundation
            2007, Aleś Navicki
-           2012, Bastien Nocera
-           2005, Canonical Ltd
-           2005, Canonical Ltd, and Rosetta Contributors 2005
+           2005-2012, Canonical Ltd, and Rosetta Contributors
            Croatiann team
            2010, Damyan Ivanov
-           1998-2009, Free Software Foundation Inc
-           2005, Free Software Foundation, Andhra Pradesh
-           1999-2008, Free Software Foundation, Inc
+           2005, Andhra Pradesh
            2011, Iranian Free Software Users Group (IFSUG.org) translation team
            2009, Joshua Cummings <jrac@internode.on.net>
            2006, Lukas Novotny <lukasnov@cvs.gnome.org>
            2007, Matthias Clasen
            2008, Michael J. Chudobiak
            2003-2006, Miloslav Trmac <mitr@volny.cz>
-           2007, Novell
-           2011, Red Hat Inc
-           2011, Red Hat, Inc
-           2011, Richard Hughes
-           2010-2011, Richard Hughes <richard@hughsie.com>
-           2008, Rosetta Contributors and Canonical Ltd 2008
-           2011, Rosetta Contributors and Canonical Ltd 2011
-           2012, Rosetta Contributors and Canonical Ltd 2012
            2001, Roy-Magne Mo <rmo@sunnmore.net>
            2003-2005, Sharif FarsiWeb, Inc
            2011-2012, Swecha Telugu Localisation Team <localization@swecha.net>
            2009, The Gnome Foundation
            2007-2011, The Gnome Project
-           2007, William Jon McCann
            2001, Ximian, Inc
-           2004, Zuza Software Foundation
            2004, Zuza Software Foundation (Translate.org.za)
-           1999-2012, cinnamon-settings-daemon
-           1999-2011, the author(s) of cinnamon-settings-daemon
+           1999-2012, the author(s) of cinnamon-settings-daemon
 License: GPL-2+
 
 Files: plugins/clipboard/list.c
@@ -81,7 +61,7 @@ Files: plugins/clipboard/list.c
        plugins/xsettings/xsettings-manager.c
        plugins/xsettings/xsettings-manager.h
 Copyright: 2001, Jonathan Blandford <jrb@gnome.org>
-           2001, Red Hat, Inc
+           2001-2004, Red Hat, Inc
 License: MIT/X11
  Permission to use, copy, modify, distribute, and sell this software and its
  documentation for any purpose is hereby granted without fee, provided that
@@ -143,8 +123,7 @@ License: LGPL-2.1
  On Debian systems, the complete text of the GNU Lesser General Public License
  version 2.1 can be found in `/usr/share/common-licenses/LGPL-2.1'.
 
-Files: COPYING.LIB
-       data/csd-enums.h
+Files: data/csd-enums.h
 Copyright: 2010, Bastien Nocera <hadess@hadess.net>
            1991-1999, Free Software Foundation, Inc
 License: LGPL-2.1+
@@ -177,25 +156,6 @@ Files: debian/*
 Copyright: 2008, Sebastien Bacher <seb128@canonical.com>
            2014, Maximiliano Curia <maxy@debian.org>
 License: GPL-2+
-
-Files: debian/cinnamon-update-wallpaper-cache.c
-Copyright: 2010, Canonical, Ltd
-License: GPL-3+
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
- .
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License version 3.0 for more details.
- .
- You should have received a copy of the GNU General Public License
- along with this program. If not, see <http://www.gnu.org/licenses/>.
- .
- On Debian systems, the complete text of the GNU General Public License
- version 3 can be found in `/usr/share/common-licenses/GPL-3'.
 
 License: GPL-2+
  This program is free software; you can redistribute it and/or modify
