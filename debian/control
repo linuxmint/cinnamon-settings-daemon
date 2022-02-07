@@ -68,7 +68,6 @@ Description: daemon handling the Cinnamon session settings
 Package: cinnamon-settings-daemon-dev
 Architecture: any
 Depends:
- libdbus-glib-1-dev (>= 0.74),
  libglib2.0-dev (>= 2.26.0),
  ${misc:Depends},
  ${shlibs:Depends},
