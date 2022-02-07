@@ -13,7 +13,8 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Suite 500, Boston, MA 02110-1335, USA.
  *
  */
 
@@ -25,13 +26,32 @@
 G_BEGIN_DECLS
 
 #define CSD_TYPE_KEYBOARD_MANAGER         (csd_keyboard_manager_get_type ())
+#define CSD_KEYBOARD_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManager))
+#define CSD_KEYBOARD_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerClass))
+#define CSD_IS_KEYBOARD_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSD_TYPE_KEYBOARD_MANAGER))
+#define CSD_IS_KEYBOARD_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), CSD_TYPE_KEYBOARD_MANAGER))
+#define CSD_KEYBOARD_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerClass))
 
-G_DECLARE_FINAL_TYPE (CsdKeyboardManager, csd_keyboard_manager, CSD, KEYBOARD_MANAGER, GObject)
+typedef struct CsdKeyboardManagerPrivate CsdKeyboardManagerPrivate;
+
+typedef struct
+{
+        GObject                     parent;
+        CsdKeyboardManagerPrivate *priv;
+} CsdKeyboardManager;
+
+typedef struct
+{
+        GObjectClass   parent_class;
+} CsdKeyboardManagerClass;
+
+GType                   csd_keyboard_manager_get_type            (void);
 
 CsdKeyboardManager *       csd_keyboard_manager_new                 (void);
 gboolean                csd_keyboard_manager_start               (CsdKeyboardManager *manager,
                                                                GError         **error);
 void                    csd_keyboard_manager_stop                (CsdKeyboardManager *manager);
+void                    csd_keyboard_manager_apply_settings      (CsdKeyboardManager *manager);
 
 G_END_DECLS
 
