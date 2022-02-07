@@ -1,11 +1,11 @@
 etc/xdg/autostart/*
+usr/bin
 usr/lib/*/cinnamon-settings-daemon*/*.so
-usr/libexec
 usr/lib/*/cinnamon-settings-daemon/
+usr/libexec
 usr/share/applications/*
 usr/share/cinnamon-settings-daemon
 usr/share/dbus-1/*/org.cinnamon.SettingsDaemon.*
 usr/share/glib-2.0/*/org.cinnamon.settings-daemon.*
 usr/share/icons/*/*/*/csd*
 usr/share/polkit-1/*/org.cinnamon.settings*
-usr/bin

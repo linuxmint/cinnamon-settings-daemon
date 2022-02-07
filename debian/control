@@ -3,7 +3,6 @@ Section: x11
 Priority: optional
 Maintainer: Linux Mint <root@linuxmint.com>
 Build-Depends:
- meson (>= 0.47),
  debhelper-compat (= 12),
  docbook-xsl,
  intltool (>= 0.37.1),
@@ -32,6 +31,7 @@ Build-Depends:
  libxi-dev,
  libxklavier-dev,
  libxtst-dev,
+ meson (>= 0.47),
  xserver-xorg-input-wacom [!s390x !hurd-any !kfreebsd-any],
  xsltproc,
 Standards-Version: 3.9.8
