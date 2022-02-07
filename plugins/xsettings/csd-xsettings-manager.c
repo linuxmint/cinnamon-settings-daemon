@@ -247,6 +247,7 @@ struct CinnamonSettingsXSettingsManagerPrivate
         fontconfig_monitor_handle_t *fontconfig_handle;
 
         CsdXSettingsGtk   *gtk;
+        GDBusConnection   *dbus_connection;
 
         guint              notify_idle_id;
 };
@@ -464,29 +465,90 @@ get_dpi_from_gsettings (CinnamonSettingsXSettingsManager *manager)
         return dpi * factor;
 }
 
+
+static gboolean
+get_legacy_ui_scale (GVariantIter *properties,
+                     int          *scale)
+{
+        const char *key;
+        GVariant *value;
+
+        *scale = 0;
+
+        while (g_variant_iter_loop (properties, "{&sv}", &key, &value)) {
+                if (!g_str_equal (key, "legacy-ui-scaling-factor"))
+                        continue;
+
+                *scale = g_variant_get_int32 (value);
+                break;
+        }
+
+        if (*scale < 1) {
+                g_warning ("Failed to get current UI legacy scaling factor");
+                *scale = 1;
+                return FALSE;
+        }
+
+        return TRUE;
+}
+
+#define MODE_FORMAT "(siiddada{sv})"
+#define MODES_FORMAT "a" MODE_FORMAT
+
+#define MONITOR_SPEC_FORMAT "(ssss)"
+#define MONITOR_FORMAT "(" MONITOR_SPEC_FORMAT MODES_FORMAT "a{sv})"
+#define MONITORS_FORMAT "a" MONITOR_FORMAT
+
+#define LOGICAL_MONITOR_FORMAT "(iiduba" MONITOR_SPEC_FORMAT "a{sv})"
+#define LOGICAL_MONITORS_FORMAT "a" LOGICAL_MONITOR_FORMAT
+
+#define CURRENT_STATE_FORMAT "(u" MONITORS_FORMAT LOGICAL_MONITORS_FORMAT "a{sv})"
+
 static int
 get_window_scale (CinnamonSettingsXSettingsManager *manager)
 {
-    GSettings  *interface_settings;
-    GError *error = NULL;
-    int window_scale;
+        GSettings *interface_settings;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GVariant) current_state = NULL;
+        g_autoptr(GVariantIter) properties = NULL;
+        int scale = 1;
 
-    interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
-    window_scale = g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
+        interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
+        scale = g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
 
-    if (window_scale == 0) {
-            GnomeRRScreen *screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
+        if (scale > 0) {
+            return scale;
+        }
 
-            if (!error) {
-                window_scale = gnome_rr_screen_calculate_best_global_scale (screen, -1);
-                g_object_unref (screen);
-            } else {
-                g_warning ("Could not get/create GnomeRRScreen instance: %s", error->message);
-                g_error_free (error);
-            }
-    }
+        current_state =
+                g_dbus_connection_call_sync (manager->priv->dbus_connection,
+                                             "org.gnome.Mutter.DisplayConfig",
+                                             "/org/gnome/Mutter/DisplayConfig",
+                                             "org.gnome.Mutter.DisplayConfig",
+                                             "GetCurrentState",
+                                             NULL,
+                                             NULL,
+                                             G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                             -1,
+                                             NULL,
+                                             &error);
+        if (!current_state) {
+                g_warning ("Failed to get current display configuration state: %s",
+                           error->message);
+                return 1;
+        }
 
-    return window_scale;
+        g_variant_get (current_state,
+                       CURRENT_STATE_FORMAT,
+                       NULL,
+                       NULL,
+                       NULL,
+                       &properties);
+
+        if (!get_legacy_ui_scale (properties, &scale))
+                g_warning ("Failed to get current UI legacy scaling factor");
+
+        return scale;
 }
 
 typedef struct {
@@ -1090,7 +1152,15 @@ cinnamon_xsettings_manager_class_init (CinnamonSettingsXSettingsManagerClass *kl
 static void
 cinnamon_xsettings_manager_init (CinnamonSettingsXSettingsManager *manager)
 {
+        GError *error;
         manager->priv = CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE (manager);
+
+        error = NULL;
+        manager->priv->dbus_connection = g_bus_get_sync (G_BUS_TYPE_SESSION,
+                                                         NULL, &error);
+        if (!manager->priv->dbus_connection) {
+                g_error ("Failed to get session bus: %s", error->message);
+        }
 }
 
 static void
@@ -1109,6 +1179,8 @@ cinnamon_xsettings_manager_finalize (GObject *object)
                 g_source_remove (xsettings_manager->priv->start_idle_id);
                 xsettings_manager->priv->start_idle_id = 0;
         }
+
+        g_clear_object (&xsettings_manager->priv->dbus_connection);
 
         G_OBJECT_CLASS (cinnamon_xsettings_manager_parent_class)->finalize (object);
 }
