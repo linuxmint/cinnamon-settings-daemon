@@ -50,7 +50,7 @@
 
 #define CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerPrivate))
 
-#define MOUSE_SETTINGS_SCHEMA     "org.cinnamon.settings-daemon.peripherals.mouse"
+#define MOUSE_SETTINGS_SCHEMA     "org.cinnamon.desktop.peripherals.mouse"
 #define INTERFACE_SETTINGS_SCHEMA "org.cinnamon.desktop.interface"
 #define INTERFACE_WM_SETTINGS_SCHEMA "org.cinnamon.desktop.wm.preferences"
 #define SOUND_SETTINGS_SCHEMA     "org.cinnamon.desktop.sound"
@@ -271,6 +271,41 @@ csd_xsettings_error_quark (void)
 }
 
 static void
+set_session_bus_id (CinnamonSettingsXSettingsManager *manager)
+{
+        const gchar *id;
+        GDBusConnection *bus;
+        GVariant *res;
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+        res = g_dbus_connection_call_sync (bus,
+                                           "org.freedesktop.DBus",
+                                           "/org/freedesktop/DBus",
+                                           "org.freedesktop.DBus",
+                                           "GetId",
+                                           NULL,
+                                           NULL,
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1,
+                                           NULL,
+                                           NULL);
+
+        if (res) {
+                g_variant_get (res, "(&s)", &id);
+
+                int i;
+
+                for (i = 0; manager->priv->managers[i]; i++) {
+                        xsettings_manager_set_string (manager->priv->managers[i], "Gtk/SessionBusId", id);
+                }
+
+                g_variant_unref (res);
+        }
+
+        g_object_unref (bus);
+}
+
+static void
 translate_bool_int (CinnamonSettingsXSettingsManager *manager,
                     TranslationEntry      *trans,
                     GVariant              *value)
@@ -390,28 +425,26 @@ translate_string_string_window_buttons (CinnamonSettingsXSettingsManager *manage
 }
 
 static TranslationEntry translations [] = {
-        { "org.cinnamon.settings-daemon.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
-        { "org.cinnamon.settings-daemon.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
 
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "menus-have-icons", "Gtk/MenuImages",          translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "buttons-have-icons",     "Gtk/ButtonImages",        translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
+        { "org.cinnamon.settings-daemon.plugins.xsettings", "dialogs-use-header",     "Gtk/DialogsUseHeader",    translate_bool_int },
         { "org.cinnamon.desktop.interface", "gtk-color-palette",      "Gtk/ColorPalette",        translate_string_string },
         { "org.cinnamon.desktop.interface", "font-name",              "Gtk/FontName",            translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-key-theme",          "Gtk/KeyThemeName",        translate_string_string },
         { "org.cinnamon.desktop.interface", "toolbar-style",          "Gtk/ToolbarStyle",        translate_string_string_toolbar },
         { "org.cinnamon.desktop.interface", "toolbar-icons-size",     "Gtk/ToolbarIconSize",     translate_string_string },
         { "org.cinnamon.desktop.interface", "can-change-accels",      "Gtk/CanChangeAccels",     translate_bool_int },
-        { "org.cinnamon.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
-        { "org.cinnamon.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
         { "org.cinnamon.desktop.interface", "cursor-blink-timeout",   "Gtk/CursorBlinkTimeout",  translate_int_int },
-        { "org.cinnamon.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-timeout-initial",    "Gtk/TimeoutInitial",      translate_int_int },
         { "org.cinnamon.desktop.interface", "gtk-timeout-repeat",     "Gtk/TimeoutRepeat",       translate_int_int },
         { "org.cinnamon.desktop.interface", "gtk-color-scheme",       "Gtk/ColorScheme",         translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
-        { "org.cinnamon.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "menus-have-icons", "Gtk/MenuImages",          translate_bool_int },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "buttons-have-icons",     "Gtk/ButtonImages",        translate_bool_int },
         { "org.cinnamon.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
         { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
         { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
@@ -419,14 +452,18 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.wm.preferences", "action-double-click-titlebar",  "Gtk/TitlebarDoubleClick",    translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "action-middle-click-titlebar",  "Gtk/TitlebarMiddleClick",    translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar",  "Gtk/TitlebarRightClick",    translate_string_string },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-input-method-menu", "Gtk/ShowInputMethodMenu", translate_bool_int },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "show-unicode-menu",      "Gtk/ShowUnicodeMenu",     translate_bool_int },
-        { "org.cinnamon.settings-daemon.plugins.xsettings", "automatic-mnemonics",    "Gtk/AutoMnemonics",       translate_bool_int },
+        { "org.cinnamon.desktop.privacy", "recent-files-max-age", "Gtk/RecentFilesMaxAge", translate_int_int },
+        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int },
+
+        { "org.cinnamon.desktop.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
+        { "org.cinnamon.desktop.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
+        { "org.cinnamon.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
+        { "org.cinnamon.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
+        { "org.cinnamon.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
+        { "org.cinnamon.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
         { "org.cinnamon.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
         { "org.cinnamon.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
-        { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int },
-        { "org.cinnamon.desktop.privacy", "recent-files-max-age", "Gtk/RecentFilesMaxAge", translate_int_int },
-        { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int }
+        { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
 };
 
 static gboolean
@@ -1064,6 +1101,7 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
 
         /* Xft settings */
         update_xft_settings (manager);
+        set_session_bus_id (manager);
 
         start_fontconfig_monitor (manager);
 
