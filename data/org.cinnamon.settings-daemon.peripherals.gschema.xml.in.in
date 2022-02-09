@@ -135,52 +135,43 @@
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.mouse" path="/org/cinnamon/settings-daemon/peripherals/mouse/">
     <key name="locate-pointer" type="b">
       <default>false</default>
-      <summary>Highlights the current location of the pointer when the Control key is pressed and released.</summary>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="left-handed" type="b">
       <default>false</default>
-      <summary>Mouse button orientation</summary>
-      <description>Swap left and right mouse buttons for left-handed mice.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="natural-scroll" type="b">
       <default>false</default>
-      <summary>Natural scrolling</summary>
-      <description>Set this to TRUE to enable natural (reverse) scrolling for mice.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="custom-acceleration" type="b">
       <default>false</default>
-      <summary>Custom Motion Acceleration</summary>
-      <description>Wheather or not to use a custom motion acceleration value.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="motion-acceleration" type="d">
       <default>-1</default>
-      <summary>Motion Acceleration</summary>
-      <description>Acceleration multiplier for mouse motion. A value of -1 is the system default.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="custom-threshold" type="b">
       <default>false</default>
-      <summary>Custom Motion Threshold</summary>
-      <description>Wheather or not to use a custom motion threshold value.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="motion-threshold" type="i">
       <default>-1</default>
-      <summary>Motion Threshold</summary>
-      <description>Distance in pixels the pointer must move before accelerated mouse motion is activated. A value of -1 is the system default.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="double-click" type="i">
       <default>400</default>
-      <summary>Double click time</summary>
-      <description> Length of a double click in milliseconds.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="drag-threshold" type="i">
       <default>8</default>
-      <summary>Drag threshold</summary>
-      <description>Distance before a drag is started.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
     <key name="middle-button-enabled" type="b">
       <default>true</default>
-      <summary>Middle button emulation</summary>
-      <description>Enables middle mouse button emulation through simultaneous left and right button click.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org/cinnamon/settings-daemon/peripherals/touchscreen/">

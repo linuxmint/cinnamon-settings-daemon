@@ -9,9 +9,6 @@ Plugins:
 
 Here's a description of each plugin.
 
-a11y-keyboard
--------------
-
 a11y-settings
 -------------
 
@@ -34,9 +31,6 @@ color
 -----
 
 common
-------
-
-cursor
 ------
 
 datetime
@@ -88,18 +82,6 @@ An example script which can be used for such a command is available in ``plugins
 media-keys
 ----------
 
-mouse
------
-
-This plugin handles mice and touchpads.
-
-It reads and listens to the ``org.cinnamon.settings-daemon.peripherals.mouse`` and ``org.cinnamon.settings-daemon.peripherals.touchpad`` settings and applies the configuration in X11.
-
-This plugin supports synaptics and libinput devices.
-
-orientation
------------
-
 power
 -----
 
@@ -118,24 +100,12 @@ screensaver-proxy
 smartcard
 ---------
 
-sound
------
-
-This plugin is use to play sound files or theme sounds via PulseAudio.
-
-It's available via dbus at ``org.cinnamon.SettingsDaemon.Sound``.
-
-Its configuration is ``org.cinnamon.desktop.sound``.
-
 wacom
 -----
 
 This plugin handles wacom tablets.
 
 It reads and listens to the ``org.cinnamon.settings-daemon.peripherals.wacom`` and applies the configuration in X11.
-
-xrandr
-------
 
 xsettings
 ---------
