@@ -1,1 +1,6 @@
-rm_conffile /etc/dbus-1/system.d/org.cinnamon.SettingsDaemon.DateTimeMechanism.conf
+rm_conffile /etc/dbus-1/system.d/org.cinnamon.SettingsDaemon.DateTimeMechanism.conf 4.6.0~
+rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-a11y-keyboard.desktop 5.3.0~
+rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-cursor.desktop 5.3.0~
+rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-mouse.desktop 5.3.0~
+rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-sound.desktop 5.3.0~
+rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-xrandr.desktop 5.3.0~
