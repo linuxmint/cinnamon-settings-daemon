@@ -3,7 +3,6 @@ Section: x11
 Priority: optional
 Maintainer: Linux Mint <root@linuxmint.com>
 Build-Depends:
- meson (>= 0.47),
  debhelper-compat (= 12),
  docbook-xsl,
  intltool (>= 0.37.1),
@@ -21,20 +20,23 @@ Build-Depends:
  liblcms2-dev,
  libnotify-dev (>= 0.7.0),
  libnss3-dev,
- libpolkit-gobject-1-dev,
+ libpolkit-gobject-1-dev [linux-any],
  libpulse-dev (>= 0.9.16),
- librsvg2-dev,
+ librsvg2-dev [!s390x !hurd-any !kfreebsd-any],
  libsystemd-dev [linux-any],
  libupower-glib-dev (>= 0.9.11),
- libwacom-dev (>= 0.4) [linux-any],
+ libwacom-dev (>= 0.4) [!s390x !hurd-any !kfreebsd-any],
  libx11-dev,
  libxext-dev,
  libxi-dev,
  libxklavier-dev,
  libxtst-dev,
+ meson (>= 0.47),
  xserver-xorg-input-wacom [!s390x !hurd-any !kfreebsd-any],
  xsltproc,
-Standards-Version: 3.9.8
+Build-Conflicts:
+ libwacom-dev [s390x hurd-any kfreebsd-any],
+Standards-Version: 4.1.4
 
 Package: cinnamon-settings-daemon
 Architecture: any
@@ -46,7 +48,6 @@ Suggests:
  gnome-power-manager,
  gnome-screenshot,
  muffin | x-window-manager,
- tracker-gui | gnome-search-tool,
  x11-xserver-utils,
 Pre-Depends: ${misc:Pre-Depends}
 Description: daemon handling the Cinnamon session settings
@@ -68,7 +69,6 @@ Description: daemon handling the Cinnamon session settings
 Package: cinnamon-settings-daemon-dev
 Architecture: any
 Depends:
- libdbus-glib-1-dev (>= 0.74),
  libglib2.0-dev (>= 2.26.0),
  ${misc:Depends},
  ${shlibs:Depends},

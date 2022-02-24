@@ -1,8 +1,12 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+ifneq ($(DEB_HOST_ARCH_OS),linux)
+CONFFLAGS = -Duse_gudev=disabled -Duse_polkit=disabled -Duse_logind=disabled -Duse_wacom=disabled
+endif
+
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
-export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 %:
@@ -10,7 +14,9 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		--libexecdir=/usr/libexec
+	    --libexecdir=/usr/libexec \
+	    $(CONFFLAGS)
+
 
 override_dh_makeshlibs:
 	# Disabled, there are no shared libraries, but some plugins that cause this
