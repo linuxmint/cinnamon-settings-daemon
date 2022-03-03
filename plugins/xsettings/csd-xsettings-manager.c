@@ -65,6 +65,7 @@
 #define TEXT_SCALING_FACTOR_KEY "text-scaling-factor"
 #define SCALING_FACTOR_KEY "scaling-factor"
 #define CURSOR_SIZE_KEY "cursor-size"
+#define ANIMATIONS_KEY "enable-animations"
 
 #define FONT_ANTIALIASING_KEY "antialiasing"
 #define FONT_HINTING_KEY      "hinting"
@@ -249,6 +250,13 @@ struct CinnamonSettingsXSettingsManagerPrivate
         CsdXSettingsGtk   *gtk;
         GDBusConnection   *dbus_connection;
 
+        guint              cinnamon_properties_changed_id;
+        guint              cinnamon_name_watch_id;
+        gboolean           enable_animations;
+
+        guint              display_config_watch_id;
+        guint              monitors_changed_id;
+
         guint              notify_idle_id;
 };
 
@@ -259,6 +267,7 @@ enum {
 };
 
 static void     cinnamon_xsettings_manager_finalize    (GObject                  *object);
+static void     animations_enabled_changed             (CinnamonSettingsXSettingsManager *manager);
 
 G_DEFINE_TYPE (CinnamonSettingsXSettingsManager, cinnamon_xsettings_manager, G_TYPE_OBJECT)
 
@@ -424,6 +433,14 @@ translate_string_string_window_buttons (CinnamonSettingsXSettingsManager *manage
         g_free (final_str);
 }
 
+static void
+translate_enable_animations (CinnamonSettingsXSettingsManager *manager,
+                             TranslationEntry                 *trans,
+                             GVariant                         *value)
+{
+    animations_enabled_changed (manager);
+}
+
 static TranslationEntry translations [] = {
 
         { "org.cinnamon.settings-daemon.plugins.xsettings", "menus-have-icons", "Gtk/MenuImages",          translate_bool_int },
@@ -446,7 +463,7 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
         { "org.cinnamon.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
-        { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_bool_int },
+        { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_enable_animations },
         { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
         { "org.cinnamon.desktop.wm.preferences", "button-layout",  "Gtk/DecorationLayout",    translate_string_string_window_buttons },
         { "org.cinnamon.desktop.wm.preferences", "action-double-click-titlebar",  "Gtk/TitlebarDoubleClick",    translate_string_string },
@@ -544,18 +561,10 @@ get_legacy_ui_scale (GVariantIter *properties,
 static int
 get_window_scale (CinnamonSettingsXSettingsManager *manager)
 {
-        GSettings *interface_settings;
         g_autoptr(GError) error = NULL;
         g_autoptr(GVariant) current_state = NULL;
         g_autoptr(GVariantIter) properties = NULL;
         int scale = 1;
-
-        interface_settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
-        scale = g_settings_get_uint (interface_settings, SCALING_FACTOR_KEY);
-
-        if (scale > 0) {
-            return scale;
-        }
 
         current_state =
                 g_dbus_connection_call_sync (manager->priv->dbus_connection,
@@ -698,6 +707,7 @@ xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->scaled_dpi);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/CursorThemeSize", settings->cursor_size);
+                xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", manager->priv->enable_animations);
         }
         cinnamon_settings_profile_end (NULL);
 }
@@ -1033,6 +1043,111 @@ setup_xsettings_managers (CinnamonSettingsXSettingsManager *manager)
         return TRUE;
 }
 
+static void
+monitors_changed (CinnamonSettingsXSettingsManager *manager)
+{
+        update_xft_settings (manager);
+        queue_notify (manager);
+}
+
+static void
+on_monitors_changed (GDBusConnection *connection,
+                     const gchar     *sender_name,
+                     const gchar     *object_path,
+                     const gchar     *interface_name,
+                     const gchar     *signal_name,
+                     GVariant        *parameters,
+                     gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        monitors_changed (manager);
+}
+
+static void
+on_display_config_name_appeared_handler (GDBusConnection *connection,
+                                         const gchar     *name,
+                                         const gchar     *name_owner,
+                                         gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        monitors_changed (manager);
+}
+
+static void
+animations_enabled_changed (CinnamonSettingsXSettingsManager *manager)
+{
+        GSettings *settings;
+        g_autoptr(GError) error = NULL;
+        g_autoptr(GVariant) res = NULL;
+        g_autoptr(GVariant) animations_enabled_variant = NULL;
+        gboolean animations_enabled;
+        gint i;
+
+        // If the interface settings key is turned off, don't bother trying to check with cinnamon -
+        // the user must have disabled it - this affects only Gtk programs. Otherwise, let Cinnamon
+        // decide (based on current conditions and cinnamon-specific settings).
+
+        settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
+        animations_enabled = g_settings_get_boolean (settings, "enable-animations");
+
+        if (animations_enabled) {
+            res = g_dbus_connection_call_sync (manager->priv->dbus_connection,
+                                               "org.Cinnamon",
+                                               "/org/Cinnamon",
+                                               "org.freedesktop.DBus.Properties",
+                                               "Get",
+                                               g_variant_new ("(ss)",
+                                                              "org.Cinnamon",
+                                                              "AnimationsEnabled"),
+                                               NULL,
+                                               G_DBUS_CALL_FLAGS_NONE,
+                                               -1,
+                                               NULL,
+                                               &error);
+            if (!res) {
+                    g_warning ("Failed to get AnimationsEnabled state from Cinnamon: %s",
+                               error->message);
+            } else {
+                g_variant_get (res, "(v)", &animations_enabled_variant);
+                g_variant_get (animations_enabled_variant, "b", &animations_enabled);
+            }
+        }
+
+        if (manager->priv->enable_animations == animations_enabled)
+                return;
+
+        manager->priv->enable_animations = animations_enabled;
+
+        for (i = 0; manager->priv->managers [i]; ++i) {
+            xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", manager->priv->enable_animations);
+        }
+
+        queue_notify (manager);
+}
+
+static void
+on_cinnamon_properties_changed (GDBusConnection *connection,
+                                  const gchar     *sender_name,
+                                  const gchar     *object_path,
+                                  const gchar     *interface_name,
+                                  const gchar     *signal_name,
+                                  GVariant        *parameters,
+                                  gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        animations_enabled_changed (manager);
+}
+
+static void
+on_cinnamon_name_appeared_handler (GDBusConnection *connection,
+                                   const gchar     *name,
+                                   const gchar     *name_owner,
+                                   gpointer         data)
+{
+        CinnamonSettingsXSettingsManager *manager = data;
+        animations_enabled_changed (manager);
+}
+
 gboolean
 cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                                GError               **error)
@@ -1050,6 +1165,48 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                              "Could not initialize xsettings manager.");
                 return FALSE;
         }
+
+        manager->priv->monitors_changed_id =
+                g_dbus_connection_signal_subscribe (manager->priv->dbus_connection,
+                                                    "org.gnome.Mutter.DisplayConfig",
+                                                    "org.gnome.Mutter.DisplayConfig",
+                                                    "MonitorsChanged",
+                                                    "/org/gnome/Mutter/DisplayConfig",
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    on_monitors_changed,
+                                                    manager,
+                                                    NULL);
+        manager->priv->display_config_watch_id =
+                g_bus_watch_name_on_connection (manager->priv->dbus_connection,
+                                                "org.gnome.Mutter.DisplayConfig",
+                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                on_display_config_name_appeared_handler,
+                                                NULL,
+                                                manager,
+                                                NULL);
+
+        manager->priv->cinnamon_properties_changed_id =
+                g_dbus_connection_signal_subscribe (manager->priv->dbus_connection,
+                                                    "org.Cinnamon",
+                                                    "org.freedesktop.DBus.Properties",
+                                                    "PropertiesChanged",
+                                                    "/org/Cinnamon",
+                                                    NULL,
+                                                    G_DBUS_SIGNAL_FLAGS_NONE,
+                                                    on_cinnamon_properties_changed,
+                                                    manager,
+                                                    NULL);
+        manager->priv->cinnamon_name_watch_id =
+                g_bus_watch_name_on_connection (manager->priv->dbus_connection,
+                                                "org.Cinnamon",
+                                                G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                                on_cinnamon_name_appeared_handler,
+                                                NULL,
+                                                manager,
+                                                NULL);
+
+
 
         manager->priv->settings = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                          NULL, (GDestroyNotify) g_object_unref);
@@ -1135,6 +1292,28 @@ cinnamon_xsettings_manager_stop (CinnamonSettingsXSettingsManager *manager)
         int i;
 
         g_debug ("Stopping xsettings manager");
+
+        if (manager->priv->cinnamon_properties_changed_id) {
+                g_dbus_connection_signal_unsubscribe (manager->priv->dbus_connection,
+                                                      manager->priv->cinnamon_properties_changed_id);
+                manager->priv->cinnamon_properties_changed_id = 0;
+        }
+
+        if (manager->priv->cinnamon_name_watch_id) {
+                g_bus_unwatch_name (manager->priv->cinnamon_name_watch_id);
+                manager->priv->cinnamon_name_watch_id = 0;
+        }
+
+        if (manager->priv->monitors_changed_id) {
+                g_dbus_connection_signal_unsubscribe (manager->priv->dbus_connection,
+                                                      manager->priv->monitors_changed_id);
+                manager->priv->monitors_changed_id = 0;
+        }
+
+        if (manager->priv->display_config_watch_id) {
+                g_bus_unwatch_name (manager->priv->display_config_watch_id);
+                manager->priv->display_config_watch_id = 0;
+        }
 
         if (p->managers != NULL) {
                 for (i = 0; p->managers [i]; ++i)
