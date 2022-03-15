@@ -188,6 +188,10 @@
       <default>true</default>
       <summary>Whether the tablet's orientation is locked, or rotated automatically.</summary>
     </key>
+    <key name="tabletmode-lock" type="b">
+      <default>true</default>
+      <summary>Whether the tablet's orientation is locked if it is not in tablet mode.</summary>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.trackball" path="/org/cinnamon/settings-daemon/peripherals/trackball/">
     <key name="scroll-wheel-emulation-button" type="i">

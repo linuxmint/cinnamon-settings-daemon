@@ -10,6 +10,7 @@ orientation_deps = [
     common_dep,
     csd_dep,
     libnotify,
+    dependency('threads'),
 ]
 
 executable(

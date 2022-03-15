@@ -23,6 +23,13 @@
 
 #include "config.h"
 
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <pthread.h>
 #include <fcntl.h>
 #include <glib.h>
 #include <gtk/gtk.h>
@@ -61,10 +68,14 @@ struct CsdOrientationManagerPrivate
         /* Notifications */
         GSettings *settings;
         gboolean orientation_lock;
+        gboolean tabletmode_lock;
+        gint tabletmode;
 };
 
+#define ACPID_SOCKET "/var/run/acpid.socket"
 #define CONF_SCHEMA "org.cinnamon.settings-daemon.peripherals.touchscreen"
 #define ORIENTATION_LOCK_KEY "orientation-lock"
+#define TABLETMODE_LOCK_KEY "tabletmode-lock"
 
 static void     csd_orientation_manager_finalize    (GObject                    *object);
 
@@ -95,6 +106,58 @@ csd_orientation_manager_init (CsdOrientationManager *manager)
 {
         manager->priv = CSD_ORIENTATION_MANAGER_GET_PRIVATE (manager);
         manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
+}
+
+static int
+connect_acpid_socket(const char *socketname)
+{
+        int sd;
+        const int addressfamily = AF_UNIX;
+        struct sockaddr_un uaddr;
+
+        sd = socket(addressfamily, SOCK_STREAM | SOCK_CLOEXEC, 0);
+        if (sd != -1) {
+                memset(&uaddr, 0, sizeof(uaddr));
+                uaddr.sun_family = addressfamily;
+                strncpy(uaddr.sun_path, socketname, sizeof(uaddr.sun_path) - 1);
+
+                if (connect(sd, (struct sockaddr *)&uaddr, sizeof(uaddr)) != 0) {
+                        close(sd);
+                        sd = -1;
+                }
+
+                return sd;
+        }
+
+        return -1;
+}
+
+static char *
+readline(int socket_fd)
+{
+    const int buflen = 128;
+    int i = 0;
+    int inprogress = 1;
+    int r;
+    static char *buffer;
+
+    buffer = malloc(buflen);
+
+    while (inprogress) {
+        while (i < buflen) {
+            r = read(socket_fd, buffer+i, 1);
+            if (r > 0) {
+                if (buffer[i] == '\n') {
+                    inprogress = 0;
+                    buffer[i] = '\0';
+                    break;
+                }
+                i++;
+            }
+        }
+    }
+
+    return buffer;
 }
 
 static GnomeRRRotation
@@ -227,6 +290,9 @@ do_rotation (CsdOrientationManager *manager)
         if (manager->priv->orientation_lock) {
                 g_debug ("Orientation changed, but we are locked");
                 return;
+        } else if (manager->priv->tabletmode_lock && !manager->priv->tabletmode) {
+                g_debug ("Orientation changed, but tablet mode is not active");
+                return;
         }
         if (manager->priv->prev_orientation == ORIENTATION_UNDEFINED) {
                 g_debug ("Not trying to rotate, orientation is undefined");
@@ -250,7 +316,30 @@ orientation_lock_changed_cb (GSettings             *settings,
                 return;
 
         manager->priv->orientation_lock = new;
-	
+        
+        if (new == FALSE) {
+                if (is_mpu6050) {
+                        g_timeout_add_seconds(MPU_POLL_INTERVAL, (GSourceFunc) mpu_timer, manager);
+                }
+                /* Handle the rotations that could have occurred while
+                 * we were locked */
+                do_rotation (manager);
+        }
+}
+
+static void
+tabletmode_lock_changed_cb (GSettings             *settings,
+                             gchar                 *key,
+                             CsdOrientationManager *manager)
+{
+        gboolean new;
+
+        new = g_settings_get_boolean (settings, TABLETMODE_LOCK_KEY);
+        if (new == manager->priv->tabletmode_lock)
+                return;
+
+        manager->priv->tabletmode_lock = new;
+        
         if (new == FALSE) {
                 if (is_mpu6050) {
                         g_timeout_add_seconds(MPU_POLL_INTERVAL, (GSourceFunc) mpu_timer, manager);
@@ -424,6 +513,42 @@ iio_sensor_vanished_cb (GDBusConnection *connection,
         manager->priv->prev_orientation = ORIENTATION_UNDEFINED;
 }
 
+static void
+*watch_tabletmode(void *manager) {
+        g_debug("Thread started. Watching tablet mode.");
+        int ret;
+        int sock_fd;
+        CsdOrientationManagerPrivate *priv = ((CsdOrientationManager *)manager)->priv;
+
+        sock_fd = connect_acpid_socket("/var/run/acpid.socket");
+        if (sock_fd >= 0) {
+                g_debug("ACPID socket connected");
+                ret = 0;
+                while (1) {
+                        char *event;
+
+                        event = readline(sock_fd);
+                        if (strcmp(event, "video/tabletmode TBLT 0000008A 00000001 K") == 0
+                                || strcmp(event, "video/tabletmode TBLT 0000008A 00000001") == 0) {
+                                g_debug ("Tablet Mode on");
+                                priv->tabletmode = 1;
+                                do_rotation(manager);
+                        } else if (strcmp(event, "video/tabletmode TBLT 0000008A 00000000 K") == 0
+                                || strcmp(event, "video/tabletmode TBLT 0000008A 00000000") == 0) {
+                                g_debug ("Tablet Mode off");
+                                priv->tabletmode = 0;
+                                if (priv->tabletmode_lock) {
+                                        // force normal orientation if we come back from tablet mode
+                                        // otherwise display remains rotated
+                                        do_xrandr_action(manager, GNOME_RR_ROTATION_0);
+                                }
+                        }
+                }
+        } else {
+                g_debug("ACPID socket could not be connected");
+        }
+}
+
 gboolean
 csd_orientation_manager_start (CsdOrientationManager *manager,
                          GError         **error)
@@ -434,6 +559,10 @@ csd_orientation_manager_start (CsdOrientationManager *manager,
         g_signal_connect (G_OBJECT (manager->priv->settings), "changed::" ORIENTATION_LOCK_KEY,
                           G_CALLBACK (orientation_lock_changed_cb), manager);
         manager->priv->orientation_lock = g_settings_get_boolean (manager->priv->settings, ORIENTATION_LOCK_KEY);
+
+        g_signal_connect (G_OBJECT (manager->priv->settings), "changed::" TABLETMODE_LOCK_KEY,
+                          G_CALLBACK (tabletmode_lock_changed_cb), manager);
+        manager->priv->tabletmode_lock = g_settings_get_boolean (manager->priv->settings, TABLETMODE_LOCK_KEY);
 
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SESSION,
                                   G_DBUS_PROXY_FLAGS_NONE,
@@ -454,6 +583,9 @@ csd_orientation_manager_start (CsdOrientationManager *manager,
                                                     NULL);
 
         cinnamon_settings_profile_end (NULL);
+
+        pthread_t t;
+        pthread_create(&t, NULL, &watch_tabletmode, (void *)manager);
 
         return TRUE;
 }
