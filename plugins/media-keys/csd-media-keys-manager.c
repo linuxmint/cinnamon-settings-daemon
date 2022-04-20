@@ -1038,7 +1038,7 @@ do_sound_action (CsdMediaKeysManager *manager,
                 /* When coming out of mute only increase the volume if it was 0 */
                 if (!old_muted || old_vol_pa == 0) {
                         if (old_vol_pa % vol_step_pa > 0 && !CROSSING_PA_NORM (old_vol_pa, vol_step_pa)) {
-                                new_vol_pa = MIN (old_vol_pa / vol_step_pa * vol_step_pa, max_vol_pa);
+                                new_vol_pa = MIN (old_vol_pa / vol_step_pa * vol_step_pa + vol_step_pa, max_vol_pa);
                         } else {
                                 new_vol_pa = MIN (old_vol_pa / vol_step_pa * vol_step_pa + vol_step_pa, max_vol_pa);
                         }
