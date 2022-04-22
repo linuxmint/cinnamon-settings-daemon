@@ -44,9 +44,11 @@
 #include "csd-xsettings-gtk.h"
 #include "xsettings-manager.h"
 #include "fontconfig-monitor.h"
+#include "migrate-settings.h"
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libcinnamon-desktop/gnome-rr.h>
+#include <libcinnamon-desktop/cdesktop-enums.h>
 
 #define CINNAMON_XSETTINGS_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CINNAMON_TYPE_XSETTINGS_MANAGER, CinnamonSettingsXSettingsManagerPrivate))
 
@@ -1402,12 +1404,156 @@ cinnamon_xsettings_manager_finalize (GObject *object)
         G_OBJECT_CLASS (cinnamon_xsettings_manager_parent_class)->finalize (object);
 }
 
+static GVariant *
+map_speed (GVariant *variant,
+           GSettings *origin_settings, GSettings *dest_settings,
+           GVariant  *old_default,      GVariant *new_default)
+
+{
+        gdouble value;
+
+        value = g_variant_get_double (variant);
+
+        /* Remap from [0..10] to [-1..1] */
+        value = (value / 5) - 1;
+
+        return g_variant_new_double (value);
+}
+
+static GVariant *
+map_send_events (GVariant *variant,
+                 GSettings *origin_settings, GSettings *dest_settings,
+                 GVariant  *old_default,      GVariant *new_default)
+{
+        gboolean enabled;
+
+        enabled = g_settings_get_boolean (origin_settings, "touchpad-enabled");
+
+        if (enabled) {
+                if (g_settings_get_boolean (origin_settings, "disable-with-external-mouse")) {
+                        g_settings_set_enum (dest_settings, "send-events", C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE);
+                } else {
+                        g_settings_set_enum (dest_settings, "send-events", C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED);
+                }
+        } else {
+                g_settings_set_enum (dest_settings, "send-events", C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED);
+        }
+
+        return NULL;
+}
+
+static GVariant *
+map_scroll_method (GVariant *variant,
+                   GSettings *origin_settings, GSettings *dest_settings,
+                   GVariant  *old_default,      GVariant *new_default)
+{
+        gint old;
+
+        old = g_settings_get_int (origin_settings, "scrolling-method");
+
+        switch (old) {
+            case 0: // disabled
+                g_settings_set_boolean (dest_settings, "edge-scrolling-enabled", FALSE);
+                g_settings_set_boolean (dest_settings, "two-finger-scrolling-enabled", FALSE);
+                break;
+            case 2: // edge
+                g_settings_set_boolean (dest_settings, "edge-scrolling-enabled", TRUE);
+                g_settings_set_boolean (dest_settings, "two-finger-scrolling-enabled", FALSE);
+                break;
+            case 1: // two-finger
+            case 3: // auto, also the new default
+            default:
+                g_settings_set_boolean (dest_settings, "edge-scrolling-enabled", FALSE);
+                g_settings_set_boolean (dest_settings, "two-finger-scrolling-enabled", TRUE);
+                break;
+        }
+
+        return NULL;
+}
+
+static GVariant *
+map_click_method (GVariant *variant,
+                  GSettings *origin_settings, GSettings *dest_settings,
+                  GVariant  *old_default,      GVariant *new_default)
+{
+        gint old;
+        old = g_settings_get_int (origin_settings, "clickpad-click");
+
+        switch (old) {
+            case 0: // disabled
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_NONE);
+                break;
+            case 1: // corners
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_AREAS);
+                break;
+            case 2: // fingers
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_FINGERS);
+                break;
+            case 3: // automatic
+                g_settings_set_enum (dest_settings, "click-method", C_DESKTOP_TOUCHPAD_CLICK_METHOD_DEFAULT);
+                break;
+        }
+
+        return NULL;
+}
+
+static void
+migrate_mouse_settings (void)
+{
+        CsdSettingsMigrateEntry trackball_entries[] = {
+                { "scroll-wheel-emulation-button", "scroll-wheel-emulation-button", NULL }
+        };
+        CsdSettingsMigrateEntry mouse_entries[] = {
+                { "locate-pointer",        "locate-pointer", NULL },
+                { "left-handed",           "left-handed",    NULL },
+                { "natural-scroll",        "natural-scroll", NULL },
+                { "custom-acceleration",   NULL,             NULL },
+                { "motion-acceleration",   "speed",          map_speed },
+                { "custom-threshold",      NULL,             NULL },
+                { "motion-threshold",      NULL,             NULL },
+                { "double-click",          "double-click",   NULL },
+                { "drag-threshold",        "drag-threshold", NULL },
+                { "middle-button-enabled", "middle-click-emulation", NULL },
+        };
+
+        CsdSettingsMigrateEntry touchpad_entries[] = {
+                { "disable-while-typing", "disable-while-typing", NULL },
+                { "scrolling-method",     "edge-scrolling-enabled", map_scroll_method },
+                { "tap-to-click",         "tap-to-click",    NULL },
+                { "clickpad-click",       "click-method",    map_click_method },
+                { "touchpad-enabled",     "send-events",     map_send_events },
+                { "disable-with-external-mouse", "send-events", map_send_events },
+                { "left-handed",          "left-handed",     NULL },
+                { "custom-acceleration",  NULL,              NULL },
+                { "motion-acceleration",  "speed",           map_speed },
+                { "motion-threshold",     NULL,              NULL },
+                { "natural-scroll",       "natural-scroll",  NULL }
+        };
+
+        csd_settings_migrate_check ("org.cinnamon.settings-daemon.peripherals.trackball.deprecated",
+                                    "/org/cinnamon/settings-daemon/peripherals/trackball/",
+                                    "org.cinnamon.desktop.peripherals.trackball",
+                                    "/org/cinnamon/desktop/peripherals/trackball/",
+                                    trackball_entries, G_N_ELEMENTS (trackball_entries));
+        csd_settings_migrate_check ("org.cinnamon.settings-daemon.peripherals.mouse.deprecated",
+                                    "/org/cinnamon/settings-daemon/peripherals/mouse/",
+                                    "org.cinnamon.desktop.peripherals.mouse",
+                                    "/org/cinnamon/desktop/peripherals/mouse/",
+                                    mouse_entries, G_N_ELEMENTS (mouse_entries));
+        csd_settings_migrate_check ("org.cinnamon.settings-daemon.peripherals.touchpad.deprecated",
+                                    "/org/cinnamon/settings-daemon/peripherals/touchpad/",
+                                    "org.cinnamon.desktop.peripherals.touchpad",
+                                    "/org/cinnamon/desktop/peripherals/touchpad/",
+                                    touchpad_entries, G_N_ELEMENTS (touchpad_entries));
+}
+
 CinnamonSettingsXSettingsManager *
 cinnamon_xsettings_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
+                migrate_mouse_settings ();
                 manager_object = g_object_new (CINNAMON_TYPE_XSETTINGS_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);

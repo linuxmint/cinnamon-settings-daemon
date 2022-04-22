@@ -1,10 +1,7 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals" path="/org/cinnamon/settings-daemon/peripherals/">
     <child name="smartcard" schema="org.cinnamon.settings-daemon.peripherals.smartcard"/>
-    <child name="touchpad" schema="org.cinnamon.settings-daemon.peripherals.touchpad"/>
     <child name="keyboard" schema="org.cinnamon.settings-daemon.peripherals.keyboard"/>
-    <child name="mouse" schema="org.cinnamon.settings-daemon.peripherals.mouse"/>
-    <child name="trackball" schema="org.cinnamon.settings-daemon.peripherals.trackball"/>
     <child name="touchscreen" schema="org.cinnamon.settings-daemon.peripherals.touchscreen"/>
     <child name="input-devices" schema="org.cinnamon.settings-daemon.peripherals.input-devices"/>
   </schema>
@@ -15,7 +12,121 @@
       <description>Set this to one of "none", "lock-screen", or "force-logout". The action will get performed when the smartcard used for log in is removed.</description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchpad" path="/org/cinnamon/settings-daemon/peripherals/touchpad/">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.keyboard" path="/org/cinnamon/settings-daemon/peripherals/keyboard/">
+    <key name="click" type="b">
+      <default>true</default>
+    </key>
+    <key name="click-volume" type="i">
+      <default>0</default>
+    </key>
+    <key name="bell-mode" enum="org.cinnamon.settings-daemon.CsdBellMode">
+      <default>'on'</default>
+      <description>Possible values are "on", "off", and "custom".</description>
+    </key>
+    <key name="bell-pitch" type="i">
+      <default>400</default>
+    </key>
+    <key name="bell-duration" type="i">
+      <default>100</default>
+    </key>
+    <key name="bell-custom-file" type="s">
+      <default>''</default>
+      <summary>Keyboard Bell Custom Filename</summary>
+      <description>File name of the bell sound to be played.</description>
+    </key>
+    <key name="remember-numlock-state" type="b">
+      <default>true</default>
+      <summary>Remember NumLock state</summary>
+      <description>When set to true, GNOME will remember the state of the NumLock LED between sessions.</description>
+    </key>
+    <key name="numlock-state" enum="org.cinnamon.settings-daemon.CsdNumLockState">
+      <default>'unknown'</default>
+      <summary>NumLock state</summary>
+      <description>The remembered state of the NumLock LED.</description>
+    </key>
+    <key name="input-sources-switcher" enum="org.cinnamon.settings-daemon.CsdInputSourcesSwitcher">
+      <default>'off'</default>
+      <summary>Modifiers-only input sources switcher shortcut</summary>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org/cinnamon/settings-daemon/peripherals/touchscreen/">
+    <key name="orientation-lock" type="b">
+      <default>true</default>
+      <summary>Whether the tablet's orientation is locked, or rotated automatically.</summary>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.input-devices" path="/org/cinnamon/settings-daemon/peripherals/input-devices/">
+    <key name="hotplug-command" type="s">
+      <default>''</default>
+      <summary>Device hotplug custom command</summary>
+      <description>Command to be run when a device is added or removed.</description>
+    </key>
+  </schema>
+  <schema id="org.cinnamon.settings-daemon.peripherals.keyboard.deprecated">
+    <key name="repeat" type="b">
+      <default>true</default>
+    </key>
+    <key name="repeat-interval" type="u">
+      <default>30</default>
+      <summary>Key Repeat Interval</summary>
+      <description>Delay between repeats in milliseconds.</description>
+    </key>
+    <key name="delay" type="u">
+      <default>500</default>
+      <summary>Initial Key Repeat Delay</summary>
+      <description>Initial key repeat delay in milliseconds.</description>
+    </key>
+  </schema>
+  <schema id="org.cinnamon.settings-daemon.peripherals.trackball.deprecated">
+    <key name="scroll-wheel-emulation-button" type="i">
+      <default>0</default>
+      <range min="0" max="24"/>
+      <summary>Mouse wheel emulation button. 0 to disable the feature.</summary>
+    </key>
+  </schema>
+  <schema id="org.cinnamon.settings-daemon.peripherals.mouse.deprecated">
+    <key name="locate-pointer" type="b">
+      <default>false</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="left-handed" type="b">
+      <default>false</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="natural-scroll" type="b">
+      <default>false</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="custom-acceleration" type="b">
+      <default>false</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="motion-acceleration" type="d">
+      <default>-1</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="custom-threshold" type="b">
+      <default>false</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="motion-threshold" type="i">
+      <default>-1</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="double-click" type="i">
+      <default>400</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="drag-threshold" type="i">
+      <default>8</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+    <key name="middle-button-enabled" type="b">
+      <default>true</default>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
+    </key>
+  </schema>
+  <schema id="org.cinnamon.settings-daemon.peripherals.touchpad.deprecated">
     <key name="disable-while-typing" type="b">
       <default>true</default>
       <summary>Disable touchpad while typing</summary>
@@ -80,118 +191,6 @@
       <default>true</default>
       <summary>Natural scrolling</summary>
       <description>Set this to TRUE to enable natural (reverse) scrolling for touchpads.</description>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.keyboard" path="/org/cinnamon/settings-daemon/peripherals/keyboard/">
-    <key name="repeat" type="b">
-      <default>true</default>
-    </key>
-    <key name="click" type="b">
-      <default>true</default>
-    </key>
-    <key name="repeat-interval" type="u">
-      <default>30</default>
-      <summary>Key Repeat Interval</summary>
-      <description>Delay between repeats in milliseconds.</description>
-    </key>
-    <key name="delay" type="u">
-      <default>500</default>
-      <summary>Initial Key Repeat Delay</summary>
-      <description>Initial key repeat delay in milliseconds.</description>
-    </key>
-    <key name="click-volume" type="i">
-      <default>0</default>
-    </key>
-    <key name="bell-mode" enum="org.cinnamon.settings-daemon.CsdBellMode">
-      <default>'on'</default>
-      <description>Possible values are "on", "off", and "custom".</description>
-    </key>
-    <key name="bell-pitch" type="i">
-      <default>400</default>
-    </key>
-    <key name="bell-duration" type="i">
-      <default>100</default>
-    </key>
-    <key name="bell-custom-file" type="s">
-      <default>''</default>
-      <summary>Keyboard Bell Custom Filename</summary>
-      <description>File name of the bell sound to be played.</description>
-    </key>
-    <key name="remember-numlock-state" type="b">
-      <default>true</default>
-      <summary>Remember NumLock state</summary>
-      <description>When set to true, GNOME will remember the state of the NumLock LED between sessions.</description>
-    </key>
-    <key name="numlock-state" enum="org.cinnamon.settings-daemon.CsdNumLockState">
-      <default>'unknown'</default>
-      <summary>NumLock state</summary>
-      <description>The remembered state of the NumLock LED.</description>
-    </key>
-    <key name="input-sources-switcher" enum="org.cinnamon.settings-daemon.CsdInputSourcesSwitcher">
-      <default>'off'</default>
-      <summary>Modifiers-only input sources switcher shortcut</summary>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.mouse" path="/org/cinnamon/settings-daemon/peripherals/mouse/">
-    <key name="locate-pointer" type="b">
-      <default>false</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="left-handed" type="b">
-      <default>false</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="natural-scroll" type="b">
-      <default>false</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="custom-acceleration" type="b">
-      <default>false</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="motion-acceleration" type="d">
-      <default>-1</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="custom-threshold" type="b">
-      <default>false</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="motion-threshold" type="i">
-      <default>-1</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="double-click" type="i">
-      <default>400</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="drag-threshold" type="i">
-      <default>8</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-    <key name="middle-button-enabled" type="b">
-      <default>true</default>
-      <summary>deprecated - see org.cinnamon.desktop.peripherals.mouse</summary>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org/cinnamon/settings-daemon/peripherals/touchscreen/">
-    <key name="orientation-lock" type="b">
-      <default>true</default>
-      <summary>Whether the tablet's orientation is locked, or rotated automatically.</summary>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.trackball" path="/org/cinnamon/settings-daemon/peripherals/trackball/">
-    <key name="scroll-wheel-emulation-button" type="i">
-      <default>0</default>
-      <range min="0" max="24"/>
-      <summary>Mouse wheel emulation button. 0 to disable the feature.</summary>
-    </key>
-  </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.input-devices" path="/org/cinnamon/settings-daemon/peripherals/input-devices/">
-    <key name="hotplug-command" type="s">
-      <default>''</default>
-      <summary>Device hotplug custom command</summary>
-      <description>Command to be run when a device is added or removed.</description>
     </key>
   </schema>
 </schemalist>

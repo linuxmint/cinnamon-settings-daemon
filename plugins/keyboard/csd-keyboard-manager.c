@@ -46,6 +46,7 @@
 #include "csd-enums.h"
 
 #include "csd-keyboard-xkb.h"
+#include "migrate-settings.h"
 
 #define CSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerPrivate))
 
@@ -55,10 +56,7 @@
 
 #define CSD_KEYBOARD_DIR "org.cinnamon.settings-daemon.peripherals.keyboard"
 
-#define KEY_REPEAT         "repeat"
 #define KEY_CLICK          "click"
-#define KEY_INTERVAL       "repeat-interval"
-#define KEY_DELAY          "delay"
 #define KEY_CLICK_VOLUME   "click-volume"
 #define KEY_NUMLOCK_STATE  "numlock-state"
 
@@ -81,15 +79,6 @@ static void     csd_keyboard_manager_finalize    (GObject                 *objec
 G_DEFINE_TYPE (CsdKeyboardManager, csd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
-static gboolean
-xkb_set_keyboard_autorepeat_rate (guint delay, guint interval)
-{
-        return XkbSetAutoRepeatRate (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-                                     XkbUseCoreKbd,
-                                     delay,
-                                     interval);
-}
 
 static void
 numlock_xkb_init (CsdKeyboardManager *manager)
@@ -197,10 +186,7 @@ apply_settings (GSettings          *settings,
                 CsdKeyboardManager *manager)
 {
         XKeyboardControl kbdcontrol;
-        gboolean         repeat;
         gboolean         click;
-        guint            interval;
-        guint            delay;
         int              click_volume;
         int              bell_volume;
         int              bell_pitch;
@@ -211,10 +197,7 @@ apply_settings (GSettings          *settings,
         if (g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0)
                 return;
 
-        repeat        = g_settings_get_boolean  (settings, KEY_REPEAT);
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
-        interval      = _csd_settings_get_uint  (settings, KEY_INTERVAL);
-        delay         = _csd_settings_get_uint  (settings, KEY_DELAY);
         click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
         bell_pitch    = g_settings_get_int   (settings, KEY_BELL_PITCH);
         bell_duration = g_settings_get_int   (settings, KEY_BELL_DURATION);
@@ -223,19 +206,6 @@ apply_settings (GSettings          *settings,
         bell_volume   = (bell_mode == CSD_BELL_MODE_ON) ? 50 : 0;
 
         gdk_x11_display_error_trap_push (gdk_display_get_default ());
-        if (repeat) {
-                gboolean rate_set = FALSE;
-
-                XAutoRepeatOn (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
-                /* Use XKB in preference */
-                rate_set = xkb_set_keyboard_autorepeat_rate (delay, interval);
-
-                if (!rate_set)
-                        g_warning ("Neither XKeyboard not Xfree86's keyboard extensions are available,\n"
-                                   "no way to support keyboard autorepeat rate settings");
-        } else {
-                XAutoRepeatOff (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
-        }
 
         /* as percentage from 0..100 inclusive */
         if (click_volume < 0) {
@@ -385,12 +355,29 @@ csd_keyboard_manager_finalize (GObject *object)
         G_OBJECT_CLASS (csd_keyboard_manager_parent_class)->finalize (object);
 }
 
+static void
+migrate_keyboard_settings (void)
+{
+        CsdSettingsMigrateEntry entries[] = {
+                { "repeat",          "repeat",          NULL },
+                { "repeat-interval", "repeat-interval", NULL },
+                { "delay",           "delay",           NULL }
+        };
+
+        csd_settings_migrate_check ("org.cinnamon.settings-daemon.peripherals.keyboard.deprecated",
+                                    "/org/cinnamon/settings-daemon/peripherals/keyboard/",
+                                    "org.cinnamon.desktop.peripherals.keyboard",
+                                    "/org/cinnamon/desktop/peripherals/keyboard/",
+                                    entries, G_N_ELEMENTS (entries));
+}
+
 CsdKeyboardManager *
 csd_keyboard_manager_new (void)
 {
         if (manager_object != NULL) {
                 g_object_ref (manager_object);
         } else {
+                migrate_keyboard_settings ();
                 manager_object = g_object_new (CSD_TYPE_KEYBOARD_MANAGER, NULL);
                 g_object_add_weak_pointer (manager_object,
                                            (gpointer *) &manager_object);
