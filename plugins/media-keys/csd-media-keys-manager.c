@@ -111,8 +111,8 @@ static const gchar kb_introspection_xml[] =
 #define SETTINGS_INTERFACE_DIR "org.cinnamon.desktop.interface"
 #define SETTINGS_POWER_DIR "org.cinnamon.settings-daemon.plugins.power"
 #define SETTINGS_XSETTINGS_DIR "org.cinnamon.settings-daemon.plugins.xsettings"
-#define SETTINGS_TOUCHPAD_DIR "org.cinnamon.settings-daemon.peripherals.touchpad"
-#define TOUCHPAD_ENABLED_KEY "touchpad-enabled"
+#define SETTINGS_TOUCHPAD_DIR "org.cinnamon.desktop.peripherals.touchpad"
+#define TOUCHPAD_SEND_EVENTS_KEY "send-events"
 #define HIGH_CONTRAST "HighContrast"
 
 #define VOLUME_STEP 5           /* percents for one volume button press */
@@ -813,17 +813,20 @@ do_touchpad_action (CsdMediaKeysManager *manager)
         GSettings *settings;
         gboolean state;
 
-        if (touchpad_is_present () == FALSE) {
+        if (!touchpad_is_present ()) {
                 do_touchpad_osd_action (manager, FALSE);
                 return;
         }
 
         settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
-        state = g_settings_get_boolean (settings, TOUCHPAD_ENABLED_KEY);
+        state = g_settings_get_enum (settings, TOUCHPAD_SEND_EVENTS_KEY) ==
+            C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED ||
+            (C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE && !mouse_is_present ());
 
         do_touchpad_osd_action (manager, !state);
 
-        g_settings_set_boolean (settings, TOUCHPAD_ENABLED_KEY, !state);
+        g_settings_set_enum (settings, TOUCHPAD_SEND_EVENTS_KEY, (state) ? C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED :
+                                                                           C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED);
         g_object_unref (settings);
 }
 
