@@ -55,7 +55,6 @@ Files: plugins/clipboard/list.c
        plugins/clipboard/list.h
        plugins/clipboard/xutils.c
        plugins/clipboard/xutils.h
-       plugins/mouse/csd-locate-pointer.h
        plugins/xsettings/xsettings-common.c
        plugins/xsettings/xsettings-common.h
        plugins/xsettings/xsettings-manager.c
