@@ -914,10 +914,10 @@ engine_update_composite_device (CsdPowerManager *manager,
                       "state", state,
                       NULL);
 
-        /* force update of icon */
-        if (engine_recalculate_state_icon (manager))
-                engine_emit_changed (manager, TRUE, FALSE);
 out:
+        /* force update of icon */
+	engine_recalculate_state (manager);
+	
         /* return composite device or original device */
         return device;
 }
@@ -2440,6 +2440,8 @@ up_client_changed_cb (UpClient *client, CsdPowerManager *manager)
                 do_lid_closed_action (manager);
         else
                 do_lid_open_action (manager);
+	
+	engine_recalculate_state (manager);
 }
 
 typedef enum {
