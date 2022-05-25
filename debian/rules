@@ -22,3 +22,4 @@ override_dh_makeshlibs:
 	# Disabled, there are no shared libraries, but some plugins that cause this
 	# to fail
 
+override_dh_dwz:
