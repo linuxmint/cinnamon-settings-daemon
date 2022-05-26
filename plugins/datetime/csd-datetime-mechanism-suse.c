@@ -30,15 +30,15 @@
 #include "csd-datetime-mechanism.h"
 
 gboolean
-_get_using_ntp_suse (DBusGMethodInvocation   *context)
+_get_using_ntp_suse (GDBusMethodInvocation *invocation,
+                     gboolean              *can_use_ntp,
+                     gboolean              *is_using_ntp)
 {
         int exit_status;
         GError *error = NULL;
-        gboolean can_use_ntp;
-        gboolean is_using_ntp;
 
         if (g_file_test ("/etc/ntp.conf", G_FILE_TEST_EXISTS)) {
-                can_use_ntp = TRUE;
+                *can_use_ntp = TRUE;
                 if (!g_spawn_command_line_sync ("/sbin/service ntp status",
                                                 NULL, NULL, &exit_status, &error)) {
                         GError *error2;
@@ -46,26 +46,25 @@ _get_using_ntp_suse (DBusGMethodInvocation   *context)
                                               CSD_DATETIME_MECHANISM_ERROR_GENERAL,
                                               "Error spawning /sbin/service: %s", error->message);
                         g_error_free (error);
-                        dbus_g_method_return_error (context, error2);
+                        g_dbus_method_invocation_return_gerror (invocation, error2);
                         g_error_free (error2);
                         return FALSE;
                 }
                 if (exit_status == 0)
-                        is_using_ntp = TRUE;
+                        *is_using_ntp = TRUE;
                 else
-                        is_using_ntp = FALSE;
+                        *is_using_ntp = FALSE;
         }
         else {
-                can_use_ntp = FALSE;
-                is_using_ntp = FALSE;
+                *can_use_ntp = FALSE;
+                *is_using_ntp = FALSE;
         }
 
-        dbus_g_method_return (context, can_use_ntp, is_using_ntp);
         return TRUE;
 }
 
 gboolean
-_set_using_ntp_suse (DBusGMethodInvocation   *context,
+_set_using_ntp_suse (GDBusMethodInvocation   *invocation,
                      gboolean                 using_ntp)
 {
         GError *error;
@@ -85,7 +84,7 @@ _set_using_ntp_suse (DBusGMethodInvocation   *context,
                                       CSD_DATETIME_MECHANISM_ERROR_GENERAL,
                                       "Error spawning '%s': %s", cmd, error->message);
                 g_error_free (error);
-                dbus_g_method_return_error (context, error2);
+                g_dbus_method_invocation_return_gerror (invocation, error2);
                 g_error_free (error2);
                 g_free (cmd);
                 return FALSE;
@@ -102,7 +101,7 @@ _set_using_ntp_suse (DBusGMethodInvocation   *context,
                                       CSD_DATETIME_MECHANISM_ERROR_GENERAL,
                                       "Error spawning '%s': %s", cmd, error->message);
                 g_error_free (error);
-                dbus_g_method_return_error (context, error2);
+                g_dbus_method_invocation_return_gerror (invocation, error2);
                 g_error_free (error2);
                 g_free (cmd);
                 return FALSE;
@@ -110,12 +109,13 @@ _set_using_ntp_suse (DBusGMethodInvocation   *context,
 
         g_free (cmd);
 
-        dbus_g_method_return (context);
         return TRUE;
 }
 
 gboolean
-_update_etc_sysconfig_clock_suse (DBusGMethodInvocation *context, const char *key, const char *value)
+_update_etc_sysconfig_clock_suse (GDBusMethodInvocation *invocation,
+                                  const char            *key,
+                                  const char            *value)
 {
         char **lines;
         int n;
@@ -129,7 +129,7 @@ _update_etc_sysconfig_clock_suse (DBusGMethodInvocation *context, const char *ke
                 error = g_error_new (CSD_DATETIME_MECHANISM_ERROR,
                                       CSD_DATETIME_MECHANISM_ERROR_GENERAL,
                                       "Error reading /etc/sysconfig/clock file: %s", "No such file");
-                dbus_g_method_return_error (context, error);
+                g_dbus_method_invocation_return_gerror (invocation, error);
                 g_error_free (error);
                 return FALSE;
 	}
@@ -142,7 +142,7 @@ _update_etc_sysconfig_clock_suse (DBusGMethodInvocation *context, const char *ke
                                       CSD_DATETIME_MECHANISM_ERROR_GENERAL,
                                       "Error reading /etc/sysconfig/clock file: %s", error->message);
                 g_error_free (error);
-                dbus_g_method_return_error (context, error2);
+                g_dbus_method_invocation_return_gerror (invocation, error2);
                 g_error_free (error2);
                 return FALSE;
         }
@@ -174,7 +174,7 @@ _update_etc_sysconfig_clock_suse (DBusGMethodInvocation *context, const char *ke
                                               CSD_DATETIME_MECHANISM_ERROR_GENERAL,
                                               "Error updating /etc/sysconfig/clock: %s", error->message);
                         g_error_free (error);
-                        dbus_g_method_return_error (context, error2);
+                        g_dbus_method_invocation_return_gerror (invocation, error2);
                         g_error_free (error2);
                         g_free (data);
                         return FALSE;

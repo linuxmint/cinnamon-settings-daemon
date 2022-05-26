@@ -66,23 +66,22 @@ _get_using_ntpd (gboolean *can_use, gboolean *is_using, GError ** error)
 }
 
 gboolean
-_get_using_ntp_debian (DBusGMethodInvocation   *context)
+_get_using_ntp_debian (GDBusMethodInvocation *invocation,
+                       gboolean              *can_use_ntp,
+                       gboolean              *is_using_ntp)
 {
-        gboolean can_use_ntp = FALSE;
-        gboolean is_using_ntp = FALSE;
         GError *error = NULL;
 
         /* In Debian, ntpdate is used whenever the network comes up. So if
            either ntpdate or ntpd is installed and available, can_use is true.
            If either is active, is_using is true. */
-        _get_using_ntpdate (&can_use_ntp, &is_using_ntp, &error);
-        _get_using_ntpd (&can_use_ntp, &is_using_ntp, &error);
+        _get_using_ntpdate (can_use_ntp, is_using_ntp, &error);
+        _get_using_ntpd (can_use_ntp, is_using_ntp, &error);
 
         if (error == NULL) {
-                dbus_g_method_return (context, can_use_ntp, is_using_ntp);
                 return TRUE;
         } else {
-                dbus_g_method_return_error (context, error);
+                g_dbus_method_invocation_return_gerror (invocation, error);
                 g_error_free (error);
                 return FALSE;
         }
@@ -177,8 +176,8 @@ _set_using_ntpd (gboolean using_ntp, GError **error)
 }
 
 gboolean
-_set_using_ntp_debian  (DBusGMethodInvocation   *context,
-                        gboolean                 using_ntp)
+_set_using_ntp_debian  (GDBusMethodInvocation *invocation,
+                        gboolean               using_ntp)
 {
         GError *error = NULL;
 
@@ -189,10 +188,9 @@ _set_using_ntp_debian  (DBusGMethodInvocation   *context,
         _set_using_ntpd (using_ntp, &error);
 
         if (error == NULL) {
-                dbus_g_method_return (context);
                 return TRUE;
         } else {
-                dbus_g_method_return_error (context, error);
+                g_dbus_method_invocation_return_gerror (invocation, error);
                 g_error_free (error);
                 return FALSE;
         }

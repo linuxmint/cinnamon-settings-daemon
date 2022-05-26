@@ -20,12 +20,13 @@
  */
 
 #include <glib.h>
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
 
-gboolean _get_using_ntp_fedora  (DBusGMethodInvocation   *context);
-gboolean _set_using_ntp_fedora  (DBusGMethodInvocation   *context,
+gboolean _get_using_ntp_fedora  (GDBusMethodInvocation   *invocation,
+                                 gboolean                *can_use_ntp,
+                                 gboolean                *is_using_ntp);
+gboolean _set_using_ntp_fedora  (GDBusMethodInvocation   *invocation,
                                  gboolean                 using_ntp);
-gboolean _update_etc_sysconfig_clock_fedora
-                                (DBusGMethodInvocation *context,
-                                 const char            *key,
-                                 const char            *value);
+gboolean _update_etc_sysconfig_clock_fedora (GDBusMethodInvocation *invocation,
+                                             const char            *key,
+                                             const char            *value);

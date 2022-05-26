@@ -70,11 +70,6 @@ xi = dependency('xi')
 xklavier = dependency('libxklavier', version: '>= 5.0')
 xtst = dependency('xtst')
 
-# currently we only use dbus if we're also using polkit if this changes in the future we can
-# simply remove the required field here
-dbus = dependency('dbus-1', version: '>= 1.1.2', required: polkit.found())
-dbus_glib = dependency('dbus-glib-1', required: polkit.found())
-
 # currently only used for the wacom plugin
 librsvg = dependency('librsvg-2.0', version: '>= 2.36.2', required: wacom.found())
 xorg_wacom = dependency('xorg-wacom', required: wacom.found())
@@ -102,10 +97,6 @@ endif
 
 cc = meson.get_compiler('c')
 math = cc.find_library('m', required: false)
-
-# currently used by the datetime plugin, but dbus-glib is deprecated so we
-# should port it to gdbus asap, and this should be removed at that point
-dbus_binding_tool = find_program('dbus-binding-tool')
 
 csd_conf = configuration_data()
 csd_conf.set_quoted('GTKBUILDERDIR', gtkbuilderdir)

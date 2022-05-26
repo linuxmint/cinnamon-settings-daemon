@@ -20,8 +20,10 @@
  */
 
 #include <glib.h>
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
 
-gboolean _get_using_ntp_debian (DBusGMethodInvocation   *context);
-gboolean _set_using_ntp_debian  (DBusGMethodInvocation   *context,
-                                 gboolean                 using_ntp);
+gboolean _get_using_ntp_debian (GDBusMethodInvocation *invocation,
+                                gboolean              *can_use_ntp,
+                                gboolean              *is_using_ntp);
+gboolean _set_using_ntp_debian (GDBusMethodInvocation *invocation,
+                                gboolean               using_ntp);
