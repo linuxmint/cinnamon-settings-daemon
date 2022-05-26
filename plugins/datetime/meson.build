@@ -1,16 +1,10 @@
-plugin_name = 'datetime'
 
-datetime_dbus = custom_target(
-    'datetime-dbus',
-    input: 'csd-datetime-mechanism.xml',
-    output: 'csd-datetime-mechanism-glue.h',
-    command: [
-        dbus_binding_tool,
-        '--prefix=csd_datetime_mechanism',
-        '--mode=glib-server',
-        '--output=@OUTPUT@',
-        '@INPUT@',
-    ],
+datetime_exported_iface = gnome.gdbus_codegen(
+  'csd-exported-datetime',
+  'csd-datetime-mechanism.xml',
+  interface_prefix: 'org.cinnamon.SettingsDaemon.DateTimeMechanism.',
+  namespace: 'Csd',
+  annotations: ['org.cinnamon.SettingsDaemon.DateTimeMechanism', 'org.gtk.GDBus.C.Name', 'ExportedDateTime']
 )
 
 datetime_common_sources = [
@@ -28,8 +22,8 @@ datetime_sources = [
     'csd-datetime-mechanism-suse.c',
     'csd-datetime-mechanism-suse.h',
     'csd-datetime-mechanism-main.c',
-    datetime_dbus,
     datetime_common_sources,
+    datetime_exported_iface
 ]
 
 test_timezone_sources = [
@@ -40,11 +34,10 @@ test_timezone_sources = [
 datetime_deps = [
     common_dep,
     csd_dep,
-    dbus,
-    dbus_glib,
     libnotify,
     polkit,
     xfixes,
+    gio
 ]
 
 if polkit.found()
