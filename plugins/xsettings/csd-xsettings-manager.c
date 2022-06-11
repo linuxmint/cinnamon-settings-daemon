@@ -569,9 +569,9 @@ get_window_scale (CinnamonSettingsXSettingsManager *manager)
 
         current_state =
                 g_dbus_connection_call_sync (manager->priv->dbus_connection,
-                                             "org.gnome.Mutter.DisplayConfig",
-                                             "/org/gnome/Mutter/DisplayConfig",
-                                             "org.gnome.Mutter.DisplayConfig",
+                                             "org.cinnamon.Muffin.DisplayConfig",
+                                             "/org/cinnamon/Muffin/DisplayConfig",
+                                             "org.cinnamon.Muffin.DisplayConfig",
                                              "GetCurrentState",
                                              NULL,
                                              NULL,
@@ -1169,10 +1169,10 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
 
         manager->priv->monitors_changed_id =
                 g_dbus_connection_signal_subscribe (manager->priv->dbus_connection,
-                                                    "org.gnome.Mutter.DisplayConfig",
-                                                    "org.gnome.Mutter.DisplayConfig",
+                                                    "org.cinnamon.Muffin.DisplayConfig",
+                                                    "org.cinnamon.Muffin.DisplayConfig",
                                                     "MonitorsChanged",
-                                                    "/org/gnome/Mutter/DisplayConfig",
+                                                    "/org/cinnamon/Muffin/DisplayConfig",
                                                     NULL,
                                                     G_DBUS_SIGNAL_FLAGS_NONE,
                                                     on_monitors_changed,
@@ -1180,7 +1180,7 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                                                     NULL);
         manager->priv->display_config_watch_id =
                 g_bus_watch_name_on_connection (manager->priv->dbus_connection,
-                                                "org.gnome.Mutter.DisplayConfig",
+                                                "org.cinnamon.Muffin.DisplayConfig",
                                                 G_BUS_NAME_WATCHER_FLAGS_NONE,
                                                 on_display_config_name_appeared_handler,
                                                 NULL,
