@@ -186,9 +186,6 @@ struct CsdMediaKeysManagerPrivate
 
         guint            start_idle_id;
 
-        GSettings       *media_key_settings;
-        guint            execute_delay_id;
-
         MprisController *mpris_controller;
 
         /* Ubuntu notifications */
@@ -316,76 +313,10 @@ get_keyring_env (CsdMediaKeysManager *manager)
 	return envp;
 }
 
-static GtkWidget *
-create_dummy_window (GdkScreen *screen)
-{
-  GtkWidget *window;
-
-  window = gtk_window_new (GTK_WINDOW_POPUP);
-
-  gtk_window_move (GTK_WINDOW (window), -100, -100);
-  gtk_window_resize (GTK_WINDOW (window), 10, 10);
-  gtk_widget_show (window);
-
-  return window;
-}
-
-static gboolean
-grab_available (void)
-{
-        GdkDisplay *display;
-        GdkScreen *screen;
-        GdkSeat *seat;
-        GdkGrabStatus res;
-        GtkWidget *dummy_window;
-        gboolean available = FALSE;
-
-        display = gdk_display_get_default ();
-        screen = gdk_display_get_default_screen (display);
-        seat = gdk_display_get_default_seat (display);
-
-        dummy_window = create_dummy_window (screen);
-
-        res = gdk_seat_grab (seat,
-                             gtk_widget_get_window (dummy_window),
-                             GDK_SEAT_CAPABILITY_ALL,
-                             FALSE,
-                             NULL,
-                             NULL,
-                             NULL,
-                             NULL);
-
-        if (res == GDK_GRAB_SUCCESS) {
-                available = TRUE;
-                gdk_seat_ungrab (seat);
-        }
-
-        gtk_widget_destroy (dummy_window);
-
-        return available;
-}
-
-typedef struct {
-        CsdMediaKeysManager *manager;
-        gchar               *cmd;
-        gboolean             need_term;
-        gboolean             need_grab;
-        gint                 grab_try_count;
-} ExecuteData;
-
-#define MAX_GRAB_ATTEMPTS 3
-
 static void
-free_exec_data (ExecuteData *data)
-{
-    g_free (data->cmd);
-    g_slice_free (ExecuteData, data);
-}
-
-static void
-do_execute (CsdMediaKeysManager *manager,
-            const gchar         *cmd,
-            gboolean             need_term)
+execute (CsdMediaKeysManager *manager,
+         char                *cmd,
+         gboolean             need_term)
 {
         gboolean retval;
         char   **argv;
@@ -433,59 +364,6 @@ do_execute (CsdMediaKeysManager *manager,
         g_free (exec);
 }
 
-static gboolean
-execute_callback (gpointer data)
-{
-        ExecuteData *exec_data = (ExecuteData *) data;
-        CsdMediaKeysManager *manager = exec_data->manager;
-
-        if (exec_data->need_grab && !grab_available ()) {
-            if (exec_data->grab_try_count < MAX_GRAB_ATTEMPTS) {
-                    exec_data->grab_try_count++;
-
-                    return G_SOURCE_CONTINUE;
-            } else {
-                g_warning ("Unable to grab the keyboard/mouse prior to running: %s", exec_data->cmd);
-
-                free_exec_data (exec_data);
-                manager->priv->execute_delay_id = 0;
-
-                return G_SOURCE_REMOVE;
-            }
-        }
-
-        do_execute (manager, exec_data->cmd, exec_data->need_term);
-
-        free_exec_data (exec_data);
-        manager->priv->execute_delay_id = 0;
-
-        return G_SOURCE_REMOVE;
-}
-
-static void
-execute (CsdMediaKeysManager *manager,
-         gchar               *command,
-         gboolean             need_term,
-         gboolean             need_grab)
-{
-    CsdMediaKeysManagerPrivate *priv = manager->priv;
-    gint delay;
-
-    if (priv->execute_delay_id > 0) {
-            g_source_remove (priv->execute_delay_id);
-    }
-
-    ExecuteData *data = g_slice_new0 (ExecuteData);
-
-    data->manager = manager;
-    data->cmd = g_strdup (command);
-    data->need_term = need_term;
-    data->need_grab = need_grab;
-
-    delay = g_settings_get_uint (priv->media_key_settings, "exec-delay");
-
-    priv->execute_delay_id = g_timeout_add (delay, (GSourceFunc) execute_callback, data);
-}
 
 static void 
 ensure_cancellable (GCancellable **cancellable)
@@ -643,7 +521,7 @@ do_terminal_action (CsdMediaKeysManager *manager)
         term = g_settings_get_string (settings, "exec");
 
         if (term)
-        execute (manager, term, FALSE, FALSE);
+        execute (manager, term, FALSE);
 
         g_free (term);
         g_object_unref (settings);
@@ -659,7 +537,7 @@ do_calculator_action (CsdMediaKeysManager *manager)
         calc = g_settings_get_string (settings, "exec");
 
         if (calc)
-        execute (manager, calc, FALSE, FALSE);
+        execute (manager, calc, FALSE);
 
         g_free (calc);
         g_object_unref (settings);
@@ -673,7 +551,7 @@ cinnamon_session_shutdown (CsdMediaKeysManager *manager)
 
 	/* Shouldn't happen, but you never know */
 	if (manager->priv->connection == NULL) {
-		execute (manager, "cinnamon-session-quit --logout", FALSE, FALSE);
+		execute (manager, "cinnamon-session-quit --logout", FALSE);
 		return;
 	}
 
@@ -699,7 +577,7 @@ cinnamon_session_shutdown (CsdMediaKeysManager *manager)
 static void
 do_logout_action (CsdMediaKeysManager *manager)
 {
-        execute (manager, "cinnamon-session-quit --logout", FALSE, FALSE);
+        execute (manager, "cinnamon-session-quit --logout", FALSE);
 }
 
 static void
@@ -777,7 +655,7 @@ do_home_key_action (CsdMediaKeysManager *manager,
 
     path = g_strdup_printf ("xdg-open %s", g_get_home_dir ());
 
-    execute (manager, path, FALSE, FALSE);
+    execute (manager, path, FALSE);
 
     g_free (path);
 }
@@ -1561,7 +1439,7 @@ do_config_power_action (CsdMediaKeysManager *manager,
                 csd_power_hibernate ();
                 break;
         case CSD_POWER_ACTION_BLANK:
-                execute (manager, "cinnamon-screensaver-command --lock", FALSE, FALSE);
+                execute (manager, "cinnamon-screensaver-command --lock", FALSE);
                 break;
         case CSD_POWER_ACTION_NOTHING:
                 /* these actions cannot be handled by media-keys and
@@ -1771,28 +1649,28 @@ do_action (CsdMediaKeysManager *manager,
                 do_url_action (manager, "mailto", timestamp);
                 break;
         case C_DESKTOP_MEDIA_KEY_SCREENSAVER:
-                execute (manager, "cinnamon-screensaver-command --lock", FALSE, FALSE);
+                execute (manager, "cinnamon-screensaver-command --lock", FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_HELP:
                 do_url_action (manager, "ghelp", timestamp);
                 break;
         case C_DESKTOP_MEDIA_KEY_SCREENSHOT:
-                execute (manager, "gnome-screenshot", FALSE, FALSE);
+                execute (manager, "gnome-screenshot", FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_WINDOW_SCREENSHOT:
-                execute (manager, "gnome-screenshot --window", FALSE, TRUE);
+                execute (manager, "gnome-screenshot --window", FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_AREA_SCREENSHOT:
-                execute (manager, "gnome-screenshot --area", FALSE, TRUE);
+                execute (manager, "gnome-screenshot --area", FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_SCREENSHOT_CLIP:
-                execute (manager, "gnome-screenshot --clipboard", FALSE, FALSE);
+                execute (manager, "gnome-screenshot --clipboard", FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_WINDOW_SCREENSHOT_CLIP:
-                execute (manager, "gnome-screenshot --window --clipboard", FALSE, TRUE);
+                execute (manager, "gnome-screenshot --window --clipboard", FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_AREA_SCREENSHOT_CLIP:
-                execute (manager, "gnome-screenshot --area --clipboard", FALSE, TRUE);
+                execute (manager, "gnome-screenshot --area --clipboard", FALSE);
                 break;
         case C_DESKTOP_MEDIA_KEY_TERMINAL:
                 do_terminal_action (manager);
@@ -1909,7 +1787,6 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
         manager->priv->cinnamon_session_settings = g_settings_new("org.cinnamon.SessionManager");
         /* for the power plugin interface code */
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
-        manager->priv->media_key_settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.media-keys");
 
         manager->priv->sound_settings = g_settings_new ("org.cinnamon.desktop.sound");
 
@@ -2042,11 +1919,6 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         if (priv->interface_settings) {
                 g_object_unref (priv->interface_settings);
                 priv->interface_settings = NULL;
-        }
-
-        if (priv->media_key_settings) {
-                g_object_unref (priv->media_key_settings);
-                priv->media_key_settings = NULL;
         }
 
         g_clear_object (&priv->sound_settings);
