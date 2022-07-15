@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (5.4.2) vanessa; urgency=medium
+
+  [ Michael Webster ]
+  * media keys: Get rid of deliberate delay when taking a screenshot to ensure a grab.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 15 Jul 2022 15:14:38 +0200
+
 cinnamon-settings-daemon (5.4.1) vanessa; urgency=medium
 
   [ Michael Webster ]
