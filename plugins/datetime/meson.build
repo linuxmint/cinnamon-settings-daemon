@@ -37,7 +37,8 @@ datetime_deps = [
     libnotify,
     polkit,
     xfixes,
-    gio
+    gio,
+    gio_unix
 ]
 
 if polkit.found()

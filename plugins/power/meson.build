@@ -47,6 +47,7 @@ power_deps = [
     cinnamon_desktop,
     common_dep,
     csd_dep,
+    gio_unix,
     libnotify,
     math,
     upower_glib,
