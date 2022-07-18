@@ -13,6 +13,7 @@ media_keys_deps = [
     common_dep,
     csd_dep,
     cvc,
+    gio_unix,
     gudev,
     libnotify,
     math,

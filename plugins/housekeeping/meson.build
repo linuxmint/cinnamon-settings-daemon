@@ -15,6 +15,7 @@ housekeeping_sources = [
 housekeeping_deps = [
     common_dep,
     csd_dep,
+    gio_unix,
     libnotify,
 ]
 

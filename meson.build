@@ -49,6 +49,7 @@ cups = dependency('cups', version: '>= 1.4', required: get_option('use_cups'))
 cvc = dependency('cvc', version: cinnamon_desktop_required)
 fontconfig = dependency('fontconfig')
 gio = dependency('gio-2.0', version: '>= 2.40.0')
+gio_unix = dependency('gio-unix-2.0', version: '>= 2.40.0')
 glib = dependency('glib-2.0', version: '>= 2.40.0')
 gnomekbd_required = '>= 3.6.0'
 gnomekbd = dependency('libgnomekbd', version: gnomekbd_required)
