@@ -112,7 +112,7 @@ abs_to_percentage (int min, int max, int value)
         g_return_val_if_fail (max > min, -1);
         g_return_val_if_fail (value >= min, -1);
         g_return_val_if_fail (value <= max, -1);
-        return (((value - min) * 100) / (max - min));
+        return (CLAMP(((value - min) * 100) / (max - min), 0, 100));
 }
 #define ABS_TO_PERCENTAGE(min, max, value) abs_to_percentage(min, max, value)
 #define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
@@ -2728,6 +2728,8 @@ backlight_get_abs (CsdPowerManager *manager, GError **error)
         return backlight_helper_get_value ("get-brightness", manager, error);
 }
 
+#define TWO_PERCENT_ABS (min + ((max - min) / 100 * 2))
+
 static gint
 backlight_get_percentage (CsdPowerManager *manager, GError **error)
 {
@@ -2749,7 +2751,8 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
                         now = gnome_rr_output_get_backlight (output, error);
                         if (now < 0)
                                 goto out;
-                        value = ABS_TO_PERCENTAGE (min, max, now);
+
+                        value = ABS_TO_PERCENTAGE (TWO_PERCENT_ABS, max, now);
                         goto out;
                 }
         }
@@ -2761,7 +2764,8 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
         now = backlight_helper_get_value ("get-brightness", manager, error);
         if (now < 0)
                 goto out;
-        value = ABS_TO_PERCENTAGE (min, max, now);
+
+        value = ABS_TO_PERCENTAGE (TWO_PERCENT_ABS, max, now);
 out:
         return value;
 }
@@ -2847,7 +2851,7 @@ backlight_set_percentage (CsdPowerManager *manager,
                                 g_warning ("no xrandr backlight capability");
                                 goto out;
                         }
-                        discrete = PERCENTAGE_TO_ABS (min, max, value);
+                        discrete = CLAMP (PERCENTAGE_TO_ABS (TWO_PERCENT_ABS, max, value), TWO_PERCENT_ABS, max);
                         ret = gnome_rr_output_set_backlight (output,
                                                              discrete,
                                                              error);
@@ -2859,7 +2863,8 @@ backlight_set_percentage (CsdPowerManager *manager,
         max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
-        discrete = PERCENTAGE_TO_ABS (min, max, value);
+
+        discrete = CLAMP (PERCENTAGE_TO_ABS (TWO_PERCENT_ABS, max, value), TWO_PERCENT_ABS, max);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           manager,
@@ -2904,13 +2909,14 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
                         now = gnome_rr_output_get_backlight (output, error);
                         if (now < 0)
                                goto out;
-                        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+
+                        step = BRIGHTNESS_STEP_AMOUNT (max - TWO_PERCENT_ABS);
                         discrete = MIN (now + step, max);
                         ret = gnome_rr_output_set_backlight (output,
                                                              discrete,
                                                              error);
                         if (ret)
-                                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                                percentage_value = ABS_TO_PERCENTAGE (TWO_PERCENT_ABS, max, discrete);
                         goto out;
                 }
         }
@@ -2922,14 +2928,14 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
         max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
-        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
+        step = BRIGHTNESS_STEP_AMOUNT (max - TWO_PERCENT_ABS);
         discrete = MIN (now + step, max);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           manager,
                                           error);
         if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                percentage_value = ABS_TO_PERCENTAGE (TWO_PERCENT_ABS, max, discrete);
 out:
         if (ret)
                 backlight_emit_changed (manager);
@@ -2970,13 +2976,13 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
                         now = gnome_rr_output_get_backlight (output, error);
                         if (now < 0)
                                goto out;
-                        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
-                        discrete = MAX (now - step, 0);
+                        step = BRIGHTNESS_STEP_AMOUNT (max - TWO_PERCENT_ABS);
+                        discrete = MAX (now - step, TWO_PERCENT_ABS);
                         ret = gnome_rr_output_set_backlight (output,
                                                              discrete,
                                                              error);
                         if (ret)
-                                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                                percentage_value = ABS_TO_PERCENTAGE (TWO_PERCENT_ABS, max, discrete);
                         goto out;
                 }
         }
@@ -2988,14 +2994,14 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
         max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
-        step = BRIGHTNESS_STEP_AMOUNT (max - min + 1);
-        discrete = MAX (now - step, 0);
+        step = BRIGHTNESS_STEP_AMOUNT (max - TWO_PERCENT_ABS);
+        discrete = MAX (now - step, TWO_PERCENT_ABS);
         ret = backlight_helper_set_value ("set-brightness",
                                           discrete,
                                           manager,
                                           error);
         if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min, max, discrete);
+                percentage_value = ABS_TO_PERCENTAGE (TWO_PERCENT_ABS, max, discrete);
 out:
         if (ret)
                 backlight_emit_changed (manager);
