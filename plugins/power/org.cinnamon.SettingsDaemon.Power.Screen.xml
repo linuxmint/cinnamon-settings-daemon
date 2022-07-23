@@ -6,11 +6,13 @@
   <interface name='org.cinnamon.SettingsDaemon.Power.Screen'>
     <method name='StepUp'>
       <arg type='u' name='new_percentage' direction='out'/>
-      <arg type='i' name='output_id' direction='out'/>
+      <arg type='i' name='output_x' direction='out'/>
+      <arg type='i' name='output_y' direction='out'/>
     </method>
     <method name='StepDown'>
       <arg type='u' name='new_percentage' direction='out'/>
-      <arg type='i' name='output_id' direction='out'/>
+      <arg type='i' name='output_x' direction='out'/>
+      <arg type='i' name='output_y' direction='out'/>
     </method>
     <method name='GetPercentage'>
       <arg type='u' name='percentage' direction='out'/>

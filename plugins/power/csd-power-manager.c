@@ -217,7 +217,7 @@ static void      lock_screen_with_custom_saver (CsdPowerManager *manager, gchar 
 static void      activate_screensaver (CsdPowerManager *manager, gboolean force_lock);
 static void      kill_lid_close_safety_timer (CsdPowerManager *manager);
 
-int             backlight_get_output_id (CsdPowerManager *manager);
+static void      backlight_get_output_id (CsdPowerManager *manager, gint *xout, gint *yout);
 
 #if UP_CHECK_VERSION(0,99,0)
 static void device_properties_changed_cb (UpDevice *device, GParamSpec *pspec, CsdPowerManager *manager);
@@ -2673,19 +2673,19 @@ out:
         return ret;
 }
 
-int
-backlight_get_output_id (CsdPowerManager *manager)
+static void
+backlight_get_output_id (CsdPowerManager *manager,
+                         gint *xout, gint *yout)
 {
         GnomeRROutput *output = NULL;
         GnomeRROutput **outputs;
         GnomeRRCrtc *crtc;
-        GdkScreen *gdk_screen;
         gint x, y;
         guint i;
 
         outputs = gnome_rr_screen_list_outputs (manager->priv->x11_screen);
         if (outputs == NULL)
-                return -1;
+                return;
 
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_is_connected (outputs[i]) &&
@@ -2696,16 +2696,16 @@ backlight_get_output_id (CsdPowerManager *manager)
         }
 
         if (output == NULL)
-                return -1;
+                return;
 
         crtc = gnome_rr_output_get_crtc (output);
         if (crtc == NULL)
-                return -1;
+                return;
 
-        gdk_screen = gdk_screen_get_default ();
         gnome_rr_crtc_get_position (crtc, &x, &y);
 
-        return gdk_screen_get_monitor_at_point (gdk_screen, x, y);
+        *xout = x;
+        *yout = y;
 }
 
 static gint
@@ -4787,10 +4787,16 @@ handle_method_call_screen (CsdPowerManager *manager,
                                                                 error);
                         g_error_free (error);
                 } else {
+                    // Gdk is not trustworthy for getting a monitor index - they could
+                    // be out of order from muffin's opinion, so send the output's
+                    // position and let Cinnamon tell us which monitor to react on.
+                    gint x, y;
+
+                    x = y = 0;
+                    backlight_get_output_id (manager, &x, &y);
                         g_dbus_method_invocation_return_value (invocation,
-                                                               g_variant_new ("(ui)",
-                                                                              value,
-                                                                              backlight_get_output_id (manager)));
+                                                               g_variant_new ("(uii)",
+                                                                              value, x, y));
                 }
         } else {
                 g_assert_not_reached ();
