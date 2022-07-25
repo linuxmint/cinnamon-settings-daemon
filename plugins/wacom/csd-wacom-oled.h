@@ -1,7 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
- * Copyright (C) 2010 Red Hat, Inc.
+ * Copyright (C) 2013 Przemo Firszt <przemo@firszt.eu>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,22 +17,18 @@
  *
  */
 
-#ifndef __CSD_WACOM_MANAGER_H
-#define __CSD_WACOM_MANAGER_H
+#include "csd-wacom-oled-constants.h"
 
-#include <glib-object.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+
+#ifndef __CSD_WACOM_OLED_H
+#define __CSD_WACOM_OLED_H
 
 G_BEGIN_DECLS
 
-#define CSD_TYPE_WACOM_MANAGER         (csd_wacom_manager_get_type ())
-
-G_DECLARE_FINAL_TYPE (CsdWacomManager, csd_wacom_manager, CSD, WACOM_MANAGER, GObject)
-
-CsdWacomManager *       csd_wacom_manager_new                 (void);
-gboolean                csd_wacom_manager_start               (CsdWacomManager *manager,
-                                                               GError         **error);
-void                    csd_wacom_manager_stop                (CsdWacomManager *manager);
+gboolean set_oled (const gchar *device_path, gboolean left_handed, guint button, char *label, GError **error);
+char *csd_wacom_oled_gdkpixbuf_to_base64 (GdkPixbuf *pixbuf);
 
 G_END_DECLS
 
-#endif /* __CSD_WACOM_MANAGER_H */
+#endif /* __CSD_WACOM_OLED_H */

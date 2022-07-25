@@ -55,6 +55,6 @@ option(
 option(
     'enable_debug',
     type: 'boolean',
-    value: false,
+    value: true,
     description: 'Show additional build warnings'
 )

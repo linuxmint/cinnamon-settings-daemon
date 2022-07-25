@@ -29,9 +29,7 @@ Build-Depends:
  libxext-dev,
  libxi-dev,
  libxklavier-dev,
- libxtst-dev,
  meson (>= 0.47),
- xserver-xorg-input-wacom [!s390x !hurd-any !kfreebsd-any],
  xsltproc,
 Build-Conflicts:
  libwacom-dev [s390x hurd-any kfreebsd-any],

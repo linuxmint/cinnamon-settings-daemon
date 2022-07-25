@@ -1,60 +1,34 @@
 plugin_name = 'wacom'
 
-wacom_resources = gnome.compile_resources(
-    'csd-wacom-resources',
-    'wacom.gresource.xml',
-    c_name: 'csd_wacom',
+sources = files(
+  'csd-wacom-manager.c',
+  'csd-wacom-oled.c',
+  'main.c'
 )
 
-wacom_common_sources = [
-    'csd-wacom-device.c',
+deps = [
+  gtk,
+  common_dep,
+  libnotify,
+  librsvg,
+  math,
+  pango,
+  wacom
 ]
 
-list_wacom_sources = [
-    'list-wacom.c',
-    wacom_common_sources,
-]
-
-wacom_sources = [
-    'csd-wacom-manager.c',
-    'csd-wacom-osd-window.c',
-    'main.c',
-    wacom_common_sources,
-    wacom_resources,
-]
-
-wacom_osd_sources = [
-    'test-osd-window.c',
-    'csd-wacom-osd-window.c',
-    wacom_common_sources,
-    wacom_resources,
-]
-
-wacom_deps = [
-    cinnamon_desktop,
-    common_dep,
-    csd_dep,
-    gtk,
-    gudev,
-    libnotify,
-    librsvg,
-    math,
-    wacom,
-    xfixes,
-    xorg_wacom,
-    xtst,
+cflags = [
+  '-DPLUGIN_NAME="@0@"'.format(plugin_name),
 ]
 
 executable(
-    'csd-wacom',
-    wacom_sources,
-    include_directories: [include_dirs, common_inc, include_enums],
-    dependencies: wacom_deps,
-    c_args: [
-        '-DPLUGIN_NAME="@0@"'.format(plugin_name),
-    ],
-    install: true,
-    install_dir: libexecdir,
+  'csd-' + plugin_name,
+  sources,
+  include_directories: [include_dirs, include_enums, common_inc],
+  dependencies: deps,
+  c_args: cflags,
+  install: true,
+  install_rpath: pkglibdir,
+  install_dir: libexecdir
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom')
@@ -62,33 +36,27 @@ if libexecdir != pkglibdir
     meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom')
 endif
 
-executable(
-    'csd-list-wacom',
-    list_wacom_sources,
-    include_directories: [include_dirs, common_inc, include_enums],
-    dependencies: wacom_deps,
+led_deps = [
+  gudev,
+  math
+]
+
+programs = [
+  'csd-wacom-led-helper',
+  'csd-wacom-oled-helper',
+]
+
+foreach program: programs
+  executable(
+    program,
+    program + '.c',
+    include_directories: include_dirs,
+    dependencies: led_deps,
     install: true,
-    install_dir: libexecdir,
-)
-
-meson.add_install_script(ln_script, libexecdir, bindir, 'csd-list-wacom')
-if libexecdir != pkglibdir
-    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-list-wacom')
-endif
-
-executable(
-    'csd-wacom-osd',
-    wacom_osd_sources,
-    include_directories: [include_dirs, common_inc, include_enums],
-    dependencies: wacom_deps,
-    install: true,
-    install_dir: libexecdir,
-)
-
-meson.add_install_script(ln_script, libexecdir, bindir, 'csd-wacom-osd')
-if libexecdir != pkglibdir
-    meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-wacom-osd')
-endif
+    install_rpath: pkglibdir,
+    install_dir: libexecdir
+  )
+ endforeach
 
 configure_file(
     input: 'cinnamon-settings-daemon-wacom.desktop.in',
