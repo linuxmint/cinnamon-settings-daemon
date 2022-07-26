@@ -19,6 +19,7 @@ Build-Depends:
  liblcms2-dev,
  libnotify-dev (>= 0.7.0),
  libnss3-dev,
+ libpango1.0-dev (>= 1.20),
  libpolkit-gobject-1-dev [linux-any],
  libpulse-dev (>= 0.9.16),
  librsvg2-dev [!s390x !hurd-any !kfreebsd-any],
