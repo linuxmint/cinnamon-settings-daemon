@@ -1,9 +1,9 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.csdwacom" path="/org/cinnamon/settings-daemon/plugins/csdwacom/">
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom">
-    <child name="stylus" schema="org.cinnamon.settings-daemon.peripherals.wacom.stylus"/>
-    <child name="eraser" schema="org.cinnamon.settings-daemon.peripherals.wacom.eraser"/>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.deprecated">
+    <child name="stylus" schema="org.cinnamon.settings-daemon.peripherals.wacom.stylus.deprecated"/>
+    <child name="eraser" schema="org.cinnamon.settings-daemon.peripherals.wacom.eraser.deprecated"/>
 
     <!-- is-absolute applies to all tools but PAD, CURSOR is hard-coded -->
     <key name="is-absolute" type="b">
@@ -47,7 +47,7 @@
       <description>EDID information of monitor to map tablet to. Must be in the format [vendor, product, serial]. ["","",""] disables mapping.</description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.stylus">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.stylus.deprecated">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <summary>Wacom stylus pressure curve</summary>
@@ -64,7 +64,7 @@
       <description>Set this to the pressure value at which a stylus click event is generated.</description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.eraser">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.eraser.deprecated">
     <key name="pressurecurve" type="ai">
       <default>[0, 0, 100, 100]</default>
       <summary>Wacom eraser pressure curve</summary>
@@ -81,7 +81,7 @@
       <description>Set this to the pressure value at which an eraser click event is generated.</description>
     </key>
   </schema>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.tablet-button">
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.wacom.tablet-button.deprecated">
     <key name="action-type" enum="org.cinnamon.settings-daemon.CsdWacomActionType">
       <default>'none'</default>
       <summary>Wacom button action type</summary>
