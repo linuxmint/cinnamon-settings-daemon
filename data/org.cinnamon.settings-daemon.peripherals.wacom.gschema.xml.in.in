@@ -98,4 +98,9 @@
       <description>The keyboard shortcuts generated when a touchring or touchstrip is used for custom actions (up followed by down).</description>
     </key>
   </schema>
+  <schema id="org.cinnamon.desktop.peripherals.tablet.deprecated">
+    <key name="display" type="as">
+      <default>["", "", ""]</default>
+    </key>
+  </schema>
 </schemalist>
