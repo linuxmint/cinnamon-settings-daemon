@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (5.4.4) vanessa; urgency=medium
+
+  [ Michael Webster ]
+  * csd-wacom: Remove unused functionality.
+  * debian/control: Add missing pango dependency, move its meson entry to the correct location.
+  * schemas: Fix wacom schema names for migrate_check.
+  * schemas: Add missing desktop schema for migration.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 01 Aug 2022 16:05:15 +0200
+
 cinnamon-settings-daemon (5.4.3) vanessa; urgency=medium
 
   [ Bobby Rong ]
