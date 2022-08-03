@@ -27,7 +27,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   install: true,
-  install_rpath: pkglibdir,
+  install_rpath: join_paths(prefix, apilibdir),
   install_dir: libexecdir
 )
 
@@ -53,7 +53,7 @@ foreach program: programs
     include_directories: include_dirs,
     dependencies: led_deps,
     install: true,
-    install_rpath: pkglibdir,
+    install_rpath: join_paths(prefix, apilibdir),
     install_dir: libexecdir
   )
  endforeach
