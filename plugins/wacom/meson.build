@@ -53,7 +53,6 @@ foreach program: programs
     include_directories: include_dirs,
     dependencies: led_deps,
     install: true,
-    install_rpath: join_paths(prefix, apilibdir),
     install_dir: libexecdir
   )
  endforeach
