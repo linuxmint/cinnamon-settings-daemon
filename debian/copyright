@@ -4,49 +4,48 @@ Upstream-Contact: Linux Mint Project <root@linuxmint.com>
 Source: https://github.com/linuxmint/cinnamon-settings-daemon.git
 
 Files: *
-Copyright: 2007, Anders Carlsson
+Copyright: 2004-2006, Adam Weinberger and the GNOME Foundation
+           2007, Aleś Navicki
+           2007, Anders Carlsson
+           2005, Andhra Pradesh
            2001-2012, Bastien Nocera <hadess@hadess.net>
+           2005-2012, Canonical Ltd, and Rosetta Contributors
            2008, Carlos Garnacho <carlos@imendio.com>
            2009, Chris Coulson <chrisccoulson@googlemail.com>
+           Croatiann team
+           2010, Damyan Ivanov
            2007, David Zeuthen <david@fubar.dk>
            1989-2009, Free Software Foundation, Inc
+           2011, Iranian Free Software Users Group (IFSUG.org) translation team
            2008, Jens Granseuer <jensgr@gmx.net>
+           2009, Joshua Cummings <jrac@internode.on.net>
            2006-2008, Lennart Poettering
            2008, Lennart Poettering <lennart@poettering.net>
+           2006, Lukas Novotny <lukasnov@cvs.gnome.org>
            2007, Matthias Clasen
            2008, Michael J. Chudobiak <mjc@avtechpulse.com>
+           2003-2006, Miloslav Trmac <mitr@volny.cz>
            2006-2010, Novell, Inc
            2002-2005, Paolo Maggi
+           2012-2013, Przemo Firszt <przemo@firszt.eu>
            2006, Ray Strode <rstrode@redhat.com>
-           2006-2012, Red Hat, Inc
+           2006-2015, Red Hat, Inc
            2005-2011, Richard Hughes <richard@hughsie.com>
            2011, Ritesh Khadgaray <khadgaray@gmail.com>
            2007, Rodrigo Moya
+           2001, Roy-Magne Mo <rmo@sunnmore.net>
+           2003-2005, Sharif FarsiWeb, Inc
            2008, Sjoerd Simons <sjoerd@luon.net>
            2008, Soren Sandmann <sandmann@redhat.com>
            2004, Sun Microsystems, Inc
-           2001, Udaltsoft
-           2011, Vincent Untz <vuntz@gnome.org>
-           2005-2008, William Jon McCann <jmccann@redhat.com>
-           2001, Ximian, Inc
-           2004-2006, Adam Weinberger and the GNOME Foundation
-           2007, Aleś Navicki
-           2005-2012, Canonical Ltd, and Rosetta Contributors
-           Croatiann team
-           2010, Damyan Ivanov
-           2005, Andhra Pradesh
-           2011, Iranian Free Software Users Group (IFSUG.org) translation team
-           2009, Joshua Cummings <jrac@internode.on.net>
-           2006, Lukas Novotny <lukasnov@cvs.gnome.org>
-           2007, Matthias Clasen
-           2008, Michael J. Chudobiak
-           2003-2006, Miloslav Trmac <mitr@volny.cz>
-           2001, Roy-Magne Mo <rmo@sunnmore.net>
-           2003-2005, Sharif FarsiWeb, Inc
            2011-2012, Swecha Telugu Localisation Team <localization@swecha.net>
            2009, The Gnome Foundation
            2007-2011, The Gnome Project
-           2001, Ximian, Inc
+           1998, Tom Tromey
+           2001, Udaltsoft
+           2011, Vincent Untz <vuntz@gnome.org>
+           2005-2008, William Jon McCann <jmccann@redhat.com>
+           2000-2001, Ximian, Inc
            2004, Zuza Software Foundation (Translate.org.za)
            1999-2012, the author(s) of cinnamon-settings-daemon
 License: GPL-2+
@@ -154,6 +153,7 @@ License: Permissive
 Files: debian/*
 Copyright: 2008, Sebastien Bacher <seb128@canonical.com>
            2014, Maximiliano Curia <maxy@debian.org>
+           2015-2022, Debian Cinnamon Team <debian-cinnamon@lists.debian.org>
 License: GPL-2+
 
 License: GPL-2+

@@ -57,8 +57,7 @@ Description: daemon handling the Cinnamon session settings
   * Clipboard management
   * Theming: background, icons, GTK+ applications
   * Cleanup of unused files
-  * Mouse: cursors, speed, accessibility options
-  * Startup of other daemons: screensaver, sound daemon
+  * Startup of other daemons: screensaver
   * Typing break
  .
  It also sets various application settings through X resources and
@@ -70,6 +69,7 @@ Depends:
  libglib2.0-dev (>= 2.26.0),
  ${misc:Depends},
  ${shlibs:Depends},
+Multi-Arch: same
 Description: Headers for building applications communicating with cinnamon-settings-daemon
  This package contains header files required to build applications that
  communicate with the Cinnamon settings daemon over D-Bus.
