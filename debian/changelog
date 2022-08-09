@@ -1,3 +1,19 @@
+cinnamon-settings-daemon (5.4.5) vanessa; urgency=medium
+
+  [ Michael Webster ]
+  * meson options: Set debug flag back to false.
+
+  [ Leigh Scott ]
+  * Fix broken rpath (#367)
+
+  [ Michael Webster ]
+  * wacom: Don't set an rpath for led helpers.
+
+  [ Fabio Fantoni ]
+  * Small packaging improvements (#368)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 09 Aug 2022 12:30:02 +0200
+
 cinnamon-settings-daemon (5.4.4) vanessa; urgency=medium
 
   [ Michael Webster ]
