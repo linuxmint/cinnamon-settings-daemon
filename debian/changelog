@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (5.6.0) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Use github instead of circleci.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 16 Nov 2022 11:29:08 +0000
+
 cinnamon-settings-daemon (5.4.5) vanessa; urgency=medium
 
   [ Michael Webster ]
