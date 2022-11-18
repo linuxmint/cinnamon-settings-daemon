@@ -733,7 +733,7 @@ printer_autoconfigure (gchar *printer_name)
                                                         ("Automatic configuration"));
                 if (response) {
                         if (ippGetState (response) == IPP_ERROR)
-                                g_warning ("An error has occured during automatic configuration of new printer.");
+                                g_warning ("An error has occurred during automatic configuration of new printer.");
                         ippDelete (response);
                 }
         }
