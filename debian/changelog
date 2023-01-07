@@ -1,3 +1,13 @@
+cinnamon-settings-daemon (5.6.1) vera; urgency=medium
+
+  [ Fabio Fantoni ]
+  * fixed a spelling error spotted with lintian
+
+  [ Michael Webster ]
+  * xsettings: Connect Gtk/EnablePrimaryPaste to gsettings.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 07 Jan 2023 16:01:30 +0000
+
 cinnamon-settings-daemon (5.6.0) vera; urgency=medium
 
   [ Michael Webster ]
