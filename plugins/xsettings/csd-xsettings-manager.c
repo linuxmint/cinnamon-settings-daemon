@@ -761,8 +761,8 @@ xft_settings_set_xresources (CinnamonSettingsXftSettings *settings)
 
         g_debug("xft_settings_set_xresources: orig res '%s'", add_string->str);
 
-        update_property (add_string, "Xft.dpi",
-                                g_ascii_dtostr (dpibuf, sizeof (dpibuf), (double) settings->scaled_dpi / 1024.0));
+        g_snprintf (dpibuf, sizeof (dpibuf), "%d", (int) (settings->scaled_dpi / 1024.0 + 0.5));
+        update_property (add_string, "Xft.dpi", dpibuf);
         update_property (add_string, "Xft.antialias",
                                 settings->antialias ? "1" : "0");
         update_property (add_string, "Xft.hinting",
