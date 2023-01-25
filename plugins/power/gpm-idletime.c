@@ -349,8 +349,8 @@ gpm_idletime_alarm_free (GpmIdletime *idletime,
                                    alarm_item->xalarm);
         }
         g_object_unref (alarm_item->idletime);
-        g_free (alarm_item);
         g_ptr_array_remove (idletime->priv->array, alarm_item);
+        g_free (alarm_item);
         return TRUE;
 }
 
