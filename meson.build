@@ -148,8 +148,8 @@ subdir('cinnamon-settings-daemon')
 subdir('plugins')
 
 install_subdir(
-    'files',
-    install_dir: '/',
+    'files/usr',
+    install_dir: prefix,
     strip_directory: true,
 )
 
