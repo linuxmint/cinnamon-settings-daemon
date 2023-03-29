@@ -164,6 +164,9 @@ struct CsdPowerManagerPrivate
         guint                    critical_time;
         guint                    low_percentage;
         guint                    low_time;
+        gboolean                 notify_keyboard;
+        gboolean                 notify_mouse;
+        gboolean                 notify_other_devices;
         gint                     pre_dim_brightness; /* level, not percentage */
         UpDevice                *device_composite;
         NotifyNotification      *notification_discharging;
@@ -499,6 +502,25 @@ engine_get_warning (CsdPowerManager *manager, UpDevice *device)
         /* if the device in question is on ac, don't give a warning */
         if (state == UP_DEVICE_STATE_CHARGING)
                 goto out;
+
+        /* filter out unwanted warnings */
+        if (kind == UP_DEVICE_KIND_KEYBOARD) {
+
+                if (!manager->priv->notify_keyboard)
+                        goto out;
+
+        } else if (kind == UP_DEVICE_KIND_MOUSE) {
+
+                if (!manager->priv->notify_mouse)
+                        goto out;
+
+        } else if (kind != UP_DEVICE_KIND_BATTERY &&
+                   kind != UP_DEVICE_KIND_UPS) {
+
+                if (!manager->priv->notify_other_devices)
+                        goto out;
+
+        }
 
         if (kind == UP_DEVICE_KIND_MOUSE ||
             kind == UP_DEVICE_KIND_KEYBOARD) {
@@ -1771,6 +1793,17 @@ engine_device_changed_cb (UpClient *client, UpDevice *device, CsdPowerManager *m
         }
 
         engine_recalculate_state (manager);
+}
+
+static void
+refresh_notification_settings (CsdPowerManager *manager)
+{
+        manager->priv->notify_keyboard = g_settings_get_boolean (manager->priv->settings,
+                                                                      "power-notifications-for-keyboard");
+        manager->priv->notify_mouse = g_settings_get_boolean (manager->priv->settings,
+                                                                      "power-notifications-for-mouse");
+        manager->priv->notify_other_devices = g_settings_get_boolean (manager->priv->settings,
+                                                                      "power-notifications-for-other-devices");
 }
 
 static UpDevice *
@@ -3863,6 +3896,11 @@ engine_settings_key_changed_cb (GSettings *settings,
                 backlight_override_settings_refresh (manager);
                 return;
         }
+
+        if (g_str_has_prefix (key, "power-notifications")) {
+                refresh_notification_settings (manager);
+                return;
+        }
 }
 
 static void
@@ -4403,6 +4441,8 @@ csd_power_manager_start (CsdPowerManager *manager,
         /* we can disable this if the time remaining is inaccurate or just plain wrong */
         manager->priv->use_time_primary = g_settings_get_boolean (manager->priv->settings,
                                                                   "use-time-for-policy");
+
+        refresh_notification_settings (manager);
 
         /* create IDLETIME watcher */
         manager->priv->idletime = gpm_idletime_new ();
