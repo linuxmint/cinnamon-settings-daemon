@@ -1,3 +1,32 @@
+cinnamon-settings-daemon (5.8.0) victoria; urgency=medium
+
+  [ Michael Webster ]
+  * xsettings: Round the Xft.dpi setting to an integer
+
+  [ Joshua Peisach ]
+  * power: Fix free order
+
+  [ Michael Webster ]
+  * xsettings: Override the active icon and gtk theme when 'high-contrast' is enabled.
+
+  [ Bobby Rong ]
+  * build: don't hardcode files install dir as / (#378)
+
+  [ Michael Webster ]
+  * power: Allow the minimum display brightness to be overridden.
+  * csd-xsettings-manager.c: Manage "gtk-overlay-scrolling".
+
+  [ Lanchon ]
+  * power: Add settings to disable low battery warnings for connected devices (#379)
+
+  [ Michael Webster ]
+  * github workflow: Add optional ssh session.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 01 Jun 2023 14:01:07 +0100
+
 cinnamon-settings-daemon (5.6.1) vera; urgency=medium
 
   [ Fabio Fantoni ]
