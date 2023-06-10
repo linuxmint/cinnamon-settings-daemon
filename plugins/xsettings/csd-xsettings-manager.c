@@ -72,8 +72,6 @@
 #define FONT_HINTING_KEY      "hinting"
 #define FONT_RGBA_ORDER_KEY   "rgba-order"
 
-#define HIGH_CONTRAST_KEY "high-contrast"
-
 /* As we cannot rely on the X server giving us good DPI information, and
  * that we don't want multi-monitor screens to have different DPIs (thus
  * different text sizes), we'll hard-code the value of the DPI
@@ -437,36 +435,6 @@ translate_string_string_window_buttons (CinnamonSettingsXSettingsManager *manage
 }
 
 static void
-translate_theme_name (CinnamonSettingsXSettingsManager *manager,
-                      TranslationEntry                 *trans,
-                      GVariant                         *value)
-{
-        GSettings *settings;
-        gboolean hc = FALSE;
-        int i;
-
-        settings = g_hash_table_lookup (manager->priv->settings, INTERFACE_SETTINGS_SCHEMA);
-
-        if (settings) {
-                GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
-                GSettingsSchema *schema = g_settings_schema_source_lookup (source, INTERFACE_SETTINGS_SCHEMA, FALSE);
-
-                if (g_settings_schema_has_key (schema, HIGH_CONTRAST_KEY)) {
-                        hc = g_settings_get_boolean (settings, HIGH_CONTRAST_KEY);
-                }
-
-                g_settings_schema_unref (schema);
-        }
-
-        for (i = 0; manager->priv->managers [i]; i++) {
-                xsettings_manager_set_string (manager->priv->managers [i],
-                                              trans->xsetting_name,
-                                              hc ? "HighContrast"
-                                                 : g_variant_get_string (value, NULL));
-        }
-}
-
-static void
 translate_enable_animations (CinnamonSettingsXSettingsManager *manager,
                              TranslationEntry                 *trans,
                              GVariant                         *value)
@@ -511,8 +479,8 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
         { "org.cinnamon.desktop.interface", "cursor-blink",           "Net/CursorBlink",         translate_bool_int },
         { "org.cinnamon.desktop.interface", "cursor-blink-time",      "Net/CursorBlinkTime",     translate_int_int },
-        { "org.cinnamon.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_theme_name },
-        { "org.cinnamon.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_theme_name },
+        { "org.cinnamon.desktop.interface", "gtk-theme",              "Net/ThemeName",           translate_string_string },
+        { "org.cinnamon.desktop.interface", "icon-theme",             "Net/IconThemeName",       translate_string_string },
         { "org.cinnamon.desktop.sound", "theme-name",                 "Net/SoundThemeName",            translate_string_string },
         { "org.cinnamon.desktop.sound", "event-sounds",               "Net/EnableEventSounds" ,        translate_bool_int },
         { "org.cinnamon.desktop.sound", "input-feedback-sounds",      "Net/EnableInputFeedbackSounds", translate_bool_int }
@@ -1001,18 +969,7 @@ xsettings_callback (GSettings             *settings,
             g_str_equal (key, CURSOR_SIZE_KEY)) {
             xft_callback (NULL, key, manager);
             return;
-        }
-
-        if (g_str_equal (key, HIGH_CONTRAST_KEY)) {
-                GSettings *iface_settings;
-
-                iface_settings = g_hash_table_lookup (manager->priv->settings,
-                                                      INTERFACE_SETTINGS_SCHEMA);
-                xsettings_callback (iface_settings, "gtk-theme", manager);
-                xsettings_callback (iface_settings, "icon-theme", manager);
-
-                return;
-        }
+	}
 
         trans = find_translation_entry (settings, key);
         if (trans == NULL) {
