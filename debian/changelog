@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (5.8.1) victoria; urgency=medium
+
+  [ Michael Webster ]
+  * Revert "xsettings: Override the active icon and gtk theme when 'high-contrast' is enabled"
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 14 Jun 2023 09:26:42 +0200
+
 cinnamon-settings-daemon (5.8.0) victoria; urgency=medium
 
   [ Michael Webster ]
