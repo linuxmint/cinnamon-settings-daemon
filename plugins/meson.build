@@ -1,7 +1,7 @@
 desktop_conf = configuration_data()
 desktop_conf.set('libexecdir', join_paths(prefix, libexecdir))
 
-ln_script = join_paths(meson.source_root(), 'install-scripts', 'meson_mk_symlink.py')
+ln_script = join_paths(meson.project_source_root(), 'install-scripts', 'meson_mk_symlink.py')
 
 # subdir('dummy')
 
