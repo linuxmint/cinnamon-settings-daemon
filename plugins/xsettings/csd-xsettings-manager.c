@@ -56,6 +56,7 @@
 #define INTERFACE_WM_SETTINGS_SCHEMA "org.cinnamon.desktop.wm.preferences"
 #define SOUND_SETTINGS_SCHEMA     "org.cinnamon.desktop.sound"
 #define PRIVACY_SETTINGS_SCHEMA   "org.cinnamon.desktop.privacy"
+#define KEYBOARD_A11Y_SCHEMA      "org.cinnamon.desktop.a11y.keyboard"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.cinnamon.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
@@ -474,6 +475,7 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.wm.preferences", "action-right-click-titlebar",  "Gtk/TitlebarRightClick",    translate_string_string },
         { "org.cinnamon.desktop.privacy", "recent-files-max-age", "Gtk/RecentFilesMaxAge", translate_int_int },
         { "org.cinnamon.desktop.privacy", "remember-recent-files", "Gtk/RecentFilesEnabled", translate_bool_int },
+        { "org.cinnamon.desktop.a11y.keyboard", "always-show-text-caret",      "Gtk/KeynavUseCaret",      translate_bool_int },
 
         { "org.cinnamon.desktop.peripherals.mouse", "double-click",   "Net/DoubleClickTime",  translate_int_int },
         { "org.cinnamon.desktop.peripherals.mouse", "drag-threshold", "Net/DndDragThreshold", translate_int_int },
@@ -1226,6 +1228,8 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                              XSETTINGS_PLUGIN_SCHEMA, g_settings_new (XSETTINGS_PLUGIN_SCHEMA));
         g_hash_table_insert (manager->priv->settings,
                              PRIVACY_SETTINGS_SCHEMA, g_settings_new (PRIVACY_SETTINGS_SCHEMA));
+        g_hash_table_insert (manager->priv->settings,
+                             KEYBOARD_A11Y_SCHEMA, g_settings_new (KEYBOARD_A11Y_SCHEMA));
 
         for (i = 0; i < G_N_ELEMENTS (translations); i++) {
                 GVariant *val;
