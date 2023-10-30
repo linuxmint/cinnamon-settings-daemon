@@ -44,6 +44,7 @@
 
 #include "cinnamon-settings-profile.h"
 #include "csd-background-manager.h"
+#include "monitor-background.h"
 
 #define CSD_BACKGROUND_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_BACKGROUND_MANAGER, CsdBackgroundManagerPrivate))
 
@@ -56,6 +57,8 @@ struct CsdBackgroundManagerPrivate
 
         GDBusProxy  *proxy;
         guint        proxy_signal_id;
+
+        GPtrArray   *mbs;
 };
 
 static void     csd_background_manager_finalize    (GObject             *object);
@@ -68,15 +71,30 @@ G_DEFINE_TYPE (CsdBackgroundManager, csd_background_manager, G_TYPE_OBJECT)
 static gpointer manager_object = NULL;
 
 static void
-on_crossfade_finished (CsdBackgroundManager *manager)
+draw_background_wayland_session (CsdBackgroundManager *manager)
 {
-        g_object_unref (manager->priv->fade);
-        manager->priv->fade = NULL;
+    gint i;
+
+    cinnamon_settings_profile_start (NULL);
+
+    for (i = 0; i < manager->priv->mbs->len; i++)
+    {
+        GtkImage *image;
+
+        MonitorBackground *mb = g_ptr_array_index (manager->priv->mbs, i);
+
+        image = monitor_background_get_pending_image (mb);
+        gnome_bg_create_and_set_gtk_image (manager->priv->bg, image, mb->width, mb->height);
+        g_object_unref (image);
+
+        monitor_background_show_next_image (mb);
+    }
+
+    cinnamon_settings_profile_end (NULL);
 }
 
 static void
-draw_background (CsdBackgroundManager *manager,
-                 gboolean              use_crossfade)
+draw_background_x11_session (CsdBackgroundManager *manager)
 {
         GdkDisplay *display;
 
@@ -100,19 +118,7 @@ draw_background (CsdBackgroundManager *manager,
                                                gdk_screen_get_height (screen),
                                                TRUE);
 
-            if (FALSE) {  /* use_crossfade - buggy now?  need to look at cinnamon-desktop */
-
-                if (manager->priv->fade != NULL) {
-                        g_object_unref (manager->priv->fade);
-                }
-
-                manager->priv->fade = gnome_bg_set_surface_as_root_with_crossfade (screen, surface);
-                g_signal_connect_swapped (manager->priv->fade, "finished",
-                                          G_CALLBACK (on_crossfade_finished),
-                                          manager);
-            } else {
-                gnome_bg_set_surface_as_root (screen, surface);
-            }
+            gnome_bg_set_surface_as_root (screen, surface);
 
             cairo_surface_destroy (surface);
         }
@@ -120,11 +126,41 @@ draw_background (CsdBackgroundManager *manager,
         cinnamon_settings_profile_end (NULL);
 }
 
+static gboolean
+session_is_wayland (void)
+{
+    static gboolean session_is_wayland = FALSE;
+    static gsize once_init = 0;
+
+    if (g_once_init_enter (&once_init)) {
+        const gchar *env = g_getenv ("XDG_SESSION_TYPE");
+        if (env && g_strcmp0 (env, "wayland") == 0) {
+            session_is_wayland = TRUE;
+        }
+
+        g_debug ("Session is Wayland? %d", session_is_wayland);
+
+        g_once_init_leave (&once_init, 1);
+    }
+
+    return session_is_wayland;
+}
+
+static void
+draw_background (CsdBackgroundManager *manager)
+{
+    if (session_is_wayland ()) {
+        draw_background_wayland_session (manager);
+    } else {
+        draw_background_x11_session (manager);
+    }
+}
+
 static void
 on_bg_transitioned (GnomeBG              *bg,
                     CsdBackgroundManager *manager)
 {
-        draw_background (manager, FALSE);
+        draw_background (manager);
 }
 
 static gboolean
@@ -145,7 +181,27 @@ static void
 on_screen_size_changed (GdkScreen            *screen,
                         CsdBackgroundManager *manager)
 {
-        draw_background (manager, FALSE);
+
+        draw_background (manager);
+}
+
+static void
+setup_monitors (CsdBackgroundManager *manager)
+{
+    GdkDisplay *display;
+    gint i;
+
+    display = gdk_display_get_default ();
+
+    g_clear_pointer (&manager->priv->mbs, g_ptr_array_unref);
+    manager->priv->mbs = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+
+    for (i = 0; i < gdk_display_get_n_monitors (display); i++)
+    {
+        GdkMonitor *monitor = gdk_display_get_monitor (display, i);
+        MonitorBackground *mb = monitor_background_new (i, monitor);
+        g_ptr_array_add (manager->priv->mbs, mb);
+    }
 }
 
 static void
@@ -161,7 +217,7 @@ static void
 on_bg_changed (GnomeBG              *bg,
                CsdBackgroundManager *manager)
 {
-        draw_background (manager, TRUE);
+    draw_background (manager);
 }
 
 static void
@@ -194,7 +250,12 @@ static void
 setup_bg_and_draw_background (CsdBackgroundManager *manager)
 {
         setup_bg (manager);
-        draw_background (manager, FALSE);
+
+        if (session_is_wayland ()) {
+            setup_monitors (manager);
+        }
+
+        draw_background (manager);
 }
 
 static void
@@ -346,15 +407,9 @@ csd_background_manager_stop (CsdBackgroundManager *manager)
                                               settings_change_event_cb,
                                               manager);
 
-        if (p->settings != NULL) {
-                g_object_unref (p->settings);
-                p->settings = NULL;
-        }
-
-        if (p->bg != NULL) {
-                g_object_unref (p->bg);
-                p->bg = NULL;
-        }
+        g_clear_pointer (&manager->priv->mbs, g_ptr_array_unref);
+        g_clear_object (&p->settings);
+        g_clear_object (&p->bg);
 }
 
 static GObject *

@@ -12,6 +12,9 @@
 // Setting this to TRUE makes the plugin force GDK_SCALE=1
 #define FORCE_GDK_SCALE TRUE
 
+// This plugin must run under x11/xwayland
+#define FORCE_X11_BACKEND TRUE
+
 #include "csd-background-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

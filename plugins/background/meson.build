@@ -2,6 +2,7 @@ plugin_name = 'background'
 
 background_sources = [
     'csd-background-manager.c',
+    'monitor-background.c',
     'main.c',
 ]
 
