@@ -27,6 +27,10 @@
 #define FORCE_X11_BACKEND FALSE
 #endif
 
+#ifndef INIT_LIBNOTIFY
+#define INIT_LIBNOTIFY FALSE
+#endif
+
 #define GNOME_SESSION_DBUS_NAME           "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH           "/org/gnome/SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_NAME "org.gnome.SessionManager.ClientPrivate"
@@ -190,6 +194,10 @@ main (int argc, char **argv)
                 g_setenv ("DISPLAY", setup_display, TRUE);
 
             gdk_set_allowed_backends ("x11");
+        }
+
+        if (INIT_LIBNOTIFY) {
+            notify_init ("cinnamon-settings-daemon");
         }
 
         if (FORCE_GDK_SCALE) {

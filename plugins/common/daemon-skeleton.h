@@ -22,6 +22,10 @@
 #error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
 
+#ifndef INIT_LIBNOTIFY
+#define INIT_LIBNOTIFY FALSE
+#endif
+
 #define GNOME_SESSION_DBUS_NAME           "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH           "/org/gnome/SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_NAME "org.gnome.SessionManager.ClientPrivate"
@@ -184,7 +188,9 @@ main (int argc, char **argv)
         g_type_ensure (G_TYPE_DBUS_CONNECTION);
         g_type_ensure (G_TYPE_DBUS_PROXY);
 
-        notify_init ("cinnamon-settings-daemon");
+        if (INIT_LIBNOTIFY) {
+            notify_init ("cinnamon-settings-daemon");
+        }
 
         error = NULL;
 

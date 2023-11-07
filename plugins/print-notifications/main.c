@@ -9,6 +9,9 @@
 // before initializing the next phase.
 #define REGISTER_BEFORE_STARTING TRUE
 
+// TRUE if the plugin sends notifications
+#define INIT_LIBNOTIFY TRUE
+
 // Setting this to TRUE makes the plugin force GDK_SCALE=1
 #define FORCE_GDK_SCALE TRUE
 
