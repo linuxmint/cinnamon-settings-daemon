@@ -14,4 +14,4 @@
 
 #include "csd-housekeeping-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

@@ -36,7 +36,6 @@ datetime_deps = [
     csd_dep,
     libnotify,
     polkit,
-    xfixes,
     gio,
     gio_unix
 ]

@@ -16,11 +16,16 @@
 
 #include <glib/gi18n.h>
 #include <glib-unix.h>
+#include <gtk/gtk.h>
 #include <libnotify/notify.h>
 
 #ifndef PLUGIN_NAME
 #error Include PLUGIN_CFLAGS in the daemon s CFLAGS
 #endif /* !PLUGIN_NAME */
+
+#ifndef FORCE_X11_BACKEND
+#define FORCE_X11_BACKEND FALSE
+#endif
 
 #define GNOME_SESSION_DBUS_NAME           "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH           "/org/gnome/SessionManager"
@@ -61,7 +66,7 @@ client_proxy_signal_cb (GDBusProxy *proxy,
                 respond_to_end_session (proxy);
         } else if (g_strcmp0 (signal_name, "Stop") == 0) {
                 g_debug ("Got Stop signal");
-                g_main_loop_quit ((GMainLoop *) user_data);
+                gtk_main_quit ();
         }
 }
 
@@ -157,14 +162,12 @@ register_with_cinnamon_session (void)
 static gboolean
 handle_signal (gpointer user_data)
 {
-    GMainLoop *loop = (GMainLoop *) user_data;
+  g_debug ("Got SIGTERM - shutting down");
 
-    g_debug ("Got SIGTERM - shutting down");
+  if (gtk_main_level () > 0)
+    gtk_main_quit ();
 
-    if (g_main_loop_is_running (loop))
-        g_main_loop_quit (loop);
-
-    return G_SOURCE_REMOVE;
+  return G_SOURCE_REMOVE;
 }
 
 int
@@ -172,9 +175,6 @@ main (int argc, char **argv)
 {
         GError  *error;
         gboolean started;
-        GOptionContext *context;
-        GMainLoop *loop;
-
 
         bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -184,33 +184,41 @@ main (int argc, char **argv)
         g_type_ensure (G_TYPE_DBUS_CONNECTION);
         g_type_ensure (G_TYPE_DBUS_PROXY);
 
-        notify_init ("cinnamon-settings-daemon");
+        if (FORCE_X11_BACKEND) {
+            const gchar *setup_display = getenv ("GNOME_SETUP_DISPLAY");
+            if (setup_display && *setup_display != '\0')
+                g_setenv ("DISPLAY", setup_display, TRUE);
+
+            gdk_set_allowed_backends ("x11");
+        }
+
+        if (FORCE_GDK_SCALE) {
+          g_setenv ("GDK_SCALE", "1", TRUE);
+        }
 
         error = NULL;
-
-
-        context = g_option_context_new (NULL);
-        g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
-        if (!g_option_context_parse (context, &argc, &argv, &error)) {
+        if (! gtk_init_with_args (&argc, &argv, PLUGIN_NAME, entries, NULL, &error)) {
+            if (error != NULL) {
                 fprintf (stderr, "%s\n", error->message);
                 g_error_free (error);
-                exit (1);
+            }
+
+            exit (1);
         }
-        g_option_context_free (context);
 
-        loop = g_main_loop_new (NULL, FALSE);
+        if (FORCE_GDK_SCALE) {
+          g_unsetenv ("GDK_SCALE");
+        }
 
-        g_unix_signal_add (SIGTERM, (GSourceFunc) handle_signal, loop);
+        g_unix_signal_add (SIGTERM, (GSourceFunc) handle_signal, NULL);
 
-        if (verbose) {
+        if (verbose)
                 g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
-                setlinebuf (stdout);
-        }
 
         if (timeout > 0) {
                 guint id;
-                id = g_timeout_add_seconds (timeout, (GSourceFunc) g_main_loop_quit, loop);
-                g_source_set_name_by_id (id, "[cinnamon-settings-daemon] g_main_loop_quit");
+                id = g_timeout_add_seconds (timeout, (GSourceFunc) gtk_main_quit, NULL);
+                g_source_set_name_by_id (id, "[cinnamon-settings-daemon] gtk_main_quit");
         }
 
         manager = NEW ();
@@ -235,7 +243,7 @@ main (int argc, char **argv)
             exit (1);
         }
 
-        g_main_loop_run (loop);
+        gtk_main ();
 
         STOP (manager);
         g_object_unref (manager);

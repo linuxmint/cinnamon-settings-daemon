@@ -55,9 +55,6 @@
 #include "migrate-settings.h"
 #include "csd-input-helper.h"
 
-
-#define UNKNOWN_DEVICE_NOTIFICATION_TIMEOUT 15000
-
 #define CSD_DBUS_NAME "org.cinnamon.SettingsDaemon"
 #define CSD_DBUS_PATH "/org/cinnamon/SettingsDaemon"
 #define CSD_DBUS_BASE_INTERFACE "org.cinnamon.SettingsDaemon"

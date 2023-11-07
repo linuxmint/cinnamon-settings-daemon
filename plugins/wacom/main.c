@@ -14,4 +14,4 @@
 
 #include "csd-wacom-manager.h"
 
-#include "daemon-skeleton.h"
+#include "daemon-skeleton-gtk.h"

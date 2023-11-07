@@ -40,6 +40,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include <gio/gio.h>
 #include <glib.h>
 #include <glib/gi18n.h>
 

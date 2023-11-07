@@ -32,7 +32,7 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <gdk/gdk.h>
+#include <gio/gio.h>
 
 #include "cinnamon-settings-session.h"
 #include "cinnamon-settings-profile.h"
