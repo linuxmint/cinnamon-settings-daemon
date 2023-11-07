@@ -16,6 +16,7 @@ subdir('keyboard')
 subdir('media-keys')
 subdir('power')
 subdir('screensaver-proxy')
+subdir('settings-remap')
 subdir('xsettings')
 
 if colord.found()

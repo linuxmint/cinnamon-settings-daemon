@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Cinnamon Settings Daemon - settings-remap
+Exec=csd-settings-remap
+OnlyShowIn=X-Cinnamon;
+NoDisplay=true
+X-GNOME-Autostart-Phase=Initialization
+X-GNOME-Autostart-Notify=true
+X-GNOME-AutoRestart=true
