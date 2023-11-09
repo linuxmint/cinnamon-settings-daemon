@@ -72,7 +72,7 @@ client_proxy_signal_cb (GDBusProxy *proxy,
 static void
 on_client_registered (GObject             *source_object,
                       GAsyncResult        *res,
-                      gpointer             user_data)
+                      GMainLoop           *loop)
 {
         GVariant *variant;
         GDBusProxy *client_proxy;
@@ -109,14 +109,14 @@ on_client_registered (GObject             *source_object,
         }
 
         g_signal_connect (client_proxy, "g-signal",
-                          G_CALLBACK (client_proxy_signal_cb), NULL);
+                          G_CALLBACK (client_proxy_signal_cb), loop);
 
         g_free (object_path);
         g_variant_unref (variant);
 }
 
 static void
-register_with_cinnamon_session (void)
+register_with_cinnamon_session (GMainLoop *loop)
 {
     const char *startup_id;
     GError *error = NULL;
@@ -155,7 +155,7 @@ register_with_cinnamon_session (void)
               -1,
               NULL,
               (GAsyncReadyCallback) on_client_registered,
-              NULL);
+              loop);
 }
 
 static gboolean
@@ -224,12 +224,12 @@ main (int argc, char **argv)
         error = NULL;
 
         if (REGISTER_BEFORE_STARTING) {
-          register_with_cinnamon_session ();
+          register_with_cinnamon_session (loop);
           started = START (manager, &error);
         }
         else {
           started = START (manager, &error);
-          register_with_cinnamon_session ();
+          register_with_cinnamon_session (loop);
         }
 
         if (!started) {
