@@ -427,7 +427,7 @@ cinnamon_settings_session_finalize (GObject *object)
 
 	if (session->priv->proxy_session != NULL)
 		g_object_unref (session->priv->proxy_session);
-	g_object_unref (session->priv->cancellable);
+	g_clear_object (&session->priv->cancellable);
 
 	G_OBJECT_CLASS (cinnamon_settings_session_parent_class)->finalize (object);
 }
