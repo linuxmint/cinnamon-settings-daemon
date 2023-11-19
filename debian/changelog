@@ -1,3 +1,19 @@
+cinnamon-settings-daemon (6.0.0) virginia; urgency=medium
+
+  [ Rick Calixte ]
+  * Fix meson.build deprecations up to 0.56.0 (#383)
+
+  [ Michael Webster ]
+  * Add wayland support
+  * optimization: Only initialize libnotify for plugins that need it
+  * wayland: Add a plugin to sync cinnamon/gnome settings
+  * csd-background: Make wayland-compatible
+  * xsettings: Add gtk-keynav-use-caret setting
+  * daemon-skeleton.h: Make sure the GMainLoop is accessible everywhere it's needed.
+  * cinnamon-settings-session.c: Don't unref a null GCancellable.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 19 Nov 2023 13:40:56 +0000
+
 cinnamon-settings-daemon (5.8.1) victoria; urgency=medium
 
   [ Michael Webster ]
