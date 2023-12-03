@@ -764,7 +764,7 @@ register_mechanism (CsdDatetimeMechanism *mechanism)
                                           &error);
 
         if (error != NULL) {
-                g_critical ("error exporting datetime intereface: %s", error->message);
+                g_critical ("error exporting datetime interface: %s", error->message);
                 g_error_free (error);
                 goto error;
         }

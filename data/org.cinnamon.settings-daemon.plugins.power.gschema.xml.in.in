@@ -168,7 +168,7 @@
     <key name="power-notifications-for-other-devices" type="b">
       <default>true</default>
       <summary>Low battery notifications for other connected devices</summary>
-      <description>Whether to show low battery notifications for conected devices other than keyboards and mice.</description>
+      <description>Whether to show low battery notifications for connected devices other than keyboards and mice.</description>
     </key>
   </schema>
 </schemalist>
