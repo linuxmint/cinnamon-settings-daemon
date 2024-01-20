@@ -340,11 +340,11 @@ gkbd_configuration_get_xkl_engine (GkbdConfiguration *configuration)
 const char * const *
 gkbd_configuration_get_group_names (GkbdConfiguration *configuration)
 {
-	return configuration->priv->full_group_names;
+	return (const char * const *)configuration->priv->full_group_names;
 }
 
 const char * const *
 gkbd_configuration_get_short_group_names (GkbdConfiguration *configuration)
 {
-	return configuration->priv->short_group_names;
+	return (const char * const *)configuration->priv->short_group_names;
 }
