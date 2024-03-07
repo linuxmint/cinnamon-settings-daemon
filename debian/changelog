@@ -540,7 +540,7 @@ cinnamon-settings-daemon (3.8.0) tara; urgency=medium
   * mouse: simplify finalize call https://github.com/GNOME/gnome-settings-daemon/commit/7c268ddf2c0fea89ed053e55002fba65c523904a#diff-f3eb78dbfdd1699b6580551f271aba41
   * mouse: simplify stop call https://github.com/GNOME/gnome-settings-daemon/commit/9e4e46a47fd385807f9cbae9d42ebcc312680a1e#diff-f3eb78dbfdd1699b6580551f271aba41
   * mouse: replace dialogue by warning https://github.com/GNOME/gnome-settings-daemon/commit/3e337371249dace2613d4698d91f587621188c19#diff-f3eb78dbfdd1699b6580551f271aba41
-  * mouse: remove empty contructor and dispose functions https://github.com/GNOME/gnome-settings-daemon/commit/98df44761b4f0c70078df635aaa68adff6454380#diff-f3eb78dbfdd1699b6580551f271aba41
+  * mouse: remove empty constructor and dispose functions https://github.com/GNOME/gnome-settings-daemon/commit/98df44761b4f0c70078df635aaa68adff6454380#diff-f3eb78dbfdd1699b6580551f271aba41
   * mouse: wrap device button mapping into gdk_error_trap_push/pop https://github.com/GNOME/gnome-settings-daemon/commit/7a07cd12b862fa40ab5c38fee3dc264bb483a494#diff-f3eb78dbfdd1699b6580551f271aba41
   * mouse: wrap pointer acceleration changes into a gdk_error_trap https://github.com/GNOME/gnome-settings-daemon/commit/8b78228a7e0abfc2c1561a275214da5d77cc7a93#diff-f3eb78dbfdd1699b6580551f271aba41
   * locate-pointer: Remove support for multiple X screens https://github.com/GNOME/gnome-settings-daemon/commit/cf677a9c47d868b0bdae026b9d0db36df75f9dac#diff-f3eb78dbfdd1699b6580551f271aba41 gdk_display_get_n_screens is now hardcoded just to return 1, so take out the loop using it

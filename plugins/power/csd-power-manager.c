@@ -3364,7 +3364,7 @@ idle_is_session_inhibited (CsdPowerManager *manager, guint mask)
  *  to adjust timeout, as related to current idle time, so the idle
  *  timeout will fire as designed.
  *
- *  Return value: timeout to set, adjusted acccording to current idle time.
+ *  Return value: timeout to set, adjusted according to current idle time.
  **/
 static guint
 idle_adjust_timeout (guint idle_time, guint timeout)

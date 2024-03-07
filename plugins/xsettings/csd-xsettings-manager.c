@@ -390,7 +390,7 @@ translate_string_string_window_buttons (CinnamonSettingsXSettingsManager *manage
 
         /* This is kind of a workaround. "menu" is useless in metacity titlebars
          * it duplicates the same features as the right-click menu.
-         * In CSD windows on the hand it is required to show unique featues.
+         * In CSD windows on the hand it is required to show unique features.
          */
 
         tmp = g_variant_get_string (value, NULL);
