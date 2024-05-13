@@ -53,7 +53,7 @@
 #define CUPS_CONNECTION_TEST_INTERVAL    300
 #define CHECK_INTERVAL                   60 /* secs */
 
-#define PRINTER_REMOVED_LIFETIME         7200 * 1000 * 1000 /* 1 hour (micro) */
+#define PRINTER_REMOVED_LIFETIME         7200000000 // (7200 sec * 1000 * 1000 (microseconds) */
 #define PRINTER_REMOVED_UPDATE_INTERVAL  1260 /* 21 min (sec) */
 
 #if (CUPS_VERSION_MAJOR > 1) || (CUPS_VERSION_MINOR > 5)
@@ -351,7 +351,7 @@ drop_expired_removal (const gchar       *printer_name,
         RemovePrinterData *current_data = (RemovePrinterData *) user_data;
 
         if (current_data->removed_time > foreach_data->removed_time + PRINTER_REMOVED_LIFETIME) {
-            g_debug ("Removing printer from removed-printers queue: %s (removed over %ds ago)",
+            g_debug ("Removing printer from removed-printers queue: %s (removed over %lds ago)",
                      printer_name, PRINTER_REMOVED_LIFETIME / 1000 / 1000);
 
             return TRUE;
