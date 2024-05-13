@@ -53,6 +53,9 @@
 #define CUPS_CONNECTION_TEST_INTERVAL    300
 #define CHECK_INTERVAL                   60 /* secs */
 
+#define PRINTER_REMOVED_LIFETIME         7200 * 1000 * 1000 /* 1 hour (micro) */
+#define PRINTER_REMOVED_UPDATE_INTERVAL  1260 /* 21 min (sec) */
+
 #if (CUPS_VERSION_MAJOR > 1) || (CUPS_VERSION_MINOR > 5)
 #define HAVE_CUPS_1_6 1
 #endif
@@ -84,6 +87,8 @@ struct CsdPrintNotificationsManagerPrivate
         GPid                          scp_handler_pid;
         GList                        *timeouts;
         GHashTable                   *printing_printers;
+        GHashTable                   *removed_printers;
+        guint                         removed_printer_timeout_id;
         GList                        *active_notifications;
         guint                         cups_connection_timeout_id;
         guint                         check_source_id;
@@ -332,6 +337,96 @@ on_cups_notification (GDBusConnection *connection,
         process_new_notifications (user_data);
 }
 
+typedef struct
+{
+        CsdPrintNotificationsManager *manager;
+        gint64                        removed_time;
+} RemovePrinterData;
+
+static gboolean
+drop_expired_removal (const gchar       *printer_name,
+                      RemovePrinterData *foreach_data,
+                      gpointer           user_data)
+{
+        RemovePrinterData *current_data = (RemovePrinterData *) user_data;
+
+        if (current_data->removed_time > foreach_data->removed_time + PRINTER_REMOVED_LIFETIME) {
+            g_debug ("Removing printer from removed-printers queue: %s (removed over %ds ago)",
+                     printer_name, PRINTER_REMOVED_LIFETIME / 1000 / 1000);
+
+            return TRUE;
+        }
+
+        return FALSE;
+}
+
+static gboolean
+removed_cache_update (CsdPrintNotificationsManager *manager)
+{
+        gint64 current_time = g_get_monotonic_time ();
+        RemovePrinterData *current_data = g_new0 (RemovePrinterData, 1);
+
+        g_debug ("Periodic update of removed-printers");
+
+        current_data->manager = manager;
+        current_data->removed_time = current_time;
+
+        g_hash_table_foreach_remove (manager->priv->removed_printers,
+                                     (GHRFunc) drop_expired_removal,
+                                     current_data);
+
+        if (g_hash_table_size (manager->priv->removed_printers) == 0) {
+            g_debug ("No more printers in removed-printers queue, stopping update timer.");
+            manager->priv->removed_printer_timeout_id = 0;
+            return G_SOURCE_REMOVE;
+        }
+
+        return G_SOURCE_CONTINUE;
+}
+
+static gboolean
+should_notify_new_printer (CsdPrintNotificationsManager *manager,
+                           const gchar                  *printer_name)
+{
+        g_debug ("Checking if user should be notified about a new printer: %s", printer_name);
+        RemovePrinterData *data = g_hash_table_lookup (manager->priv->removed_printers, printer_name);
+
+        if (data) {
+            g_hash_table_remove (manager->priv->removed_printers, printer_name);
+            return FALSE;
+        }
+
+        return TRUE;
+}
+
+static void
+add_or_update_removed_cache (CsdPrintNotificationsManager *manager,
+                             const gchar                  *printer_name)
+{
+        RemovePrinterData *data = g_new0 (RemovePrinterData, 1);
+        data->removed_time = g_get_monotonic_time ();
+        gboolean new;
+
+        new = g_hash_table_replace (manager->priv->removed_printers,
+                                    g_strdup (printer_name),
+                                    data);
+
+        if (new) {
+            g_debug ("Printer %s has been removed, adding to removed-printers queue.", printer_name);
+        } else {
+            g_debug ("Printer %s has been re-removed, updating its removed timestamp.", printer_name);
+        }
+
+        if (g_hash_table_size (manager->priv->removed_printers) > 0 &&
+            manager->priv->removed_printer_timeout_id == 0) {
+                g_debug ("Starting removed-printer timer");
+                manager->priv->removed_printer_timeout_id =
+                        g_timeout_add_seconds (PRINTER_REMOVED_UPDATE_INTERVAL,
+                                               (GSourceFunc) removed_cache_update,
+                                               manager);
+        }
+}
+
 static gchar *
 get_statuses_second (guint i,
                      const gchar *printer_name)
@@ -504,12 +599,17 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                                    manager->priv->dests,
                                    manager->priv->num_dests)) {
                         /* Translators: New printer has been added */
-                        primary_text = g_strdup (_("Printer added"));
-                        secondary_text = g_strdup (printer_name);
+                        if (should_notify_new_printer (manager, printer_name)) {
+                            primary_text = g_strdup (_("Printer added"));
+                            secondary_text = g_strdup (printer_name);
+                        } else {
+                            g_debug ("A recently-removed printer %s has been re-added, skipping notification.", printer_name);
+                        }
                 }
         } else if (g_strcmp0 (notify_subscribed_event, "printer-deleted") == 0) {
                 cupsFreeDests (manager->priv->num_dests, manager->priv->dests);
                 manager->priv->num_dests = cupsGetDests (&manager->priv->dests);
+                add_or_update_removed_cache (manager, printer_name);
         } else if (g_strcmp0 (notify_subscribed_event, "job-completed") == 0 && my_job) {
                 g_hash_table_remove (manager->priv->printing_printers,
                                      printer_name);
@@ -1345,6 +1445,7 @@ csd_print_notifications_manager_start_idle (gpointer data)
         cinnamon_settings_profile_start (NULL);
 
         manager->priv->printing_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+        manager->priv->removed_printers = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
         /*
          * Set a password callback which cancels authentication
@@ -1387,6 +1488,8 @@ csd_print_notifications_manager_start (CsdPrintNotificationsManager *manager,
         manager->priv->scp_handler_spawned = FALSE;
         manager->priv->timeouts = NULL;
         manager->priv->printing_printers = NULL;
+        manager->priv->removed_printers = NULL;
+        manager->priv->removed_printer_timeout_id = 0;
         manager->priv->active_notifications = NULL;
         manager->priv->cups_bus_connection = NULL;
         manager->priv->cups_connection_timeout_id = 0;
@@ -1431,6 +1534,8 @@ csd_print_notifications_manager_stop (CsdPrintNotificationsManager *manager)
                 cancel_subscription (manager->priv->subscription_id);
 
         g_clear_pointer (&manager->priv->printing_printers, g_hash_table_destroy);
+        g_clear_pointer (&manager->priv->removed_printers, g_hash_table_destroy);
+        g_clear_handle_id (&manager->priv->removed_printer_timeout_id, g_source_remove);
 
         g_clear_object (&manager->priv->cups_bus_connection);
 
