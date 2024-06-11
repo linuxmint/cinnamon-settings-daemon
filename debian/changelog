@@ -1,3 +1,14 @@
+cinnamon-settings-daemon (6.2.0) wilma; urgency=medium
+
+  [ Gitoffthelawn ]
+  * Fixes and readability improvements (#390)
+
+  [ Michael Webster ]
+  * print notifications: Don't send repeated printer-added notifications.
+  * notifications manager: Fix compiler warnings.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 11 Jun 2024 15:32:09 +0100
+
 cinnamon-settings-daemon (6.0.0) virginia; urgency=medium
 
   [ Rick Calixte ]
