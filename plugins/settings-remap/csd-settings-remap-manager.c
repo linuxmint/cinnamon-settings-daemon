@@ -93,7 +93,7 @@ on_settings_changed (GSettings   *cinnamon_settings,
 
     if (gnome_schema == NULL)
     {
-        g_warning ("Schema not found during settings change - '%s'",
+        g_debug ("Schema not found during settings change - '%s'",
                    (gchar *) g_object_get_data (G_OBJECT (gnome_settings), "schema"));
         return;
     }
@@ -174,7 +174,7 @@ csd_settings_remap_manager_start (CsdSettingsRemapManager *manager,
 
         if (!schema_exists (manager, schemas[i].gnome_schema))
         {
-            g_warning ("Skipping schema '%s' - doesn't exist", schemas[i].gnome_schema);
+            g_debug ("Skipping schema '%s' - doesn't exist", schemas[i].gnome_schema);
             continue;
         }
 
