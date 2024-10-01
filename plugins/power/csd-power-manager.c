@@ -4737,6 +4737,16 @@ handle_method_call_keyboard (CsdPowerManager *manager,
         guint percentage;
         GError *error = NULL;
 
+        if (manager->priv->kbd_brightness_max == 0) {
+                error = g_error_new (CSD_POWER_MANAGER_ERROR,
+                                     CSD_POWER_MANAGER_ERROR_NOT_SUPPORTED,
+                                     "Keyboard backlight control is not supported");
+
+                g_dbus_method_invocation_return_gerror (invocation, error);
+                g_error_free (error);
+                return;
+        }
+
         if (g_strcmp0 (method_name, "GetPercentage") == 0) {
                 g_debug ("keyboard get percentage");
                 ret = upower_kbd_get_percentage (manager, &error);
