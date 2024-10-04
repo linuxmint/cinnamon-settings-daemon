@@ -856,9 +856,8 @@ do_sound_action (CsdMediaKeysManager *manager,
 {
 	GvcMixerStream *stream;
         gboolean old_muted, new_muted;
-        guint old_vol_pa, new_vol_pa, max_vol_pa; 
+        guint old_vol_pa, new_vol_pa, max_vol_pa;
         gint vol_step_pa;
-        gdouble max_vol_setting_multiplier;
         gint osd_vol, osd_max_vol;
         gboolean sound_changed;
 
@@ -879,10 +878,14 @@ do_sound_action (CsdMediaKeysManager *manager,
         if (stream == NULL)
                 return;
 
-        osd_max_vol = g_settings_get_int (manager->priv->sound_settings, "maximum-volume");
-        max_vol_setting_multiplier = (gdouble) osd_max_vol / 100;
-
-        max_vol_pa = MIN ((guint) PA_VOLUME_NORM * max_vol_setting_multiplier, PA_VOLUME_MAX);
+        if (g_settings_get_boolean (manager->priv->sound_settings, "allow-amplified-volume")) {
+                osd_max_vol = 150;
+                max_vol_pa = MIN ((guint) PA_VOLUME_NORM * 1.5, PA_VOLUME_MAX);
+        }
+        else {
+                osd_max_vol = 100;
+                max_vol_pa = MIN ((guint) PA_VOLUME_NORM, PA_VOLUME_MAX);
+        }
         vol_step_pa = (max_vol_pa * ((double) VOLUME_STEP) / 100);
 
         // Make the max volume divisible by our 5% step.
