@@ -46,10 +46,6 @@
 #include "csd-enums.h"
 #include "cinnamon-settings-profile.h"
 
-#if HAVE_WAYLAND
-#include "cinnamon-settings-bus.h"
-#endif
-
 #include "csd-wacom-manager.h"
 #include "csd-wacom-oled.h"
 #include "migrate-settings.h"
@@ -193,12 +189,7 @@ csd_wacom_manager_class_init (CsdWacomManagerClass *klass)
 static gchar *
 get_device_path (GdkDevice *device)
 {
-#if HAVE_WAYLAND
-        if (gnome_settings_is_wayland ())
-                return g_strdup (gdk_wayland_device_get_node_path (device));
-        else
-#endif
-                return xdevice_get_device_node (gdk_x11_device_get_id (device));
+        return xdevice_get_device_node (gdk_x11_device_get_id (device));
 }
 
 static gboolean
