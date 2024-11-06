@@ -20,8 +20,6 @@
 
 #include "config.h"
 
-// #include <geoclue.h>
-
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include "gnome-datetime-source.h"
 
@@ -29,6 +27,7 @@
 
 #include "csd-night-light.h"
 #include "csd-night-light-common.h"
+#include "tz-coords.h"
 
 struct _CsdNightLight {
         GObject            parent;
@@ -39,8 +38,6 @@ struct _CsdNightLight {
         gboolean           geoclue_enabled;
         GSource           *source;
         guint              validate_id;
-        // GClueClient       *geoclue_client;
-        // GClueSimple       *geoclue_simple;
         GSettings         *location_settings;
         gdouble            cached_sunrise;
         gdouble            cached_sunset;
@@ -378,27 +375,6 @@ night_light_recheck (CsdNightLight *self)
         csd_night_light_set_temperature (self, temp_smeared);
 }
 
-static gboolean
-night_light_recheck_schedule_cb (gpointer user_data)
-{
-        CsdNightLight *self = CSD_NIGHT_LIGHT (user_data);
-        night_light_recheck (self);
-        self->validate_id = 0;
-        return G_SOURCE_REMOVE;
-}
-
-/* called when something changed */
-static void
-night_light_recheck_schedule (CsdNightLight *self)
-{
-        if (self->validate_id != 0)
-                g_source_remove (self->validate_id);
-        self->validate_id =
-                g_timeout_add_seconds (CSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT,
-                                       night_light_recheck_schedule_cb,
-                                       self);
-}
-
 /* called when the time may have changed */
 static gboolean
 night_light_recheck_cb (gpointer user_data)
@@ -454,89 +430,34 @@ settings_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
         night_light_recheck (self);
 }
 
-// static void
-// on_location_notify (GClueSimple *simple,
-//                     GParamSpec  *pspec,
-//                     gpointer     user_data)
-// {
-//         CsdNightLight *self = CSD_NIGHT_LIGHT (user_data);
-//         GClueLocation *location;
-//         gdouble latitude, longitude;
+static void
+update_location_from_timezone (CsdNightLight *self)
+{
+    GTimeZone *tz = g_time_zone_new_local ();
+    const gchar *id = g_time_zone_get_identifier (tz);
 
-//         location = gclue_simple_get_location (simple);
-//         latitude = gclue_location_get_latitude (location);
-//         longitude = gclue_location_get_longitude (location);
+    for (int i = 0; i < G_N_ELEMENTS (tz_coord_list); i++)
+    {
+        const TZCoords *coords = &tz_coord_list[i];
+        if (g_strcmp0 (coords->timezone, id) == 0)
+        {
+            g_settings_set_value (self->settings,
+                                  "night-light-last-coordinates",
+                                  g_variant_new ("(dd)", coords->latitude, coords->longitude));
+            break;
+        }
+    }
 
-//         g_settings_set_value (self->settings,
-//                               "night-light-last-coordinates",
-//                               g_variant_new ("(dd)", latitude, longitude));
-
-//         g_debug ("got geoclue latitude %f, longitude %f", latitude, longitude);
-
-//         /* recheck the levels if the location changed significantly */
-//         if (update_cached_sunrise_sunset (self))
-//                 night_light_recheck_schedule (self);
-// }
-
-// static void
-// on_geoclue_simple_ready (GObject      *source_object,
-//                          GAsyncResult *res,
-//                          gpointer      user_data)
-// {
-//         CsdNightLight *self = CSD_NIGHT_LIGHT (user_data);
-//         GClueSimple *geoclue_simple;
-//         g_autoptr(GError) error = NULL;
-
-//         geoclue_simple = gclue_simple_new_finish (res, &error);
-//         if (geoclue_simple == NULL) {
-//                 if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-//                         g_warning ("Failed to connect to GeoClue2 service: %s", error->message);
-//                 return;
-//         }
-
-//         self->geoclue_simple = geoclue_simple;
-//         self->geoclue_client = gclue_simple_get_client (self->geoclue_simple);
-//         g_object_set (G_OBJECT (self->geoclue_client),
-//                       "time-threshold", 60*60, NULL); /* 1 hour */
-
-//         g_signal_connect (self->geoclue_simple, "notify::location",
-//                           G_CALLBACK (on_location_notify), user_data);
-
-//         on_location_notify (self->geoclue_simple, NULL, user_data);
-// }
-
-// static void
-// start_geoclue (CsdNightLight *self)
-// {
-//         self->cancellable = g_cancellable_new ();
-//         gclue_simple_new (DESKTOP_ID,
-//                           GCLUE_ACCURACY_LEVEL_CITY,
-//                           self->cancellable,
-//                           on_geoclue_simple_ready,
-//                           self);
-
-// }
-
-// static void
-// stop_geoclue (CsdNightLight *self)
-// {
-//         g_cancellable_cancel (self->cancellable);
-//         g_clear_object (&self->cancellable);
-
-//         if (self->geoclue_client != NULL) {
-//                 gclue_client_call_stop (self->geoclue_client, NULL, NULL, NULL);
-//                 self->geoclue_client = NULL;
-//         }
-//         g_clear_object (&self->geoclue_simple);
-// }
+    g_time_zone_unref (tz);
+}
 
 static void
 check_location_settings (CsdNightLight *self)
 {
-        // if (g_settings_get_boolean (self->location_settings, "enabled") && self->geoclue_enabled)
-        //         start_geoclue (self);
-        // else
-        //         stop_geoclue (self);
+    if (g_settings_get_boolean (self->location_settings, "enabled") && self->geoclue_enabled)
+    {
+        update_location_from_timezone (self);
+    }
 }
 
 void
@@ -635,8 +556,6 @@ static void
 csd_night_light_finalize (GObject *object)
 {
         CsdNightLight *self = CSD_NIGHT_LIGHT (object);
-
-        // stop_geoclue (self);
 
         poll_timeout_destroy (self);
         poll_smooth_destroy (self);
