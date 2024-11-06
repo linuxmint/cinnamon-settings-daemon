@@ -146,7 +146,7 @@ update_cached_sunrise_sunset (CsdNightLight *self)
         if (!csd_night_light_get_sunrise_sunset (dt_now, latitude, longitude,
                                                    &sunrise, &sunset)) {
                 g_warning ("failed to get sunset/sunrise for %.3f,%.3f",
-                           longitude, longitude);
+                           latitude, longitude);
                 return FALSE;
         }
 
