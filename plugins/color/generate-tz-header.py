@@ -37,7 +37,7 @@ typedef struct
 static TZCoords tz_coord_list[] = {
 """
 
-for zone in d.keys():
+for zone in sorted(d.keys()):
     latitude, longitude = d[zone]
 
     header += "    { \"%s\", %f, %f },\n" % (zone, latitude, longitude)
