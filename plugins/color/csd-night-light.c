@@ -154,11 +154,13 @@ update_cached_sunrise_sunset (CsdNightLight *self)
         if (ABS (self->cached_sunrise - sunrise) > CSD_FRAC_DAY_MAX_DELTA) {
                 self->cached_sunrise = sunrise;
                 g_object_notify (G_OBJECT (self), "sunrise");
+                g_debug ("Sunrise updated: %.3f", sunrise);
                 ret = TRUE;
         }
         if (ABS (self->cached_sunset - sunset) > CSD_FRAC_DAY_MAX_DELTA) {
                 self->cached_sunset = sunset;
                 g_object_notify (G_OBJECT (self), "sunset");
+                g_debug ("Sunset updated: %.3f", sunset);
                 ret = TRUE;
         }
         return ret;
@@ -441,6 +443,8 @@ update_location_from_timezone (CsdNightLight *self)
         const TZCoords *coords = &tz_coord_list[i];
         if (g_strcmp0 (coords->timezone, id) == 0)
         {
+            g_debug ("Coordinates updated, timezone: %s, lat:%.3f, long:%.3f.",
+                    id, coords->latitude, coords->longitude);
             g_settings_set_value (self->settings,
                                   "night-light-last-coordinates",
                                   g_variant_new ("(dd)", coords->latitude, coords->longitude));
