@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2007 William Jon McCann <mccann@jhu.edu>
- * Copyright (C) 2011 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2011-2013 Richard Hughes <richard@hughsie.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,29 +18,21 @@
  *
  */
 
-#ifndef __CSD_COLOR_MANAGER_H
-#define __CSD_COLOR_MANAGER_H
+#ifndef __CSD_COLOR_CALIBRATE_H
+#define __CSD_COLOR_CALIBRATE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define CSD_TYPE_COLOR_MANAGER         (csd_color_manager_get_type ())
-#define CSD_COLOR_MANAGER_ERROR        (csd_color_manager_error_quark ())
-G_DECLARE_FINAL_TYPE (CsdColorManager, csd_color_manager, CSD, COLOR_MANAGER, GObject)
+#define CSD_TYPE_COLOR_CALIBRATE         (csd_color_calibrate_get_type ())
+G_DECLARE_FINAL_TYPE (CsdColorCalibrate, csd_color_calibrate, CSD, COLOR_CALIBRATE, GObject)
 
-enum
-{
-        CSD_COLOR_MANAGER_ERROR_FAILED
-};
+GType                   csd_color_calibrate_get_type            (void);
+GQuark                  csd_color_calibrate_error_quark         (void);
 
-GQuark                  csd_color_manager_error_quark         (void);
-
-CsdColorManager *       csd_color_manager_new                 (void);
-gboolean                csd_color_manager_start               (CsdColorManager *manager,
-                                                               GError         **error);
-void                    csd_color_manager_stop                (CsdColorManager *manager);
+CsdColorCalibrate *     csd_color_calibrate_new                 (void);
 
 G_END_DECLS
 
-#endif /* __CSD_COLOR_MANAGER_H */
+#endif /* __CSD_COLOR_CALIBRATE_H */
