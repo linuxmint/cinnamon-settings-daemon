@@ -1,12 +1,23 @@
-plugin_name = 'color'
+plugin_name='color'
 
-color_sources = [
-    'csd-color-manager.c',
-    'gcm-profile-store.c',
-    'gcm-dmi.c',
-    'gcm-edid.c',
-    'main.c',
-]
+
+built_sources = gnome.gdbus_codegen(
+  'cinnamon-session-dbus',
+  sources: 'org.gnome.SessionManager.xml',
+  interface_prefix: 'org.',
+)
+
+sources = files(
+  'ccm-edid.c',
+  'gnome-datetime-source.c',
+  'csd-color-calibrate.c',
+  'csd-color-manager.c',
+  'csd-color-profiles.c',
+  'csd-color-state.c',
+  'csd-night-light.c',
+  'csd-night-light-common.c',
+  'main.c'
+)
 
 color_deps = [
     canberra,
@@ -20,17 +31,17 @@ color_deps = [
 ]
 
 executable(
-    'csd-color',
-    color_sources,
-    include_directories: [include_dirs, common_inc],
-    dependencies: color_deps,
-    c_args: [
-        '-DPLUGIN_NAME="@0@"'.format(plugin_name),
-        '-DBINDIR="@0@"'.format(bindir),
-    ],
-    install_rpath: join_paths(prefix, apilibdir),
-    install: true,
-    install_dir: libexecdir,
+  'csd-' + plugin_name,
+  sources + built_sources,
+  include_directories: [include_dirs, common_inc],
+  dependencies: color_deps,
+  c_args: [
+      '-DPLUGIN_NAME="@0@"'.format(plugin_name),
+      '-DBINDIR="@0@"'.format(bindir),
+  ],
+  install: true,
+  install_rpath: join_paths(prefix, apilibdir),
+  install_dir: libexecdir
 )
 
 meson.add_install_script(ln_script, libexecdir, bindir, 'csd-color')
@@ -38,25 +49,30 @@ if libexecdir != pkglibdir
     meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-color')
 endif
 
-test_color_sources = [
-    'gcm-dmi.c',
-    'gcm-edid.c',
-    'gcm-self-test.c',
-]
-
-executable(
-    'test-color',
-    test_color_sources,
-    dependencies: color_deps,
-    c_args: [
-        '-DTESTDATADIR="@0@"'.format(join_paths(meson.current_source_dir(), 'test-data')),
-    ],
-    install: false,
-)
-
 configure_file(
     input: 'cinnamon-settings-daemon-color.desktop.in',
     output: 'cinnamon-settings-daemon-color.desktop',
     configuration: desktop_conf,
     install_dir: autostartdir,
 )
+
+sources = files(
+  'ccm-edid.c',
+  'ccm-self-test.c',
+  'gnome-datetime-source.c',
+  'csd-night-light.c',
+  'csd-night-light-common.c'
+)
+
+# test_unit = 'ccm-self-test'
+
+# exe = executable(
+#   test_unit,
+#   sources,
+#   include_directories: include_dirs,
+#   dependencies: color_deps,
+#   c_args: '-DTESTDATADIR="@0@"'.format(join_paths(meson.current_source_dir(), 'test-data'))
+# )
+
+# envs = ['GSETTINGS_SCHEMA_DIR=@0@'.format(join_paths(meson.build_root(), 'data'))]
+# test(test_unit, exe, env: envs)

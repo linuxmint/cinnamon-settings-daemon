@@ -2236,7 +2236,7 @@ external_monitor_is_connected (GnomeRRScreen *screen)
         outputs = gnome_rr_screen_list_outputs (screen);
         for (i = 0; outputs[i] != NULL; i++) {
                 if (randr_output_is_on (outputs[i]) &&
-                    !gnome_rr_output_is_laptop (outputs[i]))
+                    !gnome_rr_output_is_builtin_display (outputs[i]))
                         return TRUE;
         }
 
@@ -2321,7 +2321,7 @@ non_laptop_outputs_are_all_off (GnomeRRScreen *screen)
 
         outputs = gnome_rr_screen_list_outputs (screen);
         for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_laptop (outputs[i]))
+                if (gnome_rr_output_is_builtin_display (outputs[i]))
                         continue;
 
                 if (is_on (outputs[i]))
@@ -2520,9 +2520,7 @@ get_primary_output (CsdPowerManager *manager)
 
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_laptop (outputs[i]) &&
-                    gnome_rr_output_get_backlight_min (outputs[i]) >= 0 &&
-                    gnome_rr_output_get_backlight_max (outputs[i]) > 0) {
+                    gnome_rr_output_is_builtin_display (outputs[i])) {
                         output = outputs[i];
                         break;
                 }
@@ -2586,15 +2584,6 @@ backlight_helper_get_value (const gchar *argument, CsdPowerManager* manager,
         gint64 value = -1;
         gchar *command = NULL;
         gchar *endptr = NULL;
-
-#ifndef __linux__
-        /* non-Linux platforms won't have /sys/class/backlight */
-        g_set_error_literal (error,
-                             CSD_POWER_MANAGER_ERROR,
-                             CSD_POWER_MANAGER_ERROR_FAILED,
-                             "The sysfs backlight helper is only for Linux");
-        goto out;
-#endif
 
         /* get the data */
         command = g_strdup_printf (LIBEXECDIR "/csd-backlight-helper --%s %s",
@@ -2722,7 +2711,7 @@ backlight_get_output_id (CsdPowerManager *manager,
 
         for (i = 0; outputs[i] != NULL; i++) {
                 if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_laptop (outputs[i])) {
+                    gnome_rr_output_is_builtin_display (outputs[i])) {
                         output = outputs[i];
                         break;
                 }
@@ -2752,8 +2741,7 @@ backlight_get_abs (CsdPowerManager *manager, GError **error)
                 /* prefer xbacklight */
                 output = get_primary_output (manager);
                 if (output != NULL) {
-                        return gnome_rr_output_get_backlight (output,
-                                                              error);
+                        return gnome_rr_output_get_backlight (output);
                 }
         }
 
@@ -2785,13 +2773,13 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
                 output = get_primary_output (manager);
                 if (output != NULL) {
 
-                        min = gnome_rr_output_get_backlight_min (output);
-                        max = gnome_rr_output_get_backlight_max (output);
-                        now = gnome_rr_output_get_backlight (output, error);
-                        if (now < 0)
-                                goto out;
+                        // min = gnome_rr_output_get_backlight_min (output);
+                        // max = gnome_rr_output_get_backlight_max (output);
+                        // now = gnome_rr_output_get_backlight (output);
+                        // if (now < 0)
+                        //         goto out;
 
-                        value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, now);
+                        value = gnome_rr_output_get_backlight (output);
                         goto out;
                 }
         }
@@ -2826,7 +2814,7 @@ backlight_get_min (CsdPowerManager *manager)
                 return 0;
 
         /* get xbacklight value, which maybe non-zero */
-        return gnome_rr_output_get_backlight_min (output);
+        return 0;
 }
 
 static gint
@@ -2841,7 +2829,7 @@ backlight_get_max (CsdPowerManager *manager, GError **error)
                 /* prefer xbacklight */
                 output = get_primary_output (manager);
                 if (output != NULL) {
-                        value = gnome_rr_output_get_backlight_max (output);
+                        value = 100;
                         if (value < 0) {
                                 g_set_error (error,
                                              CSD_POWER_MANAGER_ERROR,
@@ -2884,15 +2872,15 @@ backlight_set_percentage (CsdPowerManager *manager,
                 /* prefer xbacklight */
                 output = get_primary_output (manager);
                 if (output != NULL) {
-                        min = gnome_rr_output_get_backlight_min (output);
-                        max = gnome_rr_output_get_backlight_max (output);
-                        if (min < 0 || max < 0) {
-                                g_warning ("no xrandr backlight capability");
-                                goto out;
-                        }
-                        discrete = CLAMP (PERCENTAGE_TO_ABS (min_abs_brightness (manager, min, max), max, value), min_abs_brightness (manager, min, max), max);
+                        // min = gnome_rr_output_get_backlight_min (output);
+                        // max = gnome_rr_output_get_backlight_max (output);
+                        // if (min < 0 || max < 0) {
+                        //         g_warning ("no xrandr backlight capability");
+                        //         goto out;
+                        // }
+                        // discrete = CLAMP (PERCENTAGE_TO_ABS (min_abs_brightness (manager, min, max), max, value), min_abs_brightness (manager, min, max), max);
                         ret = gnome_rr_output_set_backlight (output,
-                                                             discrete,
+                                                             value,
                                                              error);
                         goto out;
                 }
@@ -2943,19 +2931,19 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
                                              gnome_rr_output_get_name (output));
                                 goto out;
                         }
-                        min = gnome_rr_output_get_backlight_min (output);
-                        max = gnome_rr_output_get_backlight_max (output);
-                        now = gnome_rr_output_get_backlight (output, error);
-                        if (now < 0)
-                               goto out;
+                        // min = gnome_rr_output_get_backlight_min (output);
+                        // max = gnome_rr_output_get_backlight_max (output);
+                        now = gnome_rr_output_get_backlight (output);
+                        // if (now < 0)
+                        //        goto out;
 
-                        step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
-                        discrete = MIN (now + step, max);
+                        // step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
+                        discrete = MIN (now + gnome_rr_output_get_min_backlight_step (output), 100);
                         ret = gnome_rr_output_set_backlight (output,
                                                              discrete,
                                                              error);
                         if (ret)
-                                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, discrete);
+                                percentage_value = discrete;
                         goto out;
                 }
         }
@@ -3010,18 +2998,18 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
                                              gnome_rr_output_get_name (output));
                                 goto out;
                         }
-                        min = gnome_rr_output_get_backlight_min (output);
-                        max = gnome_rr_output_get_backlight_max (output);
-                        now = gnome_rr_output_get_backlight (output, error);
-                        if (now < 0)
-                               goto out;
-                        step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
-                        discrete = MAX (now - step, min_abs_brightness (manager, min, max));
+                        // min = gnome_rr_output_get_backlight_min (output);
+                        // max = gnome_rr_output_get_backlight_max (output);
+                        now = gnome_rr_output_get_backlight (output);
+                        // if (now < 0)
+                        //        goto out;
+                        step = gnome_rr_output_get_min_backlight_step (output);
+                        discrete = MAX (now - step, 0);
                         ret = gnome_rr_output_set_backlight (output,
                                                              discrete,
                                                              error);
                         if (ret)
-                                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, discrete);
+                                percentage_value = discrete;
                         goto out;
                 }
         }
