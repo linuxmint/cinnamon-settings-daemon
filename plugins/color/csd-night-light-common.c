@@ -114,6 +114,13 @@ csd_night_light_frac_day_from_dt (GDateTime *dt)
                 (gdouble) g_date_time_get_second (dt) / 3600.f;
 }
 
+gchar *
+csd_night_light_time_string_from_frac (gdouble fraction)
+{
+    g_autoptr(GDateTime) dt = g_date_time_new_local (2000, 1, 1, (int) trunc (fraction), (int) ((fraction - trunc(fraction)) * 60.0f), 0);
+    return g_date_time_format (dt, "%H:%M");
+}
+
 gboolean
 csd_night_light_frac_day_is_between (gdouble  value,
                                      gdouble  start,

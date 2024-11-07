@@ -30,6 +30,7 @@ gboolean csd_night_light_get_sunrise_sunset     (GDateTime      *dt,
                                                  gdouble        *sunrise,
                                                  gdouble        *sunset);
 gdouble  csd_night_light_frac_day_from_dt       (GDateTime      *dt);
+gchar *  csd_night_light_time_string_from_frac  (gdouble         fraction);
 gboolean csd_night_light_frac_day_is_between    (gdouble         value,
                                                  gdouble         start,
                                                  gdouble         end);

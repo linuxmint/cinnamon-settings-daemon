@@ -152,13 +152,15 @@ update_cached_sunrise_sunset (CsdNightLight *self)
         if (ABS (self->cached_sunrise - sunrise) > CSD_FRAC_DAY_MAX_DELTA) {
                 self->cached_sunrise = sunrise;
                 g_object_notify (G_OBJECT (self), "sunrise");
-                g_debug ("Sunrise updated: %.3f", sunrise);
+                g_autofree gchar *formatted = csd_night_light_time_string_from_frac (sunrise);
+                g_debug ("Sunrise updated: %.3f (%s)", sunrise, formatted);
                 ret = TRUE;
         }
         if (ABS (self->cached_sunset - sunset) > CSD_FRAC_DAY_MAX_DELTA) {
                 self->cached_sunset = sunset;
                 g_object_notify (G_OBJECT (self), "sunset");
-                g_debug ("Sunset updated: %.3f", sunset);
+                g_autofree gchar *formatted = csd_night_light_time_string_from_frac (sunset);
+                g_debug ("Sunset updated: %.3f (%s)", sunset, formatted);
                 ret = TRUE;
         }
         return ret;
