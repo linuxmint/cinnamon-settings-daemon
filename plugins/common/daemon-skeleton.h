@@ -178,10 +178,14 @@ message_handler (const gchar *log_domain,
                  gpointer user_data)
 {
   /* Make this look like normal console output */
-  if (log_level & G_LOG_LEVEL_DEBUG)
-    printf ("csd-%s: %s\n", PLUGIN_NAME, message);
-  else
+  if (log_level & G_LOG_LEVEL_DEBUG) {
+    g_autoptr(GDateTime) dt = g_date_time_new_now_local ();
+    g_autofree gchar *iso8601 = g_date_time_format (dt, "%F:%T");
+    printf ("csd-%s:%s: %s\n", PLUGIN_NAME, iso8601, message);
+  }
+  else {
     printf ("%s: %s\n", g_get_prgname (), message);
+  }
 }
 
 int
