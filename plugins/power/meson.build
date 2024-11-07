@@ -61,6 +61,7 @@ executable(
     dependencies: power_deps,
     c_args: [
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
+        '-DG_LOG_DOMAIN="csd-@0@"'.format(plugin_name),
     ],
     install_rpath: join_paths(prefix, apilibdir),
     install: true,

@@ -98,6 +98,8 @@ endif
 cc = meson.get_compiler('c')
 math = cc.find_library('m', required: false)
 
+has_timerfd_create = cc.has_function('timerfd_create')
+
 csd_conf = configuration_data()
 csd_conf.set_quoted('GTKBUILDERDIR', gtkbuilderdir)
 csd_conf.set_quoted('CINNAMON_SETTINGS_LOCALEDIR', localedir)
@@ -108,6 +110,7 @@ csd_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 csd_conf.set_quoted('LIBEXECDIR', join_paths(prefix, libexecdir))
 csd_conf.set_quoted('SYSCONFDIR', sysconfdir)
 csd_conf.set_quoted('LIBDIR', libdir)
+csd_conf.set10('HAVE_TIMERFD', has_timerfd_create)
 
 if gudev.found()
     cargs += '-DHAVE_GUDEV'

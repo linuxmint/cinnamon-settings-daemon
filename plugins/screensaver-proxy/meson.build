@@ -17,6 +17,7 @@ executable(
     include_directories: [include_dirs, common_inc],
     dependencies: screensaver_proxy_deps,
     c_args: [
+        '-DG_LOG_DOMAIN="csd-@0@"'.format(plugin_name),
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
     ],
     install: true,
