@@ -440,14 +440,14 @@ update_location_from_timezone (CsdNightLight *self)
 
     for (int i = 0; i < G_N_ELEMENTS (tz_coord_list); i++)
     {
-        const TZCoords *coords = &tz_coord_list[i];
-        if (g_strcmp0 (coords->timezone, id) == 0)
+        const TZCoords coords = tz_coord_list[i];
+        if (g_strcmp0 (coords.timezone, id) == 0)
         {
             g_debug ("Coordinates updated, timezone: %s, lat:%.3f, long:%.3f.",
-                    id, coords->latitude, coords->longitude);
+                    id, coords.latitude, coords.longitude);
             g_settings_set_value (self->settings,
                                   "night-light-last-coordinates",
-                                  g_variant_new ("(dd)", coords->latitude, coords->longitude));
+                                  g_variant_new ("(dd)", coords.latitude, coords.longitude));
             break;
         }
     }

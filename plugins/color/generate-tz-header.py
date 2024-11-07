@@ -29,7 +29,7 @@ header = """
 
 typedef struct
 {
-    const gchar *timezone;
+    const char *timezone;
     double latitude;
     double longitude;
 } TZCoords;
