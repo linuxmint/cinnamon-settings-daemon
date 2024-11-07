@@ -18,6 +18,7 @@ executable(
     include_directories: [include_dirs, common_inc],
     dependencies: automount_deps,
     c_args: [
+        '-DG_LOG_DOMAIN="csd-@0@"'.format(plugin_name),
         '-DPLUGIN_NAME="@0@"'.format(plugin_name),
     ],
     install_rpath: join_paths(prefix, apilibdir),

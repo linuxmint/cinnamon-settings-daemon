@@ -37,6 +37,7 @@ executable(
   dependencies: color_deps,
   c_args: [
       '-DPLUGIN_NAME="@0@"'.format(plugin_name),
+      '-DG_LOG_DOMAIN="csd-@0@"'.format(plugin_name),
       '-DBINDIR="@0@"'.format(bindir),
   ],
   install: true,
