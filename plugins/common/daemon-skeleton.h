@@ -171,6 +171,19 @@ handle_signal (gpointer user_data)
     return G_SOURCE_REMOVE;
 }
 
+static void
+message_handler (const gchar *log_domain,
+                 GLogLevelFlags log_level,
+                 const gchar *message,
+                 gpointer user_data)
+{
+  /* Make this look like normal console output */
+  if (log_level & G_LOG_LEVEL_DEBUG)
+    printf ("csd-%s: %s\n", PLUGIN_NAME, message);
+  else
+    printf ("%s: %s\n", g_get_prgname (), message);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -208,10 +221,8 @@ main (int argc, char **argv)
 
         g_unix_signal_add (SIGTERM, (GSourceFunc) handle_signal, loop);
 
-        if (verbose) {
-                g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
-                setlinebuf (stdout);
-        }
+        if (verbose)
+            g_log_set_handler (G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, message_handler, NULL);
 
         if (timeout > 0) {
                 guint id;
