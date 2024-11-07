@@ -180,7 +180,6 @@ struct CsdPowerManagerPrivate
         GpmIdletime             *idletime;
         CsdPowerIdleMode         current_idle_mode;
         guint                    lid_close_safety_timer_id;
-        GtkStatusIcon           *status_icon;
         guint                    xscreensaver_watchdog_timer_id;
         gboolean                 is_virtual_machine;
         gint                     fd_close_loop_end;
@@ -225,6 +224,10 @@ static void      backlight_get_output_id (CsdPowerManager *manager, gint *xout, 
 #if UP_CHECK_VERSION(0,99,0)
 static void device_properties_changed_cb (UpDevice *device, GParamSpec *pspec, CsdPowerManager *manager);
 #endif
+
+static void connect_power_iface (CsdPowerManager *manager);
+static void connect_screen_iface (CsdPowerManager *manager);
+static void connect_keyboard_iface (CsdPowerManager *manager);
 
 G_DEFINE_TYPE (CsdPowerManager, csd_power_manager, G_TYPE_OBJECT)
 
@@ -709,7 +712,6 @@ engine_recalculate_state_icon (CsdPowerManager *manager)
 
         /* show a different icon if we are disconnected */
         icon = engine_get_icon (manager);
-        gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
 
         if (icon == NULL) {
                 /* none before, now none */
@@ -723,20 +725,12 @@ engine_recalculate_state_icon (CsdPowerManager *manager)
 
         /* no icon before, now icon */
         if (manager->priv->previous_icon == NULL) {
-
-                /* set fallback icon */
-                gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
-                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
                 manager->priv->previous_icon = icon;
                 return TRUE;
         }
 
         /* icon before, now different */
         if (!g_icon_equal (manager->priv->previous_icon, icon)) {
-
-                /* set fallback icon */
-                gtk_status_icon_set_from_gicon (manager->priv->status_icon, icon);
-
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = icon;
                 return TRUE;
@@ -756,22 +750,12 @@ engine_recalculate_state_summary (CsdPowerManager *manager)
         summary = engine_get_summary (manager);
         if (manager->priv->previous_summary == NULL) {
                 manager->priv->previous_summary = summary;
-
-                /* set fallback tooltip */
-                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
-                                                  summary);
-
                 return TRUE;
         }
 
         if (strcmp (manager->priv->previous_summary, summary) != 0) {
                 g_free (manager->priv->previous_summary);
                 manager->priv->previous_summary = summary;
-
-                /* set fallback tooltip */
-                gtk_status_icon_set_tooltip_text (manager->priv->status_icon,
-                                                  summary);
-
                 return TRUE;
         }
         g_debug ("no change");
@@ -4263,30 +4247,27 @@ out:
         return ret;
 }
 
-gboolean
-csd_power_manager_start (CsdPowerManager *manager,
-                         GError **error)
+static void
+on_rr_screen_acquired (GObject      *object,
+                       GAsyncResult *result,
+                       gpointer      user_data)
 {
+        CsdPowerManager *manager = user_data;
+        GError *error = NULL;
         gboolean ret;
 
-        g_debug ("Starting power manager");
         cinnamon_settings_profile_start (NULL);
 
-        /* coldplug the list of screens */
-        manager->priv->x11_screen = gnome_rr_screen_new (gdk_screen_get_default (), error);
-        if (manager->priv->x11_screen == NULL)
-                return FALSE;
+        manager->priv->x11_screen = gnome_rr_screen_new_finish (result, &error);
 
-        /* Set up the logind proxy */
-        manager->priv->logind_proxy =
-                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                               0,
-                                               NULL,
-                                               LOGIND_DBUS_NAME,
-                                               LOGIND_DBUS_PATH,
-                                               LOGIND_DBUS_INTERFACE,
-                                               NULL,
-                                               error);
+        if (error) {
+                g_warning ("Could not create GnomeRRScreen: %s\n", error->message);
+                g_error_free (error);
+                cinnamon_settings_profile_end (NULL);
+
+                return;
+        }
+
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
                           G_CALLBACK (logind_proxy_signal_cb),
                           manager);
@@ -4303,15 +4284,10 @@ csd_power_manager_start (CsdPowerManager *manager,
         manager->priv->kbd_brightness_old = -1;
         manager->priv->kbd_brightness_pre_dim = -1;
         manager->priv->pre_dim_brightness = -1;
-        manager->priv->settings = g_settings_new (CSD_POWER_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
-        manager->priv->settings_screensaver = g_settings_new (CSD_SAVER_SETTINGS_SCHEMA);
-        manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
-        manager->priv->settings_desktop_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
         g_signal_connect (manager->priv->settings_desktop_session, "changed",
                           G_CALLBACK (engine_settings_key_changed_cb), manager);
-        manager->priv->settings_cinnamon_session = g_settings_new (CSD_CINNAMON_SESSION_SCHEMA);
         manager->priv->inhibit_lid_switch_enabled =
                           g_settings_get_boolean (manager->priv->settings, "inhibit-lid-switch");
 
@@ -4344,16 +4320,6 @@ csd_power_manager_start (CsdPowerManager *manager,
                                 G_CALLBACK (up_client_changed_cb), manager);
 #endif
 
-        /* use the fallback name from gnome-power-manager so the shell
-         * blocks this, and uses the power extension instead */
-        manager->priv->status_icon = gtk_status_icon_new ();
-        gtk_status_icon_set_name (manager->priv->status_icon,
-                                  "gnome-power-manager");
-        /* TRANSLATORS: this is the title of the power manager status icon
-         * that is only shown in fallback mode */
-        gtk_status_icon_set_title (manager->priv->status_icon, _("Power Manager"));
-        gtk_status_icon_set_visible (manager->priv->status_icon, FALSE);
-
         /* connect to UPower for keyboard backlight control */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
                                   G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
@@ -4385,8 +4351,11 @@ csd_power_manager_start (CsdPowerManager *manager,
                                   session_presence_proxy_ready_cb,
                                   manager);
 
-        manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
         manager->priv->canberra_context = ca_gtk_context_get_for_screen (gdk_screen_get_default ());
+
+        connect_power_iface (manager);
+        connect_screen_iface (manager);
+        connect_keyboard_iface (manager);
 
         manager->priv->phone = gpm_phone_new ();
         g_signal_connect (manager->priv->phone, "device-added",
@@ -4446,10 +4415,10 @@ csd_power_manager_start (CsdPowerManager *manager,
         /* ensure the default dpms timeouts are cleared */
         ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                              GNOME_RR_DPMS_ON,
-                                             error);
+                                             &error);
         if (!ret) {
-                g_warning ("Failed set DPMS mode: %s", (*error)->message);
-                g_clear_error (error);
+                g_warning ("Failed set DPMS mode: %s", error->message);
+                g_clear_error (&error);
         }
 
         /* coldplug the engine */
@@ -4471,8 +4440,39 @@ csd_power_manager_start (CsdPowerManager *manager,
                                                                                NULL);
         /* don't blank inside a VM */
         manager->priv->is_virtual_machine = is_hardware_a_virtual_machine ();
+}
+
+gboolean
+csd_power_manager_start (CsdPowerManager *manager,
+                         GError **error)
+{
+        g_debug ("Starting power manager");
+        cinnamon_settings_profile_start (NULL);
+
+        /* Set up the logind proxy */
+        manager->priv->logind_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               0,
+                                               NULL,
+                                               LOGIND_DBUS_NAME,
+                                               LOGIND_DBUS_PATH,
+                                               LOGIND_DBUS_INTERFACE,
+                                               NULL,
+                                               error);
+
+        /* coldplug the list of screens */
+        gnome_rr_screen_new_async (gdk_screen_get_default (),
+                                   on_rr_screen_acquired, manager);
+
+        manager->priv->settings = g_settings_new (CSD_POWER_SETTINGS_SCHEMA);
+        manager->priv->settings_screensaver = g_settings_new (CSD_SAVER_SETTINGS_SCHEMA);
+        manager->priv->settings_xrandr = g_settings_new (CSD_XRANDR_SETTINGS_SCHEMA);
+        manager->priv->settings_desktop_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
+        manager->priv->settings_cinnamon_session = g_settings_new (CSD_CINNAMON_SESSION_SCHEMA);
+        manager->priv->devices_array = g_ptr_array_new_with_free_func (g_object_unref);
 
         cinnamon_settings_profile_end (NULL);
+
         return TRUE;
 }
 
@@ -4600,11 +4600,6 @@ csd_power_manager_stop (CsdPowerManager *manager)
         if (manager->priv->idletime != NULL) {
                 g_object_unref (manager->priv->idletime);
                 manager->priv->idletime = NULL;
-        }
-
-        if (manager->priv->status_icon != NULL) {
-                g_object_unref (manager->priv->status_icon);
-                manager->priv->status_icon = NULL;
         }
 
         if (manager->priv->xscreensaver_watchdog_timer_id > 0) {
@@ -4981,6 +4976,22 @@ power_iface_handle_get_devices (CsdPower              *object,
 }
 
 static void
+connect_power_iface (CsdPowerManager *manager)
+{
+        g_signal_connect (manager->priv->power_iface,
+                          "handle-get-primary-device",
+                          G_CALLBACK (power_iface_handle_get_primary_device),
+                          manager);
+
+        g_signal_connect (manager->priv->power_iface,
+                          "handle-get-devices",
+                          G_CALLBACK (power_iface_handle_get_devices),
+                          manager);
+
+        engine_recalculate_state (manager);
+}
+
+static void
 power_name_acquired (GDBusConnection *connection,
                      const gchar     *name,
                      gpointer         user_data)
@@ -4990,24 +5001,38 @@ power_name_acquired (GDBusConnection *connection,
 
         iface = csd_power_skeleton_new ();
 
-        g_signal_connect (iface,
-                          "handle-get-primary-device",
-                          G_CALLBACK (power_iface_handle_get_primary_device),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-get-devices",
-                          G_CALLBACK (power_iface_handle_get_devices),
-                          manager);
-
         g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (iface),
                                           connection,
                                           CSD_POWER_DBUS_PATH,
                                           NULL);
 
         manager->priv->power_iface = iface;
+}
 
-        engine_recalculate_state (manager);
+static void
+connect_screen_iface (CsdPowerManager *manager)
+{
+        g_signal_connect (manager->priv->screen_iface,
+                          "handle-get-percentage",
+                          G_CALLBACK (screen_iface_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->screen_iface,
+                          "handle-set-percentage",
+                          G_CALLBACK (screen_iface_set_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->screen_iface,
+                          "handle-step-down",
+                          G_CALLBACK (screen_iface_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->screen_iface,
+                          "handle-step-up",
+                          G_CALLBACK (screen_iface_method_cb),
+                          manager);
+
+        backlight_emit_changed (manager);
 }
 
 static void
@@ -5020,34 +5045,48 @@ screen_name_acquired (GDBusConnection *connection,
 
         iface = csd_screen_skeleton_new ();
 
-        g_signal_connect (iface,
-                          "handle-get-percentage",
-                          G_CALLBACK (screen_iface_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-set-percentage",
-                          G_CALLBACK (screen_iface_set_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-step-down",
-                          G_CALLBACK (screen_iface_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-step-up",
-                          G_CALLBACK (screen_iface_method_cb),
-                          manager);
-
         g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (iface),
                                           connection,
                                           CSD_POWER_DBUS_PATH,
                                           NULL);
 
         manager->priv->screen_iface = iface;
+}
 
-        backlight_emit_changed (manager);
+static void
+connect_keyboard_iface (CsdPowerManager *manager)
+{
+        g_signal_connect (manager->priv->keyboard_iface,
+                          "handle-get-percentage",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->keyboard_iface,
+                          "handle-set-percentage",
+                          G_CALLBACK (keyboard_iface_set_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->keyboard_iface,
+                          "handle-step-down",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->keyboard_iface,
+                          "handle-step-up",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->keyboard_iface,
+                          "handle-get-step",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        g_signal_connect (manager->priv->keyboard_iface,
+                          "handle-toggle",
+                          G_CALLBACK (keyboard_iface_method_cb),
+                          manager);
+
+        upower_kbd_emit_changed (manager);
 }
 
 static void
@@ -5060,44 +5099,12 @@ keyboard_name_acquired (GDBusConnection *connection,
 
         iface = csd_keyboard_skeleton_new ();
 
-        g_signal_connect (iface,
-                          "handle-get-percentage",
-                          G_CALLBACK (keyboard_iface_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-set-percentage",
-                          G_CALLBACK (keyboard_iface_set_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-step-down",
-                          G_CALLBACK (keyboard_iface_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-step-up",
-                          G_CALLBACK (keyboard_iface_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-get-step",
-                          G_CALLBACK (keyboard_iface_method_cb),
-                          manager);
-
-        g_signal_connect (iface,
-                          "handle-toggle",
-                          G_CALLBACK (keyboard_iface_method_cb),
-                          manager);
-
         g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (iface),
                                           connection,
                                           CSD_POWER_DBUS_PATH,
                                           NULL);
 
         manager->priv->keyboard_iface = iface;
-
-        upower_kbd_emit_changed (manager);
 }
 
 static void
