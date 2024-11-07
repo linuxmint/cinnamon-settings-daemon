@@ -35,10 +35,8 @@ struct _CsdNightLight {
         gboolean           forced;
         gboolean           disabled_until_tmw;
         GDateTime         *disabled_until_tmw_dt;
-        gboolean           geoclue_enabled;
         GSource           *source;
         guint              validate_id;
-        GSettings         *location_settings;
         gdouble            cached_sunrise;
         gdouble            cached_sunset;
         gdouble            cached_temperature;
@@ -455,15 +453,6 @@ update_location_from_timezone (CsdNightLight *self)
     g_time_zone_unref (tz);
 }
 
-static void
-check_location_settings (CsdNightLight *self)
-{
-    if (g_settings_get_boolean (self->location_settings, "enabled") && self->geoclue_enabled)
-    {
-        update_location_from_timezone (self);
-    }
-}
-
 void
 csd_night_light_set_disabled_until_tmw (CsdNightLight *self, gboolean value)
 {
@@ -533,12 +522,6 @@ csd_night_light_get_temperature (CsdNightLight *self)
         return self->cached_temperature;
 }
 
-void
-csd_night_light_set_geoclue_enabled (CsdNightLight *self, gboolean enabled)
-{
-        self->geoclue_enabled = enabled;
-}
-
 gboolean
 csd_night_light_start (CsdNightLight *self, GError **error)
 {
@@ -549,9 +532,7 @@ csd_night_light_start (CsdNightLight *self, GError **error)
         g_signal_connect (self->settings, "changed",
                           G_CALLBACK (settings_changed_cb), self);
 
-        g_signal_connect_swapped (self->location_settings, "changed::enabled",
-                                  G_CALLBACK (check_location_settings), self);
-        check_location_settings (self);
+        update_location_from_timezone (self);
 
         return TRUE;
 }
@@ -573,7 +554,6 @@ csd_night_light_finalize (GObject *object)
                 self->validate_id = 0;
         }
 
-        g_clear_object (&self->location_settings);
         G_OBJECT_CLASS (csd_night_light_parent_class)->finalize (object);
 }
 
@@ -706,13 +686,11 @@ csd_night_light_class_init (CsdNightLightClass *klass)
 static void
 csd_night_light_init (CsdNightLight *self)
 {
-        self->geoclue_enabled = TRUE;
         self->smooth_enabled = TRUE;
         self->cached_sunrise = -1.f;
         self->cached_sunset = -1.f;
         self->cached_temperature = CSD_COLOR_TEMPERATURE_DEFAULT;
         self->settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.color");
-        self->location_settings = g_settings_new ("org.gnome.system.location");
 }
 
 CsdNightLight *

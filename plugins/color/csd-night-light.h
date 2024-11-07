@@ -45,9 +45,6 @@ gboolean         csd_night_light_get_forced             (CsdNightLight *self);
 void             csd_night_light_set_forced             (CsdNightLight *self,
                                                          gboolean       value);
 
-/* only for the self test program */
-void             csd_night_light_set_geoclue_enabled    (CsdNightLight *self,
-                                                         gboolean       enabled);
 void             csd_night_light_set_date_time_now      (CsdNightLight *self,
                                                          GDateTime     *datetime);
 void             csd_night_light_set_smooth_enabled     (CsdNightLight *self,

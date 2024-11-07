@@ -80,14 +80,12 @@ ccm_test_night_light (void)
         datetime_override = g_date_time_new_utc (2017, 2, 8, 20, 0, 0);
         csd_night_light_set_date_time_now (nlight, datetime_override);
 
-        /* do not start geoclue */
-        csd_night_light_set_geoclue_enabled (nlight, FALSE);
-
         /* do not smooth the transition */
         csd_night_light_set_smooth_enabled (nlight, FALSE);
 
         /* switch off */
         settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
+        g_settings_set_boolean (settings, "night-light-schedule-automatic", FALSE);
         g_settings_set_boolean (settings, "night-light-enabled", FALSE);
         g_settings_set_uint (settings, "night-light-temperature", 4000);
 
