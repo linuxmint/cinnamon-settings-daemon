@@ -146,6 +146,7 @@ struct CsdPowerManagerPrivate
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusProxy              *upower_kbd_proxy;
+        gboolean                 skip_unsupported_xrandr;
         gboolean				backlight_helper_force;
         gchar*                  backlight_helper_preference_args;
         gint                     kbd_brightness_now;
@@ -246,7 +247,6 @@ static gboolean
 system_on_battery (CsdPowerManager *manager)
 {
     UpDevice *primary;
-    UpDeviceState state;
 
     // this will only return a device if it's the battery, it's present,
     // and discharging.
@@ -2715,25 +2715,6 @@ backlight_get_output_id (CsdPowerManager *manager,
 }
 
 static gint
-backlight_get_abs (CsdPowerManager *manager, GError **error)
-{
-        GnomeRROutput *output;
-
-        /* prioritize user override settings */
-        if (!manager->priv->backlight_helper_force)
-        {
-                /* prefer xbacklight */
-                output = get_primary_output (manager);
-                if (output != NULL) {
-                        return gnome_rr_output_get_backlight (output);
-                }
-        }
-
-        /* fall back to the polkit helper */
-        return backlight_helper_get_value ("get-brightness", manager, error);
-}
-
-static gint
 min_abs_brightness (CsdPowerManager *manager, gint min, gint max)
 {
     guint min_percent = g_settings_get_uint (manager->priv->settings, "minimum-display-brightness");
@@ -2751,81 +2732,35 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
         gint max;
 
         /* prioritize user override settings */
-        if (!manager->priv->backlight_helper_force)
+        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
         {
                 /* prefer xbacklight */
                 output = get_primary_output (manager);
                 if (output != NULL) {
-
-                        // min = gnome_rr_output_get_backlight_min (output);
-                        // max = gnome_rr_output_get_backlight_max (output);
-                        // now = gnome_rr_output_get_backlight (output);
-                        // if (now < 0)
-                        //         goto out;
-
-                        value = gnome_rr_output_get_backlight (output);
-                        goto out;
+                        // proxy for backlight supported
+                        if (gnome_rr_output_get_min_backlight_step (output) > 0) {
+                            value = gnome_rr_output_get_backlight (output);
+                        } else {
+                            // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
+                            g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
+                            manager->priv->skip_unsupported_xrandr = TRUE;
+                        }
                 }
         }
 
         /* fall back to the polkit helper */
         max = backlight_helper_get_value ("get-max-brightness", manager, error);
-        if (max < 0)
+        if (max < 0) {
                 goto out;
+            }
         now = backlight_helper_get_value ("get-brightness", manager, error);
-        if (now < 0)
+        if (now < 0) {
                 goto out;
+            }
 
         value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, now);
 out:
         return value;
-}
-
-static gint
-backlight_get_min (CsdPowerManager *manager)
-{
-        /* if we have no xbacklight device, then hardcode zero as sysfs
-        * offsets everything to 0 as min */
-
-        /* user override means we will be using sysfs */
-        if (manager->priv->backlight_helper_force)
-                return 0;
-
-        GnomeRROutput *output;
-
-        output = get_primary_output (manager);
-        if (output == NULL)
-                return 0;
-
-        /* get xbacklight value, which maybe non-zero */
-        return 0;
-}
-
-static gint
-backlight_get_max (CsdPowerManager *manager, GError **error)
-{
-        gint value;
-        GnomeRROutput *output;
-
-        /* prioritize user override settings */
-        if (!manager->priv->backlight_helper_force)
-        {
-                /* prefer xbacklight */
-                output = get_primary_output (manager);
-                if (output != NULL) {
-                        value = 100;
-                        if (value < 0) {
-                                g_set_error (error,
-                                             CSD_POWER_MANAGER_ERROR,
-                                             CSD_POWER_MANAGER_ERROR_FAILED,
-                                             "failed to get backlight max");
-                        }
-                        return value;
-                }
-        }
-
-        /* fall back to the polkit helper */
-        return  backlight_helper_get_value ("get-max-brightness", manager, error);
 }
 
 static void
@@ -2846,38 +2781,43 @@ backlight_set_percentage (CsdPowerManager *manager,
 {
         GnomeRROutput *output;
         gboolean ret = FALSE;
-        gint min = 0;
-        gint max;
-        guint discrete;
 
         /* prioritize user override settings */
-        if (!manager->priv->backlight_helper_force)
+        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
         {
                 /* prefer xbacklight */
                 output = get_primary_output (manager);
                 if (output != NULL) {
-                        // min = gnome_rr_output_get_backlight_min (output);
-                        // max = gnome_rr_output_get_backlight_max (output);
-                        // if (min < 0 || max < 0) {
-                        //         g_warning ("no xrandr backlight capability");
-                        //         goto out;
-                        // }
-                        // discrete = CLAMP (PERCENTAGE_TO_ABS (min_abs_brightness (manager, min, max), max, value), min_abs_brightness (manager, min, max), max);
-                        ret = gnome_rr_output_set_backlight (output,
-                                                             value,
-                                                             error);
-                        goto out;
+                        // proxy for backlight supported
+                        if (gnome_rr_output_get_min_backlight_step (output) > 0) {
+                            GError *grr_error = NULL;
+                            ret = gnome_rr_output_set_backlight (output,
+                                                                 CLAMP (value, 0, 100),
+                                                                 &grr_error);
+                            if (grr_error != NULL) {
+                                g_debug ("Could not set backlight using xrandr: %s", grr_error->message);
+                                g_error_free (grr_error);
+                            }
+                        } else {
+                            // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
+                            g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
+                            manager->priv->skip_unsupported_xrandr = TRUE;
+                        }
                 }
         }
+
+        gint min = 0;
+        gint max = 0;
+        gint new;
 
         /* fall back to the polkit helper */
         max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
 
-        discrete = CLAMP (PERCENTAGE_TO_ABS (min_abs_brightness (manager, min, max), max, value), min_abs_brightness (manager, min, max), max);
+        new = CLAMP (PERCENTAGE_TO_ABS (min_abs_brightness (manager, min, max), max, value), min_abs_brightness (manager, min, max), max);
         ret = backlight_helper_set_value ("set-brightness",
-                                          discrete,
+                                          new,
                                           manager,
                                           error);
 out:
@@ -2891,62 +2831,67 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
 {
         GnomeRROutput *output;
         gboolean ret = FALSE;
-        gint percentage_value = -1;
-        gint min = 0;
-        gint max;
-        gint now;
+        gint current;
         gint step;
-        guint discrete;
+        gint new;
+        gint percentage_value = 0;
         GnomeRRCrtc *crtc;
 
         /* prioritize user override settings */
-        if (!manager->priv->backlight_helper_force)
+        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
         {
                 /* prefer xbacklight */
                 output = get_primary_output (manager);
                 if (output != NULL) {
-
                         crtc = gnome_rr_output_get_crtc (output);
-                        if (crtc == NULL) {
-                                g_set_error (error,
-                                             CSD_POWER_MANAGER_ERROR,
-                                             CSD_POWER_MANAGER_ERROR_FAILED,
-                                             "no crtc for %s",
-                                             gnome_rr_output_get_name (output));
-                                goto out;
-                        }
-                        // min = gnome_rr_output_get_backlight_min (output);
-                        // max = gnome_rr_output_get_backlight_max (output);
-                        now = gnome_rr_output_get_backlight (output);
-                        // if (now < 0)
-                        //        goto out;
 
-                        // step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
-                        discrete = MIN (now + gnome_rr_output_get_min_backlight_step (output), 100);
-                        ret = gnome_rr_output_set_backlight (output,
-                                                             discrete,
-                                                             error);
-                        if (ret)
-                                percentage_value = discrete;
-                        goto out;
+                        if (crtc != NULL) {
+                            step = gnome_rr_output_get_min_backlight_step (output);
+
+                            if (step > 0) {
+                                GError *grr_error = NULL;
+
+                                current = gnome_rr_output_get_backlight (output);
+                                new = CLAMP (step + current, 0, 100);
+                                ret = gnome_rr_output_set_backlight (output,
+                                                                     new,
+                                                                     &grr_error);
+                                if (ret) {
+                                    percentage_value = new;
+                                    goto out;
+                                } else {
+                                    if (grr_error != NULL) {
+                                        g_debug ("Could not step up backlight using xrandr: %s", grr_error->message);
+                                        g_error_free (grr_error);
+                                    }
+                                }
+                            } else {
+                                // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
+                                g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
+                                manager->priv->skip_unsupported_xrandr = TRUE;
+                            }
+                    }
                 }
         }
 
+        gint max = 0;
+        gint min = 0;
+
         /* fall back to the polkit helper */
-        now = backlight_helper_get_value ("get-brightness", manager, error);
-        if (now < 0)
+        current = backlight_helper_get_value ("get-brightness", manager, error);
+        if (current < 0)
                 goto out;
         max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
         step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
-        discrete = MIN (now + step, max);
+        new = MIN (current + step, max);
         ret = backlight_helper_set_value ("set-brightness",
-                                          discrete,
+                                          new,
                                           manager,
                                           error);
         if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, discrete);
+                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, new);
 out:
         if (ret)
                 backlight_emit_changed (manager);
@@ -2959,96 +2904,70 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
         GnomeRROutput *output;
         gboolean ret = FALSE;
         gint percentage_value = -1;
-        gint min = 0;
-        gint max;
-        gint now;
+        gint current;
         gint step;
-        guint discrete;
+        gint new;
         GnomeRRCrtc *crtc;
 
         /* prioritize user override settings */
-        if (!manager->priv->backlight_helper_force)
+        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
         {
                 /* prefer xbacklight */
                 output = get_primary_output (manager);
                 if (output != NULL) {
-
                         crtc = gnome_rr_output_get_crtc (output);
-                        if (crtc == NULL) {
-                                g_set_error (error,
-                                             CSD_POWER_MANAGER_ERROR,
-                                             CSD_POWER_MANAGER_ERROR_FAILED,
-                                             "no crtc for %s",
-                                             gnome_rr_output_get_name (output));
-                                goto out;
-                        }
-                        // min = gnome_rr_output_get_backlight_min (output);
-                        // max = gnome_rr_output_get_backlight_max (output);
-                        now = gnome_rr_output_get_backlight (output);
-                        // if (now < 0)
-                        //        goto out;
-                        step = gnome_rr_output_get_min_backlight_step (output);
-                        discrete = MAX (now - step, 0);
-                        ret = gnome_rr_output_set_backlight (output,
-                                                             discrete,
-                                                             error);
-                        if (ret)
-                                percentage_value = discrete;
-                        goto out;
+
+                        if (crtc != NULL) {
+                            step = gnome_rr_output_get_min_backlight_step (output);
+
+                            if (step > 0) {
+                                GError *grr_error = NULL;
+
+                                current = gnome_rr_output_get_backlight (output);
+                                new = CLAMP (current - step, 0, 100);
+                                ret = gnome_rr_output_set_backlight (output,
+                                                                     new,
+                                                                     &grr_error);
+                                if (ret) {
+                                    percentage_value = new;
+                                    goto out;
+                                } else {
+                                    if (grr_error != NULL) {
+                                        g_debug ("Could not step down backlight using xrandr: %s", grr_error->message);
+                                        g_error_free (grr_error);
+                                    }
+                                }
+                            } else {
+                                // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
+                                g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
+                                manager->priv->skip_unsupported_xrandr = TRUE;
+                            }
+                    }
                 }
         }
 
+        gint min = 0;
+        gint max = 0;
+
         /* fall back to the polkit helper */
-        now = backlight_helper_get_value ("get-brightness", manager, error);
-        if (now < 0)
+        current = backlight_helper_get_value ("get-brightness", manager, error);
+        if (current < 0)
                 goto out;
         max = backlight_helper_get_value ("get-max-brightness", manager, error);
         if (max < 0)
                 goto out;
         step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
-        discrete = MAX (now - step, min_abs_brightness (manager, min, max));
+        new = MAX (current - step, min_abs_brightness (manager, min, max));
         ret = backlight_helper_set_value ("set-brightness",
-                                          discrete,
+                                          new,
                                           manager,
                                           error);
         if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, discrete);
+                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, new);
 out:
         if (ret)
                 backlight_emit_changed (manager);
         return percentage_value;
-}
-
-static gint
-backlight_set_abs (CsdPowerManager *manager,
-                   guint value,
-                   gboolean emit_changed,
-                   GError **error)
-{
-        GnomeRROutput *output;
-        gboolean ret = FALSE;
-
-        /* prioritize user override settings */
-        if (!manager->priv->backlight_helper_force)
-        {
-                /* prefer xbacklight */
-                output = get_primary_output (manager);
-                if (output != NULL) {
-                        ret = gnome_rr_output_set_backlight (output,
-                                                             value,
-                                                             error);
-                        goto out;
-                }
-        }
-        /* fall back to the polkit helper */
-        ret = backlight_helper_set_value ("set-brightness",
-                                          value,
-                                          manager,
-                                          error);
-out:
-        if (ret && emit_changed)
-                backlight_emit_changed (manager);
-        return ret;
 }
 
 static gboolean
@@ -3056,43 +2975,34 @@ display_backlight_dim (CsdPowerManager *manager,
                        gint idle_percentage,
                        GError **error)
 {
-        gint min;
-        gint max;
-        gint now;
-        gint idle;
+        gint current;
         gboolean ret = FALSE;
 
-        now = backlight_get_abs (manager, error);
-        if (now < 0) {
+        current = backlight_get_percentage (manager, error);
+        if (current < 0) {
                 goto out;
         }
 
         /* is the dim brightness actually *dimmer* than the
          * brightness we have now? */
-        min = backlight_get_min (manager);
-        max = backlight_get_max (manager, error);
-        if (max < 0) {
-                goto out;
-        }
-        idle = PERCENTAGE_TO_ABS (min, max, idle_percentage);
-        if (idle > now) {
-                g_debug ("brightness already now %i/%i, so "
-                         "ignoring dim to %i/%i",
-                         now, max, idle, max);
+
+        if (idle_percentage > current) {
+                g_debug ("brightness already now %i%%, so "
+                         "ignoring dim to %i%%",
+                         current, idle_percentage);
                 ret = TRUE;
                 goto out;
         }
-        ret = backlight_set_abs (manager,
-                                 idle,
-                                 FALSE,
-                                 error);
+
+        ret = backlight_set_percentage (manager, idle_percentage,
+                                        FALSE,
+                                        error);
         if (!ret) {
                 goto out;
         }
 
         /* save for undim */
-        manager->priv->pre_dim_brightness = now;
-
+        manager->priv->pre_dim_brightness = current;
 out:
         return ret;
 }
@@ -3248,10 +3158,10 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
 
                 /* reset brightness if we dimmed */
                 if (manager->priv->pre_dim_brightness >= 0) {
-                        ret = backlight_set_abs (manager,
-                                                 manager->priv->pre_dim_brightness,
-                                                 FALSE,
-                                                 &error);
+                        ret = backlight_set_percentage (manager,
+                                                        manager->priv->pre_dim_brightness,
+                                                        FALSE,
+                                                        &error);
                         if (!ret) {
                                 g_warning ("failed to restore backlight to %i: %s",
                                            manager->priv->pre_dim_brightness,
