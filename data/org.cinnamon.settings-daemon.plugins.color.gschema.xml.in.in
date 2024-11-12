@@ -1,4 +1,8 @@
 <schemalist>
+  <enum id="schedule_mode">
+    <value value="0" nick="auto"/>
+    <value value="1" nick="manual"/>
+  </enum>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.color" path="/org/cinnamon/settings-daemon/plugins/color/">
     <key name="recalibrate-display-threshold" type="u">
       <default>0</default>
@@ -20,10 +24,10 @@
       <summary>Temperature of the display when enabled</summary>
       <description>This temperature in Kelvin is used to modify the screen tones when night light mode is enabled. Higher values are bluer, lower redder.</description>
     </key>
-    <key name="night-light-schedule-automatic" type="b">
-      <default>true</default>
-      <summary>Use the sunrise and sunset</summary>
-      <description>Calculate the sunrise and sunset times automatically, from the current location.</description>
+    <key name="night-light-schedule-mode" enum="schedule_mode">
+      <default>'auto'</default>
+      <summary>Set the way start and stop times are determined</summary>
+      <description>Setting to 'auto' will use the system timezone to determine sunrise and sunset. Using 'manual' mode allows specifying exact start and stop times (night-light-schedule-from and -to).</description>
     </key>
     <key name="night-light-schedule-from" type="d">
       <default>20.00</default>

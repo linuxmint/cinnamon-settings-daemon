@@ -60,6 +60,11 @@ enum {
         PROP_LAST
 };
 
+enum {
+        NIGHT_LIGHT_SCHEDULE_AUTO = 0,
+        NIGHT_LIGHT_SCHEDULE_MANUAL = 1
+};
+
 #define CSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT      5       /* seconds */
 #define CSD_NIGHT_LIGHT_POLL_TIMEOUT          60      /* seconds */
 #define CSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
@@ -67,8 +72,6 @@ enum {
 
 #define CSD_FRAC_DAY_MAX_DELTA                  (1.f/60.f)     /* 1 minute */
 #define CSD_TEMPERATURE_MAX_DELTA               (10.f)          /* Kelvin */
-
-#define DESKTOP_ID "gnome-color-panel"
 
 static void poll_timeout_destroy (CsdNightLight *self);
 static void poll_timeout_create (CsdNightLight *self);
@@ -272,7 +275,7 @@ night_light_recheck (CsdNightLight *self)
         }
 
         /* calculate the position of the sun */
-        if (g_settings_get_boolean (self->settings, "night-light-schedule-automatic")) {
+        if (g_settings_get_enum (self->settings, "night-light-schedule-mode") == NIGHT_LIGHT_SCHEDULE_AUTO) {
                 update_cached_sunrise_sunset (self);
                 if (self->cached_sunrise > 0.f && self->cached_sunset > 0.f) {
                         schedule_to = self->cached_sunrise;
