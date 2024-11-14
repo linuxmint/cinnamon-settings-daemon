@@ -1536,12 +1536,12 @@ static void
 csd_color_state_init (CsdColorState *state)
 {
         /* track the active session */
-        state->session = gnome_session_manager_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
-                                                                       G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
-                                                                       "org.gnome.SessionManager",
-                                                                       "/org/gnome/SessionManager",
-                                                                       NULL,
-                                                                       NULL);
+        state->session = G_DBUS_PROXY (gnome_session_manager_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                                                                     G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
+                                                                                     "org.gnome.SessionManager",
+                                                                                     "/org/gnome/SessionManager",
+                                                                                     NULL,
+                                                                                     NULL));
 
 #ifdef GDK_WINDOWING_X11
         /* set the _ICC_PROFILE atoms on the root screen */
