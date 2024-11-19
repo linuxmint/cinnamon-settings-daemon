@@ -399,6 +399,7 @@ cinnamon_proxy_complete (GObject      *source,
 static void
 show_osd (CsdMediaKeysManager *manager,
           const char          *icon,
+          const char          *label,
           int                  level,
           int                  outx,
           int                  outy)
@@ -416,6 +417,9 @@ show_osd (CsdMediaKeysManager *manager,
         if (icon)
                 g_variant_builder_add (&builder, "{sv}",
                                        "icon", g_variant_new_string (icon));
+        if (label)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "label", g_variant_new_string (label));
         if (level >= 0)
                 g_variant_builder_add (&builder, "{sv}",
                                        "level", g_variant_new_int32 (level));
@@ -642,7 +646,7 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        show_osd (manager, "media-eject-symbolic", -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+        show_osd (manager, "media-eject-symbolic", NULL, -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -696,7 +700,7 @@ do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
 {
     show_osd (manager,
               state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-              -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+              NULL, -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 }
 
 static void
@@ -732,11 +736,23 @@ show_sound_osd (CsdMediaKeysManager *manager,
                gboolean             sound_changed,
                gboolean             quiet)
 {
+    GvcMixerUIDevice *device;
+    const GvcMixerStreamPort *port;
     const char *icon;
 
     icon = get_icon_name_for_volume (muted, vol, is_mic);
-
-    show_osd (manager, icon, vol, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+    port = gvc_mixer_stream_get_port (stream);
+    if (g_strcmp0 (gvc_mixer_stream_get_form_factor (stream), "internal") != 0 ||
+        (port != NULL &&
+         g_strcmp0 (port->port, "analog-output-speaker") != 0 &&
+         g_strcmp0 (port->port, "analog-output") != 0)) {
+            device = gvc_mixer_control_lookup_device_from_stream (manager->priv->volume, stream);
+            show_osd (manager, icon,
+                      gvc_mixer_ui_device_get_description (device),
+                      vol, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+    } else {
+        show_osd (manager, icon, NULL, vol, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+    }
 
     if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
         gboolean enabled = g_settings_get_boolean (manager->priv->sound_settings, "volume-sound-enabled");
@@ -1233,7 +1249,7 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
         if (!have_listeners) {
                 if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                 /* Popup a dialog with an (/) icon */
-                    show_osd (manager, "action-unavailable-symbolic", -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+                    show_osd (manager, "action-unavailable-symbolic", NULL, -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
                  }
                 return TRUE;
         }
@@ -1327,7 +1343,7 @@ do_video_rotate_lock_action (CsdMediaKeysManager *manager,
         g_object_unref (settings);
 
         show_osd (manager, locked ? "rotation-locked-symbolic"
-                                  : "rotation-allowed-symbolic", -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+                                  : "rotation-allowed-symbolic", NULL, -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 }
 
 static void
@@ -1488,7 +1504,7 @@ update_screen_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (variant, "(uii)", &percentage, &outx, &outy);
-        show_osd (manager, "display-brightness-symbolic", percentage, outx, outy);
+        show_osd (manager, "display-brightness-symbolic", NULL, percentage, outx, outy);
         g_variant_unref (variant);
 }
 
@@ -1570,7 +1586,7 @@ update_keyboard_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        show_osd (manager, "keyboard-brightness-symbolic", percentage, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+        show_osd (manager, "keyboard-brightness-symbolic", NULL, percentage, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
         g_variant_unref (new_percentage);
 }
 
