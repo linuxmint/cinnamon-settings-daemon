@@ -195,7 +195,7 @@ ccm_session_notify_device (CsdColorCalibrate *calibrate, CdDevice *device)
                                                  CCM_SETTINGS_RECALIBRATE_DISPLAY_THRESHOLD);
 
                 /* TRANSLATORS: this is when the display has not been recalibrated in a while */
-                message = g_strdup_printf (_("The display “%s” should be recalibrated soon."),
+                message = g_strdup_printf (_("The display '%s' should be recalibrated soon."),
                                            device_title);
         } else {
 
@@ -204,7 +204,7 @@ ccm_session_notify_device (CsdColorCalibrate *calibrate, CdDevice *device)
                                                  CCM_SETTINGS_RECALIBRATE_PRINTER_THRESHOLD);
 
                 /* TRANSLATORS: this is when the printer has not been recalibrated in a while */
-                message = g_strdup_printf (_("The printer “%s” should be recalibrated soon."),
+                message = g_strdup_printf (_("The printer '%s' should be recalibrated soon."),
                                            device_title);
         }
 
@@ -342,7 +342,7 @@ ccm_session_sensor_added_cb (CdClient *client,
         ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "device-added",
                          /* TRANSLATORS: this is the application name */
-                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
+                         CA_PROP_APPLICATION_NAME, _("Cinnamon Settings Daemon Color Plugin"),
                         /* TRANSLATORS: this is a sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device added"), NULL);
 
@@ -358,7 +358,7 @@ ccm_session_sensor_removed_cb (CdClient *client,
         ca_context_play (ca_gtk_context_get (), 0,
                          CA_PROP_EVENT_ID, "device-removed",
                          /* TRANSLATORS: this is the application name */
-                         CA_PROP_APPLICATION_NAME, _("GNOME Settings Daemon Color Plugin"),
+                         CA_PROP_APPLICATION_NAME, _("Cinnamon Settings Daemon Color Plugin"),
                         /* TRANSLATORS: this is a sound description */
                          CA_PROP_EVENT_DESCRIPTION, _("Color calibration device removed"), NULL);
 }
@@ -374,7 +374,7 @@ csd_color_calibrate_class_init (CsdColorCalibrateClass *klass)
 static void
 csd_color_calibrate_init (CsdColorCalibrate *calibrate)
 {
-        calibrate->settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
+        calibrate->settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.color");
         calibrate->client = cd_client_new ();
         g_signal_connect (calibrate->client, "device-added",
                           G_CALLBACK (ccm_session_device_added_notify_cb),
