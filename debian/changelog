@@ -1,3 +1,33 @@
+cinnamon-settings-daemon (6.4.0) xia; urgency=medium
+
+  [ Michael Webster ]
+  * csd-settings-remap-manager.c: Only report on missing schemas and keys when debugging.
+  * csd-power-manager: Assume a keyboard backlight max-value of 0 to mean that adjustment is unsupported.
+
+  [ Clement Lefebvre ]
+  * csd-media-keys: Adapt to new overamplification setting
+
+  [ Eli Schwartz ]
+  * csd-wacom: remove ifdef code that cannot compile (#395)
+
+  [ JosephMcc ]
+  * media-keys: Add support for an audio device selection dialog (#401)
+
+  [ Michael Webster ]
+  * backport cinnamon-desktop changes, nightlight
+  * Fix verbose/debug logging, add G_LOG_DOMAIN for easier tracking in journalctl.
+  * csd-power: Refactoring display backlight code.
+  * csd-color-state.c: Fix build warning/error.
+
+  [ JosephMcc ]
+  * csd-media-keys: Show device description on volume OSD (#399)
+
+  [ Clement Lefebvre ]
+  * csd-color-calibrate: Fix GNOME refs following plugin rebase
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 27 Nov 2024 09:41:10 +0000
+
 cinnamon-settings-daemon (6.2.0) wilma; urgency=medium
 
   [ Gitoffthelawn ]
