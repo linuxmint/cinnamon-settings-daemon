@@ -1,5 +1,17 @@
 plugin_name='color'
 
+if get_option('generate_tz_coords')
+  prog_python = find_program('python3')
+
+  tz_coords_h = custom_target(
+    'tz_coords_h',
+    input: get_option('zone_tab'),
+    output: 'tz-coords.h',
+    command: [prog_python, '@CURRENT_SOURCE_DIR@/generate-tz-header.py', '-i', '@INPUT@', '-o', '@OUTPUT@']
+  )
+else
+  tz_coords_h = files('tz-coords.h')
+endif
 
 built_sources = gnome.gdbus_codegen(
   'cinnamon-session-dbus',
@@ -32,7 +44,7 @@ color_deps = [
 
 executable(
   'csd-' + plugin_name,
-  sources + built_sources,
+  sources + built_sources + [tz_coords_h],
   include_directories: [include_dirs, common_inc],
   dependencies: color_deps,
   c_args: [
