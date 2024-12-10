@@ -38,7 +38,7 @@ Standards-Version: 4.1.4
 
 Package: cinnamon-settings-daemon
 Architecture: any
-Depends: cinnamon-desktop-data (>= 2.6.3), ${misc:Depends}, ${shlibs:Depends}
+Depends: cinnamon-desktop-data (>= 2.6.3), colord, ${misc:Depends}, ${shlibs:Depends}
 Recommends: cinnamon-l10n, pulseaudio
 Suggests:
  cinnamon-screensaver,
