@@ -58,3 +58,15 @@ option(
     value: false,
     description: 'Show additional build warnings'
 )
+option(
+    'generate_tz_coords',
+    type: 'boolean',
+    value: false,
+    description: 'Generate TZCoords header from tzdata'
+)
+option(
+    'zone_tab',
+    type: 'string',
+    value: '/usr/share/zoneinfo/zone.tab',
+    description: 'Path to tzdata zone.tab or zone1970.tab'
+)
