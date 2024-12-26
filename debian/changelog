@@ -1,3 +1,9 @@
+cinnamon-settings-daemon (6.4.3) xia; urgency=medium
+
+  * packaging: Remove recommends/suggests
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 26 Dec 2024 12:43:42 +0000
+
 cinnamon-settings-daemon (6.4.2) xia; urgency=medium
 
   [ Michael Webster ]
