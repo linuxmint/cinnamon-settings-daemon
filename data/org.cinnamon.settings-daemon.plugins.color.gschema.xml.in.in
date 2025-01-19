@@ -2,6 +2,7 @@
   <enum id="schedule_mode">
     <value value="0" nick="auto"/>
     <value value="1" nick="manual"/>
+    <value value="2" nick="always"/>
   </enum>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.color" path="/org/cinnamon/settings-daemon/plugins/color/">
     <key name="recalibrate-display-threshold" type="u">
@@ -27,7 +28,7 @@
     <key name="night-light-schedule-mode" enum="schedule_mode">
       <default>'auto'</default>
       <summary>Set the way start and stop times are determined</summary>
-      <description>Setting to 'auto' will use the system timezone to determine sunrise and sunset. Using 'manual' mode allows specifying exact start and stop times (night-light-schedule-from and -to).</description>
+      <description>Setting to 'auto' will use the system timezone to determine sunrise and sunset. Using 'manual' mode allows specifying exact start and stop times (night-light-schedule-from and -to). The 'always' mode keeps the selected color temperature of your display permanently on.</description>
     </key>
     <key name="night-light-schedule-from" type="d">
       <default>20.00</default>
