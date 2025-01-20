@@ -62,7 +62,8 @@ enum {
 
 enum {
         NIGHT_LIGHT_SCHEDULE_AUTO = 0,
-        NIGHT_LIGHT_SCHEDULE_MANUAL = 1
+        NIGHT_LIGHT_SCHEDULE_MANUAL = 1,
+        NIGHT_LIGHT_SCHEDULE_ALWAYS_ON = 2
 };
 
 #define CSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT      5       /* seconds */
@@ -274,13 +275,26 @@ night_light_recheck (CsdNightLight *self)
                 return;
         }
 
-        /* calculate the position of the sun */
-        if (g_settings_get_enum (self->settings, "night-light-schedule-mode") == NIGHT_LIGHT_SCHEDULE_AUTO) {
+        /* schedule-mode */
+        switch (g_settings_get_enum (self->settings, "night-light-schedule-mode")) {
+        case NIGHT_LIGHT_SCHEDULE_ALWAYS_ON:
+                /* just set the temperature to night light */
+                temperature = g_settings_get_uint (self->settings, "night-light-temperature");
+                g_debug ("night light mode always on, using temperature of %uK",
+                         temperature);
+                csd_night_light_set_active (self, TRUE);
+                csd_night_light_set_temperature (self, temperature);
+                return;
+        case NIGHT_LIGHT_SCHEDULE_AUTO:
+                /* calculate the position of the sun */
                 update_cached_sunrise_sunset (self);
                 if (self->cached_sunrise > 0.f && self->cached_sunset > 0.f) {
                         schedule_to = self->cached_sunrise;
                         schedule_from = self->cached_sunset;
                 }
+                break;
+        default:
+                break;
         }
 
         /* fall back to manual settings */
