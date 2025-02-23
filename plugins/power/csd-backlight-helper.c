@@ -164,8 +164,8 @@ main (int argc, char *argv[])
 	g_option_context_free (context);
 
 #ifndef __linux__
-	/* the g-s-d plugin should only call this helper on linux */
-	g_critical ("Attempting to call gsb-backlight-helper on non-Linux");
+	/* the c-s-d plugin should only call this helper on linux */
+	g_critical ("Attempting to call csd-backlight-helper on non-Linux");
 	g_assert_not_reached ();
 #endif
 

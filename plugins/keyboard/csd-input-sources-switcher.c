@@ -50,8 +50,8 @@ do_switch (void)
   GVariant *sources;
   gint i, n;
 
-  /* FIXME: this is racy with the g-s-d media-keys plugin. Instead we
-     should have a DBus API on g-s-d and poke it from here.*/
+  /* FIXME: this is racy with the c-s-d media-keys plugin. Instead we
+     should have a DBus API on c-s-d and poke it from here.*/
   sources = g_settings_get_value (input_sources_settings, KEY_INPUT_SOURCES);
 
   n = g_variant_n_children (sources);

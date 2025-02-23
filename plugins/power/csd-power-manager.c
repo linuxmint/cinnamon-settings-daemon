@@ -4201,7 +4201,7 @@ on_rr_screen_acquired (GObject      *object,
         manager->priv->inhibit_lid_switch_enabled =
                           g_settings_get_boolean (manager->priv->settings, "inhibit-lid-switch");
 
-        /* Disable logind's lid handling while g-s-d is active */
+        /* Disable logind's lid handling while c-s-d is active */
         inhibit_lid_switch (manager);
 
         manager->priv->up_client = up_client_new ();
