@@ -399,6 +399,7 @@ cinnamon_proxy_complete (GObject      *source,
 static void
 show_osd (CsdMediaKeysManager *manager,
           const char          *icon,
+          const char          *label,
           int                  level,
           int                  outx,
           int                  outy)
@@ -416,6 +417,9 @@ show_osd (CsdMediaKeysManager *manager,
         if (icon)
                 g_variant_builder_add (&builder, "{sv}",
                                        "icon", g_variant_new_string (icon));
+        if (label)
+                g_variant_builder_add (&builder, "{sv}",
+                                       "label", g_variant_new_string (label));
         if (level >= 0)
                 g_variant_builder_add (&builder, "{sv}",
                                        "level", g_variant_new_int32 (level));
@@ -642,7 +646,7 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        show_osd (manager, "media-eject-symbolic", -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+        show_osd (manager, "media-eject-symbolic", _("Eject"), -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -694,9 +698,18 @@ do_execute_desktop (CsdMediaKeysManager *manager,
 static void
 do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
 {
-    show_osd (manager,
-              state ? "input-touchpad-symbolic" : "touchpad-disabled-symbolic",
-              -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+    const char *icon;
+    const char *label;
+
+    if (state) {
+        icon = "input-touchpad-symbolic";
+        label = _("Enabled");
+    } else {
+        icon = "touchpad-disabled-symbolic";
+        label = _("Disabled");
+    }
+
+    show_osd (manager, icon, label, -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 }
 
 static void
@@ -736,7 +749,7 @@ show_sound_osd (CsdMediaKeysManager *manager,
 
     icon = get_icon_name_for_volume (muted, vol, is_mic);
 
-    show_osd (manager, icon, vol, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+    show_osd (manager, icon, NULL, vol, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 
     if (quiet == FALSE && sound_changed != FALSE && muted == FALSE) {
         gboolean enabled = g_settings_get_boolean (manager->priv->sound_settings, "volume-sound-enabled");
@@ -1233,7 +1246,7 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
         if (!have_listeners) {
                 if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                 /* Popup a dialog with an (/) icon */
-                    show_osd (manager, "action-unavailable-symbolic", -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+                    show_osd (manager, "action-unavailable-symbolic", _("Unavailable"), -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
                  }
                 return TRUE;
         }
@@ -1320,14 +1333,23 @@ do_video_rotate_lock_action (CsdMediaKeysManager *manager,
 {
         GSettings *settings;
         gboolean locked;
+        const char *icon;
+        const char *label;
 
         settings = g_settings_new ("org.cinnamon.settings-daemon.peripherals.touchscreen");
         locked = !g_settings_get_boolean (settings, "orientation-lock");
         g_settings_set_boolean (settings, "orientation-lock", locked);
         g_object_unref (settings);
 
-        show_osd (manager, locked ? "rotation-locked-symbolic"
-                                  : "rotation-allowed-symbolic", -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+        if (locked) {
+                icon = "rotation-locked-symbolic";
+                label = _("Rotation Locked");
+        } else {
+                icon = "rotation-allowed-symbolic";
+                label = _("Rotation Allowed");
+        }
+
+        show_osd (manager, icon, label, -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 }
 
 static void
@@ -1488,7 +1510,7 @@ update_screen_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (variant, "(uii)", &percentage, &outx, &outy);
-        show_osd (manager, "display-brightness-symbolic", percentage, outx, outy);
+        show_osd (manager, "display-brightness-symbolic", NULL, percentage, outx, outy);
         g_variant_unref (variant);
 }
 
@@ -1570,7 +1592,7 @@ update_keyboard_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        show_osd (manager, "keyboard-brightness-symbolic", percentage, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+        show_osd (manager, "keyboard-brightness-symbolic", NULL, percentage, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
         g_variant_unref (new_percentage);
 }
 
