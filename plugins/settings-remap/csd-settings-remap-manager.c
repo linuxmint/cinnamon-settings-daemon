@@ -61,9 +61,7 @@ static SchemaMap schemas[] = {
     { "org.gnome.desktop.sound", "org.cinnamon.desktop.sound" },
     { "org.gnome.desktop.privacy", "org.cinnamon.desktop.privacy" },
     { "org.gnome.desktop.wm.preferences", "org.cinnamon.desktop.wm.preferences" },
-    { "org.gnome.settings-daemon.plugins.xsettings", "org.cinnamon.settings-daemon.plugins.xsettings" },
-    { "org.gnome.desktop.a11y", "org.cinnamon.desktop.a11y.keyboard" },
-    { "org.gnome.desktop.input-sources", "org.cinnamon.desktop.input-sources" },
+    { "org.gnome.settings-daemon.plugins.xsettings", "org.cinnamon.settings-daemon.plugins.xsettings" }
 };
 
 static gboolean
