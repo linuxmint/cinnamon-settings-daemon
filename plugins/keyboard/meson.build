@@ -2,19 +2,12 @@ plugin_name = 'keyboard'
 
 keyboard_sources = [
     'csd-keyboard-manager.c',
-    'csd-keyboard-xkb.c',
-    'delayed-dialog.c',
-    'gkbd-configuration.c',
     'main.c',
 ]
 
 keyboard_deps = [
     common_dep,
     csd_dep,
-    gnomekbd,
-    gnomekbdui,
-    libnotify,
-    xklavier,
 ]
 
 executable(
@@ -41,18 +34,4 @@ configure_file(
     output: 'cinnamon-settings-daemon-keyboard.desktop',
     configuration: desktop_conf,
     install_dir: autostartdir,
-)
-
-keyboard_icons = [
-    'kbd-capslock-off.png',
-    'kbd-numlock-off.png',
-    'kbd-scrolllock-off.png',
-    'kbd-capslock-on.png',
-    'kbd-numlock-on.png',
-    'kbd-scrolllock-on.png',
-]
-
-install_data(
-    keyboard_icons,
-    install_dir: join_paths(pkgdatadir, 'icons', 'hicolor', '64x64', 'devices')
 )
