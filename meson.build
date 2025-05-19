@@ -63,7 +63,7 @@ pango = dependency('pango', version: '>= 1.20.0')
 polkit = dependency('polkit-gobject-1', version: '>= 0.97', required: get_option('use_polkit'))
 pulse_required = '>= 0.9.16'
 pulse = dependency('libpulse', version: pulse_required)
-upower_glib = dependency('upower-glib', version: '>= 0.9.11')
+upower_glib = dependency('upower-glib', version: '>= 0.99.11')
 wacom = dependency('libwacom', version: '>= 0.7', required: get_option('use_wacom'))
 x11 = dependency('x11')
 xext = dependency('xext')

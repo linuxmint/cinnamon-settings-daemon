@@ -24,7 +24,7 @@ Build-Depends:
  libpulse-dev (>= 0.9.16),
  librsvg2-dev [!s390x !hurd-any !kfreebsd-any],
  libsystemd-dev [linux-any],
- libupower-glib-dev (>= 0.9.11),
+ libupower-glib-dev (>= 0.99.11),
  libwacom-dev (>= 0.4) [!s390x !hurd-any !kfreebsd-any],
  libx11-dev,
  libxext-dev,
