@@ -222,9 +222,7 @@ static void      kill_lid_close_safety_timer (CsdPowerManager *manager);
 
 static void      backlight_get_output_id (CsdPowerManager *manager, gint *xout, gint *yout);
 
-#if UP_CHECK_VERSION(0,99,0)
 static void device_properties_changed_cb (UpDevice *device, GParamSpec *pspec, CsdPowerManager *manager);
-#endif
 
 static void connect_power_iface (CsdPowerManager *manager);
 static void connect_screen_iface (CsdPowerManager *manager);
@@ -955,12 +953,10 @@ engine_device_add (CsdPowerManager *manager, UpDevice *device)
                            "engine-state-old",
                            GUINT_TO_POINTER(state));
 
-#if UP_CHECK_VERSION(0,99,0)
         g_ptr_array_add (manager->priv->devices_array, g_object_ref(device));
 
         g_signal_connect (device, "notify",
                           G_CALLBACK (device_properties_changed_cb), manager);
-#endif
 
         if (kind == UP_DEVICE_KIND_BATTERY) {
                 g_debug ("updating because we added a device");
@@ -995,18 +991,6 @@ engine_coldplug (CsdPowerManager *manager)
         guint i;
         GPtrArray *array = NULL;
         UpDevice *device;
-#if ! UP_CHECK_VERSION(0,99,0)
-        gboolean ret;
-        GError *error = NULL;
- 
-        /* get devices from UPower */
-        ret = up_client_enumerate_devices_sync (manager->priv->up_client, NULL, &error);
-        if (!ret) {
-                g_warning ("failed to get device list: %s", error->message);
-                g_error_free (error);
-                goto out;
-        }
-#endif
 
         /* connected mobile phones */
         gpm_phone_coldplug (manager->priv->phone);
@@ -1019,9 +1003,7 @@ engine_coldplug (CsdPowerManager *manager)
                 device = g_ptr_array_index (array, i);
                 engine_device_add (manager, device);
         }
-#if ! UP_CHECK_VERSION(0,99,0)
-out:
-#endif
+
         if (array != NULL)
                 g_ptr_array_unref (array);
         /* never repeat */
@@ -1037,7 +1019,6 @@ engine_device_added_cb (UpClient *client, UpDevice *device, CsdPowerManager *man
 }
 
 static void
-#if UP_CHECK_VERSION(0,99,0)
 engine_device_removed_cb (UpClient *client, const char *object_path, CsdPowerManager *manager)
 {
         guint i;
@@ -1052,18 +1033,6 @@ engine_device_removed_cb (UpClient *client, const char *object_path, CsdPowerMan
         }
         engine_recalculate_state (manager);
 }
-
-#else
-
-engine_device_removed_cb (UpClient *client, UpDevice *device, CsdPowerManager *manager)
-{
-        gboolean ret;
-        ret = g_ptr_array_remove (manager->priv->devices_array, device);
-        if (!ret)
-                return;
-        engine_recalculate_state (manager);
-}
-#endif
 
 static void
 on_notification_closed (NotifyNotification *notification, gpointer data)
@@ -1167,18 +1136,10 @@ manager_critical_action_get (CsdPowerManager *manager,
 
         policy = g_settings_get_enum (manager->priv->settings, "critical-battery-action");
         if (policy == CSD_POWER_ACTION_SUSPEND) {
-                if (is_ups == FALSE
-#if ! UP_CHECK_VERSION(0,99,0)
-                    && up_client_get_can_suspend (manager->priv->up_client)
-#endif
-                )
+                if (is_ups == FALSE) {
                         return policy;
-                return CSD_POWER_ACTION_SHUTDOWN;
-        } else if (policy == CSD_POWER_ACTION_HIBERNATE) {
-#if ! UP_CHECK_VERSION(0,99,0)
-                if (up_client_get_can_hibernate (manager->priv->up_client))
-#endif
-                        return policy;
+                }
+
                 return CSD_POWER_ACTION_SHUTDOWN;
         }
 
@@ -1711,11 +1672,7 @@ out:
 }
 
 static void
-#if UP_CHECK_VERSION(0,99,0)
 device_properties_changed_cb (UpDevice *device, GParamSpec *pspec, CsdPowerManager *manager)
-#else
-engine_device_changed_cb (UpClient *client, UpDevice *device, CsdPowerManager *manager)
-#endif
 {
         UpDeviceKind kind;
         UpDeviceState state;
@@ -2371,18 +2328,6 @@ suspend_with_lid_closed (CsdPowerManager *manager)
                                                    "lid-close-ac-action");
         }
 
-        /* check we won't melt when the lid is closed */
-        if (action_type != CSD_POWER_ACTION_SUSPEND &&
-            action_type != CSD_POWER_ACTION_HIBERNATE) {
-#if ! UP_CHECK_VERSION(0,99,0)
-                if (up_client_get_lid_force_sleep (manager->priv->up_client)) {
-                        g_warning ("to prevent damage, now forcing suspend");
-                        do_power_action_type (manager, CSD_POWER_ACTION_SUSPEND);
-                        return;
-                }
-#endif
-        }
-
         /* only toggle keyboard if present and not already toggled */
         if (manager->priv->upower_kbd_proxy &&
             manager->priv->kbd_brightness_old == -1) {
@@ -2423,11 +2368,7 @@ do_lid_closed_action (CsdPowerManager *manager)
 
 
 static void
-#if UP_CHECK_VERSION(0,99,0)
 lid_state_changed_cb (UpClient *client, GParamSpec *pspec, CsdPowerManager *manager)
-#else
-up_client_changed_cb (UpClient *client, CsdPowerManager *manager)
-#endif
 {
         gboolean lid_is_closed;
         gboolean on_battery;
@@ -3420,7 +3361,6 @@ idle_configure (CsdPowerManager *manager)
         refresh_idle_dim_settings (manager);
 }
 
-#if UP_CHECK_VERSION(0,99,0)
 static void
 up_client_on_battery_cb (UpClient *client,
                          GParamSpec *pspec,
@@ -3429,7 +3369,6 @@ up_client_on_battery_cb (UpClient *client,
         idle_configure (manager);
         lid_state_changed_cb(client, pspec, manager);
 }
-#endif
 
 static void
 csd_power_manager_class_init (CsdPowerManagerClass *klass)
@@ -4068,24 +4007,6 @@ handle_resume_actions (CsdPowerManager *manager)
         inhibit_suspend (manager);
 }
 
-#if ! UP_CHECK_VERSION(0,99,0)
-static void
-upower_notify_sleep_cb (UpClient *client,
-                        UpSleepKind sleep_kind,
-                        CsdPowerManager *manager)
-{
-        handle_suspend_actions (manager);
-}
-
-static void
-upower_notify_resume_cb (UpClient *client,
-                         UpSleepKind sleep_kind,
-                         CsdPowerManager *manager)
-{
-        handle_resume_actions (manager);
-}
-#endif
-
 static void
 logind_proxy_signal_cb (GDBusProxy  *proxy,
                         const gchar *sender_name,
@@ -4205,30 +4126,17 @@ on_rr_screen_acquired (GObject      *object,
         inhibit_lid_switch (manager);
 
         manager->priv->up_client = up_client_new ();
-#if ! UP_CHECK_VERSION(0,99,0)
-        g_signal_connect (manager->priv->up_client, "notify-sleep",
-                          G_CALLBACK (upower_notify_sleep_cb), manager);
-        g_signal_connect (manager->priv->up_client, "notify-resume",
-                          G_CALLBACK (upower_notify_resume_cb), manager);
-#endif
         manager->priv->lid_is_closed = up_client_get_lid_is_closed (manager->priv->up_client);
         manager->priv->on_battery = up_client_get_on_battery(manager->priv->up_client);
         g_signal_connect (manager->priv->up_client, "device-added",
                           G_CALLBACK (engine_device_added_cb), manager);
         g_signal_connect (manager->priv->up_client, "device-removed",
                           G_CALLBACK (engine_device_removed_cb), manager);
-#if UP_CHECK_VERSION(0,99,0)
         g_signal_connect_after (manager->priv->up_client, "notify::lid-is-closed",
                                 G_CALLBACK (lid_state_changed_cb), manager);
 
         g_signal_connect (manager->priv->up_client, "notify::on-battery",
                           G_CALLBACK (up_client_on_battery_cb), manager);
-#else
-        g_signal_connect (manager->priv->up_client, "device-changed",
-                          G_CALLBACK (engine_device_changed_cb), manager);
-        g_signal_connect_after (manager->priv->up_client, "changed",
-                                G_CALLBACK (up_client_changed_cb), manager);
-#endif
 
         /* connect to UPower for keyboard backlight control */
         g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
@@ -4550,10 +4458,6 @@ csd_power_manager_finalize (GObject *object)
 
         G_OBJECT_CLASS (csd_power_manager_parent_class)->finalize (object);
 }
-
-#if !UP_CHECK_VERSION(0,99,0)
-#define UP_DEVICE_LEVEL_NONE 1
-#endif
 
 static GVariant *
 device_to_variant_blob (UpDevice *device)

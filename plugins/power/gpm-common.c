@@ -645,12 +645,10 @@ gpm_device_kind_to_localised_string (UpDeviceKind kind, guint number)
                 /* TRANSLATORS: tablet device */
                 text = ngettext ("Computer", "Computers", number);
                 break;
-#if UP_CHECK_VERSION(0,99,6)
         case UP_DEVICE_KIND_GAMING_INPUT:
                 /* TRANSLATORS: gaming peripherals */
                 text = ngettext ("Game controller", "Game controllers", number);
                 break;
-#endif
         case UP_DEVICE_KIND_UNKNOWN:
                 text = ngettext ("Unknown device", "Unknown devices", number);
                 break;
@@ -700,11 +698,9 @@ gpm_device_kind_to_icon (UpDeviceKind kind)
         case UP_DEVICE_KIND_COMPUTER:
                 icon = "computer-apple-ipad";
                 break;
-#if UP_CHECK_VERSION(0,99,6)
         case UP_DEVICE_KIND_GAMING_INPUT:
                 icon = "input-gaming";
                 break;
-#endif
         case UP_DEVICE_KIND_UNKNOWN:
                 icon = "gtk-help";
                 break;
@@ -1014,7 +1010,6 @@ gpm_device_to_localised_string (UpDevice *device)
                 }
         }
 
-#if UP_CHECK_VERSION(0,99,6)
         /* computer */
         if (kind == UP_DEVICE_KIND_GAMING_INPUT) {
 
@@ -1035,7 +1030,6 @@ gpm_device_to_localised_string (UpDevice *device)
                         return _("Game controller is charged");
                 }
         }
-#endif
 
         return gpm_device_kind_to_localised_string (kind, 1);
 }
