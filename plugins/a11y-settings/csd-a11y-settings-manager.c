@@ -187,7 +187,6 @@ bind_keys (CsdA11ySettingsManager *manager,
 static void
 bind_cinnamon_gnome_a11y_settings (CsdA11ySettingsManager *manager)
 {
-    bind_keys (manager, CINNAMON_A11Y_APP_SCHEMA, "screen-keyboard-enabled", GNOME_A11Y_APP_SCHEMA, "screen-keyboard-enabled");
     bind_keys (manager, CINNAMON_A11Y_APP_SCHEMA, "screen-reader-enabled",   GNOME_A11Y_APP_SCHEMA, "screen-reader-enabled");
     bind_keys (manager, CINNAMON_DESKTOP_SCHEMA,  "toolkit-accessibility",   GNOME_DESKTOP_SCHEMA,  "toolkit-accessibility");
 

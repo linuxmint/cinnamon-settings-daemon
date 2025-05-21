@@ -15,8 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Suite 500, Boston, MA 02110-1335, USA.
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -38,174 +37,133 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include <X11/XKBlib.h>
-#include <X11/keysym.h>
-
 #include "cinnamon-settings-profile.h"
 #include "csd-keyboard-manager.h"
+#include "csd-input-helper.h"
 #include "csd-enums.h"
-
-#include "csd-keyboard-xkb.h"
 #include "migrate-settings.h"
-
-#define CSD_KEYBOARD_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_KEYBOARD_MANAGER, CsdKeyboardManagerPrivate))
-
-#ifndef HOST_NAME_MAX
-#  define HOST_NAME_MAX 255
-#endif
 
 #define CSD_KEYBOARD_DIR "org.cinnamon.settings-daemon.peripherals.keyboard"
 
 #define KEY_CLICK          "click"
 #define KEY_CLICK_VOLUME   "click-volume"
-#define KEY_NUMLOCK_STATE  "numlock-state"
 
 #define KEY_BELL_VOLUME    "bell-volume"
 #define KEY_BELL_PITCH     "bell-pitch"
 #define KEY_BELL_DURATION  "bell-duration"
 #define KEY_BELL_MODE      "bell-mode"
+#define KEY_BELL_CUSTOM_FILE "bell-custom-file"
 
-struct CsdKeyboardManagerPrivate
+#define CINNAMON_DESKTOP_INTERFACE_DIR "org.cinnamon.desktop.interface"
+
+#define KEY_GTK_IM_MODULE    "gtk-im-module"
+#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
+#define GTK_IM_MODULE_IBUS   "ibus"
+
+#define CINNAMON_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
+
+#define KEY_INPUT_SOURCES        "sources"
+#define KEY_KEYBOARD_OPTIONS     "xkb-options"
+
+#define INPUT_SOURCE_TYPE_XKB  "xkb"
+#define INPUT_SOURCE_TYPE_IBUS "ibus"
+
+#define DEFAULT_LAYOUT "us"
+
+#define CINNAMON_A11Y_APPLICATIONS_INTERFACE_DIR "org.cinnamon.desktop.a11y.applications"
+#define KEY_OSK_ENABLED "screen-keyboard-enabled"
+
+struct _CsdKeyboardManager
 {
-	guint      start_idle_id;
+        GObject    parent;
+
+        guint      start_idle_id;
         GSettings *settings;
-        gboolean   have_xkb;
-        gint       xkb_event_base;
-        CsdNumLockState old_state;
+        GSettings *input_sources_settings;
+        GSettings *a11y_settings;
+        GDBusProxy *localed;
+        GCancellable *cancellable;
+
+        GdkDeviceManager *device_manager;
+        guint device_added_id;
+        guint device_removed_id;
 };
 
+static void     csd_keyboard_manager_class_init  (CsdKeyboardManagerClass *klass);
+static void     csd_keyboard_manager_init        (CsdKeyboardManager      *keyboard_manager);
 static void     csd_keyboard_manager_finalize    (GObject                 *object);
+
+static void     update_gtk_im_module (CsdKeyboardManager *manager);
 
 G_DEFINE_TYPE (CsdKeyboardManager, csd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
 
-static void
-numlock_xkb_init (CsdKeyboardManager *manager)
+static gboolean
+session_is_wayland (void)
 {
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        gboolean have_xkb;
-        int opcode, error_base, major, minor;
+    static gboolean session_is_wayland = FALSE;
+    static gsize once_init = 0;
 
-        have_xkb = XkbQueryExtension (dpy,
-                                      &opcode,
-                                      &manager->priv->xkb_event_base,
-                                      &error_base,
-                                      &major,
-                                      &minor)
-                && XkbUseExtension (dpy, &major, &minor);
-
-        if (have_xkb) {
-                XkbSelectEventDetails (dpy,
-                                       XkbUseCoreKbd,
-                                       XkbStateNotifyMask,
-                                       XkbModifierLockMask,
-                                       XkbModifierLockMask);
-        } else {
-                g_warning ("XKB extension not available");
+    if (g_once_init_enter (&once_init)) {
+        const gchar *env = g_getenv ("XDG_SESSION_TYPE");
+        if (env && g_strcmp0 (env, "wayland") == 0) {
+            session_is_wayland = TRUE;
         }
 
-        manager->priv->have_xkb = have_xkb;
-}
+        g_debug ("Session is Wayland? %d", session_is_wayland);
 
-static unsigned
-numlock_NumLock_modifier_mask (void)
-{
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        return XkbKeysymToModifiers (dpy, XK_Num_Lock);
-}
+        g_once_init_leave (&once_init, 1);
+    }
 
-static void
-numlock_set_xkb_state (CsdNumLockState new_state)
-{
-        unsigned int num_mask;
-        Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
-        if (new_state != CSD_NUM_LOCK_STATE_ON && new_state != CSD_NUM_LOCK_STATE_OFF)
-                return;
-        num_mask = numlock_NumLock_modifier_mask ();
-        XkbLockModifiers (dpy, XkbUseCoreKbd, num_mask, new_state == CSD_NUM_LOCK_STATE_ON ? num_mask : 0);
-}
-
-static GdkFilterReturn
-numlock_xkb_callback (GdkXEvent *xev_,
-                      GdkEvent  *gdkev_,
-                      gpointer   user_data)
-{
-        XEvent *xev = (XEvent *) xev_;
-	XkbEvent *xkbev = (XkbEvent *) xev;
-        CsdKeyboardManager *manager = (CsdKeyboardManager *) user_data;
-
-        if (xev->type != manager->priv->xkb_event_base)
-		return GDK_FILTER_CONTINUE;
-
-	if (xkbev->any.xkb_type != XkbStateNotify)
-		return GDK_FILTER_CONTINUE;
-
-	if (xkbev->state.changed & XkbModifierLockMask) {
-		unsigned num_mask = numlock_NumLock_modifier_mask ();
-		unsigned locked_mods = xkbev->state.locked_mods;
-		CsdNumLockState numlock_state;
-
-		numlock_state = (num_mask & locked_mods) ? CSD_NUM_LOCK_STATE_ON : CSD_NUM_LOCK_STATE_OFF;
-
-		if (numlock_state != manager->priv->old_state) {
-			g_settings_set_enum (manager->priv->settings,
-					     KEY_NUMLOCK_STATE,
-					     numlock_state);
-			manager->priv->old_state = numlock_state;
-		}
-	}
-
-        return GDK_FILTER_CONTINUE;
+    return session_is_wayland;
 }
 
 static void
-numlock_install_xkb_callback (CsdKeyboardManager *manager)
+init_builder_with_sources (GVariantBuilder *builder,
+                           GSettings       *settings)
 {
-        if (!manager->priv->have_xkb)
-                return;
+        const gchar *type;
+        const gchar *id;
+        GVariantIter iter;
+        GVariant *sources;
 
-        gdk_window_add_filter (NULL,
-                               numlock_xkb_callback,
-                               manager);
-}
+        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
 
-static guint
-_csd_settings_get_uint (GSettings  *settings,
-			const char *key)
-{
-	guint value;
+        g_variant_builder_init (builder, G_VARIANT_TYPE ("a(ss)"));
 
-	g_settings_get (settings, key, "u", &value);
-	return value;
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, &id))
+                g_variant_builder_add (builder, "(ss)", type, id);
+
+        g_variant_unref (sources);
 }
 
 static void
-apply_settings (GSettings          *settings,
-                const char         *key,
-                CsdKeyboardManager *manager)
+apply_bell (CsdKeyboardManager *manager)
 {
+    GSettings       *settings;
         XKeyboardControl kbdcontrol;
         gboolean         click;
-        int              click_volume;
         int              bell_volume;
         int              bell_pitch;
         int              bell_duration;
         CsdBellMode      bell_mode;
-        gboolean         rnumlock;
+        int              click_volume;
 
-        if (g_strcmp0 (key, KEY_NUMLOCK_STATE) == 0)
+        if (session_is_wayland ())
                 return;
 
+        g_debug ("Applying the bell settings");
+        settings      = manager->settings;
         click         = g_settings_get_boolean  (settings, KEY_CLICK);
         click_volume  = g_settings_get_int   (settings, KEY_CLICK_VOLUME);
+
         bell_pitch    = g_settings_get_int   (settings, KEY_BELL_PITCH);
         bell_duration = g_settings_get_int   (settings, KEY_BELL_DURATION);
 
         bell_mode = g_settings_get_enum (settings, KEY_BELL_MODE);
         bell_volume   = (bell_mode == CSD_BELL_MODE_ON) ? 50 : 0;
-
-        gdk_x11_display_error_trap_push (gdk_display_get_default ());
 
         /* as percentage from 0..100 inclusive */
         if (click_volume < 0) {
@@ -217,27 +175,277 @@ apply_settings (GSettings          *settings,
         kbdcontrol.bell_percent = bell_volume;
         kbdcontrol.bell_pitch = bell_pitch;
         kbdcontrol.bell_duration = bell_duration;
+
+        gdk_error_trap_push ();
         XChangeKeyboardControl (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
                                 KBKeyClickPercent | KBBellPercent | KBBellPitch | KBBellDuration,
                                 &kbdcontrol);
 
-	if (g_strcmp0 (key, "remember-numlock-state") == 0 || key == NULL) {
-		rnumlock      = g_settings_get_boolean  (settings, "remember-numlock-state");
-
-		manager->priv->old_state = g_settings_get_enum (manager->priv->settings, KEY_NUMLOCK_STATE);
-
-		if (manager->priv->have_xkb && rnumlock)
-			numlock_set_xkb_state (manager->priv->old_state);
-	}
-
         XSync (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), FALSE);
-        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
+        gdk_error_trap_pop_ignored ();
 }
 
-void
-csd_keyboard_manager_apply_settings (CsdKeyboardManager *manager)
+static void
+apply_all_settings (CsdKeyboardManager *manager)
 {
-        apply_settings (manager->priv->settings, NULL, manager);
+    apply_bell (manager);
+}
+
+static void
+settings_changed (GSettings          *settings,
+                  const char         *key,
+                  CsdKeyboardManager *manager)
+{
+    if (g_strcmp0 (key, KEY_CLICK) == 0||
+        g_strcmp0 (key, KEY_CLICK_VOLUME) == 0 ||
+        g_strcmp0 (key, KEY_BELL_PITCH) == 0 ||
+        g_strcmp0 (key, KEY_BELL_DURATION) == 0 ||
+        g_strcmp0 (key, KEY_BELL_MODE) == 0) {
+        g_debug ("Bell setting '%s' changed, applying bell settings", key);
+        apply_bell (manager);
+    } else if (g_strcmp0 (key, KEY_BELL_CUSTOM_FILE) == 0){
+        g_debug ("Ignoring '%s' setting change", KEY_BELL_CUSTOM_FILE);
+    } else {
+        g_warning ("Unhandled settings change, key '%s'", key);
+    }
+
+}
+
+static void
+device_added_cb (GdkDeviceManager   *device_manager,
+                 GdkDevice          *device,
+                 CsdKeyboardManager *manager)
+{
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_TOUCHSCREEN) {
+                update_gtk_im_module (manager);
+        }
+}
+
+static void
+device_removed_cb (GdkDeviceManager   *device_manager,
+                   GdkDevice          *device,
+                   CsdKeyboardManager *manager)
+{
+        GdkInputSource source;
+
+        source = gdk_device_get_source (device);
+        if (source == GDK_SOURCE_TOUCHSCREEN)
+                update_gtk_im_module (manager);
+}
+
+static void
+set_devicepresence_handler (CsdKeyboardManager *manager)
+{
+        GdkDeviceManager *device_manager;
+
+        if (session_is_wayland ())
+                return;
+
+        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+
+        manager->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
+                                                           G_CALLBACK (device_added_cb), manager);
+        manager->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
+                                                             G_CALLBACK (device_removed_cb), manager);
+        manager->device_manager = device_manager;
+}
+
+static gboolean
+need_ibus (GVariant *sources)
+{
+        GVariantIter iter;
+        const gchar *type;
+
+        g_variant_iter_init (&iter, sources);
+        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
+                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
+                        return TRUE;
+
+        return FALSE;
+}
+
+static gboolean
+need_osk (CsdKeyboardManager *manager)
+{
+        gboolean has_touchscreen = FALSE;
+        GList *devices;
+        GdkSeat *seat;
+
+        if (g_settings_get_boolean (manager->a11y_settings,
+                                    KEY_OSK_ENABLED))
+                return TRUE;
+
+        seat = gdk_display_get_default_seat (gdk_display_get_default ());
+        devices = gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_TOUCH);
+
+        has_touchscreen = devices != NULL;
+
+        g_list_free (devices);
+
+        return has_touchscreen;
+}
+
+static void
+set_gtk_im_module (CsdKeyboardManager *manager,
+                   GSettings          *settings,
+                   GVariant           *sources)
+{
+        const gchar *new_module;
+        gchar *current_module;
+
+        if (need_ibus (sources) || need_osk (manager))
+                new_module = GTK_IM_MODULE_IBUS;
+        else
+                new_module = GTK_IM_MODULE_SIMPLE;
+
+        current_module = g_settings_get_string (settings, KEY_GTK_IM_MODULE);
+        if (!g_str_equal (current_module, new_module))
+                g_settings_set_string (settings, KEY_GTK_IM_MODULE, new_module);
+        g_free (current_module);
+}
+
+static void
+update_gtk_im_module (CsdKeyboardManager *manager)
+{
+        GSettings *interface_settings;
+        GVariant *sources;
+
+        /* Gtk+ uses the IM module advertised in XSETTINGS so, if we
+         * have IBus input sources, we want it to load that
+         * module. Otherwise we can use the default "simple" module
+         * which is builtin gtk+
+         */
+        interface_settings = g_settings_new (CINNAMON_DESKTOP_INTERFACE_DIR);
+        sources = g_settings_get_value (manager->input_sources_settings,
+                                        KEY_INPUT_SOURCES);
+        set_gtk_im_module (manager, interface_settings, sources);
+        g_object_unref (interface_settings);
+        g_variant_unref (sources);
+}
+
+static void
+get_sources_from_xkb_config (CsdKeyboardManager *manager)
+{
+        GVariantBuilder builder;
+        GVariant *v;
+        gint i, n;
+        gchar **layouts = NULL;
+        gchar **variants = NULL;
+
+        v = g_dbus_proxy_get_cached_property (manager->localed, "X11Layout");
+        if (v) {
+                const gchar *s = g_variant_get_string (v, NULL);
+                if (*s)
+                        layouts = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
+
+        init_builder_with_sources (&builder, manager->input_sources_settings);
+
+        if (!layouts) {
+                g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_XKB, DEFAULT_LAYOUT);
+                goto out;
+    }
+
+        v = g_dbus_proxy_get_cached_property (manager->localed, "X11Variant");
+        if (v) {
+                const gchar *s = g_variant_get_string (v, NULL);
+                if (*s)
+                        variants = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
+
+        if (variants && variants[0])
+                n = MIN (g_strv_length (layouts), g_strv_length (variants));
+        else
+                n = g_strv_length (layouts);
+
+        for (i = 0; i < n && layouts[i][0]; ++i) {
+                gchar *id;
+
+                if (variants && variants[i] && variants[i][0])
+                        id = g_strdup_printf ("%s+%s", layouts[i], variants[i]);
+                else
+                        id = g_strdup (layouts[i]);
+
+                g_variant_builder_add (&builder, "(ss)", INPUT_SOURCE_TYPE_XKB, id);
+                g_free (id);
+        }
+
+out:
+        g_settings_set_value (manager->input_sources_settings, KEY_INPUT_SOURCES, g_variant_builder_end (&builder));
+
+        g_strfreev (layouts);
+        g_strfreev (variants);
+}
+
+static void
+get_options_from_xkb_config (CsdKeyboardManager *manager)
+{
+        GVariant *v;
+        gchar **options = NULL;
+
+        v = g_dbus_proxy_get_cached_property (manager->localed, "X11Options");
+        if (v) {
+                const gchar *s = g_variant_get_string (v, NULL);
+                if (*s)
+                        options = g_strsplit (s, ",", -1);
+                g_variant_unref (v);
+        }
+
+        if (!options)
+                return;
+
+        g_settings_set_strv (manager->input_sources_settings, KEY_KEYBOARD_OPTIONS, (const gchar * const*) options);
+
+        g_strfreev (options);
+}
+
+static void
+maybe_create_initial_settings (CsdKeyboardManager *manager)
+{
+        GSettings *settings;
+        GVariant *sources;
+        gchar **options;
+
+        settings = manager->input_sources_settings;
+
+        /* if we still don't have anything do some educated guesses */
+        sources = g_settings_get_value (settings, KEY_INPUT_SOURCES);
+        if (g_variant_n_children (sources) < 1)
+                get_sources_from_xkb_config (manager);
+        g_variant_unref (sources);
+
+        options = g_settings_get_strv (settings, KEY_KEYBOARD_OPTIONS);
+        if (g_strv_length (options) < 1)
+                get_options_from_xkb_config (manager);
+        g_strfreev (options);
+}
+
+static void
+localed_proxy_ready (GObject      *source,
+                     GAsyncResult *res,
+                     gpointer      data)
+{
+        CsdKeyboardManager *manager = data;
+        GDBusProxy *proxy;
+        GError *error = NULL;
+
+        proxy = g_dbus_proxy_new_finish (res, &error);
+        if (!proxy) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
+                g_warning ("Failed to contact localed: %s", error->message);
+                g_error_free (error);
+        }
+
+        manager->localed = proxy;
+        maybe_create_initial_settings (manager);
 }
 
 static gboolean
@@ -247,25 +455,45 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         g_debug ("Starting keyboard manager");
 
-        manager->priv->have_xkb = 0;
-        manager->priv->settings = g_settings_new (CSD_KEYBOARD_DIR);
+        manager->settings = g_settings_new (CSD_KEYBOARD_DIR);
 
-        /* Essential - xkb initialization should happen before */
-        csd_keyboard_xkb_init (manager);
+        set_devicepresence_handler (manager);
 
-        numlock_xkb_init (manager);
+        manager->input_sources_settings = g_settings_new (CINNAMON_DESKTOP_INPUT_SOURCES_DIR);
+        g_signal_connect_swapped (manager->input_sources_settings,
+                                  "changed::" KEY_INPUT_SOURCES,
+                                  G_CALLBACK (update_gtk_im_module), manager);
 
-        /* apply current settings before we install the callback */
-        csd_keyboard_manager_apply_settings (manager);
+        manager->a11y_settings = g_settings_new (CINNAMON_A11Y_APPLICATIONS_INTERFACE_DIR);
+        g_signal_connect_swapped (manager->a11y_settings,
+                                  "changed::" KEY_OSK_ENABLED,
+                                  G_CALLBACK (update_gtk_im_module), manager);
+        update_gtk_im_module (manager);
 
-        g_signal_connect (G_OBJECT (manager->priv->settings), "changed",
-                          G_CALLBACK (apply_settings), manager);
+        manager->cancellable = g_cancellable_new ();
 
-        numlock_install_xkb_callback (manager);
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  "org.freedesktop.locale1",
+                                  "/org/freedesktop/locale1",
+                                  "org.freedesktop.locale1",
+                                  manager->cancellable,
+                                  localed_proxy_ready,
+                                  manager);
+
+        if (!session_is_wayland ()) {
+                /* apply current settings before we install the callback */
+                g_debug ("Started the keyboard plugin, applying all settings");
+                apply_all_settings (manager);
+
+                g_signal_connect (G_OBJECT (manager->settings), "changed",
+                                  G_CALLBACK (settings_changed), manager);
+        }
 
         cinnamon_settings_profile_end (NULL);
 
-        manager->priv->start_idle_id = 0;
+        manager->start_idle_id = 0;
 
         return FALSE;
 }
@@ -276,7 +504,8 @@ csd_keyboard_manager_start (CsdKeyboardManager *manager,
 {
         cinnamon_settings_profile_start (NULL);
 
-        manager->priv->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
+        manager->start_idle_id = g_idle_add ((GSourceFunc) start_keyboard_idle_cb, manager);
+        g_source_set_name_by_id (manager->start_idle_id, "[gnome-settings-daemon] start_keyboard_idle_cb");
 
         cinnamon_settings_profile_end (NULL);
 
@@ -286,36 +515,21 @@ csd_keyboard_manager_start (CsdKeyboardManager *manager,
 void
 csd_keyboard_manager_stop (CsdKeyboardManager *manager)
 {
-        CsdKeyboardManagerPrivate *p = manager->priv;
-
         g_debug ("Stopping keyboard manager");
 
-        if (p->settings != NULL) {
-                g_object_unref (p->settings);
-                p->settings = NULL;
+        g_cancellable_cancel (manager->cancellable);
+        g_clear_object (&manager->cancellable);
+
+        g_clear_object (&manager->settings);
+        g_clear_object (&manager->input_sources_settings);
+        g_clear_object (&manager->a11y_settings);
+        g_clear_object (&manager->localed);
+
+        if (manager->device_manager != NULL) {
+                g_signal_handler_disconnect (manager->device_manager, manager->device_added_id);
+                g_signal_handler_disconnect (manager->device_manager, manager->device_removed_id);
+                manager->device_manager = NULL;
         }
-
-        if (p->have_xkb) {
-                gdk_window_remove_filter (NULL,
-                                          numlock_xkb_callback,
-                                          manager);
-        }
-
-        csd_keyboard_xkb_shutdown ();
-}
-
-static GObject *
-csd_keyboard_manager_constructor (GType                  type,
-                                  guint                  n_construct_properties,
-                                  GObjectConstructParam *construct_properties)
-{
-        CsdKeyboardManager      *keyboard_manager;
-
-        keyboard_manager = CSD_KEYBOARD_MANAGER (G_OBJECT_CLASS (csd_keyboard_manager_parent_class)->constructor (type,
-                                                                                                      n_construct_properties,
-                                                                                                      construct_properties));
-
-        return G_OBJECT (keyboard_manager);
 }
 
 static void
@@ -323,16 +537,12 @@ csd_keyboard_manager_class_init (CsdKeyboardManagerClass *klass)
 {
         GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->constructor = csd_keyboard_manager_constructor;
         object_class->finalize = csd_keyboard_manager_finalize;
-
-        g_type_class_add_private (klass, sizeof (CsdKeyboardManagerPrivate));
 }
 
 static void
 csd_keyboard_manager_init (CsdKeyboardManager *manager)
 {
-        manager->priv = CSD_KEYBOARD_MANAGER_GET_PRIVATE (manager);
 }
 
 static void
@@ -345,12 +555,12 @@ csd_keyboard_manager_finalize (GObject *object)
 
         keyboard_manager = CSD_KEYBOARD_MANAGER (object);
 
-        g_return_if_fail (keyboard_manager->priv != NULL);
+        g_return_if_fail (keyboard_manager != NULL);
 
-        if (keyboard_manager->priv->start_idle_id != 0) {
-                g_source_remove (keyboard_manager->priv->start_idle_id);
-                keyboard_manager->priv->start_idle_id = 0;
-        }
+        csd_keyboard_manager_stop (keyboard_manager);
+
+        if (keyboard_manager->start_idle_id != 0)
+                g_source_remove (keyboard_manager->start_idle_id);
 
         G_OBJECT_CLASS (csd_keyboard_manager_parent_class)->finalize (object);
 }
