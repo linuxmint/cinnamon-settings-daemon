@@ -59,7 +59,6 @@ gudev = dependency('gudev-1.0', required: get_option('use_gudev'))
 libnotify = dependency('libnotify', version: '>= 0.7.3')
 kbproto = dependency('kbproto')
 nss = dependency('nss', version: '>= 3.11.2', required: get_option('use_smartcard'))
-pango = dependency('pango', version: '>= 1.20.0')
 polkit = dependency('polkit-gobject-1', version: '>= 0.97', required: get_option('use_polkit'))
 pulse_required = '>= 0.9.16'
 pulse = dependency('libpulse', version: pulse_required)
@@ -71,7 +70,10 @@ xi = dependency('xi')
 xklavier = dependency('libxklavier', version: '>= 5.0')
 
 # currently only used for the wacom plugin
-librsvg = dependency('librsvg-2.0', version: '>= 2.36.2', required: wacom.found())
+if wacom.found()
+    librsvg = dependency('librsvg-2.0', version: '>= 2.36.2')
+    pango = dependency('pango', version: '>= 1.20.0')
+endif
 
 lcms = dependency('lcms2', required: colord.found())
 if lcms.version().version_compare('>=2.2')
