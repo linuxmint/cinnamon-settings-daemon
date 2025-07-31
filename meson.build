@@ -67,7 +67,6 @@ upower_glib = dependency('upower-glib', version: '>= 0.99.11')
 wacom = dependency('libwacom', version: '>= 0.7', required: get_option('use_wacom'))
 x11 = dependency('x11')
 xext = dependency('xext')
-xfixes = dependency('xfixes')
 xi = dependency('xi')
 xklavier = dependency('libxklavier', version: '>= 5.0')
 
