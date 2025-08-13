@@ -4,7 +4,7 @@ import re
 from argparse import ArgumentParser
 from pathlib import Path
 
-COORDS_RE = re.compile(r"([+-])([0-9]+)([+-])([0-9]+)")
+COORDS_RE = re.compile(r"([+-]{1}[0-9]{2})([0-9]{2})([0-9]*)([+-]{1}[0-9]{3})([0-9]{2})([0-9]*)")
 
 d = {}
 
@@ -21,13 +21,10 @@ with open(args.zone_tab, "r") as f:
             continue
 
         coords, tz = line.split('\t')[1:3]
-        lat_sign, lat_val, long_sign, long_val = COORDS_RE.search(coords).groups()
+        lat_deg, lat_min, lat_sec, long_deg, long_min, long_sec = COORDS_RE.search(coords).groups()
 
-        lat_str = lat_sign + lat_val[0:2] + "." + lat_val[2:]
-        long_str = long_sign + long_val[0:3] + "." + long_val[3:]
-
-        lat = float(lat_str)
-        long = float(long_str)
+        lat = float(lat_deg + str((int(lat_min) / 60.0) + ((int(lat_sec) if lat_sec else 0) / 3600.0))[1:])
+        long = float(long_deg + str((int(long_min) / 60.0) + ((int(long_sec) if long_sec else 0) / 3600.0))[1:])
 
         d[tz] = [lat, long]
 
