@@ -649,6 +649,66 @@ gpm_device_kind_to_localised_string (UpDeviceKind kind, guint number)
                 /* TRANSLATORS: gaming peripherals */
                 text = ngettext ("Game controller", "Game controllers", number);
                 break;
+        case UP_DEVICE_KIND_PEN:
+                /* TRANSLATORS: pen input device */
+                text = ngettext ("Pen", "Pens", number);
+                break;
+        case UP_DEVICE_KIND_TOUCHPAD:
+                /* TRANSLATORS: touchpad input device */
+                text = ngettext ("Touchpad", "Touchpads", number);
+                break;
+        case UP_DEVICE_KIND_MODEM:
+                /* TRANSLATORS: modem device */
+                text = ngettext ("Modem", "Modems", number);
+                break;
+        case UP_DEVICE_KIND_NETWORK:
+                /* TRANSLATORS: network device */
+                text = ngettext ("Network device", "Network devices", number);
+                break;
+        case UP_DEVICE_KIND_HEADSET:
+                /* TRANSLATORS: headset device */
+                text = ngettext ("Headset", "Headsets", number);
+                break;
+        case UP_DEVICE_KIND_SPEAKERS:
+                /* TRANSLATORS: speakers device */
+                text = ngettext ("Speakers", "Speakers", number);
+                break;
+        case UP_DEVICE_KIND_HEADPHONES:
+                /* TRANSLATORS: headphones device */
+                text = ngettext ("Headphones", "Headphones", number);
+                break;
+        case UP_DEVICE_KIND_VIDEO:
+                /* TRANSLATORS: video device */
+                text = ngettext ("Video device", "Video devices", number);
+                break;
+        case UP_DEVICE_KIND_OTHER_AUDIO:
+                /* TRANSLATORS: other audio device */
+                text = ngettext ("Audio device", "Audio devices", number);
+                break;
+        case UP_DEVICE_KIND_REMOTE_CONTROL:
+                /* TRANSLATORS: remote control device */
+                text = ngettext ("Remote control", "Remote controls", number);
+                break;
+        case UP_DEVICE_KIND_PRINTER:
+                /* TRANSLATORS: printer device */
+                text = ngettext ("Printer", "Printers", number);
+                break;
+        case UP_DEVICE_KIND_SCANNER:
+                /* TRANSLATORS: scanner device */
+                text = ngettext ("Scanner", "Scanners", number);
+                break;
+        case UP_DEVICE_KIND_CAMERA:
+                /* TRANSLATORS: camera device */
+                text = ngettext ("Camera", "Cameras", number);
+                break;
+        case UP_DEVICE_KIND_WEARABLE:
+                /* TRANSLATORS: wearable device */
+                text = ngettext ("Wearable device", "Wearable devices", number);
+                break;
+        case UP_DEVICE_KIND_TOY:
+                /* TRANSLATORS: toy device */
+                text = ngettext ("Toy", "Toys", number);
+                break;
         case UP_DEVICE_KIND_UNKNOWN:
                 text = ngettext ("Unknown device", "Unknown devices", number);
                 break;
