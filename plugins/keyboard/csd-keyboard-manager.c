@@ -38,8 +38,8 @@
 #include <gtk/gtk.h>
 
 #include "cinnamon-settings-profile.h"
+#include "cinnamon-settings-session.h"
 #include "csd-keyboard-manager.h"
-#include "csd-input-helper.h"
 #include "csd-enums.h"
 #include "migrate-settings.h"
 
@@ -56,10 +56,6 @@
 
 #define CINNAMON_DESKTOP_INTERFACE_DIR "org.cinnamon.desktop.interface"
 
-#define KEY_GTK_IM_MODULE    "gtk-im-module"
-#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
-#define GTK_IM_MODULE_IBUS   "ibus"
-
 #define CINNAMON_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
 
 #define KEY_INPUT_SOURCES        "sources"
@@ -70,9 +66,6 @@
 
 #define DEFAULT_LAYOUT "us"
 
-#define CINNAMON_A11Y_APPLICATIONS_INTERFACE_DIR "org.cinnamon.desktop.a11y.applications"
-#define KEY_OSK_ENABLED "screen-keyboard-enabled"
-
 struct _CsdKeyboardManager
 {
         GObject    parent;
@@ -80,44 +73,17 @@ struct _CsdKeyboardManager
         guint      start_idle_id;
         GSettings *settings;
         GSettings *input_sources_settings;
-        GSettings *a11y_settings;
         GDBusProxy *localed;
         GCancellable *cancellable;
-
-        GdkDeviceManager *device_manager;
-        guint device_added_id;
-        guint device_removed_id;
 };
 
 static void     csd_keyboard_manager_class_init  (CsdKeyboardManagerClass *klass);
 static void     csd_keyboard_manager_init        (CsdKeyboardManager      *keyboard_manager);
 static void     csd_keyboard_manager_finalize    (GObject                 *object);
 
-static void     update_gtk_im_module (CsdKeyboardManager *manager);
-
 G_DEFINE_TYPE (CsdKeyboardManager, csd_keyboard_manager, G_TYPE_OBJECT)
 
 static gpointer manager_object = NULL;
-
-static gboolean
-session_is_wayland (void)
-{
-    static gboolean session_is_wayland = FALSE;
-    static gsize once_init = 0;
-
-    if (g_once_init_enter (&once_init)) {
-        const gchar *env = g_getenv ("XDG_SESSION_TYPE");
-        if (env && g_strcmp0 (env, "wayland") == 0) {
-            session_is_wayland = TRUE;
-        }
-
-        g_debug ("Session is Wayland? %d", session_is_wayland);
-
-        g_once_init_leave (&once_init, 1);
-    }
-
-    return session_is_wayland;
-}
 
 static void
 init_builder_with_sources (GVariantBuilder *builder,
@@ -151,7 +117,7 @@ apply_bell (CsdKeyboardManager *manager)
         CsdBellMode      bell_mode;
         int              click_volume;
 
-        if (session_is_wayland ())
+        if (cinnamon_settings_session_is_wayland ())
                 return;
 
         g_debug ("Applying the bell settings");
@@ -209,121 +175,6 @@ settings_changed (GSettings          *settings,
         g_warning ("Unhandled settings change, key '%s'", key);
     }
 
-}
-
-static void
-device_added_cb (GdkDeviceManager   *device_manager,
-                 GdkDevice          *device,
-                 CsdKeyboardManager *manager)
-{
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_TOUCHSCREEN) {
-                update_gtk_im_module (manager);
-        }
-}
-
-static void
-device_removed_cb (GdkDeviceManager   *device_manager,
-                   GdkDevice          *device,
-                   CsdKeyboardManager *manager)
-{
-        GdkInputSource source;
-
-        source = gdk_device_get_source (device);
-        if (source == GDK_SOURCE_TOUCHSCREEN)
-                update_gtk_im_module (manager);
-}
-
-static void
-set_devicepresence_handler (CsdKeyboardManager *manager)
-{
-        GdkDeviceManager *device_manager;
-
-        if (session_is_wayland ())
-                return;
-
-        device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
-
-        manager->device_added_id = g_signal_connect (G_OBJECT (device_manager), "device-added",
-                                                           G_CALLBACK (device_added_cb), manager);
-        manager->device_removed_id = g_signal_connect (G_OBJECT (device_manager), "device-removed",
-                                                             G_CALLBACK (device_removed_cb), manager);
-        manager->device_manager = device_manager;
-}
-
-static gboolean
-need_ibus (GVariant *sources)
-{
-        GVariantIter iter;
-        const gchar *type;
-
-        g_variant_iter_init (&iter, sources);
-        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL))
-                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
-                        return TRUE;
-
-        return FALSE;
-}
-
-static gboolean
-need_osk (CsdKeyboardManager *manager)
-{
-        gboolean has_touchscreen = FALSE;
-        GList *devices;
-        GdkSeat *seat;
-
-        if (g_settings_get_boolean (manager->a11y_settings,
-                                    KEY_OSK_ENABLED))
-                return TRUE;
-
-        seat = gdk_display_get_default_seat (gdk_display_get_default ());
-        devices = gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_TOUCH);
-
-        has_touchscreen = devices != NULL;
-
-        g_list_free (devices);
-
-        return has_touchscreen;
-}
-
-static void
-set_gtk_im_module (CsdKeyboardManager *manager,
-                   GSettings          *settings,
-                   GVariant           *sources)
-{
-        const gchar *new_module;
-        gchar *current_module;
-
-        if (need_ibus (sources) || need_osk (manager))
-                new_module = GTK_IM_MODULE_IBUS;
-        else
-                new_module = GTK_IM_MODULE_SIMPLE;
-
-        current_module = g_settings_get_string (settings, KEY_GTK_IM_MODULE);
-        if (!g_str_equal (current_module, new_module))
-                g_settings_set_string (settings, KEY_GTK_IM_MODULE, new_module);
-        g_free (current_module);
-}
-
-static void
-update_gtk_im_module (CsdKeyboardManager *manager)
-{
-        GSettings *interface_settings;
-        GVariant *sources;
-
-        /* Gtk+ uses the IM module advertised in XSETTINGS so, if we
-         * have IBus input sources, we want it to load that
-         * module. Otherwise we can use the default "simple" module
-         * which is builtin gtk+
-         */
-        interface_settings = g_settings_new (CINNAMON_DESKTOP_INTERFACE_DIR);
-        sources = g_settings_get_value (manager->input_sources_settings,
-                                        KEY_INPUT_SOURCES);
-        set_gtk_im_module (manager, interface_settings, sources);
-        g_object_unref (interface_settings);
-        g_variant_unref (sources);
 }
 
 static void
@@ -457,18 +308,7 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
 
         manager->settings = g_settings_new (CSD_KEYBOARD_DIR);
 
-        set_devicepresence_handler (manager);
-
         manager->input_sources_settings = g_settings_new (CINNAMON_DESKTOP_INPUT_SOURCES_DIR);
-        g_signal_connect_swapped (manager->input_sources_settings,
-                                  "changed::" KEY_INPUT_SOURCES,
-                                  G_CALLBACK (update_gtk_im_module), manager);
-
-        manager->a11y_settings = g_settings_new (CINNAMON_A11Y_APPLICATIONS_INTERFACE_DIR);
-        g_signal_connect_swapped (manager->a11y_settings,
-                                  "changed::" KEY_OSK_ENABLED,
-                                  G_CALLBACK (update_gtk_im_module), manager);
-        update_gtk_im_module (manager);
 
         manager->cancellable = g_cancellable_new ();
 
@@ -482,7 +322,7 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
                                   localed_proxy_ready,
                                   manager);
 
-        if (!session_is_wayland ()) {
+        if (!cinnamon_settings_session_is_wayland ()) {
                 /* apply current settings before we install the callback */
                 g_debug ("Started the keyboard plugin, applying all settings");
                 apply_all_settings (manager);
@@ -522,14 +362,7 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
 
         g_clear_object (&manager->settings);
         g_clear_object (&manager->input_sources_settings);
-        g_clear_object (&manager->a11y_settings);
         g_clear_object (&manager->localed);
-
-        if (manager->device_manager != NULL) {
-                g_signal_handler_disconnect (manager->device_manager, manager->device_added_id);
-                g_signal_handler_disconnect (manager->device_manager, manager->device_removed_id);
-                manager->device_manager = NULL;
-        }
 }
 
 static void

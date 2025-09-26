@@ -439,3 +439,23 @@ cinnamon_settings_session_new (void)
 	session = g_object_new (CINNAMON_TYPE_SETTINGS_SESSION, NULL);
 	return CINNAMON_SETTINGS_SESSION (session);
 }
+
+gboolean
+cinnamon_settings_session_is_wayland (void)
+{
+    static gboolean session_is_wayland = FALSE;
+    static gsize once_init = 0;
+
+    if (g_once_init_enter (&once_init)) {
+        const gchar *env = g_getenv ("XDG_SESSION_TYPE");
+        if (env && g_strcmp0 (env, "wayland") == 0) {
+            session_is_wayland = TRUE;
+        }
+
+        g_debug ("Session is Wayland? %d", session_is_wayland);
+
+        g_once_init_leave (&once_init, 1);
+    }
+
+    return session_is_wayland;
+}

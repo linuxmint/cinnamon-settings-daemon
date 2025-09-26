@@ -57,7 +57,7 @@ GType			 cinnamon_settings_session_get_type	(void);
 GType			 cinnamon_settings_session_state_get_type	(void);
 CinnamonSettingsSession	*cinnamon_settings_session_new		(void);
 CinnamonSettingsSessionState cinnamon_settings_session_get_state	(CinnamonSettingsSession	*session);
-
+gboolean         cinnamon_settings_session_is_wayland (void);
 
 G_END_DECLS
 
