@@ -53,17 +53,6 @@ Description: daemon handling the Cinnamon session settings
  It also sets various application settings through X resources and
  freedesktop.org XSETTINGS.
 
-Package: cinnamon-settings-daemon-dev
-Architecture: any
-Depends:
- libglib2.0-dev (>= 2.26.0),
- ${misc:Depends},
- ${shlibs:Depends},
-Multi-Arch: same
-Description: Headers for building applications communicating with cinnamon-settings-daemon
- This package contains header files required to build applications that
- communicate with the Cinnamon settings daemon over D-Bus.
-
 Package: cinnamon-settings-daemon-dbg
 Section: debug
 Priority: extra

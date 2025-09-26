@@ -1,20 +1,8 @@
-pkg_api = 'cinnamon-settings-daemon-3.0'
-proj_name = meson.project_name()
-
-enums_header = [
-    'csd-enums.h',
-]
-
 include_enums = include_directories('.')
-
-install_headers(
-    enums_header,
-    subdir: join_paths(pkg_api, proj_name),
-)
 
 mkenums = gnome.mkenums(
     'org.cinnamon.settings-daemon.enums.xml',
-    sources: enums_header,
+    sources: ['csd-enums.h'],
     comments: '<!-- @comment@ -->',
     fhead: '<schemalist>',
     vhead: '  <@type@ id=\'org.cinnamon.settings-daemon.@EnumName@\'>',
@@ -38,7 +26,7 @@ schemas = [
 ]
 
 schema_conf = configuration_data()
-schema_conf.set('GETTEXT_PACKAGE', proj_name)
+schema_conf.set('GETTEXT_PACKAGE', meson.project_name())
 
 foreach schema : schemas
     configure_file(
@@ -49,9 +37,3 @@ foreach schema : schemas
     )
 endforeach
 
-pkg.generate(
-    name: proj_name,
-    description: 'cinnamon-settings-daemon specific enumarations',
-    subdirs: pkg_api,
-    requires: 'glib-2.0',
-)

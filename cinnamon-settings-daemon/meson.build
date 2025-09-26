@@ -15,7 +15,7 @@ if using_logind
     csd_deps += logind
 endif
 
-csd_lib = library(
+csd_lib = static_library(
     'csd',
     csd_sources,
     include_directories: include_dirs,
