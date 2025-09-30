@@ -28,9 +28,6 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
-#include <X11/XKBlib.h>
-#include <gdk/gdkkeysyms.h>
 
 #include "csd-autorun.h"
 
@@ -377,27 +374,6 @@ prepare_combo_box (GtkWidget *combo_box,
         g_free (content_type);
 }
 
-static gboolean
-is_shift_pressed (void)
-{
-	gboolean ret;
-	XkbStateRec state;
-	Bool status;
-
-	ret = FALSE;
-
-        gdk_x11_display_error_trap_push (gdk_display_get_default ());
-	status = XkbGetState (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
-			      XkbUseCoreKbd, &state);
-        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
-
-	if (status == Success) {
-		ret = state.mods & ShiftMask;
-	}
-
-	return ret;
-}
-
 enum {
 	AUTORUN_DIALOG_RESPONSE_EJECT = 0
 };
@@ -628,7 +604,6 @@ do_autorun_for_content_type (GMount *mount,
 	GIcon *icon;
 	GdkPixbuf *pixbuf;
 	int icon_size;
-	gboolean user_forced_dialog;
 	gboolean pref_ask;
 	gboolean pref_start_app;
 	gboolean pref_ignore;
@@ -646,14 +621,8 @@ do_autorun_for_content_type (GMount *mount,
 		goto out;
 	}
 
-	user_forced_dialog = is_shift_pressed ();
-
 	csd_autorun_get_preferences (x_content_type, &pref_start_app, &pref_ignore, &pref_open_folder);
 	pref_ask = !pref_start_app && !pref_ignore && !pref_open_folder;
-
-	if (user_forced_dialog) {
-		goto show_dialog;
-	}
 
 	if (!pref_ask && !pref_ignore && !pref_open_folder) {
 		GAppInfo *app_info;
@@ -672,8 +641,6 @@ do_autorun_for_content_type (GMount *mount,
 	if (pref_ignore) {
 		goto out;
 	}
-
-show_dialog:
 
 	mount_name = g_mount_get_name (mount);
 
