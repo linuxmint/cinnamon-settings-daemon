@@ -353,7 +353,7 @@ ldsm_notify_for_mount (LdsmMountInfo *mount,
                 }
                 g_free (free_space_str);
 
-                notification = notify_notification_new (summary, body, "drive-harddisk-symbolic");
+                notification = notify_notification_new (summary, body, "xapp-drive-harddisk-symbolic");
                 g_free (summary);
                 g_free (body);
 

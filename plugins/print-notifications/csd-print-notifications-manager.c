@@ -268,7 +268,7 @@ show_notification (gpointer user_data)
 
         notification = notify_notification_new (data->primary_text,
                                                 data->secondary_text,
-                                                "printer-symbolic");
+                                                "xapp-printer-symbolic");
 
         notify_notification_set_app_name (notification, _("Printers"));
         notify_notification_set_hint (notification,
@@ -842,7 +842,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
 
                                                         notification = notify_notification_new ( _(statuses_first[j]),
                                                                                                 second_row,
-                                                                                                "printer-symbolic");
+                                                                                                "xapp-printer-symbolic");
                                                         notify_notification_set_app_name (notification, _("Printers"));
                                                         notify_notification_set_hint (notification,
                                                                                       "resident",
@@ -932,7 +932,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
 
                                         notification = notify_notification_new (first_row,
                                                                                 second_row,
-                                                                                "printer-symbolic");
+                                                                                "xapp-printer-symbolic");
                                         notify_notification_set_app_name (notification, _("Printers"));
                                         notify_notification_set_hint (notification,
                                                                       "resident",
@@ -975,7 +975,7 @@ process_cups_notification (CsdPrintNotificationsManager *manager,
                 NotifyNotification *notification;
                 notification = notify_notification_new (primary_text,
                                                         secondary_text,
-                                                        "printer-symbolic");
+                                                        "xapp-printer-symbolic");
                 notify_notification_set_app_name (notification, _("Printers"));
                 notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
                 notify_notification_show (notification, NULL);

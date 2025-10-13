@@ -1027,7 +1027,7 @@ handle_method_call (GDBusConnection       *connection,
                 NotifyNotification *notification;
                 notification = notify_notification_new (primary_text,
                                                         secondary_text,
-                                                        "printer-symbolic");
+                                                        "xapp-printer-symbolic");
                 notify_notification_set_app_name (notification, _("Printers"));
                 notify_notification_set_hint (notification, "transient", g_variant_new_boolean (TRUE));
 
