@@ -37,6 +37,9 @@ Standards-Version: 4.1.4
 Package: cinnamon-settings-daemon
 Architecture: any
 Depends: cinnamon-desktop-data (>= 2.6.3), colord, ${misc:Depends}, ${shlibs:Depends}
+Breaks: cinnamon-settings-daemon-dev (<< 6.6)
+Replaces: cinnamon-settings-daemon-dev (<< 6.6)
+Provides: cinnamon-settings-daemon-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: daemon handling the Cinnamon session settings
  This package contains the daemon which is responsible for setting the

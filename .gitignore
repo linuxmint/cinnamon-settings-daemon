@@ -4,7 +4,7 @@ obj-x86_64-linux-gnu
 debian/tmp/
 debian/files
 debian/cinnamon-settings-daemon/
-debian/cinnamon-settings-daemon-dev/
+debian/cinnamon-settings-daemon-dbg/
 debian/*.substvars
 debian/*.install
 debian/*.links
