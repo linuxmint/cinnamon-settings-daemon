@@ -155,7 +155,6 @@ struct CsdPowerManagerPrivate
         gint                     kbd_brightness_pre_dim;
         GnomeRRScreen           *x11_screen;
         gboolean                 use_time_primary;
-        gchar                   *previous_summary;
         GIcon                   *previous_icon;
         GpmPhone                *phone;
         GPtrArray               *devices_array;
@@ -204,7 +203,6 @@ static void     csd_power_manager_finalize    (GObject              *object);
 static UpDevice *engine_get_composite_device (CsdPowerManager *manager, UpDevice *original_device);
 static UpDevice *engine_update_composite_device (CsdPowerManager *manager, UpDevice *original_device);
 static GIcon    *engine_get_icon (CsdPowerManager *manager);
-static gchar    *engine_get_summary (CsdPowerManager *manager);
 static UpDevice *engine_get_primary_device (CsdPowerManager *manager);
 static void      engine_charge_low (CsdPowerManager *manager, UpDevice *device);
 static void      engine_charge_critical (CsdPowerManager *manager, UpDevice *device);
@@ -381,8 +379,7 @@ typedef enum {
 
 static void
 engine_emit_changed (CsdPowerManager *manager,
-                     gboolean         icon_changed,
-                     gboolean         state_changed)
+                     gboolean         icon_changed)
 {
         /* not yet connected to the bus */
         if (manager->priv->power_iface == NULL)
@@ -402,17 +399,6 @@ engine_emit_changed (CsdPowerManager *manager,
 
                 g_free (gicon_str);
                 g_object_unref (gicon);
-        }
-
-        if (state_changed) {
-                gchar *tooltip;
-
-                tooltip = engine_get_summary (manager);
-
-                csd_power_set_tooltip (manager->priv->power_iface, tooltip);
-                need_flush = TRUE;
-
-                g_free (tooltip);
         }
 
         if (need_flush) {
@@ -558,47 +544,6 @@ engine_get_warning (CsdPowerManager *manager, UpDevice *device)
         return warning_type;
 }
 
-static gchar *
-engine_get_summary (CsdPowerManager *manager)
-{
-        guint i;
-        GPtrArray *array;
-        UpDevice *device;
-        UpDeviceState state;
-        GString *tooltip = NULL;
-        gchar *part;
-        gboolean is_present;
-
-
-        /* need to get AC state */
-        tooltip = g_string_new ("");
-
-        /* do we have specific device types? */
-        array = manager->priv->devices_array;
-        for (i=0;i<array->len;i++) {
-                device = g_ptr_array_index (array, i);
-                g_object_get (device,
-                              "is-present", &is_present,
-                              "state", &state,
-                              NULL);
-                if (!is_present)
-                        continue;
-                if (state == UP_DEVICE_STATE_EMPTY)
-                        continue;
-                part = gpm_upower_get_device_summary (device);
-                if (part != NULL)
-                        g_string_append_printf (tooltip, "%s\n", part);
-                g_free (part);
-        }
-
-        /* remove the last \n */
-        g_string_truncate (tooltip, tooltip->len-1);
-
-        g_debug ("tooltip: %s", tooltip->str);
-
-        return g_string_free (tooltip, FALSE);
-}
-
 static GIcon *
 engine_get_icon_priv (CsdPowerManager *manager,
                       UpDeviceKind device_kind,
@@ -740,40 +685,16 @@ engine_recalculate_state_icon (CsdPowerManager *manager)
         return FALSE;
 }
 
-static gboolean
-engine_recalculate_state_summary (CsdPowerManager *manager)
-{
-        gchar *summary;
-
-        summary = engine_get_summary (manager);
-        if (manager->priv->previous_summary == NULL) {
-                manager->priv->previous_summary = summary;
-                return TRUE;
-        }
-
-        if (strcmp (manager->priv->previous_summary, summary) != 0) {
-                g_free (manager->priv->previous_summary);
-                manager->priv->previous_summary = summary;
-                return TRUE;
-        }
-        g_debug ("no change");
-        /* nothing to do */
-        g_free (summary);
-        return FALSE;
-}
-
 static void
 engine_recalculate_state (CsdPowerManager *manager)
 {
         gboolean icon_changed = FALSE;
-        gboolean state_changed = FALSE;
 
         icon_changed = engine_recalculate_state_icon (manager);
-        state_changed = engine_recalculate_state_summary (manager);
 
-        /* only emit if the icon or summary has changed */
-        if (icon_changed || state_changed)
-                engine_emit_changed (manager, icon_changed, state_changed);
+        /* only emit if the icon has changed */
+        if (icon_changed)
+                engine_emit_changed (manager, icon_changed);
 }
 
 static UpDevice *
@@ -1091,8 +1012,6 @@ engine_ups_discharging (CsdPowerManager *manager, UpDevice *device)
                 /* TRANSLATORS: tell the user how much time they have got */
                 g_string_append_printf (message, _("%s of UPS backup power remaining"),
                                         remaining_text);
-        } else {
-                g_string_append (message, gpm_device_to_localised_string (device));
         }
         g_string_append_printf (message, " (%.0f%%)", percentage);
 
@@ -4390,9 +4309,6 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 g_object_unref (manager->priv->previous_icon);
                 manager->priv->previous_icon = NULL;
         }
-
-        g_free (manager->priv->previous_summary);
-        manager->priv->previous_summary = NULL;
 
         if (manager->priv->session_proxy != NULL) {
                 g_object_unref (manager->priv->session_proxy);
