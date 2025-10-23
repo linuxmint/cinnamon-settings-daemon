@@ -167,7 +167,7 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
         /* get the icon from some simple rules */
         if (kind == UP_DEVICE_KIND_LINE_POWER) {
                 if (use_symbolic)
-                        g_string_append (filename, "xapp-battery-ac-symbolic;");
+                        g_string_append (filename, "xsi-battery-ac-symbolic;");
                 g_string_append (filename, "ac-adapter;");
 
         } else if (kind == UP_DEVICE_KIND_MONITOR) {
@@ -180,7 +180,7 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                 kind_str = up_device_kind_to_string (kind);
                 if (!is_present) {
                         if (use_symbolic)
-                                g_string_append (filename, "xapp-battery-missing-symbolic;");
+                                g_string_append (filename, "xsi-battery-missing-symbolic;");
                         g_string_append_printf (filename, "gpm-%s-missing;", kind_str);
                         g_string_append_printf (filename, "gpm-%s-000;", kind_str);
                         g_string_append (filename, "battery-missing;");
@@ -189,14 +189,14 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                         switch (state) {
                         case UP_DEVICE_STATE_EMPTY:
                                 if (use_symbolic)
-                                        g_string_append (filename, "xapp-battery-level-0-symbolic;");
+                                        g_string_append (filename, "xsi-battery-level-0-symbolic;");
                                 g_string_append_printf (filename, "gpm-%s-empty;", kind_str);
                                 g_string_append_printf (filename, "gpm-%s-000;", kind_str);
                                 g_string_append (filename, "battery-empty;");
                                 break;
                         case UP_DEVICE_STATE_FULLY_CHARGED:
                                 if (use_symbolic) {
-                                        g_string_append (filename, "xapp-battery-level-100-charged-symbolic;");
+                                        g_string_append (filename, "xsi-battery-level-100-charged-symbolic;");
                                 }
                                 g_string_append_printf (filename, "gpm-%s-full;", kind_str);
                                 g_string_append_printf (filename, "gpm-%s-100;", kind_str);
@@ -209,8 +209,8 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 index_str = gpm_upower_get_device_icon_index (device);
                                 precise_str = gpm_upower_get_precise_icon_index (device);
                                 if (use_symbolic) {
-                                        g_string_append_printf (filename, "xapp-battery-level-%s-charging-symbolic;", precise_str);
-                                        g_string_append_printf (filename, "xapp-battery-%s-charging-symbolic;", suffix_str);
+                                        g_string_append_printf (filename, "xsi-battery-level-%s-charging-symbolic;", precise_str);
+                                        g_string_append_printf (filename, "xsi-battery-%s-charging-symbolic;", suffix_str);
                                 }
                                 g_string_append_printf (filename, "gpm-%s-%s-charging;", kind_str, index_str);
                                 g_string_append_printf (filename, "battery-%s-charging;", suffix_str);
@@ -221,8 +221,8 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 index_str = gpm_upower_get_device_icon_index (device);
                                 precise_str = gpm_upower_get_precise_icon_index (device);
                                 if (use_symbolic) {
-                                        g_string_append_printf (filename, "xapp-battery-level-%s-symbolic;", precise_str);
-                                        g_string_append_printf (filename, "xapp-battery-%s-symbolic;", suffix_str);
+                                        g_string_append_printf (filename, "xsi-battery-level-%s-symbolic;", precise_str);
+                                        g_string_append_printf (filename, "xsi-battery-%s-symbolic;", suffix_str);
                                 }
                                 g_string_append_printf (filename, "gpm-%s-%s;", kind_str, index_str);
                                 g_string_append_printf (filename, "battery-%s;", suffix_str);
@@ -231,7 +231,7 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                         case UP_DEVICE_STATE_LAST:
                         default:
                                 if (use_symbolic)
-                                        g_string_append (filename, "xapp-battery-missing-symbolic;");
+                                        g_string_append (filename, "xsi-battery-missing-symbolic;");
                                 g_string_append (filename, "gpm-battery-missing;");
                                 g_string_append (filename, "battery-missing;");
                         }

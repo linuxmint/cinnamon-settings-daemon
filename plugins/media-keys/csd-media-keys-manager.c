@@ -450,14 +450,14 @@ get_icon_name_for_volume (gboolean muted,
                           gboolean is_mic)
 {
     static const char *icon_names[] = {
-        "xapp-audio-volume-muted-symbolic",
-        "xapp-audio-volume-low-symbolic",
-        "xapp-audio-volume-medium-symbolic",
-        "xapp-audio-volume-high-symbolic",
-        "xapp-microphone-sensitivity-muted-symbolic",
-        "xapp-microphone-sensitivity-low-symbolic",
-        "xapp-microphone-sensitivity-medium-symbolic",
-        "xapp-microphone-sensitivity-high-symbolic",
+        "xsi-audio-volume-muted-symbolic",
+        "xsi-audio-volume-low-symbolic",
+        "xsi-audio-volume-medium-symbolic",
+        "xsi-audio-volume-high-symbolic",
+        "xsi-microphone-sensitivity-muted-symbolic",
+        "xsi-microphone-sensitivity-low-symbolic",
+        "xsi-microphone-sensitivity-medium-symbolic",
+        "xsi-microphone-sensitivity-high-symbolic",
         NULL
     };
     int n;
@@ -646,7 +646,7 @@ do_eject_action (CsdMediaKeysManager *manager)
         }
 
         /* Show the dialogue */
-        show_osd (manager, "xapp-media-eject-symbolic", _("Eject"), -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+        show_osd (manager, "xsi-media-eject-symbolic", _("Eject"), -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
 
         /* Clean up the drive selection and exit if no suitable
          * drives are found */
@@ -702,10 +702,10 @@ do_touchpad_osd_action (CsdMediaKeysManager *manager, gboolean state)
     const char *label;
 
     if (state) {
-        icon = "xapp-input-touchpad-symbolic";
+        icon = "xsi-input-touchpad-symbolic";
         label = _("Enabled");
     } else {
-        icon = "xapp-touchpad-disabled-symbolic";
+        icon = "xsi-touchpad-disabled-symbolic";
         label = _("Disabled");
     }
 
@@ -1246,7 +1246,7 @@ csd_media_player_key_pressed (CsdMediaKeysManager *manager,
         if (!have_listeners) {
                 if (!mpris_controller_key (manager->priv->mpris_controller, key)) {
                 /* Popup a dialog with an (/) icon */
-                    show_osd (manager, "xapp-sign-forbidden-symbolic", _("Unavailable"), -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+                    show_osd (manager, "xsi-sign-forbidden-symbolic", _("Unavailable"), -1, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
                  }
                 return TRUE;
         }
@@ -1342,10 +1342,10 @@ do_video_rotate_lock_action (CsdMediaKeysManager *manager,
         g_object_unref (settings);
 
         if (locked) {
-                icon = "xapp-rotation-locked-symbolic";
+                icon = "xsi-rotation-locked-symbolic";
                 label = _("Rotation Locked");
         } else {
-                icon = "xapp-rotation-allowed-symbolic";
+                icon = "xsi-rotation-allowed-symbolic";
                 label = _("Rotation Allowed");
         }
 
@@ -1510,7 +1510,7 @@ update_screen_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (variant, "(uii)", &percentage, &outx, &outy);
-        show_osd (manager, "xapp-display-brightness-symbolic", NULL, percentage, outx, outy);
+        show_osd (manager, "xsi-display-brightness-symbolic", NULL, percentage, outx, outy);
         g_variant_unref (variant);
 }
 
@@ -1592,7 +1592,7 @@ update_keyboard_cb (GObject             *source_object,
 
         /* update the dialog with the new value */
         g_variant_get (new_percentage, "(u)", &percentage);
-        show_osd (manager, "xapp-keyboard-brightness-symbolic", NULL, percentage, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
+        show_osd (manager, "xsi-keyboard-brightness-symbolic", NULL, percentage, OSD_ALL_OUTPUTS_X, OSD_ALL_OUTPUTS_Y);
         g_variant_unref (new_percentage);
 }
 
