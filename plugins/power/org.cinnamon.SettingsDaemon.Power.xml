@@ -6,8 +6,6 @@
   <interface name='org.cinnamon.SettingsDaemon.Power'>
     <property name='Icon' type='s' access='read'>
     </property>
-    <property name='Tooltip' type='s' access='read'>
-    </property>
     <method name='GetPrimaryDevice'>
       <arg name='device' type='(sssusduut)' direction='out' />
     </method>
