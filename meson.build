@@ -56,8 +56,6 @@ gudev = dependency('gudev-1.0', required: get_option('use_gudev'))
 libnotify = dependency('libnotify', version: '>= 0.7.3')
 nss = dependency('nss', version: '>= 3.11.2', required: get_option('use_smartcard'))
 polkit = dependency('polkit-gobject-1', version: '>= 0.97', required: get_option('use_polkit'))
-pulse_required = '>= 0.9.16'
-pulse = dependency('libpulse', version: pulse_required)
 upower_glib = dependency('upower-glib', version: '>= 0.99.11')
 wacom = dependency('libwacom', version: '>= 0.7', required: get_option('use_wacom'))
 x11 = dependency('x11')
