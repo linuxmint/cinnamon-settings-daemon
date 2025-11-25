@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 09:40+0000\n"
+"POT-Creation-Date: 2025-11-25 14:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/a11y-settings/csd-a11y-settings-manager.c:265
+#: plugins/a11y-settings/csd-a11y-settings-manager.c:264
 msgid "Screen reader not found."
 msgstr ""
 
-#: plugins/a11y-settings/csd-a11y-settings-manager.c:266
+#: plugins/a11y-settings/csd-a11y-settings-manager.c:265
 msgid "Please install the 'orca' package."
 msgstr ""
 
-#: plugins/a11y-settings/csd-a11y-settings-manager.c:273
+#: plugins/a11y-settings/csd-a11y-settings-manager.c:272
 msgid "Open accessibility settings"
 msgstr ""
 
@@ -40,118 +40,118 @@ msgstr ""
 msgid "Unable to open a folder for %s"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:346
+#: plugins/automount/csd-autorun.c:343
 msgid "Ask what to do"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:352
+#: plugins/automount/csd-autorun.c:349
 msgid "Do Nothing"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:358
+#: plugins/automount/csd-autorun.c:355
 msgid "Open Folder"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:501
+#: plugins/automount/csd-autorun.c:477
 #, c-format
 msgid "Unable to eject %p"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:503
+#: plugins/automount/csd-autorun.c:479
 #, c-format
 msgid "Unable to unmount %p"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:710
+#: plugins/automount/csd-autorun.c:677
 msgid "You have just inserted an Audio CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:712
+#: plugins/automount/csd-autorun.c:679
 msgid "You have just inserted an Audio DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:714
+#: plugins/automount/csd-autorun.c:681
 msgid "You have just inserted a Video DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:716
+#: plugins/automount/csd-autorun.c:683
 msgid "You have just inserted a Video CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:718
+#: plugins/automount/csd-autorun.c:685
 msgid "You have just inserted a Super Video CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:720
+#: plugins/automount/csd-autorun.c:687
 msgid "You have just inserted a blank CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:722
+#: plugins/automount/csd-autorun.c:689
 msgid "You have just inserted a blank DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:724
+#: plugins/automount/csd-autorun.c:691
 msgid "You have just inserted a blank Blu-Ray disc."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:726
+#: plugins/automount/csd-autorun.c:693
 msgid "You have just inserted a blank HD DVD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:728
+#: plugins/automount/csd-autorun.c:695
 msgid "You have just inserted a Photo CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:730
+#: plugins/automount/csd-autorun.c:697
 msgid "You have just inserted a Picture CD."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:732
+#: plugins/automount/csd-autorun.c:699
 msgid "You have just inserted a medium with digital photos."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:734
+#: plugins/automount/csd-autorun.c:701
 msgid "You have just inserted a digital audio player."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:736
+#: plugins/automount/csd-autorun.c:703
 msgid ""
 "You have just inserted a medium with software intended to be automatically "
 "started."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:739
+#: plugins/automount/csd-autorun.c:706
 msgid "You have just inserted a medium."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:741
+#: plugins/automount/csd-autorun.c:708
 msgid "Choose what application to launch."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:751
+#: plugins/automount/csd-autorun.c:718
 #, c-format
 msgid ""
 "Select how to open \"%s\" and whether to perform this action in the future "
 "for other media of type \"%s\"."
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:779
+#: plugins/automount/csd-autorun.c:746
 msgid "_Always perform this action"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:788
+#: plugins/automount/csd-autorun.c:755
 msgid "_Cancel"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:789
+#: plugins/automount/csd-autorun.c:756
 msgid "_Ok"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:794
+#: plugins/automount/csd-autorun.c:761
 msgid "_Eject"
 msgstr ""
 
-#: plugins/automount/csd-autorun.c:797
+#: plugins/automount/csd-autorun.c:764
 msgid "_Unmount"
 msgstr ""
 
@@ -280,238 +280,237 @@ msgstr ""
 msgid "Examine..."
 msgstr ""
 
-#: plugins/keyboard/csd-keyboard-xkb.c:87
-#, c-format
-msgid ""
-"Error activating XKB configuration.\n"
-"There can be various reasons for that.\n"
-"\n"
-"If you report this situation as a bug, include the results of\n"
-" <b>%s</b>\n"
-" <b>%s</b>\n"
-" <b>%s</b>\n"
-" <b>%s</b>"
+#: plugins/media-keys/csd-media-keys-manager.c:649
+msgid "Eject"
 msgstr ""
 
-#: plugins/keyboard/csd-keyboard-xkb.c:256
-msgid "_Layouts"
+#: plugins/media-keys/csd-media-keys-manager.c:706
+msgid "Enabled"
 msgstr ""
 
-#: plugins/keyboard/csd-keyboard-xkb.c:262
-msgid "Show _Keyboard Layout..."
+#: plugins/media-keys/csd-media-keys-manager.c:709
+msgid "Disabled"
 msgstr ""
 
-#: plugins/keyboard/csd-keyboard-xkb.c:269
-msgid "Region and Language Settings"
+#: plugins/media-keys/csd-media-keys-manager.c:1249
+msgid "Unavailable"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1118
+#: plugins/media-keys/csd-media-keys-manager.c:1346
+msgid "Rotation Locked"
+msgstr ""
+
+#: plugins/media-keys/csd-media-keys-manager.c:1349
+msgid "Rotation Allowed"
+msgstr ""
+
+#: plugins/power/csd-power-manager.c:1008
 msgid "UPS Discharging"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1123
+#: plugins/power/csd-power-manager.c:1013
 #, c-format
 msgid "%s of UPS backup power remaining"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1144
-#: plugins/power/csd-power-manager.c:1364
-#: plugins/power/csd-power-manager.c:1542
-#: plugins/power/csd-power-manager.c:1691
+#: plugins/power/csd-power-manager.c:1032
+#: plugins/power/csd-power-manager.c:1244
+#: plugins/power/csd-power-manager.c:1422
+#: plugins/power/csd-power-manager.c:1571
 msgid "Power"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1276
+#: plugins/power/csd-power-manager.c:1156
 msgid "Battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1279
+#: plugins/power/csd-power-manager.c:1159
 msgid "Laptop battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1286
+#: plugins/power/csd-power-manager.c:1166
 #, c-format
 msgid "Approximately %s remaining (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1291
+#: plugins/power/csd-power-manager.c:1171
 msgid "UPS low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1297
+#: plugins/power/csd-power-manager.c:1177
 #, c-format
 msgid "Approximately %s of remaining UPS backup power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1302
-#: plugins/power/csd-power-manager.c:1467
+#: plugins/power/csd-power-manager.c:1182
+#: plugins/power/csd-power-manager.c:1347
 msgid "Mouse battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1305
+#: plugins/power/csd-power-manager.c:1185
 msgid "Wireless mouse is low in power"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1309
-#: plugins/power/csd-power-manager.c:1474
+#: plugins/power/csd-power-manager.c:1189
+#: plugins/power/csd-power-manager.c:1354
 msgid "Keyboard battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1312
+#: plugins/power/csd-power-manager.c:1192
 msgid "Wireless keyboard is low in power"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1316
-#: plugins/power/csd-power-manager.c:1482
+#: plugins/power/csd-power-manager.c:1196
+#: plugins/power/csd-power-manager.c:1362
 msgid "PDA battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1319
+#: plugins/power/csd-power-manager.c:1199
 #, c-format
 msgid "PDA is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1323
-#: plugins/power/csd-power-manager.c:1492
-#: plugins/power/csd-power-manager.c:1502
+#: plugins/power/csd-power-manager.c:1203
+#: plugins/power/csd-power-manager.c:1372
+#: plugins/power/csd-power-manager.c:1382
 msgid "Cell phone battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1326
+#: plugins/power/csd-power-manager.c:1206
 #, c-format
 msgid "Cell phone is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1330
+#: plugins/power/csd-power-manager.c:1210
 msgid "Media player battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1333
+#: plugins/power/csd-power-manager.c:1213
 #, c-format
 msgid "Media player is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1337
-#: plugins/power/csd-power-manager.c:1511
+#: plugins/power/csd-power-manager.c:1217
+#: plugins/power/csd-power-manager.c:1391
 msgid "Tablet battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1340
+#: plugins/power/csd-power-manager.c:1220
 #, c-format
 msgid "Tablet is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1344
-#: plugins/power/csd-power-manager.c:1520
+#: plugins/power/csd-power-manager.c:1224
+#: plugins/power/csd-power-manager.c:1400
 msgid "Attached computer battery low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1347
+#: plugins/power/csd-power-manager.c:1227
 #, c-format
 msgid "Attached computer is low in power (%.0f%%)"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1381
+#: plugins/power/csd-power-manager.c:1261
 msgid "Battery is low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1423
+#: plugins/power/csd-power-manager.c:1303
 msgid "Battery critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1426
-#: plugins/power/csd-power-manager.c:1607
+#: plugins/power/csd-power-manager.c:1306
+#: plugins/power/csd-power-manager.c:1487
 msgid "Laptop battery critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1435
+#: plugins/power/csd-power-manager.c:1315
 msgid "Plug in your AC adapter to avoid losing data."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1439
+#: plugins/power/csd-power-manager.c:1319
 msgid "Computer will suspend very soon unless it is plugged in."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1443
+#: plugins/power/csd-power-manager.c:1323
 msgid "Computer will hibernate very soon unless it is plugged in."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1447
+#: plugins/power/csd-power-manager.c:1327
 msgid "Computer will shutdown very soon unless it is plugged in."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1455
-#: plugins/power/csd-power-manager.c:1643
+#: plugins/power/csd-power-manager.c:1335
+#: plugins/power/csd-power-manager.c:1523
 msgid "UPS critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1461
+#: plugins/power/csd-power-manager.c:1341
 #, c-format
 msgid ""
 "Approximately %s of remaining UPS power (%.0f%%). Restore AC power to your "
 "computer to avoid losing data."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1470
+#: plugins/power/csd-power-manager.c:1350
 msgid ""
 "Wireless mouse is very low in power. This device will soon stop functioning "
 "if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1477
+#: plugins/power/csd-power-manager.c:1357
 msgid ""
 "Wireless keyboard is very low in power. This device will soon stop "
 "functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1485
+#: plugins/power/csd-power-manager.c:1365
 #, c-format
 msgid ""
 "PDA is very low in power (%.0f%%). This device will soon stop functioning if "
 "not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1495
+#: plugins/power/csd-power-manager.c:1375
 #, c-format
 msgid ""
 "Cell phone is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1505
+#: plugins/power/csd-power-manager.c:1385
 #, c-format
 msgid ""
 "Media player is very low in power (%.0f%%). This device will soon stop "
 "functioning if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1514
+#: plugins/power/csd-power-manager.c:1394
 #, c-format
 msgid ""
 "Tablet is very low in power (%.0f%%). This device will soon stop functioning "
 "if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1523
+#: plugins/power/csd-power-manager.c:1403
 #, c-format
 msgid ""
 "Attached computer is very low in power (%.0f%%). The device will soon "
 "shutdown if not charged."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1560
-#: plugins/power/csd-power-manager.c:1570
-#: plugins/power/csd-power-manager.c:1706
+#: plugins/power/csd-power-manager.c:1440
+#: plugins/power/csd-power-manager.c:1450
+#: plugins/power/csd-power-manager.c:1586
 msgid "Battery is critically low"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1615
+#: plugins/power/csd-power-manager.c:1495
 msgid ""
 "The battery is below the critical level and this computer will <b>power-off</"
 "b> when the battery becomes completely empty."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1621
+#: plugins/power/csd-power-manager.c:1501
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "suspend.\n"
@@ -519,38 +518,38 @@ msgid ""
 "suspended state."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1628
+#: plugins/power/csd-power-manager.c:1508
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "hibernate."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1633
+#: plugins/power/csd-power-manager.c:1513
 msgid ""
 "The battery is below the critical level and this computer is about to "
 "shutdown."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1651
+#: plugins/power/csd-power-manager.c:1531
 msgid ""
 "UPS is below the critical level and this computer will <b>power-off</b> when "
 "the UPS becomes completely empty."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1657
+#: plugins/power/csd-power-manager.c:1537
 msgid ""
 "UPS is below the critical level and this computer is about to hibernate."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:1662
+#: plugins/power/csd-power-manager.c:1542
 msgid "UPS is below the critical level and this computer is about to shutdown."
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:2262
+#: plugins/power/csd-power-manager.c:2138
 msgid "Lid has been opened"
 msgstr ""
 
-#: plugins/power/csd-power-manager.c:2407
+#: plugins/power/csd-power-manager.c:2271
 msgid "Lid has been closed"
 msgstr ""
 
@@ -588,409 +587,6 @@ msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
-
-#: plugins/power/gpm-common.c:358
-#, c-format
-msgid "provides %s laptop runtime"
-msgstr ""
-
-#: plugins/power/gpm-common.c:369
-#, c-format
-msgid "%s %s remaining"
-msgstr ""
-
-#: plugins/power/gpm-common.c:390 plugins/power/gpm-common.c:407
-#, c-format
-msgid "%s %s until charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:397
-#, c-format
-msgid "provides %s battery runtime"
-msgstr ""
-
-#: plugins/power/gpm-common.c:488
-msgid "Product:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:492 plugins/power/gpm-common.c:495
-#: plugins/power/gpm-common.c:498 plugins/power/gpm-common.c:501
-msgid "Status:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:492
-msgid "Missing"
-msgstr ""
-
-#: plugins/power/gpm-common.c:495 plugins/power/gpm-common.c:780
-msgid "Charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:498 plugins/power/gpm-common.c:768
-msgid "Charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:501 plugins/power/gpm-common.c:772
-msgid "Discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:506
-msgid "Percentage charge:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:510
-msgid "Vendor:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:515
-msgid "Technology:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:519
-msgid "Serial number:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:523
-msgid "Model:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:528
-msgid "Charge time:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:534
-msgid "Discharge time:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:541
-msgid "Excellent"
-msgstr ""
-
-#: plugins/power/gpm-common.c:543
-msgid "Good"
-msgstr ""
-
-#: plugins/power/gpm-common.c:545
-msgid "Fair"
-msgstr ""
-
-#: plugins/power/gpm-common.c:547
-msgid "Poor"
-msgstr ""
-
-#: plugins/power/gpm-common.c:551
-msgid "Capacity:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:557 plugins/power/gpm-common.c:582
-msgid "Current charge:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:563
-msgid "Last full charge:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:569 plugins/power/gpm-common.c:587
-msgid "Design charge:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:574
-msgid "Charge rate:"
-msgstr ""
-
-#: plugins/power/gpm-common.c:606
-msgid "AC adapter"
-msgid_plural "AC adapters"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:610
-msgid "Laptop battery"
-msgid_plural "Laptop batteries"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:614
-msgid "UPS"
-msgid_plural "UPSs"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:618
-msgid "Monitor"
-msgid_plural "Monitors"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:622
-msgid "Mouse"
-msgid_plural "Mice"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:626
-msgid "Keyboard"
-msgid_plural "Keyboards"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:630
-msgid "PDA"
-msgid_plural "PDAs"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:634
-msgid "Cell phone"
-msgid_plural "Cell phones"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:638
-msgid "Media player"
-msgid_plural "Media players"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:642
-msgid "Tablet"
-msgid_plural "Tablets"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:646
-msgid "Computer"
-msgid_plural "Computers"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:651
-msgid "Game controller"
-msgid_plural "Game controllers"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:655
-msgid "Unknown device"
-msgid_plural "Unknown devices"
-msgstr[0] ""
-msgstr[1] ""
-
-#: plugins/power/gpm-common.c:726
-msgid "Lithium Ion"
-msgstr ""
-
-#: plugins/power/gpm-common.c:730
-msgid "Lithium Polymer"
-msgstr ""
-
-#: plugins/power/gpm-common.c:734
-msgid "Lithium Iron Phosphate"
-msgstr ""
-
-#: plugins/power/gpm-common.c:738
-msgid "Lead acid"
-msgstr ""
-
-#: plugins/power/gpm-common.c:742
-msgid "Nickel Cadmium"
-msgstr ""
-
-#: plugins/power/gpm-common.c:746
-msgid "Nickel metal hydride"
-msgstr ""
-
-#: plugins/power/gpm-common.c:750
-msgid "Unknown technology"
-msgstr ""
-
-#: plugins/power/gpm-common.c:776
-msgid "Empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:784
-msgid "Waiting to charge"
-msgstr ""
-
-#: plugins/power/gpm-common.c:788
-msgid "Waiting to discharge"
-msgstr ""
-
-#: plugins/power/gpm-common.c:792
-msgid "Unknown"
-msgstr ""
-
-#: plugins/power/gpm-common.c:821
-msgid "Laptop battery not present"
-msgstr ""
-
-#: plugins/power/gpm-common.c:825
-msgid "Laptop battery is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:829
-msgid "Laptop battery is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:833
-msgid "Laptop battery is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:837
-msgid "Laptop battery is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:841
-msgid "Laptop battery is waiting to charge"
-msgstr ""
-
-#: plugins/power/gpm-common.c:845
-msgid "Laptop battery is waiting to discharge"
-msgstr ""
-
-#: plugins/power/gpm-common.c:854
-msgid "UPS is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:858
-msgid "UPS is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:862
-msgid "UPS is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:866
-msgid "UPS is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:875
-msgid "Mouse is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:879
-msgid "Mouse is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:883
-msgid "Mouse is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:887
-msgid "Mouse is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:896
-msgid "Keyboard is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:900
-msgid "Keyboard is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:904
-msgid "Keyboard is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:908
-msgid "Keyboard is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:917
-msgid "PDA is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:921
-msgid "PDA is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:925
-msgid "PDA is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:929
-msgid "PDA is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:938
-msgid "Cell phone is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:942
-msgid "Cell phone is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:946
-msgid "Cell phone is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:950
-msgid "Cell phone is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:959
-msgid "Media player is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:963
-msgid "Media player is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:967
-msgid "Media player is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:971
-msgid "Media player is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:980
-msgid "Tablet is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:984
-msgid "Tablet is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:988
-msgid "Tablet is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:992
-msgid "Tablet is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1001
-msgid "Computer is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1005
-msgid "Computer is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1009
-msgid "Computer is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1013
-msgid "Computer is charged"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1023
-msgid "Game controller is charging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1027
-msgid "Game controller is discharging"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1031
-msgid "Game controller is empty"
-msgstr ""
-
-#: plugins/power/gpm-common.c:1035
-msgid "Game controller is charged"
-msgstr ""
 
 #: plugins/print-notifications/csd-printer.c:890
 msgid "Configuring new printer"
