@@ -1,3 +1,58 @@
+cinnamon-settings-daemon (6.6.0) zena; urgency=medium
+
+  [ Pavel Timofeev ]
+  * Cosmetic change: rename g-s-d to c-s-d (#409)
+
+  [ JosephMcc ]
+  * media-keys: Add labels for show_osd() (#403)
+
+  [ Matt Turnbull ]
+  * Add options to call generate-tz-header as part of the build process. (#405)
+
+  [ Michael Webster ]
+  * Update tz-coords.h.
+
+  [ Michael Schuster ]
+  * nightlight: Implement schedule mode 'always' (#408)
+
+  [ Michael Webster ]
+  * power: Cleanup upower version checks.
+  * Adjust upower minimum version.
+  * generate-tz-header.py: Fix position coordinate parsing.
+  * Adapt to keyboard layout modernization, remove libgnomekbd dep.
+  * Fix deps
+  * Move some x11-only from the keyboard to xsettings module.
+  * build: Remove -dev package, don't install csd-enums, don't generate a pkgconfig file, make libcsd static.
+  * csd-autorun.c: Remove hidden 'hold shift key' feature.
+
+  [ Clement Lefebvre ]
+  * Switch to XApp symbolic icons
+
+  [ Eli Schwartz ]
+  * drop xfixes build dependency
+  * clean up dependency checks for wacom bits
+
+  [ Michael Webster ]
+  * debian/control: Adapt to removal of -dev package, update .gitignore.
+
+  [ Clement Lefebvre ]
+  * Switch to xapp-symbolic-icons (XSI)
+
+  [ Eli Schwartz ]
+  * meson: remove extraneous libpulse dep (#425)
+
+  [ Michael Webster ]
+  * debian/control: Remove libpulse-dev.
+
+  [ Oliver Kästner ]
+  * csd-power: drop unused Tooltip dbus property (#422)
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+  * packaging: Fix csd-dev removal
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 25 Nov 2025 14:41:46 +0000
+
 cinnamon-settings-daemon (6.4.3) xia; urgency=medium
 
   * packaging: Remove recommends/suggests
