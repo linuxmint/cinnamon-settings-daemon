@@ -798,7 +798,7 @@ autorun_guessed_content_type_callback (GObject *source_object,
 				       gpointer user_data)
 {
 	GError *error;
-	char **guessed_content_type;
+	g_auto(GStrv) guessed_content_type = NULL;
 	AutorunData *data = user_data;
 	gboolean open_folder;
 
@@ -822,7 +822,6 @@ autorun_guessed_content_type_callback (GObject *source_object,
 					open_folder = TRUE;
 				}
 			}
-			g_strfreev (guessed_content_type);
 		} else {
 			if (g_settings_get_boolean (data->settings, "automount-open")) {
 				open_folder = TRUE;

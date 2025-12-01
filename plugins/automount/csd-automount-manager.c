@@ -190,10 +190,8 @@ check_volume_queue (CsdAutomountManager *manager)
                         g_list_remove (manager->priv->volume_queue, volume);
 
                 g_object_unref (volume);
-                l = l->next;
+                l = manager->priv->volume_queue;
         }
-
-        manager->priv->volume_queue = NULL;
 }
 
 static void
