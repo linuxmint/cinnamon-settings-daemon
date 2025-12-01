@@ -59,8 +59,6 @@
 #define SOUND_SETTINGS_SCHEMA     "org.cinnamon.desktop.sound"
 #define PRIVACY_SETTINGS_SCHEMA   "org.cinnamon.desktop.privacy"
 #define KEYBOARD_A11Y_SCHEMA      "org.cinnamon.desktop.a11y.keyboard"
-#define A11Y_APPLICATIONS_SCHEMA   "org.gnome.desktop.a11y.applications"
-#define INPUT_SOURCES_SCHEMA       "org.gnome.desktop.input-sources"
 
 #define XSETTINGS_PLUGIN_SCHEMA "org.cinnamon.settings-daemon.plugins.xsettings"
 #define XSETTINGS_OVERRIDE_KEY  "overrides"
@@ -77,12 +75,7 @@
 #define FONT_HINTING_KEY      "hinting"
 #define FONT_RGBA_ORDER_KEY   "rgba-order"
 
-#define INPUT_SOURCES_KEY      "sources"
-#define OSK_ENABLED_KEY        "screen-keyboard-enabled"
 #define GTK_IM_MODULE_KEY      "gtk-im-module"
-
-#define INPUT_SOURCE_TYPE_IBUS "ibus"
-#define GTK_IM_MODULE_SIMPLE "gtk-im-context-simple"
 #define GTK_IM_MODULE_IBUS   "ibus"
 
 /* As we cannot rely on the X server giving us good DPI information, and
@@ -262,8 +255,6 @@ struct CinnamonSettingsXSettingsManagerPrivate
         fontconfig_monitor_handle_t *fontconfig_handle;
 
         GSettings         *interface_settings;
-        GSettings         *input_sources_settings;
-        GSettings         *a11y_settings;
         GdkSeat           *user_seat;
 
         CsdXSettingsGtk   *gtk;
@@ -1173,51 +1164,6 @@ on_cinnamon_name_appeared_handler (GDBusConnection *connection,
         animations_enabled_changed (manager);
 }
 
-static gboolean
-need_ibus (CinnamonSettingsXSettingsManager *manager)
-{
-        GVariant *sources;
-        GVariantIter iter;
-        const gchar *type;
-        gboolean needs_ibus = FALSE;
-
-        sources = g_settings_get_value (manager->priv->input_sources_settings,
-                                        INPUT_SOURCES_KEY);
-
-        g_variant_iter_init (&iter, sources);
-        while (g_variant_iter_next (&iter, "(&s&s)", &type, NULL)) {
-                if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS)) {
-                        needs_ibus = TRUE;
-                        break;
-                }
-        }
-
-        g_variant_unref (sources);
-
-        return needs_ibus;
-}
-
-static gboolean
-need_osk (CinnamonSettingsXSettingsManager *manager)
-{
-        gboolean has_touchscreen = FALSE;
-        GList *devices;
-        GdkSeat *seat;
-
-        if (g_settings_get_boolean (manager->priv->a11y_settings,
-                                    OSK_ENABLED_KEY))
-                return TRUE;
-
-        seat = gdk_display_get_default_seat (gdk_display_get_default ());
-        devices = gdk_seat_get_slaves (seat, GDK_SEAT_CAPABILITY_TOUCH);
-
-        has_touchscreen = devices != NULL;
-
-        g_list_free (devices);
-
-        return has_touchscreen;
-}
-
 static void
 update_gtk_im_module (CinnamonSettingsXSettingsManager *manager)
 {
@@ -1229,10 +1175,8 @@ update_gtk_im_module (CinnamonSettingsXSettingsManager *manager)
                                          GTK_IM_MODULE_KEY);
         if (setting && *setting)
                 module = setting;
-        else if (need_ibus (manager) || need_osk (manager))
-                module = GTK_IM_MODULE_IBUS;
         else
-                module = GTK_IM_MODULE_SIMPLE;
+                module = GTK_IM_MODULE_IBUS;
 
         for (i = 0; manager->priv->managers [i]; i++) {
             xsettings_manager_set_string (manager->priv->managers[i], "Gtk/IMModule", module);
@@ -1306,15 +1250,6 @@ cinnamon_xsettings_manager_start (CinnamonSettingsXSettingsManager *manager,
                                   "changed::" GTK_IM_MODULE_KEY,
                                   G_CALLBACK (update_gtk_im_module), manager);
 
-        manager->priv->input_sources_settings = g_settings_new (INPUT_SOURCES_SCHEMA);
-        g_signal_connect_swapped (manager->priv->input_sources_settings,
-                                  "changed::" INPUT_SOURCES_KEY,
-                                  G_CALLBACK (update_gtk_im_module), manager);
-
-        manager->priv->a11y_settings = g_settings_new (A11Y_APPLICATIONS_SCHEMA);
-        g_signal_connect_swapped (manager->priv->a11y_settings,
-                                  "changed::" OSK_ENABLED_KEY,
-                                  G_CALLBACK (update_gtk_im_module), manager);
         update_gtk_im_module (manager);
 
         manager->priv->monitors_changed_id =
@@ -1492,6 +1427,14 @@ cinnamon_xsettings_manager_stop (CinnamonSettingsXSettingsManager *manager)
                 g_object_unref (p->gtk);
                 p->gtk = NULL;
         }
+
+        if (manager->priv->user_seat != NULL) {
+                g_signal_handler_disconnect (manager->priv->user_seat, manager->priv->device_added_id);
+                g_signal_handler_disconnect (manager->priv->user_seat, manager->priv->device_removed_id);
+                manager->priv->user_seat = NULL;
+        }
+
+        g_clear_object (&manager->priv->interface_settings);
 }
 
 static GObject *
@@ -1531,16 +1474,6 @@ cinnamon_xsettings_manager_init (CinnamonSettingsXSettingsManager *manager)
         if (!manager->priv->dbus_connection) {
                 g_error ("Failed to get session bus: %s", error->message);
         }
-
-        if (manager->priv->user_seat != NULL) {
-                g_signal_handler_disconnect (manager->priv->user_seat, manager->priv->device_added_id);
-                g_signal_handler_disconnect (manager->priv->user_seat, manager->priv->device_removed_id);
-                manager->priv->user_seat = NULL;
-        }
-
-        g_clear_object (&manager->priv->a11y_settings);
-        g_clear_object (&manager->priv->input_sources_settings);
-        g_clear_object (&manager->priv->interface_settings);
 }
 
 static void
