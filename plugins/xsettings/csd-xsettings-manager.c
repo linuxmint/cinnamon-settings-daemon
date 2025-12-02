@@ -474,7 +474,6 @@ static TranslationEntry translations [] = {
         { "org.cinnamon.desktop.interface", "gtk-color-scheme",       "Gtk/ColorScheme",         translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-preedit-style",   "Gtk/IMPreeditStyle",      translate_string_string },
         { "org.cinnamon.desktop.interface", "gtk-im-status-style",    "Gtk/IMStatusStyle",       translate_string_string },
-        { "org.cinnamon.desktop.interface", "gtk-im-module",          "Gtk/IMModule",            translate_string_string },
         { "org.cinnamon.desktop.interface", "menubar-accel",          "Gtk/MenuBarAccel",        translate_string_string },
         { "org.cinnamon.desktop.interface", "enable-animations",      "Gtk/EnableAnimations",    translate_enable_animations },
         { "org.cinnamon.desktop.interface", "cursor-theme",           "Gtk/CursorThemeName",     translate_string_string },
