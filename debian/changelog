@@ -1,3 +1,16 @@
+cinnamon-settings-daemon (6.6.1) zena; urgency=medium
+
+  [ Michael Webster ]
+  * csd-xsettings-manager.c: Always use the ibus im module unless overridden in interface settings.
+
+  [ Oliver Kästner ]
+  * automount: fix automount with active screensaver and memleak (#426)
+
+  [ Michael Webster ]
+  * csd-xsettings-manager.c: Remove settings mapping for Gtk/IMModule.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 10 Dec 2025 14:27:51 +0000
+
 cinnamon-settings-daemon (6.6.0) zena; urgency=medium
 
   [ Pavel Timofeev ]
