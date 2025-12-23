@@ -30,7 +30,6 @@ power_keyboard_proxy = gnome.gdbus_codegen(
 power_sources = [
     'csd-power-manager.c',
     'gpm-common.c',
-    'gpm-phone.c',
     'main.c',
     power_proxy,
     power_screen_proxy,
