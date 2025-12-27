@@ -156,6 +156,11 @@ register_with_cinnamon_session (GMainLoop *loop)
               NULL,
               (GAsyncReadyCallback) on_client_registered,
               loop);
+
+   /* DESKTOP_AUTOSTART_ID must not leak into child processes, because
+    * it can't be reused. Child processes will not know whether this is
+    * a genuine value or erroneous already-used value. */
+   g_unsetenv ("DESKTOP_AUTOSTART_ID");
 }
 
 static gboolean
