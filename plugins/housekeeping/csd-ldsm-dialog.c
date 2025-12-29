@@ -158,7 +158,7 @@ ignore_check_button_toggled_cb (GtkToggleButton *button,
 
         settings_list = g_settings_get_strv (settings, "ignore-paths");
 
-        for (i = 0; i < G_N_ELEMENTS (settings_list); i++) {
+        for (i = 0; i < g_strv_length (settings_list); i++) {
                 if (settings_list[i] != NULL)
                         ignore_paths = g_slist_append (ignore_paths, g_strdup (settings_list[i]));
         }
@@ -180,7 +180,7 @@ ignore_check_button_toggled_cb (GtkToggleButton *button,
                         g_warning ("Cannot change ignore preference - failed to commit changes");
                 }
 
-                g_ptr_array_free (array, FALSE);
+                g_ptr_array_free (array, TRUE);
         }
 
         g_slist_foreach (ignore_paths, (GFunc) g_free, NULL);
