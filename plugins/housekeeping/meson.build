@@ -2,7 +2,6 @@ plugin_name = 'housekeeping'
 
 housekeeping_common_sources = [
     'csd-disk-space.c',
-    'csd-ldsm-dialog.c',
     'csd-disk-space-helper.c',
 ]
 

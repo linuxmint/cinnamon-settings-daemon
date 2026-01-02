@@ -23,7 +23,6 @@ plugins/automount/csd-autorun.c
 plugins/color/csd-color-manager.c
 [type: gettext/ini]plugins/dummy/dummy.cinnamon-settings-plugin.in
 plugins/housekeeping/csd-disk-space.c
-plugins/housekeeping/csd-ldsm-dialog.c
 plugins/keyboard/csd-keyboard-manager.c
 [type: gettext/ini]plugins/keyboard/keyboard.cinnamon-settings-plugin.in
 plugins/media-keys/cut-n-paste/gvc-mixer-control.c
