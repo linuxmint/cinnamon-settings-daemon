@@ -1,3 +1,16 @@
+cinnamon-settings-daemon (6.6.2) zena; urgency=medium
+
+  [ Shun Zi ]
+  * plugins: Don't leak DESKTOP_AUTOSTART_ID into child processes (#432)
+
+  [ Oliver Kästner ]
+  * housekeeping: fix list iteration and memleak in ldsm-dialog (#431)
+
+  [ Balló György ]
+  * csd-background: Remove decoration from desktop window (#434)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 08 Jan 2026 13:27:54 +0000
+
 cinnamon-settings-daemon (6.6.1) zena; urgency=medium
 
   [ Michael Webster ]
