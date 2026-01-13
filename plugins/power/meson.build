@@ -31,7 +31,6 @@ power_sources = [
     'csd-power-manager.c',
     'gpm-common.c',
     'gpm-phone.c',
-    'gpm-idletime.c',
     'main.c',
     power_proxy,
     power_screen_proxy,
