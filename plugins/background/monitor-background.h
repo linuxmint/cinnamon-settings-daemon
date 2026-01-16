@@ -20,8 +20,6 @@ struct _MonitorBackground
     GtkWidget *current;
     GtkWidget *pending;
 
-    gboolean valid;
-
     gint monitor_index;
     gint width;
     gint height;
