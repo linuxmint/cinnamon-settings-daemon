@@ -11,39 +11,13 @@
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 
+#ifdef HAVE_GTK_LAYER_SHELL
+#include <gtk-layer-shell/gtk-layer-shell.h>
+#endif
+
 #include "monitor-background.h"
 
 G_DEFINE_TYPE (MonitorBackground, monitor_background, G_TYPE_OBJECT)
-
-enum {
-    INVALIDATED,
-    N_SIGNALS
-};
-
-static guint signals[N_SIGNALS] = { 0 };
-
-static void
-invalidate_mb (MonitorBackground *mb)
-{
-    mb->valid = FALSE;
-
-    g_signal_emit (mb, signals[INVALIDATED], 0);
-}
-
-static void
-on_gdk_monitor_dispose (gpointer data,
-                        GObject *monitor)
-{
-    MonitorBackground *mb = MONITOR_BACKGROUND (data);
-    invalidate_mb (mb);
-}
-
-static void
-on_gdk_monitor_invalidate (gpointer data)
-{
-    MonitorBackground *mb = MONITOR_BACKGROUND (data);
-    invalidate_mb (mb);
-}
 
 static void
 on_window_realized (GtkWidget *widget,
@@ -60,14 +34,33 @@ static void
 build_monitor_background (MonitorBackground *mb)
 {
     GdkRectangle geometry;
+#ifdef HAVE_GTK_LAYER_SHELL
+    gboolean use_layer_shell = gtk_layer_is_supported ();
+#else
+    gboolean use_layer_shell = FALSE;
+#endif
 
     mb->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_type_hint (GTK_WINDOW (mb->window), GDK_WINDOW_TYPE_HINT_DESKTOP);
     gtk_window_set_decorated (GTK_WINDOW (mb->window), FALSE);
 
-    // Set keep below so muffin recognizes the backgrounds and keeps them
-    // at the bottom of the bottom window layer (under file managers, etc..)
-    gtk_window_set_keep_below (GTK_WINDOW (mb->window), TRUE);
+#ifdef HAVE_GTK_LAYER_SHELL
+    if (use_layer_shell) {
+        gtk_layer_init_for_window (GTK_WINDOW (mb->window));
+        gtk_layer_set_layer (GTK_WINDOW (mb->window), GTK_LAYER_SHELL_LAYER_BACKGROUND);
+        gtk_layer_set_namespace (GTK_WINDOW (mb->window), "csd-background");
+        gtk_layer_set_keyboard_mode (GTK_WINDOW (mb->window), GTK_LAYER_SHELL_KEYBOARD_MODE_NONE);
+        gtk_layer_set_exclusive_zone (GTK_WINDOW (mb->window), -1);
+        gtk_layer_set_anchor (GTK_WINDOW (mb->window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
+        gtk_layer_set_anchor (GTK_WINDOW (mb->window), GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
+        gtk_layer_set_anchor (GTK_WINDOW (mb->window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
+        gtk_layer_set_anchor (GTK_WINDOW (mb->window), GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
+        gtk_layer_set_monitor (GTK_WINDOW (mb->window), mb->monitor);
+    } else
+#endif
+    {
+        gtk_window_set_type_hint (GTK_WINDOW (mb->window), GDK_WINDOW_TYPE_HINT_DESKTOP);
+        gtk_window_set_keep_below (GTK_WINDOW (mb->window), TRUE);
+    }
 
     mb->stack = gtk_stack_new ();
     g_object_set (mb->stack,
@@ -81,16 +74,17 @@ build_monitor_background (MonitorBackground *mb)
     mb->width = geometry.width;
     mb->height = geometry.height;
 
-    gtk_window_set_default_size (GTK_WINDOW (mb->window), geometry.width, geometry.height);
+    if (!use_layer_shell) {
+        gtk_window_set_default_size (GTK_WINDOW (mb->window), geometry.width, geometry.height);
+        g_signal_connect (mb->window, "realize", G_CALLBACK (on_window_realized), mb);
+    }
 
-    g_signal_connect (mb->window, "realize", G_CALLBACK (on_window_realized), mb);
     gtk_widget_show_all (mb->window);
 }
 
 static void
 monitor_background_init (MonitorBackground *mb)
 {
-    mb->valid = TRUE;
 }
 
 static void
@@ -117,13 +111,6 @@ monitor_background_class_init (MonitorBackgroundClass *klass)
 
     gobject_class->dispose = monitor_background_dispose;
     gobject_class->finalize = monitor_background_finalize;
-
-    signals[INVALIDATED] = g_signal_new ("invalidated",
-                                         G_OBJECT_CLASS_TYPE (gobject_class),
-                                         G_SIGNAL_RUN_LAST,
-                                         0,
-                                         NULL, NULL, NULL,
-                                         G_TYPE_NONE, 0);
 }
 
 MonitorBackground *
@@ -133,9 +120,6 @@ monitor_background_new (gint index, GdkMonitor *monitor)
     mb->monitor_index = index;
     mb->monitor = monitor;
 
-    g_object_weak_ref (G_OBJECT (monitor), (GWeakNotify) on_gdk_monitor_dispose, mb);
-    g_signal_connect_swapped (monitor, "invalidate", G_CALLBACK (on_gdk_monitor_invalidate), mb);
-
     build_monitor_background (mb);
 
     return mb;
@@ -144,12 +128,6 @@ monitor_background_new (gint index, GdkMonitor *monitor)
 GtkImage *
 monitor_background_get_pending_image (MonitorBackground *mb)
 {
-    if (!mb->valid)
-    {
-        g_warning ("Asked for pending image when monitor is no longer valid");
-        return NULL;
-    }
-
     if (!mb->pending)
     {
         mb->pending = gtk_image_new ();
@@ -164,12 +142,6 @@ void
 monitor_background_show_next_image (MonitorBackground *mb)
 {
     g_return_if_fail (mb->pending != NULL);
-
-    if (!mb->valid)
-    {
-        g_warning ("Asked for pending image when monitor is no longer valid");
-        return;
-    }
 
     GtkWidget *tmp;
 

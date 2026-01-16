@@ -1,3 +1,5 @@
+#include "config.h"
+
 #define NEW csd_background_manager_new
 #define START csd_background_manager_start
 #define STOP csd_background_manager_stop
@@ -12,8 +14,13 @@
 // Setting this to TRUE makes the plugin force GDK_SCALE=1
 #define FORCE_GDK_SCALE TRUE
 
-// This plugin must run under x11/xwayland
+// Run as native Wayland client when gtk-layer-shell is available,
+// otherwise fall back to x11/xwayland
+#ifdef HAVE_GTK_LAYER_SHELL
+#define FORCE_X11_BACKEND FALSE
+#else
 #define FORCE_X11_BACKEND TRUE
+#endif
 
 #include "csd-background-manager.h"
 

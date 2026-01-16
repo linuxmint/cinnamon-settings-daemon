@@ -70,3 +70,9 @@ option(
     value: '/usr/share/zoneinfo/zone.tab',
     description: 'Path to tzdata zone.tab or zone1970.tab'
 )
+option(
+    'gtk_layer_shell',
+    type: 'boolean',
+    value: false,
+    description: 'Use gtk-layer-shell for native Wayland background windows'
+)
