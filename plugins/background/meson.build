@@ -13,6 +13,10 @@ background_deps = [
     libnotify,
 ]
 
+if gtk_layer_shell_enabled
+    background_deps += gtk_layer_shell
+endif
+
 executable(
     'csd-background',
     background_sources,
