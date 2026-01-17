@@ -43,7 +43,7 @@
 
 #include "gpm-common.h"
 #include "gpm-phone.h"
-#include "gpm-idletime.h"
+#include <libcinnamon-desktop/gnome-idle-monitor.h>
 #include "cinnamon-settings-profile.h"
 #include "cinnamon-settings-session.h"
 #include "csd-enums.h"
@@ -93,14 +93,6 @@
 #define SCREENSAVER_FADE_TIME                           10 /* seconds */
 
 #define XSCREENSAVER_WATCHDOG_TIMEOUT                   120 /* seconds */
-
-enum {
-        CSD_POWER_IDLETIME_NULL_ID,
-        CSD_POWER_IDLETIME_DIM_ID,
-        CSD_POWER_IDLETIME_LOCK_ID,
-        CSD_POWER_IDLETIME_BLANK_ID,
-        CSD_POWER_IDLETIME_SLEEP_ID
-};
 
 /* on ACPI machines we have 4-16 levels, on others it's ~150 */
 #define BRIGHTNESS_STEP_AMOUNT(max) ((max) < 20 ? 1 : (max) / 20)
@@ -178,8 +170,16 @@ struct CsdPowerManagerPrivate
         GDBusProxy              *screensaver_proxy;
         GDBusProxy              *session_proxy;
         GDBusProxy              *session_presence_proxy;
-        GpmIdletime             *idletime;
+
+        /* Idle monitoring */
+        GnomeIdleMonitor        *idle_monitor;
+        guint                    idle_dim_id;
+        guint                    idle_lock_id;
+        guint                    idle_blank_id;
+        guint                    idle_sleep_id;
+        guint                    user_active_id;
         CsdPowerIdleMode         current_idle_mode;
+
         guint                    lid_close_safety_timer_id;
         guint                    xscreensaver_watchdog_timer_id;
         gboolean                 is_virtual_machine;
@@ -226,6 +226,9 @@ static void device_properties_changed_cb (UpDevice *device, GParamSpec *pspec, C
 static void connect_power_iface (CsdPowerManager *manager);
 static void connect_screen_iface (CsdPowerManager *manager);
 static void connect_keyboard_iface (CsdPowerManager *manager);
+
+static void idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
+static void idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 
 G_DEFINE_TYPE (CsdPowerManager, csd_power_manager, G_TYPE_OBJECT)
 
@@ -3172,6 +3175,15 @@ idle_adjust_timeout (guint idle_time, guint timeout)
         return timeout;
 }
 
+static void
+clear_idle_watch (GnomeIdleMonitor *monitor, guint *id)
+{
+        if (*id == 0)
+                return;
+        gnome_idle_monitor_remove_watch (monitor, *id);
+        *id = 0;
+}
+
 /**
  * @timeout: The new timeout we want to set, in seconds
  **/
@@ -3188,23 +3200,24 @@ idle_set_timeout_dim (CsdPowerManager *manager, guint timeout)
                 g_debug ("inhibited, so using normal state");
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_NORMAL);
 
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_DIM_ID);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_dim_id);
                 return;
         }
 
-        idle_time = gpm_idletime_get_time (manager->priv->idletime) / 1000;
+        idle_time = gnome_idle_monitor_get_idletime (manager->priv->idle_monitor) / 1000;
 
         g_debug ("Setting dim idle timeout: %ds", timeout);
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_dim_id);
         if (timeout > 0) {
-                gpm_idletime_alarm_set (manager->priv->idletime,
-                                        CSD_POWER_IDLETIME_DIM_ID,
-                                        idle_adjust_timeout (idle_time, timeout) * 1000);
-        } else {
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_DIM_ID);
+                manager->priv->idle_dim_id =
+                        gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                          idle_adjust_timeout (idle_time, timeout) * 1000,
+                                                          idle_triggered_idle_cb,
+                                                          manager,
+                                                          NULL);
         }
-        return;
 }
 
 static void
@@ -3250,18 +3263,18 @@ idle_configure (CsdPowerManager *manager)
                 g_debug ("inhibited, so using normal state");
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_NORMAL);
 
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_LOCK_ID);
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_BLANK_ID);
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_SLEEP_ID);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_lock_id);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_blank_id);
+                clear_idle_watch (manager->priv->idle_monitor,
+                                  &manager->priv->idle_sleep_id);
 
                 refresh_idle_dim_settings (manager);
                 return;
         }
 
-        current_idle_time = gpm_idletime_get_time (manager->priv->idletime) / 1000;
+        current_idle_time = gnome_idle_monitor_get_idletime (manager->priv->idle_monitor) / 1000;
 
         /* set up blank callback even when session is not idle,
          * but only if we actually want to blank. */
@@ -3277,6 +3290,8 @@ idle_configure (CsdPowerManager *manager)
         /* set up custom screensaver lock after idle time trigger */
         timeout_lock = g_settings_get_uint (manager->priv->settings_desktop_session,
                                             "idle-delay");
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_lock_id);
         if (timeout_lock != 0) {
                 if (timeout_blank != 0 && timeout_lock > timeout_blank) {
                         g_debug ("reducing lock timeout to match blank timeout");
@@ -3284,23 +3299,25 @@ idle_configure (CsdPowerManager *manager)
                 }
                 g_debug ("setting up lock callback for %is", timeout_lock);
 
-                gpm_idletime_alarm_set (manager->priv->idletime,
-                                        CSD_POWER_IDLETIME_LOCK_ID,
-                                        idle_adjust_timeout (current_idle_time, timeout_lock) * 1000);
-        } else {
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_LOCK_ID);
+                manager->priv->idle_lock_id =
+                        gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                          idle_adjust_timeout (current_idle_time, timeout_lock) * 1000,
+                                                          idle_triggered_idle_cb,
+                                                          manager,
+                                                          NULL);
         }
 
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_blank_id);
         if (timeout_blank != 0) {
                 g_debug ("setting up blank callback for %is", timeout_blank);
 
-                gpm_idletime_alarm_set (manager->priv->idletime,
-                                        CSD_POWER_IDLETIME_BLANK_ID,
-                                        idle_adjust_timeout_blank (current_idle_time, timeout_blank) * 1000);
-        } else {
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_BLANK_ID);
+                manager->priv->idle_blank_id =
+                        gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                          idle_adjust_timeout_blank (current_idle_time, timeout_blank) * 1000,
+                                                          idle_triggered_idle_cb,
+                                                          manager,
+                                                          NULL);
         }
 
         gboolean is_sleep_inhibited = idle_is_session_inhibited (manager,
@@ -3314,15 +3331,17 @@ idle_configure (CsdPowerManager *manager)
                 timeout_sleep = g_settings_get_int (manager->priv->settings,
                                                     "sleep-inactive-ac-timeout");
         }
+        clear_idle_watch (manager->priv->idle_monitor,
+                          &manager->priv->idle_sleep_id);
         if (!is_sleep_inhibited && timeout_sleep != 0) {
                 g_debug ("setting up sleep callback %is", timeout_sleep);
 
-                gpm_idletime_alarm_set (manager->priv->idletime,
-                                        CSD_POWER_IDLETIME_SLEEP_ID,
-                                        idle_adjust_timeout (current_idle_time, timeout_sleep) * 1000);
-        } else {
-                gpm_idletime_alarm_remove (manager->priv->idletime,
-                                           CSD_POWER_IDLETIME_SLEEP_ID);
+                manager->priv->idle_sleep_id =
+                        gnome_idle_monitor_add_idle_watch (manager->priv->idle_monitor,
+                                                          idle_adjust_timeout (current_idle_time, timeout_sleep) * 1000,
+                                                          idle_triggered_idle_cb,
+                                                          manager,
+                                                          NULL);
         }
 
         refresh_idle_dim_settings (manager);
@@ -3613,19 +3632,17 @@ out:
 }
 
 static void
-idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
-                                guint alarm_id,
-                                CsdPowerManager *manager)
+idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
+                        guint             watch_id,
+                        gpointer          user_data)
 {
-        g_debug ("idletime alarm: %i", alarm_id);
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
 
-        switch (alarm_id) {
-        case CSD_POWER_IDLETIME_DIM_ID:
+        g_debug ("idletime watch: %i", watch_id);
+
+        if (watch_id == manager->priv->idle_dim_id) {
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_DIM);
-                break;
-        case CSD_POWER_IDLETIME_LOCK_ID:
-                ; /* empty statement, because C does not allow a declaration to
-                   * follow a label */
+        } else if (watch_id == manager->priv->idle_lock_id) {
                 gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
                                                              "custom-screensaver-command");
                 if (custom_saver && g_strcmp0 (custom_saver, "") != 0) {
@@ -3633,28 +3650,36 @@ idle_idletime_alarm_expired_cb (GpmIdletime *idletime,
                                                        custom_saver,
                                                        TRUE);
                 } else {
-                    activate_screensaver (manager, FALSE);
+                        activate_screensaver (manager, FALSE);
                 }
-
                 g_free (custom_saver);
-
-                break;
-        case CSD_POWER_IDLETIME_BLANK_ID:
+        } else if (watch_id == manager->priv->idle_blank_id) {
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_BLANK);
-                break;
-        case CSD_POWER_IDLETIME_SLEEP_ID:
+        } else if (watch_id == manager->priv->idle_sleep_id) {
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_SLEEP);
-                break;
+        }
+
+        /* Add user-active watch to detect when user returns */
+        if (manager->priv->user_active_id == 0) {
+                manager->priv->user_active_id =
+                        gnome_idle_monitor_add_user_active_watch (manager->priv->idle_monitor,
+                                                                  idle_became_active_cb,
+                                                                  manager,
+                                                                  NULL);
         }
 }
 
 static void
-idle_idletime_reset_cb (GpmIdletime *idletime,
-                        CsdPowerManager *manager)
+idle_became_active_cb (GnomeIdleMonitor *monitor,
+                       guint             watch_id,
+                       gpointer          user_data)
 {
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
         g_debug ("idletime reset");
 
         idle_set_mode (manager, CSD_POWER_IDLE_MODE_NORMAL);
+        manager->priv->user_active_id = 0;
 }
 
 static void
@@ -4186,12 +4211,8 @@ on_rr_screen_acquired (GObject      *object,
 
         refresh_notification_settings (manager);
 
-        /* create IDLETIME watcher */
-        manager->priv->idletime = gpm_idletime_new ();
-        g_signal_connect (manager->priv->idletime, "reset",
-                          G_CALLBACK (idle_idletime_reset_cb), manager);
-        g_signal_connect (manager->priv->idletime, "alarm-expired",
-                          G_CALLBACK (idle_idletime_alarm_expired_cb), manager);
+        /* create idle monitor */
+        manager->priv->idle_monitor = gnome_idle_monitor_new ();
 
         /* set up the screens */
         g_signal_connect (manager->priv->x11_screen, "changed", G_CALLBACK (on_randr_event), manager);
@@ -4372,17 +4393,8 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 g_source_remove (manager->priv->critical_alert_timeout_id);
                 manager->priv->critical_alert_timeout_id = 0;
         }
-        g_signal_handlers_disconnect_by_func (manager->priv->idletime,
-                                              idle_idletime_reset_cb,
-                                              manager);
-        g_signal_handlers_disconnect_by_func (manager->priv->idletime,
-                                              idle_idletime_alarm_expired_cb,
-                                              manager);
 
-        if (manager->priv->idletime != NULL) {
-                g_object_unref (manager->priv->idletime);
-                manager->priv->idletime = NULL;
-        }
+        g_clear_object (&manager->priv->idle_monitor);
 
         if (manager->priv->xscreensaver_watchdog_timer_id > 0) {
                 g_source_remove (manager->priv->xscreensaver_watchdog_timer_id);
