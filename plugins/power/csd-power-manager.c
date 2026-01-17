@@ -156,6 +156,7 @@ struct CsdPowerManagerPrivate
         GnomeRRScreen           *x11_screen;
         gboolean                 use_time_primary;
         GIcon                   *previous_icon;
+        guint                    previous_percentage;
         GpmPhone                *phone;
         GPtrArray               *devices_array;
         guint                    action_percentage;
@@ -379,7 +380,8 @@ typedef enum {
 
 static void
 engine_emit_changed (CsdPowerManager *manager,
-                     gboolean         icon_changed)
+                     gboolean         icon_changed,
+                     gboolean         percentage_changed)
 {
         /* not yet connected to the bus */
         if (manager->priv->power_iface == NULL)
@@ -399,6 +401,12 @@ engine_emit_changed (CsdPowerManager *manager,
 
                 g_free (gicon_str);
                 g_object_unref (gicon);
+        }
+
+        if (percentage_changed) {
+                csd_power_set_percentage (manager->priv->power_iface,
+                                          manager->priv->previous_percentage);
+                need_flush = TRUE;
         }
 
         if (need_flush) {
@@ -685,16 +693,56 @@ engine_recalculate_state_icon (CsdPowerManager *manager)
         return FALSE;
 }
 
+static gboolean
+engine_recalculate_state_percentage (CsdPowerManager *manager)
+{
+        guint i;
+        UpDevice *device;
+        UpDeviceKind kind;
+        gboolean is_present;
+        gdouble percentage;
+        guint percentage_uint;
+        GPtrArray *array;
+
+        array = manager->priv->devices_array;
+        for (i = 0; i < array->len; i++) {
+                device = g_ptr_array_index (array, i);
+                g_object_get (device,
+                              "kind", &kind,
+                              "is-present", &is_present,
+                              "percentage", &percentage,
+                              NULL);
+
+                if (!is_present)
+                        continue;
+
+                if (kind == UP_DEVICE_KIND_BATTERY)
+                        device = engine_get_composite_device (manager, device);
+
+                g_object_get (device, "percentage", &percentage, NULL);
+                percentage_uint = (guint) CLAMP (percentage, 0.0, 100.0);
+
+                if (manager->priv->previous_percentage != percentage_uint) {
+                        manager->priv->previous_percentage = percentage_uint;
+                        return TRUE;
+                }
+        }
+
+        return FALSE;
+}
+
 static void
 engine_recalculate_state (CsdPowerManager *manager)
 {
         gboolean icon_changed = FALSE;
+        gboolean percentage_changed = FALSE;
 
         icon_changed = engine_recalculate_state_icon (manager);
+        percentage_changed = engine_recalculate_state_percentage (manager);
 
-        /* only emit if the icon has changed */
-        if (icon_changed)
-                engine_emit_changed (manager, icon_changed);
+        /* emit if the icon or percentage has changed */
+        if (icon_changed || percentage_changed)
+                engine_emit_changed (manager, icon_changed, percentage_changed);
 }
 
 static UpDevice *
