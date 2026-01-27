@@ -25,6 +25,7 @@ Build-Depends:
  libsystemd-dev [linux-any],
  libupower-glib-dev (>= 0.99.11),
  libwacom-dev (>= 0.4) [!s390x !hurd-any !kfreebsd-any],
+ libwayland-dev,
  libx11-dev,
  libxext-dev,
  libxi-dev,

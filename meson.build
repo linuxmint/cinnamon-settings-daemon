@@ -91,8 +91,10 @@ endif
 
 gtk_layer_shell_enabled = get_option('gtk_layer_shell')
 gtk_layer_shell = dependency('', required: false)
+wayland_client = dependency('', required: false)
 if gtk_layer_shell_enabled
     gtk_layer_shell = dependency('gtk-layer-shell-0', version: '>= 0.8', required: true)
+    wayland_client = dependency('wayland-client', required: true)
 endif
 
 cc = meson.get_compiler('c')
