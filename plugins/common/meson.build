@@ -12,6 +12,11 @@ common_deps = [
     xi,
 ]
 
+if gtk_layer_shell_enabled
+    common_sources += 'wayland-utils.c'
+    common_deps += wayland_client
+endif
+
 common_inc = include_directories('.')
 
 common_lib = static_library(

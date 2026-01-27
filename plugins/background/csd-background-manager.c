@@ -64,6 +64,7 @@ struct CsdBackgroundManagerPrivate
 static void     csd_background_manager_finalize    (GObject             *object);
 
 static void setup_bg (CsdBackgroundManager *manager);
+static void setup_monitors (CsdBackgroundManager *manager);
 static void connect_screen_signals (CsdBackgroundManager *manager);
 
 G_DEFINE_TYPE (CsdBackgroundManager, csd_background_manager, G_TYPE_OBJECT)
@@ -181,6 +182,9 @@ static void
 on_screen_size_changed (GdkScreen            *screen,
                         CsdBackgroundManager *manager)
 {
+        if (session_is_wayland ()) {
+                setup_monitors (manager);
+        }
 
         draw_background (manager);
 }

@@ -31,6 +31,10 @@
 #define INIT_LIBNOTIFY FALSE
 #endif
 
+#ifndef PRE_GTK_INIT
+#define PRE_GTK_INIT()
+#endif
+
 #define GNOME_SESSION_DBUS_NAME           "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH           "/org/gnome/SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_NAME "org.gnome.SessionManager.ClientPrivate"
@@ -209,6 +213,8 @@ main (int argc, char **argv)
         /* Work around https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
         g_type_ensure (G_TYPE_DBUS_CONNECTION);
         g_type_ensure (G_TYPE_DBUS_PROXY);
+
+        PRE_GTK_INIT();
 
         if (FORCE_X11_BACKEND) {
             const gchar *setup_display = getenv ("GNOME_SETUP_DISPLAY");
