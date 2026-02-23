@@ -1915,8 +1915,6 @@ do_power_action_type (CsdPowerManager *manager,
                         activate_screensaver (manager, TRUE);
                 }
 
-                turn_monitors_off (manager);
-
                 gboolean hybrid = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
                                                           "prefer-hybrid-sleep");
                 gboolean suspend_then_hibernate = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
@@ -1932,7 +1930,6 @@ do_power_action_type (CsdPowerManager *manager,
                         activate_screensaver (manager, TRUE);
                 }
 
-                turn_monitors_off (manager);
                 csd_power_hibernate ();
                 break;
         case CSD_POWER_ACTION_SHUTDOWN:
@@ -1945,7 +1942,7 @@ do_power_action_type (CsdPowerManager *manager,
                 /* Lock first or else xrandr might reconfigure stuff and the ss's coverage
                  * may be incorrect upon return. */
                 activate_screensaver (manager, FALSE);
-                turn_monitors_off (manager);
+                g_timeout_add_seconds (1, (GSourceFunc) turn_monitors_off, manager);
                 break;
         case CSD_POWER_ACTION_NOTHING:
                 break;
@@ -3966,9 +3963,6 @@ handle_suspend_actions (CsdPowerManager *manager)
 static void
 handle_resume_actions (CsdPowerManager *manager)
 {
-        gboolean ret;
-        GError *error = NULL;
-
         /* this displays the unlock dialogue so the user doesn't have
          * to move the mouse or press any key before the window comes up */
         g_dbus_connection_call (manager->priv->connection,
@@ -3984,16 +3978,6 @@ handle_resume_actions (CsdPowerManager *manager)
          * state is probably different now */
         notify_close_if_showing (manager->priv->notification_low);
         notify_close_if_showing (manager->priv->notification_discharging);
-
-        /* ensure we turn the panel back on after resume */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
-        if (!ret) {
-                g_warning ("failed to turn the panel on after resume: %s",
-                           error->message);
-                g_error_free (error);
-        }
 
         /* set up the delay again */
         inhibit_suspend (manager);
