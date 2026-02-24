@@ -182,6 +182,7 @@ struct CsdPowerManagerPrivate
 
         guint                    lid_close_safety_timer_id;
         guint                    xscreensaver_watchdog_timer_id;
+        guint                    turn_monitors_off_id;
         gboolean                 is_virtual_machine;
         gint                     fd_close_loop_end;
 
@@ -1889,11 +1890,13 @@ cinnamon_session_shutdown (void)
         g_object_unref (proxy);
 }
 
-static void
+static gboolean
 turn_monitors_off (CsdPowerManager *manager)
 {
     gboolean ret;
     GError *error = NULL;
+
+    manager->priv->turn_monitors_off_id = 0;
 
     ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                          GNOME_RR_DPMS_OFF,
@@ -1903,6 +1906,14 @@ turn_monitors_off (CsdPowerManager *manager)
                        error->message);
             g_error_free (error);
     }
+
+    return G_SOURCE_REMOVE;
+}
+
+static void
+cancel_turn_monitors_off (CsdPowerManager *manager)
+{
+    g_clear_handle_id (&manager->priv->turn_monitors_off_id, g_source_remove);
 }
 
 static void
@@ -1942,7 +1953,7 @@ do_power_action_type (CsdPowerManager *manager,
                 /* Lock first or else xrandr might reconfigure stuff and the ss's coverage
                  * may be incorrect upon return. */
                 activate_screensaver (manager, FALSE);
-                g_timeout_add_seconds (1, (GSourceFunc) turn_monitors_off, manager);
+                manager->priv->turn_monitors_off_id = g_timeout_add_seconds (2, (GSourceFunc) turn_monitors_off, manager);
                 break;
         case CSD_POWER_ACTION_NOTHING:
                 break;
@@ -2178,6 +2189,8 @@ do_lid_open_action (CsdPowerManager *manager)
 {
         gboolean ret;
         GError *error = NULL;
+
+        cancel_turn_monitors_off (manager);
 
         /* play a sound, using sounds from the naming spec */
         ca_context_play (manager->priv->canberra_context, 0,
@@ -3054,6 +3067,8 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
 
         /* turn on screen and restore user-selected brightness level */
         } else if (mode == CSD_POWER_IDLE_MODE_NORMAL) {
+
+                cancel_turn_monitors_off (manager);
 
                 ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
                                                      GNOME_RR_DPMS_ON,
