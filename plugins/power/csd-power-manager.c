@@ -3938,6 +3938,23 @@ iio_proxy_maybe_claim_light (CsdPowerManager *manager)
 }
 
 static void
+iio_proxy_update_ambient_light_supported (CsdPowerManager *manager)
+{
+        gboolean supported = FALSE;
+
+        if (manager->priv->iio_proxy != NULL) {
+                GVariant *val = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "HasAmbientLight");
+                if (val != NULL) {
+                        supported = g_variant_get_boolean (val);
+                        g_variant_unref (val);
+                }
+        }
+
+        if (manager->priv->screen_iface != NULL)
+                csd_screen_set_ambient_light_supported (manager->priv->screen_iface, supported);
+}
+
+static void
 iio_proxy_appeared_cb (GDBusConnection *connection,
                        const gchar *name,
                        const gchar *name_owner,
@@ -3953,6 +3970,7 @@ iio_proxy_appeared_cb (GDBusConnection *connection,
                                                "net.hadess.SensorProxy",
                                                NULL,
                                                NULL);
+        iio_proxy_update_ambient_light_supported (manager);
         iio_proxy_maybe_claim_light (manager);
 }
 
@@ -3963,6 +3981,7 @@ iio_proxy_vanished_cb (GDBusConnection *connection,
 {
         CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
         g_clear_object (&manager->priv->iio_proxy);
+        iio_proxy_update_ambient_light_supported (manager);
 }
 
 static void
