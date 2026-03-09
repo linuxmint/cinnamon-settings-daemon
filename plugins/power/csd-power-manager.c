@@ -218,6 +218,8 @@ struct CsdPowerManagerPrivate
         gdouble                  ambient_norm_value;
         gint64                   ambient_update_last_time;
         gint64                   ambient_set_last_time;
+        guint                    ambient_renorm_timer_id;
+        gdouble                  ambient_user_brightness;
 };
 
 enum {
@@ -252,6 +254,7 @@ static void connect_power_iface (CsdPowerManager *manager);
 static void connect_screen_iface (CsdPowerManager *manager);
 static void connect_keyboard_iface (CsdPowerManager *manager);
 
+static void ambient_renormalize (CsdPowerManager *manager, gdouble brightness);
 static void iio_proxy_changed (CsdPowerManager *manager);
 static void iio_proxy_changed_cb (GDBusProxy *proxy, GVariant *changed_properties, GStrv invalidated_properties, gpointer user_data);
 static void iio_proxy_claim_light (CsdPowerManager *manager, gboolean active);
@@ -3048,6 +3051,8 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                                    idle_percentage,
                                    error->message);
                         g_clear_error (&error);
+                } else {
+                        ambient_renormalize (manager, (gdouble) idle_percentage);
                 }
 
                 /* keyboard backlight */
@@ -3120,6 +3125,7 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                                            error->message);
                                 g_clear_error (&error);
                         } else {
+                                ambient_renormalize (manager, (gdouble) manager->priv->pre_dim_brightness);
                                 manager->priv->pre_dim_brightness = -1;
                         }
                 }
@@ -3760,6 +3766,54 @@ engine_settings_key_changed_cb (GSettings *settings,
                 iio_proxy_maybe_claim_light (manager);
                 return;
         }
+}
+
+static void
+ambient_renormalize (CsdPowerManager *manager, gdouble brightness)
+{
+        GVariant *val_als = NULL;
+        gdouble sensor_value;
+
+        if (manager->priv->iio_proxy == NULL)
+                return;
+
+        val_als = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
+        if (val_als == NULL || g_variant_get_double (val_als) <= 0.f) {
+                g_clear_pointer (&val_als, g_variant_unref);
+                return;
+        }
+
+        sensor_value = g_variant_get_double (val_als);
+        g_variant_unref (val_als);
+
+        g_debug ("Renormalizing for brightness %.1f%% at light level %f",
+                 brightness, sensor_value);
+
+        manager->priv->ambient_norm_value = sensor_value * CSD_AMBIENT_NORMALIZE_CONSTANT;
+        manager->priv->ambient_accumulator = brightness;
+}
+
+static gboolean
+ambient_renorm_timer_cb (gpointer user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+        manager->priv->ambient_renorm_timer_id = 0;
+        ambient_renormalize (manager, manager->priv->ambient_user_brightness);
+
+        return G_SOURCE_REMOVE;
+}
+
+static void
+ambient_schedule_renorm (CsdPowerManager *manager, gdouble user_brightness)
+{
+        manager->priv->ambient_user_brightness = user_brightness;
+
+        if (manager->priv->ambient_renorm_timer_id > 0)
+                g_source_remove (manager->priv->ambient_renorm_timer_id);
+
+        manager->priv->ambient_renorm_timer_id =
+                g_timeout_add_seconds (2, ambient_renorm_timer_cb, manager);
 }
 
 static void
@@ -4567,6 +4621,10 @@ csd_power_manager_stop (CsdPowerManager *manager)
         kill_lid_close_safety_timer (manager);
 
         iio_proxy_claim_light (manager, FALSE);
+        if (manager->priv->ambient_renorm_timer_id != 0) {
+                g_source_remove (manager->priv->ambient_renorm_timer_id);
+                manager->priv->ambient_renorm_timer_id = 0;
+        }
         if (manager->priv->iio_proxy_watch_id != 0)
                 g_bus_unwatch_name (manager->priv->iio_proxy_watch_id);
         manager->priv->iio_proxy_watch_id = 0;
@@ -4872,7 +4930,7 @@ handle_method_call_screen (CsdPowerManager *manager,
                         ret = backlight_set_percentage (manager, value_tmp, TRUE, &error);
                         if (ret) {
                                 value = value_tmp;
-                                manager->priv->ambient_norm_required = TRUE;
+                                ambient_schedule_renorm (manager, (gdouble) value);
                         }
                 }
 
@@ -4912,7 +4970,7 @@ handle_method_call_screen (CsdPowerManager *manager,
                                                                g_variant_new ("(uii)",
                                                                               value, x, y));
 
-                    manager->priv->ambient_norm_required = TRUE;
+                    ambient_schedule_renorm (manager, (gdouble) value);
                 }
         } else {
                 g_assert_not_reached ();
