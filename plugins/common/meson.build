@@ -1,5 +1,4 @@
 common_sources = [
-    'csd-keygrab.c',
     'csd-input-helper.c',
     'csd-power-helper.c',
     'migrate-settings.c'
