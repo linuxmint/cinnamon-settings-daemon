@@ -26,8 +26,8 @@ sources = files(
   'csd-color-manager.c',
   'csd-color-profiles.c',
   'csd-color-state.c',
-  'csd-night-light.c',
-  'csd-night-light-common.c',
+  'csd-night-mode-common.c',
+  'csd-night-mode.c',
   'main.c'
 )
 
@@ -74,7 +74,7 @@ sources = files(
   'ccm-self-test.c',
   'gnome-datetime-source.c',
   'csd-night-light.c',
-  'csd-night-light-common.c'
+  'csd-night-common.c'
 )
 
 # test_unit = 'ccm-self-test'

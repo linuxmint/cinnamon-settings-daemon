@@ -25,14 +25,18 @@
 
 #include "csd-color-state.h"
 
-#include "csd-night-light.h"
-#include "csd-night-light-common.h"
+#include "csd-night-mode.h"
+#include "csd-night-mode-common.h"
 #include "tz-coords.h"
 
-struct _CsdNightLight {
+struct _CsdNightMode {
         GObject            parent;
         GSettings         *settings;
-        gboolean           forced;
+        GSettings         *theme_settings;
+        GSettings         *x_theme_settings;
+        GSettings         *cinnamon_theme_settings;
+        gboolean           light_forced;
+        gboolean           theme_forced;
         gboolean           disabled_until_tmw;
         GDateTime         *disabled_until_tmw_dt;
         GSource           *source;
@@ -51,37 +55,39 @@ struct _CsdNightLight {
 
 enum {
         PROP_0,
-        PROP_ACTIVE,
+        PROP_LIGHT_ACTIVE,
+        PROP_THEME_ACTIVE,
         PROP_SUNRISE,
         PROP_SUNSET,
         PROP_TEMPERATURE,
         PROP_DISABLED_UNTIL_TMW,
-        PROP_FORCED,
+        PROP_LIGHT_FORCED,
+        PROP_THEME_FORCED,
         PROP_LAST
 };
 
 enum {
-        NIGHT_LIGHT_SCHEDULE_AUTO = 0,
-        NIGHT_LIGHT_SCHEDULE_MANUAL = 1,
-        NIGHT_LIGHT_SCHEDULE_ALWAYS_ON = 2
+        NIGHT_MODE_SCHEDULE_AUTO = 0,
+        NIGHT_MODE_SCHEDULE_MANUAL = 1,
+        NIGHT_MODE_SCHEDULE_ALWAYS_ON = 2
 };
 
-#define CSD_NIGHT_LIGHT_SCHEDULE_TIMEOUT      5       /* seconds */
-#define CSD_NIGHT_LIGHT_POLL_TIMEOUT          60      /* seconds */
+#define CSD_NIGHT_MODE_SCHEDULE_TIMEOUT      5       /* seconds */
+#define CSD_NIGHT_MODE_POLL_TIMEOUT          60      /* seconds */
 #define CSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
 #define CSD_NIGHT_LIGHT_SMOOTH_SMEAR          5.f     /* seconds */
 
 #define CSD_FRAC_DAY_MAX_DELTA                  (1.f/60.f)     /* 1 minute */
 #define CSD_TEMPERATURE_MAX_DELTA               (10.f)          /* Kelvin */
 
-static void poll_timeout_destroy (CsdNightLight *self);
-static void poll_timeout_create (CsdNightLight *self);
-static void night_light_recheck (CsdNightLight *self);
+static void poll_timeout_destroy (CsdNightMode *self);
+static void poll_timeout_create (CsdNightMode *self);
+static void night_mode_recheck (CsdNightMode *self);
 
-G_DEFINE_TYPE (CsdNightLight, csd_night_light, G_TYPE_OBJECT);
+G_DEFINE_TYPE (CsdNightMode, csd_night_mode, G_TYPE_OBJECT);
 
 static GDateTime *
-csd_night_light_get_date_time_now (CsdNightLight *self)
+csd_night_mode_get_date_time_now (CsdNightMode *self)
 {
         if (self->datetime_override != NULL)
                 return g_date_time_ref (self->datetime_override);
@@ -89,17 +95,17 @@ csd_night_light_get_date_time_now (CsdNightLight *self)
 }
 
 void
-csd_night_light_set_date_time_now (CsdNightLight *self, GDateTime *datetime)
+csd_night_mode_set_date_time_now (CsdNightMode *self, GDateTime *datetime)
 {
         if (self->datetime_override != NULL)
                 g_date_time_unref (self->datetime_override);
         self->datetime_override = g_date_time_ref (datetime);
 
-        night_light_recheck (self);
+        night_mode_recheck (self);
 }
 
 static void
-poll_smooth_destroy (CsdNightLight *self)
+poll_smooth_destroy (CsdNightMode *self)
 {
         if (self->smooth_id != 0) {
                 g_source_remove (self->smooth_id);
@@ -110,8 +116,8 @@ poll_smooth_destroy (CsdNightLight *self)
 }
 
 void
-csd_night_light_set_smooth_enabled (CsdNightLight *self,
-                                    gboolean smooth_enabled)
+csd_night_mode_set_smooth_enabled (CsdNightMode *self,
+                                   gboolean smooth_enabled)
 {
         /* ensure the timeout is stopped if called at runtime */
         if (!smooth_enabled)
@@ -128,7 +134,7 @@ linear_interpolate (gdouble val1, gdouble val2, gdouble factor)
 }
 
 static gboolean
-update_cached_sunrise_sunset (CsdNightLight *self)
+update_cached_sunrise_sunset (CsdNightMode *self)
 {
         gboolean ret = FALSE;
         gdouble latitude;
@@ -136,7 +142,7 @@ update_cached_sunrise_sunset (CsdNightLight *self)
         gdouble sunrise;
         gdouble sunset;
         g_autoptr(GVariant) tmp = NULL;
-        g_autoptr(GDateTime) dt_now = csd_night_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt_now = csd_night_mode_get_date_time_now (self);
 
         /* calculate the sunrise/sunset for the location */
         tmp = g_settings_get_value (self->settings, "night-light-last-coordinates");
@@ -145,8 +151,8 @@ update_cached_sunrise_sunset (CsdNightLight *self)
                 return FALSE;
         if (longitude > 180.f || longitude < -180.f)
                 return FALSE;
-        if (!csd_night_light_get_sunrise_sunset (dt_now, latitude, longitude,
-                                                   &sunrise, &sunset)) {
+        if (!csd_night_mode_get_sunrise_sunset (dt_now, latitude, longitude,
+                                                &sunrise, &sunset)) {
                 g_warning ("failed to get sunset/sunrise for %.3f,%.3f",
                            latitude, longitude);
                 return FALSE;
@@ -156,14 +162,14 @@ update_cached_sunrise_sunset (CsdNightLight *self)
         if (ABS (self->cached_sunrise - sunrise) > CSD_FRAC_DAY_MAX_DELTA) {
                 self->cached_sunrise = sunrise;
                 g_object_notify (G_OBJECT (self), "sunrise");
-                g_autofree gchar *formatted = csd_night_light_time_string_from_frac (sunrise);
+                g_autofree gchar *formatted = csd_night_mode_time_string_from_frac (sunrise);
                 g_debug ("Sunrise updated: %.3f (%s)", sunrise, formatted);
                 ret = TRUE;
         }
         if (ABS (self->cached_sunset - sunset) > CSD_FRAC_DAY_MAX_DELTA) {
                 self->cached_sunset = sunset;
                 g_object_notify (G_OBJECT (self), "sunset");
-                g_autofree gchar *formatted = csd_night_light_time_string_from_frac (sunset);
+                g_autofree gchar *formatted = csd_night_mode_time_string_from_frac (sunset);
                 g_debug ("Sunset updated: %.3f (%s)", sunset, formatted);
                 ret = TRUE;
         }
@@ -171,7 +177,7 @@ update_cached_sunrise_sunset (CsdNightLight *self)
 }
 
 static void
-csd_night_light_set_temperature_internal (CsdNightLight *self, gdouble temperature)
+csd_night_light_set_temperature_internal (CsdNightMode *self, gdouble temperature)
 {
         if (ABS (self->cached_temperature - temperature) <= CSD_TEMPERATURE_MAX_DELTA)
                 return;
@@ -182,7 +188,7 @@ csd_night_light_set_temperature_internal (CsdNightLight *self, gdouble temperatu
 static gboolean
 csd_night_light_smooth_cb (gpointer user_data)
 {
-        CsdNightLight *self = CSD_NIGHT_LIGHT (user_data);
+        CsdNightMode *self = CSD_NIGHT_MODE (user_data);
         gdouble tmp;
         gdouble frac;
 
@@ -205,7 +211,7 @@ csd_night_light_smooth_cb (gpointer user_data)
 }
 
 static void
-poll_smooth_create (CsdNightLight *self, gdouble temperature)
+poll_smooth_create (CsdNightMode *self, gdouble temperature)
 {
         g_assert (self->smooth_id == 0);
         self->smooth_target_temperature = temperature;
@@ -214,7 +220,7 @@ poll_smooth_create (CsdNightLight *self, gdouble temperature)
 }
 
 static void
-csd_night_light_set_temperature (CsdNightLight *self, gdouble temperature)
+csd_night_light_set_temperature (CsdNightMode *self, gdouble temperature)
 {
         /* immediate */
         if (!self->smooth_enabled) {
@@ -236,21 +242,155 @@ csd_night_light_set_temperature (CsdNightLight *self, gdouble temperature)
 }
 
 static void
-csd_night_light_set_active (CsdNightLight *self, gboolean active)
+csd_night_light_set_active (CsdNightMode *self, gboolean active)
 {
-        if (self->cached_active == active)
+        if (self->cached_light_active == active)
                 return;
-        self->cached_active = active;
+        self->cached_light_active = active;
 
         /* ensure set to unity temperature */
         if (!active)
                 csd_night_light_set_temperature (self, CSD_COLOR_TEMPERATURE_DEFAULT);
 
-        g_object_notify (G_OBJECT (self), "active");
+        g_object_notify (G_OBJECT (self), "light-active");
 }
 
 static void
-night_light_recheck (CsdNightLight *self)
+csd_night_theme_set_active (CsdNightMode *self, gboolean active)
+{
+        if (self->cached_theme_active == active)
+                return;
+        self->cached_theme_active = active;
+
+        /* switch off theme if not active & switch on else */
+        if (!active)
+                csd_night_theme_switch_off (self);
+        else
+                csd_night_theme_switch_on (self);
+
+        g_object_notify (G_OBJECT (self), "theme-active");
+}
+
+static void
+night_mode_recheck (CsdNightMode *self)
+{
+        if (self->light_forced && self->theme_forced) {
+                night_light_recheck (self);
+                night_theme_recheck (self);
+                return;
+        }
+
+        /* check if it's still not tomorrow */
+        if (self->disabled_until_tmw) {
+                GTimeSpan time_span;
+                gboolean reset = FALSE;
+
+                time_span = g_date_time_difference (dt_now, self->disabled_until_tmw_dt);
+
+                /* Reset if disabled until tomorrow is more than 24h ago. */
+                if (time_span > (GTimeSpan) 24 * 60 * 60 * 1000000) {
+                        g_debug ("night mode disabled-until-tomorrow is older than 24h, resetting disabled-until-tomorrow");
+                        reset = TRUE;
+                } else if (time_span > 0) {
+                        /* Or if a sunrise lies between the time it was disabled and now. */
+                        gdouble frac_disabled;
+                        frac_disabled = csd_night_mode_frac_day_from_dt (self->disabled_until_tmw_dt);
+                        if (frac_disabled != frac_day &&
+                            csd_night_mode_frac_day_is_between (schedule_to,
+                                                                frac_disabled,
+                                                                frac_day)) {
+                                g_debug ("night mode sun rise happened, resetting disabled-until-tomorrow");
+                                reset = TRUE;
+                        }
+                }
+
+                if (reset) {
+                        self->disabled_until_tmw = FALSE;
+                        g_clear_pointer(&self->disabled_until_tmw_dt, g_date_time_unref);
+                        g_object_notify (G_OBJECT (self), "disabled-until-tmw");
+                } else {
+                        g_debug ("night mode disabled - it's still not tomorrow ):");
+                }
+        }
+
+        if (g_settings_get_enum (self->settings, "night-light-schedule-mode") == NIGHT_MODE_SCHEDULE_AUTO) {
+                /* calculate the position of the sun */
+                update_cached_sunrise_sunset (self);
+        }
+
+        night_light_recheck (self);
+        night_theme_recheck (self);
+}
+
+static void
+night_theme_recheck (CsdNightMode *self)
+{
+        gdouble frac_day;
+        gdouble schedule_from = -1.f;
+        gdouble schedule_to = -1.f;
+        g_autoptr(GDateTime) dt_now = csd_night_mode_get_date_time_now (self);
+
+        /* If forced (e.g. for preview), just switch on and return */
+        if (self->theme_forced) {
+                csd_night_theme_switch_on (self);
+                g_debug ("night theme forced on");
+                return;
+        }
+
+        if (!g_settings_get_boolean (self->settings, "night-theme-enabled")) {
+                /* settings say NO */
+                csd_night_theme_set_active(self, FALSE);
+                g_debug ("night theme disabled");
+                return;
+        }
+
+        switch (g_settings_get_enum (self->settings, "night-light-schedule-mode")) {
+        case NIGHT_MODE_SCHEDULE_ALWAYS_ON:
+                /* turn OFF and return (night theme always on? Who wants that. Select your theme manually in the settings) */
+                g_debug ("night light always on - switching OFF theme (intentionally)");
+                csd_night_theme_set_active (self, FALSE);
+                return;
+        case NIGHT_MODE_SCHEDULE_AUTO:
+                /* was updated in night_mode_recheck(self) */
+                schedule_to = self->cached_sunrise;
+                schedule_from = self->cached_sunset;
+                break;
+        default:
+                break;
+        }
+
+         /* fall back to manual settings (if nothing was calculated) */
+        if (schedule_to <= 0.f || schedule_from <= 0.f) {
+                schedule_from = g_settings_get_double (self->settings,
+                                                       "night-light-schedule-from");
+                schedule_to = g_settings_get_double (self->settings,
+                                                     "night-light-schedule-to");
+        }
+
+        /* get the current hour of a day as a fraction */
+        frac_day = csd_night_mode_frac_day_from_dt (dt_now);
+
+        /* disabled until tomorrow - updated in night_mode_recheck(self) */
+        if (self->disabled_until_tmw) {
+                csd_night_theme_set_active(self, FALSE);
+                return;
+        }
+
+        /* theme is activated from schedule_from to schedule_to - easy */
+        if (!csd_night_mode_frac_day_is_between (frac_day,
+                                                 schedule_from,
+                                                 schedule_to)) {
+                g_debug ("not time for night theme");
+                csd_night_theme_set_active (self, FALSE);
+                return;
+        }
+
+        csd_night_theme_set_active(self, TRUE);
+        g_debug ("night theme is active!");
+}
+
+static void
+night_light_recheck (CsdNightMode *self)
 {
         gdouble frac_day;
         gdouble schedule_from = -1.f;
@@ -258,13 +398,14 @@ night_light_recheck (CsdNightLight *self)
         gdouble smear = CSD_NIGHT_LIGHT_POLL_SMEAR; /* hours */
         guint temperature;
         guint temp_smeared;
-        g_autoptr(GDateTime) dt_now = csd_night_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt_now = csd_night_mode_get_date_time_now (self);
 
-        /* Forced mode, just set the temperature to night light.
+        /* Forced mode, just set the temperature to night.
          * Proper rechecking will happen once forced mode is disabled again */
-        if (self->forced) {
+        if (self->light_forced) {
                 temperature = g_settings_get_uint (self->settings, "night-light-temperature");
                 csd_night_light_set_temperature (self, temperature);
+                g_debug ("night light forced on");
                 return;
         }
 
@@ -277,27 +418,24 @@ night_light_recheck (CsdNightLight *self)
 
         /* schedule-mode */
         switch (g_settings_get_enum (self->settings, "night-light-schedule-mode")) {
-        case NIGHT_LIGHT_SCHEDULE_ALWAYS_ON:
+        case NIGHT_MODE_SCHEDULE_ALWAYS_ON:
                 /* just set the temperature to night light */
                 temperature = g_settings_get_uint (self->settings, "night-light-temperature");
-                g_debug ("night light mode always on, using temperature of %uK",
+                g_debug ("night light always on, using temperature of %uK",
                          temperature);
                 csd_night_light_set_active (self, TRUE);
                 csd_night_light_set_temperature (self, temperature);
                 return;
-        case NIGHT_LIGHT_SCHEDULE_AUTO:
-                /* calculate the position of the sun */
-                update_cached_sunrise_sunset (self);
-                if (self->cached_sunrise > 0.f && self->cached_sunset > 0.f) {
-                        schedule_to = self->cached_sunrise;
-                        schedule_from = self->cached_sunset;
-                }
+        case NIGHT_MODE_SCHEDULE_AUTO:
+                /* sun was updated in night_mode_recheck(self) */
+                schedule_to = self->cached_sunrise;
+                schedule_from = self->cached_sunset;
                 break;
         default:
                 break;
         }
 
-        /* fall back to manual settings */
+        /* fall back to manual settings in case of no calculation */
         if (schedule_to <= 0.f || schedule_from <= 0.f) {
                 schedule_from = g_settings_get_double (self->settings,
                                                        "night-light-schedule-from");
@@ -310,40 +448,10 @@ night_light_recheck (CsdNightLight *self)
         g_debug ("fractional day = %.3f, limits = %.3f->%.3f",
                  frac_day, schedule_from, schedule_to);
 
-        /* disabled until tomorrow */
+        /* disabled until tomorrow - is updated in night_mode_recheck(self) */
         if (self->disabled_until_tmw) {
-                GTimeSpan time_span;
-                gboolean reset = FALSE;
-
-                time_span = g_date_time_difference (dt_now, self->disabled_until_tmw_dt);
-
-                /* Reset if disabled until tomorrow is more than 24h ago. */
-                if (time_span > (GTimeSpan) 24 * 60 * 60 * 1000000) {
-                        g_debug ("night light disabled until tomorrow is older than 24h, resetting disabled until tomorrow");
-                        reset = TRUE;
-                } else if (time_span > 0) {
-                        /* Or if a sunrise lies between the time it was disabled and now. */
-                        gdouble frac_disabled;
-                        frac_disabled = csd_night_light_frac_day_from_dt (self->disabled_until_tmw_dt);
-                        if (frac_disabled != frac_day &&
-                            csd_night_light_frac_day_is_between (schedule_to,
-                                                                 frac_disabled,
-                                                                 frac_day)) {
-                                g_debug ("night light sun rise happened, resetting disabled until tomorrow");
-                                reset = TRUE;
-                        }
-                }
-
-                if (reset) {
-                        self->disabled_until_tmw = FALSE;
-                        g_clear_pointer(&self->disabled_until_tmw_dt, g_date_time_unref);
-                        g_object_notify (G_OBJECT (self), "disabled-until-tmw");
-                } else {
-                        g_debug ("night light still day-disabled, resetting");
-                        csd_night_light_set_temperature (self,
-                                                         CSD_COLOR_TEMPERATURE_DEFAULT);
-                        return;
-                }
+                csd_night_light_set_active(self, FALSE);
+                return;
         }
 
         /* lower smearing period to be smaller than the time between start/stop */
@@ -351,10 +459,10 @@ night_light_recheck (CsdNightLight *self)
                      MIN (     ABS (schedule_to - schedule_from),
                           24 - ABS (schedule_to - schedule_from)));
 
-        if (!csd_night_light_frac_day_is_between (frac_day,
-                                                  schedule_from - smear,
-                                                  schedule_to)) {
-                g_debug ("not time for night-light");
+        if (!csd_night_mode_frac_day_is_between (frac_day,
+                                                 schedule_from - smear,
+                                                 schedule_to)) {
+                g_debug ("not time for night light");
                 csd_night_light_set_active (self, FALSE);
                 return;
         }
@@ -373,15 +481,15 @@ night_light_recheck (CsdNightLight *self)
         if (smear < 0.01) {
                 /* Don't try to smear for extremely short or zero periods */
                 temp_smeared = temperature;
-        } else if (csd_night_light_frac_day_is_between (frac_day,
-                                                        schedule_from - smear,
-                                                        schedule_from)) {
+        } else if (csd_night_mode_frac_day_is_between (frac_day,
+                                                       schedule_from - smear,
+                                                       schedule_from)) {
                 gdouble factor = 1.f - ((frac_day - (schedule_from - smear)) / smear);
                 temp_smeared = linear_interpolate (CSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
-        } else if (csd_night_light_frac_day_is_between (frac_day,
-                                                        schedule_to - smear,
-                                                        schedule_to)) {
+        } else if (csd_night_mode_frac_day_is_between (frac_day,
+                                                       schedule_to - smear,
+                                                       schedule_to)) {
                 gdouble factor = (frac_day - (schedule_to - smear)) / smear;
                 temp_smeared = linear_interpolate (CSD_COLOR_TEMPERATURE_DEFAULT,
                                                    temperature, factor);
@@ -396,12 +504,12 @@ night_light_recheck (CsdNightLight *self)
 
 /* called when the time may have changed */
 static gboolean
-night_light_recheck_cb (gpointer user_data)
+night_mode_recheck_cb (gpointer user_data)
 {
-        CsdNightLight *self = CSD_NIGHT_LIGHT (user_data);
+        CsdNightMode *self = CSD_NIGHT_LIGHT (user_data);
 
         /* recheck parameters, then reschedule a new timeout */
-        night_light_recheck (self);
+        night_mode_recheck (self);
         poll_timeout_destroy (self);
         poll_timeout_create (self);
 
@@ -410,7 +518,7 @@ night_light_recheck_cb (gpointer user_data)
 }
 
 static void
-poll_timeout_create (CsdNightLight *self)
+poll_timeout_create (CsdNightMode *self)
 {
         g_autoptr(GDateTime) dt_now = NULL;
         g_autoptr(GDateTime) dt_expiry = NULL;
@@ -430,7 +538,7 @@ poll_timeout_create (CsdNightLight *self)
 }
 
 static void
-poll_timeout_destroy (CsdNightLight *self)
+poll_timeout_destroy (CsdNightMode *self)
 {
 
         if (self->source == NULL)
@@ -444,13 +552,13 @@ poll_timeout_destroy (CsdNightLight *self)
 static void
 settings_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-        CsdNightLight *self = CSD_NIGHT_LIGHT (user_data);
+        CsdNightMode *self = CSD_NIGHT_LIGHT (user_data);
         g_debug ("settings changed");
         night_light_recheck (self);
 }
 
 static void
-update_location_from_timezone (CsdNightLight *self)
+update_location_from_timezone (CsdNightMode *self)
 {
     GTimeZone *tz = g_time_zone_new_local ();
     const gchar *id = g_time_zone_get_identifier (tz);
@@ -473,7 +581,7 @@ update_location_from_timezone (CsdNightLight *self)
 }
 
 void
-csd_night_light_set_disabled_until_tmw (CsdNightLight *self, gboolean value)
+csd_night_light_set_disabled_until_tmw (CsdNightMode *self, gboolean value)
 {
         g_autoptr(GDateTime) dt = csd_night_light_get_date_time_now (self);
 
@@ -489,60 +597,77 @@ csd_night_light_set_disabled_until_tmw (CsdNightLight *self, gboolean value)
 }
 
 gboolean
-csd_night_light_get_disabled_until_tmw (CsdNightLight *self)
+csd_night_light_get_disabled_until_tmw (CsdNightMode *self)
 {
         return self->disabled_until_tmw;
 }
 
 void
-csd_night_light_set_forced (CsdNightLight *self, gboolean value)
+csd_night_light_set_forced (CsdNightMode *self, gboolean value)
 {
-        if (self->forced == value)
+        if (self->light_forced == value)
                 return;
 
         self->forced = value;
-        g_object_notify (G_OBJECT (self), "forced");
+        g_object_notify (G_OBJECT (self), "light-forced");
 
         /* A simple recheck might not reset the temperature if
          * night light is currently disabled. */
-        if (!self->forced && !self->cached_active)
+        if (!self->light_forced && !self->cached_active)
                 csd_night_light_set_temperature (self, CSD_COLOR_TEMPERATURE_DEFAULT);
 
         night_light_recheck (self);
 }
 
+void
+csd_night_theme_set_forced (CsdNightMode *self, gboolean value)
+{
+        if (self->forced == value)
+                return;
+
+        self->forced = value;
+        g_object_notify (G_OBJECT (self), "light-forced");
+
+        /* A simple recheck might not reset the temperature if
+         * night light is currently disabled. */
+        if (!self->forced && !self->cached_active)
+                csd_night_theme_switch_on (self);
+
+        night_mode_recheck (self);
+}
+
 gboolean
-csd_night_light_get_forced (CsdNightLight *self)
+csd_night_light_get_forced (CsdNightMode *self)
 {
         return self->forced;
 }
 
 gboolean
-csd_night_light_get_active (CsdNightLight *self)
+csd_night_light_get_active (CsdNightMode *self)
 {
         return self->cached_active;
 }
 
 gdouble
-csd_night_light_get_sunrise (CsdNightLight *self)
+csd_night_light_get_sunrise (CsdNightMode *self)
 {
         return self->cached_sunrise;
 }
 
 gdouble
-csd_night_light_get_sunset (CsdNightLight *self)
+csd_night_light_get_sunset (CsdNightMode *self)
 {
         return self->cached_sunset;
 }
 
 gdouble
-csd_night_light_get_temperature (CsdNightLight *self)
+csd_night_light_get_temperature (CsdNightMode *self)
 {
         return self->cached_temperature;
 }
 
 gboolean
-csd_night_light_start (CsdNightLight *self, GError **error)
+csd_night_light_start (CsdNightMode *self, GError **error)
 {
         night_light_recheck (self);
         poll_timeout_create (self);
@@ -559,7 +684,7 @@ csd_night_light_start (CsdNightLight *self, GError **error)
 static void
 csd_night_light_finalize (GObject *object)
 {
-        CsdNightLight *self = CSD_NIGHT_LIGHT (object);
+        CsdNightMode *self = CSD_NIGHT_LIGHT (object);
 
         poll_timeout_destroy (self);
         poll_smooth_destroy (self);
@@ -582,7 +707,7 @@ csd_night_light_set_property (GObject      *object,
                                 const GValue *value,
                                 GParamSpec   *pspec)
 {
-        CsdNightLight *self = CSD_NIGHT_LIGHT (object);
+        CsdNightMode *self = CSD_NIGHT_LIGHT (object);
 
         switch (prop_id) {
         case PROP_SUNRISE:
@@ -606,16 +731,19 @@ csd_night_light_set_property (GObject      *object,
 }
 
 static void
-csd_night_light_get_property (GObject    *object,
-                                guint       prop_id,
-                                GValue     *value,
-                                GParamSpec *pspec)
+csd_night_mode_get_property (GObject    *object,
+                             guint       prop_id,
+                             GValue     *value,
+                             GParamSpec *pspec)
 {
-        CsdNightLight *self = CSD_NIGHT_LIGHT (object);
+        CsdNightMode *self = CSD_NIGHT_LIGHT (object);
 
         switch (prop_id) {
-        case PROP_ACTIVE:
-                g_value_set_boolean (value, self->cached_active);
+        case PROP_LIGHT_ACTIVE:
+                g_value_set_boolean (value, self->cached_light_active);
+                break;
+        case PROP_THEME_ACTIVE:
+                g_value_set_boolean (value, self->cached_theme_active);
                 break;
         case PROP_SUNRISE:
                 g_value_set_double (value, self->cached_sunrise);
@@ -629,7 +757,10 @@ csd_night_light_get_property (GObject    *object,
         case PROP_DISABLED_UNTIL_TMW:
                 g_value_set_boolean (value, csd_night_light_get_disabled_until_tmw (self));
                 break;
-        case PROP_FORCED:
+        case PROP_LIGHT_FORCED:
+                g_value_set_boolean (value, csd_night_light_get_forced (self));
+                break;
+        case PROP_THEME_FORCED:
                 g_value_set_boolean (value, csd_night_light_get_forced (self));
                 break;
         default:
@@ -638,19 +769,27 @@ csd_night_light_get_property (GObject    *object,
 }
 
 static void
-csd_night_light_class_init (CsdNightLightClass *klass)
+csd_night_mode_class_init (CsdNightModeClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-        object_class->finalize = csd_night_light_finalize;
+        object_class->finalize = csd_night_mode_finalize;
 
-        object_class->set_property = csd_night_light_set_property;
-        object_class->get_property = csd_night_light_get_property;
+        object_class->set_property = csd_night_mode_set_property;
+        object_class->get_property = csd_night_mode_get_property;
 
         g_object_class_install_property (object_class,
-                                         PROP_ACTIVE,
-                                         g_param_spec_boolean ("active",
-                                                               "Active",
+                                         PROP_LIGHT_ACTIVE,
+                                         g_param_spec_boolean ("light-active",
+                                                               "Light active",
                                                                "If night light functionality is active right now",
+                                                               FALSE,
+                                                               G_PARAM_READABLE));
+        
+        g_object_class_install_property (object_class,
+                                         PROP_THEME_ACTIVE,
+                                         g_param_spec_boolean ("theme-active",
+                                                               "Theme active",
+                                                               "If night theme is active right now",
                                                                FALSE,
                                                                G_PARAM_READABLE));
 
@@ -693,27 +832,38 @@ csd_night_light_class_init (CsdNightLightClass *klass)
                                                                G_PARAM_READWRITE));
 
         g_object_class_install_property (object_class,
-                                         PROP_FORCED,
-                                         g_param_spec_boolean ("forced",
-                                                               "Forced",
+                                         PROP_LIGHT_FORCED,
+                                         g_param_spec_boolean ("light-forced",
+                                                               "Light forced",
                                                                "Whether night light should be forced on, useful for previewing",
+                                                               FALSE,
+                                                               G_PARAM_READWRITE));
+        
+        g_object_class_install_property (object_class,
+                                         PROP_THEME_FORCED,
+                                         g_param_spec_boolean ("theme-forced",
+                                                               "Theme forced",
+                                                               "Whether night theme should be forced on, useful for previewing",
                                                                FALSE,
                                                                G_PARAM_READWRITE));
 
 }
 
 static void
-csd_night_light_init (CsdNightLight *self)
+csd_night_mode_init (CsdNightMode *self)
 {
         self->smooth_enabled = TRUE;
         self->cached_sunrise = -1.f;
         self->cached_sunset = -1.f;
         self->cached_temperature = CSD_COLOR_TEMPERATURE_DEFAULT;
         self->settings = g_settings_new ("org.cinnamon.settings-daemon.plugins.color");
+        self->theme_settings = g_settings_new ("org.cinnamon.desktop.interface");
+        self->x_theme_settings = g_settings_new ("org.x.apps.portal");
+        self->cinnamon_theme_settings = g_settings_new ("org.cinnamon.theme");
 }
 
-CsdNightLight *
-csd_night_light_new (void)
+CsdNightMode *
+csd_night_mode_new (void)
 {
-        return g_object_new (CSD_TYPE_NIGHT_LIGHT, NULL);
+        return g_object_new (CSD_TYPE_NIGHT_MODE, NULL);
 }

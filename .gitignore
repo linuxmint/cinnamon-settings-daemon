@@ -11,3 +11,6 @@ debian/*.links
 debian/.debhelper/
 debian/debhelper-build-stamp
 debian/*.debhelper
+.gitignore
+.vscode*
+apt_installs_for_this

@@ -4,6 +4,11 @@
     <value value="1" nick="manual"/>
     <value value="2" nick="always"/>
   </enum>
+  <enum id="color_scheme">
+    <value value="0" nick="default"/>
+    <value value="1" nick="prefer-dark"/>
+    <value value="2" nick="prefer-dark"/>
+  </enum>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.color" path="/org/cinnamon/settings-daemon/plugins/color/">
     <key name="recalibrate-display-threshold" type="u">
       <default>0</default>
@@ -33,17 +38,46 @@
     <key name="night-light-schedule-from" type="d">
       <default>20.00</default>
       <summary>The start time</summary>
-      <description>When “night-light-schedule-automatic” is disabled, use this start time in hours from midnight.</description>
+      <description>When “night-light-schedule-mode” is not 'auto', use this start time in hours from midnight.</description>
     </key>
     <key name="night-light-schedule-to" type="d">
       <default>6.00</default>
       <summary>The end time</summary>
-      <description>When “night-light-schedule-automatic” is disabled, use this end time in hours from midnight.</description>
+      <description>When “night-light-schedule-mode” is not 'auto', use this end time in hours from midnight.</description>
     </key>
     <key name="night-light-last-coordinates" type="(dd)">
       <default>(91,181)</default>
       <summary>The last detected position</summary>
       <description>When location services are available this represents the last detected location. The default value is an invalid value to ensure it is always updated at startup.</description>
     </key>
+    <key name="night-theme-enabled" type="b">
+      <default>false</default>
+      <summary>If the night theme switcher is on</summary>
+      <description>Changes the theme to “night-theme” when night light activates (and back).</description>
+    </key>
+    <key name="night-theme" type="s">
+      <default>Mint-Y-Dark-Aqua</default>
+      <summary>The theme which should be activated at night</summary>
+      <description>This theme will be switched on instead of the current theme as soon as the night light gets activated.</description>
+    </key>
+    <key name="night-theme-active" type="b">
+      <default>false</default>
+      <summary>If the night theme is currently active</summary>
+      <description>This is set to true when the cinnamon-settings-daemon activates the night theme (and set to false when it's deactivated again).</description>
+    </key>
+    <key name="backup-day-theme" type="s">
+      <default>Mint-Y-Aqua</default>
+      <summary>This is set to the last detected day theme</summary>
+      <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
+    </key>
+    <key name="backup-day-desktop-theme" type="s">
+      <default>Mint-Y-Aqua</default>
+      <summary>This is set to the last detected day desktop theme</summary>
+      <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
+    </key>
+    <key name="backup-day-color-scheme" enum="color_scheme">
+      <default>'prefer-dark'</default>
+      <summary>This is set to the last detected day xapp color-scheme</summary>
+      <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
   </schema>
 </schemalist>
