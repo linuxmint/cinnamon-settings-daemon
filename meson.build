@@ -89,6 +89,14 @@ if not get_option('use_logind').disabled()
     endif
 endif
 
+gtk_layer_shell_enabled = get_option('gtk_layer_shell')
+gtk_layer_shell = dependency('', required: false)
+wayland_client = dependency('', required: false)
+if gtk_layer_shell_enabled
+    gtk_layer_shell = dependency('gtk-layer-shell-0', version: '>= 0.8', required: true)
+    wayland_client = dependency('wayland-client', required: true)
+endif
+
 cc = meson.get_compiler('c')
 math = cc.find_library('m', required: false)
 
@@ -105,6 +113,9 @@ csd_conf.set_quoted('LIBEXECDIR', join_paths(prefix, libexecdir))
 csd_conf.set_quoted('SYSCONFDIR', sysconfdir)
 csd_conf.set_quoted('LIBDIR', libdir)
 csd_conf.set10('HAVE_TIMERFD', has_timerfd_create)
+if gtk_layer_shell_enabled
+    csd_conf.set('HAVE_GTK_LAYER_SHELL', 1)
+endif
 
 if gudev.found()
     cargs += '-DHAVE_GUDEV'

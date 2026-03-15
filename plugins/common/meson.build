@@ -1,5 +1,4 @@
 common_sources = [
-    'csd-keygrab.c',
     'csd-input-helper.c',
     'csd-power-helper.c',
     'migrate-settings.c'
@@ -11,6 +10,11 @@ common_deps = [
     x11,
     xi,
 ]
+
+if gtk_layer_shell_enabled
+    common_sources += 'wayland-utils.c'
+    common_deps += wayland_client
+endif
 
 common_inc = include_directories('.')
 

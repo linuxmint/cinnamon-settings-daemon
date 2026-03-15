@@ -31,6 +31,10 @@
 #define INIT_LIBNOTIFY FALSE
 #endif
 
+#ifndef PRE_GTK_INIT
+#define PRE_GTK_INIT()
+#endif
+
 #define GNOME_SESSION_DBUS_NAME           "org.gnome.SessionManager"
 #define GNOME_SESSION_DBUS_PATH           "/org/gnome/SessionManager"
 #define GNOME_SESSION_CLIENT_PRIVATE_NAME "org.gnome.SessionManager.ClientPrivate"
@@ -179,28 +183,19 @@ handle_signal (gpointer user_data)
   return G_SOURCE_REMOVE;
 }
 
-static void
-message_handler (const gchar *log_domain,
-                 GLogLevelFlags log_level,
-                 const gchar *message,
-                 gpointer user_data)
-{
-  /* Make this look like normal console output */
-  if (log_level & G_LOG_LEVEL_DEBUG) {
-    g_autoptr(GDateTime) dt = g_date_time_new_now_local ();
-    g_autofree gchar *iso8601 = g_date_time_format (dt, "%F:%T");
-    printf ("csd-%s:%s: %s\n", PLUGIN_NAME, iso8601, message);
-  }
-  else {
-    printf ("%s: %s\n", g_get_prgname (), message);
-  }
-}
-
 int
 main (int argc, char **argv)
 {
         GError  *error;
         gboolean started;
+
+        for (int i = 1; i < argc; i++) {
+            if (g_strcmp0 (argv[i], "--verbose") == 0 || g_strcmp0 (argv[i], "-v") == 0) {
+                verbose = TRUE;
+                g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
+                break;
+            }
+        }
 
         bindtextdomain (GETTEXT_PACKAGE, CINNAMON_SETTINGS_LOCALEDIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -209,6 +204,8 @@ main (int argc, char **argv)
         /* Work around https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
         g_type_ensure (G_TYPE_DBUS_CONNECTION);
         g_type_ensure (G_TYPE_DBUS_PROXY);
+
+        PRE_GTK_INIT();
 
         if (FORCE_X11_BACKEND) {
             const gchar *setup_display = getenv ("GNOME_SETUP_DISPLAY");
@@ -241,9 +238,6 @@ main (int argc, char **argv)
         }
 
         g_unix_signal_add (SIGTERM, (GSourceFunc) handle_signal, NULL);
-
-        if (verbose)
-            g_log_set_handler (G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, message_handler, NULL);
 
         if (timeout > 0) {
                 guint id;

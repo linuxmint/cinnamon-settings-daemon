@@ -37,6 +37,9 @@
 #include <gio/gio.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
+#ifdef GDK_WINDOWING_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libcinnamon-desktop/gnome-bg.h>
@@ -59,11 +62,14 @@ struct CsdBackgroundManagerPrivate
         guint        proxy_signal_id;
 
         GPtrArray   *mbs;
+
+        guint        screen_changed_id;
 };
 
 static void     csd_background_manager_finalize    (GObject             *object);
 
 static void setup_bg (CsdBackgroundManager *manager);
+static void setup_monitors (CsdBackgroundManager *manager);
 static void connect_screen_signals (CsdBackgroundManager *manager);
 
 G_DEFINE_TYPE (CsdBackgroundManager, csd_background_manager, G_TYPE_OBJECT)
@@ -76,6 +82,13 @@ draw_background_wayland_session (CsdBackgroundManager *manager)
     gint i;
 
     cinnamon_settings_profile_start (NULL);
+
+    if (!manager->priv->mbs || manager->priv->mbs->len == 0 ||
+        manager->priv->screen_changed_id != 0)
+    {
+        cinnamon_settings_profile_end (NULL);
+        return;
+    }
 
     for (i = 0; i < manager->priv->mbs->len; i++)
     {
@@ -127,29 +140,19 @@ draw_background_x11_session (CsdBackgroundManager *manager)
 }
 
 static gboolean
-session_is_wayland (void)
+using_wayland_backend (void)
 {
-    static gboolean session_is_wayland = FALSE;
-    static gsize once_init = 0;
-
-    if (g_once_init_enter (&once_init)) {
-        const gchar *env = g_getenv ("XDG_SESSION_TYPE");
-        if (env && g_strcmp0 (env, "wayland") == 0) {
-            session_is_wayland = TRUE;
-        }
-
-        g_debug ("Session is Wayland? %d", session_is_wayland);
-
-        g_once_init_leave (&once_init, 1);
-    }
-
-    return session_is_wayland;
+#ifdef GDK_WINDOWING_WAYLAND
+    return GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ());
+#else
+    return FALSE;
+#endif
 }
 
 static void
 draw_background (CsdBackgroundManager *manager)
 {
-    if (session_is_wayland ()) {
+    if (using_wayland_backend ()) {
         draw_background_wayland_session (manager);
     } else {
         draw_background_x11_session (manager);
@@ -177,12 +180,31 @@ settings_change_event_cb (GSettings            *settings,
         return FALSE;
 }
 
+static gboolean
+on_screen_changed_idle (gpointer user_data)
+{
+        CsdBackgroundManager *manager = CSD_BACKGROUND_MANAGER (user_data);
+
+        manager->priv->screen_changed_id = 0;
+
+        if (using_wayland_backend ()) {
+                setup_monitors (manager);
+        }
+
+        draw_background (manager);
+
+        return G_SOURCE_REMOVE;
+}
+
 static void
 on_screen_size_changed (GdkScreen            *screen,
                         CsdBackgroundManager *manager)
 {
+        if (manager->priv->screen_changed_id != 0)
+                return;
 
-        draw_background (manager);
+        manager->priv->screen_changed_id =
+                g_timeout_add (250, on_screen_changed_idle, manager);
 }
 
 static void
@@ -192,6 +214,9 @@ setup_monitors (CsdBackgroundManager *manager)
     gint i;
 
     display = gdk_display_get_default ();
+
+    if (!display)
+        return;
 
     g_clear_pointer (&manager->priv->mbs, g_ptr_array_unref);
     manager->priv->mbs = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
@@ -251,7 +276,7 @@ setup_bg_and_draw_background (CsdBackgroundManager *manager)
 {
         setup_bg (manager);
 
-        if (session_is_wayland ()) {
+        if (using_wayland_backend ()) {
             setup_monitors (manager);
         }
 
@@ -395,6 +420,8 @@ csd_background_manager_stop (CsdBackgroundManager *manager)
         CsdBackgroundManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping background manager");
+
+        g_clear_handle_id (&manager->priv->screen_changed_id, g_source_remove);
 
         disconnect_screen_signals (manager);
 
