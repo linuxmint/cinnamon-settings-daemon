@@ -73,8 +73,8 @@ sources = files(
   'ccm-edid.c',
   'ccm-self-test.c',
   'gnome-datetime-source.c',
-  'csd-night-light.c',
-  'csd-night-common.c'
+  'csd-night-mode.c',
+  'csd-night-mode-common.c'
 )
 
 # test_unit = 'ccm-self-test'

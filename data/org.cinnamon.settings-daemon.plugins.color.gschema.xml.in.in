@@ -7,7 +7,7 @@
   <enum id="color_scheme">
     <value value="0" nick="default"/>
     <value value="1" nick="prefer-dark"/>
-    <value value="2" nick="prefer-dark"/>
+    <value value="2" nick="prefer-light"/>
   </enum>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.color" path="/org/cinnamon/settings-daemon/plugins/color/">
     <key name="recalibrate-display-threshold" type="u">
@@ -58,25 +58,25 @@
     <key name="night-theme" type="s">
       <default>Mint-Y-Dark-Aqua</default>
       <summary>The theme which should be activated at night</summary>
-      <description>This theme will be switched on instead of the current theme as soon as the night light gets activated.</description>
+      <description>This theme will be switched on instead of the current theme as soon as the night mode gets activated.</description>
     </key>
-    <key name="night-theme-active" type="b">
-      <default>false</default>
-      <summary>If the night theme is currently active</summary>
-      <description>This is set to true when the cinnamon-settings-daemon activates the night theme (and set to false when it's deactivated again).</description>
+    <key name="night-cinnamon-theme" type="s">
+      <default>Mint-Y-Dark-Aqua</default>
+      <summary>The cinnamon-theme which should be activated at night</summary>
+      <description>This theme will be switched on instead of the current cinnamon-theme as soon as the night mode gets activated.</description>
     </key>
     <key name="backup-day-theme" type="s">
-      <default>Mint-Y-Aqua</default>
+      <default></default>
       <summary>This is set to the last detected day theme</summary>
       <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
     </key>
-    <key name="backup-day-desktop-theme" type="s">
-      <default>Mint-Y-Aqua</default>
+    <key name="backup-day-cinnamon-theme" type="s">
+      <default></default>
       <summary>This is set to the last detected day desktop theme</summary>
       <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
     </key>
     <key name="backup-day-color-scheme" enum="color_scheme">
-      <default>'prefer-dark'</default>
+      <default>'default'</default>
       <summary>This is set to the last detected day xapp color-scheme</summary>
       <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
   </schema>

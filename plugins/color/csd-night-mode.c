@@ -72,6 +72,12 @@ enum {
         NIGHT_MODE_SCHEDULE_ALWAYS_ON = 2
 };
 
+enum {
+        COLOR_SCHEME_DEFAULT = 0,
+        COLOR_SCHEME_DARK = 1,
+        COLOR_SCHEME_LIGHT = 2
+}
+
 #define CSD_NIGHT_MODE_SCHEDULE_TIMEOUT      5       /* seconds */
 #define CSD_NIGHT_MODE_POLL_TIMEOUT          60      /* seconds */
 #define CSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
@@ -242,6 +248,70 @@ csd_night_light_set_temperature (CsdNightMode *self, gdouble temperature)
 }
 
 static void
+night_theme_switch_on (CsdNightMode *self)
+{
+        gboolean is_active = TRUE;
+        /* get backups */
+        gchar *backup_day_theme = g_settings_get_string (self->settings, "backup-day-theme");
+        gchar *backup_day_cinnamon_theme = g_settings_get_string (self->settings, "backup-day-cinnamon-theme");
+        /* check if there are backups */
+        is_active = (
+                backup_day_theme != NULL &&
+                g_strcmp0 (backup_day_theme, "") != 0 &&
+                backup_day_cinnamon_theme != NULL &&
+                g_strcmp0 (backup_day_cinnamon_theme, "") != 0
+        );
+        /* free memory */
+        g_free (backup_day_theme);
+        g_free (backup_day_cinnamon_theme);
+        
+        if (is_active) {
+                return;
+        }
+        /* copy values to the backups */
+        g_settings_set_string (self->settings, "backup-day-theme", g_settings_get_string (self->theme_settings, "gtk-theme"));
+        g_settings_set_string (self->settings, "backup-day-cinnamon-theme", g_settings_get_string (self->cinnamon_theme_settings, "name"));
+        g_settings_set_enum (self->setings, "backup-day-color-scheme", g_settings_get_enum (self->x_theme_settings, "color-scheme"));
+        /* activate the night themes */
+        g_settings_set_string (self->theme_settings, "gtk-theme", g_settings_get_string (self->settings, "night-theme"));
+        g_settings_set_string (self->cinnamon_theme_settings, "name", g_settings_get_string (self->settings, "night-cinnamon-theme"));
+        g_settings_set_enum (self->x_theme_settings, "color-scheme", COLOR_SCHEME_DARK);
+}
+
+static void
+night_theme_switch_off (CsdNightMode *self)
+{
+        gboolean is_active = TRUE;
+        /* get backups */
+        gchar *backup_day_theme = g_settings_get_string (self->settings, "backup-day-theme");
+        gchar *backup_day_cinnamon_theme = g_settings_get_string (self->settings, "backup-day-cinnamon-theme");
+        /* check if there are no backups */
+        is_active = (
+                backup_day_theme != NULL &&
+                g_strcmp0 (backup_day_theme, "") != 0 &&
+                backup_day_cinnamon_theme != NULL &&
+                g_strcmp0 (backup_day_cinnamon_theme, "") != 0 &&
+        );
+        
+        if (!is_active) {
+                return;
+        }
+        /* save the current night theme */
+        g_settings_set_string (self->settings, "night-theme", g_settings_get_string (self->theme_settings, "gtk-theme"));
+        g_settings_set_string (self->settings, "night-cinnamon-theme", g_settings_get_string (self->cinnamon_theme_settings, "name"));
+        /* restore the backups */
+        g_settings_set_string (self->theme_settings, "gtk-theme", g_settings_get_string (self->settings, "backup-day-theme"));
+        g_settings_set_string (self->cinnamon_theme_settings, "name", g_settings_get_string (self->settings, "backup-day-cinnamon-theme"));
+        g_settings_set_enum (self->x_theme_settings, "color-scheme", g_settings_get_enum (self->settings, "backup-day-color-scheme"));
+        /* clear the backups */
+        g_settings_set_string (self->settings, "backup-day-theme", "");
+        g_settings_set_string (self->settings, "backup-day-cinnamon-theme", "");
+        /* free memory */
+        g_free (backup_day_theme);
+        g_free (backup_day_cinnamon_theme);
+}
+
+static void
 csd_night_light_set_active (CsdNightMode *self, gboolean active)
 {
         if (self->cached_light_active == active)
@@ -264,9 +334,9 @@ csd_night_theme_set_active (CsdNightMode *self, gboolean active)
 
         /* switch off theme if not active & switch on else */
         if (!active)
-                csd_night_theme_switch_off (self);
+                night_theme_switch_off (self);
         else
-                csd_night_theme_switch_on (self);
+                night_theme_switch_on (self);
 
         g_object_notify (G_OBJECT (self), "theme-active");
 }
@@ -332,7 +402,7 @@ night_theme_recheck (CsdNightMode *self)
 
         /* If forced (e.g. for preview), just switch on and return */
         if (self->theme_forced) {
-                csd_night_theme_switch_on (self);
+                night_theme_switch_on (self);
                 g_debug ("night theme forced on");
                 return;
         }
@@ -608,7 +678,7 @@ csd_night_light_set_forced (CsdNightMode *self, gboolean value)
         if (self->light_forced == value)
                 return;
 
-        self->forced = value;
+        self->light_forced = value;
         g_object_notify (G_OBJECT (self), "light-forced");
 
         /* A simple recheck might not reset the temperature if
@@ -616,22 +686,22 @@ csd_night_light_set_forced (CsdNightMode *self, gboolean value)
         if (!self->light_forced && !self->cached_active)
                 csd_night_light_set_temperature (self, CSD_COLOR_TEMPERATURE_DEFAULT);
 
-        night_light_recheck (self);
+        night_mode_recheck (self);
 }
 
 void
 csd_night_theme_set_forced (CsdNightMode *self, gboolean value)
 {
-        if (self->forced == value)
+        if (self->theme_forced == value)
                 return;
 
-        self->forced = value;
+        self->theme_forced = value;
         g_object_notify (G_OBJECT (self), "light-forced");
 
         /* A simple recheck might not reset the temperature if
-         * night light is currently disabled. */
-        if (!self->forced && !self->cached_active)
-                csd_night_theme_switch_on (self);
+         * night theme is currently disabled. */
+        if (!self->theme_forced && !self->cached_active)
+                night_theme_switch_on (self);
 
         night_mode_recheck (self);
 }
@@ -649,13 +719,13 @@ csd_night_light_get_active (CsdNightMode *self)
 }
 
 gdouble
-csd_night_light_get_sunrise (CsdNightMode *self)
+csd_night_mode_get_sunrise (CsdNightMode *self)
 {
         return self->cached_sunrise;
 }
 
 gdouble
-csd_night_light_get_sunset (CsdNightMode *self)
+csd_night_mode_get_sunset (CsdNightMode *self)
 {
         return self->cached_sunset;
 }
@@ -669,7 +739,7 @@ csd_night_light_get_temperature (CsdNightMode *self)
 gboolean
 csd_night_light_start (CsdNightMode *self, GError **error)
 {
-        night_light_recheck (self);
+        night_mode_recheck (self);
         poll_timeout_create (self);
 
         /* care about changes */
