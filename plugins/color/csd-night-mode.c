@@ -90,6 +90,8 @@ enum {
 static void poll_timeout_destroy (CsdNightMode *self);
 static void poll_timeout_create (CsdNightMode *self);
 static void night_mode_recheck (CsdNightMode *self);
+static void night_light_recheck (CsdNightMode *self);
+static void night_theme_recheck (CsdNightMode *self);
 
 G_DEFINE_TYPE (CsdNightMode, csd_night_mode, G_TYPE_OBJECT);
 
@@ -272,7 +274,7 @@ night_theme_switch_on (CsdNightMode *self)
         /* copy values to the backups */
         g_settings_set_string (self->settings, "backup-day-theme", g_settings_get_string (self->theme_settings, "gtk-theme"));
         g_settings_set_string (self->settings, "backup-day-cinnamon-theme", g_settings_get_string (self->cinnamon_theme_settings, "name"));
-        g_settings_set_enum (self->setings, "backup-day-color-scheme", g_settings_get_enum (self->x_theme_settings, "color-scheme"));
+        g_settings_set_enum (self->settings, "backup-day-color-scheme", g_settings_get_enum (self->x_theme_settings, "color-scheme"));
         /* activate the night themes */
         g_settings_set_string (self->theme_settings, "gtk-theme", g_settings_get_string (self->settings, "night-theme"));
         g_settings_set_string (self->cinnamon_theme_settings, "name", g_settings_get_string (self->settings, "night-cinnamon-theme"));
@@ -350,6 +352,10 @@ night_mode_recheck (CsdNightMode *self)
                 night_theme_recheck (self);
                 return;
         }
+
+        gdouble frac_day;
+        g_autoptr(GDateTime) dt_now = csd_night_mode_get_date_time_now (self);
+        frac_day = csd_night_mode_frac_day_from_dt (dt_now);
 
         /* check if it's still not tomorrow */
         if (self->disabled_until_tmw) {
@@ -515,7 +521,7 @@ night_light_recheck (CsdNightMode *self)
         }
 
         /* get the current hour of a day as a fraction */
-        frac_day = csd_night_light_frac_day_from_dt (dt_now);
+        frac_day = csd_night_mode_frac_day_from_dt (dt_now);
         g_debug ("fractional day = %.3f, limits = %.3f->%.3f",
                  frac_day, schedule_from, schedule_to);
 
@@ -597,13 +603,13 @@ poll_timeout_create (CsdNightMode *self)
         if (self->source != NULL)
                 return;
 
-        dt_now = csd_night_light_get_date_time_now (self);
+        dt_now = csd_night_mode_get_date_time_now (self);
         dt_expiry = g_date_time_add_seconds (dt_now, CSD_NIGHT_LIGHT_POLL_TIMEOUT);
         self->source = _gnome_datetime_source_new (dt_now,
                                                    dt_expiry,
                                                    TRUE);
         g_source_set_callback (self->source,
-                               night_light_recheck_cb,
+                               night_mode_recheck_cb,
                                self, NULL);
         g_source_attach (self->source, NULL);
 }
@@ -625,7 +631,7 @@ settings_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
         CsdNightMode *self = CSD_NIGHT_LIGHT (user_data);
         g_debug ("settings changed");
-        night_light_recheck (self);
+        night_mode_recheck (self);
 }
 
 static void
@@ -652,9 +658,9 @@ update_location_from_timezone (CsdNightMode *self)
 }
 
 void
-csd_night_light_set_disabled_until_tmw (CsdNightMode *self, gboolean value)
+csd_night_mode_set_disabled_until_tmw (CsdNightMode *self, gboolean value)
 {
-        g_autoptr(GDateTime) dt = csd_night_light_get_date_time_now (self);
+        g_autoptr(GDateTime) dt = csd_night_mode_get_date_time_now (self);
 
         if (self->disabled_until_tmw == value)
                 return;
@@ -663,7 +669,7 @@ csd_night_light_set_disabled_until_tmw (CsdNightMode *self, gboolean value)
         g_clear_pointer (&self->disabled_until_tmw_dt, g_date_time_unref);
         if (self->disabled_until_tmw)
                 self->disabled_until_tmw_dt = g_steal_pointer (&dt);
-        night_light_recheck (self);
+        night_mode_recheck (self);
         g_object_notify (G_OBJECT (self), "disabled-until-tmw");
 }
 
@@ -744,7 +750,7 @@ csd_night_light_get_temperature (CsdNightMode *self)
 }
 
 gboolean
-csd_night_light_start (CsdNightMode *self, GError **error)
+csd_night_mode_start (CsdNightMode *self, GError **error)
 {
         night_mode_recheck (self);
         poll_timeout_create (self);
@@ -759,9 +765,9 @@ csd_night_light_start (CsdNightMode *self, GError **error)
 }
 
 static void
-csd_night_light_finalize (GObject *object)
+csd_night_mode_finalize (GObject *object)
 {
-        CsdNightMode *self = CSD_NIGHT_LIGHT (object);
+        CsdNightMode *self = CSD_NIGHT_MODE (object);
 
         poll_timeout_destroy (self);
         poll_smooth_destroy (self);
@@ -775,16 +781,16 @@ csd_night_light_finalize (GObject *object)
                 self->validate_id = 0;
         }
 
-        G_OBJECT_CLASS (csd_night_light_parent_class)->finalize (object);
+        G_OBJECT_CLASS (csd_night_mode_parent_class)->finalize (object);
 }
 
 static void
-csd_night_light_set_property (GObject      *object,
-                                guint         prop_id,
-                                const GValue *value,
-                                GParamSpec   *pspec)
+csd_night_mode_set_property (GObject      *object,
+                             guint         prop_id,
+                             const GValue *value,
+                             GParamSpec   *pspec)
 {
-        CsdNightMode *self = CSD_NIGHT_LIGHT (object);
+        CsdNightMode *self = CSD_NIGHT_MODE (object);
 
         switch (prop_id) {
         case PROP_SUNRISE:
@@ -797,10 +803,13 @@ csd_night_light_set_property (GObject      *object,
                 self->cached_temperature = g_value_get_double (value);
                 break;
         case PROP_DISABLED_UNTIL_TMW:
-                csd_night_light_set_disabled_until_tmw (self, g_value_get_boolean (value));
+                csd_night_mode_set_disabled_until_tmw (self, g_value_get_boolean (value));
                 break;
-        case PROP_FORCED:
+        case PROP_LIGHT_FORCED:
                 csd_night_light_set_forced (self, g_value_get_boolean (value));
+                break;
+        case PROP_THEME_FORCED:
+                csd_night_theme_set_forced (self, g_value_get_boolean (value));
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -838,7 +847,7 @@ csd_night_mode_get_property (GObject    *object,
                 g_value_set_boolean (value, csd_night_light_get_forced (self));
                 break;
         case PROP_THEME_FORCED:
-                g_value_set_boolean (value, csd_night_light_get_forced (self));
+                g_value_set_boolean (value, csd_night_theme_get_forced (self));
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);

@@ -21,6 +21,7 @@
 #ifndef __CSD_NIGHT_MODE_H__
 #define __CSD_NIGHT_MODE_H__
 
+#include "csd-night-mode-common.h"
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
@@ -32,7 +33,8 @@ CsdNightMode   *csd_night_mode_new                     (void);
 gboolean        csd_night_mode_start                   (CsdNightMode  *self,
                                                         GError       **error);
 
-gboolean         csd_night_mode_get_active             (CsdNightMode  *self);
+gboolean         csd_night_light_get_active            (CsdNightMode  *self);
+gboolean         csd_night_theme_get_active            (CsdNightMode  *self);
 gdouble          csd_night_mode_get_sunrise            (CsdNightMode  *self);
 gdouble          csd_night_mode_get_sunset             (CsdNightMode  *self);
 gdouble          csd_night_light_get_temperature       (CsdNightMode  *self);
