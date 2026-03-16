@@ -77,7 +77,7 @@ enum {
         COLOR_SCHEME_DEFAULT = 0,
         COLOR_SCHEME_DARK = 1,
         COLOR_SCHEME_LIGHT = 2
-}
+};
 
 #define CSD_NIGHT_MODE_SCHEDULE_TIMEOUT      5       /* seconds */
 #define CSD_NIGHT_MODE_POLL_TIMEOUT          60      /* seconds */
@@ -583,7 +583,7 @@ night_light_recheck (CsdNightMode *self)
 static gboolean
 night_mode_recheck_cb (gpointer user_data)
 {
-        CsdNightMode *self = CSD_NIGHT_LIGHT (user_data);
+        CsdNightMode *self = CSD_NIGHT_MODE (user_data);
 
         /* recheck parameters, then reschedule a new timeout */
         night_mode_recheck (self);
@@ -604,7 +604,7 @@ poll_timeout_create (CsdNightMode *self)
                 return;
 
         dt_now = csd_night_mode_get_date_time_now (self);
-        dt_expiry = g_date_time_add_seconds (dt_now, CSD_NIGHT_LIGHT_POLL_TIMEOUT);
+        dt_expiry = g_date_time_add_seconds (dt_now, CSD_NIGHT_MODE_POLL_TIMEOUT);
         self->source = _gnome_datetime_source_new (dt_now,
                                                    dt_expiry,
                                                    TRUE);
@@ -629,7 +629,7 @@ poll_timeout_destroy (CsdNightMode *self)
 static void
 settings_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-        CsdNightMode *self = CSD_NIGHT_LIGHT (user_data);
+        CsdNightMode *self = CSD_NIGHT_MODE (user_data);
         g_debug ("settings changed");
         night_mode_recheck (self);
 }
@@ -674,7 +674,7 @@ csd_night_mode_set_disabled_until_tmw (CsdNightMode *self, gboolean value)
 }
 
 gboolean
-csd_night_light_get_disabled_until_tmw (CsdNightMode *self)
+csd_night_mode_get_disabled_until_tmw (CsdNightMode *self)
 {
         return self->disabled_until_tmw;
 }
@@ -693,7 +693,7 @@ csd_night_light_set_forced (CsdNightMode *self, gboolean value)
         if (!self->light_forced && !self->cached_light_active)
                 csd_night_light_set_temperature (self, CSD_COLOR_TEMPERATURE_DEFAULT);
 
-        night_mode_recheck (self);
+        night_light_recheck (self);
 }
 
 void
@@ -710,13 +710,19 @@ csd_night_theme_set_forced (CsdNightMode *self, gboolean value)
         if (!self->theme_forced && !self->cached_theme_active)
                 night_theme_switch_on (self);
 
-        night_mode_recheck (self);
+        night_theme_recheck (self);
 }
 
 gboolean
 csd_night_light_get_forced (CsdNightMode *self)
 {
-        return self->forced;
+        return self->light_forced;
+}
+
+gboolean
+csd_night_theme_get_forced (CsdNightMode *self)
+{
+        return self->theme_forced;
 }
 
 gboolean
@@ -822,7 +828,7 @@ csd_night_mode_get_property (GObject    *object,
                              GValue     *value,
                              GParamSpec *pspec)
 {
-        CsdNightMode *self = CSD_NIGHT_LIGHT (object);
+        CsdNightMode *self = CSD_NIGHT_MODE (object);
 
         switch (prop_id) {
         case PROP_LIGHT_ACTIVE:
@@ -841,7 +847,7 @@ csd_night_mode_get_property (GObject    *object,
                 g_value_set_double (value, self->cached_sunrise);
                 break;
         case PROP_DISABLED_UNTIL_TMW:
-                g_value_set_boolean (value, csd_night_light_get_disabled_until_tmw (self));
+                g_value_set_boolean (value, csd_night_mode_get_disabled_until_tmw (self));
                 break;
         case PROP_LIGHT_FORCED:
                 g_value_set_boolean (value, csd_night_light_get_forced (self));
@@ -913,7 +919,7 @@ csd_night_mode_class_init (CsdNightModeClass *klass)
                                          PROP_DISABLED_UNTIL_TMW,
                                          g_param_spec_boolean ("disabled-until-tmw",
                                                                "Disabled until tomorrow",
-                                                               "If the night light is disabled until the next day",
+                                                               "If the night mode is disabled until the next day",
                                                                FALSE,
                                                                G_PARAM_READWRITE));
 
