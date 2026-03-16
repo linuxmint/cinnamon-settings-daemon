@@ -241,8 +241,10 @@ csd_color_manager_init (CsdColorManager *manager)
 
         /* night light (and theme) features */
         manager->nmode = csd_night_mode_new ();
-        g_signal_connect (manager->nmode, "notify::active",
-                          G_CALLBACK (on_active_notify), manager);
+        g_signal_connect (manager->nmode, "notify::light-active",
+                          G_CALLBACK (on_active_nlight_notify), manager);
+        g_signal_connect (manager->nmode, "notify::theme-active",
+                          G_CALLBACK (on_active_ntheme_notify), manager);
         g_signal_connect (manager->nmode, "notify::sunset",
                           G_CALLBACK (on_sunset_notify), manager);
         g_signal_connect (manager->nmode, "notify::sunrise",

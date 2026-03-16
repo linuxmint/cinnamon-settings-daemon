@@ -44,7 +44,8 @@ struct _CsdNightMode {
         gdouble            cached_sunrise;
         gdouble            cached_sunset;
         gdouble            cached_temperature;
-        gboolean           cached_active;
+        gboolean           cached_light_active;
+        gboolean           cached_theme_active;
         gboolean           smooth_enabled;
         GTimer            *smooth_timer;
         guint              smooth_id;
@@ -683,7 +684,7 @@ csd_night_light_set_forced (CsdNightMode *self, gboolean value)
 
         /* A simple recheck might not reset the temperature if
          * night light is currently disabled. */
-        if (!self->light_forced && !self->cached_active)
+        if (!self->light_forced && !self->cached_light_active)
                 csd_night_light_set_temperature (self, CSD_COLOR_TEMPERATURE_DEFAULT);
 
         night_mode_recheck (self);
@@ -698,9 +699,9 @@ csd_night_theme_set_forced (CsdNightMode *self, gboolean value)
         self->theme_forced = value;
         g_object_notify (G_OBJECT (self), "light-forced");
 
-        /* A simple recheck might not reset the temperature if
+        /* A simple recheck might not switch off
          * night theme is currently disabled. */
-        if (!self->theme_forced && !self->cached_active)
+        if (!self->theme_forced && !self->cached_theme_active)
                 night_theme_switch_on (self);
 
         night_mode_recheck (self);
@@ -715,7 +716,13 @@ csd_night_light_get_forced (CsdNightMode *self)
 gboolean
 csd_night_light_get_active (CsdNightMode *self)
 {
-        return self->cached_active;
+        return self->cached_light_active;
+}
+
+gboolean
+csd_night_theme_get_active (CsdNightMode *self)
+{
+        return self->cached_theme_active;
 }
 
 gdouble
