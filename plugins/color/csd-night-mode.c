@@ -290,7 +290,7 @@ night_theme_switch_off (CsdNightMode *self)
                 backup_day_theme != NULL &&
                 g_strcmp0 (backup_day_theme, "") != 0 &&
                 backup_day_cinnamon_theme != NULL &&
-                g_strcmp0 (backup_day_cinnamon_theme, "") != 0 &&
+                g_strcmp0 (backup_day_cinnamon_theme, "") != 0
         );
         
         if (!is_active) {
