@@ -353,6 +353,9 @@ night_mode_recheck (CsdNightMode *self)
                 return;
         }
 
+        /* calculate the position of the sun */
+        update_cached_sunrise_sunset (self);
+
         gdouble frac_day;
         g_autoptr(GDateTime) dt_now = csd_night_mode_get_date_time_now (self);
         frac_day = csd_night_mode_frac_day_from_dt (dt_now);
@@ -373,7 +376,7 @@ night_mode_recheck (CsdNightMode *self)
                         gdouble frac_disabled;
                         frac_disabled = csd_night_mode_frac_day_from_dt (self->disabled_until_tmw_dt);
                         if (frac_disabled != frac_day &&
-                            csd_night_mode_frac_day_is_between (schedule_to,
+                            csd_night_mode_frac_day_is_between (self->cached_sunrise,
                                                                 frac_disabled,
                                                                 frac_day)) {
                                 g_debug ("night mode sun rise happened, resetting disabled-until-tomorrow");
@@ -388,11 +391,6 @@ night_mode_recheck (CsdNightMode *self)
                 } else {
                         g_debug ("night mode disabled - it's still not tomorrow ):");
                 }
-        }
-
-        if (g_settings_get_enum (self->settings, "night-light-schedule-mode") == NIGHT_MODE_SCHEDULE_AUTO) {
-                /* calculate the position of the sun */
-                update_cached_sunrise_sunset (self);
         }
 
         night_light_recheck (self);
@@ -416,7 +414,7 @@ night_theme_recheck (CsdNightMode *self)
 
         if (!g_settings_get_boolean (self->settings, "night-theme-enabled")) {
                 /* settings say NO */
-                csd_night_theme_set_active(self, FALSE);
+                csd_night_theme_set_active (self, FALSE);
                 g_debug ("night theme disabled");
                 return;
         }
