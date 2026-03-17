@@ -66,12 +66,12 @@
       <description>This theme will be switched on instead of the current cinnamon-theme as soon as the night mode gets activated.</description>
     </key>
     <key name="backup-day-theme" type="s">
-      <default></default>
+      <default>''</default>
       <summary>This is set to the last detected day theme</summary>
       <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
     </key>
     <key name="backup-day-cinnamon-theme" type="s">
-      <default></default>
+      <default>''</default>
       <summary>This is set to the last detected day desktop theme</summary>
       <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
     </key>
