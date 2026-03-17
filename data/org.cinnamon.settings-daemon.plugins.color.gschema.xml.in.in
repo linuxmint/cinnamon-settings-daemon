@@ -56,12 +56,12 @@
       <description>Changes the theme to “night-theme” when night light activates (and back).</description>
     </key>
     <key name="night-theme" type="s">
-      <default>Mint-Y-Dark-Aqua</default>
+      <default>''</default>
       <summary>The theme which should be activated at night</summary>
       <description>This theme will be switched on instead of the current theme as soon as the night mode gets activated.</description>
     </key>
     <key name="night-cinnamon-theme" type="s">
-      <default>Mint-Y-Dark-Aqua</default>
+      <default>''</default>
       <summary>The cinnamon-theme which should be activated at night</summary>
       <description>This theme will be switched on instead of the current cinnamon-theme as soon as the night mode gets activated.</description>
     </key>
