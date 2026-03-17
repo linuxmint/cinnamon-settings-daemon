@@ -79,5 +79,6 @@
       <default>'default'</default>
       <summary>This is set to the last detected day xapp color-scheme</summary>
       <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
+    </key>
   </schema>
 </schemalist>
