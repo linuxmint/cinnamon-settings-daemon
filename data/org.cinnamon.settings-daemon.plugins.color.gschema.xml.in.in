@@ -38,12 +38,12 @@
     <key name="night-light-schedule-from" type="d">
       <default>20.00</default>
       <summary>The start time</summary>
-      <description>When “night-light-schedule-mode” is not 'auto', use this start time in hours from midnight.</description>
+      <description>When “night-light-schedule-mode” is 'manual', use this start time in hours from midnight.</description>
     </key>
     <key name="night-light-schedule-to" type="d">
       <default>6.00</default>
       <summary>The end time</summary>
-      <description>When “night-light-schedule-mode” is not 'auto', use this end time in hours from midnight.</description>
+      <description>When “night-light-schedule-mode” is 'manual', use this end time in hours from midnight.</description>
     </key>
     <key name="night-light-last-coordinates" type="(dd)">
       <default>(91,181)</default>
