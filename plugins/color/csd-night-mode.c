@@ -73,12 +73,6 @@ enum {
         NIGHT_MODE_SCHEDULE_ALWAYS_ON = 2
 };
 
-enum {
-        COLOR_SCHEME_DEFAULT = 0,
-        COLOR_SCHEME_DARK = 1,
-        COLOR_SCHEME_LIGHT = 2
-};
-
 #define CSD_NIGHT_MODE_SCHEDULE_TIMEOUT      5       /* seconds */
 #define CSD_NIGHT_MODE_POLL_TIMEOUT          60      /* seconds */
 #define CSD_NIGHT_LIGHT_POLL_SMEAR            1       /* hours */
@@ -253,64 +247,87 @@ csd_night_light_set_temperature (CsdNightMode *self, gdouble temperature)
 static void
 night_theme_switch_on (CsdNightMode *self)
 {
-        gboolean is_active = TRUE;
+        gboolean is_active;
         /* get backups */
         gchar *backup_day_theme = g_settings_get_string (self->settings, "backup-day-theme");
+        gchar *backup_day_icon_theme = g_settings_get_string (self->settings, "backup-day-icon-theme");
         gchar *backup_day_cinnamon_theme = g_settings_get_string (self->settings, "backup-day-cinnamon-theme");
         /* check if there are backups */
         is_active = (
-                backup_day_theme != NULL &&
-                g_strcmp0 (backup_day_theme, "") != 0 &&
-                backup_day_cinnamon_theme != NULL &&
-                g_strcmp0 (backup_day_cinnamon_theme, "") != 0
+                (backup_day_theme != NULL &&
+                g_strcmp0 (backup_day_theme, "") != 0) ||
+                (backup_day_icon_theme != NULL &&
+                g_strcmp0 (backup_day_icon_theme, "") != 0) ||
+                (backup_day_cinnamon_theme != NULL &&
+                g_strcmp0 (backup_day_cinnamon_theme, "") != 0)
         );
         /* free memory */
         g_free (backup_day_theme);
+        g_free (backup_day_icon_theme);
         g_free (backup_day_cinnamon_theme);
         
         if (is_active) {
+                g_debug ("night theme already active, not switching on");
                 return;
+        } else {
+                g_debug ("switching on night theme...");
         }
         /* copy values to the backups */
         g_settings_set_string (self->settings, "backup-day-theme", g_settings_get_string (self->theme_settings, "gtk-theme"));
         g_settings_set_string (self->settings, "backup-day-cinnamon-theme", g_settings_get_string (self->cinnamon_theme_settings, "name"));
+        g_settings_set_string (self->settings, "backup-day-icon-theme", g_settings_get_string (self->theme_settings, "icon-theme"));
         g_settings_set_enum (self->settings, "backup-day-color-scheme", g_settings_get_enum (self->x_theme_settings, "color-scheme"));
         /* activate the night themes */
         g_settings_set_string (self->theme_settings, "gtk-theme", g_settings_get_string (self->settings, "night-theme"));
+        g_settings_set_string (self->theme_settings, "icon-theme", g_settings_get_string (self->settings, "night-icon-theme"));
         g_settings_set_string (self->cinnamon_theme_settings, "name", g_settings_get_string (self->settings, "night-cinnamon-theme"));
-        g_settings_set_enum (self->x_theme_settings, "color-scheme", COLOR_SCHEME_DARK);
+        g_settings_set_enum (self->x_theme_settings, "color-scheme", g_settings_get_enum (self->settings, "night-color-scheme"));
 }
 
 static void
 night_theme_switch_off (CsdNightMode *self)
 {
-        gboolean is_active = TRUE;
+        gboolean is_active;
         /* get backups */
         gchar *backup_day_theme = g_settings_get_string (self->settings, "backup-day-theme");
+        gchar *backup_day_icon_theme = g_settings_get_string (self->settings, "backup-day-icon-theme");
         gchar *backup_day_cinnamon_theme = g_settings_get_string (self->settings, "backup-day-cinnamon-theme");
         /* check if there are no backups */
         is_active = (
-                backup_day_theme != NULL &&
-                g_strcmp0 (backup_day_theme, "") != 0 &&
-                backup_day_cinnamon_theme != NULL &&
-                g_strcmp0 (backup_day_cinnamon_theme, "") != 0
+                (backup_day_theme != NULL &&
+                g_strcmp0 (backup_day_theme, "") != 0) ||
+                (backup_day_icon_theme != NULL &&
+                g_strcmp0 (backup_day_icon_theme, "") != 0) ||
+                (backup_day_cinnamon_theme != NULL &&
+                g_strcmp0 (backup_day_cinnamon_theme, "") != 0)
         );
         
         if (!is_active) {
+                g_debug ("night theme inactive, not switching off");
+                g_free (backup_day_theme);
+                g_free (backup_day_icon_theme);
+                g_free (backup_day_cinnamon_theme);
                 return;
+        } else {
+                g_debug ("switching off night theme...");
         }
         /* save the current night theme */
         g_settings_set_string (self->settings, "night-theme", g_settings_get_string (self->theme_settings, "gtk-theme"));
+        g_settings_set_string (self->settings, "night-icon-theme", g_settings_get_string (self->theme_settings, "icon-theme"));
         g_settings_set_string (self->settings, "night-cinnamon-theme", g_settings_get_string (self->cinnamon_theme_settings, "name"));
+        g_settings_set_enum (self->settings, "night-color-scheme", g_settings_get_enum (self->x_theme_settings, "color-scheme"));
         /* restore the backups */
-        g_settings_set_string (self->theme_settings, "gtk-theme", g_settings_get_string (self->settings, "backup-day-theme"));
-        g_settings_set_string (self->cinnamon_theme_settings, "name", g_settings_get_string (self->settings, "backup-day-cinnamon-theme"));
+        g_settings_set_string (self->theme_settings, "gtk-theme", backup_day_theme);
+        g_settings_set_string (self->theme_settings, "icon-theme", backup_day_icon_theme);
+        g_settings_set_string (self->cinnamon_theme_settings, "name", backup_day_cinnamon_theme);
         g_settings_set_enum (self->x_theme_settings, "color-scheme", g_settings_get_enum (self->settings, "backup-day-color-scheme"));
         /* clear the backups */
         g_settings_set_string (self->settings, "backup-day-theme", "");
+        g_settings_set_string (self->settings, "backup-day-icon-theme", "");
         g_settings_set_string (self->settings, "backup-day-cinnamon-theme", "");
         /* free memory */
         g_free (backup_day_theme);
+        g_free (backup_day_icon_theme);
         g_free (backup_day_cinnamon_theme);
 }
 
@@ -777,6 +794,9 @@ csd_night_mode_finalize (GObject *object)
         poll_smooth_destroy (self);
 
         g_clear_object (&self->settings);
+        g_clear_object (&self->theme_settings);
+        g_clear_object (&self->cinnamon_theme_settings);
+        g_clear_object (&self->x_theme_settings);
         g_clear_pointer (&self->datetime_override, g_date_time_unref);
         g_clear_pointer (&self->disabled_until_tmw_dt, g_date_time_unref);
 

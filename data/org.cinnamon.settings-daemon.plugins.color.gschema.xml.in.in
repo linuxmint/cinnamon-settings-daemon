@@ -65,6 +65,16 @@
       <summary>The cinnamon-theme which should be activated at night</summary>
       <description>This theme will be switched on instead of the current cinnamon-theme as soon as the night mode gets activated.</description>
     </key>
+    <key name="night-icon-theme" type="s">
+      <default>''</default>
+      <summary>The icon-theme which should be activated at night</summary>
+      <description>This icon-theme will be switched on instead of the current icon-theme as soon as the night mode gets activated.</description>
+    </key>
+    <key name="night-color-scheme" enum="color_scheme">
+      <default>'prefer-dark'</default>
+      <summary>The xapp color scheme which should be activated at night</summary>
+      <description>This scheme will be switched on instead of the current color-scheme as soon as the night mode gets activated.</description>
+    </key>
     <key name="backup-day-theme" type="s">
       <default>''</default>
       <summary>This is set to the last detected day theme</summary>
@@ -73,7 +83,12 @@
     <key name="backup-day-cinnamon-theme" type="s">
       <default>''</default>
       <summary>This is set to the last detected day desktop theme</summary>
-      <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced theme. This theme will get reactivated when the night theme switches off.</description>
+      <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced cinnamon-theme. This theme will get reactivated when the night theme switches off.</description>
+    </key>
+    <key name="backup-day-icon-theme" type="s">
+      <default>''</default>
+      <summary>This is set to the last detected day icon theme</summary>
+      <description>When the cinnamon-settings-daemon activates the night theme, this is set to the replaced icon-theme. This theme will get reactivated when the night theme switches off.</description>
     </key>
     <key name="backup-day-color-scheme" enum="color_scheme">
       <default>'default'</default>
