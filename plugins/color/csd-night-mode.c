@@ -267,10 +267,7 @@ night_theme_switch_on (CsdNightMode *self)
         g_free (backup_day_cinnamon_theme);
         
         if (is_active) {
-                g_debug ("night theme already active, not switching on");
                 return;
-        } else {
-                g_debug ("switching on night theme...");
         }
         /* copy values to the backups */
         g_settings_set_string (self->settings, "backup-day-theme", g_settings_get_string (self->theme_settings, "gtk-theme"));
@@ -303,13 +300,10 @@ night_theme_switch_off (CsdNightMode *self)
         );
         
         if (!is_active) {
-                g_debug ("night theme inactive, not switching off");
                 g_free (backup_day_theme);
                 g_free (backup_day_icon_theme);
                 g_free (backup_day_cinnamon_theme);
                 return;
-        } else {
-                g_debug ("switching off night theme...");
         }
         /* save the current night theme */
         g_settings_set_string (self->settings, "night-theme", g_settings_get_string (self->theme_settings, "gtk-theme"));
@@ -438,9 +432,9 @@ night_theme_recheck (CsdNightMode *self)
 
         switch (g_settings_get_enum (self->settings, "night-light-schedule-mode")) {
         case NIGHT_MODE_SCHEDULE_ALWAYS_ON:
-                /* turn OFF and return (night theme always on? Who wants that. Select your theme manually in the settings) */
-                g_debug ("night light always on - switching OFF theme (intentionally)");
-                csd_night_theme_set_active (self, FALSE);
+                /* turn on and return */
+                g_debug ("night mode always on - switching on theme");
+                csd_night_theme_set_active (self, TRUE);
                 return;
         case NIGHT_MODE_SCHEDULE_AUTO:
                 /* was updated in night_mode_recheck(self) */
