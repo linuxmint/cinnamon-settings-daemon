@@ -53,7 +53,7 @@
     <key name="night-theme-enabled" type="b">
       <default>false</default>
       <summary>If the night theme switcher is on</summary>
-      <description>Changes the theme to “night-theme” when night light activates (and back).</description>
+      <description>Changes the theme to “night-theme” when night mode activates (and back).</description>
     </key>
     <key name="night-theme" type="s">
       <default>''</default>
