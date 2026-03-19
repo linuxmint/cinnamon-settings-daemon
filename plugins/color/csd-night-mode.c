@@ -302,7 +302,7 @@ night_theme_switch_off (CsdNightMode *self)
         );
         
         if (!is_active) {
-                g_debug ("night already inactive => not switching off");
+                g_debug ("night theme already inactive => not switching off");
                 g_free (backup_day_theme);
                 g_free (backup_day_icon_theme);
                 g_free (backup_day_cinnamon_theme);
