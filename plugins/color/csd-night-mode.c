@@ -35,6 +35,8 @@ struct _CsdNightMode {
         GSettings         *theme_settings;
         GSettings         *x_theme_settings;
         GSettings         *cinnamon_theme_settings;
+        gboolean           cached_light_active_unset;
+        gboolean           cached_theme_active_unset;
         gboolean           light_forced;
         gboolean           theme_forced;
         gboolean           disabled_until_tmw;
@@ -332,8 +334,11 @@ night_theme_switch_off (CsdNightMode *self)
 static void
 csd_night_light_set_active (CsdNightMode *self, gboolean active)
 {
-        if (self->cached_light_active == active)
+        if (self->cached_light_active == active && !self->cached_light_active_unset) {
                 return;
+        } else if (self->cached_light_active_unset) {
+                self->cached_light_active_unset = FALSE;
+        }
         self->cached_light_active = active;
 
         /* ensure set to unity temperature */
@@ -346,8 +351,11 @@ csd_night_light_set_active (CsdNightMode *self, gboolean active)
 static void
 csd_night_theme_set_active (CsdNightMode *self, gboolean active)
 {
-        if (self->cached_theme_active == active)
+        if (self->cached_theme_active == active && !self->cached_theme_active_unset) {
                 return;
+        } else if (self->cached_theme_active_unset) {
+                self->cached_theme_active_unset = FALSE;
+        }
         self->cached_theme_active = active;
 
         /* switch off theme if not active & switch on else */
@@ -961,6 +969,8 @@ static void
 csd_night_mode_init (CsdNightMode *self)
 {
         self->smooth_enabled = TRUE;
+        self->cached_light_active_unset = TRUE;
+        self->cached_theme_active_unset = TRUE;
         self->cached_sunrise = -1.f;
         self->cached_sunset = -1.f;
         self->cached_temperature = CSD_COLOR_TEMPERATURE_DEFAULT;
