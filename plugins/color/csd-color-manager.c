@@ -39,8 +39,6 @@
 #define CSD_COLOR_DBUS_PATH                     CSD_DBUS_PATH "/Color"
 #define CSD_COLOR_DBUS_INTERFACE                CSD_DBUS_BASE_INTERFACE ".Color"
 
-/*introspection_xml is for dbus events this manager listens on - see the methods void on_..._notify(...)*/
-
 static const gchar introspection_xml[] =
 "<node>"
 "  <interface name='org.cinnamon.SettingsDaemon.Color'>"

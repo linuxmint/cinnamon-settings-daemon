@@ -412,7 +412,7 @@ night_mode_recheck (CsdNightMode *self)
                         g_clear_pointer(&self->disabled_until_tmw_dt, g_date_time_unref);
                         g_object_notify (G_OBJECT (self), "disabled-until-tmw");
                 } else {
-                        g_debug ("night mode disabled - it's still not tomorrow ):");
+                        g_debug ("night mode disabled-until-tomorrow is true");
                 }
         }
 
@@ -445,7 +445,7 @@ night_theme_recheck (CsdNightMode *self)
         switch (g_settings_get_enum (self->settings, "night-light-schedule-mode")) {
         case NIGHT_MODE_SCHEDULE_ALWAYS_ON:
                 /* turn on and return */
-                g_debug ("night mode always on - switching on theme");
+                g_debug ("night mode always on - theme on");
                 csd_night_theme_set_active (self, TRUE);
                 return;
         case NIGHT_MODE_SCHEDULE_AUTO:
@@ -713,6 +713,7 @@ csd_night_light_set_forced (CsdNightMode *self, gboolean value)
          * night light is currently disabled. */
         if (!self->light_forced && !self->cached_light_active) {
                 csd_night_light_set_temperature (self, CSD_COLOR_TEMPERATURE_DEFAULT);
+                g_debug ("night light exited forced mode");
                 return;
         }
 
@@ -726,12 +727,13 @@ csd_night_theme_set_forced (CsdNightMode *self, gboolean value)
                 return;
 
         self->theme_forced = value;
-        g_object_notify (G_OBJECT (self), "light-forced");
+        g_object_notify (G_OBJECT (self), "theme-forced");
 
         /* A simple recheck might not switch off if
          * night theme is currently disabled. */
         if (!self->theme_forced && !self->cached_theme_active) {
                 night_theme_switch_off (self);
+                g_debug ("night theme exited forced mode");
                 return;
         }
 
