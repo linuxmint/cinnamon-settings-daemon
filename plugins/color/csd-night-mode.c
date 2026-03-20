@@ -711,8 +711,10 @@ csd_night_light_set_forced (CsdNightMode *self, gboolean value)
 
         /* A simple recheck might not reset the temperature if
          * night light is currently disabled. */
-        if (!self->light_forced && !self->cached_light_active)
+        if (!self->light_forced && !self->cached_light_active) {
                 csd_night_light_set_temperature (self, CSD_COLOR_TEMPERATURE_DEFAULT);
+                return;
+        }
 
         night_light_recheck (self);
 }
@@ -726,10 +728,12 @@ csd_night_theme_set_forced (CsdNightMode *self, gboolean value)
         self->theme_forced = value;
         g_object_notify (G_OBJECT (self), "light-forced");
 
-        /* A simple recheck might not switch off
+        /* A simple recheck might not switch off if
          * night theme is currently disabled. */
-        if (!self->theme_forced && !self->cached_theme_active)
-                night_theme_switch_on (self);
+        if (!self->theme_forced && !self->cached_theme_active) {
+                night_theme_switch_off (self);
+                return;
+        }
 
         night_theme_recheck (self);
 }
