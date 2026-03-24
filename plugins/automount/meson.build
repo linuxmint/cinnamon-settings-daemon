@@ -42,17 +42,3 @@ executable(
     dependencies: automount_deps,
     install: false,
 )
-
-configure_file(
-    input: 'cinnamon-settings-daemon-automount.desktop.in',
-    output: 'cinnamon-settings-daemon-automount.desktop',
-    configuration: desktop_conf,
-    install_dir: autostartdir,
-)
-
-configure_file(
-    input: 'csd-automount.desktop.in',
-    output: 'csd-automount.desktop',
-    configuration: desktop_conf,
-    install_dir: desktopdir,
-)
