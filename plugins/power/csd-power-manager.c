@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include <fcntl.h>
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -108,6 +109,33 @@ abs_to_percentage (int min, int max, int value)
 #define ABS_TO_PERCENTAGE(min, max, value) abs_to_percentage(min, max, value)
 #define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
 
+/* How long to wait for sensor readings to stabilize before acting (ms). */
+#define AMBIENT_STABILIZE_DELAY_MS      3000
+
+/* How long the gradual brightness transition takes (ms). */
+#define AMBIENT_TRANSITION_DURATION_MS  3000
+
+/* Number of discrete steps in a gradual transition. */
+#define AMBIENT_TRANSITION_STEPS        30
+
+/* Interval between transition steps (ms). */
+#define AMBIENT_TRANSITION_STEP_MS      (AMBIENT_TRANSITION_DURATION_MS / AMBIENT_TRANSITION_STEPS)
+
+/* After a transition completes, ignore sensor changes for this long (ms)
+ * to let the sensor settle with the new screen brightness. */
+#define AMBIENT_POST_TRANSITION_DEAD_ZONE_MS    500
+
+/* Minimum brightness change (%) required to trigger a transition. */
+#define AMBIENT_MIN_BRIGHTNESS_CHANGE   4.0
+
+/* Power-law exponent applied to the sensor-to-brightness ratio.
+ * 1.0 = linear tracking, lower values compress the response curve
+ * (e.g. 0.5 gives sqrt(ratio)). Lower values reduce feedback from
+ * screen content affecting the sensor. */
+#define AMBIENT_RESPONSE_DAMPENING      0.75
+
+#define AMBIENT_SENSOR_EPSILON          1e-6
+
 #define CSD_POWER_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_POWER_MANAGER, CsdPowerManagerPrivate))
 
 typedef enum {
@@ -116,6 +144,12 @@ typedef enum {
         CSD_POWER_IDLE_MODE_BLANK,
         CSD_POWER_IDLE_MODE_SLEEP
 } CsdPowerIdleMode;
+
+typedef enum {
+        AMBIENT_STATE_IDLE,
+        AMBIENT_STATE_STABILIZING,
+        AMBIENT_STATE_TRANSITIONING
+} AmbientState;
 
 struct CsdPowerManagerPrivate
 {
@@ -192,6 +226,23 @@ struct CsdPowerManagerPrivate
         gint                     inhibit_suspend_fd;
         gboolean                 inhibit_suspend_taken;
         guint                    inhibit_lid_switch_timer_id;
+
+        /* Ambient light sensor (iio-sensor-proxy) */
+        GDBusProxy              *iio_proxy;
+        guint                    iio_proxy_watch_id;
+        GCancellable            *iio_cancellable;
+        gboolean                 light_claimed;
+
+        AmbientState             ambient_state;
+        guint                    ambient_stabilize_timer_id;
+        gdouble                  ambient_baseline_sensor;
+        gdouble                  ambient_pending_sensor;
+        guint                    ambient_transition_timer_id;
+        gdouble                  ambient_transition_start;
+        gdouble                  ambient_transition_target;
+        gint                     ambient_transition_step;
+        gdouble                  ambient_brightness_baseline;
+        gint64                   ambient_last_transition_time;
 };
 
 enum {
@@ -225,6 +276,13 @@ static void device_properties_changed_cb (UpDevice *device, GParamSpec *pspec, C
 static void connect_power_iface (CsdPowerManager *manager);
 static void connect_screen_iface (CsdPowerManager *manager);
 static void connect_keyboard_iface (CsdPowerManager *manager);
+
+static void ambient_renormalize (CsdPowerManager *manager, gdouble brightness);
+static void ambient_cancel_timers (CsdPowerManager *manager);
+static void iio_proxy_changed (CsdPowerManager *manager);
+static void iio_proxy_changed_cb (GDBusProxy *proxy, GVariant *changed_properties, GStrv invalidated_properties, gpointer user_data);
+static void iio_proxy_claim_light (CsdPowerManager *manager, gboolean active);
+static void iio_proxy_maybe_claim_light (CsdPowerManager *manager);
 
 static void idle_triggered_idle_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
 static void idle_became_active_cb (GnomeIdleMonitor *monitor, guint watch_id, gpointer user_data);
@@ -2284,6 +2342,8 @@ lid_state_changed_cb (UpClient *client, GParamSpec *pspec, CsdPowerManager *mana
         manager->priv->lid_is_closed = lid_is_closed;
         manager->priv->on_battery = on_battery;
 
+        iio_proxy_maybe_claim_light (manager);
+
         /* fake a keypress */
         if (lid_is_closed)
                 do_lid_closed_action (manager);
@@ -2898,6 +2958,8 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
         manager->priv->current_idle_mode = mode;
         g_debug ("Doing a state transition: %s", idle_mode_to_string (mode));
 
+        iio_proxy_maybe_claim_light (manager);
+
         /* don't do any power saving if we're a VM */
         if (manager->priv->is_virtual_machine) {
                 g_debug ("ignoring state transition to %s as virtual machine",
@@ -2930,6 +2992,8 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                                    idle_percentage,
                                    error->message);
                         g_clear_error (&error);
+                } else {
+                        ambient_renormalize (manager, (gdouble) idle_percentage);
                 }
 
                 /* keyboard backlight */
@@ -3002,6 +3066,7 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                                            error->message);
                                 g_clear_error (&error);
                         } else {
+                                ambient_renormalize (manager, (gdouble) manager->priv->pre_dim_brightness);
                                 manager->priv->pre_dim_brightness = -1;
                         }
                 }
@@ -3637,6 +3702,492 @@ engine_settings_key_changed_cb (GSettings *settings,
                 refresh_notification_settings (manager);
                 return;
         }
+
+        if (g_strcmp0 (key, "ambient-enabled") == 0) {
+                iio_proxy_maybe_claim_light (manager);
+                return;
+        }
+}
+
+static void
+ambient_cancel_timers (CsdPowerManager *manager)
+{
+        if (manager->priv->ambient_stabilize_timer_id > 0) {
+                g_source_remove (manager->priv->ambient_stabilize_timer_id);
+                manager->priv->ambient_stabilize_timer_id = 0;
+        }
+        if (manager->priv->ambient_transition_timer_id > 0) {
+                g_source_remove (manager->priv->ambient_transition_timer_id);
+                manager->priv->ambient_transition_timer_id = 0;
+        }
+}
+
+static void
+ambient_reset_state (CsdPowerManager *manager)
+{
+        ambient_cancel_timers (manager);
+        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
+        manager->priv->ambient_baseline_sensor = -1.0;
+        manager->priv->ambient_pending_sensor = -1.0;
+        manager->priv->ambient_brightness_baseline = -1.0;
+        manager->priv->ambient_last_transition_time = 0;
+}
+
+static gdouble
+ambient_sensor_to_brightness (CsdPowerManager *manager, gdouble sensor_value)
+{
+        gdouble ratio, brightness;
+
+        if (sensor_value <= 0.0 ||
+            manager->priv->ambient_baseline_sensor <= 0.0 ||
+            manager->priv->ambient_brightness_baseline <= 0.0)
+                return -1.0;
+
+        ratio = sensor_value / manager->priv->ambient_baseline_sensor;
+        brightness = manager->priv->ambient_brightness_baseline *
+                     pow (ratio, AMBIENT_RESPONSE_DAMPENING);
+        return CLAMP (brightness, 1.0, 100.0);
+}
+
+static void
+ambient_renormalize (CsdPowerManager *manager, gdouble brightness)
+{
+        GVariant *val_als = NULL;
+        gdouble sensor_value;
+
+        if (manager->priv->iio_proxy == NULL)
+                return;
+
+        if (!manager->priv->light_claimed)
+                return;
+
+        val_als = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
+        if (val_als == NULL) {
+                g_debug ("Cannot renormalize: sensor reading unavailable");
+                return;
+        }
+
+        sensor_value = g_variant_get_double (val_als);
+        g_variant_unref (val_als);
+
+        if (sensor_value <= 0.0) {
+                g_debug ("Cannot renormalize: sensor reading is zero");
+                return;
+        }
+
+        g_debug ("Renormalizing for brightness %.1f%% at light level %f",
+                 brightness, sensor_value);
+
+        manager->priv->ambient_brightness_baseline = brightness;
+        manager->priv->ambient_baseline_sensor = sensor_value;
+
+        ambient_cancel_timers (manager);
+        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
+}
+
+static void
+ambient_transition_handle_error (CsdPowerManager *manager, GError *error)
+{
+        gint actual;
+
+        g_warning ("Ambient transition step failed: %s", error->message);
+        g_error_free (error);
+
+        manager->priv->ambient_transition_timer_id = 0;
+        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
+
+        actual = backlight_get_percentage (manager, NULL);
+        if (actual >= 0)
+                manager->priv->ambient_brightness_baseline = (gdouble) actual;
+}
+
+static gboolean
+ambient_transition_step_cb (gpointer user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+        GError *error = NULL;
+        gdouble fraction, brightness;
+
+        manager->priv->ambient_transition_step++;
+
+        if (manager->priv->ambient_transition_step >= AMBIENT_TRANSITION_STEPS) {
+                if (!backlight_set_percentage (manager,
+                                              (guint) manager->priv->ambient_transition_target,
+                                              TRUE, &error)) {
+                        ambient_transition_handle_error (manager, error);
+                        return G_SOURCE_REMOVE;
+                }
+
+                g_debug ("Ambient transition complete: %.1f%%",
+                         manager->priv->ambient_transition_target);
+
+                manager->priv->ambient_brightness_baseline = manager->priv->ambient_transition_target;
+                manager->priv->ambient_baseline_sensor = manager->priv->ambient_pending_sensor;
+                manager->priv->ambient_transition_timer_id = 0;
+                manager->priv->ambient_last_transition_time = g_get_monotonic_time ();
+                manager->priv->ambient_state = AMBIENT_STATE_IDLE;
+
+                return G_SOURCE_REMOVE;
+        }
+
+        fraction = (gdouble) manager->priv->ambient_transition_step / AMBIENT_TRANSITION_STEPS;
+        brightness = manager->priv->ambient_transition_start +
+                     fraction * (manager->priv->ambient_transition_target -
+                                 manager->priv->ambient_transition_start);
+
+        if (!backlight_set_percentage (manager, (guint) brightness, TRUE, &error)) {
+                ambient_transition_handle_error (manager, error);
+                return G_SOURCE_REMOVE;
+        }
+
+        return G_SOURCE_CONTINUE;
+}
+
+static void
+ambient_begin_transition (CsdPowerManager *manager, gdouble target_brightness)
+{
+        gdouble current = manager->priv->ambient_brightness_baseline;
+
+        if (fabs (target_brightness - current) < AMBIENT_MIN_BRIGHTNESS_CHANGE) {
+                g_debug ("Ambient target %.1f%% too close to current %.1f%%, skipping",
+                         target_brightness, current);
+                manager->priv->ambient_state = AMBIENT_STATE_IDLE;
+                manager->priv->ambient_baseline_sensor = manager->priv->ambient_pending_sensor;
+                return;
+        }
+
+        g_debug ("Ambient transition: %.1f%% -> %.1f%%", current, target_brightness);
+
+        manager->priv->ambient_state = AMBIENT_STATE_TRANSITIONING;
+        manager->priv->ambient_transition_start = current;
+        manager->priv->ambient_transition_target = target_brightness;
+        manager->priv->ambient_transition_step = 0;
+
+        manager->priv->ambient_transition_timer_id =
+                g_timeout_add (AMBIENT_TRANSITION_STEP_MS,
+                               ambient_transition_step_cb,
+                               manager);
+}
+
+static gboolean
+ambient_stabilize_timeout_cb (gpointer user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+        gdouble target_brightness;
+
+        manager->priv->ambient_stabilize_timer_id = 0;
+
+        target_brightness = ambient_sensor_to_brightness (manager,
+                                                          manager->priv->ambient_pending_sensor);
+        if (target_brightness < 0.0) {
+                g_debug ("Ambient: stabilization abandoned, baselines invalid "
+                         "(sensor=%.1f, brightness=%.1f)",
+                         manager->priv->ambient_baseline_sensor,
+                         manager->priv->ambient_brightness_baseline);
+                manager->priv->ambient_state = AMBIENT_STATE_IDLE;
+                return G_SOURCE_REMOVE;
+        }
+
+        g_debug ("Ambient stabilized at sensor %f -> brightness %.1f%%",
+                 manager->priv->ambient_pending_sensor, target_brightness);
+
+        ambient_begin_transition (manager, target_brightness);
+
+        return G_SOURCE_REMOVE;
+}
+
+static void
+iio_proxy_changed (CsdPowerManager *manager)
+{
+        GVariant *val_has = NULL;
+        GVariant *val_als = NULL;
+        gdouble sensor_value;
+
+        if (manager->priv->iio_proxy == NULL)
+                return;
+
+        if (!g_settings_get_boolean (manager->priv->settings, "ambient-enabled"))
+                return;
+
+        val_has = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "HasAmbientLight");
+        if (val_has == NULL || !g_variant_get_boolean (val_has)) {
+                g_clear_pointer (&val_has, g_variant_unref);
+                return;
+        }
+        g_clear_pointer (&val_has, g_variant_unref);
+
+        val_als = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
+        if (val_als == NULL) {
+                return;
+        }
+        sensor_value = g_variant_get_double (val_als);
+        g_variant_unref (val_als);
+        if (sensor_value <= 0.0)
+                return;
+
+        g_debug ("Ambient light level: %f", sensor_value);
+
+        if (manager->priv->ambient_baseline_sensor <= 0.0) {
+                gdouble current_brightness;
+
+                GError *error = NULL;
+
+                current_brightness = (gdouble) backlight_get_percentage (manager, &error);
+                if (current_brightness < 0.0) {
+                        g_warning ("Could not read current backlight level for ambient baseline: %s",
+                                        error ? error->message : "unknown error");
+                        g_clear_error (&error);
+                        return;
+                }
+
+                g_debug ("First sensor reading %f, adopting current brightness %.1f%% as baseline",
+                         sensor_value, current_brightness);
+
+                manager->priv->ambient_baseline_sensor = sensor_value;
+                manager->priv->ambient_brightness_baseline = current_brightness;
+                return;
+        }
+
+        if (manager->priv->ambient_last_transition_time > 0 &&
+            g_get_monotonic_time () - manager->priv->ambient_last_transition_time <
+            AMBIENT_POST_TRANSITION_DEAD_ZONE_MS * 1000) {
+                g_debug ("Ambient: in post-transition dead zone, ignoring");
+                return;
+        }
+
+        switch (manager->priv->ambient_state) {
+        case AMBIENT_STATE_IDLE:
+                if (G_APPROX_VALUE (sensor_value, manager->priv->ambient_baseline_sensor, AMBIENT_SENSOR_EPSILON))
+                        return;
+
+                g_debug ("Ambient: sensor changed from %f to %f, starting stabilization",
+                         manager->priv->ambient_baseline_sensor, sensor_value);
+
+                manager->priv->ambient_state = AMBIENT_STATE_STABILIZING;
+                manager->priv->ambient_pending_sensor = sensor_value;
+                manager->priv->ambient_stabilize_timer_id =
+                        g_timeout_add (AMBIENT_STABILIZE_DELAY_MS,
+                                       ambient_stabilize_timeout_cb,
+                                       manager);
+                break;
+
+        case AMBIENT_STATE_STABILIZING:
+                if (G_APPROX_VALUE (sensor_value, manager->priv->ambient_baseline_sensor, AMBIENT_SENSOR_EPSILON)) {
+                        g_debug ("Ambient: sensor returned to baseline, cancelling");
+                        ambient_cancel_timers (manager);
+                        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
+                        return;
+                }
+
+                if (!G_APPROX_VALUE (sensor_value, manager->priv->ambient_pending_sensor, AMBIENT_SENSOR_EPSILON)) {
+                        g_debug ("Ambient: sensor changed during stabilization (%f -> %f), restarting",
+                                 manager->priv->ambient_pending_sensor, sensor_value);
+                        if (manager->priv->ambient_stabilize_timer_id > 0)
+                                g_source_remove (manager->priv->ambient_stabilize_timer_id);
+                        manager->priv->ambient_pending_sensor = sensor_value;
+                        manager->priv->ambient_stabilize_timer_id =
+                                g_timeout_add (AMBIENT_STABILIZE_DELAY_MS,
+                                               ambient_stabilize_timeout_cb,
+                                               manager);
+                }
+                break;
+
+        case AMBIENT_STATE_TRANSITIONING:
+                g_debug ("Ambient: sensor changed during transition, ignoring");
+                return;
+        }
+}
+
+static void
+iio_proxy_changed_cb (GDBusProxy *proxy,
+                      GVariant   *changed_properties,
+                      GStrv       invalidated_properties,
+                      gpointer    user_data)
+{
+        iio_proxy_changed ((CsdPowerManager *) user_data);
+}
+
+static void
+light_claimed_cb (GObject      *source_object,
+                  GAsyncResult *res,
+                  gpointer      user_data)
+{
+        CsdPowerManager *manager = user_data;
+        GError *error = NULL;
+        GVariant *result = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
+
+                g_warning ("Claiming light sensor failed: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        g_variant_unref (result);
+
+        manager->priv->light_claimed = TRUE;
+
+        g_signal_handlers_disconnect_by_func (manager->priv->iio_proxy,
+                                              G_CALLBACK (iio_proxy_changed_cb),
+                                              manager);
+        g_signal_connect (manager->priv->iio_proxy, "g-properties-changed",
+                          G_CALLBACK (iio_proxy_changed_cb), manager);
+        iio_proxy_changed (manager);
+}
+
+static void
+light_released_cb (GObject      *source_object,
+                   GAsyncResult *res,
+                   gpointer      user_data)
+{
+        CsdPowerManager *manager = user_data;
+        GError *error = NULL;
+        GVariant *result = NULL;
+
+        result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object),
+                                           res,
+                                           &error);
+        if (result == NULL) {
+                if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+                        g_error_free (error);
+                        return;
+                }
+
+                g_warning ("Release of light sensor failed: %s", error->message);
+                g_error_free (error);
+                return;
+        }
+        g_variant_unref (result);
+
+        g_signal_handlers_disconnect_by_func (manager->priv->iio_proxy,
+                                              G_CALLBACK (iio_proxy_changed_cb),
+                                              manager);
+        ambient_reset_state (manager);
+        manager->priv->light_claimed = FALSE;
+}
+
+static gboolean
+iio_proxy_should_claim_light (CsdPowerManager *manager)
+{
+        CinnamonSettingsSessionState state;
+
+        if (manager->priv->session == NULL)
+                return FALSE;
+        state = cinnamon_settings_session_get_state (manager->priv->session);
+        if (state == CINNAMON_SETTINGS_SESSION_STATE_INACTIVE)
+                return FALSE;
+        if (!g_settings_get_boolean (manager->priv->settings, "ambient-enabled"))
+                return FALSE;
+        if (manager->priv->lid_is_closed)
+                return FALSE;
+        if (manager->priv->current_idle_mode == CSD_POWER_IDLE_MODE_BLANK ||
+            manager->priv->current_idle_mode == CSD_POWER_IDLE_MODE_SLEEP)
+                return FALSE;
+
+        return TRUE;
+}
+
+static void
+iio_proxy_claim_light (CsdPowerManager *manager, gboolean active)
+{
+        if (manager->priv->iio_proxy == NULL)
+                return;
+
+        g_debug ("Ambient: %s light sensor", active ? "claiming" : "releasing");
+
+        g_cancellable_cancel (manager->priv->iio_cancellable);
+        g_clear_object (&manager->priv->iio_cancellable);
+        manager->priv->iio_cancellable = g_cancellable_new ();
+
+        g_dbus_proxy_call (manager->priv->iio_proxy,
+                           active ? "ClaimLight" : "ReleaseLight",
+                           NULL,
+                           G_DBUS_CALL_FLAGS_NONE,
+                           -1,
+                           manager->priv->iio_cancellable,
+                           active ? light_claimed_cb : light_released_cb,
+                           manager);
+}
+
+static void
+iio_proxy_maybe_claim_light (CsdPowerManager *manager)
+{
+        iio_proxy_claim_light (manager, iio_proxy_should_claim_light (manager));
+}
+
+static void
+iio_proxy_update_ambient_light_supported (CsdPowerManager *manager)
+{
+        gboolean supported = FALSE;
+
+        if (manager->priv->iio_proxy != NULL) {
+                GVariant *val = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "HasAmbientLight");
+                if (val != NULL) {
+                        supported = g_variant_get_boolean (val);
+                        g_variant_unref (val);
+                }
+        }
+
+        if (manager->priv->screen_iface != NULL)
+                csd_screen_set_ambient_light_supported (manager->priv->screen_iface, supported);
+}
+
+static void
+iio_proxy_appeared_cb (GDBusConnection *connection,
+                       const gchar *name,
+                       const gchar *name_owner,
+                       gpointer user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+        GError *error = NULL;
+
+        g_clear_object (&manager->priv->iio_proxy);
+
+        manager->priv->iio_proxy =
+                g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                               0,
+                                               NULL,
+                                               "net.hadess.SensorProxy",
+                                               "/net/hadess/SensorProxy",
+                                               "net.hadess.SensorProxy",
+                                               NULL,
+                                               &error);
+        if (manager->priv->iio_proxy == NULL) {
+                g_warning ("Failed to create iio-sensor-proxy D-Bus proxy: %s",
+                           error->message);
+                g_error_free (error);
+                return;
+        }
+
+        iio_proxy_update_ambient_light_supported (manager);
+        iio_proxy_maybe_claim_light (manager);
+}
+
+static void
+iio_proxy_vanished_cb (GDBusConnection *connection,
+                       const gchar *name,
+                       gpointer user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+        g_cancellable_cancel (manager->priv->iio_cancellable);
+        g_clear_object (&manager->priv->iio_cancellable);
+
+        ambient_reset_state (manager);
+        manager->priv->light_claimed = FALSE;
+
+        if (manager->priv->iio_proxy != NULL)
+                g_signal_handlers_disconnect_by_func (manager->priv->iio_proxy,
+                                                      G_CALLBACK (iio_proxy_changed_cb),
+                                                      manager);
+        g_clear_object (&manager->priv->iio_proxy);
+        iio_proxy_update_ambient_light_supported (manager);
 }
 
 static void
@@ -3647,6 +4198,8 @@ engine_session_active_changed_cb (CinnamonSettingsSession *session,
         /* when doing the fast-user-switch into a new account,
          * ensure the new account is undimmed and with the backlight on */
         idle_set_mode (manager, CSD_POWER_IDLE_MODE_NORMAL);
+
+        iio_proxy_maybe_claim_light (manager);
 }
 
 /* This timer goes off every few minutes, whether the user is idle or not,
@@ -4148,6 +4701,16 @@ on_rr_screen_acquired (GObject      *object,
                                                                                NULL);
         /* don't blank inside a VM */
         manager->priv->is_virtual_machine = is_hardware_a_virtual_machine ();
+
+        /* setup ambient light support */
+        manager->priv->iio_proxy_watch_id =
+                g_bus_watch_name (G_BUS_TYPE_SYSTEM,
+                                  "net.hadess.SensorProxy",
+                                  G_BUS_NAME_WATCHER_FLAGS_NONE,
+                                  iio_proxy_appeared_cb,
+                                  iio_proxy_vanished_cb,
+                                  manager, NULL);
+        ambient_reset_state (manager);
 }
 
 gboolean
@@ -4189,6 +4752,11 @@ csd_power_manager_stop (CsdPowerManager *manager)
 {
         g_debug ("Stopping power manager");
 
+        /* We won't bother calling iio_proxy_claim_light(manager, false) because we're exiting, which will end up releasing it anyhow.
+         * Just cancel anything in-flight. */
+        g_cancellable_cancel (manager->priv->iio_cancellable);
+        g_clear_object (&manager->priv->iio_cancellable);
+
         if (manager->priv->bus_cancellable != NULL) {
                 g_cancellable_cancel (manager->priv->bus_cancellable);
                 g_object_unref (manager->priv->bus_cancellable);
@@ -4196,6 +4764,15 @@ csd_power_manager_stop (CsdPowerManager *manager)
         }
 
         kill_lid_close_safety_timer (manager);
+        ambient_cancel_timers (manager);
+        if (manager->priv->iio_proxy_watch_id != 0)
+                g_bus_unwatch_name (manager->priv->iio_proxy_watch_id);
+        manager->priv->iio_proxy_watch_id = 0;
+        if (manager->priv->iio_proxy != NULL)
+                g_signal_handlers_disconnect_by_func (manager->priv->iio_proxy,
+                                                      G_CALLBACK (iio_proxy_changed_cb),
+                                                      manager);
+        g_clear_object (&manager->priv->iio_proxy);
 
         g_signal_handlers_disconnect_by_data (manager->priv->up_client, manager);
 
@@ -4490,8 +5067,10 @@ handle_method_call_screen (CsdPowerManager *manager,
                         g_debug ("screen set percentage");
                         g_variant_get (parameters, "(u)", &value_tmp);
                         ret = backlight_set_percentage (manager, value_tmp, TRUE, &error);
-                        if (ret)
+                        if (ret) {
                                 value = value_tmp;
+                                ambient_renormalize (manager, (gdouble) value);
+                        }
                 }
 
                 /* return value */
@@ -4529,6 +5108,8 @@ handle_method_call_screen (CsdPowerManager *manager,
                         g_dbus_method_invocation_return_value (invocation,
                                                                g_variant_new ("(uii)",
                                                                               value, x, y));
+
+                    ambient_renormalize (manager, (gdouble) value);
                 }
         } else {
                 g_assert_not_reached ();

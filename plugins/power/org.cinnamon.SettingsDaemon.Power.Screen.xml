@@ -23,5 +23,7 @@
     </method>
     <signal name='Changed'>
     </signal>
+    <property name='AmbientLightSupported' type='b' access='read'>
+    </property>
   </interface>
 </node>
