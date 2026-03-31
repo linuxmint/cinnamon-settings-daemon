@@ -42,7 +42,13 @@ csd_should_ignore_unix_mount (GUnixMountEntry *mount)
          * purpose
          */
 
-         /* We also ignore network filesystems */
+         /* We also ignore network filesystems and FUSE-based
+          * network mounts. FUSE network filesystems (e.g. sshfs)
+          * can block on statvfs() when the remote host is
+          * unreachable, causing the process to enter
+          * uninterruptible sleep (D state) and preventing
+          * system suspend.
+          */
 
         const gchar *ignore_fs[] = {
                 "adfs",
@@ -56,6 +62,13 @@ csd_should_ignore_unix_mount (GUnixMountEntry *mount)
                 "devpts",
                 "ecryptfs",
                 "fdescfs",
+                "fuse.cephfuse",
+                "fuse.davfs2",
+                "fuse.glusterfs",
+                "fuse.gvfsd-fuse",
+                "fuse.rclone",
+                "fuse.s3fs",
+                "fuse.sshfs",
                 "gfs",
                 "gfs2",
                 "kernfs",
