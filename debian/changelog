@@ -1,3 +1,25 @@
+cinnamon-settings-daemon (6.7.0) unstable; urgency=medium
+
+  [ Oliver Kästner ]
+  * housekeeping: drop ldsm-dialog fallback (#433)
+
+  [ Michael Webster ]
+  * power: Remove GpmIdleTime, use libcinnamon-desktop IdleMonitor. (#436)
+  * csd-power-manager.c: Don't turn monitors off before suspend/hibernate. (#442)
+  * daemon-skeleton: Try to fix verbose mode again...
+  * csd-background: Run as a wayland client if gtk-layer-shell is (#437)
+  * Add stale workflow.
+  * common: Remove unused csd-keygrab.*
+
+  [ Oliver Kästner ]
+  * power: drop Phone Manager (#430)
+
+  [ Michael Webster ]
+  * Add support for an ambient light sensor. (#444)
+  * csd-automount: Disable autostart. (#445)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 13 Apr 2026 08:32:00 +0100
+
 cinnamon-settings-daemon (6.6.3) zena; urgency=medium
 
   [ Michael Webster ]
