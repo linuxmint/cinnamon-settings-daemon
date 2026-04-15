@@ -20,8 +20,6 @@ csd_lib = static_library(
     csd_sources,
     include_directories: include_dirs,
     dependencies: csd_deps,
-    install: true,
-    install_dir: apilibdir,
 )
 
 csd_dep = declare_dependency(
