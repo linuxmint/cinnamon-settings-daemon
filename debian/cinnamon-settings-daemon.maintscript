@@ -5,3 +5,4 @@ rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-mouse.desktop 5.3.0~
 rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-orientation.desktop 5.3.0~
 rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-sound.desktop 5.3.0~
 rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-xrandr.desktop 5.3.0~
+rm_conffile /etc/xdg/autostart/cinnamon-settings-daemon-automount.desktop 6.7.0~
