@@ -210,7 +210,7 @@ save_targets (CsdClipboardManager *manager,
         Atom       *multiple;
         TargetData *tdata;
 
-        multiple = (Atom *) malloc (2 * nitems * sizeof (Atom));
+        multiple = (Atom *) calloc (nitems, 2 * sizeof (Atom));
 
         nout = 0;
         for (i = 0; i < nitems; i++) {
@@ -355,7 +355,12 @@ receive_incrementally (CsdClipboardManager *manager,
                         tdata->data = data;
                         tdata->length = length;
                 } else {
-                        tdata->data = realloc (tdata->data, tdata->length + length + 1);
+                        unsigned char *new_data = realloc (tdata->data, tdata->length + length + 1);
+                        if (!new_data) {
+                                XFree (data);
+                                return False;
+                        }
+                        tdata->data = new_data;
                         memcpy (tdata->data + tdata->length, data, length + 1);
                         tdata->length += length;
                         XFree (data);
@@ -515,7 +520,7 @@ convert_clipboard_target (IncrConversion      *rdata,
 
         if (rdata->target == XA_TARGETS) {
                 n_targets = list_length (manager->priv->contents) + 2;
-                targets = (Atom *) malloc (n_targets * sizeof (Atom));
+                targets = (Atom *) calloc (n_targets, sizeof (Atom));
 
                 n_targets = 0;
 
