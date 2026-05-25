@@ -199,9 +199,12 @@ on_prepare_for_sleep (GDBusProxy *proxy,
                       gchar      *signal_name,
                       GVariant   *parameters,
                       gpointer    user_data)
-{
+ {
     CsdKeyboardManager *manager = CSD_KEYBOARD_MANAGER (user_data);
     GVariant *child;
+
+    if (g_strcmp0 (signal_name, "PrepareForSleep") != 0)
+        return;
 
     child = g_variant_get_child_value (parameters, 0);
     if (child != NULL && !g_variant_get_boolean (child)) {
