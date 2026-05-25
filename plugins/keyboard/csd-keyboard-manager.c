@@ -36,6 +36,8 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <X11/XKBlib.h>
+#include <X11/keysym.h>
 
 #include "cinnamon-settings-profile.h"
 #include "cinnamon-settings-session.h"
@@ -74,6 +76,7 @@ struct _CsdKeyboardManager
         GSettings *settings;
         GSettings *input_sources_settings;
         GDBusProxy *localed;
+        GDBusProxy *logind_proxy;
         GCancellable *cancellable;
 };
 
@@ -152,9 +155,93 @@ apply_bell (CsdKeyboardManager *manager)
 }
 
 static void
+apply_numlock (CsdKeyboardManager *manager)
+{
+    GSettings *settings;
+    gboolean remember;
+    CsdNumLockState state;
+    Display *display;
+    unsigned int mask;
+
+    if (cinnamon_settings_session_is_wayland ())
+        return;
+
+    settings = manager->settings;
+    remember = g_settings_get_boolean (settings, "remember-numlock-state");
+
+    if (!remember)
+        return;
+
+    state = g_settings_get_enum (settings, "numlock-state");
+
+    if (state == CSD_NUM_LOCK_STATE_UNKNOWN)
+        return;
+
+    display = GDK_DISPLAY_XDISPLAY (gdk_display_get_default ());
+    if (display == NULL)
+        return;
+
+    mask = XkbKeysymToModifiers (display, XK_Num_Lock);
+    if (mask == 0)
+        return;
+
+    g_debug ("Applying numlock state: %s", state == CSD_NUM_LOCK_STATE_ON ? "on" : "off");
+
+    gdk_error_trap_push ();
+    XkbLockModifiers (display, XkbUseCoreKbd, mask, state == CSD_NUM_LOCK_STATE_ON ? mask : 0);
+    XFlush (display);
+    gdk_error_trap_pop_ignored ();
+}
+
+static void
+on_prepare_for_sleep (GDBusProxy *proxy,
+                      gchar      *sender_name,
+                      gchar      *signal_name,
+                      GVariant   *parameters,
+                      gpointer    user_data)
+{
+    CsdKeyboardManager *manager = CSD_KEYBOARD_MANAGER (user_data);
+    GVariant *child;
+
+    child = g_variant_get_child_value (parameters, 0);
+    if (child != NULL && !g_variant_get_boolean (child)) {
+        g_debug ("System resumed from suspend, reapplying settings");
+        apply_numlock (manager);
+    }
+    if (child != NULL)
+        g_variant_unref (child);
+}
+
+static void
+logind_proxy_ready (GObject      *source,
+                    GAsyncResult *res,
+                    gpointer      data)
+{
+    CsdKeyboardManager *manager = data;
+    GDBusProxy *proxy;
+    GError *error = NULL;
+
+    proxy = g_dbus_proxy_new_finish (res, &error);
+    if (!proxy) {
+        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+            g_error_free (error);
+            return;
+        }
+        g_debug ("Failed to contact logind: %s", error->message);
+        g_error_free (error);
+        return;
+    }
+
+    manager->logind_proxy = proxy;
+    g_signal_connect (proxy, "g-signal",
+                      G_CALLBACK (on_prepare_for_sleep), manager);
+}
+
+static void
 apply_all_settings (CsdKeyboardManager *manager)
 {
     apply_bell (manager);
+    apply_numlock (manager);
 }
 
 static void
@@ -322,6 +409,16 @@ start_keyboard_idle_cb (CsdKeyboardManager *manager)
                                   localed_proxy_ready,
                                   manager);
 
+        g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  NULL,
+                                  "org.freedesktop.login1",
+                                  "/org/freedesktop/login1",
+                                  "org.freedesktop.login1.Manager",
+                                  manager->cancellable,
+                                  logind_proxy_ready,
+                                  manager);
+
         if (!cinnamon_settings_session_is_wayland ()) {
                 /* apply current settings before we install the callback */
                 g_debug ("Started the keyboard plugin, applying all settings");
@@ -363,6 +460,7 @@ csd_keyboard_manager_stop (CsdKeyboardManager *manager)
         g_clear_object (&manager->settings);
         g_clear_object (&manager->input_sources_settings);
         g_clear_object (&manager->localed);
+        g_clear_object (&manager->logind_proxy);
 }
 
 static void
