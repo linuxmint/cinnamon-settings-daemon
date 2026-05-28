@@ -936,23 +936,40 @@ do_sound_action (CsdMediaKeysManager *manager,
                         new_vol_pa = 0;
                         new_muted = TRUE;
                 } else {
+#ifdef __FreeBSD__
+                        /* See volume-up comment: use simple subtraction on FreeBSD
+                         * to avoid OSS volume quantization issues. */
+                        new_vol_pa = old_vol_pa - vol_step_pa;
+#else
                         if (old_vol_pa % vol_step_pa > 0 && !CROSSING_PA_NORM (old_vol_pa, vol_step_pa)) {
                                 new_vol_pa = (old_vol_pa / vol_step_pa * vol_step_pa);
                         } else {
 
                                 new_vol_pa = (old_vol_pa / vol_step_pa * vol_step_pa) - vol_step_pa;
                         }
+#endif
                 }
                 break;
         case C_DESKTOP_MEDIA_KEY_VOLUME_UP:
                 new_muted = FALSE;
                 /* When coming out of mute only increase the volume if it was 0 */
                 if (!old_muted || old_vol_pa == 0) {
+#ifdef __FreeBSD__
+                        /* On FreeBSD, PulseAudio uses the OSS backend which has only
+                         * 101 discrete volume levels. The grid-aligned stepping below
+                         * can get stuck because the target value falls just below an
+                         * OSS step boundary after truncation, causing repeated presses
+                         * to compute the same (truncated) result. Simple addition
+                         * avoids this by always advancing relative to the actual
+                         * current volume. */
+                        new_vol_pa = MIN (old_vol_pa + vol_step_pa, max_vol_pa);
+#else
                         if (old_vol_pa % vol_step_pa > 0 && !CROSSING_PA_NORM (old_vol_pa, vol_step_pa)) {
                                 new_vol_pa = MIN (old_vol_pa / vol_step_pa * vol_step_pa + vol_step_pa, max_vol_pa);
                         } else {
                                 new_vol_pa = MIN (old_vol_pa / vol_step_pa * vol_step_pa + vol_step_pa, max_vol_pa);
                         }
+#endif
                 }
                 break;
         }
