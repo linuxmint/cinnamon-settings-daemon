@@ -54,6 +54,11 @@
       <default>true</default>
       <summary>Whether the tablet's orientation is locked, or rotated automatically.</summary>
     </key>
+    <key name="disable-rotation-in-laptop-mode" type="b">
+      <default>true</default>
+      <summary>Do not auto-rotate the screen while in laptop mode.</summary>
+      <description>When automatic screen rotation is enabled, suppress it while the device is in laptop (clamshell) mode, following the accelerometer only once folded into tablet mode. Devices with no tablet-mode switch are unaffected.</description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.input-devices" path="/org/cinnamon/settings-daemon/peripherals/input-devices/">
     <key name="hotplug-command" type="s">
