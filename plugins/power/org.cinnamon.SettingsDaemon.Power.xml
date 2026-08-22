@@ -8,6 +8,8 @@
     </property>
     <property name='Percentage' type='u' access='read'>
     </property>
+    <property name='State' type='u' access='read'>
+    </property>
     <method name='GetPrimaryDevice'>
       <arg name='device' type='(sssusduut)' direction='out' />
     </method>
