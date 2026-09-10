@@ -189,6 +189,10 @@ csd_wacom_manager_class_init (CsdWacomManagerClass *klass)
 static gchar *
 get_device_path (GdkDevice *device)
 {
+#ifdef GDK_WINDOWING_WAYLAND
+        if (GDK_IS_WAYLAND_DEVICE (device))
+                return g_strdup (gdk_wayland_device_get_node_path (device));
+#endif
         return xdevice_get_device_node (gdk_x11_device_get_id (device));
 }
 
@@ -202,8 +206,12 @@ is_opaque_tablet (CsdWacomManager *manager,
         gchar *devpath;
 
         devpath = get_device_path (device);
+        if (!devpath)
+                return FALSE;
+
         wacom_device = libwacom_new_from_path (manager->wacom_db, devpath,
                                                WFALLBACK_GENERIC, NULL);
+        g_free (devpath);
         if (wacom_device) {
                 WacomIntegrationFlags integration_flags;
 
