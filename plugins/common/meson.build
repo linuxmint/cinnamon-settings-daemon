@@ -12,7 +12,6 @@ common_deps = [
 ]
 
 if gtk_layer_shell_enabled
-    common_sources += 'wayland-utils.c'
     common_deps += wayland_client
 endif
 

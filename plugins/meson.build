@@ -8,7 +8,6 @@ ln_script = join_paths(meson.project_source_root(), 'install-scripts', 'meson_mk
 subdir('common')
 subdir('a11y-settings')
 subdir('automount')
-subdir('background')
 subdir('clipboard')
 subdir('datetime')
 subdir('housekeeping')
