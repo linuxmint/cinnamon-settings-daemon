@@ -182,6 +182,7 @@ struct CsdPowerManagerPrivate
         gboolean                 use_time_primary;
         GIcon                   *previous_icon;
         guint                    previous_percentage;
+        guint                    previous_charge_state;
         GPtrArray               *devices_array;
         guint                    action_percentage;
         guint                    action_time;
@@ -441,7 +442,8 @@ typedef enum {
 static void
 engine_emit_changed (CsdPowerManager *manager,
                      gboolean         icon_changed,
-                     gboolean         percentage_changed)
+                     gboolean         percentage_changed,
+                     gboolean         charge_state_changed)
 {
         /* not yet connected to the bus */
         if (manager->priv->power_iface == NULL)
@@ -466,6 +468,12 @@ engine_emit_changed (CsdPowerManager *manager,
         if (percentage_changed) {
                 csd_power_set_percentage (manager->priv->power_iface,
                                           manager->priv->previous_percentage);
+                need_flush = TRUE;
+        }
+
+        if (charge_state_changed) {
+                csd_power_set_state (manager->priv->power_iface,
+                                     manager->priv->previous_charge_state);
                 need_flush = TRUE;
         }
 
@@ -791,18 +799,63 @@ engine_recalculate_state_percentage (CsdPowerManager *manager)
         return FALSE;
 }
 
+static guint
+engine_get_battery_charge_state (CsdPowerManager *manager)
+{
+        guint i;
+        GPtrArray *array;
+        UpDevice *device;
+        UpDeviceKind kind;
+        gboolean is_present;
+        UpDeviceState state = UP_DEVICE_STATE_UNKNOWN;
+
+        array = manager->priv->devices_array;
+        for (i = 0; i < array->len; i++) {
+                device = g_ptr_array_index (array, i);
+                g_object_get (device,
+                              "kind", &kind,
+                              "is-present", &is_present,
+                              NULL);
+
+                if (!is_present || kind != UP_DEVICE_KIND_BATTERY)
+                        continue;
+
+                device = engine_get_composite_device (manager, device);
+                g_object_get (device, "state", &state, NULL);
+                return (guint) state;
+        }
+
+        return (guint) UP_DEVICE_STATE_UNKNOWN;
+}
+
+static gboolean
+engine_recalculate_state_charge_state (CsdPowerManager *manager)
+{
+        guint charge_state;
+
+        charge_state = engine_get_battery_charge_state (manager);
+        if (manager->priv->previous_charge_state != charge_state) {
+                manager->priv->previous_charge_state = charge_state;
+                return TRUE;
+        }
+
+        return FALSE;
+}
+
 static void
 engine_recalculate_state (CsdPowerManager *manager)
 {
         gboolean icon_changed = FALSE;
         gboolean percentage_changed = FALSE;
+        gboolean charge_state_changed = FALSE;
 
         icon_changed = engine_recalculate_state_icon (manager);
         percentage_changed = engine_recalculate_state_percentage (manager);
+        charge_state_changed = engine_recalculate_state_charge_state (manager);
 
-        /* emit if the icon or percentage has changed */
-        if (icon_changed || percentage_changed)
-                engine_emit_changed (manager, icon_changed, percentage_changed);
+        /* emit if the icon, percentage, or charge state has changed */
+        if (icon_changed || percentage_changed || charge_state_changed)
+                engine_emit_changed (manager, icon_changed, percentage_changed, charge_state_changed);
 }
 
 static UpDevice *
@@ -4886,6 +4939,7 @@ csd_power_manager_init (CsdPowerManager *manager)
         manager->priv = CSD_POWER_MANAGER_GET_PRIVATE (manager);
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
+        manager->priv->previous_charge_state = G_MAXUINT;
 }
 
 static void
