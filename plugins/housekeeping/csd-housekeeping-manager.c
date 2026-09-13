@@ -26,6 +26,7 @@
 #include "cinnamon-settings-profile.h"
 #include "csd-housekeeping-manager.h"
 #include "csd-disk-space.h"
+#include "csd-systemd-notify.h"
 
 
 /* General */
@@ -42,6 +43,8 @@ struct CsdHousekeepingManagerPrivate {
         GSettings *settings;
         guint long_term_cb;
         guint short_term_cb;
+
+        CsdSystemdNotify *systemd_notify;
 };
 
 
@@ -294,6 +297,8 @@ csd_housekeeping_manager_start (CsdHousekeepingManager *manager,
                                       (GSourceFunc) do_cleanup,
                                       manager);
 
+        manager->priv->systemd_notify = g_object_new (CSD_TYPE_SYSTEMD_NOTIFY, NULL);
+
         cinnamon_settings_profile_end (NULL);
 
         return TRUE;
@@ -305,6 +310,8 @@ csd_housekeeping_manager_stop (CsdHousekeepingManager *manager)
         CsdHousekeepingManagerPrivate *p = manager->priv;
 
         g_debug ("Stopping housekeeping manager");
+
+        g_clear_object (&p->systemd_notify);
 
         if (p->short_term_cb) {
                 g_source_remove (p->short_term_cb);
