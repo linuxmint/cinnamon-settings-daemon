@@ -174,6 +174,10 @@ struct CsdPowerManagerPrivate
         gboolean                 skip_unsupported_xrandr;
         gboolean				backlight_helper_force;
         gchar*                  backlight_helper_preference_args;
+        gint                     backlight_helper_target;
+        gint                     backlight_helper_max;
+        gboolean                 backlight_helper_write_in_flight;
+        gint                     backlight_helper_pending;
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
@@ -2526,49 +2530,107 @@ out:
 }
 
 /**
- * backlight_helper_set_value:
- *
- * Sets a brightness value using the PolicyKit helper.
- *
- * Return value: Success. If FALSE then @error is set.
+ * Cached get-max-brightness: the maximum never changes at runtime, yet the
+ * old code spawned the helper to re-read it on every single step.
  **/
-static gboolean
-backlight_helper_set_value (const gchar *argument,
-                            gint value,
-                            CsdPowerManager* manager,
-                            GError **error)
+static gint
+backlight_helper_get_max (CsdPowerManager *manager, GError **error)
+{
+        gint64 max;
+
+        if (manager->priv->backlight_helper_max > 0)
+                return manager->priv->backlight_helper_max;
+
+        max = backlight_helper_get_value ("get-max-brightness", manager, error);
+        if (max > 0)
+                manager->priv->backlight_helper_max = max;
+        return max;
+}
+
+static void backlight_helper_flush_pending (CsdPowerManager *manager);
+
+static void
+backlight_helper_write_done_cb (GPid pid, gint status, gpointer user_data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
+
+        g_spawn_close_pid (pid);
+        manager->priv->backlight_helper_write_in_flight = FALSE;
+
+        if (manager->priv->backlight_helper_pending >= 0) {
+                /* more requests arrived while we were writing - write the
+                 * final value only (coalescing) */
+                backlight_helper_flush_pending (manager);
+        }
+}
+
+static void
+backlight_helper_flush_pending (CsdPowerManager *manager)
 {
         gboolean ret;
-        gint exit_status = 0;
         gchar *command = NULL;
+        gchar **argv = NULL;
+        GPid pid;
+        GError *error = NULL;
+        gint value = manager->priv->backlight_helper_pending;
 
-#ifndef __linux__
-        /* non-Linux platforms won't have /sys/class/backlight */
-        g_set_error_literal (error,
-                             CSD_POWER_MANAGER_ERROR,
-                             CSD_POWER_MANAGER_ERROR_FAILED,
-                             "The sysfs backlight helper is only for Linux");
-        goto out;
-#endif
+        if (value < 0 || manager->priv->backlight_helper_write_in_flight)
+                return;
 
-        /* get the data */
-        command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-backlight-helper --%s %i %s",
-                                   argument, value,
+        manager->priv->backlight_helper_pending = -1;
+        manager->priv->backlight_helper_write_in_flight = TRUE;
+
+        command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-backlight-helper --set-brightness %i %s",
+                                   value,
                                    manager->priv->backlight_helper_preference_args);
-        ret = g_spawn_command_line_sync (command,
-                                         NULL,
-                                         NULL,
-                                         &exit_status,
-                                         error);
-
-        g_debug ("executed %s retval: %i", command, exit_status);
-
-        if (!ret || WEXITSTATUS (exit_status) != 0)
+        if (!g_shell_parse_argv (command, NULL, &argv, &error)) {
+                g_warning ("failed to parse brightness helper command: %s", error->message);
+                g_error_free (error);
+                manager->priv->backlight_helper_write_in_flight = FALSE;
                 goto out;
+        }
 
+        ret = g_spawn_async (NULL, argv, NULL,
+                             G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH |
+                             G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL,
+                             NULL, NULL, &pid, &error);
+        if (!ret) {
+                g_warning ("failed to spawn brightness helper: %s", error->message);
+                g_error_free (error);
+                manager->priv->backlight_helper_write_in_flight = FALSE;
+                goto out;
+        }
+
+        g_child_watch_add (pid, backlight_helper_write_done_cb, manager);
 out:
         g_free (command);
-        return ret;
+        g_strfreev (argv);
+}
+
+/**
+ * backlight_helper_queue_write:
+ *
+ * Asynchronous, coalescing replacement for the old synchronous
+ * "pkexec csd-backlight-helper --set-brightness" call.
+ *
+ * The old code blocked the main loop for the whole pkexec round-trip on
+ * EVERY StepUp/StepDown call.  Keyboard autorepeat (~30 Hz) produces steps
+ * several times faster than that, so holding the brightness key piled the
+ * calls up in the daemon's D-Bus queue: brightness kept "running" long
+ * after the key was released, and an opposite key press had to wait for
+ * the whole tail of the queue before taking effect.
+ *
+ * Now each request just records the desired value and returns; at most one
+ * helper is in flight, and when it finishes only the LAST requested value
+ * is written.  The queue can no longer outgrow one element.
+ **/
+static gboolean
+backlight_helper_queue_write (CsdPowerManager *manager, gint value)
+{
+        manager->priv->backlight_helper_target = value;
+        manager->priv->backlight_helper_pending = value;
+        backlight_helper_flush_pending (manager);
+        return TRUE;
 }
 
 static void
@@ -2641,14 +2703,20 @@ backlight_get_percentage (CsdPowerManager *manager, GError **error)
         }
 
         /* fall back to the polkit helper */
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
+        max = backlight_helper_get_max (manager, error);
         if (max < 0) {
                 goto out;
             }
-        now = backlight_helper_get_value ("get-brightness", manager, error);
-        if (now < 0) {
-                goto out;
-            }
+        /* while writes are being coalesced the hardware lags behind the last
+         * requested value - report the target so callers see fresh state */
+        if (manager->priv->backlight_helper_target >= 0) {
+                now = manager->priv->backlight_helper_target;
+        } else {
+                now = backlight_helper_get_value ("get-brightness", manager, error);
+                if (now < 0) {
+                        goto out;
+                    }
+        }
 
         value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, now);
 out:
@@ -2686,6 +2754,8 @@ backlight_set_percentage (CsdPowerManager *manager,
                             ret = gnome_rr_output_set_backlight (output,
                                                                  CLAMP (value, 0, 100),
                                                                  &grr_error);
+                            if (ret)
+                                goto out;
                             if (grr_error != NULL) {
                                 g_debug ("Could not set backlight using xrandr: %s", grr_error->message);
                                 g_error_free (grr_error);
@@ -2703,15 +2773,12 @@ backlight_set_percentage (CsdPowerManager *manager,
         gint new;
 
         /* fall back to the polkit helper */
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
+        max = backlight_helper_get_max (manager, error);
         if (max < 0)
                 goto out;
 
         new = CLAMP (PERCENTAGE_TO_ABS (min_abs_brightness (manager, min, max), max, value), min_abs_brightness (manager, min, max), max);
-        ret = backlight_helper_set_value ("set-brightness",
-                                          new,
-                                          manager,
-                                          error);
+        ret = backlight_helper_queue_write (manager, new);
 out:
         if (ret && emit_changed)
                 backlight_emit_changed (manager);
@@ -2770,18 +2837,22 @@ backlight_step_up (CsdPowerManager *manager, GError **error)
         gint min = 0;
 
         /* fall back to the polkit helper */
-        current = backlight_helper_get_value ("get-brightness", manager, error);
-        if (current < 0)
-                goto out;
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
+        max = backlight_helper_get_max (manager, error);
         if (max < 0)
                 goto out;
+        /* step from the last requested value, not from the hardware: while
+         * writes are coalesced the hardware lags behind, and stepping from a
+         * stale reading would make held-down keys lose steps */
+        if (manager->priv->backlight_helper_target >= 0) {
+                current = manager->priv->backlight_helper_target;
+        } else {
+                current = backlight_helper_get_value ("get-brightness", manager, error);
+                if (current < 0)
+                        goto out;
+        }
         step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
         new = MIN (current + step, max);
-        ret = backlight_helper_set_value ("set-brightness",
-                                          new,
-                                          manager,
-                                          error);
+        ret = backlight_helper_queue_write (manager, new);
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, new);
 out:
@@ -2842,18 +2913,21 @@ backlight_step_down (CsdPowerManager *manager, GError **error)
         gint max = 0;
 
         /* fall back to the polkit helper */
-        current = backlight_helper_get_value ("get-brightness", manager, error);
-        if (current < 0)
-                goto out;
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
+        max = backlight_helper_get_max (manager, error);
         if (max < 0)
                 goto out;
+        /* step from the last requested value, not from the hardware (see
+         * backlight_step_up) */
+        if (manager->priv->backlight_helper_target >= 0) {
+                current = manager->priv->backlight_helper_target;
+        } else {
+                current = backlight_helper_get_value ("get-brightness", manager, error);
+                if (current < 0)
+                        goto out;
+        }
         step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
         new = MAX (current - step, min_abs_brightness (manager, min, max));
-        ret = backlight_helper_set_value ("set-brightness",
-                                          new,
-                                          manager,
-                                          error);
+        ret = backlight_helper_queue_write (manager, new);
         if (ret)
                 percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, new);
 out:
@@ -4886,6 +4960,10 @@ csd_power_manager_init (CsdPowerManager *manager)
         manager->priv = CSD_POWER_MANAGER_GET_PRIVATE (manager);
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
+        manager->priv->backlight_helper_target = -1;
+        manager->priv->backlight_helper_max = -1;
+        manager->priv->backlight_helper_write_in_flight = FALSE;
+        manager->priv->backlight_helper_pending = -1;
 }
 
 static void
