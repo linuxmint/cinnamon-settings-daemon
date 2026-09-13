@@ -210,7 +210,7 @@ name_vanished_cb (GDBusConnection            *connection,
                 }
         }
 
-        g_hash_table_remove (manager->priv->watch_ht, sender);
+        g_hash_table_remove (manager->priv->watch_ht, name);
 }
 
 static void
@@ -277,6 +277,8 @@ handle_method_call (GDBusConnection       *connection,
                                         parameters,
                                         G_DBUS_CALL_FLAGS_NONE,
                                         -1, NULL, NULL);
+                g_hash_table_remove (manager->priv->cookie_ht,
+                                     GUINT_TO_POINTER (cookie));
                 g_dbus_method_invocation_return_value (invocation, NULL);
         } else if (g_strcmp0 (method_name, "Throttle") == 0) {
                 g_dbus_method_invocation_return_value (invocation, NULL);
