@@ -69,6 +69,7 @@
 #define TEXT_SCALING_FACTOR_KEY "text-scaling-factor"
 #define SCALING_FACTOR_KEY "scaling-factor"
 #define CURSOR_SIZE_KEY "cursor-size"
+#define CURSOR_THEME_KEY "cursor-theme"
 #define ANIMATIONS_KEY "enable-animations"
 
 #define FONT_ANTIALIASING_KEY "antialiasing"
@@ -619,6 +620,7 @@ typedef struct {
         int         dpi;
         int         window_scale;
         int         cursor_size;
+        char       *cursor_theme;
         const char *rgba;
         const char *hintstyle;
 } CinnamonSettingsXftSettings;
@@ -651,6 +653,7 @@ xft_settings_get (CinnamonSettingsXSettingsManager *manager,
         settings->scaled_dpi = dpi * settings->window_scale * 1024;
         cursor_size = g_settings_get_int (interface_settings, CURSOR_SIZE_KEY);
         settings->cursor_size = cursor_size * settings->window_scale;
+        settings->cursor_theme = g_settings_get_string (interface_settings, CURSOR_THEME_KEY);
 
         settings->rgba = "rgb";
         settings->hintstyle = "hintfull";
@@ -722,6 +725,7 @@ xft_settings_set_xsettings (CinnamonSettingsXSettingsManager *manager,
                 xsettings_manager_set_int (manager->priv->managers [i], "Xft/DPI", settings->scaled_dpi);
                 xsettings_manager_set_string (manager->priv->managers [i], "Xft/RGBA", settings->rgba);
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/CursorThemeSize", settings->cursor_size);
+                xsettings_manager_set_string (manager->priv->managers [i], "Gtk/CursorThemeName", settings->cursor_theme);
                 xsettings_manager_set_int (manager->priv->managers [i], "Gtk/EnableAnimations", manager->priv->enable_animations);
         }
         cinnamon_settings_profile_end (NULL);
@@ -733,14 +737,23 @@ update_property (GString *props, const gchar* key, const gchar* value)
         gchar* needle;
         size_t needle_len;
         gchar* found = NULL;
+        gchar* line;
 
-        /* update an existing property */
+        /* Update an existing property, matching only at the start of a line, so an
+         * app-qualified resource like "xterm*Xcursor.theme" isn't mistaken for ours. */
         needle = g_strconcat (key, ":", NULL);
         needle_len = strlen (needle);
-        if (g_str_has_prefix (props->str, needle))
-                found = props->str;
-        else 
-            found = strstr (props->str, needle);
+
+        for (line = props->str; line != NULL; line = strchr (line, '\n')) {
+                if (line != props->str) {
+                        line++;
+                }
+
+                if (g_str_has_prefix (line, needle)) {
+                        found = line;
+                        break;
+                }
+        }
 
         if (found) {
                 size_t value_index;
@@ -752,6 +765,10 @@ update_property (GString *props, const gchar* key, const gchar* value)
                 g_string_insert (props, value_index, "\n");
                 g_string_insert (props, value_index, value);
         } else {
+                if (props->len > 0 && props->str[props->len - 1] != '\n') {
+                        g_string_append_c (props, '\n');
+                }
+
                 g_string_append_printf (props, "%s:\t%s\n", key, value);
         }
 
@@ -784,6 +801,9 @@ xft_settings_set_xresources (CinnamonSettingsXftSettings *settings)
                                 settings->hintstyle);
         update_property (add_string, "Xft.rgba",
                                 settings->rgba);
+        g_snprintf (dpibuf, sizeof (dpibuf), "%d", settings->cursor_size);
+        update_property (add_string, "Xcursor.size", dpibuf);
+        update_property (add_string, "Xcursor.theme", settings->cursor_theme);
 
         g_debug("xft_settings_set_xresources: new res '%s'", add_string->str);
 
@@ -795,6 +815,12 @@ xft_settings_set_xresources (CinnamonSettingsXftSettings *settings)
         g_string_free (add_string, TRUE);
 
         cinnamon_settings_profile_end (NULL);
+}
+
+static void
+xft_settings_clear (CinnamonSettingsXftSettings *settings)
+{
+        g_clear_pointer (&settings->cursor_theme, g_free);
 }
 
 /* We mirror the Xft properties both through XSETTINGS and through
@@ -810,6 +836,7 @@ update_xft_settings (CinnamonSettingsXSettingsManager *manager)
         xft_settings_get (manager, &settings);
         xft_settings_set_xsettings (manager, &settings);
         xft_settings_set_xresources (&settings);
+        xft_settings_clear (&settings);
 
         cinnamon_settings_profile_end (NULL);
 }
@@ -978,7 +1005,8 @@ xsettings_callback (GSettings             *settings,
 
         if (g_str_equal (key, TEXT_SCALING_FACTOR_KEY) ||
             g_str_equal (key, SCALING_FACTOR_KEY) ||
-            g_str_equal (key, CURSOR_SIZE_KEY)) {
+            g_str_equal (key, CURSOR_SIZE_KEY) ||
+            g_str_equal (key, CURSOR_THEME_KEY)) {
             xft_callback (NULL, key, manager);
             return;
 	}
