@@ -48,6 +48,7 @@
 #include "cinnamon-settings-session.h"
 #include "csd-enums.h"
 #include "csd-power-manager.h"
+#include "csd-power-state.h"
 #include "csd-power-helper.h"
 #include "csd-power-proxy.h"
 #include "csd-power-screen-proxy.h"
@@ -761,8 +762,8 @@ engine_recalculate_state_percentage (CsdPowerManager *manager)
         UpDeviceKind kind;
         gboolean is_present;
         gdouble percentage;
-        guint percentage_uint;
         GPtrArray *array;
+        CsdPowerPercentageState state = { 0 };
 
         array = manager->priv->devices_array;
         for (i = 0; i < array->len; i++) {
@@ -770,25 +771,24 @@ engine_recalculate_state_percentage (CsdPowerManager *manager)
                 g_object_get (device,
                               "kind", &kind,
                               "is-present", &is_present,
-                              "percentage", &percentage,
                               NULL);
-
-                if (!is_present)
-                        continue;
 
                 if (kind == UP_DEVICE_KIND_BATTERY)
                         device = engine_get_composite_device (manager, device);
 
                 g_object_get (device, "percentage", &percentage, NULL);
-                percentage_uint = (guint) CLAMP (percentage, 0.0, 100.0);
-
-                if (manager->priv->previous_percentage != percentage_uint) {
-                        manager->priv->previous_percentage = percentage_uint;
-                        return TRUE;
-                }
+                csd_power_percentage_state_consider (&state,
+                                                     kind,
+                                                     is_present,
+                                                     percentage);
         }
 
-        return FALSE;
+        if (!state.valid ||
+            manager->priv->previous_percentage == state.percentage)
+                return FALSE;
+
+        manager->priv->previous_percentage = state.percentage;
+        return TRUE;
 }
 
 static void
