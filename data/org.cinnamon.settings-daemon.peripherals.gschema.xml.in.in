@@ -36,17 +36,15 @@
     </key>
     <key name="remember-numlock-state" type="b">
       <default>true</default>
-      <summary>Remember NumLock state</summary>
-      <description>When set to true, GNOME will remember the state of the NumLock LED between sessions.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.keyboard</summary>
     </key>
     <key name="numlock-state" enum="org.cinnamon.settings-daemon.CsdNumLockState">
       <default>'unknown'</default>
-      <summary>NumLock state</summary>
-      <description>The remembered state of the NumLock LED.</description>
+      <summary>deprecated - see org.cinnamon.desktop.peripherals.keyboard</summary>
     </key>
     <key name="input-sources-switcher" enum="org.cinnamon.settings-daemon.CsdInputSourcesSwitcher">
       <default>'off'</default>
-      <summary>Modifiers-only input sources switcher shortcut</summary>
+      <summary>deprecated - this key does nothing</summary>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.peripherals.touchscreen" path="/org/cinnamon/settings-daemon/peripherals/touchscreen/">
