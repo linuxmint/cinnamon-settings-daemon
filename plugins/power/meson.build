@@ -29,6 +29,7 @@ power_keyboard_proxy = gnome.gdbus_codegen(
 
 power_sources = [
     'csd-power-manager.c',
+    'csd-power-state.c',
     'gpm-common.c',
     'main.c',
     power_proxy,
@@ -51,6 +52,18 @@ power_deps = [
     upower_glib,
     xext,
 ]
+
+test_power_state = executable(
+    'test-power-state',
+    [
+        'test-power-state.c',
+        'csd-power-state.c',
+    ],
+    include_directories: [include_dirs, common_inc],
+    dependencies: [glib, upower_glib],
+)
+
+test('power-state', test_power_state)
 
 executable(
     'csd-power',
