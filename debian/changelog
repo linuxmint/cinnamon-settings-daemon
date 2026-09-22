@@ -1,3 +1,18 @@
+cinnamon-settings-daemon (6.7.5) adrien; urgency=medium
+
+  [ Michael Webster ]
+  * schemas: Update some key descriptions.
+  * csd-power-manager.c: Remove duplicate lid-close handling.
+  * build: Remove leftover dependencies from background plugin removal
+
+  [ Arkadiusz Miszczyszyn ]
+  * wacom: Use the GDK Wayland device node path on Wayland (#473)
+
+  [ Tangles ]
+  * screensaver-proxy: stop losing track of inhibitors (#465)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 22 Sep 2026 10:13:22 +0100
+
 cinnamon-settings-daemon (6.7.4) adrien; urgency=medium
 
   [ Michael Webster ]
