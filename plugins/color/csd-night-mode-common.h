@@ -17,24 +17,24 @@
  *
  */
 
-#ifndef __CSD_NIGHT_LIGHT_COMMON_H
-#define __CSD_NIGHT_LIGHT_COMMON_H
+#ifndef __CSD_NIGHT_MODE_COMMON_H
+#define __CSD_NIGHT_MODE_COMMON_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-gboolean csd_night_light_get_sunrise_sunset     (GDateTime      *dt,
+gboolean csd_night_mode_get_sunrise_sunset      (GDateTime      *dt,
                                                  gdouble         pos_lat,
                                                  gdouble         pos_long,
                                                  gdouble        *sunrise,
                                                  gdouble        *sunset);
-gdouble  csd_night_light_frac_day_from_dt       (GDateTime      *dt);
-gchar *  csd_night_light_time_string_from_frac  (gdouble         fraction);
-gboolean csd_night_light_frac_day_is_between    (gdouble         value,
+gdouble  csd_night_mode_frac_day_from_dt        (GDateTime      *dt);
+gchar *  csd_night_mode_time_string_from_frac   (gdouble         fraction);
+gboolean csd_night_mode_frac_day_is_between     (gdouble         value,
                                                  gdouble         start,
                                                  gdouble         end);
 
 G_END_DECLS
 
-#endif /* __CSD_NIGHT_LIGHT_COMMON_H */
+#endif /* __CSD_NIGHT_MODE_COMMON_H */
