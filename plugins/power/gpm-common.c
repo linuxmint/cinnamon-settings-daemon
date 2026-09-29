@@ -204,7 +204,6 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 g_string_append (filename, "battery-full-charging;");
                                 break;
                         case UP_DEVICE_STATE_CHARGING:
-                        case UP_DEVICE_STATE_PENDING_CHARGE:
                                 suffix_str = gpm_upower_get_device_icon_suffix (device);
                                 index_str = gpm_upower_get_device_icon_index (device);
                                 precise_str = gpm_upower_get_precise_icon_index (device);
@@ -217,6 +216,7 @@ gpm_upower_get_device_icon (UpDevice *device, gboolean use_symbolic)
                                 break;
                         case UP_DEVICE_STATE_DISCHARGING:
                         case UP_DEVICE_STATE_PENDING_DISCHARGE:
+                        case UP_DEVICE_STATE_PENDING_CHARGE:
                                 suffix_str = gpm_upower_get_device_icon_suffix (device);
                                 index_str = gpm_upower_get_device_icon_index (device);
                                 precise_str = gpm_upower_get_precise_icon_index (device);
