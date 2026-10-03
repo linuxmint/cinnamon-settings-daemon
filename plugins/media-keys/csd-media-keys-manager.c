@@ -256,7 +256,7 @@ get_term_command (CsdMediaKeysManager *manager)
         settings = g_settings_new ("org.cinnamon.desktop.default-applications.terminal");
         cmd_term = g_settings_get_string (settings, "exec");
         if (cmd_term[0] == '\0')
-                cmd_term = g_strdup ("gnome-terminal");
+                cmd_term = g_strdup ("velocitty");
 
         cmd_args = g_settings_get_string (settings, "exec-arg");
         if (strcmp (cmd_term, "") != 0) {
