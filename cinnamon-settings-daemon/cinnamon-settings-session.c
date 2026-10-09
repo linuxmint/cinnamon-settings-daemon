@@ -459,3 +459,26 @@ cinnamon_settings_session_is_wayland (void)
 
     return session_is_wayland;
 }
+
+/* Returns the user's custom-screensaver-command, or NULL if it's unset.
+ * Muffin doesn't support external lockers currently. */
+gchar *
+cinnamon_settings_session_get_custom_screensaver (GSettings *screensaver_settings)
+{
+    gchar *command;
+
+    command = g_strstrip (g_settings_get_string (screensaver_settings, "custom-screensaver-command"));
+
+    if (command[0] == '\0') {
+        g_free (command);
+        return NULL;
+    }
+
+    if (cinnamon_settings_session_is_wayland ()) {
+        g_warning_once ("Ignoring custom-screensaver-command '%s', external lockers aren't supported in Wayland sessions", command);
+        g_free (command);
+        return NULL;
+    }
+
+    return command;
+}

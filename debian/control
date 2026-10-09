@@ -12,7 +12,7 @@ Build-Depends:
  libcups2-dev,
  libcvc-dev (>= 3.4~),
  libfontconfig1-dev,
- libglib2.0-dev (>= 2.37.3),
+ libglib2.0-dev (>= 2.64.0),
  libgtk-3-dev (>= 3.9.10),
  libgudev-1.0-dev [linux-any],
  liblcms2-dev,

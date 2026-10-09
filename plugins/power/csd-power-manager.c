@@ -3337,12 +3337,11 @@ activate_screensaver (CsdPowerManager *manager, gboolean force_lock)
 {
     GError *error;
     gboolean ret;
-    gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
-                                                 "custom-screensaver-command");
+    gchar *custom_saver = cinnamon_settings_session_get_custom_screensaver (manager->priv->settings_screensaver);
 
     g_debug ("Locking screen before sleep/hibernate");
 
-    if (custom_saver && g_strcmp0 (custom_saver, "") != 0) {
+    if (custom_saver) {
             lock_screen_with_custom_saver (manager, custom_saver, FALSE);
             goto quit;
     }
@@ -3518,9 +3517,8 @@ idle_triggered_idle_cb (GnomeIdleMonitor *monitor,
         if (watch_id == manager->priv->idle_dim_id) {
                 idle_set_mode (manager, CSD_POWER_IDLE_MODE_DIM);
         } else if (watch_id == manager->priv->idle_lock_id) {
-                gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
-                                                             "custom-screensaver-command");
-                if (custom_saver && g_strcmp0 (custom_saver, "") != 0) {
+                gchar *custom_saver = cinnamon_settings_session_get_custom_screensaver (manager->priv->settings_screensaver);
+                if (custom_saver) {
                         lock_screen_with_custom_saver (manager,
                                                        custom_saver,
                                                        TRUE);

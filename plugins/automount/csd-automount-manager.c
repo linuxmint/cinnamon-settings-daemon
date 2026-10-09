@@ -482,12 +482,10 @@ setup_automounter (CsdAutomountManager *manager)
 {
         do_initialize_session (manager);
 
-        gchar *custom_saver = g_settings_get_string (manager->priv->settings_screensaver,
-                                                     "custom-screensaver-command");
+        gchar *custom_saver = cinnamon_settings_session_get_custom_screensaver (manager->priv->settings_screensaver);
 
-        /* if we fail to get the gsettings entry, or if the user did not select
-         * a custom screen saver, default to cinnamon-screensaver */
-        if (NULL == custom_saver || g_strcmp0 (custom_saver, "") == 0)
+        /* if the user did not select a custom screen saver, default to cinnamon-screensaver */
+        if (custom_saver == NULL)
                 do_initialize_screensaver (manager);
         g_free (custom_saver);
         
