@@ -34,26 +34,34 @@ struct _CsdSystemdNotify {
 
 G_DEFINE_TYPE (CsdSystemdNotify, csd_systemd_notify, G_TYPE_OBJECT)
 
+static char *unescape_unit_name (const char *name);
+
+/* Units are named app-[<launcher>-]<id>-<pid>.scope or
+ * app-[<launcher>-]<id>@<random>.service, where <id> is a desktop id or
+ * an executable name. Our own scopes always carry the cinnamon launcher. */
 static void
 notify_oom_kill (char *unit)
 {
         g_autoptr(GDesktopAppInfo) app = NULL;
         g_autofree char *unit_copy = NULL;
-        g_autofree char *app_id = NULL;
+        g_autofree char *name = NULL;
         g_autofree char *desktop_id = NULL;
         g_autofree char *summary = NULL;
-        g_autofree char *message = NULL;
         NotifyNotification *notification = NULL;
+        gboolean is_scope;
         char *pos;
 
         unit_copy = g_strdup (unit);
+        is_scope = g_str_has_suffix (unit_copy, ".scope");
 
         if (g_str_has_suffix (unit_copy, ".service")) {
                 /* Find (first) @ character */
                 pos = strchr (unit_copy, '@');
                 if (pos)
                         *pos = '\0';
-        } else if (g_str_has_suffix (unit_copy, ".scope")) {
+                else
+                        unit_copy[strlen (unit_copy) - strlen (".service")] = '\0';
+        } else if (is_scope) {
                 /* Find last - character */
                 pos = strrchr (unit_copy, '-');
                 if (pos)
@@ -66,37 +74,31 @@ notify_oom_kill (char *unit)
                 return;
         }
 
+        pos = unit_copy;
+        if (is_scope && g_str_has_prefix (pos, "app-cinnamon-"))
+                pos += strlen ("app-cinnamon-");
+        else if (g_str_has_prefix (pos, "app-"))
+                pos += strlen ("app-");
 
-        pos = strrchr (unit_copy, '-');
-        if (pos) {
-                pos += 1;
-
-                app_id = g_strcompress (pos);
-                desktop_id = g_strjoin (NULL, app_id, ".desktop", NULL);
-
-                app = g_desktop_app_info_new (desktop_id);
-        }
+        name = unescape_unit_name (pos);
+        desktop_id = g_strconcat (name, ".desktop", NULL);
+        app = g_desktop_app_info_new (desktop_id);
 
         if (app) {
                 /* TRANSLATORS: %s is the application name. */
                 summary = g_strdup_printf (_("%s Stopped"),
                                            g_app_info_get_name (G_APP_INFO (app)));
-                /* TRANSLATORS: %s is the application name. */
-                message = g_strdup_printf (_("Device memory is nearly full. %s was using a lot of memory and was forced to stop."),
-                                           g_app_info_get_name (G_APP_INFO (app)));
         } else if (g_str_has_prefix (unit, "vte-spawn-")) {
                 /* TRANSLATORS: A terminal tab/window was killed. */
-                summary = g_strdup_printf (_("Virtual Terminal Stopped"));
-                /* TRANSLATORS: A terminal tab/window was killed. */
-                message = g_strdup_printf (_("Device memory is nearly full. Virtual terminal processes were using a lot of memory and were forced to stop."));
+                summary = g_strdup (_("Virtual Terminal Stopped"));
         } else {
-                /* TRANSLATORS: We don't have a good description of what was killed. */
-                summary = g_strdup_printf (_("Application Stopped"));
-                /* TRANSLATORS: We don't have a good description of what was killed. */
-                message = g_strdup_printf (_("Device memory is nearly full. An application was using a lot of memory and was forced to stop."));
+                /* TRANSLATORS: %s is the name of the program that was killed. */
+                summary = g_strdup_printf (_("%s Stopped"), name);
         }
 
-        notification = notify_notification_new (summary, message, NULL);
+        notification = notify_notification_new (summary,
+                                                _("System memory is nearly full and the program was forced to stop."),
+                                                NULL);
 
         if (app) {
                 notify_notification_set_hint_string (notification, "desktop-entry", desktop_id);
@@ -125,6 +127,28 @@ unhexchar (char c)
                 return c - 'A' + 10;
 
         return -EINVAL;
+}
+
+/* Unit names escape unsafe bytes as \xHH, see systemd-escape(1) */
+static char *
+unescape_unit_name (const char *name)
+{
+        GString *res = g_string_new (NULL);
+
+        for (; *name; name++) {
+                int c1, c2;
+
+                if (name[0] == '\\' && name[1] == 'x' &&
+                    (c1 = unhexchar (name[2])) >= 0 &&
+                    (c2 = unhexchar (name[3])) >= 0) {
+                        g_string_append_c (res, (c1 << 4) | c2);
+                        name += 3;
+                } else {
+                        g_string_append_c (res, *name);
+                }
+        }
+
+        return g_string_free (res, FALSE);
 }
 
 
