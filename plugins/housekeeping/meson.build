@@ -7,6 +7,7 @@ housekeeping_common_sources = [
 
 housekeeping_sources = [
     'csd-housekeeping-manager.c',
+    'csd-systemd-notify.c',
     'main.c',
     housekeeping_common_sources,
 ]
