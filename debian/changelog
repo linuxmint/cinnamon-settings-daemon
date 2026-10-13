@@ -1,3 +1,18 @@
+cinnamon-settings-daemon (6.7.6) adrien; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Switch terminal to velocitty
+
+  [ Michael Webster ]
+  * gpm-common.c: Treat pending charge the same as pending discharge or discharging.
+  * power/automount: Ignore custom-screensaver-command in Wayland sessions
+  * csd-systemd-notify.c: Simplify i18n, do better reporting which app got killed.
+
+  [ Fabio Fantoni ]
+  * housekeeping: Add systemd OOM notification module (#454)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 13 Oct 2026 13:26:33 +0100
+
 cinnamon-settings-daemon (6.7.5) adrien; urgency=medium
 
   [ Michael Webster ]
