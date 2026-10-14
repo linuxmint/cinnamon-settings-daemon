@@ -8,11 +8,13 @@ version = meson.project_version()
 pkgname = meson.project_name().to_lower()
 api_version = '3.0'
 
-cc = meson.get_compiler('c')
-cargs = []
-
 # directories
 prefix = get_option('prefix')
+
+cargs = [
+    '-I' + join_paths(prefix, 'include'),
+    '-I' + join_paths(prefix, 'usr', 'include'),
+]
 bindir = get_option('bindir')
 datadir = get_option('datadir')
 libdir = get_option('libdir')
