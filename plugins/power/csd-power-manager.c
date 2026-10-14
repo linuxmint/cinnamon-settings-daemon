@@ -176,6 +176,10 @@ struct CsdPowerManagerPrivate
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
         gint                     kbd_brightness_pre_dim;
+        gchar                   *kbd_led_device_name;
+        gchar                   *kbd_led_device_path;
+        gint                     kbd_led_fd_hw_changed;
+        GIOChannel              *kbd_led_channel_hw_changed;
         GnomeRRScreen           *x11_screen;
         gboolean                 use_time_primary;
         GIcon                   *previous_icon;
@@ -1925,21 +1929,167 @@ do_power_action_type (CsdPowerManager *manager,
 }
 
 static gboolean
+logind_set_brightness (const gchar *subsystem,
+                       const gchar *name,
+                       guint        value,
+                       GError     **error)
+{
+        GDBusConnection *bus;
+        GVariant *res;
+        GError *local_error = NULL;
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &local_error);
+        if (bus == NULL) {
+                g_propagate_error (error, local_error);
+                return FALSE;
+        }
+
+        res = g_dbus_connection_call_sync (bus,
+                                           LOGIND_DBUS_NAME,
+                                           "/org/freedesktop/login1/session/auto",
+                                           "org.freedesktop.login1.Session",
+                                           "SetBrightness",
+                                           g_variant_new ("(ssu)", subsystem, name, (guint32) value),
+                                           G_VARIANT_TYPE ("()"),
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1,
+                                           NULL,
+                                           &local_error);
+        g_object_unref (bus);
+
+        if (res == NULL) {
+                g_propagate_error (error, local_error);
+                return FALSE;
+        }
+
+        g_variant_unref (res);
+        return TRUE;
+}
+
+static void upower_kbd_emit_changed (CsdPowerManager *manager);
+
+static gboolean
+kbd_led_event_io (GIOChannel *channel, GIOCondition condition, gpointer data)
+{
+        CsdPowerManager *manager = CSD_POWER_MANAGER (data);
+        gchar *path;
+        gchar *contents = NULL;
+
+        if (!(condition & G_IO_PRI))
+                return FALSE;
+
+        if (manager->priv->kbd_led_device_path == NULL)
+                return FALSE;
+
+        path = g_build_filename (manager->priv->kbd_led_device_path, "brightness", NULL);
+        if (g_file_get_contents (path, &contents, NULL, NULL)) {
+                manager->priv->kbd_brightness_now = (gint) g_ascii_strtoll (contents, NULL, 10);
+                g_free (contents);
+                upower_kbd_emit_changed (manager);
+        }
+        g_free (path);
+
+        return TRUE;
+}
+
+static void
+csd_power_manager_init_kbd_sysfs (CsdPowerManager *manager)
+{
+        GDir *dir;
+        const gchar *entry;
+        GError *error = NULL;
+
+        dir = g_dir_open ("/sys/class/leds", 0, &error);
+        if (dir == NULL) {
+                if (error)
+                        g_error_free (error);
+                return;
+        }
+
+        while ((entry = g_dir_read_name (dir)) != NULL) {
+                if (g_strstr_len (entry, -1, "kbd_backlight") != NULL) {
+                        gchar *dir_path = g_build_filename ("/sys/class/leds", entry, NULL);
+                        gchar *path_max = g_build_filename (dir_path, "max_brightness", NULL);
+                        gchar *path_now = g_build_filename (dir_path, "brightness", NULL);
+                        gchar *path_hw_changed = g_build_filename (dir_path, "brightness_hw_changed", NULL);
+                        gchar *buf_max = NULL;
+                        gchar *buf_now = NULL;
+
+                        if (g_file_get_contents (path_max, &buf_max, NULL, NULL)) {
+                                manager->priv->kbd_brightness_max = (gint) g_ascii_strtoll (buf_max, NULL, 10);
+                                g_free (buf_max);
+                        }
+
+                        if (manager->priv->kbd_brightness_max > 0 &&
+                            g_file_get_contents (path_now, &buf_now, NULL, NULL)) {
+                                manager->priv->kbd_brightness_now = (gint) g_ascii_strtoll (buf_now, NULL, 10);
+                                g_free (buf_now);
+
+                                manager->priv->kbd_led_device_name = g_strdup (entry);
+                                manager->priv->kbd_led_device_path = g_strdup (dir_path);
+
+                                manager->priv->kbd_led_fd_hw_changed = open (path_hw_changed, O_RDONLY);
+                                if (manager->priv->kbd_led_fd_hw_changed >= 0) {
+                                        manager->priv->kbd_led_channel_hw_changed =
+                                                g_io_channel_unix_new (manager->priv->kbd_led_fd_hw_changed);
+                                        g_io_add_watch (manager->priv->kbd_led_channel_hw_changed,
+                                                        G_IO_PRI, kbd_led_event_io, manager);
+                                }
+
+                                g_debug ("Found keyboard backlight LED device: %s (max: %d, now: %d)",
+                                         entry, manager->priv->kbd_brightness_max, manager->priv->kbd_brightness_now);
+
+                                g_free (dir_path);
+                                g_free (path_max);
+                                g_free (path_now);
+                                g_free (path_hw_changed);
+                                upower_kbd_emit_changed (manager);
+                                break;
+                        }
+
+                        g_free (dir_path);
+                        g_free (path_max);
+                        g_free (path_now);
+                        g_free (path_hw_changed);
+                }
+        }
+
+        g_dir_close (dir);
+}
+
+static gboolean
 upower_kbd_get_percentage (CsdPowerManager *manager, GError **error)
 {
         GVariant *k_now = NULL;
 
-        k_now = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
-                                        "GetBrightness",
-                                        NULL,
-                                        G_DBUS_CALL_FLAGS_NONE,
-                                        -1,
-                                        NULL,
-                                        error);
-        if (k_now != NULL) {
-                g_variant_get (k_now, "(i)", &manager->priv->kbd_brightness_now);
-                g_variant_unref (k_now);
-                return TRUE;
+        if (manager->priv->upower_kbd_proxy != NULL) {
+                k_now = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
+                                                "GetBrightness",
+                                                NULL,
+                                                G_DBUS_CALL_FLAGS_NONE,
+                                                -1,
+                                                NULL,
+                                                error);
+                if (k_now != NULL) {
+                        g_variant_get (k_now, "(i)", &manager->priv->kbd_brightness_now);
+                        g_variant_unref (k_now);
+                        return TRUE;
+                }
+                return FALSE;
+        }
+
+        if (manager->priv->kbd_led_device_path != NULL) {
+                gchar *path = g_build_filename (manager->priv->kbd_led_device_path, "brightness", NULL);
+                gchar *contents = NULL;
+                gboolean ret = FALSE;
+
+                if (g_file_get_contents (path, &contents, NULL, error)) {
+                        manager->priv->kbd_brightness_now = (gint) g_ascii_strtoll (contents, NULL, 10);
+                        g_free (contents);
+                        ret = TRUE;
+                }
+                g_free (path);
+                return ret;
         }
 
         return FALSE;
@@ -1964,20 +2114,28 @@ upower_kbd_set_brightness (CsdPowerManager *manager, guint value, GError **error
         if (manager->priv->kbd_brightness_now == value)
                 return TRUE;
 
-        /* update h/w value */
-        retval = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
-                                         "SetBrightness",
-                                         g_variant_new ("(i)", (gint) value),
-                                         G_DBUS_CALL_FLAGS_NONE,
-                                         -1,
-                                         NULL,
-                                         error);
-        if (retval == NULL)
+        if (manager->priv->upower_kbd_proxy != NULL) {
+                /* update h/w value via upower */
+                retval = g_dbus_proxy_call_sync (manager->priv->upower_kbd_proxy,
+                                                 "SetBrightness",
+                                                 g_variant_new ("(i)", (gint) value),
+                                                 G_DBUS_CALL_FLAGS_NONE,
+                                                 -1,
+                                                 NULL,
+                                                 error);
+                if (retval == NULL)
+                        return FALSE;
+                g_variant_unref (retval);
+        } else if (manager->priv->kbd_led_device_name != NULL) {
+                /* update h/w value via systemd-logind */
+                if (!logind_set_brightness ("leds", manager->priv->kbd_led_device_name, value, error))
+                        return FALSE;
+        } else {
                 return FALSE;
+        }
 
         /* save new value */
         manager->priv->kbd_brightness_now = value;
-        g_variant_unref (retval);
         upower_kbd_emit_changed(manager);
         return TRUE;
 }
@@ -3503,6 +3661,11 @@ out:
                 g_variant_unref (k_now);
         if (k_max != NULL)
                 g_variant_unref (k_max);
+
+        if (manager->priv->kbd_brightness_max == 0) {
+                g_clear_object (&manager->priv->upower_kbd_proxy);
+                csd_power_manager_init_kbd_sysfs (manager);
+        }
 }
 
 static void
@@ -4418,11 +4581,10 @@ on_rr_screen_acquired (GObject      *object,
         manager->priv->x11_screen = gnome_rr_screen_new_finish (result, &error);
 
         if (error) {
-                g_warning ("Could not create GnomeRRScreen: %s\n", error->message);
+                g_warning ("Could not create GnomeRRScreen: %s (continuing with sysfs/logind fallbacks)\n", error->message);
                 g_error_free (error);
-                cinnamon_settings_profile_end (NULL);
-
-                return;
+                error = NULL;
+                manager->priv->skip_unsupported_xrandr = TRUE;
         }
 
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
@@ -4541,12 +4703,14 @@ on_rr_screen_acquired (GObject      *object,
         manager->priv->idle_monitor = gnome_idle_monitor_new ();
 
         /* ensure the default dpms timeouts are cleared */
-        ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
-                                             GNOME_RR_DPMS_ON,
-                                             &error);
-        if (!ret) {
-                g_warning ("Failed set DPMS mode: %s", error->message);
-                g_clear_error (&error);
+        if (manager->priv->x11_screen != NULL) {
+                ret = gnome_rr_screen_set_dpms_mode (manager->priv->x11_screen,
+                                                     GNOME_RR_DPMS_ON,
+                                                     &error);
+                if (!ret) {
+                        g_warning ("Failed set DPMS mode: %s", error->message);
+                        g_clear_error (&error);
+                }
         }
 
         /* coldplug the engine */
@@ -4556,12 +4720,14 @@ on_rr_screen_acquired (GObject      *object,
          * being "0" by default to being "600" by default 
          * https://bugzilla.gnome.org/show_bug.cgi?id=709114
          */
-        gdk_x11_display_error_trap_push (gdk_display_get_default ());
-        int dummy;
-        if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy)) {
-            DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), 0, 0, 0);
+        if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+                gdk_x11_display_error_trap_push (gdk_display_get_default ());
+                int dummy;
+                if (DPMSQueryExtension(GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &dummy, &dummy)) {
+                    DPMSSetTimeouts (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), 0, 0, 0);
+                }
+                gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
         }
-        gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default ());
 
         manager->priv->xscreensaver_watchdog_timer_id = g_timeout_add_seconds (XSCREENSAVER_WATCHDOG_TIMEOUT,
                                                                                disable_builtin_screensaver,
@@ -4739,6 +4905,20 @@ csd_power_manager_stop (CsdPowerManager *manager)
         g_clear_object (&manager->priv->power_iface);
         g_clear_object (&manager->priv->screen_iface);
         g_clear_object (&manager->priv->keyboard_iface);
+
+        if (manager->priv->kbd_led_channel_hw_changed != NULL) {
+                g_io_channel_shutdown (manager->priv->kbd_led_channel_hw_changed, FALSE, NULL);
+                g_io_channel_unref (manager->priv->kbd_led_channel_hw_changed);
+                manager->priv->kbd_led_channel_hw_changed = NULL;
+        }
+        if (manager->priv->kbd_led_fd_hw_changed != -1) {
+                close (manager->priv->kbd_led_fd_hw_changed);
+                manager->priv->kbd_led_fd_hw_changed = -1;
+        }
+        g_free (manager->priv->kbd_led_device_name);
+        manager->priv->kbd_led_device_name = NULL;
+        g_free (manager->priv->kbd_led_device_path);
+        manager->priv->kbd_led_device_path = NULL;
 }
 
 static void
@@ -4747,6 +4927,7 @@ csd_power_manager_init (CsdPowerManager *manager)
         manager->priv = CSD_POWER_MANAGER_GET_PRIVATE (manager);
         manager->priv->inhibit_lid_switch_fd = -1;
         manager->priv->inhibit_suspend_fd = -1;
+        manager->priv->kbd_led_fd_hw_changed = -1;
 }
 
 static void

@@ -39,6 +39,30 @@
 
 #define CSD_POWER_SETTINGS_SCHEMA	"org.cinnamon.settings-daemon.plugins.power"
 
+static gboolean
+csd_backlight_helper_device_is_valid (GUdevDevice *device)
+{
+	const gchar *sysfs_path;
+	gchar *max_path;
+	gchar *contents = NULL;
+	gboolean valid = FALSE;
+
+	sysfs_path = g_udev_device_get_sysfs_path (device);
+	if (sysfs_path == NULL)
+		return FALSE;
+
+	max_path = g_build_filename (sysfs_path, "max_brightness", NULL);
+	if (g_file_get_contents (max_path, &contents, NULL, NULL)) {
+		gint64 max_val = g_ascii_strtoll (contents, NULL, 10);
+		if (max_val > 0)
+			valid = TRUE;
+		g_free (contents);
+	}
+	g_free (max_path);
+
+	return valid;
+}
+
 static gchar *
 csd_backlight_helper_get_type (GList *devices, const gchar *type)
 {
@@ -47,7 +71,7 @@ csd_backlight_helper_get_type (GList *devices, const gchar *type)
 
 	for (d = devices; d != NULL; d = d->next) {
 		type_tmp = g_udev_device_get_sysfs_attr (d->data, "type");
-		if (g_strcmp0 (type_tmp, type) == 0)
+		if (g_strcmp0 (type_tmp, type) == 0 && csd_backlight_helper_device_is_valid (d->data))
 			return g_strdup (g_udev_device_get_sysfs_path (d->data));
 	}
 	return NULL;
@@ -58,6 +82,7 @@ csd_backlight_helper_get_best_backlight (gchar** preference_list)
 {
 	gchar *path = NULL;
 	GList *devices;
+	GList *d;
 	GUdevClient *client;
 
 	client = g_udev_client_new (NULL);
@@ -65,20 +90,21 @@ csd_backlight_helper_get_best_backlight (gchar** preference_list)
 	if (devices == NULL)
 		goto out;
 
-	/* setup our gsettings interface */
-	if (preference_list == NULL || preference_list[0] == NULL) {
-		g_print("%s\n%s\n",
-		"Warning: no backlight sources have been configured.",
-		"Check " CSD_POWER_SETTINGS_SCHEMA " to configure some.");
-		goto out;
+	if (preference_list != NULL && preference_list[0] != NULL) {
+		int i = 0;
+		for (i = 0; preference_list[i] != NULL; i++) {
+			path = csd_backlight_helper_get_type (devices, preference_list[i]);
+			if (path != NULL)
+				goto out;
+		}
 	}
 
-	int i = 0;
-	for (i=0; preference_list[i] != NULL; i++) {
-		path = csd_backlight_helper_get_type 
-			(devices, preference_list[i]);
-		if (path != NULL)
+	/* Fall back to any valid backlight device */
+	for (d = devices; d != NULL; d = d->next) {
+		if (csd_backlight_helper_device_is_valid (d->data)) {
+			path = g_strdup (g_udev_device_get_sysfs_path (d->data));
 			goto out;
+		}
 	}
 
 out:
