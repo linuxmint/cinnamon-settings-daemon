@@ -298,7 +298,7 @@ csd_power_manager_error_quark (void)
 static gboolean
 system_on_battery (CsdPowerManager *manager)
 {
-    UpDevice *primary;
+    g_autoptr(UpDevice) primary = NULL;
 
     // this will only return a device if it's the battery, it's present,
     // and discharging.
@@ -753,8 +753,10 @@ engine_recalculate_state_percentage (CsdPowerManager *manager)
 {
         guint i;
         UpDevice *device;
+        UpDevice *primary = NULL;
         UpDeviceKind kind;
         gboolean is_present;
+        gboolean power_supply;
         gdouble percentage;
         guint percentage_uint;
         GPtrArray *array;
@@ -765,25 +767,32 @@ engine_recalculate_state_percentage (CsdPowerManager *manager)
                 g_object_get (device,
                               "kind", &kind,
                               "is-present", &is_present,
-                              "percentage", &percentage,
+                              "power-supply", &power_supply,
                               NULL);
 
-                if (!is_present)
+                if (!is_present || !power_supply)
                         continue;
 
-                if (kind == UP_DEVICE_KIND_BATTERY)
-                        device = engine_get_composite_device (manager, device);
-
-                g_object_get (device, "percentage", &percentage, NULL);
-                percentage_uint = (guint) CLAMP (percentage, 0.0, 100.0);
-
-                if (manager->priv->previous_percentage != percentage_uint) {
-                        manager->priv->previous_percentage = percentage_uint;
-                        return TRUE;
+                if (kind == UP_DEVICE_KIND_BATTERY) {
+                        primary = engine_get_composite_device (manager, device);
+                        break;
                 }
+
+                if (kind == UP_DEVICE_KIND_UPS && primary == NULL)
+                        primary = device;
         }
 
-        return FALSE;
+        if (primary == NULL)
+                return FALSE;
+
+        g_object_get (primary, "percentage", &percentage, NULL);
+        percentage_uint = (guint) CLAMP (percentage, 0.0, 100.0);
+
+        if (manager->priv->previous_percentage == percentage_uint)
+                return FALSE;
+
+        manager->priv->previous_percentage = percentage_uint;
+        return TRUE;
 }
 
 static void
@@ -809,12 +818,18 @@ engine_get_composite_device (CsdPowerManager *manager,
         UpDevice *device;
         UpDeviceKind kind;
         UpDeviceKind original_kind;
+        gboolean power_supply;
         guint i;
 
         /* get the type of the original device */
         g_object_get (original_device,
                       "kind", &original_kind,
+                      "power-supply", &power_supply,
                       NULL);
+
+        /* peripherals are never part of the composite */
+        if (!power_supply)
+                return original_device;
 
         /* find out how many batteries in the system */
         array = manager->priv->devices_array;
@@ -822,8 +837,9 @@ engine_get_composite_device (CsdPowerManager *manager,
                 device = g_ptr_array_index (array, i);
                 g_object_get (device,
                               "kind", &kind,
+                              "power-supply", &power_supply,
                               NULL);
-                if (kind == original_kind)
+                if (kind == original_kind && power_supply)
                         battery_devices++;
         }
 
@@ -864,11 +880,19 @@ engine_update_composite_device (CsdPowerManager *manager,
         UpDeviceState state;
         UpDeviceKind kind;
         UpDeviceKind original_kind;
+        gboolean power_supply;
 
         /* get the type of the original device */
         g_object_get (original_device,
                       "kind", &original_kind,
+                      "power-supply", &power_supply,
                       NULL);
+
+        /* peripherals are never part of the composite */
+        if (!power_supply) {
+                device = original_device;
+                goto out;
+        }
 
         /* update the composite device */
         array = manager->priv->devices_array;
@@ -876,12 +900,13 @@ engine_update_composite_device (CsdPowerManager *manager,
                 device = g_ptr_array_index (array, i);
                 g_object_get (device,
                               "kind", &kind,
+                              "power-supply", &power_supply,
                               "state", &state,
                               "energy", &energy,
                               "energy-full", &energy_full,
                               "energy-rate", &energy_rate,
                               NULL);
-                if (kind != original_kind)
+                if (kind != original_kind || !power_supply)
                         continue;
 
                 /* one of these will be charging or discharging */
@@ -933,9 +958,9 @@ engine_update_composite_device (CsdPowerManager *manager,
 
         g_debug ("printing composite device");
         g_object_set (device,
-                      "energy", energy,
-                      "energy-full", energy_full,
-                      "energy-rate", energy_rate,
+                      "energy", energy_total,
+                      "energy-full", energy_full_total,
+                      "energy-rate", energy_rate_total,
                       "time-to-empty", time_to_empty,
                       "time-to-full", time_to_full,
                       "percentage", percentage,
@@ -1775,6 +1800,7 @@ engine_get_primary_device (CsdPowerManager *manager)
         UpDeviceKind kind;
         UpDeviceState state;
         gboolean is_present;
+        gboolean power_supply;
 
         for (i=0; i<manager->priv->devices_array->len; i++) {
                 device_tmp = g_ptr_array_index (manager->priv->devices_array, i);
@@ -1784,10 +1810,15 @@ engine_get_primary_device (CsdPowerManager *manager)
                               "kind", &kind,
                               "state", &state,
                               "is-present", &is_present,
+                              "power-supply", &power_supply,
                               NULL);
 
                 /* not present */
                 if (!is_present)
+                        continue;
+
+                /* peripheral */
+                if (!power_supply)
                         continue;
 
                 /* not discharging */
