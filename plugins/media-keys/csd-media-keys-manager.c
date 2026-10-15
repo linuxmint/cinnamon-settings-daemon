@@ -900,7 +900,10 @@ do_sound_action (CsdMediaKeysManager *manager,
         if (stream == NULL)
                 return;
 
-        if (g_settings_get_boolean (manager->priv->sound_settings, "allow-amplified-volume")) {
+        const gchar *overamp_key = is_source_stream ? "allow-amplified-in-volume"
+                                                     : "allow-amplified-out-volume";
+
+        if (g_settings_get_boolean (manager->priv->sound_settings, overamp_key)) {
                 osd_max_vol = 150;
                 max_vol_pa = MIN ((guint) PA_VOLUME_NORM * 1.5, PA_VOLUME_MAX);
         }
@@ -908,6 +911,7 @@ do_sound_action (CsdMediaKeysManager *manager,
                 osd_max_vol = 100;
                 max_vol_pa = MIN ((guint) PA_VOLUME_NORM, PA_VOLUME_MAX);
         }
+
         vol_step_pa = (max_vol_pa * ((double) VOLUME_STEP) / 100);
 
         // Make the max volume divisible by our 5% step.
