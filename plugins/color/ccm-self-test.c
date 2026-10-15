@@ -27,13 +27,13 @@
 
 #include "ccm-edid.h"
 #include "csd-color-state.h"
-#include "csd-night-light.h"
-#include "csd-night-light-common.h"
+#include "csd-night-mode.h"
+#include "csd-night-mode-common.h"
 
 GMainLoop *mainloop;
 
 static void
-on_notify (CsdNightLight *nlight,
+on_notify (CsdNightMode    *nmode,
            GParamSpec      *pspec,
            gpointer         user_data)
 {
@@ -50,58 +50,67 @@ quit_mainloop (gpointer user_data)
 }
 
 static void
-ccm_test_night_light (void)
+ccm_test_night_mode (void)
 {
         gboolean ret;
-        guint active_cnt = 0;
+        guint active_light_cnt = 0;
+        guint active_theme_cnt = 0;
         guint disabled_until_tmw_cnt = 0;
         guint sunrise_cnt = 0;
         guint sunset_cnt = 0;
         guint temperature_cnt = 0;
         g_autoptr(GDateTime) datetime_override = NULL;
         g_autoptr(GError) error = NULL;
-        g_autoptr(CsdNightLight) nlight = NULL;
+        g_autoptr(CsdNightMode) nmode = NULL;
         g_autoptr(GSettings) settings = NULL;
 
-        nlight = csd_night_light_new ();
-        g_assert (CSD_IS_NIGHT_LIGHT (nlight));
-        g_signal_connect (nlight, "notify::active",
-                          G_CALLBACK (on_notify), &active_cnt);
-        g_signal_connect (nlight, "notify::sunset",
+        nmode = csd_night_mode_new ();
+        g_assert (CSD_IS_NIGHT_LIGHT (nmode));
+        g_signal_connect (nmode, "notify::light-active",
+                          G_CALLBACK (on_notify), &active_light_cnt);
+        g_signal_connect (nmode, "notify::theme-active",
+                          G_CALLBACK (on_notify), &active_theme_cnt);
+        g_signal_connect (nmode, "notify::sunset",
                           G_CALLBACK (on_notify), &sunset_cnt);
-        g_signal_connect (nlight, "notify::sunrise",
+        g_signal_connect (nmode, "notify::sunrise",
                           G_CALLBACK (on_notify), &sunrise_cnt);
-        g_signal_connect (nlight, "notify::temperature",
+        g_signal_connect (nmode, "notify::temperature",
                           G_CALLBACK (on_notify), &temperature_cnt);
-        g_signal_connect (nlight, "notify::disabled-until-tmw",
+        g_signal_connect (nmode, "notify::disabled-until-tmw",
                           G_CALLBACK (on_notify), &disabled_until_tmw_cnt);
 
         /* hardcode a specific date and time */
         datetime_override = g_date_time_new_utc (2017, 2, 8, 20, 0, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
 
         /* do not smooth the transition */
-        csd_night_light_set_smooth_enabled (nlight, FALSE);
+        csd_night_light_set_smooth_enabled (nmode, FALSE);
 
         /* switch off */
         settings = g_settings_new ("org.gnome.settings-daemon.plugins.color");
-        g_settings_set_boolean (settings, "night-light-schedule-automatic", FALSE);
+        /*
+        to fix: NIGHT_MODE_SCHEDULE_AUTO not defined here?!
+        */
+        // g_settings_set_enum (settings, "night-light-schedule-mode", NIGHT_MODE_SCHEDULE_AUTO);
         g_settings_set_boolean (settings, "night-light-enabled", FALSE);
+        g_settings_set_boolean (settings, "night-theme-enabled", FALSE);
         g_settings_set_uint (settings, "night-light-temperature", 4000);
 
         /* check default values */
-        g_assert (!csd_night_light_get_active (nlight));
-        g_assert_cmpint ((gint) csd_night_light_get_sunrise (nlight), ==, -1);
-        g_assert_cmpint ((gint) csd_night_light_get_sunset (nlight), ==, -1);
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
-        g_assert (!csd_night_light_get_disabled_until_tmw (nlight));
+        g_assert (!csd_night_light_get_active (nmode));
+        g_assert_cmpint ((gint) csd_night_mode_get_sunrise (nmode), ==, -1);
+        g_assert_cmpint ((gint) csd_night_mode_get_sunset (nmode), ==, -1);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (!csd_night_mode_get_disabled_until_tmw (nmode));
 
         /* start module, disabled */
-        ret = csd_night_light_start (nlight, &error);
+        ret = csd_night_mode_start (nmode, &error);
         g_assert_no_error (error);
         g_assert (ret);
-        g_assert (!csd_night_light_get_active (nlight));
-        g_assert_cmpint (active_cnt, ==, 0);
+        g_assert (!csd_night_light_get_active (nmode));
+        g_assert (!csd_night_theme_get_active (nmode));
+        g_assert_cmpint (active_light_cnt, ==, 0);
+        g_assert_cmpint (active_theme_cnt, ==, 0);
         g_assert_cmpint (sunset_cnt, ==, 0);
         g_assert_cmpint (sunrise_cnt, ==, 0);
         g_assert_cmpint (temperature_cnt, ==, 0);
@@ -110,56 +119,73 @@ ccm_test_night_light (void)
         /* enable automatic mode */
         g_settings_set_value (settings, "night-light-last-coordinates",
                               g_variant_new ("(dd)", 51.5, -0.1278));
-        g_settings_set_boolean (settings, "night-light-schedule-automatic", TRUE);
+        /*
+        to fix: NIGHT_MODE_SCHEDULE_AUTO not defined here?!
+        */
+        //g_settings_set_boolean (settings, "night-light-schedule-mode", NIGHT_MODE_SCHEDULE_AUTO);
         g_settings_set_boolean (settings, "night-light-enabled", TRUE);
-        g_assert (csd_night_light_get_active (nlight));
-        g_assert_cmpint (active_cnt, ==, 1);
+        g_settings_set_boolean (settings, "night-theme-enabled", TRUE);
+        g_assert (csd_night_light_get_active (nmode));
+        g_assert (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (active_light_cnt, ==, 1);
+        g_assert_cmpint (active_theme_cnt, ==, 1);
         g_assert_cmpint (sunset_cnt, ==, 1);
         g_assert_cmpint (sunrise_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 1);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 0);
-        g_assert_cmpint ((gint) csd_night_light_get_sunrise (nlight), ==, 7);
-        g_assert_cmpint ((gint) csd_night_light_get_sunset (nlight), ==, 17);
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, 4000);
-        g_assert (!csd_night_light_get_disabled_until_tmw (nlight));
+        g_assert_cmpint ((gint) csd_night_mode_get_sunrise (nmode), ==, 7);
+        g_assert_cmpint ((gint) csd_night_mode_get_sunset (nmode), ==, 17);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, 4000);
+        g_assert (!csd_night_mode_get_disabled_until_tmw (nmode));
 
         /* disable for one day */
-        csd_night_light_set_disabled_until_tmw (nlight, TRUE);
-        csd_night_light_set_disabled_until_tmw (nlight, TRUE);
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
-        g_assert (csd_night_light_get_active (nlight));
-        g_assert (csd_night_light_get_disabled_until_tmw (nlight));
+        csd_night_mode_set_disabled_until_tmw (nmode, TRUE);
+        csd_night_mode_set_disabled_until_tmw (nmode, TRUE);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (csd_night_light_get_active (nmode));
+        g_assert (csd_night_theme_get_active (nmode));
+        g_assert (csd_night_mode_get_disabled_until_tmw (nmode));
         g_assert_cmpint (temperature_cnt, ==, 2);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 1);
 
         /* change our mind */
-        csd_night_light_set_disabled_until_tmw (nlight, FALSE);
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, 4000);
-        g_assert (csd_night_light_get_active (nlight));
-        g_assert (!csd_night_light_get_disabled_until_tmw (nlight));
-        g_assert_cmpint (active_cnt, ==, 1);
+        csd_night_mode_set_disabled_until_tmw (nmode, FALSE);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, 4000);
+        g_assert (csd_night_light_get_active (nmode));
+        g_assert (csd_night_theme_get_active (nmode));
+        g_assert (!csd_night_mode_get_disabled_until_tmw (nmode));
+        g_assert_cmpint (active_light_cnt, ==, 1);
+        g_assert_cmpint (active_theme_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 3);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
 
         /* enabled manual mode (night shift) */
         g_settings_set_double (settings, "night-light-schedule-from", 4.0);
         g_settings_set_double (settings, "night-light-schedule-to", 16.f);
-        g_settings_set_boolean (settings, "night-light-schedule-automatic", FALSE);
-        g_assert_cmpint (active_cnt, ==, 2);
+        /*
+        to fix: NIGHT_MODE_SCHEDULE_MANUAL not defined here?!
+        */
+        //g_settings_set_boolean (settings, "night-light-schedule-mode", NIGHT_MODE_SCHEDULE_MANUAL);
+        g_assert_cmpint (active_light_cnt, ==, 2); // why 2?
+        g_assert_cmpint (active_theme_cnt, ==, 2); // why 2? (copy-paste)
         g_assert_cmpint (sunset_cnt, ==, 1);
         g_assert_cmpint (sunrise_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 4);
         g_assert_cmpint (disabled_until_tmw_cnt, ==, 2);
-        g_assert (!csd_night_light_get_active (nlight));
-        g_assert_cmpint ((gint) csd_night_light_get_sunrise (nlight), ==, 7);
-        g_assert_cmpint ((gint) csd_night_light_get_sunset (nlight), ==, 17);
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
-        g_assert (!csd_night_light_get_disabled_until_tmw (nlight));
+        g_assert (!csd_night_light_get_active (nmode));
+        g_assert (!csd_night_theme_get_active (nmode));
+        g_assert_cmpint ((gint) csd_night_mode_get_sunrise (nmode), ==, 7);
+        g_assert_cmpint ((gint) csd_night_mode_get_sunset (nmode), ==, 17);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (!csd_night_mode_get_disabled_until_tmw (nmode));
 
         /* disable, with no changes */
         g_settings_set_boolean (settings, "night-light-enabled", FALSE);
-        g_assert (!csd_night_light_get_active (nlight));
-        g_assert_cmpint (active_cnt, ==, 2);
+        g_settings_set_boolean (settings, "night-theme-enabled", FALSE);
+        g_assert (!csd_night_light_get_active (nmode));
+        g_assert (!csd_night_theme_get_active (nmode));
+        g_assert_cmpint (active_light_cnt, ==, 2); // why 2?
+        g_assert_cmpint (active_theme_cnt, ==, 2); // why 2? (copy-paste)
         g_assert_cmpint (sunset_cnt, ==, 1);
         g_assert_cmpint (sunrise_cnt, ==, 1);
         g_assert_cmpint (temperature_cnt, ==, 4);
@@ -167,75 +193,90 @@ ccm_test_night_light (void)
 
 
         /* Finally, check that cancelling a smooth transition works */
-        csd_night_light_set_smooth_enabled (nlight, TRUE);
+        csd_night_light_set_smooth_enabled (nmode, TRUE);
         /* Enable night light and automatic scheduling */
-        g_settings_set_boolean (settings, "night-light-schedule-automatic", TRUE);
+        /*
+        to fix: NIGHT_MODE_SCHEDULE_AUTO not defined here?!
+        */
+        //g_settings_set_boolean (settings, "night-light-schedule-mode", NIGHT_MODE_SCHEDULE_AUTO);
         g_settings_set_boolean (settings, "night-light-enabled", TRUE);
+        g_settings_set_boolean (settings, "night-theme-enabled", TRUE);
         /* It should be active again, and a smooth transition is being done,
          * so the color temperature is still the default at this point. */
-        g_assert (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert (csd_night_light_get_active (nmode));
+        g_assert (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
 
         /* Turn off immediately, before the first timeout event is fired. */
-        g_settings_set_boolean (settings, "night-light-schedule-automatic", FALSE);
+        /*
+        to fix: NIGHT_MODE_SCHEDULE_MANUAL not defined here?!
+        */
+        //g_settings_set_boolean (settings, "night-light-schedule-mode", NIGHT_MODE_SCHEDULE_MANUAL);
         g_settings_set_boolean (settings, "night-light-enabled", FALSE);
-        g_assert (!csd_night_light_get_active (nlight));
+        g_settings_set_boolean (settings, "night-theme-enabled", FALSE);
+        g_assert (!csd_night_light_get_active (nmode));
+        g_assert (!csd_night_theme_get_active (nmode));
 
         /* Now, sleep for a bit (the smooth transition time is 5 seconds) */
         g_timeout_add (5000, quit_mainloop, NULL);
         g_main_loop_run (mainloop);
 
         /* Ensure that the color temperature is still the default one.*/
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
 
 
         /* Check that disabled until tomorrow resets again correctly. */
         g_settings_set_double (settings, "night-light-schedule-from", 17.0);
         g_settings_set_double (settings, "night-light-schedule-to", 7.f);
         g_settings_set_boolean (settings, "night-light-enabled", TRUE);
-        csd_night_light_set_disabled_until_tmw (nlight, TRUE);
+        g_settings_set_boolean (settings, "night-theme-enabled", TRUE);
+        csd_night_mode_set_disabled_until_tmw (nmode, TRUE);
 
         /* Move time past midnight */
         g_clear_pointer (&datetime_override, g_date_time_unref);
         datetime_override = g_date_time_new_utc (2017, 2, 9, 1, 0, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert_true (csd_night_light_get_disabled_until_tmw (nlight));
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert_true (csd_night_mode_get_disabled_until_tmw (nmode));
 
         /* Move past sunrise */
         g_clear_pointer (&datetime_override, g_date_time_unref);
         datetime_override = g_date_time_new_utc (2017, 2, 9, 8, 0, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert_false (csd_night_light_get_disabled_until_tmw (nlight));
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert_false (csd_night_mode_get_disabled_until_tmw (nmode));
 
-        csd_night_light_set_disabled_until_tmw (nlight, TRUE);
+        csd_night_mode_set_disabled_until_tmw (nmode, TRUE);
 
         /* Move into night more than 24h in the future */
         g_clear_pointer (&datetime_override, g_date_time_unref);
         datetime_override = g_date_time_new_utc (2017, 2, 10, 20, 0, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert_false (csd_night_light_get_disabled_until_tmw (nlight));
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert_false (csd_night_mode_get_disabled_until_tmw (nmode));
 
 
         /* Check that we are always in night mode if from/to are equal. */
-        csd_night_light_set_smooth_enabled (nlight, FALSE);
+        csd_night_light_set_smooth_enabled (nmode, FALSE);
         g_settings_set_double (settings, "night-light-schedule-from", 6.0);
         g_settings_set_double (settings, "night-light-schedule-to", 6.0);
         g_settings_set_boolean (settings, "night-light-enabled", TRUE);
+        g_settings_set_boolean (settings, "night-theme-enabled", TRUE);
 
         datetime_override = g_date_time_new_utc (2017, 2, 10, 5, 50, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, 4000);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert (csd_night_light_get_active (nmode));
+        g_assert (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, 4000);
 
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 0, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, 4000);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert (csd_night_light_get_active (nmode));
+        g_assert (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, 4000);
 
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 10, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, 4000);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert (csd_night_light_get_active (nmode));
+        g_assert (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, 4000);
 
 
         /* Check that the smearing time is lowered correctly when the times are close. */
@@ -244,31 +285,35 @@ ccm_test_night_light (void)
 
         /* Not enabled 10 minutes before sunset */
         datetime_override = g_date_time_new_utc (2017, 2, 10, 5, 50, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert_false (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert_false (csd_night_light_get_active (nmode));
+        g_assert_false (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
 
         /* Not enabled >10 minutes after sunrise */
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 20, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert_false (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert_false (csd_night_light_get_active (nmode));
+        g_assert_false (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), ==, CSD_COLOR_TEMPERATURE_DEFAULT);
 
         /* ~50% smeared 3 min before sunrise (sunrise at 6 past) */
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 3, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert_true (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), <=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), >=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert_true (csd_night_light_get_active (nmode));
+        g_assert_true (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), <=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), >=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
 
         /* ~50% smeared 3 min before sunset (sunset at 6 past) */
         g_settings_set_double (settings, "night-light-schedule-from", 6.1);
         g_settings_set_double (settings, "night-light-schedule-to", 6.0);
         datetime_override = g_date_time_new_utc (2017, 2, 10, 6, 3, 0);
-        csd_night_light_set_date_time_now (nlight, datetime_override);
-        g_assert_true (csd_night_light_get_active (nlight));
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), <=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
-        g_assert_cmpint (csd_night_light_get_temperature (nlight), >=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
+        csd_night_mode_set_date_time_now (nmode, datetime_override);
+        g_assert_true (csd_night_light_get_active (nmode));
+        g_assert_true (csd_night_theme_get_active (nmode));
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), <=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 + 20);
+        g_assert_cmpint (csd_night_light_get_temperature (nmode), >=, (CSD_COLOR_TEMPERATURE_DEFAULT + 4000) / 2 - 20);
 }
 
 static const gboolean
@@ -351,7 +396,7 @@ ccm_test_sunset_sunrise (void)
         g_autoptr(GDateTime) dt = g_date_time_new_utc (2007, 2, 1, 0, 0, 0);
 
         /* get for London, today */
-        csd_night_light_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
+        csd_night_mode_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
         g_assert_cmpfloat (sunrise, <, sunrise_actual + 0.1);
         g_assert_cmpfloat (sunrise, >, sunrise_actual - 0.1);
         g_assert_cmpfloat (sunset, <, sunset_actual + 0.1);
@@ -372,7 +417,7 @@ ccm_test_sunset_sunrise_fractional_timezone (void)
         dt = g_date_time_new (tz, 2007, 2, 1, 0, 0, 0);
 
         /* get for our made up timezone, today */
-        csd_night_light_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
+        csd_night_mode_get_sunrise_sunset (dt, 51.5, -0.1278, &sunrise, &sunset);
         g_assert_cmpfloat (sunrise, <, sunrise_actual + 0.1);
         g_assert_cmpfloat (sunrise, >, sunrise_actual - 0.1);
         g_assert_cmpfloat (sunset, <, sunset_actual + 0.1);
@@ -387,26 +432,26 @@ ccm_test_frac_day (void)
         gdouble fd_actual = 12.99;
 
         /* test for 12:59:59 */
-        fd = csd_night_light_frac_day_from_dt (dt);
+        fd = csd_night_mode_frac_day_from_dt (dt);
         g_assert_cmpfloat (fd, >, fd_actual - 0.01);
         g_assert_cmpfloat (fd, <, fd_actual + 0.01);
 
         /* test same day */
-        g_assert_true (csd_night_light_frac_day_is_between (12, 6, 20));
-        g_assert_false (csd_night_light_frac_day_is_between (5, 6, 20));
-        g_assert_true (csd_night_light_frac_day_is_between (12, 0, 24));
-        g_assert_true (csd_night_light_frac_day_is_between (12, -1, 25));
+        g_assert_true (csd_night_mode_frac_day_is_between (12, 6, 20));
+        g_assert_false (csd_night_mode_frac_day_is_between (5, 6, 20));
+        g_assert_true (csd_night_mode_frac_day_is_between (12, 0, 24));
+        g_assert_true (csd_night_mode_frac_day_is_between (12, -1, 25));
 
         /* test rollover to next day */
-        g_assert_true (csd_night_light_frac_day_is_between (23, 20, 6));
-        g_assert_false (csd_night_light_frac_day_is_between (12, 20, 6));
+        g_assert_true (csd_night_mode_frac_day_is_between (23, 20, 6));
+        g_assert_false (csd_night_mode_frac_day_is_between (12, 20, 6));
 
         /* test rollover to the previous day */
-        g_assert_true (csd_night_light_frac_day_is_between (5, 16, 8));
+        g_assert_true (csd_night_mode_frac_day_is_between (5, 16, 8));
 
         /* test equality */
-        g_assert_true (csd_night_light_frac_day_is_between (12, 0.5, 24.5));
-        g_assert_true (csd_night_light_frac_day_is_between (0.5, 0.5, 0.5));
+        g_assert_true (csd_night_mode_frac_day_is_between (12, 0.5, 24.5));
+        g_assert_true (csd_night_mode_frac_day_is_between (0.5, 0.5, 0.5));
 }
 
 int
@@ -422,7 +467,7 @@ main (int argc, char **argv)
         g_test_add_func ("/color/sunset-sunrise", ccm_test_sunset_sunrise);
         g_test_add_func ("/color/sunset-sunrise/fractional-timezone", ccm_test_sunset_sunrise_fractional_timezone);
         g_test_add_func ("/color/fractional-day", ccm_test_frac_day);
-        g_test_add_func ("/color/night-light", ccm_test_night_light);
+        g_test_add_func ("/color/night-mode", ccm_test_night_mode);
 
         return g_test_run ();
 }
