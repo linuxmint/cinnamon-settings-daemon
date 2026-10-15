@@ -98,6 +98,10 @@ On DBUS, it listens to events on ``org.cups.cupsd.Notifier``.
 screensaver-proxy
 -----------------
 
+This persistent plugin activates the user's screensaver when logind requests
+that its own login session be locked. Cinnamon's screensaver can exit when
+idle; the activation helper also respects a custom screensaver command.
+
 smartcard
 ---------
 

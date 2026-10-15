@@ -136,6 +136,8 @@ struct CsdScreensaverProxyManagerPrivate
 {
         GDBusProxy              *session;
         GDBusConnection         *connection;
+        GDBusConnection         *system_connection;
+        guint                    logind_subscription;
         GCancellable            *bus_cancellable;
         GDBusNodeInfo           *introspection_data;
         GDBusNodeInfo           *introspection_data2;
@@ -376,6 +378,64 @@ register_manager_dbus (CsdScreensaverProxyManager *manager)
                    manager);
 }
 
+#ifdef HAVE_LOGIND
+static void
+on_logind_lock (GDBusConnection *connection,
+                const gchar     *sender,
+                const gchar     *path,
+                const gchar     *interface,
+                const gchar     *signal,
+                GVariant        *parameters,
+                gpointer         data)
+{
+        GError *error = NULL;
+
+        /* The screensaver normally exits when idle. Use its activation helper,
+         * which also respects the user's custom screensaver command. */
+        if (!g_spawn_command_line_async ("cinnamon-screensaver-command --lock", &error)) {
+                g_warning ("Unable to activate the screensaver for logind: %s", error->message);
+                g_error_free (error);
+        }
+}
+
+static void
+watch_logind_session (CsdScreensaverProxyManager *manager)
+{
+        GError *error = NULL;
+        GVariant *reply;
+        const gchar *path;
+
+        manager->priv->system_connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
+        if (manager->priv->system_connection == NULL)
+                goto failed;
+        reply = g_dbus_connection_call_sync (manager->priv->system_connection,
+                                             "org.freedesktop.login1",
+                                             "/org/freedesktop/login1",
+                                             "org.freedesktop.login1.Manager",
+                                             "GetSessionByPID",
+                                             g_variant_new ("(u)", (guint32) getpid ()),
+                                             G_VARIANT_TYPE ("(o)"),
+                                             G_DBUS_CALL_FLAGS_NONE, 5000, NULL, &error);
+        if (reply == NULL)
+                goto failed;
+        g_variant_get (reply, "(&o)", &path);
+        manager->priv->logind_subscription =
+                g_dbus_connection_signal_subscribe (manager->priv->system_connection,
+                                                     "org.freedesktop.login1",
+                                                     "org.freedesktop.login1.Session",
+                                                     "Lock", path, NULL,
+                                                     G_DBUS_SIGNAL_FLAGS_NONE,
+                                                     on_logind_lock, NULL, NULL);
+        g_variant_unref (reply);
+        return;
+
+failed:
+        g_warning ("Unable to watch logind session lock requests: %s", error->message);
+        g_error_free (error);
+        g_clear_object (&manager->priv->system_connection);
+}
+#endif
+
 gboolean
 csd_screensaver_proxy_manager_start (CsdScreensaverProxyManager *manager,
                                      GError               **error)
@@ -392,6 +452,9 @@ csd_screensaver_proxy_manager_start (CsdScreensaverProxyManager *manager,
                                                           g_direct_equal,
                                                           NULL,
                                                           (GDestroyNotify) g_free);
+#ifdef HAVE_LOGIND
+        watch_logind_session (manager);
+#endif
         cinnamon_settings_profile_end (NULL);
         return TRUE;
 }
@@ -400,6 +463,13 @@ void
 csd_screensaver_proxy_manager_stop (CsdScreensaverProxyManager *manager)
 {
         g_debug ("Stopping screensaver_proxy manager");
+
+        if (manager->priv->logind_subscription != 0) {
+                g_dbus_connection_signal_unsubscribe (manager->priv->system_connection,
+                                                       manager->priv->logind_subscription);
+                manager->priv->logind_subscription = 0;
+        }
+        g_clear_object (&manager->priv->system_connection);
 
         if (manager->priv->session != NULL) {
                 g_object_unref (manager->priv->session);
