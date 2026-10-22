@@ -1479,12 +1479,7 @@ do_config_power_action (CsdMediaKeysManager *manager,
         switch (action_type) {
         case CSD_POWER_ACTION_SUSPEND:
                 ;
-                gboolean hybrid = g_settings_get_boolean (manager->priv->cinnamon_session_settings,
-                                                          "prefer-hybrid-sleep");
-                gboolean suspend_then_hibernate = g_settings_get_boolean (manager->priv->cinnamon_session_settings,
-                                                          "suspend-then-hibernate");
-
-                csd_power_suspend (hybrid, suspend_then_hibernate);
+                csd_power_suspend (csd_power_get_suspend_action (manager->priv->cinnamon_session_settings));
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown (manager);

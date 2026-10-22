@@ -1921,12 +1921,7 @@ do_power_action_type (CsdPowerManager *manager,
                         activate_screensaver (manager, TRUE);
                 }
 
-                gboolean hybrid = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
-                                                          "prefer-hybrid-sleep");
-                gboolean suspend_then_hibernate = g_settings_get_boolean (manager->priv->settings_cinnamon_session,
-                                                          "suspend-then-hibernate");
-
-                csd_power_suspend (hybrid, suspend_then_hibernate);
+                csd_power_suspend (csd_power_get_suspend_action (manager->priv->settings_cinnamon_session));
                 break;
         case CSD_POWER_ACTION_INTERACTIVE:
                 cinnamon_session_shutdown ();

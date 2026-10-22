@@ -21,10 +21,18 @@
 #define __CSD_POWER_HELPER_H
 
 #include <glib.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
-void csd_power_suspend   (gboolean try_hybrid, gboolean suspend_then_hibernate);
+typedef enum {
+        CSD_POWER_SUSPEND_ACTION_SUSPEND,
+        CSD_POWER_SUSPEND_ACTION_SUSPEND_THEN_HIBERNATE,
+        CSD_POWER_SUSPEND_ACTION_HYBRID_SLEEP
+} CsdPowerSuspendAction;
+
+CsdPowerSuspendAction csd_power_get_suspend_action (GSettings *session_settings);
+void csd_power_suspend   (CsdPowerSuspendAction action);
 void csd_power_hibernate (void);
 void csd_power_poweroff  (void);
 

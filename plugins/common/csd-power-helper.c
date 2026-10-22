@@ -119,15 +119,8 @@ can_power_action (gchar *method_name)
 }
 
 static void
-logind_suspend (gboolean suspend_then_hibernate)
+logind_suspend (void)
 {
-
-	gchar *method_name = "Suspend";
-
-	if (suspend_then_hibernate && can_power_action("CanHibernate")) {
-		method_name = "SuspendThenHibernate";		
-	}
-
         GDBusConnection *bus;
 
         bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
@@ -135,7 +128,28 @@ logind_suspend (gboolean suspend_then_hibernate)
                                 LOGIND_DBUS_NAME,
                                 LOGIND_DBUS_PATH,
                                 LOGIND_DBUS_INTERFACE,
-                                method_name,
+                                "Suspend",
+                                g_variant_new ("(b)", TRUE),
+                                NULL, 0, G_MAXINT, NULL, NULL, NULL);
+        g_object_unref (bus);
+}
+
+static void
+logind_suspend_then_hibernate (void)
+{
+        GDBusConnection *bus;
+
+        if (!can_power_action ("CanSuspendThenHibernate")) {
+                logind_suspend ();
+                return;
+        }
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+        g_dbus_connection_call (bus,
+                                LOGIND_DBUS_NAME,
+                                LOGIND_DBUS_PATH,
+                                LOGIND_DBUS_INTERFACE,
+                                "SuspendThenHibernate",
                                 g_variant_new ("(b)", TRUE),
                                 NULL, 0, G_MAXINT, NULL, NULL, NULL);
         g_object_unref (bus);
@@ -145,6 +159,11 @@ static void
 logind_hybrid_suspend (void)
 {
         GDBusConnection *bus;
+
+        if (!can_power_action ("CanHybridSleep")) {
+                logind_suspend ();
+                return;
+        }
 
         bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
         g_dbus_connection_call (bus,
@@ -243,17 +262,11 @@ consolekit_sleep_cb (GObject *source_object,
 }
 
 static void
-consolekit_suspend (gboolean suspend_then_hibernate)
+consolekit_suspend (void)
 {
         GError *error = NULL;
         GDBusProxy *proxy;
 
-	gchar *method_name = "Suspend";
-
-	if (suspend_then_hibernate && can_power_action("CanHibernate")) {
-		method_name = "SuspendThenHibernate";
-	}
-        
         proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                                NULL,
@@ -268,7 +281,7 @@ consolekit_suspend (gboolean suspend_then_hibernate)
                 return;
         }
         g_dbus_proxy_call (proxy,
-                           method_name,
+                           "Suspend",
                            g_variant_new("(b)", TRUE),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1, NULL,
@@ -304,12 +317,56 @@ consolekit_hibernate (void)
         g_object_unref (proxy);
 }
 
+static gboolean
+consolekit_can_hybrid_sleep (void)
+{
+        GDBusConnection *bus;
+        GVariant *res;
+        gchar *rv;
+        gboolean can_hybrid_sleep;
+        GError *error = NULL;
+
+        bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+        res = g_dbus_connection_call_sync (bus,
+                                           CONSOLEKIT_DBUS_NAME,
+                                           CONSOLEKIT_DBUS_PATH_MANAGER,
+                                           CONSOLEKIT_DBUS_INTERFACE_MANAGER,
+                                           "CanHybridSleep",
+                                           NULL,
+                                           G_VARIANT_TYPE_TUPLE,
+                                           0, G_MAXINT, NULL, &error);
+
+        g_object_unref (bus);
+
+        if (error) {
+          g_warning ("Calling CanHybridSleep failed: %s", error->message);
+          g_clear_error (&error);
+
+          return FALSE;
+        }
+
+        g_variant_get (res, "(s)", &rv);
+        g_variant_unref (res);
+
+        can_hybrid_sleep = g_strcmp0 (rv, "yes") == 0 ||
+                           g_strcmp0 (rv, "challenge") == 0;
+
+        g_free (rv);
+
+        return can_hybrid_sleep;
+}
+
 static void
 consolekit_hybrid_suspend (void)
 {
         GError *error = NULL;
         GDBusProxy *proxy;
-        
+
+        if (!consolekit_can_hybrid_sleep ()) {
+                consolekit_suspend ();
+                return;
+        }
+
         proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
                                                G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
                                                NULL,
@@ -332,24 +389,55 @@ consolekit_hybrid_suspend (void)
         g_object_unref (proxy);
 }
 
-void
-csd_power_suspend (gboolean try_hybrid, gboolean suspend_then_hibernate)
+CsdPowerSuspendAction
+csd_power_get_suspend_action (GSettings *session_settings)
 {
-  if (use_logind ()) {
-    if (try_hybrid && can_power_action ("CanHybridSleep")) {
-      logind_hybrid_suspend ();
-    }
-    else {
-      logind_suspend (suspend_then_hibernate);
-    }
+  CsdPowerSuspendAction result = CSD_POWER_SUSPEND_ACTION_SUSPEND;
+  gchar *action = g_settings_get_string (session_settings, "suspend-action");
+
+  if (g_strcmp0 (action, "hybrid-sleep") == 0) {
+    result = CSD_POWER_SUSPEND_ACTION_HYBRID_SLEEP;
   }
-  else {
-    if (try_hybrid && can_power_action ("CanHybridSleep")) {
-      consolekit_hybrid_suspend ();
-    }
-    else {
-      consolekit_suspend (suspend_then_hibernate);
-    }
+  else if (g_strcmp0 (action, "suspend-then-hibernate") == 0) {
+    result = CSD_POWER_SUSPEND_ACTION_SUSPEND_THEN_HIBERNATE;
+  }
+
+  g_free (action);
+
+  return result;
+}
+
+void
+csd_power_suspend (CsdPowerSuspendAction action)
+{
+  switch (action) {
+    case CSD_POWER_SUSPEND_ACTION_HYBRID_SLEEP:
+      if (use_logind ()) {
+        logind_hybrid_suspend ();
+      }
+      else {
+        consolekit_hybrid_suspend ();
+      }
+      return;
+    case CSD_POWER_SUSPEND_ACTION_SUSPEND_THEN_HIBERNATE:
+      if (use_logind ()) {
+        logind_suspend_then_hibernate ();
+        return;
+      }
+      else {
+        /* ConsoleKit doesn't have suspend-then-hibernate */
+        consolekit_suspend ();
+      }
+      break;
+    case CSD_POWER_SUSPEND_ACTION_SUSPEND:
+    default:
+      if (use_logind ()) {
+        logind_suspend ();
+      }
+      else {
+        consolekit_suspend ();
+      }
+      break;
   }
 }
 
