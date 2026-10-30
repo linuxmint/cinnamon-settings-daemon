@@ -1,9 +1,14 @@
 <schemalist>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.cinnamon.settings-daemon.plugins.power" path="/org/cinnamon/settings-daemon/plugins/power/">
     <key name="ambient-enabled" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Enable the ambient light sensor</summary>
       <description>If the ambient light sensor functionality is enabled.</description>
+    </key>
+    <key name="ambient-light-curve" type="ad">
+      <default>[0, 5, 50, 300, 1000, 5000]</default>
+      <summary>Ambient light brightness curve</summary>
+      <description>Six increasing light levels, in lux, that map to 0, 20, 40, 60, 80 and 100 percent brightness; brightness is interpolated between them. Changing the brightness while the ambient light sensor is in use reshapes and saves this curve so the current light level maps to the chosen brightness; values may then be fractional or negative. A list without exactly six values is ignored and the default is used.</description>
     </key>
     <key name="idle-brightness" type="i">
       <default>30</default>
@@ -136,27 +141,13 @@
       <summary>If the computer should lock when entering suspend mode</summary>
       <description>If the computer should lock during suspend - replaces ubuntu-lock-on-suspend</description>
     </key>
-    <key name="backlight-helper-force" type="b">
-	  <default>false</default>
-	  <summary>Use the backlight helper application by default</summary>
-	  <description>Setting this to true forces cinnamon-settings-daemon to use the backlight helper application
-	  to provide backlight control. This will usually fix backlight control problems on laptops where X11 picks
-	  the wrong interface, or uses an interface incorrectly. Adjust backlight-preference-order if the default
-	  selection logic still chooses the wrong interface.</description>
-	</key>
-    <key name="backlight-helper-preference-order" type="as">
-      <default>['firmware','platform','raw']</default>
-      <summary>Search order for backlight control interfaces</summary>
-      <description>Controls the type of interfaces the backlight-helper will search for to control the backlight.
-	This can be useful for working around systems with broken default backlight control behavior which provide
-	multiple interfaces. If you are having problems, try setting 'raw' to a higher priority.</description>
-    </key>
     <key name="inhibit-lid-switch" type="b">
       <default>true</default>
       <summary>Whether or not cinnamon-settings-daemon inhibits logind's handling of lid switch</summary>
       <description>This setting should be true in all distributions and for all users. Only set it to false, if you want to prevent Cinnamon from handling lid switch events. In this case, you should not rely on Cinnamon's lid actions and use the logind ones instead.</description>
     </key>
     <key name="minimum-display-brightness" type="u">
+      <range min="0" max="99"/>
       <default>2</default>
       <summary>In percent, minimum allowable brightness adjustment.  This will become 0 percent brightness</summary>
     </key>

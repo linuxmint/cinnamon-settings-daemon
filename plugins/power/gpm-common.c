@@ -27,6 +27,15 @@
 
 #include "gpm-common.h"
 
+gint
+abs_to_percentage (gint min, gint max, gint value)
+{
+    g_return_val_if_fail (max > min, -1);
+    g_return_val_if_fail (value >= min, -1);
+    g_return_val_if_fail (value <= max, -1);
+    return CLAMP (((value - min) * 100 + (max - min) / 2) / (max - min), 0, 100);
+}
+
 #define GPM_UP_TIME_PRECISION                   5*60
 #define GPM_UP_TEXT_MIN_TIME                    120
 

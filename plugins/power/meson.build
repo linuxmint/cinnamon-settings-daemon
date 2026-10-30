@@ -28,16 +28,14 @@ power_keyboard_proxy = gnome.gdbus_codegen(
 )
 
 power_sources = [
+    'csd-ambient-curve.c',
+    'csd-backlight.c',
     'csd-power-manager.c',
     'gpm-common.c',
     'main.c',
     power_proxy,
     power_screen_proxy,
     power_keyboard_proxy,
-]
-
-backlight_sources = [
-    'csd-backlight-helper.c',
 ]
 
 power_deps = [
@@ -51,6 +49,10 @@ power_deps = [
     upower_glib,
     xext,
 ]
+
+if gudev.found()
+    power_deps += gudev
+endif
 
 executable(
     'csd-power',
@@ -71,24 +73,12 @@ if libexecdir != pkglibdir
     meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-power')
 endif
 
-if gudev.found()
-    executable(
-        'csd-backlight-helper',
-        backlight_sources,
-        include_directories: [include_dirs, common_inc],
-        dependencies: [power_deps, gudev],
-        c_args: [
-            # '-DPLUGIN_NAME="@0@"'.format(plugin_name),
-        ],
-        install: true,
-        install_dir: libexecdir,
-    )
-
-    meson.add_install_script(ln_script, libexecdir, bindir, 'csd-backlight-helper')
-    if libexecdir != pkglibdir
-        meson.add_install_script(ln_script, libexecdir, pkglibdir, 'csd-backlight-helper')
-    endif
-endif
+test_ambient_curve = executable(
+    'test-ambient-curve',
+    ['test-ambient-curve.c', 'csd-ambient-curve.c'],
+    dependencies: [glib, math],
+)
+test('test-ambient-curve', test_ambient_curve)
 
 configure_file(
     input: 'cinnamon-settings-daemon-power.desktop.in',
@@ -97,9 +87,3 @@ configure_file(
     install_dir: autostartdir,
 )
 
-configure_file(
-    input: 'org.cinnamon.settings-daemon.plugins.power.policy.in',
-    output: 'org.cinnamon.settings-daemon.plugins.power.policy',
-    configuration: desktop_conf,
-    install_dir: polkitdir,
-)

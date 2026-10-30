@@ -23,12 +23,10 @@
 #include "config.h"
 
 #include <fcntl.h>
-#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/wait.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -49,6 +47,8 @@
 #include "csd-enums.h"
 #include "csd-power-manager.h"
 #include "csd-power-helper.h"
+#include "csd-backlight.h"
+#include "csd-ambient-curve.h"
 #include "csd-power-proxy.h"
 #include "csd-power-screen-proxy.h"
 #include "csd-power-keyboard-proxy.h"
@@ -93,48 +93,6 @@
 
 #define XSCREENSAVER_WATCHDOG_TIMEOUT                   120 /* seconds */
 
-/* on ACPI machines we have 4-16 levels, on others it's ~150 */
-#define BRIGHTNESS_STEP_AMOUNT(max) ((max) < 20 ? 1 : (max) / 20)
-
-/* take a discrete value with offset and convert to percentage */
-static int
-abs_to_percentage (int min, int max, int value)
-{
-        g_return_val_if_fail (max > min, -1);
-        g_return_val_if_fail (value >= min, -1);
-        g_return_val_if_fail (value <= max, -1);
-        return (CLAMP(((value - min) * 100) / (max - min), 0, 100));
-}
-#define ABS_TO_PERCENTAGE(min, max, value) abs_to_percentage(min, max, value)
-#define PERCENTAGE_TO_ABS(min, max, value) (min + (((max - min) * value) / 100))
-
-/* How long to wait for sensor readings to stabilize before acting (ms). */
-#define AMBIENT_STABILIZE_DELAY_MS      3000
-
-/* How long the gradual brightness transition takes (ms). */
-#define AMBIENT_TRANSITION_DURATION_MS  3000
-
-/* Number of discrete steps in a gradual transition. */
-#define AMBIENT_TRANSITION_STEPS        30
-
-/* Interval between transition steps (ms). */
-#define AMBIENT_TRANSITION_STEP_MS      (AMBIENT_TRANSITION_DURATION_MS / AMBIENT_TRANSITION_STEPS)
-
-/* After a transition completes, ignore sensor changes for this long (ms)
- * to let the sensor settle with the new screen brightness. */
-#define AMBIENT_POST_TRANSITION_DEAD_ZONE_MS    500
-
-/* Minimum brightness change (%) required to trigger a transition. */
-#define AMBIENT_MIN_BRIGHTNESS_CHANGE   4.0
-
-/* Power-law exponent applied to the sensor-to-brightness ratio.
- * 1.0 = linear tracking, lower values compress the response curve
- * (e.g. 0.5 gives sqrt(ratio)). Lower values reduce feedback from
- * screen content affecting the sensor. */
-#define AMBIENT_RESPONSE_DAMPENING      0.75
-
-#define AMBIENT_SENSOR_EPSILON          1e-6
-
 #define CSD_POWER_MANAGER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), CSD_TYPE_POWER_MANAGER, CsdPowerManagerPrivate))
 
 typedef enum {
@@ -143,12 +101,6 @@ typedef enum {
         CSD_POWER_IDLE_MODE_BLANK,
         CSD_POWER_IDLE_MODE_SLEEP
 } CsdPowerIdleMode;
-
-typedef enum {
-        AMBIENT_STATE_IDLE,
-        AMBIENT_STATE_STABILIZING,
-        AMBIENT_STATE_TRANSITIONING
-} AmbientState;
 
 struct CsdPowerManagerPrivate
 {
@@ -169,9 +121,7 @@ struct CsdPowerManagerPrivate
         GDBusConnection         *connection;
         GCancellable            *bus_cancellable;
         GDBusProxy              *upower_kbd_proxy;
-        gboolean                 skip_unsupported_xrandr;
-        gboolean				backlight_helper_force;
-        gchar*                  backlight_helper_preference_args;
+        CsdBacklight            *backlight;
         gint                     kbd_brightness_now;
         gint                     kbd_brightness_max;
         gint                     kbd_brightness_old;
@@ -190,7 +140,7 @@ struct CsdPowerManagerPrivate
         gboolean                 notify_keyboard;
         gboolean                 notify_mouse;
         gboolean                 notify_other_devices;
-        gint                     pre_dim_brightness; /* level, not percentage */
+        gint                     pre_dim_brightness; /* percentage before dimming, -1 when not dimmed */
         UpDevice                *device_composite;
         NotifyNotification      *notification_discharging;
         NotifyNotification      *notification_low;
@@ -228,18 +178,11 @@ struct CsdPowerManagerPrivate
         GDBusProxy              *iio_proxy;
         guint                    iio_proxy_watch_id;
         GCancellable            *iio_cancellable;
-        gboolean                 light_claimed;
 
-        AmbientState             ambient_state;
-        guint                    ambient_stabilize_timer_id;
-        gdouble                  ambient_baseline_sensor;
-        gdouble                  ambient_pending_sensor;
-        guint                    ambient_transition_timer_id;
-        gdouble                  ambient_transition_start;
-        gdouble                  ambient_transition_target;
-        gint                     ambient_transition_step;
-        gdouble                  ambient_brightness_baseline;
-        gint64                   ambient_last_transition_time;
+        gboolean                 light_claimed;
+        gboolean                 ambient_level_fresh;
+        CsdAmbientCurve          ambient_curve;
+        guint                    ambient_settle_id;
 };
 
 enum {
@@ -272,8 +215,7 @@ static void connect_power_iface (CsdPowerManager *manager);
 static void connect_screen_iface (CsdPowerManager *manager);
 static void connect_keyboard_iface (CsdPowerManager *manager);
 
-static void ambient_renormalize (CsdPowerManager *manager, gdouble brightness);
-static void ambient_cancel_timers (CsdPowerManager *manager);
+static void ambient_adjust (CsdPowerManager *manager, gint percentage);
 static void iio_proxy_changed (CsdPowerManager *manager);
 static void iio_proxy_changed_cb (GDBusProxy *proxy, GVariant *changed_properties, GStrv invalidated_properties, gpointer user_data);
 static void iio_proxy_claim_light (CsdPowerManager *manager, gboolean active);
@@ -2295,217 +2237,15 @@ idle_mode_to_string (CsdPowerIdleMode mode)
         return "unknown";
 }
 
-static GnomeRROutput *
-get_primary_output (CsdPowerManager *manager)
-{
-        GnomeRROutput *output = NULL;
-        GnomeRROutput **outputs;
-        guint i;
-
-        /* search all X11 outputs for the device id */
-        outputs = gnome_rr_screen_list_outputs (manager->priv->x11_screen);
-        if (outputs == NULL)
-                goto out;
-
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_builtin_display (outputs[i])) {
-                        output = outputs[i];
-                        break;
-                }
-        }
-out:
-        return output;
-}
-
-static void
-backlight_override_settings_refresh (CsdPowerManager *manager)
-{
-        int i = 0;
-        /* update all the stored backlight override properties
-         * this is called on startup and by engine_settings_key_changed_cb */
-        manager->priv->backlight_helper_force = g_settings_get_boolean
-                        (manager->priv->settings, "backlight-helper-force");
-
-        /* concatenate all the search preferences into a single argument string */
-        gchar** backlight_preference_order = g_settings_get_strv
-                (manager->priv->settings, "backlight-helper-preference-order");
-
-        gchar* tmp1 = NULL;
-        gchar* tmp2 = NULL;
-
-        if (backlight_preference_order[0] != NULL) {
-                tmp1 = g_strdup_printf("-b %s", backlight_preference_order[0]);
-        }
-
-        for (i=1; backlight_preference_order[i] != NULL; i++ )
-        {
-                tmp2 = tmp1;
-                tmp1 = g_strdup_printf("%s -b %s", tmp2,
-                                backlight_preference_order[i]);
-                g_free(tmp2);
-        }
-
-        tmp2 = manager->priv->backlight_helper_preference_args;
-        manager->priv->backlight_helper_preference_args = tmp1;
-        g_free(tmp2);
-        tmp2 = NULL;
-
-        g_free(backlight_preference_order);
-        backlight_preference_order = NULL;
-}
-
-/**
- * backlight_helper_get_value:
- *
- * Gets a brightness value from the PolicyKit helper.
- *
- * Return value: the signed integer value from the helper, or -1
- * for failure. If -1 then @error is set.
- **/
-static gint64
-backlight_helper_get_value (const gchar *argument, CsdPowerManager* manager,
-                GError **error)
-{
-        gboolean ret;
-        gchar *stdout_data = NULL;
-        gint exit_status = 0;
-        gint64 value = -1;
-        gchar *command = NULL;
-        gchar *endptr = NULL;
-
-        /* get the data */
-        command = g_strdup_printf (LIBEXECDIR "/csd-backlight-helper --%s %s",
-                                   argument,
-                                   manager->priv->backlight_helper_preference_args);
-        ret = g_spawn_command_line_sync (command,
-                                         &stdout_data,
-                                         NULL,
-                                         &exit_status,
-                                         error);
-        g_debug ("executed %s retval: %i", command, exit_status);
-
-        if (!ret)
-                goto out;
-
-        if (WEXITSTATUS (exit_status) != 0) {
-                 g_set_error (error,
-                             CSD_POWER_MANAGER_ERROR,
-                             CSD_POWER_MANAGER_ERROR_FAILED,
-                             "csd-backlight-helper failed: %s",
-                             stdout_data ? stdout_data : "No reason");
-                goto out;
-        }
-
-        /* parse */
-        value = g_ascii_strtoll (stdout_data, &endptr, 10);
-
-        /* parsing error */
-        if (endptr == stdout_data) {
-                value = -1;
-                g_set_error (error,
-                             CSD_POWER_MANAGER_ERROR,
-                             CSD_POWER_MANAGER_ERROR_FAILED,
-                             "failed to parse value: %s",
-                             stdout_data);
-                goto out;
-        }
-
-        /* out of range */
-        if (value > G_MAXINT) {
-                value = -1;
-                g_set_error (error,
-                             CSD_POWER_MANAGER_ERROR,
-                             CSD_POWER_MANAGER_ERROR_FAILED,
-                             "value out of range: %s",
-                             stdout_data);
-                goto out;
-        }
-
-        /* Fetching the value failed, for some other reason */
-        if (value < 0) {
-                g_set_error (error,
-                             CSD_POWER_MANAGER_ERROR,
-                             CSD_POWER_MANAGER_ERROR_FAILED,
-                             "value negative, but helper did not fail: %s",
-                             stdout_data);
-                goto out;
-        }
-
-out:
-        g_free (command);
-        g_free (stdout_data);
-        return value;
-}
-
-/**
- * backlight_helper_set_value:
- *
- * Sets a brightness value using the PolicyKit helper.
- *
- * Return value: Success. If FALSE then @error is set.
- **/
-static gboolean
-backlight_helper_set_value (const gchar *argument,
-                            gint value,
-                            CsdPowerManager* manager,
-                            GError **error)
-{
-        gboolean ret;
-        gint exit_status = 0;
-        gchar *command = NULL;
-
-#ifndef __linux__
-        /* non-Linux platforms won't have /sys/class/backlight */
-        g_set_error_literal (error,
-                             CSD_POWER_MANAGER_ERROR,
-                             CSD_POWER_MANAGER_ERROR_FAILED,
-                             "The sysfs backlight helper is only for Linux");
-        goto out;
-#endif
-
-        /* get the data */
-        command = g_strdup_printf ("pkexec " LIBEXECDIR "/csd-backlight-helper --%s %i %s",
-                                   argument, value,
-                                   manager->priv->backlight_helper_preference_args);
-        ret = g_spawn_command_line_sync (command,
-                                         NULL,
-                                         NULL,
-                                         &exit_status,
-                                         error);
-
-        g_debug ("executed %s retval: %i", command, exit_status);
-
-        if (!ret || WEXITSTATUS (exit_status) != 0)
-                goto out;
-
-out:
-        g_free (command);
-        return ret;
-}
-
 static void
 backlight_get_output_id (CsdPowerManager *manager,
                          gint *xout, gint *yout)
 {
-        GnomeRROutput *output = NULL;
-        GnomeRROutput **outputs;
+        GnomeRROutput *output;
         GnomeRRCrtc *crtc;
         gint x, y;
-        guint i;
 
-        outputs = gnome_rr_screen_list_outputs (manager->priv->x11_screen);
-        if (outputs == NULL)
-                return;
-
-        for (i = 0; outputs[i] != NULL; i++) {
-                if (gnome_rr_output_is_connected (outputs[i]) &&
-                    gnome_rr_output_is_builtin_display (outputs[i])) {
-                        output = outputs[i];
-                        break;
-                }
-        }
-
+        output = csd_backlight_find_builtin_output (manager->priv->x11_screen);
         if (output == NULL)
                 return;
 
@@ -2520,52 +2260,9 @@ backlight_get_output_id (CsdPowerManager *manager,
 }
 
 static gint
-min_abs_brightness (CsdPowerManager *manager, gint min, gint max)
-{
-    guint min_percent = g_settings_get_uint (manager->priv->settings, "minimum-display-brightness");
-
-    return (min + ((max - min) / 100 * min_percent));
-}
-
-static gint
 backlight_get_percentage (CsdPowerManager *manager, GError **error)
 {
-        GnomeRROutput *output;
-        gint now;
-        gint value = -1;
-        gint min = 0;
-        gint max;
-
-        /* prioritize user override settings */
-        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
-        {
-                /* prefer xbacklight */
-                output = get_primary_output (manager);
-                if (output != NULL) {
-                        // proxy for backlight supported
-                        if (gnome_rr_output_get_min_backlight_step (output) > 0) {
-                            value = gnome_rr_output_get_backlight (output);
-                        } else {
-                            // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
-                            g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
-                            manager->priv->skip_unsupported_xrandr = TRUE;
-                        }
-                }
-        }
-
-        /* fall back to the polkit helper */
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
-        if (max < 0) {
-                goto out;
-            }
-        now = backlight_helper_get_value ("get-brightness", manager, error);
-        if (now < 0) {
-                goto out;
-            }
-
-        value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, now);
-out:
-        return value;
+        return csd_backlight_get_percentage (manager->priv->backlight, error);
 }
 
 static void
@@ -2584,48 +2281,9 @@ backlight_set_percentage (CsdPowerManager *manager,
                           gboolean emit_changed,
                           GError **error)
 {
-        GnomeRROutput *output;
-        gboolean ret = FALSE;
+        gboolean ret;
 
-        /* prioritize user override settings */
-        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
-        {
-                /* prefer xbacklight */
-                output = get_primary_output (manager);
-                if (output != NULL) {
-                        // proxy for backlight supported
-                        if (gnome_rr_output_get_min_backlight_step (output) > 0) {
-                            GError *grr_error = NULL;
-                            ret = gnome_rr_output_set_backlight (output,
-                                                                 CLAMP (value, 0, 100),
-                                                                 &grr_error);
-                            if (grr_error != NULL) {
-                                g_debug ("Could not set backlight using xrandr: %s", grr_error->message);
-                                g_error_free (grr_error);
-                            }
-                        } else {
-                            // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
-                            g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
-                            manager->priv->skip_unsupported_xrandr = TRUE;
-                        }
-                }
-        }
-
-        gint min = 0;
-        gint max = 0;
-        gint new;
-
-        /* fall back to the polkit helper */
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
-        if (max < 0)
-                goto out;
-
-        new = CLAMP (PERCENTAGE_TO_ABS (min_abs_brightness (manager, min, max), max, value), min_abs_brightness (manager, min, max), max);
-        ret = backlight_helper_set_value ("set-brightness",
-                                          new,
-                                          manager,
-                                          error);
-out:
+        ret = csd_backlight_set_percentage (manager->priv->backlight, value, error);
         if (ret && emit_changed)
                 backlight_emit_changed (manager);
         return ret;
@@ -2634,145 +2292,30 @@ out:
 static gint
 backlight_step_up (CsdPowerManager *manager, GError **error)
 {
-        GnomeRROutput *output;
-        gboolean ret = FALSE;
-        gint current;
-        gint step;
-        gint new;
-        gint percentage_value = 0;
-        GnomeRRCrtc *crtc;
+        gint percentage;
 
-        /* prioritize user override settings */
-        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
-        {
-                /* prefer xbacklight */
-                output = get_primary_output (manager);
-                if (output != NULL) {
-                        crtc = gnome_rr_output_get_crtc (output);
-
-                        if (crtc != NULL) {
-                            step = gnome_rr_output_get_min_backlight_step (output);
-
-                            if (step > 0) {
-                                GError *grr_error = NULL;
-
-                                current = gnome_rr_output_get_backlight (output);
-                                new = CLAMP (step + current, 0, 100);
-                                ret = gnome_rr_output_set_backlight (output,
-                                                                     new,
-                                                                     &grr_error);
-                                if (ret) {
-                                    percentage_value = new;
-                                    goto out;
-                                } else {
-                                    if (grr_error != NULL) {
-                                        g_debug ("Could not step up backlight using xrandr: %s", grr_error->message);
-                                        g_error_free (grr_error);
-                                    }
-                                }
-                            } else {
-                                // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
-                                g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
-                                manager->priv->skip_unsupported_xrandr = TRUE;
-                            }
-                    }
-                }
-        }
-
-        gint max = 0;
-        gint min = 0;
-
-        /* fall back to the polkit helper */
-        current = backlight_helper_get_value ("get-brightness", manager, error);
-        if (current < 0)
-                goto out;
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
-        if (max < 0)
-                goto out;
-        step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
-        new = MIN (current + step, max);
-        ret = backlight_helper_set_value ("set-brightness",
-                                          new,
-                                          manager,
-                                          error);
-        if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, new);
-out:
-        if (ret)
+        percentage = csd_backlight_step_up (manager->priv->backlight, error);
+        if (percentage >= 0)
                 backlight_emit_changed (manager);
-        return percentage_value;
+        return percentage;
 }
 
 static gint
 backlight_step_down (CsdPowerManager *manager, GError **error)
 {
-        GnomeRROutput *output;
-        gboolean ret = FALSE;
-        gint percentage_value = -1;
-        gint current;
-        gint step;
-        gint new;
-        GnomeRRCrtc *crtc;
+        gint percentage;
 
-        /* prioritize user override settings */
-        if (!manager->priv->skip_unsupported_xrandr && !manager->priv->backlight_helper_force)
-        {
-                /* prefer xbacklight */
-                output = get_primary_output (manager);
-                if (output != NULL) {
-                        crtc = gnome_rr_output_get_crtc (output);
-
-                        if (crtc != NULL) {
-                            step = gnome_rr_output_get_min_backlight_step (output);
-
-                            if (step > 0) {
-                                GError *grr_error = NULL;
-
-                                current = gnome_rr_output_get_backlight (output);
-                                new = CLAMP (current - step, 0, 100);
-                                ret = gnome_rr_output_set_backlight (output,
-                                                                     new,
-                                                                     &grr_error);
-                                if (ret) {
-                                    percentage_value = new;
-                                    goto out;
-                                } else {
-                                    if (grr_error != NULL) {
-                                        g_debug ("Could not step down backlight using xrandr: %s", grr_error->message);
-                                        g_error_free (grr_error);
-                                    }
-                                }
-                            } else {
-                                // Skip gnome_rr_ calls if any fail, to avoid extra future traffic.
-                                g_message ("gnome-rr not supported for display backlight, using backlight-helper for future calls");
-                                manager->priv->skip_unsupported_xrandr = TRUE;
-                            }
-                    }
-                }
-        }
-
-        gint min = 0;
-        gint max = 0;
-
-        /* fall back to the polkit helper */
-        current = backlight_helper_get_value ("get-brightness", manager, error);
-        if (current < 0)
-                goto out;
-        max = backlight_helper_get_value ("get-max-brightness", manager, error);
-        if (max < 0)
-                goto out;
-        step = BRIGHTNESS_STEP_AMOUNT (max - min_abs_brightness (manager, min, max));
-        new = MAX (current - step, min_abs_brightness (manager, min, max));
-        ret = backlight_helper_set_value ("set-brightness",
-                                          new,
-                                          manager,
-                                          error);
-        if (ret)
-                percentage_value = ABS_TO_PERCENTAGE (min_abs_brightness (manager, min, max), max, new);
-out:
-        if (ret)
+        percentage = csd_backlight_step_down (manager->priv->backlight, error);
+        if (percentage >= 0)
                 backlight_emit_changed (manager);
-        return percentage_value;
+        return percentage;
+}
+
+static void
+on_backlight_changed (CsdBacklight *backlight, CsdPowerManager *manager)
+{
+        backlight_emit_changed (manager);
+        ambient_adjust (manager, backlight_get_percentage (manager, NULL));
 }
 
 static gboolean
@@ -2905,8 +2448,6 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                                    idle_percentage,
                                    error->message);
                         g_clear_error (&error);
-                } else {
-                        ambient_renormalize (manager, (gdouble) idle_percentage);
                 }
 
                 /* keyboard backlight */
@@ -2979,7 +2520,6 @@ idle_set_mode (CsdPowerManager *manager, CsdPowerIdleMode mode)
                                            error->message);
                                 g_clear_error (&error);
                         } else {
-                                ambient_renormalize (manager, (gdouble) manager->priv->pre_dim_brightness);
                                 manager->priv->pre_dim_brightness = -1;
                         }
                 }
@@ -3604,11 +3144,6 @@ engine_settings_key_changed_cb (GSettings *settings,
                 return;
         }
 
-        if (g_str_has_prefix (key, "backlight-helper")) {
-                backlight_override_settings_refresh (manager);
-                return;
-        }
-
         if (g_str_has_prefix (key, "power-notifications")) {
                 refresh_notification_settings (manager);
                 return;
@@ -3621,291 +3156,170 @@ engine_settings_key_changed_cb (GSettings *settings,
 }
 
 static void
-ambient_cancel_timers (CsdPowerManager *manager)
+ambient_cancel_settle (CsdPowerManager *manager)
 {
-        if (manager->priv->ambient_stabilize_timer_id > 0) {
-                g_source_remove (manager->priv->ambient_stabilize_timer_id);
-                manager->priv->ambient_stabilize_timer_id = 0;
-        }
-        if (manager->priv->ambient_transition_timer_id > 0) {
-                g_source_remove (manager->priv->ambient_transition_timer_id);
-                manager->priv->ambient_transition_timer_id = 0;
+        if (manager->priv->ambient_settle_id > 0) {
+                g_source_remove (manager->priv->ambient_settle_id);
+                manager->priv->ambient_settle_id = 0;
         }
 }
 
 static void
 ambient_reset_state (CsdPowerManager *manager)
 {
-        ambient_cancel_timers (manager);
-        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
-        manager->priv->ambient_baseline_sensor = -1.0;
-        manager->priv->ambient_pending_sensor = -1.0;
-        manager->priv->ambient_brightness_baseline = -1.0;
-        manager->priv->ambient_last_transition_time = 0;
+        ambient_cancel_settle (manager);
+        manager->priv->light_claimed = FALSE;
 }
 
 static gdouble
-ambient_sensor_to_brightness (CsdPowerManager *manager, gdouble sensor_value)
+ambient_get_light_level (CsdPowerManager *manager)
 {
-        gdouble ratio, brightness;
-
-        if (sensor_value <= 0.0 ||
-            manager->priv->ambient_baseline_sensor <= 0.0 ||
-            manager->priv->ambient_brightness_baseline <= 0.0)
-                return -1.0;
-
-        ratio = sensor_value / manager->priv->ambient_baseline_sensor;
-        brightness = manager->priv->ambient_brightness_baseline *
-                     pow (ratio, AMBIENT_RESPONSE_DAMPENING);
-        return CLAMP (brightness, 1.0, 100.0);
-}
-
-static void
-ambient_renormalize (CsdPowerManager *manager, gdouble brightness)
-{
-        GVariant *val_als = NULL;
-        gdouble sensor_value;
+        GVariant *val;
+        gdouble lux;
 
         if (manager->priv->iio_proxy == NULL)
-                return;
+                return -1.0;
 
-        if (!manager->priv->light_claimed)
-                return;
-
-        val_als = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
-        if (val_als == NULL) {
-                g_debug ("Cannot renormalize: sensor reading unavailable");
-                return;
+        val = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "HasAmbientLight");
+        if (val == NULL || !g_variant_get_boolean (val)) {
+                g_clear_pointer (&val, g_variant_unref);
+                return -1.0;
         }
+        g_variant_unref (val);
 
-        sensor_value = g_variant_get_double (val_als);
-        g_variant_unref (val_als);
+        /* the curve is in lux; "vendor" readings have no fixed scale */
+        val = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevelUnit");
+        if (val == NULL || g_strcmp0 (g_variant_get_string (val, NULL), "lux") != 0) {
+                static gboolean warned = FALSE;
 
-        if (sensor_value <= 0.0) {
-                g_debug ("Cannot renormalize: sensor reading is zero");
-                return;
-        }
-
-        g_debug ("Renormalizing for brightness %.1f%% at light level %f",
-                 brightness, sensor_value);
-
-        manager->priv->ambient_brightness_baseline = brightness;
-        manager->priv->ambient_baseline_sensor = sensor_value;
-
-        ambient_cancel_timers (manager);
-        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
-}
-
-static void
-ambient_transition_handle_error (CsdPowerManager *manager, GError *error)
-{
-        gint actual;
-
-        g_warning ("Ambient transition step failed: %s", error->message);
-        g_error_free (error);
-
-        manager->priv->ambient_transition_timer_id = 0;
-        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
-
-        actual = backlight_get_percentage (manager, NULL);
-        if (actual >= 0)
-                manager->priv->ambient_brightness_baseline = (gdouble) actual;
-}
-
-static gboolean
-ambient_transition_step_cb (gpointer user_data)
-{
-        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
-        GError *error = NULL;
-        gdouble fraction, brightness;
-
-        manager->priv->ambient_transition_step++;
-
-        if (manager->priv->ambient_transition_step >= AMBIENT_TRANSITION_STEPS) {
-                if (!backlight_set_percentage (manager,
-                                              (guint) manager->priv->ambient_transition_target,
-                                              TRUE, &error)) {
-                        ambient_transition_handle_error (manager, error);
-                        return G_SOURCE_REMOVE;
+                if (!warned) {
+                        g_message ("Ambient: light sensor doesn't report lux, automatic brightness disabled");
+                        warned = TRUE;
                 }
-
-                g_debug ("Ambient transition complete: %.1f%%",
-                         manager->priv->ambient_transition_target);
-
-                manager->priv->ambient_brightness_baseline = manager->priv->ambient_transition_target;
-                manager->priv->ambient_baseline_sensor = manager->priv->ambient_pending_sensor;
-                manager->priv->ambient_transition_timer_id = 0;
-                manager->priv->ambient_last_transition_time = g_get_monotonic_time ();
-                manager->priv->ambient_state = AMBIENT_STATE_IDLE;
-
-                return G_SOURCE_REMOVE;
+                g_clear_pointer (&val, g_variant_unref);
+                return -1.0;
         }
+        g_variant_unref (val);
 
-        fraction = (gdouble) manager->priv->ambient_transition_step / AMBIENT_TRANSITION_STEPS;
-        brightness = manager->priv->ambient_transition_start +
-                     fraction * (manager->priv->ambient_transition_target -
-                                 manager->priv->ambient_transition_start);
+        val = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
+        if (val == NULL)
+                return -1.0;
+        lux = g_variant_get_double (val);
+        g_variant_unref (val);
 
-        if (!backlight_set_percentage (manager, (guint) brightness, TRUE, &error)) {
-                ambient_transition_handle_error (manager, error);
-                return G_SOURCE_REMOVE;
-        }
-
-        return G_SOURCE_CONTINUE;
+        return lux;
 }
 
 static void
-ambient_begin_transition (CsdPowerManager *manager, gdouble target_brightness)
+ambient_load_curve (CsdPowerManager *manager)
 {
-        gdouble current = manager->priv->ambient_brightness_baseline;
+        const gdouble defaults[CSD_AMBIENT_CURVE_POINTS] = { 0, 5, 50, 300, 1000, 5000 };
+        const gdouble *points;
+        GVariant *value;
+        gsize n_points;
 
-        if (fabs (target_brightness - current) < AMBIENT_MIN_BRIGHTNESS_CHANGE) {
-                g_debug ("Ambient target %.1f%% too close to current %.1f%%, skipping",
-                         target_brightness, current);
-                manager->priv->ambient_state = AMBIENT_STATE_IDLE;
-                manager->priv->ambient_baseline_sensor = manager->priv->ambient_pending_sensor;
-                return;
+        value = g_settings_get_value (manager->priv->settings, "ambient-light-curve");
+        points = g_variant_get_fixed_array (value, &n_points, sizeof (gdouble));
+        if (n_points != CSD_AMBIENT_CURVE_POINTS) {
+                g_warning ("ambient-light-curve needs %d values, using defaults", CSD_AMBIENT_CURVE_POINTS);
+                points = defaults;
         }
 
-        g_debug ("Ambient transition: %.1f%% -> %.1f%%", current, target_brightness);
+        csd_ambient_curve_init (&manager->priv->ambient_curve, points);
+        g_variant_unref (value);
+        ambient_cancel_settle (manager);
+}
 
-        manager->priv->ambient_state = AMBIENT_STATE_TRANSITIONING;
-        manager->priv->ambient_transition_start = current;
-        manager->priv->ambient_transition_target = target_brightness;
-        manager->priv->ambient_transition_step = 0;
+static void
+ambient_save_curve (CsdPowerManager *manager)
+{
+        GVariant *value;
 
-        manager->priv->ambient_transition_timer_id =
-                g_timeout_add (AMBIENT_TRANSITION_STEP_MS,
-                               ambient_transition_step_cb,
-                               manager);
+        value = g_variant_new_fixed_array (G_VARIANT_TYPE_DOUBLE,
+                                           manager->priv->ambient_curve.points,
+                                           CSD_AMBIENT_CURVE_POINTS,
+                                           sizeof (gdouble));
+        g_settings_set_value (manager->priv->settings, "ambient-light-curve", value);
+}
+
+/* The user chose a brightness in the current light: teach the curve. */
+static void
+ambient_adjust (CsdPowerManager *manager, gint percentage)
+{
+        gdouble lux;
+
+        if (!manager->priv->light_claimed || !manager->priv->ambient_level_fresh || percentage < 0)
+                return;
+
+        lux = ambient_get_light_level (manager);
+        if (lux < 0.0)
+                return;
+
+        g_debug ("Ambient: %d%% chosen at light level %f, reshaping curve", percentage, lux);
+        csd_ambient_curve_adjust (&manager->priv->ambient_curve, lux, percentage);
+        ambient_cancel_settle (manager);
+        ambient_save_curve (manager);
 }
 
 static gboolean
-ambient_stabilize_timeout_cb (gpointer user_data)
+ambient_settle_cb (gpointer user_data)
 {
-        CsdPowerManager *manager = CSD_POWER_MANAGER (user_data);
-        gdouble target_brightness;
+        CsdPowerManager *manager = user_data;
 
-        manager->priv->ambient_stabilize_timer_id = 0;
-
-        target_brightness = ambient_sensor_to_brightness (manager,
-                                                          manager->priv->ambient_pending_sensor);
-        if (target_brightness < 0.0) {
-                g_debug ("Ambient: stabilization abandoned, baselines invalid "
-                         "(sensor=%.1f, brightness=%.1f)",
-                         manager->priv->ambient_baseline_sensor,
-                         manager->priv->ambient_brightness_baseline);
-                manager->priv->ambient_state = AMBIENT_STATE_IDLE;
-                return G_SOURCE_REMOVE;
-        }
-
-        g_debug ("Ambient stabilized at sensor %f -> brightness %.1f%%",
-                 manager->priv->ambient_pending_sensor, target_brightness);
-
-        ambient_begin_transition (manager, target_brightness);
-
+        manager->priv->ambient_settle_id = 0;
+        manager->priv->ambient_level_fresh = TRUE;
+        iio_proxy_changed (manager);
         return G_SOURCE_REMOVE;
+}
+
+static void
+ambient_schedule_settle (CsdPowerManager *manager)
+{
+        if (manager->priv->ambient_settle_id == 0)
+                manager->priv->ambient_settle_id =
+                        g_timeout_add (CSD_AMBIENT_CURVE_SETTLE_USEC / 1000 + 100,
+                                       ambient_settle_cb,
+                                       manager);
 }
 
 static void
 iio_proxy_changed (CsdPowerManager *manager)
 {
-        GVariant *val_has = NULL;
-        GVariant *val_als = NULL;
-        gdouble sensor_value;
+        GError *error = NULL;
+        gdouble lux;
+        gboolean wait;
+        gint percentage;
 
-        if (manager->priv->iio_proxy == NULL)
+        if (!manager->priv->light_claimed || !manager->priv->ambient_level_fresh)
                 return;
 
         if (!g_settings_get_boolean (manager->priv->settings, "ambient-enabled"))
                 return;
 
-        val_has = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "HasAmbientLight");
-        if (val_has == NULL || !g_variant_get_boolean (val_has)) {
-                g_clear_pointer (&val_has, g_variant_unref);
-                return;
-        }
-        g_clear_pointer (&val_has, g_variant_unref);
-
-        val_als = g_dbus_proxy_get_cached_property (manager->priv->iio_proxy, "LightLevel");
-        if (val_als == NULL) {
-                return;
-        }
-        sensor_value = g_variant_get_double (val_als);
-        g_variant_unref (val_als);
-        if (sensor_value <= 0.0)
+        /* paused while dimmed so the curve cannot undo the dim */
+        if (manager->priv->pre_dim_brightness >= 0)
                 return;
 
-        g_debug ("Ambient light level: %f", sensor_value);
+        lux = ambient_get_light_level (manager);
+        percentage = csd_ambient_curve_update (&manager->priv->ambient_curve,
+                                               lux,
+                                               g_get_monotonic_time (),
+                                               &wait);
 
-        if (manager->priv->ambient_baseline_sensor <= 0.0) {
-                gdouble current_brightness;
-
-                GError *error = NULL;
-
-                current_brightness = (gdouble) backlight_get_percentage (manager, &error);
-                if (current_brightness < 0.0) {
-                        g_warning ("Could not read current backlight level for ambient baseline: %s",
-                                        error ? error->message : "unknown error");
-                        g_clear_error (&error);
-                        return;
-                }
-
-                g_debug ("First sensor reading %f, adopting current brightness %.1f%% as baseline",
-                         sensor_value, current_brightness);
-
-                manager->priv->ambient_baseline_sensor = sensor_value;
-                manager->priv->ambient_brightness_baseline = current_brightness;
-                return;
+        /* the sensor only reports changes, so re-check after the settle time ourselves */
+        if (wait) {
+                ambient_schedule_settle (manager);
+        } else {
+                ambient_cancel_settle (manager);
         }
 
-        if (manager->priv->ambient_last_transition_time > 0 &&
-            g_get_monotonic_time () - manager->priv->ambient_last_transition_time <
-            AMBIENT_POST_TRANSITION_DEAD_ZONE_MS * 1000) {
-                g_debug ("Ambient: in post-transition dead zone, ignoring");
+        if (percentage < 0)
                 return;
-        }
 
-        switch (manager->priv->ambient_state) {
-        case AMBIENT_STATE_IDLE:
-                if (G_APPROX_VALUE (sensor_value, manager->priv->ambient_baseline_sensor, AMBIENT_SENSOR_EPSILON))
-                        return;
-
-                g_debug ("Ambient: sensor changed from %f to %f, starting stabilization",
-                         manager->priv->ambient_baseline_sensor, sensor_value);
-
-                manager->priv->ambient_state = AMBIENT_STATE_STABILIZING;
-                manager->priv->ambient_pending_sensor = sensor_value;
-                manager->priv->ambient_stabilize_timer_id =
-                        g_timeout_add (AMBIENT_STABILIZE_DELAY_MS,
-                                       ambient_stabilize_timeout_cb,
-                                       manager);
-                break;
-
-        case AMBIENT_STATE_STABILIZING:
-                if (G_APPROX_VALUE (sensor_value, manager->priv->ambient_baseline_sensor, AMBIENT_SENSOR_EPSILON)) {
-                        g_debug ("Ambient: sensor returned to baseline, cancelling");
-                        ambient_cancel_timers (manager);
-                        manager->priv->ambient_state = AMBIENT_STATE_IDLE;
-                        return;
-                }
-
-                if (!G_APPROX_VALUE (sensor_value, manager->priv->ambient_pending_sensor, AMBIENT_SENSOR_EPSILON)) {
-                        g_debug ("Ambient: sensor changed during stabilization (%f -> %f), restarting",
-                                 manager->priv->ambient_pending_sensor, sensor_value);
-                        if (manager->priv->ambient_stabilize_timer_id > 0)
-                                g_source_remove (manager->priv->ambient_stabilize_timer_id);
-                        manager->priv->ambient_pending_sensor = sensor_value;
-                        manager->priv->ambient_stabilize_timer_id =
-                                g_timeout_add (AMBIENT_STABILIZE_DELAY_MS,
-                                               ambient_stabilize_timeout_cb,
-                                               manager);
-                }
-                break;
-
-        case AMBIENT_STATE_TRANSITIONING:
-                g_debug ("Ambient: sensor changed during transition, ignoring");
-                return;
+        g_debug ("Ambient: light level %f, writing %d%%", lux, percentage);
+        if (!backlight_set_percentage (manager, percentage, TRUE, &error)) {
+                g_warning ("Ambient: failed to set backlight to %d%%: %s", percentage, error->message);
+                g_error_free (error);
         }
 }
 
@@ -3915,7 +3329,16 @@ iio_proxy_changed_cb (GDBusProxy *proxy,
                       GStrv       invalidated_properties,
                       gpointer    user_data)
 {
-        iio_proxy_changed ((CsdPowerManager *) user_data);
+        CsdPowerManager *manager = user_data;
+        GVariant *level;
+
+        level = g_variant_lookup_value (changed_properties, "LightLevel", G_VARIANT_TYPE_DOUBLE);
+        if (level != NULL) {
+                manager->priv->ambient_level_fresh = TRUE;
+                g_variant_unref (level);
+        }
+
+        iio_proxy_changed (manager);
 }
 
 static void
@@ -3942,14 +3365,19 @@ light_claimed_cb (GObject      *source_object,
         }
         g_variant_unref (result);
 
-        manager->priv->light_claimed = TRUE;
-
         g_signal_handlers_disconnect_by_func (manager->priv->iio_proxy,
                                               G_CALLBACK (iio_proxy_changed_cb),
                                               manager);
         g_signal_connect (manager->priv->iio_proxy, "g-properties-changed",
                           G_CALLBACK (iio_proxy_changed_cb), manager);
-        iio_proxy_changed (manager);
+        manager->priv->light_claimed = TRUE;
+
+        /* iio-sensor-proxy before 3.6 answers ClaimLight before reading the
+         * sensor, so the cached LightLevel can be stale (0 on first claim).
+         * Trust it once it changes, or after the settle time. */
+        manager->priv->ambient_level_fresh = FALSE;
+        ambient_load_curve (manager);
+        ambient_schedule_settle (manager);
 }
 
 static void
@@ -3980,7 +3408,6 @@ light_released_cb (GObject      *source_object,
                                               G_CALLBACK (iio_proxy_changed_cb),
                                               manager);
         ambient_reset_state (manager);
-        manager->priv->light_claimed = FALSE;
 }
 
 static gboolean
@@ -4091,7 +3518,6 @@ iio_proxy_vanished_cb (GDBusConnection *connection,
         g_clear_object (&manager->priv->iio_cancellable);
 
         ambient_reset_state (manager);
-        manager->priv->light_claimed = FALSE;
 
         if (manager->priv->iio_proxy != NULL)
                 g_signal_handlers_disconnect_by_func (manager->priv->iio_proxy,
@@ -4451,6 +3877,8 @@ on_rr_screen_acquired (GObject      *object,
                 return;
         }
 
+        csd_backlight_set_rr_screen (manager->priv->backlight, manager->priv->x11_screen);
+
         g_signal_connect (manager->priv->logind_proxy, "g-signal",
                           G_CALLBACK (logind_proxy_signal_cb),
                           manager);
@@ -4536,10 +3964,6 @@ on_rr_screen_acquired (GObject      *object,
                       "power-supply", TRUE,
                       "is-present", TRUE,
                       NULL);
-
-        /* get backlight setting overrides */
-        manager->priv->backlight_helper_preference_args = NULL;
-        backlight_override_settings_refresh (manager);
 
         /* get percentage policy */
         manager->priv->low_percentage = g_settings_get_int (manager->priv->settings,
@@ -4629,6 +4053,9 @@ csd_power_manager_start (CsdPowerManager *manager,
                                    on_rr_screen_acquired, manager);
 
         manager->priv->settings = g_settings_new (CSD_POWER_SETTINGS_SCHEMA);
+        manager->priv->backlight = csd_backlight_new (manager->priv->settings);
+        g_signal_connect (manager->priv->backlight, "changed",
+                          G_CALLBACK (on_backlight_changed), manager);
         manager->priv->settings_screensaver = g_settings_new (CSD_SAVER_SETTINGS_SCHEMA);
         manager->priv->settings_desktop_session = g_settings_new (CSD_SESSION_SETTINGS_SCHEMA);
         manager->priv->settings_cinnamon_session = g_settings_new (CSD_CINNAMON_SESSION_SCHEMA);
@@ -4644,6 +4071,8 @@ csd_power_manager_stop (CsdPowerManager *manager)
 {
         g_debug ("Stopping power manager");
 
+        ambient_reset_state (manager);
+
         /* We won't bother calling iio_proxy_claim_light(manager, false) because we're exiting, which will end up releasing it anyhow.
          * Just cancel anything in-flight. */
         g_cancellable_cancel (manager->priv->iio_cancellable);
@@ -4656,7 +4085,6 @@ csd_power_manager_stop (CsdPowerManager *manager)
         }
 
         kill_lid_close_safety_timer (manager);
-        ambient_cancel_timers (manager);
         if (manager->priv->iio_proxy_watch_id != 0)
                 g_bus_unwatch_name (manager->priv->iio_proxy_watch_id);
         manager->priv->iio_proxy_watch_id = 0;
@@ -4719,8 +4147,7 @@ csd_power_manager_stop (CsdPowerManager *manager)
                 manager->priv->logind_proxy = NULL;
         }
 
-        g_free (manager->priv->backlight_helper_preference_args);
-        manager->priv->backlight_helper_preference_args = NULL;
+        g_clear_object (&manager->priv->backlight);
 
         if (manager->priv->x11_screen != NULL) {
                 g_object_unref (manager->priv->x11_screen);
@@ -4956,7 +4383,7 @@ handle_method_call_screen (CsdPowerManager *manager,
                         ret = backlight_set_percentage (manager, value_tmp, TRUE, &error);
                         if (ret) {
                                 value = value_tmp;
-                                ambient_renormalize (manager, (gdouble) value);
+                                ambient_adjust (manager, value);
                         }
                 }
 
@@ -4996,7 +4423,7 @@ handle_method_call_screen (CsdPowerManager *manager,
                                                                g_variant_new ("(uii)",
                                                                               value, x, y));
 
-                    ambient_renormalize (manager, (gdouble) value);
+                    ambient_adjust (manager, value);
                 }
         } else {
                 g_assert_not_reached ();

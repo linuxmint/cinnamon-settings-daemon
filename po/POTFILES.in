@@ -32,7 +32,6 @@ plugins/mouse/csd-mouse-manager.c
 [type: gettext/ini]plugins/mouse/mouse.cinnamon-settings-plugin.in
 plugins/power/gpm-common.c
 plugins/power/csd-power-manager.c
-plugins/power/org.cinnamon.settings-daemon.plugins.power.policy.in.in
 [type: gettext/ini]plugins/power/power.cinnamon-settings-plugin.in
 plugins/print-notifications/csd-printer.c
 plugins/print-notifications/csd-print-notifications-manager.c
