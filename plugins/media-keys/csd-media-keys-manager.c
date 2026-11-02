@@ -900,7 +900,8 @@ do_sound_action (CsdMediaKeysManager *manager,
         if (stream == NULL)
                 return;
 
-        if (g_settings_get_boolean (manager->priv->sound_settings, "allow-amplified-volume")) {
+        if (g_settings_get_boolean (manager->priv->sound_settings,
+                                    is_source_stream ? "allow-amplified-mic" : "allow-amplified-volume")) {
                 osd_max_vol = 150;
                 max_vol_pa = MIN ((guint) PA_VOLUME_NORM * 1.5, PA_VOLUME_MAX);
         }
