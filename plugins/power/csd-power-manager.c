@@ -1001,8 +1001,8 @@ engine_coldplug (CsdPowerManager *manager)
 static void
 engine_device_added_cb (UpClient *client, UpDevice *device, CsdPowerManager *manager)
 {
-        /* add to list */
-        g_ptr_array_add (manager->priv->devices_array, g_object_ref (device));
+        /* initialize the newly connected device */
+        engine_device_add (manager, device);
         engine_recalculate_state (manager);
 }
 
