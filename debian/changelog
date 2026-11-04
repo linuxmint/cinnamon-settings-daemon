@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (6.8.1) adrien; urgency=medium
+
+  [ PsyCrow ]
+  * power: Initialize hotplugged devices like coldplugged devices (#479)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 04 Nov 2026 14:43:35 +0100
+
 cinnamon-settings-daemon (6.8.0) adrien; urgency=medium
 
   [ Michael Webster ]
