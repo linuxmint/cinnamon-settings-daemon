@@ -180,6 +180,7 @@ struct CsdMediaKeysManagerPrivate
         GSettings        *desktop_session_settings;
         GSettings        *cinnamon_session_settings;
         GSettings        *sound_settings;
+        GSettings        *cinnamon_settings;
 
         /* Multihead stuff */
         GdkScreen       *current_screen;
@@ -405,6 +406,9 @@ show_osd (CsdMediaKeysManager *manager,
           int                  outy)
 {
         GVariantBuilder builder;
+
+        if (!g_settings_get_boolean (manager->priv->cinnamon_settings, "show-media-keys-osd"))
+                return;
 
         if (manager->priv->connection == NULL ||
             manager->priv->cinnamon_proxy == NULL) {
@@ -1975,6 +1979,7 @@ start_media_keys_idle_cb (CsdMediaKeysManager *manager)
         manager->priv->power_settings = g_settings_new (SETTINGS_POWER_DIR);
 
         manager->priv->sound_settings = g_settings_new ("org.cinnamon.desktop.sound");
+        manager->priv->cinnamon_settings = g_settings_new ("org.cinnamon");
 
         /* Logic from http://git.gnome.org/browse/gnome-shell/tree/js/ui/status/accessibility.js#n163 */
         manager->priv->interface_settings = g_settings_new (SETTINGS_INTERFACE_DIR);
@@ -2121,6 +2126,7 @@ csd_media_keys_manager_stop (CsdMediaKeysManager *manager)
         }
 
         g_clear_object (&priv->sound_settings);
+        g_clear_object (&priv->cinnamon_settings);
 
         if (priv->power_screen_proxy) {
                 g_object_unref (priv->power_screen_proxy);
