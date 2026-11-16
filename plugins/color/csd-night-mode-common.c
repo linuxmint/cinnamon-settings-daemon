@@ -22,7 +22,7 @@
 #include <glib.h>
 #include <math.h>
 
-#include "csd-night-light-common.h"
+#include "csd-night-mode-common.h"
 
 static gdouble
 deg2rad (gdouble degrees)
@@ -47,9 +47,9 @@ rad2deg (gdouble radians)
  * a sunrise at all.
  */
 gboolean
-csd_night_light_get_sunrise_sunset (GDateTime *dt,
-                                    gdouble pos_lat, gdouble pos_long,
-                                    gdouble *sunrise, gdouble *sunset)
+csd_night_mode_get_sunrise_sunset (GDateTime *dt,
+                                   gdouble pos_lat, gdouble pos_long,
+                                   gdouble *sunrise, gdouble *sunset)
 {
         g_autoptr(GDateTime) dt_zero = g_date_time_new_utc (1900, 1, 1, 0, 0, 0);
         GTimeSpan ts = g_date_time_difference (dt, dt_zero);
@@ -107,7 +107,7 @@ csd_night_light_get_sunrise_sunset (GDateTime *dt,
 }
 
 gdouble
-csd_night_light_frac_day_from_dt (GDateTime *dt)
+csd_night_mode_frac_day_from_dt (GDateTime *dt)
 {
         return g_date_time_get_hour (dt) +
                 (gdouble) g_date_time_get_minute (dt) / 60.f +
@@ -115,16 +115,16 @@ csd_night_light_frac_day_from_dt (GDateTime *dt)
 }
 
 gchar *
-csd_night_light_time_string_from_frac (gdouble fraction)
+csd_night_mode_time_string_from_frac (gdouble fraction)
 {
     g_autoptr(GDateTime) dt = g_date_time_new_local (2000, 1, 1, (int) trunc (fraction), (int) ((fraction - trunc(fraction)) * 60.0f), 0);
     return g_date_time_format (dt, "%H:%M");
 }
 
 gboolean
-csd_night_light_frac_day_is_between (gdouble  value,
-                                     gdouble  start,
-                                     gdouble  end)
+csd_night_mode_frac_day_is_between (gdouble  value,
+                                    gdouble  start,
+                                    gdouble  end)
 {
         /* wrap end to the next day if it is before start,
          * considering equal values as a full 24h period
