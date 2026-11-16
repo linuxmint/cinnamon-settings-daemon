@@ -1,3 +1,10 @@
+cinnamon-settings-daemon (6.8.2) adrien; urgency=medium
+
+  [ Michael Webster ]
+  * csd-media-keys-manager.c: Skip osd dbus call when they're disabled
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 16 Nov 2026 15:22:28 +0000
+
 cinnamon-settings-daemon (6.8.1) adrien; urgency=medium
 
   [ PsyCrow ]
