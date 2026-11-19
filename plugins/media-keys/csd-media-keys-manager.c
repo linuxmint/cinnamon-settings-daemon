@@ -721,6 +721,7 @@ do_touchpad_action (CsdMediaKeysManager *manager)
 {
         GSettings *settings;
         gboolean state;
+        gint send_events;
 
         if (!touchpad_is_present ()) {
                 do_touchpad_osd_action (manager, FALSE);
@@ -728,9 +729,9 @@ do_touchpad_action (CsdMediaKeysManager *manager)
         }
 
         settings = g_settings_new (SETTINGS_TOUCHPAD_DIR);
-        state = g_settings_get_enum (settings, TOUCHPAD_SEND_EVENTS_KEY) ==
-            C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED ||
-            (C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE && !mouse_is_present ());
+        send_events = g_settings_get_enum (settings, TOUCHPAD_SEND_EVENTS_KEY);
+        state = send_events == C_DESKTOP_DEVICE_SEND_EVENTS_ENABLED ||
+            (send_events == C_DESKTOP_DEVICE_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE && !mouse_is_present ());
 
         do_touchpad_osd_action (manager, !state);
 
