@@ -74,10 +74,6 @@
 #define GNOME_SESSION_DBUS_PATH "/org/gnome/SessionManager"
 #define GNOME_SESSION_DBUS_INTERFACE "org.gnome.SessionManager"
 
-#define GNOME_KEYRING_DBUS_NAME "org.gnome.keyring"
-#define GNOME_KEYRING_DBUS_PATH "/org/gnome/keyring/daemon"
-#define GNOME_KEYRING_DBUS_INTERFACE "org.gnome.keyring.Daemon"
-
 #define OSD_ALL_OUTPUTS_X -1
 #define OSD_ALL_OUTPUTS_Y -1
 
@@ -273,57 +269,6 @@ get_term_command (CsdMediaKeysManager *manager)
         return cmd;
 }
 
-static char **
-get_keyring_env (CsdMediaKeysManager *manager)
-{
-	GError *error = NULL;
-	GVariant *variant, *item;
-	GVariantIter *iter;
-	char **envp;
-
-	variant = g_dbus_connection_call_sync (manager->priv->connection,
-					       GNOME_KEYRING_DBUS_NAME,
-					       GNOME_KEYRING_DBUS_PATH,
-					       GNOME_KEYRING_DBUS_INTERFACE,
-					       "GetEnvironment",
-					       NULL,
-					       NULL,
-					       G_DBUS_CALL_FLAGS_NONE,
-					       -1,
-					       NULL,
-					       &error);
-	if (variant == NULL) {
-		g_warning ("Failed to call GetEnvironment on keyring daemon: %s", error->message);
-		g_error_free (error);
-		return NULL;
-	}
-
-	envp = g_get_environ ();
-
-	g_variant_get (variant, "(a{ss})", &iter);
-
-	while ((item = g_variant_iter_next_value (iter))) {
-		char *key;
-		char *value;
-
-		g_variant_get (item,
-			       "{ss}",
-			       &key,
-			       &value);
-
-		envp = g_environ_setenv (envp, key, value, TRUE);
-
-		g_variant_unref (item);
-		g_free (key);
-		g_free (value);
-	}
-
-	g_variant_iter_free (iter);
-	g_variant_unref (variant);
-
-	return envp;
-}
-
 static void
 execute (CsdMediaKeysManager *manager,
          char                *cmd,
@@ -350,13 +295,9 @@ execute (CsdMediaKeysManager *manager,
         }
 
         if (g_shell_parse_argv (exec, &argc, &argv, NULL)) {
-                char   **envp;
-
-                envp = get_keyring_env (manager);
-
                 retval = g_spawn_async (g_get_home_dir (),
                                         argv,
-                                        envp,
+                                        NULL,
                                         G_SPAWN_SEARCH_PATH,
                                         NULL,
                                         NULL,
@@ -364,7 +305,6 @@ execute (CsdMediaKeysManager *manager,
                                         &error);
 
                 g_strfreev (argv);
-                g_strfreev (envp);
         }
 
         if (retval == FALSE && error != NULL) {
